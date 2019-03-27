@@ -20,8 +20,10 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
 <body>
-<div id="wrapper">
-    <div id="page-wrapper" class="gray-bg">
+
+
+<div id="wrapper" class="gray-bg">
+    <div id="page-wrapper">
         <div class="ibox-top">
             <div class="ibox">
                 <div class="ibox-content clearfix">
@@ -56,7 +58,7 @@
                                         <i class="fa fa-bars" style=""></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="">콜백분배</a></li>
+                                        <li><a href="">분배</a></li>
                                         <li><a href="">운영관리</a></li>
                                         <li><a href="">콜통계</a></li>
                                         <li><a href="">콜이력</a></li>
@@ -74,7 +76,7 @@
         <div class="wrapper wrapper-content">
 
             <div style="width: 1680px; margin: auto;">
-                <div class="ibox-left">
+                <div class="ibox-left" style="padding-bottom: 45px;">
                     <div class="ibox clearfix">
                         <div class="ibox-content">
                             <form:form>
@@ -523,6 +525,63 @@
                                                         <td>asdf</td>
                                                         <td>asdf</td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>asdfasdfasdf</td>
+                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>asdfasdfasdf</td>
+                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>asdfasdfasdf</td>
+                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>asdfasdfasdf</td>
+                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>asdfasdfasdf</td>
+                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>asdfasdfasdf</td>
+                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>asdfasdfasdf</td>
+                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                        <td>asdf</td>
+                                                    </tr>
+
                                                 </table>
                                             </div>
                                         </div>
@@ -536,7 +595,7 @@
 
                 <div class="ibox-right">
                     <div class="ibox clearfixt ml-0">
-                        <div class="ibox-content">
+                        <div class="ibox-content" style="padding-bottom: 45px;">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="white-space:nowrap;">
                                     <colgroup>

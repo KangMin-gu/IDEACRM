@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="au">
+	
+	<select id="list" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT A.USERNO,A.USERNAME,A.USERID
+		,A.EMAIL,A.USERDUTY
+		,CASE WHEN A.ISDELETE = 0 THEN '사용'
+			  WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+		,CASE WHEN DATE_FORMAT(A.REGDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
+				ELSE DATE_FORMAT(A.REGDATE,'%Y-%m-%d') END AS REGDATE
+		,A.MOBILE1,A.MOBILE2,A.MOBILE3
+		,CASE WHEN DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
+				ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
+		, CONCAT(A.MOBILE1, A.MOBILE2, A.MOBILE3) AS MOBILE
+		,(SELECT COUNT(*) FROM CTI510010 WHERE CALLSTATUS = 1 AND CALLUSER = A.USERNO) AS CTICOUNT
+		,@RNUM:=@RNUM + 1 AS ROWNUM
+			FROM me800010 A, (SELECT @RNUM := 0) R
+			WHERE A.SITEID = #{siteid}
+			AND A.ISDELETE = 0
+			AND A.MASTERYN != 1
+			<if test="username != null">
+				AND A.USERNAME LIKE CONCAT('%',#{username},'%')
+			</if>
+			<if test="mobile != null">
+				AND A.MOBILE LIKE CONCAT('%',#{mobile},'%')
+			</if>
+			<if test="userid != null">
+				AND A.USERID LIKE CONCAT('%',#{userid},'%')
+			</if>
+			<if test="isdelete != null">
+				AND A.ISDELETE = #{isdelete}
+			</if>
+			<if test="strdate != null">
+				AND DATE_FORMAT(REGDATE,'%Y-%m-%d') <![CDATA[>=]]> #{strdate}
+			</if>
+			<if test="enddate != null">
+				AND DATE_FORMAT(REGDATE,'%Y-%m-%d') <![CDATA[<=]]> #{enddate}
+			</if>
+			<if test="role != null">
+				AND ROLE = #{role}
+			</if>
+			<if test="userNo != null">
+				AND USERNO = #{userNo}
+			</if>  
+			
+			ORDER BY A.USERNO DESC
+			) X 
+			<if test="endRowNum != null">
+				WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+			</if>
+		
+	</select>
+		<select id="detail" parameterType="userDto" resultType="hashMap">
+		SELECT 
+		A.USERNO
+		,A.USERNAME
+		,A.USERID
+		,A.EMAIL
+		,A.USERDUTY
+		,CHKROLE
+		,CASE WHEN A.ISDELETE = 0 THEN '사용'
+			  WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+		,ISDELETE
+		,CASE WHEN A.CHKAUTH = 10 THEN '일반사용자'
+			  WHEN A.CHKAUTH = 20 THEN '관리자사용자' END AS CHKAUTH_
+		,CHKAUTH
+		,CASE WHEN DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
+				ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
+		,A.MOBILE1
+		,A.MOBILE2
+		,A.MOBILE3
+		,CASE WHEN LENGTH(CONCAT(A.MOBILE1,'-',A.MOBILE2,'-',A.MOBILE3)) > 5 THEN CONCAT(A.MOBILE1,'-',A.MOBILE2,'-',A.MOBILE3)
+				ELSE '' END AS MOBILE
+		,A.TELNO1
+		,A.TELNO2
+		,A.TELNO3
+		, CASE WHEN LENGTH(CONCAT(A.TELNO1,'-',A.TELNO2,'-',A.TELNO3)) > 5 THEN CONCAT(A.TELNO1,'-',A.TELNO2,'-',A.TELNO3)
+				ELSE '' END AS TELNO
+		,A.USERDESC
+		,(SELECT SITENAME FROM ma900010 B WHERE B.SITEID = A.SITEID) AS SITENAME
+			FROM me800010 A
+			WHERE A.SITEID = #{siteid}
+			AND A.USERNO = #{userno}
+			
+	</select>
+	
+	<select id="totalRows" parameterType="hashMap" resultType="int">
+	SELECT count(*)
+			FROM me800010
+			WHERE SITEID = #{siteid}
+			AND ISDELETE = 0
+			AND MASTERYN != 1
+			<if test="username != null">
+				AND USERNAME LIKE CONCAT('%',#{username},'%')
+			</if>
+			<if test="mobile != null">
+				AND MOBILE LIKE CONCAT('%',#{mobile},'%')
+			</if>
+			<if test="userid != null">
+				AND USERID LIKE CONCAT('%',#{userid},'%')
+			</if>
+			<if test="isdelete != null">
+				AND ISDELETE = #{isdelete}
+			</if>
+			<if test="strdate != null">
+				AND REGDATE <![CDATA[>=]]>#{strdate}
+			</if>
+			<if test="enddate != null">
+				AND REGDATE <![CDATA[<=]]>#{enddate}
+			</if>
+			<if test="userNo != null">
+				AND USERNO = #{userNo}
+			</if>  
+	</select>
+	<select id="idcheck" parameterType="String" resultType="int">
+		SELECT count(*)
+			FROM me800010
+			WHERE USERID = #{userid}
+			AND ISDELETE = 0
+	</select>
+	
+	<insert id="insert" parameterType="userDto">
+				
+			INSERT INTO me800010
+			(
+				SITEID
+				,USERNAME
+				,USERID
+				,USERPASSWORD
+				,USERDESC
+				,EMAIL
+				,ENTERDATE
+				,USERDUTY
+				,MOBILE1
+				,MOBILE2
+				,MOBILE3
+				,TELNO1
+				,TELNO2
+				,TELNO3
+				,CHKAUTH
+				,ISDELETE
+				,REGDATE
+				,REGUSER
+				,EDTDATE
+				,EDTUSER
+			)VALUES(
+			#{siteid}
+			,#{username}
+			,#{userid}
+			,#{userpassword}
+			,#{userdesc}
+			,#{email}
+			,IF(#{enterdate}='','1900-01-01',#{enterdate})
+			,#{userduty}
+			,#{mobile1}
+			,#{mobile2}
+			,#{mobile3}
+			,#{telno1}
+			,#{telno2}
+			,#{telno3}
+			,#{chkauth}
+			,0
+			,NOW()
+			,#{reguser}
+			,NOW()
+			,#{edtuser}
+			)
+		<selectKey keyProperty="userno"  resultType="integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+		
+	<update id="update" parameterType="userDto">
+		UPDATE me800010
+			SET 
+				USERPASSWORD = #{userpassword}
+				<if test="userdesc != null">
+				,USERDESC = #{userdesc}
+				</if>
+				,EMAIL = #{email}
+				<if test="enterdate != ''">
+				,ENTERDATE = #{enterdate}
+				</if>
+				,USERDUTY = #{userduty}
+				,MOBILE1 = #{mobile1}
+				,MOBILE2 = #{mobile2}
+				,MOBILE3 = #{mobile3}
+				,TELNO1 = #{telno1}
+				,TELNO2 = #{telno2}
+				,TELNO3 = #{telno3}
+				<if test="chkauth != null">
+				,CHKAUTH = #{chkauth}
+				</if>
+				,EDTDATE = NOW()
+				,EDTUSER = #{edtuser}
+			WHERE USERNO = #{userno}
+	</update>
+	
+	<update id="delete" parameterType="userDto">
+		UPDATE me800010
+			SET
+				ISDELETE = '1'
+			WHERE USERNO = #{userno}
+	</update>
+	
+	<select id="topList" parameterType="int" resultType="hashMap">
+		SELECT
+		A.USERNO
+		,A.USERNAME
+		,A.USERID
+		,A.EMAIL
+		,A.USERDUTY
+		,CASE WHEN A.ISDELETE = 0 THEN '사용'
+			  WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+		,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
+		,A.EMAIL
+		,A.MOBILE1
+		,A.MOBILE2
+		,A.MOBILE3
+			FROM me800010 A
+			WHERE A.ISDELETE = 0
+			AND A.SITEID = #{siteid}
+	</select>
+	
+	<select id="menuList" parameterType="int" resultType="hashMap">
+		SELECT X.MENUNO,X.MENUNAME
+		,CASE WHEN X.CNT >= X.BUYCNT THEN 0 ELSE 1 END AS TOTAL
+		,X.CNT,X.BUYCNT 
+		FROM (SELECT B.MENUNO, B.MENUNAME, IFNULL(C.CNT, 0) AS CNT, A.BUYCNT
+				FROM me810010 A
+				INNER JOIN ma900030 B ON B.LICENSENO = A.LICENSENO
+				LEFT OUTER JOIN (SELECT SITEID, COUNT(MENUNO) AS CNT, MENUNO
+									FROM me810011
+									WHERE SITEID = #{siteid}
+								GROUP BY MENUNO, SITEID, MENUNO) C ON C.MENUNO = B.MENUNO
+				WHERE A.SITEID = #{siteid}) X
+		WHERE CASE WHEN X.CNT <![CDATA[>=]]> X.BUYCNT THEN 0
+				ELSE 1 END  != 0
+	</select>
+	
+	<update id="menuDelete" parameterType="userMenuDto">	
+		UPDATE me810011
+			SET ISDELETE = 1
+			WHERE USERNO = #{userno}
+			AND SITEID = #{siteid}
+	</update>
+	
+	<insert id="menuMerge" parameterType="userMenuDto">
+			INSERT INTO me810011   (SITEID,USERNO,MENUNO,REGDATE,REGUSER,EDTDATE,EDTUSER,ISDELETE)
+							VALUES(#{siteid},#{userno},#{menuno},NOW(),#{reguser},NOW(),#{edtuser},0)
+         ON DUPLICATE KEY UPDATE ISDELETE = 0 ;
+	</insert>
+	
+	<select id="userMenu" parameterType="userMenuDto" resultType="hashMap">
+		SELECT MENUNO FROM me810011
+		WHERE SITEID = #{siteid}
+		AND USERNO = #{userno}
+	</select>
+	
+	
+	<update id="urPwdReset" parameterType="userDto">
+		UPDATE me800010 SET USERPASSWORD = #{userpassword} WHERE SITEID = #{siteid} AND USERNO=#{userno}
+	</update>
+	
+	<insert id="urPwdResetsend" parameterType="hashMap">
+		 INSERT INTO sys980010 
+		 (SITEID, CSTNAME, USERNAME, FROMEMAIL, TOEMAIL, SUBJECT, CONTENT, RLTDATE, REGDATE, REGUSER, EDTDATE, EDTUSER, USERNO) 
+		 VALUES 
+		 (#{siteid}, #{cstname}, #{username}, #{fromemail}, #{toemail}, #{subject}, #{content}, NOW(), NOW(), #{adminid}, NOW(), #{adminid}, #{userno});
+	</insert>
+	
+	<select id="asOwner" parameterType="int" resultType="hashMap">
+		SELECT  
+	USERNO AS id
+	,USERNAME AS title
+		FROM me800010
+		WHERE SITEID = #{value}
+		AND ISDELETE = 0
+	</select>
+	
+	
+	<!-- 회원사 공지토탈로우 -->
+	<select  id="noticeTotalRows" parameterType="hashMap" resultType="int">
+			SELECT COUNT(*) AS totalRows FROM
+			(SELECT A.ICNUM, A.HEADER, A.SUBJECT, A.CONTENT, A.LINKURL, B.USERNAME, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, A.ISDELETE FROM crud_saas.ma900040 AS A
+			  LEFT OUTER JOIN crud_saas.me800010 AS B ON A.REGUSER = B.USERNO
+			  WHERE A.ISDELETE = 0 AND A.SITEID = #{siteid}) AS E
+			<where>
+				<if test="title != null">
+					AND E.SUBJECT LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="editor != null">
+					AND E.USERNAME LIKE CONCAT('%',#{editor},'%')
+				</if>	
+			</where>
+	</select>
+	<!-- 회원사 공지리스트-->
+	<select  id="siteNotice" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT A.ICNUM, 			
+			CASE A.HEADER
+				WHEN 0 THEN '전체' 
+				WHEN 1 THEN '공지' 
+				WHEN 2 THEN '알림' 
+				WHEN 3 THEN '뉴스'  
+			END AS HEADER
+			, A.SUBJECT, A.CONTENT, A.LINKURL, B.USERNAME, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, A.ISDELETE, @RNUM:=@RNUM + 1 AS ROWNUM
+			FROM crud_saas.ma900040 AS A
+			LEFT OUTER JOIN crud_saas.me800010 AS B ON A.REGUSER = B.USERNO,(SELECT @RNUM := 0) R			
+			WHERE A.ISDELETE = 0 AND A.SITEID = #{siteid}
+				<if test="title != null">
+					AND A.SUBJECT LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="editor != null">
+					AND B.USERNAME LIKE CONCAT('%',#{editor},'%')
+				</if>			
+			order by A.ICNUM DESC ) AS result			
+	</select>
+	<!-- 회원사 공지 상세 -->
+	<select id="noticeDetail" parameterType="hashMap" resultType="hashMap">
+		SELECT A.ICNUM, 
+		CASE A.HEADER
+				WHEN 0 THEN '전체' 
+				WHEN 1 THEN '공지' 
+				WHEN 2 THEN '알림' 
+				WHEN 3 THEN '뉴스'  
+		END AS HEADER
+		, A.SUBJECT, A.CONTENT, B.USERNAME, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE FROM crud_saas.ma900040 AS A
+		LEFT OUTER JOIN crud_saas.me800010 AS B ON A.REGUSER = B.USERNO
+		WHERE A.ICNUM = #{noticeid} AND A.SITEID = #{siteid}
+	</select>
+	<!-- 회원사 공지 등록 -->
+	<insert id="noticeInsert" parameterType="noticeDto">
+		INSERT INTO MA900040 
+		( SUBJECT, LINKURL, REGUSER, REGDATE, EDTUSER, EDTDATE, ISDELETE, SITEID, CONTENT, HEADER ) 
+		VALUES 
+		( #{subject}, #{linkurl}, #{reguser}, NOW(), #{edtuser}, NOW(), 0, #{siteid}, #{content}, #{header} );
+		
+		<selectKey resultType="int" keyProperty="icnum" order="AFTER">	
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+	</insert>
+	
+	<!-- 회원사 공지 업데이트 -->
+	<update id="noticeUpdate" parameterType="noticeDto">
+		UPDATE ma900040 SET SUBJECT=#{subject}, CONTENT=#{content}, EDTUSER=#{edtuser}, EDTDATE=#{edtdate}, HEADER = #{header} WHERE ICNUM = #{icnum} AND SITEID = #{siteid} 
+	</update>
+	
+	<!-- 회원사 공지 삭제 -->
+	<update id="noticeDelete" parameterType="noticeDto">
+		UPDATE ma900040 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = NOW() WHERE SITEID = #{siteid} AND ICNUM = #{icnum}
+	</update>
+	
+	
+</mapper>

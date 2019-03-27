@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cp">
+	
+	<select id="list" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT A.CAMPNO
+				, A.CAMPNAME
+				, A.CAMPTYPE
+				, CASE WHEN A.CAMPTYPE = 10 THEN '세미나'
+			  		  WHEN A.CAMPTYPE = 20 THEN '뉴스레터'
+			  		  WHEN A.CAMPTYPE = 30 THEN '테스트' END AS CAMPTYPE_
+				, A.CAMPSTEP
+				, CASE WHEN A.CAMPSTEP = 0 THEN '생성'
+			  		  WHEN A.CAMPSTEP = 1 THEN '추출'
+			  		  WHEN A.CAMPSTEP = 2 THEN '발송'
+			  		  WHEN A.CAMPSTEP = 3 THEN '종료' END AS CAMPSTEP_
+			  	, A.STARTDATE,A.ENDDATE
+				, (SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS OWNER_
+				, A.CAMPDESC
+				, CONCAT(DATE_FORMAT(A.STARTDATE,'%Y-%m-%d') , ' ~ ' , DATE_FORMAT(A.ENDDATE,'%Y-%m-%d')) AS CAMPDATE_
+				,IFNULL(B.CNT,0) AS CNT
+				,IFNULL(C.CNT,0) AS CLICKCNT
+				, CONCAT(IFNULL(C.CNT,0) , ' / ' ,IFNULL(B.CNT,0))  AS CLICKTOTAL
+				, CONCAT(IFNULL(D.CNT,0) , ' / ' ,IFNULL(B.CNT,0))  AS SENDTOTAL
+				, CASE WHEN E.SENDFORM = 1 THEN 'EMAIL'
+					   WHEN E.SENDFORM = 2 THEN 'SMS/LMS'
+					   WHEN E.SENDFORM = 4 THEN 'MMS' END AS CAMPFORM_
+				,@RNUM:=@RNUM + 1 AS ROWNUM
+			FROM cp400010 A
+			LEFT OUTER JOIN (SELECT CAMPNO,COUNT(EMAILLOGID) AS CNT FROM sys980010 GROUP BY CAMPNO) B ON B.CAMPNO = A.CAMPNO
+			LEFT OUTER JOIN (SELECT CAMPNO,COUNT(EMAILLOGID) AS CNT FROM sys980010 WHERE CLICKYN = 0 GROUP BY CAMPNO) C ON C.CAMPNO = A.CAMPNO
+			LEFT OUTER JOIN (SELECT CAMPNO,COUNT(EMAILLOGID) AS CNT FROM sys980010 WHERE RLTCODE = 20 GROUP BY CAMPNO) D ON C.CAMPNO = A.CAMPNO
+			LEFT OUTER JOIN cp400030 E ON E.CAMPNO = A.CAMPNO
+			,(SELECT @RNUM := 0) R
+			WHERE A.SITEID = #{siteid}
+			AND A.ISDELETE = 0
+			<if test="campname != null">
+				AND  A.CAMPNAME LIKE CONCAT('%' , #{campname} , '%')
+			</if>
+			<if test="campstep != null">
+				AND  A.CAMPSTEP = #{campstep}
+			</if>
+			<if test="camptype != null">
+				AND  A.CAMPTYPE = #{camptype}
+			</if>
+			<if test="startdate != null">
+				AND  A.STARTDATE <![CDATA[>=]]> #{startdate}
+			</if>
+			<if test="enddate != null">
+				AND  A.ENDDATE <![CDATA[<=]]> #{enddate}
+			</if>
+			<if test="owner_ != null">
+				AND  A.OWNER = #{owner}
+			</if>
+			<if test="sendform != null">
+				AND E.SENDFORM = #{sendform}
+			</if>
+			ORDER BY A.CAMPNO DESC
+			) X 
+			<if test="endRowNum != null">
+				WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+			</if>
+	</select>
+		<select id="detail" parameterType="hashMap" resultType="hashMap">
+		SELECT 
+		A.CAMPNO
+		,A.CAMPNAME
+		,A.CAMPTYPE
+		,CASE WHEN A.CAMPTYPE = 10 THEN '세미나'
+			  WHEN A.CAMPTYPE = 20 THEN '뉴스레터'
+			  WHEN A.CAMPTYPE = 30 THEN '테스트' END AS CAMPTYPE_
+		,A.CAMPSTEP
+		,CASE WHEN A.CAMPSTEP = 1 THEN '캠페인생성'
+			  WHEN A.CAMPSTEP = 2 THEN '고객추출'
+			  WHEN A.CAMPSTEP = 3 THEN '발송중'
+			  WHEN A.CAMPSTEP = 4 THEN '종료' END AS CAMPSTEP_
+		, DATE_FORMAT(A.STARTDATE,'%Y-%m-%d') AS STARTDATE
+		, DATE_FORMAT(A.ENDDATE,'%Y-%m-%d') AS ENDDATE
+		, CONCAT(DATE_FORMAT(A.STARTDATE,'%Y-%m-%d') , ' ~ ' , DATE_FORMAT(A.ENDDATE,'%Y-%m-%d')) AS CAMPDATE_
+		,A.OWNER
+		,(SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS OWNER_
+		,A.CAMPDESC
+		,A.FILESEARCHKEY
+			FROM cp400010 A
+			WHERE A.SITEID = #{siteid}
+			AND A.CAMPNO = #{campno}
+			
+	</select>
+	
+	<select id="totalRows" parameterType="hashMap" resultType="int">
+	SELECT count(*)
+			FROM cp400010 A
+			WHERE A.SITEID = #{siteid}
+			AND A.ISDELETE = 0
+			<if test="campname != null">
+				AND  A.CAMPNAME LIKE CONCAT('%' , #{campname} , '%')
+			</if>
+			<if test="campstep != null">
+				AND  A.CAMPSTEP = #{campstep}
+			</if>
+			<if test="camptype != null">
+				AND  A.CAMPTYPE = #{camptype}
+			</if>
+			<if test="startdate != null">
+				AND  A.STARTDATE <![CDATA[>=]]> #{startdate}
+			</if>
+			<if test="enddate != null">
+				AND  A.ENDDATE <![CDATA[<=]]> #{enddate}
+			</if>
+			<if test="owner_ != null">
+				AND  A.OWNER = #{owner}
+			</if>
+	</select>
+	
+	<insert id="insert" parameterType="campaignDto">
+			INSERT INTO cp400010
+			(
+				CAMPNAME
+				,CAMPTYPE
+				,CAMPSTEP
+				,STARTDATE
+				,ENDDATE
+				,OWNER
+				,CAMPDESC
+				,SITEID
+				,ISDELETE
+				,REGDATE
+				,REGUSER
+				,EDTDATE
+				,EDTUSER
+				,FILESEARCHKEY
+			)VALUES(
+			#{campname}
+			,#{camptype}
+			,#{campstep}
+			,#{startdate}
+			,#{enddate}
+			,#{owner}
+			,#{campdesc}
+			,#{siteid}
+			,0
+			,NOW()
+			,#{reguser}
+			,NOW()
+			,#{edtuser}
+			,#{filesearchkey}
+			)
+		<selectKey keyProperty="campno"  resultType="integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+		
+	<update id="update" parameterType="userDto">
+		UPDATE cp400010
+			SET 
+				CAMPNAME = #{campname}
+				,CAMPTYPE = #{camptype}
+				,STARTDATE = #{startdate}
+				,ENDDATE = #{enddate}
+				,OWNER = #{owner}
+				,CAMPDESC = #{campdesc}
+				,EDTDATE = NOW()
+				,EDTUSER = #{edtuser}
+			WHERE SITEID = #{siteid}
+			AND CAMPNO = #{campno}
+	</update>
+	
+	<update id="delete" parameterType="userDto">
+		UPDATE cp400010
+			SET
+				ISDELETE = '1'
+			WHERE CAMPNO = #{campno}
+	</update>
+	
+	<delete id="targetCustDelete" parameterType="hashMap">
+		DELETE FROM cp400021
+			WHERE SITEID=  #{siteid}
+			AND CAMPNO = #{campno}
+	</delete>
+	
+	<insert id="targetCustInsert" parameterType="hashMap">
+		INSERT INTO cp400021
+		(
+			SITEID
+			,CUSTNO
+			,CUSTNAME
+			,MOBILENO
+			,EMAIL
+			,CAMPNO
+			,REGDATE
+			,REGUSER
+			,EDTDATE
+			,EDTUSER
+		)
+		SELECT
+			A.SITEID
+			,A.CUSTNO
+			,A.CUSTNAME 
+			,CONCAT(A.MOBILE1 , A.MOBILE2 , A.MOBILE3) AS MOBILE
+			,A.EMAIL
+			,#{campno}
+			,NOW()
+			,#{userno}
+			,NOW()
+			,#{userno}
+		FROM cu100010 A
+		LEFT OUTER JOIN cu100080 B ON B.CUSTNO = A.CUSTNO
+		WHERE A.SITEID = #{siteid}
+		AND A.INFOAGREE = '0'
+		AND A.ISDELETE = 0
+	<if test="sex != null">
+		AND  SEX = #{sex}
+	</if>
+	<if test="custgubun != null">
+		AND CUSTGUBUN = #{custgubun}
+	</if>
+	<if test="custgrade != null">
+		AND CUSTGRADE = #{custgrade}
+	</if>
+	<if test="birth != null">
+		AND SUBSTRING(BIRTH,6,2) = #{birth}
+	</if>
+	<if test="actgrade != null">	
+		AND ACTGRADE = #{actgrade}
+	</if>
+	<if test="regdate1 != null">
+		AND REGDATE <![CDATA[>=]]> #{regdate1}
+	</if>
+	<if test="regdate2 != null">
+		AND REGDATE <![CDATA[<=]]> #{regdate2}
+	</if>
+	<if test="age1 != null">
+		AND Year(NOW())-Year(BIRTH) <![CDATA[>=]]> #{age1}
+	</if>
+	<if test="age2 != null">
+		AND Year(NOW())-Year(BIRTH) <![CDATA[<=]]> #{age2}
+	</if>
+	<if test="addr11 != null">
+		AND LEFT(HOMADDR2,2) = #{addr11}
+	</if>
+	<if test="addr21 != null">
+		AND LEFT(HOMADDR2,2) = #{addr21}
+	</if>
+	<if test="addr31 != null">
+		AND LEFT(HOMADDR2,2) = #{addr31}
+	</if>
+	<if test="addr41 != null">
+		AND LEFT(HOMADDR2,2) = #{addr41}
+	</if>
+	
+	</insert>
+	
+	<insert id="targetInsert" parameterType="hashMap">
+		INSERT INTO cp400020
+		(
+			NAME
+			,VALUE
+			,CAMPNO
+			,SITEID
+			,REGDATE
+			,REGUSER
+			,EDTDATE
+			,EDTUSER
+		)VALUES(
+		#{name}
+		,#{value}
+		,#{campno}
+		,#{siteid}
+		,NOW()
+		,#{userno}
+		,NOW()
+		,#{userno}
+		)
+	</insert>
+	
+	<delete id="targetDelete" parameterType="hashMap">
+		DELETE FROM cp400020
+		WHERE SITEID = #{siteid}
+		AND CAMPNO = #{campno}
+	</delete>
+	
+	<insert id="targetHistInsert" parameterType="hashMap">
+		INSERT INTO cp400022
+		(
+			NAME
+			,VALUE
+			,CAMPNO
+			,SITEID
+			,CAMPORDER
+			,REGDATE
+			,REGUSER
+			,EDTDATE
+			,EDTUSER
+		)VALUES(
+		#{name}
+		,#{value}
+		,#{campno}
+		,#{siteid}
+		,#{order}
+		,NOW()
+		,#{userno}
+		,NOW()
+		,#{userno}
+		)
+	</insert>
+	
+	<select id="targetList" parameterType="hashMap" resultType="hashMap">
+		SELECT A.NAME,
+			CASE WHEN SUBSTRING(A.NAME,0,5) = 'addr' THEN A.VALUE
+          	ELSE C.CODENAME END AS CODENAME,
+          	A.VALUE
+		FROM cp400020 A
+		LEFT OUTER JOIN sys990020 B ON B.CODEVAL = CASE WHEN SUBSTRING(A.NAME,0,5) = 'addr' THEN SUBSTRING(A.NAME,0,6) ELSE A.NAME END AND B.CODEGRP = 'CAMP'
+        LEFT OUTER JOIN sys990020 C ON C.CODEGRP = CASE WHEN SUBSTRING(A.NAME,0,5) = 'addr' THEN SUBSTRING(A.NAME,0,6) ELSE A.NAME END AND C.CODEVAL = A.VALUE
+        WHERE A.CAMPNO = #{campno}
+        AND A.SITEID = #{siteid}
+	</select>
+	
+	<select id="targetCustCnt" parameterType="campaignDto" resultType="int">
+		SELECT COUNT(CUSTNO) AS CNT
+			FROM cp400021
+			WHERE SITEID = #{siteid}
+            AND CAMPNO = #{campno}
+	</select>
+	
+	<select id="targetCustList" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM 
+		(SELECT 
+			 A.CUSTNO
+			,A.CUSTNAME
+			,A.MOBILENO
+			,A.EMAIL
+			,CASE WHEN B.INFOAGREE = 0 THEN '동의'
+				  WHEN B.INFOAGREE = 1 THEN '미동의' END AS INFOAGREE_
+			,CASE WHEN B.CUSTGUBUN = 1 THEN '회원'
+				  WHEN B.CUSTGUBUN = 2 THEN '비회원' END AS CUSTGUBUN_
+			,CASE WHEN B.CUSTGRADE = 1 THEN '일반'
+				  WHEN B.CUSTGRADE = 2 THEN 'VIP'
+				  WHEN B.CUSTGRADE = 3 THEN 'VVIP' END AS CUSTGRADE_
+			,CONCAT(B.HOMADDR1 ,' ', B.HOMADDR2 , B.HOMADDR3) AS ADDR_
+			,@RNUM:=@RNUM + 1 AS ROWNUM
+		FROM cp400021 A 
+		INNER JOIN cu100010 B ON B.CUSTNO = A.CUSTNO
+		,(SELECT @RNUM := 0) R
+		WHERE A.SITEID = #{siteid}
+		AND A.CAMPNO = #{campno}
+		AND B.ISDELETE = 0
+		<if test="custname != null">
+			AND  A.CUSTNAME LIKE CONCAT('%', #{custname} ,'%')
+		</if>
+		) X
+		WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+	</select>
+	
+	<insert id="formInsert" parameterType="campaignFormDto">
+			INSERT INTO cp400030
+				(
+				CAMPNO
+				,SITEID
+				,SENDER
+				,SENDTYPE
+				,SENDDATE
+				,WEEK
+				,DAY
+				,STARTDATE
+				,ENDDATE
+				,SENDTIME
+				,TITLE
+				,SENDDESC
+				,CONTENTNO
+				,TESTER
+				,REGDATE
+				,REGUSER
+				,EDTDATE
+				,EDTUSER
+				,SENDFORM
+				,FILESEARCHKEY1
+				,FILESEARCHKEY2
+				,FILESEARCHKEY3
+				,FILECNT
+				)VALUES(
+				#{campno}
+				,#{siteid}
+				,#{sender}
+				,#{sendtype}
+				,IF(#{senddate}='','1900-01-01',#{senddate})
+				,#{week}
+				,#{day}
+				,IF(#{startdate}='','1900-01-01',#{startdate})
+				,IF(#{enddate}='','1900-01-01',#{enddate})
+				,#{sendtime}
+				,#{title}
+				,#{senddesc}
+				,#{contentsno}
+				,#{tester}
+				,NOW()
+				,#{reguser}
+				,NOW()
+				,#{edtuser}
+				,#{sendform}
+				,#{filesearchkey1}
+				,#{filesearchkey2}
+				,#{filesearchkey3}
+				,#{filecnt}
+				)
+	</insert>
+	
+	<update id="formUpdate" parameterType="campaignFormDto">
+		UPDATE cp400030
+			SET SENDER = #{sender}
+			, SENDTYPE = #{sendtype}
+			, SENDDATE = IF(#{senddate}='','1900-01-01',#{senddate})
+			, WEEK = #{week}
+			, DAY = #{day}
+			, STARTDATE = IF(#{startdate}='','1900-01-01',#{startdate})
+			, ENDDATE = IF(#{enddate}='','1900-01-01',#{enddate})
+			, SENDTIME = #{sendtime}
+			, TITLE = #{title}
+			, SENDDESC = #{senddesc}
+			, TESTER = #{tester}
+			, CONTENTNO = #{contentno}
+			, EDTDATE = NOW()
+			, EDTUSER = #{edtuser}
+			, SENDFORM = #{sendform}
+			, FILESEARCHKEY1 = #{filesearchkey1}
+			, FILESEARCHKEY2 = #{filesearchkey2}
+			, FILESEARCHKEY3 = #{filesearchkey3}
+			, FILECNT = #{filecnt}
+		WHERE NO = #{no}
+		AND CAMPNO = #{campno}
+		AND SITEID = #{siteid}
+	</update>
+	
+	<select id="formRead" parameterType="hashMap" resultType="hashMap">
+		SELECT A.NO
+				,A.CAMPNO
+				,A.SITEID
+				,A.SENDER
+				,A.SENDTYPE
+				,A.SENDFORM
+				,CASE WHEN A.SENDTYPE = 1 THEN '즉시발송'
+					  WHEN A.SENDTYPE = 2 THEN '예약발송'
+					  WHEN A.SENDTYPE = 3 THEN '요일발송'
+					  WHEN A.SENDTYPE = 4 THEN '기간발송' END AS SENDTYPE_
+				,DATE_FORMAT(A.SENDDATE,'%Y-%m-%d') AS SENDDATE_
+				,A.WEEK
+				,CASE WHEN A.WEEK = 1 THEN '1주차'
+					  WHEN A.WEEK = 2 THEN '2주차'
+					  WHEN A.WEEK = 3 THEN '3주차'
+					  WHEN A.WEEK = 4 THEN '4주차'
+					  WHEN A.WEEK = 5 THEN '5주차' END WEEK_
+				,A.DAY
+				,CASE WHEN A.DAY = 1 THEN '일요일'
+					  WHEN A.DAY = 2 THEN '월요일'
+					  WHEN A.DAY = 3 THEN '화요일'
+					  WHEN A.DAY = 4 THEN '수요일'
+					  WHEN A.DAY = 5 THEN '목요일'
+					  WHEN A.DAY = 6 THEN '금요일'
+					  WHEN A.DAY = 7 THEN '토요일' END DAY_  
+				,DATE_FORMAT(A.STARTDATE,'%Y-%m-%d') AS STARTDATE_
+				,DATE_FORMAT(A.ENDDATE,'%Y-%m-%d') AS ENDDATE_
+				,A.SENDTIME
+				,A.TITLE
+				,A.SENDDESC
+				,A.TESTER
+				,A.CONTENTNO
+				,(SELECT TITLE FROM sys990050 WHERE CONTENTNO = A.CONTENTNO) AS CONTENTSNO_
+				, A.FILESEARCHKEY1
+				, A.FILESEARCHKEY2
+				, A.FILESEARCHKEY3
+		FROM cp400030 A
+		WHERE SITEID = #{siteid}
+		AND CAMPNO = #{campno}
+		AND SENDFORM = #{sendform}
+	</select>
+	<insert id="testSend" parameterType="hashMap">
+		INSERT INTO sys980010(
+		SITEID
+		,FROMEMAIL
+		,TOEMAIL
+		,SUBJECT
+		,CONTENT
+		,RLTDATE
+		,REGDATE
+		,REGUSER
+		,EDTDATE
+		,EDTUSER
+		)VALUES(
+		#{siteid}
+		,#{sender}
+		,#{tester}
+		,#{title}
+		,#{senddesc}
+		,NOW()
+		,NOW()
+		,#{userno}
+		,NOW()
+		,#{userno}
+		)
+
+	</insert>
+	
+	
+	
+	<update id="send" statementType="CALLABLE" parameterType="hashMap">
+		{ call CAMP_SEND(#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{userno, mode=IN, jdbcType=INTEGER, javaType=int},#{campno, mode=IN, jdbcType=INTEGER, javaType=int},#{sendform, mode=IN, jdbcType=INTEGER, javaType=int})}
+	</update>
+	
+	<select id="tabHistory" parameterType="hashMap" resultType="hashMap">
+		SELECT B.CODENAME
+			, IFNULL(C.CODENAME,A.VALUE) AS VALUE
+			, A.CAMPORDER
+			, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
+		FROM cp400022 A
+        LEFT OUTER JOIN sys990020 B ON B.CODEVAL = CASE WHEN SUBSTRING(A.NAME,0,5) = 'addr' THEN SUBSTRING(A.NAME,0,6) ELSE A.NAME END AND B.CODEGRP = 'CAMP'
+        LEFT OUTER JOIN sys990020 C ON C.CODEGRP = CASE WHEN SUBSTRING(A.NAME,0,5) = 'addr' THEN SUBSTRING(A.NAME,0,6) ELSE A.NAME END AND C.CODEVAL = A.VALUE
+        WHERE A.SITEID = #{siteid}
+        AND A.CAMPNO = #{campno}
+	</select>
+	
+	<select id="targetOrderMax" parameterType="hashMap" resultType="int">
+		SELECT IFNULL(MAX(CAMPORDER),0) FROM cp400022
+		WHERE SITEID = #{siteid}
+		AND CAMPNO = #{campno}
+	</select>
+	
+	<select id="campTargetCustRows" parameterType="hashMap" resultType="int">
+		SELECT COUNT(CUSTNO) FROM cp400021
+		WHERE SITEID = #{siteid}
+		AND CAMPNO = #{campno}
+		<if test="custname != null">
+			AND  CUSTNAME LIKE CONCAT('%', #{custname} ,'%')
+		</if>
+	</select>
+	
+	<update id="stepUpdate" parameterType="campaignDto">
+		UPDATE cp400010
+			SET CAMPSTEP = #{campstep}
+				,EDTUSER = #{edtuser}
+				,EDTDATE = NOW()
+			WHERE SITEID = #{siteid}
+			AND CAMPNO = #{campno}
+	</update>
+	 
+	<select id="calList" parameterType="campaignDto" resultType="hashMap">
+
+		SELECT A.CAMPNO AS id
+			, A.CAMPNAME AS title
+			, DATE_FORMAT(A.STARTDATE,'%Y-%m-%d') AS 'start'
+			, DATE_FORMAT(A.ENDDATE,'%Y-%m-%d') AS 'end'
+			, CASE WHEN E.SENDFORM = 1 THEN '#FF0000'
+			 	   WHEN E.SENDFORM = 2 THEN '#0040FF'
+				   WHEN E.SENDFORM = 3 THEN '#FF00FF' 
+				   WHEN E.SENDFORM = 4 THEN '#FFFFFF' END AS 'color'
+				   
+			, CASE WHEN A.CAMPSTEP = 1 THEN '캠페인생성'
+				   WHEN A.CAMPSTEP = 2 THEN '대상추출'
+				   WHEN A.CAMPSTEP = 3 THEN '발송중'
+				   WHEN A.CAMPSTEP = 4 THEN '종료' END AS CAMPSTEP_
+				   
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS OWNER_
+			
+			, IFNULL(B.CNT,0) AS CNT
+			, IFNULL(C.CNT,0) AS CLICKCNT
+			, CONCAT(IFNULL(C.CNT,0) , ' / ' ,IFNULL(B.CNT,0))  AS CLICKTOTAL
+			, CONCAT(IFNULL(D.CNT,0) , ' / ' ,IFNULL(B.CNT,0))  AS SENDTOTAL
+			
+			, CASE WHEN E.SENDFORM = 1 THEN 'EMAIL'
+				   WHEN E.SENDFORM = 2 THEN 'SMS'
+				   WHEN E.SENDFORM = 3 THEN 'LMS'
+				   WHEN E.SENDFORM = 4 THEN 'MMS' END AS SENDFORM_
+				   
+			FROM cp400010 A
+			LEFT OUTER JOIN (SELECT CAMPNO,COUNT(EMAILLOGID) AS CNT FROM sys980010 GROUP BY CAMPNO) B ON B.CAMPNO = A.CAMPNO
+			LEFT OUTER JOIN (SELECT CAMPNO,COUNT(EMAILLOGID) AS CNT FROM sys980010 WHERE CLICKYN = 0 AND CAMPNO IS NOT NULL GROUP BY CAMPNO) C ON C.CAMPNO = A.CAMPNO
+			LEFT OUTER JOIN (SELECT CAMPNO,COUNT(EMAILLOGID) AS CNT FROM sys980010 WHERE RLTCODE = 20 AND CAMPNO IS NOT NULL GROUP BY CAMPNO) D ON C.CAMPNO = A.CAMPNO
+			LEFT OUTER JOIN cp400030 E ON E.CAMPNO = A.CAMPNO
+		WHERE A.SITEID = #{siteid}
+		AND A.ISDELETE = #{isdelete}
+		AND A.CAMPSTEP IN (3,4)
+	</select>
+	
+	<!-- 캠페인 자체 첨부파일 -->
+	<select id="campaignFile" parameterType="campaignDto" resultType="hashMap">
+		SELECT FILEID, SAVEFILENAME, FILESIZE, ORGFILENAME, DATE_FORMAT(REGDATE,'%Y-%m-%d') AS REGDATE 
+		FROM sys990030
+		WHERE FILESEARCHKEY = #{filesearchkey} AND SITEID = #{siteid} 
+	</select>
+	
+	<!-- 메일 발송 대상 수 -->
+	<select id="sendTotalCnt" parameterType="campaignDto" resultType="hashMap">
+		SELECT CAMPNO,COUNT(EMAILLOGID) FROM T_MAIL 
+		GROUP BY CAMPNO
+	</select>
+	
+	<select id="campaignFormList" parameterType="campaignFormDto" resultType="campaignFormDto">
+		SELECT * FROM cp400030
+		WHERE SITEID = #{siteid}
+		AND CAMPNO = #{campno}
+	</select>
+	
+</mapper>

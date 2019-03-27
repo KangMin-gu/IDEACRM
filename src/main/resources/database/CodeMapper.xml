@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="code">
+
+    <select id="list" parameterType="codeDto" resultType="hashMap">
+    SELECT * FROM (
+    SELECT 
+    A.CODENO,A.CODEGRP,A.CODENAME,A.CODEVAL
+    ,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
+ 
+    ,CASE WHEN A.ISDELETE = 0 THEN '사용'
+    	  WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+   	,A.ISDELETE
+   	,B.CODENAME AS UPPERCODENAME
+   	,A.UPPERCODEGRP
+   	,@RNUM:=@RNUM + 1 AS ROWNUM
+    FROM sys990020 A 
+    LEFT OUTER JOIN sys990020 B ON B.CODENO = A.UPPERCODEGRP
+    ,(SELECT @RNUM := 0) R
+    WHERE A.ISDELETE = 0
+    <if test ="siteid == 1">
+    	AND A.SITEID = 1
+    </if>
+    <if test="siteid != 1">
+    	AND A.SITEID = #{siteid}
+    </if>
+    <if test ="codename != null">
+    	AND A.CODENAME LIKE CONCAT('%',#{codename},'%')
+    </if>
+    <if test ="codegrp != null">
+    	AND A.CODEGRP LIKE CONCAT('%',#{codegrp},'%')
+    </if>
+    ) X 
+    
+    WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+    </select>
+    
+    <select id="totalRow" parameterType="codeDto" resultType="int">
+     	SELECT 
+   			count(*)
+   			FROM sys990020
+    		WHERE ISDELETE = 0
+    	<if test ="siteid == 1">
+    		AND SITEID = 1
+    	</if>
+    	<if test="siteid != 1">
+	    	AND SITEID = #{siteid}
+    	</if>
+    	<if test ="codename != null">
+    		AND CODENAME LIKE CONCAT('%',#{codename},'%')
+    	</if>
+    	<if test ="codegrp != null">
+    		AND CODEGRP LIKE CONCAT('%',#{codegrp},'%')
+    	</if>
+    </select>
+    
+    <select id="detail" parameterType="codeDto" resultType="hashMap">
+     	  SELECT 
+    		A.CODENO,A.CODEGRP,A.CODENAME,A.CODEVAL
+    		,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
+    		,CASE WHEN A.ISDELETE = 0 THEN '사용'
+    	  		  WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+    	  	,A.ISDELETE
+   			,A.UPPERCODEGRP
+   			,B.CODENAME AS UPPERCODEGRP_
+   			,B.CODEVAL AS UPPERCODEGRP
+    	FROM sys990020 A 
+    	LEFT OUTER JOIN sys990020 B ON B.CODENO = A.UPPERCODEGRP
+    	WHERE A.SITEID = #{siteid}
+    	AND A.CODENO = #{codeno}
+    	
+    </select>
+    
+    <update id="update" parameterType="codeDto">
+    
+    UPDATE sys990020
+    SET 
+    	CODEGRP = #{codegrp}
+    	,CODENAME = #{codename}
+    	,CODEVAL = #{codeval}
+    	,UPPERCODEGRP = #{uppercodegrp}
+    	,ISDELETE = #{isdelete}
+    	,EDTDATE = now()
+    	,EDTUSER = #{edtuser}
+    WHERE SITEID = #{siteid}
+    AND CODENO = #{codeno}
+    
+    </update>
+    <insert id="insert" parameterType="codeDto">
+    
+    INSERT INTO sys990020
+    (
+    CODEGRP
+    ,CODENAME
+    ,CODEVAL
+    ,UPPERCODEGRP
+    ,SITEID
+    ,ISDELETE
+    ,REGDATE
+    ,REGUSER
+    ,EDTDATE
+    ,EDTUSER
+    )VALUES(
+    #{codegrp}
+    ,#{codename}
+    ,#{codeval}
+    ,#{uppercodegrp}
+    ,#{siteid}
+    ,#{isdelete}
+    ,now()
+    ,#{reguser}
+    ,now()
+    ,#{edtuser}
+    )
+    <selectKey keyProperty="codeno"  resultType="integer" order="AFTER">
+    SELECT LAST_INSERT_ID()
+    </selectKey>
+    </insert>
+    
+    <update id="delete" parameterType="codeDto">
+    
+    UPDATE sys990020
+    SET ISDELETE = 1
+    ,EDTDATE = now()
+    ,EDTUSER = #{edtuser}
+    WHERE SITEID = #{siteid}
+    AND CODENO = #{codeno}
+    
+    </update>
+    
+    <select id="upperlist" parameterType="codeDto" resultType="hashMap">
+    SELECT 
+    A.CODENO,A.CODEGRP,A.CODENAME,A.CODEVAL
+    , DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE  
+    ,CASE WHEN A.ISDELETE = 0 THEN '사용'
+    	  WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+   	,A.ISDELETE
+    FROM sys990020 A 
+    WHERE A.ISDELETE = 0
+    <if test ="siteid == 1">
+    	AND A.SITEID = 1
+    	AND A.UPPERCODEGRP IS NULL
+    </if>
+    <if test="siteid != 1">
+    	AND A.SITEID = #{siteid}
+    	AND A.UPPERCODEGRP IS NULL
+    </if>
+    <if test ="codename != null">
+    	AND A.CODENAME LIKE CONCAT('%',#{codename},'%')
+    </if>
+    <if test ="codegrp != null">
+    	AND A.CODEGRP LIKE CONCAT('%',#{codegrp},'%')
+    </if>
+    </select>
+    
+    <select id="getCodeList" parameterType="String" resultType="codeDto">
+    
+    	SELECT CODEGRP, CODENAME, CODEVAL FROM sys990020
+    	WHERE SITEID = 1
+    	AND ISDELETE = 0
+    	<if test ="value != null">
+    		AND CODEGRP = #{value} 
+    	</if>	
+    </select>
+ 
+    <select id="grpCodeList" resultType="codeDto">
+    	select CODEGRP from sys990020
+			WHERE SITEID = 1
+		GROUP BY CODEGRP
+    </select>
+    
+    <select id="getCodeNo" parameterType="codeDto" resultType="int">
+    	SELECT CODENO FROM SYS990020
+    	WHERE SITEID = #{siteid}
+    	AND CODEGRP = #{codegrp}
+    	AND CODEVAL = #{codeval}
+    
+    </select>
+    
+    <select id="getUpperCodeGrp" parameterType="codeDto" resultType="codeDto">
+    	SELECT * FROM sys990020
+    	WHERE SITEID = #{siteid} 
+    	AND UPPERCODEGRP = #{uppercodegrp}
+    </select>
+
+</mapper>

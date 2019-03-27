@@ -1,0 +1,71 @@
+body{overflow-x: auto;}
+#wrapper{overflow-x: auto;}
+.wrapper-content{padding: 0;}
+#page-wrapper{margin-left: 0 !important; padding: 0 !important; min-width: 1650px;}
+.ibox{margin: 0 5px 5px 5px;}
+table td, table th{padding-top: 4px !important; padding-bottom: 4px !important; vertical-align: middle !important;}
+.ibox-title{padding-top: 15px; padding-bottom: 5px; min-height: auto; padding-right: 15px;}
+.ibox-title h4{margin: 0;}
+ul{list-style: none; margin-bottom: 0 !important;}
+table{margin-bottom: 0 !important;}
+.ibox-top{width: 100%; height: auto; position: fixed; top: 0; z-index: 999; min-width: 1650px;}
+.ibox-top .ibox-content{background: #2f4050; padding: 10px 0;}
+.ibox-top ul.top-btn{text-align: center; color: #fcfcfc;}
+.ibox-top ul li{display: inline-block; font-size: 14px; position: relative;}
+.ibox-top ul li span.li-text{display: inline-block; padding: 0 7px; background: #fe6224; border-radius: 50%; color: #ffffff; position: absolute; top: -7px; right: -14px; z-index: 9999; font-weight: normal;}
+.ibox-top ul li > span{vertical-align: -2px;}
+.ibox-top ul.top-btn li button.btn-primary{background-color: #4b6780; border-color: #4b6780;}
+.ibox-top ul li input{width: 100px !important; height: 30px !important; border-radius: 5px !important;}
+.ibox-top ul li input{width: 100px !important; height: 30px !important; border-radius: 5px !important;}
+.ibox-top ul li.liBtn{padding: 0 3px;}
+.ibox-top ul li.liBtn2{vertical-align: 1px;}
+.ibox-top ul li.liBtn2 button{margin-left: 5px;}
+.ibox-top ul li.liBtn2 button.btn-default{color: #ef7e7e;}
+
+.ibox-top ul li strong{display: inline-block; padding: 5px 10px; background: #4b6780; border-radius: 15px;}
+.ibox-top ul li strong span{display: inline-block; padding: 0px 10px; background: #fe6224; border-radius: 10px; color: #ffffff;}
+.ibox-top ul li ul.top-ul02{padding: 5px 15px; background: #4b6780; border-radius: 15px; font-weight: bold;}
+.ibox-top ul li ul.top-ul02 li.tit02{vertical-align: 2px;}
+.ibox-top ul li ul.top-ul02 li i.fa{font-size: 19px; padding-left: 15px; cursor: pointer;}
+
+.ibox-top ul li ul.top-ul03{margin-right: 20px; padding-top: 7px;}
+.ibox-top ul li ul.top-ul03 li{margin-left: 20px; cursor: pointer;}
+.ibox-top ul li ul.top-ul03 li i{font-size: 23px;}
+
+.ibox-content.left-cont, .ibox-content.right-cont{clear: none;}
+.ibox-left{width: 750px; float: left; height: auto; margin-top: 70px;}
+.ibox-left .left-cont{width: 355px; height: 460px; float: left; margin-bottom: 10px;}
+.ibox-left .right-cont{width: 430px; height: 460px; float: right; margin-bottom: 10px;}
+.ibox-right{width: 930px; float: right; height: auto; margin-top: 70px;}
+
+ul.right-ul{}
+ul.right-ul li{display: inline-block;}
+ul.right-ul li{display: inline-block;}
+
+.table-area{width: 100%; height: 100%; padding: 40px 20px 20px 20px; border: 1px solid #e7eaec; position: relative;}
+.table-area .table-box{max-height: 160px; overflow: auto; overflow-x: hidden;}
+.table-area .table-box table{width: 100%; table-layout: fixed; border-spacing: 0; border-collapse: collapse; border-top: 1px solid #e7aeec;}
+.table-area .table-box table thead tr{position: absolute; top: 15px; left: 20px; width: 762px;}
+.table-area .table-box table tr{display: inline-table; table-layout: fixed; width: 100%;}
+.table-area .table-box table tbody tr{display: table-row;}
+
+.panel-left{width: 300px; height: auto; float: left;}
+
+.ibox-bottom{width: 100%; height: auto; position: fixed; bottom: 0; z-index: 999; min-width: 1650px;}
+.ibox-bottom .ibox-content{background: #2f4050; padding: 8px 0;}
+.ibox-bottom .ibox{margin: 0;}
+
+.ibox-bottom h3{font-size: 16px; color: #fafafa; padding: 5px 0 0 20px; margin: 0;}
+.ibox-bottom ul.call-option{}
+.ibox-bottom ul.call-option li{display: inline-block; margin-left: 5px; color: #fafafa;}
+.ibox-bottom ul.call-option li.call-tit{margin-left: 10px;}
+.ibox-bottom ul.call-option li strong{display: inline-block; padding: 3px 10px; background: #4b6780; border-radius: 15px; font-weight: normal;}
+.ibox-bottom ul.call-option li.yellow{color: yellow;}
+.ibox-bottom .btn-area button.btn-primary{background-color: #4b6780; border-color: #4b6780;}
+
+.ibox-notice{}
+.notice-area{min-width: auto !important; overflow: hidden;}
+
+.paging-area{width: 100%; height: auto; text-align: center;}
+ul.pagination{display: inline-block; text-align: center;}
+ul.pagination li{display: inline-block; margin-left: -3px;}

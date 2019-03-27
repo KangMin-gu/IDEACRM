@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="li">
+	
+	<select id="list" parameterType="hashMap" resultType="hashMap">
+	SELECT * FROM (
+		SELECT 
+		A.LICENSENO
+		,A.LICENSENAME
+		,A.LICENSECOST
+		,(SELECT COUNT(*) FROM me810010 WHERE LICENSENO = A.LICENSENO GROUP BY LICENSENO) AS TOTALCNT
+		,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
+		,(SELECT USERNAME FROM me800010 WHERE USERNO = A.REGUSER) AS REGUSER_
+		 ,@RNUM:=@RNUM + 1 AS ROWNUM
+			FROM ma900020 A,(SELECT @RNUM := 0) R
+			WHERE ISDELETE = '0'
+			<if test="licensename != null">
+				AND LICENSENAME LIKE CONCAT('%',#{licensename},'%')
+			</if>
+			ORDER BY A.LICENSENO DESC
+			) X
+	WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+	</select>
+	
+	<select id="totalRows" parameterType="hashMap" resultType="int">
+		SELECT count(*)
+			FROM ma900020
+			WHERE ISDELETE = '0'
+			<if test="licensename != null">
+				AND LICENSENAME LIKE CONCAT('%',#{licensename},'%')
+			</if>
+	</select>
+	
+	<select id="detail" parameterType="int" resultType="hashMap">
+	SELECT 
+		A.LICENSENO
+		,A.LICENSENAME
+		,A.LICENSECOST
+		,CASE WHEN A.ISDELETE = 0 THEN '사용'
+			  WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+			FROM ma900020 A
+			WHERE A.LICENSENO = #{licenseno}
+	</select>
+	
+	<update id="update" parameterType="licenseDto">
+		UPDATE ma900020
+			SET LICENSENAME = #{licensename}
+				,LICENSECOST = #{licensecost}
+				,ISDELETE = #{isdelete}
+				,EDTUSER = #{edtuser}
+				,EDTDATE = NOW()
+			WHERE LICENSENO = #{licenseno} 
+	</update>
+	
+	<update id="delete" parameterType="int">
+		UPDATE ma900020
+			SET ISDELETE = '1'
+				,EDTUSER = #{edtuser}
+				,EDTDATE = NOW()
+			WHERE LICENSENO = #{licenseno}
+	</update>
+	
+	<insert id="insert" parameterType="licenseDto">
+		INSERT INTO ma900020
+			(
+			LICENSENAME
+			,LICENSECOST
+			,ISDELETE
+			,REGDATE
+			,REGUSER
+			,EDTDATE
+			,EDTUSER
+			)VALUES(
+			#{licensename}
+			,#{licensecost}
+			,'0'
+			,NOW()
+			,#{reguser}
+			,NOW()
+			,#{edtuser}
+			)
+		<selectKey keyProperty="licenseno"  resultType="integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<select id="topList" parameterType="int" resultType="HashMap">
+	SELECT
+		A.LICENSENAME
+		,A.LICENSECOST
+		,B.BUYCNT
+		,DATE_FORMAT(DATE_ADD(B.EDTDATE, INTERVAL 1 YEAR),'%Y-%m-%d') AS LASTDATE	
+			FROM ma900020 A
+			INNER JOIN me810010 B ON B.LICENSENO = A.LICENSENO
+			INNER JOIN ma900010 C ON C.SITEID = B.SITEID
+			WHERE B.SITEID = #{siteid}
+			limit 20
+	</select>
+	
+	<select id="licenselist" parameterType="hashMap" resultType="hashMap">
+		SELECT 
+		A.LICENSENO
+		,A.LICENSENAME
+		,A.LICENSECOST
+		,(SELECT COUNT(*) FROM me810010 WHERE LICENSENO = A.LICENSENO GROUP BY LICENSENO) AS TOTALCNT
+		,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
+		,(SELECT USERNAME FROM me800010 WHERE USERNO = A.REGUSER) AS REGUSER_
+		,@RNUM:=@RNUM + 1 AS ROWNUM
+			FROM ma900020 A  ,(SELECT @RNUM := 0) R
+			WHERE ISDELETE = '0'
+		ORDER BY A.LICENSENO DESC
+	</select>
+</mapper>

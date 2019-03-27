@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menu">
+
+    <select id="list" parameterType="hashMap" resultType="hashMap">
+     	SELECT * FROM (
+     	SELECT 
+     		A.MENUNO,A.MENUNAME
+     		,(SELECT LICENSENAME FROM ma900020 WHERE LICENSENO = A.LICENSENO) AS LICENSENO_
+     		,A.MENUDESC,A.MENUVAL
+     		,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
+     		,A.ISDELETE
+     		,(SELECT USERNAME FROM me800010 WHERE USERNO = A.REGUSER) AS REGUSER_
+     	,@RNUM:=@RNUM + 1 AS ROWNUM
+     	FROM ma900030 A ,(SELECT @RNUM := 0) R
+     	WHERE A.ISDELETE = 0
+     	<if test ="menuName != null">
+     		AND A.MENUNAME LIKE CONCAT('%',#{menuName},'%')
+     	</if>
+     	<if test ="menuVal != null">
+     		AND A.MENUVAL LIKE CONCAT('%',#{menuVal},'%')
+     	</if>
+    	 ORDER BY A.MENUNO DESC
+     	) X 
+     	WHERE ROWNUM Between #{startRowNum} and #{endRowNum}
+    </select>
+    <select id="totalRow" parameterType="hashMap" resultType="int">
+     	SELECT 
+     	count(*)
+     	FROM ma900030
+     	WHERE ISDELETE = 0
+     	<if test ="menuName != null">
+     		AND MENUNAME LIKE CONCAT('%',#{menuName},'%')
+     	</if>
+     	<if test ="menuVal != null">
+     		AND MENUVAL LIKE CONCAT('%',#{menuVal},'%')
+     	</if>
+    </select>
+    
+    <select id="detail" parameterType="menuDto" resultType="hashMap">
+     	SELECT 
+     	A.MENUNO
+     	,A.MENUNAME
+     	,A.LICENSENO
+     	,A.MENUDESC
+     	,A.MENUVAL
+     	,A.REGDATE
+     	,A.ISDELETE
+     	,CASE WHEN ISDELETE = 0 THEN '사용'
+     		  WHEN ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+     	,(SELECT LICENSENAME FROM ma900020 WHERE A.LICENSENO = LICENSENO) AS LICENSENO_
+     	FROM ma900030 A
+     	WHERE A.MENUNO = #{menuno}
+    </select>
+    
+    <update id="update" parameterType="menuDto">
+    
+    UPDATE ma900030
+    SET 
+    MENUNAME = #{menuname}
+    ,LICENSENO = #{licenseno}
+    ,MENUDESC = #{menudesc}
+    ,MENUVAL = #{menuval}
+    ,ISDELETE = #{isdelete}
+    ,EDTDATE = now()
+    ,EDTUSER = #{edtuser}
+    WHERE MENUNO = #{menuno}
+    
+    </update>
+    <insert id="insert" parameterType="menuDto">
+    
+    INSERT INTO ma900030
+    (
+     MENUNAME
+    ,LICENSENO
+    ,MENUDESC
+    ,MENUVAL
+    ,ISDELETE
+    ,REGDATE
+    ,REGUSER
+    ,EDTDATE
+    ,EDTUSER
+    )VALUES(
+    #{menuname}
+    ,#{licenseno}
+    ,#{menudesc}
+    ,#{menuval}
+    ,#{isdelete}
+    ,NOW()
+    ,#{reguser}
+    ,NOW()
+    ,#{edtuser}
+    )
+    <selectKey keyProperty="menuno"  resultType="integer" order="AFTER">
+    SELECT LAST_INSERT_ID()
+    </selectKey>
+    </insert>
+    
+    <update id="delete" parameterType="menuDto">
+    
+    UPDATE ma900030
+    SET ISDELETE = 1
+    ,EDTDATE = NOW()
+    ,EDTUSER = #{edtuser}
+    WHERE MENUNO = #{menuno}
+    
+    </update>
+
+</mapper>

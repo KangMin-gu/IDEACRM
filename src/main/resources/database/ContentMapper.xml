@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="content">
+<select id="contentList" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT 
+			A.CONTENTNO
+			, A.FORMTYPE
+			, A.MENUTYPE
+			, CASE WHEN A.MENUTYPE = 1 THEN 'VOC'
+				   WHEN A.MENUTYPE = 2 THEN '캠페인' END MENUTYPE_
+			, CASE WHEN A.FORMTYPE = 1 THEN 'EMAIL'
+				   WHEN A.FORMTYPE = 2 THEN 'SMS/LMS'
+				   WHEN A.FORMTYPE = 3 THEN 'MMS' END FORMTYPE_
+			, A.TITLE, A.CONTENT, A.PURP
+			, A.SITEID, A.ISDELETE
+			, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE_
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.REGUSER) AS REGUSER_
+			, DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE_
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.EDTUSER) AS EDTUSER_
+			, USECNT
+			, @RNUM:=@RNUM + 1 AS ROWNUM
+			FROM sys990050 A ,(SELECT @RNUM := 0) R
+			WHERE A.SITEID = #{siteid}
+			AND A.ISDELETE = 0
+			<if test="title != null">
+				AND  TITLE LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="formtype != null">
+				AND  FORMTYPE = #{formtype}
+			</if>
+			<if test="menutype != null">
+				AND  MENUTYPE = #{menutype}
+			</if>
+			) X 
+			WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+	</select>
+	
+	<select id="contentUseDescList" parameterType="hashMap" resultType="hashMap">
+			SELECT 
+			A.CONTENTNO
+			, A.FORMTYPE
+			, CASE WHEN A.FORMTYPE = 1 THEN 'EMAIL'
+				   WHEN A.FORMTYPE = 2 THEN 'SMS/LMS'
+				   WHEN A.FORMTYPE = 3 THEN 'MMS' END FORMTYPE_
+			, A.TITLE, A.CONTENT, A.PURP
+			, A.SITEID, A.ISDELETE
+			, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE_
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.REGUSER) AS REGUSER_
+			, DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE_
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.EDTUSER) AS EDTUSER_
+			, USECNT
+			FROM sys990050 A
+			WHERE A.SITEID = #{siteid}
+			AND A.ISDELETE = 0
+			AND A.FORMTYPE = #{formtype}
+			AND A.MENUTYPE = #{menutype}
+			ORDER BY USECNT DESC
+			LIMIT 5
+	</select>
+	
+	<select id="contentTotalRows" parameterType="hashMap" resultType="int">
+		SELECT COUNT(CONTENTNO) 
+		FROM sys990050
+		WHERE SITEID = #{siteid}
+		AND ISDELETE = 0
+		<if test="title != null">
+			AND  TITLE LIKE CONCAT('%' , #{title} , '%')
+		</if>
+		<if test="formtype != null">
+			AND  FORMTYPE = #{formtype}
+		</if>
+		<if test="menutype != null">
+			AND MENUTYPE = #{menutype}
+		</if>
+	</select>
+	
+	<insert id="contentInsert" parameterType="contentDto">
+		INSERT INTO sys990050(
+			FORMTYPE
+			,MENUTYPE
+			,TITLE
+			,CONTENT
+			,PURP
+			,SITEID
+			,ISDELETE
+			,REGDATE
+			,REGUSER
+			,EDTDATE
+			,EDTUSER
+		)VALUES(
+		#{formtype}
+		,#{menutype}
+		,#{title}
+		,#{content}
+		,#{purp}
+		,#{siteid}
+		,0
+		,NOW()
+		,#{reguser}
+		,NOW()
+		,#{edtuser}
+		)
+		<selectKey keyProperty="contentno"  resultType="integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<select id="contentRead" parameterType="contentDto" resultType="hashMap">
+		SELECT A.CONTENTNO
+			, A.FORMTYPE
+			, A.MENUTYPE
+			, CASE WHEN A.MENUTYPE = 1 THEN 'VOC'
+			       WHEN A.MENUTYPE = 2 THEN '캠페인' END AS MENUTYPE_
+			, CASE WHEN A.FORMTYPE = 1 THEN 'EMAIL'
+				   WHEN A.FORMTYPE = 2 THEN 'SMS/LMS'
+				   WHEN A.FORMTYPE = 3 THEN 'MMS' END AS FORMTYPE_
+			, A.MENUTYPE
+			, A.TITLE, A.CONTENT, A.PURP
+			, A.SITEID, A.ISDELETE
+			, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE_
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.REGUSER) AS REGUSER_
+			, DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE_
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.EDTUSER) AS EDTUSER_
+		FROM sys990050 A
+		WHERE A.SITEID = #{siteid}
+		AND A.CONTENTNO = #{contentno}
+	</select>
+	
+	<update id="contentUpdate" parameterType="contentDto">
+		UPDATE sys990050
+			SET FORMTYPE = #{formtype}
+			,MENUTYPE = #{menutype}
+			,TITLE = #{title}
+			,CONTENT = #{content}
+			,PURP = #{purp}
+			,EDTDATE = NOW()
+			,EDTUSER = #{edtuser}
+		WHERE CONTENTNO = #{contentno}
+		AND SITEID = #{siteid} 
+	</update>
+	
+	<update id="contentDelete" parameterType="contentDto">
+		UPDATE sys990050
+			SET EDTDATE = NOW()
+			,EDTUSER= #{edtuser}
+			,ISDELETE = 1
+		WHERE CONTENTNO = #{contentno}
+		AND SITEID = #{siteid}
+	</update>
+</mapper>

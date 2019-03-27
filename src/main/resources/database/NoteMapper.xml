@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="note">
+	<!-- 총 받은 통지 총 갯수 -->
+	<select id="totalRows" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS totalRows FROM
+			( SELECT A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+			 	FROM sys970010 AS A
+				LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+				LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+				LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+				WHERE B.ISDELETE = 0 AND B.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.NTCWAYEMAIL = 1				
+			) AS E 
+			<where>
+				<if test="title != null">
+					AND E.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.FROMUSERNAME LIKE CONCAT('%',#{sender},'%')
+				</if>
+				<if test="enddate != null">
+					AND E.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>	
+			</where>
+	</select>
+	<!-- 받은 통지 리스트-->	
+	<select id="inbox" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT A.NOTICEID, A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME,
+				A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
+				B.READCHEK
+				, @RNUM:=@RNUM + 1 AS ROWNUM
+			FROM sys970010 AS A 
+			LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+			LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+			LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+			,(SELECT @RNUM := 0) R			
+			WHERE A.SITEID = #{siteid} AND B.USERNO = #{userno} AND B.ISDELETE = 0 AND A.NTCWAYEMAIL = 1
+				<if test="title != null">
+					AND A.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND C.USERNAME LIKE CONCAT('%',#{sender},'%')
+				</if>
+				<if test="enddate != null">
+					AND A.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>
+			order by A.NOTICEID DESC
+			) AS result
+		<if test="startRowNum != null">
+		WHERE result.ROWNUM BETWEEN #{startRowNum} AND #{endRowNum} ORDER BY result.NOTICEID DESC
+		</if>
+	</select>
+	
+	<!-- 받은 통지중 읽지않은 갯수 -->
+	<select id="noteReadVal" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS notReadVal FROM ( 
+			SELECT A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+			FROM sys970010 AS A
+			LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+			LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO 
+			LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+			WHERE A.SITEID = #{siteid} AND B.READCHEK = 0 AND B.ISDELETE = 0 AND B.USERNO = #{userno} AND A.NTCWAYEMAIL = 1			
+			) AS E
+			<where>
+				<if test="title != null">
+					AND E.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.FROMUSERNAME LIKE CONCAT('%',#{sender},'%')
+				</if>
+				<if test="enddate != null">
+					AND E.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>				
+			</where>
+	</select>
+		
+	<!--  보낸 통지 총갯수 -->
+	<select id="outTotalRows" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS totalRows FROM
+			( SELECT A.TITLE, D.USERNAME AS FROMUSERNAME, C.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+			 	FROM sys970010 AS A
+				LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+				LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+				LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+				WHERE B.ISDELETE = 0 AND A.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.NTCWAYEMAIL = 1 				
+			) AS E 
+			<where>
+				<if test="title != null">
+					AND E.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.TOUSERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND E.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>	
+			</where>	
+	</select>
+	
+	<!-- 보낸 통지 리스트-->	
+	<select id="outbox" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT A.NOTICEID, A.TITLE, D.USERNAME AS FROMUSERNAME, C.USERNAME AS TOUSERNAME,
+				A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
+				B.READCHEK
+				, @RNUM:=@RNUM + 1 AS ROWNUM
+			FROM sys970010 AS A  
+			LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+			LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+			LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO	
+			,(SELECT @RNUM := 0) R		
+			WHERE A.SITEID = #{siteid} AND A.USERNO = #{userno} AND B.ISDELETE = 0 AND A.NTCWAYEMAIL = 1
+				<if test="title != null">
+					AND A.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.TOUSERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND A.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>
+			order by A.NOTICEID DESC
+			) AS result
+		WHERE result.ROWNUM BETWEEN #{startRowNum} AND #{endRowNum} ORDER BY result.NOTICEID DESC
+	</select>
+	
+	<!-- 보낸 통지중 읽지않은 갯수 -->
+	<select id="noteOutReadVal" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS notReadVal FROM ( 
+			SELECT A.TITLE, D.USERNAME AS FROMUSERNAME, C.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+			FROM sys970010 AS A
+			LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+			LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO 
+			LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+			WHERE A.SITEID = #{siteid} AND B.READCHEK = 0 AND B.ISDELETE = 0 AND A.USERNO = #{userno} AND A.NTCWAYEMAIL = 1			
+			) AS E
+			<where>
+				<if test="title != null">
+					AND E.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.TOUSERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND E.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>				
+			</where>
+	</select>
+
+<!-- 중요 통지 총 갯수 -->
+	<select id="importTotalRows" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS totalRows FROM
+			( SELECT A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+			 	FROM sys970010 AS A
+				LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+				LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+				LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+				WHERE B.ISDELETE = 0 AND B.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.NTCWAYEMAIL = 1 AND A.IMPORTANT = 1				
+			) AS E 
+			<where>
+				<if test="title != null">
+					AND E.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.FROMUSERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND E.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>	
+			</where>
+	</select>
+	<!-- 중요 통지 리스트-->	
+	<select id="importbox" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT A.NOTICEID, A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, 
+				A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT( A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
+				B.READCHEK
+				, @RNUM:=@RNUM + 1 AS ROWNUM
+			FROM sys970010 AS A 
+			LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+			LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+			LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO	
+			,(SELECT @RNUM := 0) R		
+			WHERE A.SITEID = #{siteid} AND B.USERNO = #{userno} AND B.ISDELETE = 0 AND A.NTCWAYEMAIL = 1 AND IMPORTANT = 1
+				<if test="title != null">
+					AND A.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND C.USERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND A.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>
+			order by A.NOTICEID DESC
+			) AS result
+		WHERE result.ROWNUM BETWEEN #{startRowNum} AND #{endRowNum} ORDER BY result.NOTICEID DESC
+	</select>
+	
+	<!-- 중요 통지중 읽지않은 갯수 -->
+	<select id="noteimportReadVal" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS notReadVal FROM ( 
+			SELECT A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+			FROM sys970010 AS A
+			LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+			LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO 
+			LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+			WHERE A.SITEID = #{siteid} AND B.READCHEK = 0 AND B.ISDELETE = 0 AND B.USERNO = #{userno} AND A.NTCWAYEMAIL = 1 AND IMPORTANT = 1			
+			) AS E
+			<where>
+				<if test="title != null">
+					AND E.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.FROMUSERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND E.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>				
+			</where>
+	</select>
+
+<!-- 휴지통 통지 총 갯수 -->
+	<select id="trashTotalRows" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS totalRows FROM
+			( SELECT A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+			 	FROM sys970010 AS A
+				LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+				LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+				LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+				WHERE B.ISDELETE = 2 AND B.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.NTCWAYEMAIL = 1				
+			) AS E 
+			<where>
+				<if test="title != null">
+					AND E.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.FROMUSERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND E.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>	
+			</where>
+	</select>
+	<!-- 휴지통 통지 리스트-->	
+	<select id="trashbox" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT A.NOTICEID, A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME,
+				A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT( A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
+				B.READCHEK
+				, @RNUM:=@RNUM + 1 AS ROWNUM
+			FROM sys970010 AS A 
+			LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+			LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+			LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO		
+			,(SELECT @RNUM := 0) R	
+			WHERE A.SITEID = #{siteid} AND B.USERNO = #{userno} AND B.ISDELETE = 2 AND A.NTCWAYEMAIL = 1
+				<if test="title != null">
+					AND A.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND C.USERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND A.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>
+			order by A.NOTICEID DESC
+			) AS result
+		WHERE result.ROWNUM BETWEEN #{startRowNum} AND #{endRowNum} ORDER BY result.NOTICEID DESC
+	</select>
+	
+	<!-- 휴지통 통지중 읽지않은 갯수 -->
+	<select id="notetrashReadVal" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS notReadVal FROM ( 
+			SELECT A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+			FROM sys970010 AS A
+			LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+			LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO 
+			LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+			WHERE A.SITEID = #{siteid} AND B.READCHEK = 0 AND B.ISDELETE = 2 AND B.USERNO = #{userno} AND A.NTCWAYEMAIL = 1			
+			) AS E
+			<where>
+				<if test="title != null">
+					AND E.TITLE LIKE CONCAT('%',#{title},'%')
+				</if>
+				<if test="sender != null">
+					AND E.FROMUSERNAME LIKE CONCAT('%',#{recipient},'%')
+				</if>
+				<if test="enddate != null">
+					AND E.REGDATE BETWEEN #{startdate} AND DATE_ADD(#{enddate}, INTERVAL 1 DAY)
+				</if>				
+			</where>
+	</select>
+
+	<!-- 통지상세정보 -->
+	<select id="noteDetail" parameterType="hashMap" resultType="hashMap">
+		SELECT A.USERNO AS TOUSERNO, A.NOTICEID, A.TITLE, A.CONTENT, A.LNKURL, A.FILESEARCHKEY, B.USERNAME AS FROMUSERNAME, B.EMAIL AS FROMEMAIL, A.REGDATE
+		FROM sys970010 AS A
+		LEFT OUTER JOIN me800010 AS B ON A.USERNO = B.USERNO
+		WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0 AND A.NTCWAYEMAIL = 1 AND A.NOTICEID = #{noticeid}
+	</select>
+	
+	<!-- 첨부파일리스트 -->
+	<select id="noteFile" parameterType="hashMap" resultType="hashMap">
+		SELECT FILEID, SAVEFILENAME, FILESIZE, ORGFILENAME, DATE_FORMAT( REGDATE,'%Y-%m-%d') AS REGDATE 
+		FROM sys990030 
+		WHERE FILESEARCHKEY = #{filesearchkey} AND SITEID = #{siteid} 
+	</select>
+	
+	<!-- 참조 리스트 -->
+	<select id="ccList" parameterType="hashMap" resultType="hashMap">
+		SELECT A.USERNO, B.USERNAME, B.EMAIL, A.CHKCC FROM sys970011 AS A
+		INNER JOIN me800010 AS B ON A.USERNO = B.USERNO
+		WHERE A.NOTICEID = #{noticeid} AND A.SITEID = #{siteid} AND CHKCC = 1
+	</select>
+	<!-- 받는이 리스트 -->
+	<select id="toList" parameterType="hashMap" resultType="hashMap">
+		SELECT A.USERNO, B.USERNAME, B.EMAIL, A.CHKCC FROM sys970011 AS A
+		INNER JOIN me800010 AS B ON A.USERNO = B.USERNO
+		WHERE A.NOTICEID = #{noticeid} AND A.SITEID = #{siteid} AND CHKCC = 0
+	</select>	
+	
+	<!-- 읽음으로 표시 -->
+	<update id="noteEyeChk" parameterType="hashMap">
+		UPDATE sys970011 SET READCHEK = 1, READDATE = now(), EDTUSER = #{userno}, EDTDATE = now()
+		 WHERE SITEID = #{siteid} AND NOTICEID = #{noticeid} AND ISDELETE = 0
+	</update>
+	
+	<!-- 중요로 표시 -->
+	<update id="noteImportChk" parameterType="noteDto">
+		UPDATE sys970010 SET IMPORTANT = 1, EDTUSER = #{userno}, EDTDATE = now()
+		 WHERE SITEID = #{siteid} AND NOTICEID = #{noticeid} AND ISDELETE = 0
+	</update>
+	
+	<!-- 휴지통 이동 -->
+	<update id="noteTrashChk" parameterType="noteDto">
+		UPDATE sys970011 SET ISDELETE = 2, EDTUSER = #{userno}, EDTDATE = now()
+		WHERE SITEID = #{siteid} AND NOTICEID = #{noticeid} AND ISDELETE = 0
+	</update>
+	
+	<!-- 통지 삭제-->
+	<update id="noteDeleteChk" parameterType="noteDto">
+		UPDATE sys970011 SET ISDELETE = 1, EDTUSER = #{userno}, EDTDATE = now() 
+		WHERE SITEID = #{siteid} AND NOTICEID = #{noticeid} AND ISDELETE = 2
+	</update>
+	
+	<!-- 보관함으로 이동-->
+	<update id="noteReturnChk" parameterType="noteDto">
+		UPDATE sys970010 SET ISDELETE = 0, EDTUSER = #{userno}, EDTDATE = now() 
+		WHERE SITEID = #{siteid} AND NOTICEID = #{noticeid} AND ISDELETE = 1
+	</update>
+	
+	<!-- 카테고리 화면 -->
+	<select id="noteCategory" parameterType="noteCategoryDto" resultType="hashMap">
+		SELECT CATEGORY, DATE_FORMAT( REGDATE,'%Y-%m-%d') AS REGDATE FROM sys970020 WHERE USERNO = #{userno} AND SITEID = #{siteid}
+	</select>
+	
+	<!-- 통지등록 -->
+	<insert id="noteSend" parameterType="noteDto">	
+			INSERT INTO sys970010 
+			(USERNO, NTCWAYEMAIL, TITLE, CONTENT, LNKURL, REGUSER, REGDATE, SITEID, IMPORTANT, EDTUSER, EDTDATE, FILESEARCHKEY, ISDELETE) 
+			VALUES 
+			(#{fromuserno}, 1, #{title}, #{content}, #{linkurl}, #{userno}, now(), #{siteid}, #{important}, #{userno}, now(), #{filesearchkey}, 0 )
+		<selectKey resultType="int" keyProperty="noticeid" order="AFTER">	
+			SELECT LAST_INSERT_ID() 
+		</selectKey>	
+	</insert>
+	
+	<!-- to / cc 등록 -->
+	<insert id="toAndCc" parameterType="noteDto">
+		INSERT INTO sys970011
+		(NOTICEID, USERNO, CHKCC, SITEID, EDTUSER, EDTDATE, ISDELETE, CHKRLTCODE, READCHEK )
+		VALUES
+		(#{noticeid}, #{userno}, #{chkcc}, #{siteid}, #{userno}, now(), 0, 0, 0 )
+	</insert>
+	
+		<!-- USERNO를 받아와서 EMAIL과 USERNAME를 받아옴   -->
+	<select id="noteEmail" parameterType="int" resultType="hashMap">
+		SELECT EMAIL,USERNAME FROM me800010
+		WHERE USERNO = #{userno}
+	</select>
+	
+<!-- sys980010 테이블 insert  -->
+	<insert id="noteSendMail" parameterType="hashMap">
+		INSERT INTO sys980010
+		(SITEID,CSTNAME,USERNAME,FROMEMAIL,TOEMAIL,SUBJECT,CONTENT,FILESEARCHKEY,REGUSER,EDTUSER,RLTDATE,EDTDATE,REGDATE,RLTCODE,USERNO,NOTICENO) VALUES
+		(
+		#{siteId},REPLACE(RTRIM(LTRIM(#{cstName})),char(13),''),#{userName},#{fromEmail},#{toEmail},#{subject},#{content},#{fileSearchkey},
+		#{userNo},#{userNo},now(),now(),now(),0,#{toUserNo},#{noticeNo}
+		)
+	</insert>
+	
+	<!-- 메세지버튼 팝업 -->
+	<select id="noteSummary" resultType="hashMap" parameterType="hashMap">
+		SELECT C.NOTICEID, C.TITLE, C.CONTENT, D.USERNAME AS SENDER, C.SENDDATE, C.READCHEK FROM
+			(SELECT A.NOTICEID, B.TITLE, B.CONTENT, B.USERNO AS SENDER, DATE_FORMAT(B.REGDATE,'%Y-%m-%d') AS SENDDATE, A.READCHEK
+				FROM crud_saas.sys970011 AS A
+				LEFT OUTER JOIN crud_saas.sys970010 AS B ON A.NOTICEID = B.NOTICEID WHERE A.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.ISDELETE = 0  LIMIT 5 ) AS C
+		LEFT OUTER JOIN crud_saas.me800010 AS D ON C.SENDER = D.USERNO
+	</select>
+	
+	<!-- 안읽은 통지갯수 -->
+	<select id="count" parameterType="noteDto" resultType="int">	
+		SELECT COUNT(B.READCHEK) AS NOREAD
+		FROM sys970010 A
+		LEFT JOIN sys970011 B
+		  ON A.NOTICEID = B.NOTICEID
+		WHERE A.USERNO = #{userno} AND B.READCHEK = 0 AND A.SITEID = #{siteid}
+	</select>
+	
+	
+		<!-- 메일정보 얻어오기  -->
+	<select id="adminMail" parameterType="int"  resultType="hashMap">
+		SELECT EMAIL, USERNAME,USERNO,SITEID,USERID,CHKAUTH FROM me800010
+		WHERE CHKAUTH = 10 OR CHKAUTH = 20 AND SITEID = #{siteid} AND MASTERYN = 0 AND EMAIL IS NOT NULL;
+	</select>
+	
+	
+</mapper>

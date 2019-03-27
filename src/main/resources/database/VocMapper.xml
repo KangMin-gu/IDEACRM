@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="voc">
+	
+	<!-- 콜백 목록 
+	status 호출 구분 값 : callback = 상담원-할당 된 목록 , assign = 관리자-할당 해야 할 목록, history = 고객의 콜백내역   
+	CALLSTATUS : 0=접수 , 1=할당, 2=완료, 3=통화불가, 4=미해결-->
+	<select id="vocCallBackList" parameterType="hashMap" resultType="hashMap">
+	SELECT *
+	FROM (
+		SELECT
+		@RNUM:=@RNUM + 1 AS ROWNUM
+		,A.CALLBACKNO, A.CALLER, A.CALLBACK, A.TRUNK, IFNULL(A.CALLCOUNT,'') AS CALLCOUNT
+		,A.GCODE1, A.GCODE2, A.GCODE3
+		,DATE_FORMAT(A.RECEIVEDATE,'%Y-%m-%d %H:%i:%s') AS RECEIVEDATE_
+		,DATE_FORMAT(A.CALLDATE,'%Y-%m-%d %H:%i:%s') AS CALLDATE_  
+		,A.CALLSTATUS
+		,(CASE 
+			WHEN CALLSTATUS = 0 THEN '접수'
+			WHEN CALLSTATUS = 1 THEN '할당'
+			WHEN CALLSTATUS = 2 THEN '완료'
+			WHEN CALLSTATUS = 3 THEN '통화불가' 
+			WHEN CALLSTATUS = 4 THEN '미해결'
+			ELSE ''
+			END) AS CALLSTATUS_
+		,A.CALLUSER
+		,IFNULL(A.CUSTNO,'') AS CUSTNO ,B.USERNAME
+		,IFNULL(A.MEMO,'') AS MEMO		
+				
+		FROM CTI510010 A
+		LEFT OUTER JOIN ME800010 B ON A.CALLUSER = B.USERNO
+		,(SELECT @RNUM := 0) R
+	
+		WHERE  
+		<choose>
+			<when test='status.equals("callback")'>
+			IFNULL(A.CALLCOUNT,0) <![CDATA[<]]> 4
+			AND A.TRUNK = #{ctitelno}
+			AND A.CALLUSER = #{userno}  
+			AND A.CALLSTATUS = 1
+			</when>
+			<when test='status.equals("assign")'>
+			IFNULL(A.CALLCOUNT,0) <![CDATA[<]]> 4
+			AND A.TRUNK = #{ctitelno}  
+			AND A.CALLSTATUS IN (0,1,3)
+			</when>
+			<when test='status.equals("history")'>
+			A.CUSTNO = #{custno}
+			</when>
+		</choose>	
+		ORDER BY A.RECEIVEDATE DESC
+		) X
+	<if test="endRowNum != null">
+	WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+	</if> 
+	</select>
+	
+	<!-- 콜백 카운터
+	 status 호출 구분 값 : callback = 상담원-할당 된 목록 , assign = 관리자-할당 해야 할 목록, history = 고객의 콜백내역   
+	 CALLSTATUS : 0=접수 , 1=할당, 2=완료, 3=통화불가, 4=미해결 -->
+	<select id="vocCallBackListCnt" parameterType="hashMap" resultType="int">
+	SELECT
+	COUNT(*)
+	FROM CTI510010 
+
+	WHERE  		 
+	<choose>
+		<when test='status.equals("callback")'>
+		IFNULL(CALLCOUNT,0) <![CDATA[<]]> 4
+		AND TRUNK = #{ctitelno}
+		AND CALLUSER = #{userno}  
+		AND CALLSTATUS = 1
+		</when>
+		<when test='status.equals("assign")'>
+		IFNULL(CALLCOUNT,0) <![CDATA[<]]> 4
+		AND TRUNK = #{ctitelno}  
+		AND CALLSTATUS IN (0,1,3)
+		</when>
+		<when test='status.equals("history")'>
+		CUSTNO = #{custno}
+		</when>
+	</choose>	
+						 		
+	</select>
+	
+	<insert id="vocCallBack" parameterType="hashMap">
+	<!-- CTI서버 콜백 접수 -->	
+
+		INSERT INTO CTI510010
+		(
+		CALLER
+		,TRUNK
+		,CALLBACK
+		,GCODE1
+		,GCODE2
+		,GCODE3
+		,RECEIVEDATE
+		,DTWEEK
+		,CALLSTATUS
+		,CALLCOUNT
+		)
+		VALUES
+		(
+		#{CALLER}
+		,#{TRUNK}
+		,#{CALLBACK}
+		,#{GCODE1}
+		,#{GCODE2}
+		,#{GCODE3}
+		,CONCAT(#{DATE1},' ',#{TIME1})
+		,#{DTWEEK}
+		,#{callstatus}
+		,#{callcount}
+		)
+	</insert>
+	
+	<select id="popCallBackList" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT 
+			A.CALLBACKNO
+			,A.CALLER
+			,A.TRUNK
+			,A.CALLBACK
+			,DATE_FORMAT(A.RECEIVEDATE,'%Y-%m-%d') AS RECEIVEDATE_
+			,A.CALLCOUNT
+			,(SELECT USERNAME FROM ME800010 WHERE SITEID = 1 AND USERNO = A.CALLUSER) AS CALLUSER_
+			,@RNUM:=@RNUM + 1 AS ROWNUM 
+			FROM CTI510010 A, (SELECT @RNUM := 0) R
+			WHERE
+			TRUNK = (SELECT CTITELNO FROM MA900010 WHERE SITEID = #{siteid}) 
+			AND (CALLUSER IS NULL
+					OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
+			AND CALLSTATUS IN (0,3)
+			<if test="callBack != null">
+				AND CALLBACK LIKE CONCAT('%',#{callBack},'%')
+			</if>
+		) X
+		<if test="endRowNum != null">
+				WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+		</if>
+		
+		ORDER BY X.CALLBACKNO ASC
+		
+		<if test="totalCnt != null">
+			limit ${totalCnt}
+		</if>
+		
+	</select>
+	
+	<update id="callBackUpdate" parameterType="hashMap">
+		UPDATE CTI510010
+		SET CALLUSER = #{userNo}
+		, CALLSTATUS = 1
+		WHERE CALLBACKNO = #{callBackNo}
+	</update>
+	
+	<select id="ctiUserCnt" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS CNT FROM ME800010
+		WHERE SITEID = #{siteid}
+		<!--  AND ROLE = #{role} -->
+		<if test="userNo != null">
+			AND USERNO =  #{userNo}
+		</if>
+	</select>
+	
+	<select id="callBackTotalRow" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM CTI510010
+		WHERE
+			TRUNK = (SELECT CTITELNO FROM MA900010 WHERE SITEID = #{siteid}) 
+			AND (CALLUSER IS NULL
+					OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
+			AND CALLSTATUS IN (0,3)
+			<if test="callBack != null">
+				AND CALLBACK LIKE CONCAT('%',#{callBack},'%')
+			</if>
+	</select>
+	
+	<update id="callBackPassDiv" parameterType="hashMap">
+		UPDATE CTI510010
+		SET CALLUSER = #{userNo}
+			,CALLSTATUS = 1
+		WHERE CALLBACKNO IN
+		<foreach collection="callBackNo" item="type" index="index" open="(" separator="," close=")">
+      		#{type}
+       </foreach> 
+	</update>
+	
+	<!-- 콜백 히스토리 카운터 (고객) -->
+	<select id="vocCallBackHistListCnt" parameterType="hashMap" resultType="int">
+	SELECT COUNT(*)
+	FROM CTI510020
+	WHERE 
+		CUSTNO = #{custno}
+		AND SITEID = #{siteid}
+	ORDER BY REGDATE DESC
+	</select>
+	
+	<!-- 콜백 히스토리 리스트 (고객) -->
+	<select id="vocCallBackHistList" parameterType="hashMap" resultType="hashMap">
+	SELECT *
+	FROM (
+		SELECT
+		@RNUM:=@RNUM + 1 AS ROWNUM
+		,A.CALLBACKHISTNO, A.CALLBACKNO, B.CALLER, B.CALLBACK, A.REQNO
+		,B.GCODE1, B.GCODE2, B.GCODE3
+		,DATE_FORMAT(B.RECEIVEDATE,'%Y-%m-%d %H:%i:%s') AS RECEIVEDATE_
+		,DATE_FORMAT(A.REGDATE,'%Y-%m-%d %H:%i:%s') AS REGDATE_  
+		,A.CALLSTATUS
+		,(CASE 
+			WHEN A.CALLSTATUS = 0 THEN '접수'
+			WHEN A.CALLSTATUS = 1 THEN '할당'
+			WHEN A.CALLSTATUS = 2 THEN '완료'
+			WHEN A.CALLSTATUS = 3 THEN '통화불가' 
+			WHEN A.CALLSTATUS = 4 THEN '미해결'
+			ELSE ''
+			END) AS CALLSTATUS_		
+		,C.USERNAME		
+		,IFNULL(A.MEMO,'') AS MEMO
+		,CASE WHEN CHAR_LENGTH(A.MEMO) <![CDATA[>=]]> 15 THEN CONCAT( SUBSTRING(A.MEMO,1,12) ,'...' )  
+			ELSE IFNULL(A.MEMO,'')
+			END AS MEMO_
+		,D.RECDATE, D.RECEXT, D.RECFILENAME
+		,REPLACE(D.RECDATE,'-','') AS RECDATE_
+		
+		FROM CTI510020 A
+		LEFT OUTER JOIN CTI510010 B ON A.CALLBACKNO = B.CALLBACKNO
+		LEFT OUTER JOIN ME800010 C ON A.REGUSER = C.USERNO
+		LEFT OUTER JOIN CTI510030 D ON A.REQNO = D.REQNO
+		,(SELECT @RNUM := 0) R
+	
+		WHERE  
+			A.CUSTNO = #{custno}
+			AND A.SITEID = #{siteid}
+		ORDER BY A.REGDATE DESC
+		) X
+	<if test="endRowNum != null">
+	WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+	</if> 
+	</select>
+	
+	<update id="vocCallBackUpdate" parameterType="hashMap">
+	UPDATE CTI510010
+	SET
+	CALLSTATUS = #{callstatus}
+	,CALLCOUNT = IFNULL(CALLCOUNT,0) +1
+	,CALLUSER = #{userno}
+	,CALLDATE = now()
+	
+	WHERE 
+		CALLBACKNO = #{callbackno}
+		AND TRUNK = #{trunk}
+	</update>
+	
+	<!-- 고객 블랙등록 내역 카운터 -->
+	<select id="vocBlackHistListCnt" parameterType="hashMap" resultType="int">
+	SELECT COUNT(*)
+	FROM CU120010
+	WHERE 
+		CUSTNO = #{custno}
+		AND SITEID = #{siteid}
+	</select>
+	
+	<!-- 고객 블랙등록 내역  -->
+	<select id="vocBlackHistList" parameterType="hashMap" resultType="hashMap">	
+	SELECT *
+	FROM (
+		SELECT
+		@RNUM:=@RNUM + 1 AS ROWNUM
+		,A.BCUSTNO,A.CUSTNO,A.BLACKTYPE
+		,CASE WHEN A.BLACKTYPE = 1 THEN '욕설'
+			WHEN A.BLACKTYPE = 2 THEN '성희롱'
+			WHEN A.BLACKTYPE = 3 THEN '기타'
+			ELSE '' 
+			END AS BLACKTYPE_
+		,A.RECEIVENO
+		,IFNULL(A.MEMO,'') AS MEMO
+		,DATE_FORMAT(A.REGDATE,'%Y-%m-%d %H:%m:%i') AS REGDATE_
+		,CASE WHEN IFNULL(A.ISDELETE = 1,0) THEN CONCAT(DATE_FORMAT(A.EDTDATE,'%Y-%m-%d'),' / ','해제') 
+			ELSE '블랙'
+			END AS ISDELETE_
+		,B.USERNAME
+		,CASE WHEN CHAR_LENGTH(A.MEMO) <![CDATA[>=]]> 20 THEN CONCAT( SUBSTRING(A.MEMO,1,17) ,'...' )  
+			ELSE IFNULL(A.MEMO,'')
+			END AS MEMO_
+		FROM CU120010 A  
+		LEFT OUTER JOIN ME800010 B ON A.REGUSER = B.USERNO   
+		,(SELECT @RNUM := 0) R
+	
+		WHERE 
+			A.CUSTNO = #{custno}
+			AND A.SITEID = #{siteid}
+		ORDER BY A.REGDATE DESC 
+		) X
+	<if test="endRowNum != null">
+	WHERE X.ROWNUM Between #{startRowNum} and #{endRowNum}
+	</if> 
+	</select>
+	
+	<!-- voc 웹소켓. 사용자에게 할당된 콜백, 사용자가 처리한 콜백 수 리턴 -->
+	<select id="vocAlarm" parameterType="hashMap" resultType="hashMap">
+	SELECT
+	(SELECT COUNT(*) FROM CTI510010  WHERE IFNULL(CALLCOUNT,0) <![CDATA[<]]> 4 AND TRUNK = #{trunk} AND CALLUSER = #{userno} AND CALLSTATUS = 1 ) AS CALLBACKCNT 
+	,(SELECT COUNT(*) FROM CTI510020 WHERE CALLSTATUS = 2 AND REGUSER = #{userno} AND TRUNK = #{trunk} AND SUBSTR(REGDATE,1,10) = SUBSTR(NOW(),1,10) ) AS SUCCESSCALLBACK
+	<if test="chkauth = 20">
+	,(SELECT COUNT(*) FROM CTI510010  WHERE IFNULL(CALLCOUNT,0) <![CDATA[<]]> 4 AND TRUNK = #{trunk} AND CALLSTATUS IN (0,3) ) AS ADMINCALLBACKCNT  
+	</if>
+	FROM DUAL	 		
+	</select>
+	
+	<insert id="recInsert" parameterType="hashMap">
+	INSERT INTO CTI510030
+	(
+	REQNO
+	,RECDATE
+	,RECEXT
+	,RECFILENAME
+	)VALUES(
+	#{reqno}
+	,#{recdate}
+	,#{recext}
+	,#{recfilename}
+	)
+	</insert>
+	
+	<insert id="vocCallBackHistoryInsert" parameterType="hashMap">
+	INSERT INTO CTI510020
+	(
+	SITEID
+	,REGDATE
+	,REGUSER
+	,CALLBACKNO
+	,MEMO
+	,CUSTNO
+	,CALLSTATUS
+	,TRUNK
+	,REQNO
+	)
+	VALUES
+	(
+	#{siteid}
+	,now()
+	,#{userno}
+	,#{callbackno}
+	,#{memo}
+	,#{custno}
+	,#{callstatus}
+	,#{trunk}
+	,#{reqno}
+	)
+	</insert>
+</mapper>

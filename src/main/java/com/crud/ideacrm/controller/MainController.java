@@ -18,7 +18,7 @@ public class MainController {
 
 	//메인 화면
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ModelAndView main(HttpServletRequest request){
+	public ModelAndView authmain(HttpServletRequest request){
 		ModelAndView mView = new ModelAndView();
 		mView.setViewName("page/index");
 		return mView;

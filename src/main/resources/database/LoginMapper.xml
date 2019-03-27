@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+    <select id="idCheck" parameterType="String" resultType="hashMap">
+		SELECT A.USERID, A.USERPASSWORD, A.USERNAME, A.USERNO, A.SITEID, B.SITENAME,  A.EMAIL, B.CALLNAME, A.USERLANG, A.CHKAUTH, B.SITELOGO, C.IMGPATH, B.SITENAME
+	    FROM crud_saas.me800010 AS A
+		LEFT JOIN crud_saas.ma900010 AS B ON A.SITEID = B.SITEID
+		LEFT JOIN crud_saas.sys990030 AS C ON C.FILESEARCHKEY = B.sitelogo
+		WHERE USERID = #{userid}
+    </select>
+
+</mapper>

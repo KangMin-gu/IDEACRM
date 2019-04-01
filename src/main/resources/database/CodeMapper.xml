@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="code">
+
+	<!--테이블 정보 변경 되면 적용  where절에 카테고리, 공통여부 값-->
+	<select id="getCodeGrpList" parameterType="com.crud.ideacrm.dto.CodeDto" resultType="String">
+		SELECT DISTINCT CODEGRP
+		FROM SYS990020
+	    WHERE CODEMENU = #{codemenu}
+	    AND COMMONYN = #{custom}
+	</select>
+
+	<select id="getCodeList" parameterType="com.crud.ideacrm.dto.CodeDto" resultType="com.crud.ideacrm.dto.CodeDto">
+		SELECT CODEGRP, CODENAME, CODEVAL
+		FROM sys990020
+		WHERE
+			CODEGRP = #{codegrp}
+		<if test="siteid != 0">
+			AND SITEID = #{siteid}
+		</if>
+	</select>
+
+</mapper>

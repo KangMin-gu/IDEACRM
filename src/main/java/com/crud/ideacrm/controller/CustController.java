@@ -1,5 +1,8 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.service.CodeService;
+import com.crud.ideacrm.service.CustService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,17 +11,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.crypto.Data;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class CustController {
 
+    @Autowired
+    CodeService codeService;
+    @Autowired
+    CustService custService;
+
     @RequestMapping(value = "/cust", method = RequestMethod.GET)
     public ModelAndView custList(HttpServletRequest request){
+        //Map<String,Object> searchPrm = new HashMap<String,Object>();
+        //searchPrm.put("siteid",1);
+        int siteid = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
         ModelAndView mView = new ModelAndView();
+        mView.addAllObjects(codeService.getCommonCode("CUST",siteid));//구분값 string으로 할지 int로 할지 선택 필요.
+        mView.addAllObjects(codeService.getCustomCode("CUST",siteid));//구분값 string으로 할지 int로 할지 선택 필요.
+        //mView.addObject(custService.custList(searchPrm));
         mView.setViewName("page/cust/custList");
         return mView;
     }
@@ -41,29 +53,38 @@ public class CustController {
     @ResponseBody
     public List<Map<String, Object>> test(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
-        Map<String, Object> te = new HashMap<>();
         List<Map<String, Object>> test = new ArrayList<>();
+        Map<String, Object> te = new HashMap<>();
+        te.put("name","CUSTNO");
+        te.put("title","고객번호");
 
-        te.put("name","id");
-        te.put("title","ID");
+        Map<String, Object> te2 = new HashMap<>();
+        te2.put("name","CUSTNAME");
+        te2.put("title","고객명");
 
         test.add(te);
-
+        test.add(te2);
         return test;
     }
 
-    @RequestMapping(value = "/b", method = RequestMethod.GET)
+    @RequestMapping(value = "/cust", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> testb(HttpServletRequest request){
-        ModelAndView mav = new ModelAndView();
-        Map<String, Object> te = new HashMap<>();
-        List<Map<String, Object>> testb = new ArrayList<>();
 
-        te.put("name","id");
-        te.put("title","ID");
+        Map<String, Object> searchPrm = new HashMap<>();
+        Enumeration params = request.getParameterNames();
+        while (params.hasMoreElements()) {
+            String name = (String)params.nextElement();
+            String value = request.getParameter(name);
+            if(value == "") {
+                value = null;
+            }
+            searchPrm.put(name, value);
+        }
 
-        testb.add(te);
+        searchPrm.put("siteid",1);
+        List<Map<String, Object>> custList = custService.custList(searchPrm);
 
-        return testb;
+        return custList;
     }
 }

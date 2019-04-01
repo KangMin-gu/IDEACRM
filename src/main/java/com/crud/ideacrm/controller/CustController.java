@@ -49,7 +49,7 @@ public class CustController {
         return mView;
     }
 
-    @RequestMapping(value = "/w3werwerwer", method = RequestMethod.GET)
+    @RequestMapping(value = "/ㅁㄴㅇㄻㄴㅇㄻㄴ", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> test(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();

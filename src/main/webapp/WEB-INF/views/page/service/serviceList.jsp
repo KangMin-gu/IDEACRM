@@ -150,7 +150,7 @@
                         <div class="ibox-title">
                             <h5>서비스 목록</h5>
                             <div class="ibox-tools">
-                                <a href="/servicedetail">디테일화면</a>
+                                <a href="/servicedetail">디테일화면1</a>
                                 <a href="/serviceinsert">입력화면</a>
                                 <a href="/servicedetail">담당자팝업테스트</a>
                             </div>

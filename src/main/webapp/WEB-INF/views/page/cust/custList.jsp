@@ -159,7 +159,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox ">
-
                         <div class="ibox-title">
                             <h5>회원사 고객 목록</h5>
                             <div class="ibox-tools">
@@ -168,11 +167,11 @@
                                 <a href="/custdetail">담당자팝업테스트</a>
                             </div>
                         </div>
-
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                             <table class="footable table table-stripped"  data-paging="true">
-
+                                <thead>
+                                </thead>
                             </table>
                         </div>
                     </div>
@@ -191,22 +190,24 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
+<!--<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>-->
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>-
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <script>
     $(document).ready(function() {
         $('#daterange').daterangepicker();
+
     });
 
-    jQuery(function ($) {
+    jQuery(function($) {
         $('.footable').footable({
-            "columns": $.get('/a'),
+            "columns": $.get('https://fooplugins.github.io/FooTable/docs/content/columns.json'),
             "rows": $.get('https://fooplugins.github.io/FooTable/docs/content/rows.json')
         });
-    })
+    });
+
 </script>
 </body>
 </html>

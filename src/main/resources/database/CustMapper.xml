@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cust">
+
+	<select id="custList" parameterType="map" resultType="hashMap">
+		SELECT
+		CU.CUSTNO, CU.CUSTNAME, CU.DEPTNAME, CU.DUTY
+        , CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(CU.MOBILE1,''),IFNULL(CU.MOBILE2,''),IFNULL(CU.MOBILE3,'')) ) > 8
+            THEN CONCAT( IFNULL(CU.MOBILE1,''),'-',IFNULL(CU.MOBILE2,''),'-',IFNULL(CU.MOBILE3,'') )
+            ELSE CONCAT( IFNULL(CU.MOBILE1,''),IFNULL(CU.MOBILE2,''),IFNULL(CU.MOBILE3,'') )  END AS MOBILE
+		, CU.EMAIL, CU.SEX
+		, CU.OWNER, B.USERNAME AS OWNER_
+		, IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGUBUN AND CODEGRP = 'CUSTGUBUN'and SITEID = #{siteid} ),'' ) as CUSTGUBUN
+        , IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGRADE AND CODEGRP = 'CUSTGRADE'and SITEID = #{siteid} ),'' ) as CUSTGRADE
+        , IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.INFOAGREE AND CODEGRP = 'INFOAGREE'and SITEID = #{siteid} ),'' ) as INFOAGREE
+		, DATE_FORMAT(CU.REGDATE,'%Y-%m-%d') AS REGDATE
+		, CU.CLINO, C.CLINAME
+		FROM cu100010 CU
+		LEFT OUTER JOIN me800010 AS B ON CU.OWNER = B.USERNO
+		LEFT OUTER JOIN sa200010 AS C ON CU.CLINO = C.CLINO
+		INNER JOIN (SELECT @RNUM := 0) R
+		WHERE CU.SITEID = #{siteid}
+		AND CU.ISDELETE = 0
+		<if test="custname != null">
+			AND CU.CUSTNAME like CONCAT('%',#{custname},'%')
+		</if>
+		<if test="mobile != null">
+			AND CONCAT( IFNULL(CU.MOBILE1,''), IFNULL(CU.MOBILE2,''), IFNULL(CU.MOBILE3,'') ) like CONCAT('%',#{mobile},'%')
+		</if>
+		<if test="email != null">
+			AND CU.EMAIL like CONCAT('%',#{email},'%')
+		</if>
+		<if test="custgubun != null and custgubun != 0">
+			AND CUSTGUBUN = #{custgubun}
+		</if>
+		<if test="custgrade != null and custgrade != 0 ">
+			AND CUSTGRADE = #{custgrade}
+		</if>
+        <if test="actgrade != null and actgrade != 0 ">
+            AND ACTGRADE = #{actgrade}
+        </if>
+		<if test="fromregdt != null">
+			AND CU.REGDATE <![CDATA[>=]]> #{fromregdt}
+		</if>
+		<if test="toregdt != null">
+			AND CU.REGDATE <![CDATA[<=]]> #{toregdt}
+		</if>
+		<if test="infoagree == 0 or infoagree == 1">
+			AND CU.INFOAGREE = #{infoagree}
+		</if>
+
+		<if test="owner != null and owner != 0 ">
+			AND CU.OWNER = #{owner}
+		</if>
+		<if test="clino != null and clino != 0 ">
+			AND CU.CLINO = #{clino}
+		</if>
+
+	</select>
+
+</mapper>

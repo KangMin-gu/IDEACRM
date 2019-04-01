@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="database/LoginMapper.xml" />
 		<mapper resource="database/CodeMapper.xml" />
 		<mapper resource="database/CustMapper.xml" />
+		<mapper resource="database/ServiceMapper.xml" />
 	</mappers>
 	
 </configuration>

@@ -156,7 +156,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox ">
-
                         <div class="ibox-title">
                             <h5>회원사 고객 목록</h5>
                             <div class="ibox-tools">
@@ -165,9 +164,9 @@
                                 <a href="/custdetail">담당자팝업테스트</a>
                             </div>
                         </div>
-
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+
                             <table class="footable table table-stripped "  data-paging="true" data-filter=#filter data-sorting="true">
                                 <thead>
                                 <tr>
@@ -201,7 +200,6 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<!--<script src="${pageContext.request.contextPath}/resources/js/footable.all.min.js"></script>-->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
@@ -251,6 +249,9 @@
         }
         return "";
     }
+        $('#daterange').daterangepicker();
+
+    });
 </script>
 </body>
 </html>

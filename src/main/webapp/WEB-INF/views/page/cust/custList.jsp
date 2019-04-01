@@ -13,7 +13,8 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <!--<link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">-->
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
@@ -52,7 +53,7 @@
                     <div class="ibox">
 
                         <div class="ibox-content">
-                            <form:form>
+                            <form:form id="custListForm" action="/cust">
                                 <div class="table-responsive">
                                     <table style="white-space:nowrap;">
                                         <colgroup>
@@ -79,72 +80,68 @@
                                                 </div>
                                             </td>
                                             <th>회원구분</th>
-                                            <td>
+                                            <td><!--Todo.코드로 받아오기-->
                                                 <select class="form-control" style="width:100px;">
-                                                    <option value="Bahamas">010</option>
-                                                    <option value="Bahrain">011</option>
-                                                    <option value="Bangladesh">017</option>
-                                                    <option value="Barbados">018</option>
-                                                    <option value="Belarus">019</option>
+                                                    <option value="0">선택</option>
+                                                    <c:forEach var="CUSTGUBUN" items="${CUSTGUBUN}"  >
+                                                    <option value="${CUSTGUBUN.codeval}">${CUSTGUBUN.codename}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
                                             <th>고객등급</th>
-                                            <td>
+                                            <td><!--Todo.코드로 받아오기-->
                                                 <select class="form-control" style="width:100px;">
-                                                    <option value="Bahamas">010</option>
-                                                    <option value="Bahrain">011</option>
-                                                    <option value="Bangladesh">017</option>
-                                                    <option value="Barbados">018</option>
-                                                    <option value="Belarus">019</option>
+                                                    <option value="0">선택</option>
+                                                    <c:forEach var="CUSTGRADE" items="${CUSTGRADE}"  >
+                                                        <option value="${CUSTGRADE.codeval}">${CUSTGRADE.codename}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
                                             <th>활동등급</th>
-                                            <td>
+                                            <td><!--Todo.코드로 받아오기-->
                                                 <select class="form-control" style="width:100px;">
-                                                    <option value="Bahamas">010</option>
-                                                    <option value="Bahrain">011</option>
-                                                    <option value="Bangladesh">017</option>
-                                                    <option value="Barbados">018</option>
-                                                    <option value="Belarus">019</option>
+                                                    <option value="0">선택</option>
+                                                    <c:forEach var="ACTGRADE" items="${ACTGRADE}"  >
+                                                        <option value="${ACTGRADE.codeval}">${ACTGRADE.codename}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
                                             <th>정보활용</th>
                                             <td>
                                                 <select class="form-control" style="width:100px;">
-                                                    <option value="Bahamas">010</option>
-                                                    <option value="Bahrain">011</option>
-                                                    <option value="Bangladesh">017</option>
-                                                    <option value="Barbados">018</option>
-                                                    <option value="Belarus">019</option>
+                                                    <option value="0">전체</option>
+                                                    <c:forEach var="INFOAGREE" items="${INFOAGREE}"  >
+                                                    <option value="${INFOAGREE.codeval}" ${INFOAGREE.codeval eq "1" ? "selected" :""}>${INFOAGREE.codename}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-w-m btn-primary">검색</button>
+                                                <button type="button" class="btn btn-w-m btn-primary" id="custSearch">검색</button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>고객명</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="custname" name="custname">
                                             </td>
                                             <th>휴대전화</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="mobile" name="mobile">
                                             </td>
                                             <th>이메일</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="email" name="email">
                                             </td>
                                             <th>직장명</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="cliname" name="cliname">
                                             </td>
                                             <th>담당자</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="owner" name="owner">
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-w-m btn-default">초기화</button>
+                                                <button type="button" class="btn btn-w-m btn-default" id="reset">초기화</button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -171,8 +168,21 @@
 
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                            <table class="footable table table-stripped"  data-paging="true">
-
+                            <table class="footable table table-stripped "  data-paging="true" data-filter=#filter data-sorting="true">
+                                <thead>
+                                <tr>
+                                    <th data-name="CUSTNO" data-breakpoints="xs sm" >고객번호</th>
+                                    <th data-name="CUSTNAME" data-formatter="custListFormatter">고객명</th>
+                                    <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
+                                    <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
+                                    <th data-name="MOBILE_" data-breakpoints="xs sm">휴대폰</th>
+                                    <th data-name="EMAIL" data-breakpoints="xs sm">이메일</th>
+                                    <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
+                                    <th data-name="CUSTGUBUN" data-breakpoints="xs sm">회원구분</th>
+                                    <th data-name="CUSTGRADE" data-breakpoints="xs sm">고객등급</th>
+                                    <th data-name="REGDATE" data-breakpoints="xs sm">등록일</th>
+                                </tr>
+                                </thead>
                             </table>
                         </div>
                     </div>
@@ -191,22 +201,56 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
+<!--<script src="${pageContext.request.contextPath}/resources/js/footable.all.min.js"></script>-->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <script>
     $(document).ready(function() {
-        $('#daterange').daterangepicker();
+        $('#daterange').daterangepicker({
+            format: 'YYYY-MM-DD',
+            separator:' ~ '
+        });
     });
-
+</script>
+<script>
     jQuery(function ($) {
         $('.footable').footable({
-            "columns": $.get('/a'),
-            "rows": $.get('https://fooplugins.github.io/FooTable/docs/content/rows.json')
+            "rows": $.post('/cust')
         });
-    })
+    });
+    $('#custSearch').click(function(e){
+        debugger;
+        searchTable('custListForm');
+    });
+
+
+
+    function searchTable(formId){
+        debugger;
+        var urlStr = $('#'+formId).attr('action');
+        //Todo. serialize 함수 변경. dateRange 파싱
+        var params = $('#'+formId).serialize();
+        $.ajax({
+            url: urlStr,
+            method: "POST",
+            data: params,
+            dataType: "json",
+            cache: false,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (data) {
+                $('.footable').footable({ "rows": data });
+            }
+        });
+    }
+
+    function custListFormatter(value){
+        if(value){
+            return '<a href="/custdetail/">'+value+'</a>';
+        }
+        return "";
+    }
 </script>
 </body>
 </html>

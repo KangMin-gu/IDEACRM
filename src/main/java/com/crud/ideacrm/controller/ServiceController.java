@@ -1,12 +1,12 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.dto.RactDto;
+import com.crud.ideacrm.dto.RewardDto;
+import com.crud.ideacrm.dto.ServiceDto;
 import com.crud.ideacrm.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,45 +20,48 @@ public class ServiceController {
 
     @Autowired
     private ServiceService serviceService;
-
+    //화면 호출
     @RequestMapping(value = "/service", method = RequestMethod.GET)
     public ModelAndView service(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/service/serviceList");
         return mView;
     }
-
-    @RequestMapping(value="/service/list",method = RequestMethod.GET)
-    @ResponseBody
-    public List<Map<String,Object>> serviceList(HttpServletRequest request){
-        List<Map<String,Object>> serviceList = serviceService.serviceList(request);
-        return serviceList;
-    }
+    //footable에 바인딩할 LIst
     @RequestMapping(value="/service/list",method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> serviceSearchList(HttpServletRequest request){
         List<Map<String,Object>> serviceList = serviceService.serviceList(request);
         return serviceList;
     }
-/*
+    // 서비스 상세 화면
     @RequestMapping(value="/service/{serviceNo}", method = RequestMethod.GET)
     public ModelAndView serviceDetail(HttpServletRequest request, @PathVariable int serviceNo){
-
         ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
-        return mView;
-    }
-*/
-    @RequestMapping(value = "/servicedetail", method = RequestMethod.GET)
-    public ModelAndView serviceDetail2(HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
         mView.setViewName("page/service/serviceDetail");
         return mView;
     }
+    // 서비스 삭제(단일)
+    @RequestMapping(value="/service/delete/{serviceNo}",method=RequestMethod.POST)
+    public ModelAndView serviceDelete(HttpServletRequest request,@PathVariable int serviceNo){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("redirect:/service");
+        return mView;
+    }
+
 
     @RequestMapping(value = "/serviceinsert", method = RequestMethod.GET)
     public ModelAndView serviceInsert(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/service/serviceInsert");
+        return mView;
+    }
+
+    @RequestMapping(value="/sevriceinsert",method=RequestMethod.POST)
+    public ModelAndView serviceInsertSet(HttpServletRequest request, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto){
+        ModelAndView mView = new ModelAndView();
+        int serviceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
+        mView.setViewName("redirect:/service/"+serviceNo);
         return mView;
     }
 

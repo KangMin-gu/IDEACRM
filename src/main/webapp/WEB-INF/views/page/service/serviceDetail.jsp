@@ -53,12 +53,14 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <form:form action="/service/delete/${serviceInfo.SERVICENO}" method="POST">
+                        <a href="/service" class="btn btn-default pull-left">목록</a>
+                        <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                        <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
+                        <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
+                        <button type="button" class="btn btn-default pull-right">삭제</button>
+                        <a href="/service/update/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                    </form:form>
                 </div>
             </div>
 
@@ -91,17 +93,17 @@
                                     <tobdy>
                                         <tr>
                                             <th>고객명</th>
-                                            <td></td>
+                                            <td>${serviceInfo.CUSTNAME}</td>
                                             <th>자택전화</th>
-                                            <td></td>
+                                            <td>${serviceInfo.HOMTEL}</td>
                                             <th>휴대전화</th>
-                                            <td></td>
+                                            <td>${serviceInfo.MOBILE}</td>
                                             <th>이메일</th>
-                                            <td></td>
+                                            <td>${serviceInfo.EMAIL}</td>
                                         </tr>
                                         <tr>
                                             <th>고객 주소</th>
-                                            <td colspan="7"></td>
+                                            <td colspan="7">${serviceInfo.CUSTADDRESS}</td>
                                         </tr>
                                     </tobdy>
                                 </table>
@@ -110,13 +112,63 @@
                     </div>
                 </div>
             </div>
-
-
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>접수 정보</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <tobdy>
+                                        <tr>
+                                            <th>접수일</th>
+                                            <td>${serviceInfo.RECEPTIONDATE_}</td>
+                                            <th>접수자</th>
+                                            <td>${serviceInfo.SERVICEOWNER_}</td>
+                                            <th>구분</th>
+                                            <td>${serviceInfo.SERVICETYPE_}</td>
+                                            <th>유형</th>
+                                            <td>${serviceInfo.SERVICECODE_} </td>
+                                        </tr>
+                                        <tr>
+                                            <th>처리담당자</th>
+                                            <td>${serviceInfo.OWNER_}</td>
+                                            <th>채널</th>
+                                            <td>${serviceInfo.SERVICECHANNEL_}</td>
+                                            <th>진행단계</th>
+                                            <td>${serviceInfo.SERVICESTEP_}</td>
+                                            <th>제품명</th>
+                                            <td>${serviceInfo.EMAIL}</td>
+                                        </tr>
+                                    </tobdy>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">접수정보</a></li>
+                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">상세정보</a></li>
                             <li><a class="nav-link" data-toggle="tab" href="#tab-2">현상파악</a></li>
                             <li><a class="nav-link" data-toggle="tab" href="#tab-3">처리정보</a></li>
                         </ul>
@@ -138,33 +190,13 @@
                                                 </colgroup>
                                                 <tobdy>
                                                     <tr>
-                                                        <th>접수일</th>
-                                                        <td></td>
-                                                        <th>접수자</th>
-                                                        <td></td>
-                                                        <th>제품명</th>
-                                                        <td></td>
-                                                        <th>처리담당자</th>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>접수구분</th>
-                                                        <td></td>
-                                                        <th>접수유형1</th>
-                                                        <td></td>
-                                                        <th>접수유형2</th>
-                                                        <td></td>
-                                                        <th>진행단계</th>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>서비스명</th>
-                                                        <td colspan="7"></td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>접수내용</th>
+                                                        <td colspan="7">${serviceInfo.SERVICENAME}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>상담내용</th>
                                                         <td colspan="7">
-
+                                                            ${sevriceinfo.SERVICEDESC}
                                                         </td>
                                                     </tr>
                                                 </tobdy>
@@ -193,26 +225,24 @@
                                                 </colgroup>
                                                 <tobdy>
                                                     <tr>
-                                                        <th>방문예약일</th>
-                                                        <td></td>
-                                                        <th>방문예약시간</th>
-                                                        <td></td>
+                                                        <th>방문예약일시</th>
+                                                        <td>${rewardInfo.VISITDATE_}${rewardInfo.VISITTIME}</td>
                                                         <th>담당자</th>
-                                                        <td></td>
+                                                        <td>${rewardInfo.OWNER_}</td>
                                                         <th>현상</th>
-                                                        <td></td>
+                                                        <td>${rewardInfo.REWARDTYPE_}</td>
                                                         <th>원인구분</th>
-                                                        <td></td>
+                                                        <td>${rewardInfo.CAUSECODE_}</td>
                                                         <th>방문주소</th>
-                                                        <td></td>
+                                                        <td colspan="3">${rewardInfo.VISITADDR_}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>상세내역</th>
-                                                        <td colspan="11"></td>
+                                                        <td colspan="11">${rewardInfo.REWARDDESC}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>지연사유</th>
-                                                        <td colspan="11"></td>
+                                                        <td colspan="11">${rewardInfo.DELAYDESC}</td>
                                                     </tr>
                                                 </tobdy>
                                             </table>
@@ -235,15 +265,15 @@
                                                 <tobdy>
                                                     <tr>
                                                         <th>처리일</th>
-                                                        <td></td>
+                                                        <td>${ractInfo.RACTDATE_}</td>
                                                         <th>처리담당자</th>
-                                                        <td></td>
+                                                        <td>${serviceInfo.OWNER_}</td>
                                                         <th>처리발송여부</th>
-                                                        <td></td>
+                                                        <td>${ractInfo.SENDYN_}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>처리내용</th>
-                                                        <td colspan="5"></td>
+                                                        <td colspan="5">${ractInfo.RACTDESC}</td>
                                                     </tr>
                                                 </tobdy>
                                             </table>

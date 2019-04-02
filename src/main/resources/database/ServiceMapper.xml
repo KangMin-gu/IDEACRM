@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="service">
-
-    <select id="list" parameterType="map" resultType="hashMap">
+<!-- 서비스 List -->
+    <select id="serviceList" parameterType="map" resultType="hashMap">
 		SELECT SERVICENO,SERVICENAME_,SERVICECHANNEL_,CUSTNAME_
 		,CLINAME_,RECEPTIONDATE_,SERVICEOWNER_,OWNER_,SERVICESTEP_,SERVICETYPE_
 		,IF(LENGTH(SERVICECODE_) <![CDATA[<]]> 4,REPLACE(SERVICECODE_,'/',''),SERVICECODE_) AS SERVICECODE_
@@ -12,15 +12,15 @@
 		A.SERVICENO
 		, A.SERVICENAME
 		,CASE WHEN CHAR_LENGTH(A.SERVICENAME) <![CDATA[>=]]> 20 THEN CONCAT( SUBSTRING(A.SERVICENAME,1,17) ,'...' )  ELSE IFNULL(A.SERVICENAME,'') END AS SERVICENAME_
-		, CONCAT(IF(A.SERVICECODE1=0,'',FN_GETCODE('SERVICECODE1',A.SERVICECODE1,1)),' / ',IF(A.SERVICECODE2=0,'',FN_GETCODEUPPER('SERVICECODE2',A.SERVICECODE2,1,FN_GETCODENO('SERVICECODE1',A.SERVICECODE1,1)))) AS SERVICECODE_
-		, FN_GETCODE('SERVICECHANNEL',A.SERVICECHANNEL,1) AS SERVICECHANNEL_
+		, CONCAT(IF(A.SERVICECODE1=0,'',FN_GETCODE('SERVICECODE1',A.SERVICECODE1,#{siteid})),' / ',IF(A.SERVICECODE2=0,'',FN_GETCODEUPPER('SERVICECODE2',A.SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',A.SERVICECODE1,#{siteid})))) AS SERVICECODE_
+		, FN_GETCODE('SERVICECHANNEL',A.SERVICECHANNEL,#{siteid}) AS SERVICECHANNEL_
 		, (SELECT CUSTNAME FROM cu100010 WHERE CUSTNO = A.CUSTNO) AS CUSTNAME_
 		, (SELECT CLINAME FROM sa200010 WHERE CLINO = A.CLINO) AS CLINAME_
 		, DATE_FORMAT(A.RECEPTIONDATE,'%Y-%m-%d') AS RECEPTIONDATE_
 		, (SELECT USERNAME FROM me800010 WHERE USERNO = A.SERVICEOWNER) AS SERVICEOWNER_
 		, IFNULL( (SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) ,'') AS OWNER_
-		, FN_GETCODE('SERVICESTEP',A.SERVICESTEP,1) AS SERVICESTEP_
-		, FN_GETCODE('SERVICETYPE',A.SERVICETYPE,1) AS SERVICETYPE_
+		, FN_GETCODE('SERVICESTEP',A.SERVICESTEP,#{siteid}) AS SERVICESTEP_
+		, FN_GETCODE('SERVICETYPE',A.SERVICETYPE,#{siteid}) AS SERVICETYPE_
 		,B.RECDATE, B.RECEXT, B.RECFILENAME, A.REQNO
 		,REPLACE(B.RECDATE,'-','') AS RECDATE_
 		,CONCAT('/service/',SERVICENO) AS URL
@@ -30,8 +30,184 @@
 		<if test="servicename != null">
 			AND A.SERVICENAME LIKE CONCAT('%',#{servicename},'%')
 		</if>
-
 		) X
     </select>
+	<!-- 서비스 Detail -->
+	<select id="serviceDetail" parameterType="map" resultType="hashMap">
+		SELECT
+			A.SERVICENO
+		 	, A.SERVICENAME
+		 	, A.SERVICEDESC
+		 	, FN_GETCODE('SERVICECODE1',A.SERVICECODE1,#{siteid}) AS SERVICECODE1_
+		 	, FN_GETCODEUPPER('SERVICECODE2',A.SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',A.SERVICECODE1,#{siteid})) AS SERVICECODE2_
+		 	, A.SERVICETYPE
+		 	, A.SERVICEOWNER
+		 	, A.SERVICESTEP
+		 	, A.FILESEARCHKEY
+		 	, A.OWNER
+		 	,(case when length(A.SERVICECODE2) > 0 then CONCAT(FN_GETCODE('SERVICECODE1',A.SERVICECODE1,#{siteid}), ' / ', FN_GETCODEUPPER('SERVICECODE2',A.SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',A.SERVICECODE1,#{siteid})))
+	         	   when length(A.SERVICECODE1) > 0 then FN_GETCODE('SERVICECODE1',A.SERVICECODE1,#{siteid})
+	    		else '' end) SERVICECODE_
+			, FN_GETCODE('SERVICETYPE',A.SERVICETYPE,#{siteid}) AS SERVICETYPE_
+			, DATE_FORMAT(RECEPTIONDATE,'%Y-%m-%d') AS RECEPTIONDATE_
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.SERVICEOWNER) AS SERVICEOWNER_
+			, (SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS OWNER_
+			, FN_GETCODE('SERVICESTEP',A.SERVICESTEP,#{siteid}) AS SERVICESTEP_
+			, B.CUSTNAME, B.EMAIL, B.DUTY
+			, CONCAT(B.HOMADDR1,' ', B.HOMADDR2, ' ', B.HOMADDR3) AS CUSTADDRESS
+			,B.HOMADDR1,B.HOMADDR2,B.HOMADDR3
+			, CONCAT(B.MOBILE1 , '-' , B.MOBILE2 , '-' , B.MOBILE3) AS MOBILE
+			, CONCAT(B.HOMTEL1 , '-' , B.HOMTEL2 , '-' , B.HOMTEL3) AS HOMTEL
+			, C.BSNO, C.CORP_SN AS INCNO
+			, CONCAT(C.MOBILE1 , '-' , C.MOBILE2 , '-' , C.MOBILE3) AS CLIMOBILE
+			, C.PRSDNAME, C.HOMEPAGE, C.CLINO, C.CLINAME
+		FROM sv300010 A
+		LEFT OUTER JOIN cu100010 B ON B.CUSTNO = A.CUSTNO
+		LEFT OUTER JOIN sa200010 C ON C.CLINO = A.CLINO
+		WHERE A.SITEID = #{siteid}
+		AND A.SERVICENO = #{serviceno}
+
+	</select>
+	<!-- 현상파악 Detail -->
+	<select id="rewardDetail" parameterType="map" resultType="hashMap">
+		SELECT
+		A.REWARDNO
+		,DATE_FORMAT(A.VISITDATE,'%Y-%m-%d') AS VISITDATE_
+		,A.VISITTIME
+		,CONCAT(A.VISITADDR1,' ',A.VISITADDR2,' ',A.VISITADDR3) AS VISITADDR_
+		,A.VISITADDR1, A.VISITADDR2, A.VISITADDR3
+		, FN_GETCODE('REWARDTYPE',A.REWARDTYPE,#{siteid}) AS REWARDTYPE_
+		, FN_GETCODE('CAUSECODE',A.CAUSECODE,#{siteid}) AS CAUSECODE_
+		, FN_GETCODE('DELAYTYPE',A.DELAYTYPE,#{siteid}) AS DELAYTYPE_
+		,A.REWARDDESC
+		,A.DELAYDESC
+		,A.FILESEARCHKEY
+		,A.OWNER
+		,(SELECT USERNAME FROM me800010 WHERE A.OWNER = USERNO) AS OWNER_
+		FROM sv300030 A
+		WHERE A.SITEID = #{siteid}
+		AND A.SERVICENO = #{serviceno}
+
+	</select>
+	<!-- 처리결과 Detail -->
+	<select id="ractDetail" parameterType="map" resultType="hashMap">
+		SELECT
+		DATE_FORMAT(A.RACTDATE,'%Y-%m-%d') AS RACTDATE_
+		, FN_GETCODE('SENDYN',A.SENDYN,#{siteid}) AS SENDYN_
+		, A.RACTDESC
+		, A.FILESEARCHKEY
+		FROM sv300040 A
+		WHERE A.RACTNO IN (SELECT MAX(RACTNO) AS RACTNO
+						FROM sv300040 GROUP BY SERVICENO )
+		AND A.SERVICENO = #{serviceno}
+		AND A.SITEID = #{siteid}
+
+	</select>
+	<!-- 서비스 Insert -->
+	<insert id="serviceInsert" parameterType="serviceDto">
+
+		INSERT INTO sv300010
+		(
+		SERVICENAME,SERVICEDESC,SERVICEOWNER,RECEPTIONDATE,CUSTNO
+		,CLINO,SERVICESTEP,OWNER,SITEID,FILESEARCHKEY
+		,REGDATE,REGUSER,EDTDATE,EDTUSER,SERVICETYPE
+		,SERVICECODE1,SERVICECODE2,SERVICECHANNEL,ISDELETE,MEMO
+		,COMPLETE,REQNO
+		)VALUES(
+		#{servicename},#{servicedesc},#{serviceowner},#{receptiondate},#{custno}
+		,#{clino},#{servicestep},#{owner},#{siteid},#{filesearchkey}
+		,NOW(),#{reguser},NOW(),#{edtuser},#{servicetype}
+		,#{servicecode1},#{servicecode2},#{servicechannel},#{isdelete},#{memo}
+		,#{complete},#{reqno}
+		)
+		<selectKey keyProperty="serviceno"  resultType="integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<!-- 현상파악 Insert -->
+	<insert id="rewardInsert" parameterType="rewardDto">
+		INSERT INTO sv300030
+		(
+		VISITDATE,VISITTIME,REWARDTYPE,CAUSECODE,DELAYTYPE
+		,DELAYDESC,REWARDDESC,FILESEARCHKEY,REGDATE,REGUSER
+		,EDTDATE,EDTUSER,SITEID,SERVICENO,VISITADDR1
+		,VISITADDR2,VISITADDR3,OWNER
+		)VALUES(
+		#{visitdate},#{visittime},#{rewardtype},#{causecode},#{delaytype}
+		,#{delaydesc},#{rewarddesc},#{filesearchkey},NOW(),#{reguser}
+		,NOW(),#{edtuser},#{siteid},#{serviceno},#{visitaddr1}
+		,#{visitaddr2},#{visitaddr3},#{owner}
+		)
+	</insert>
+	<!-- 처리결과 Insert -->
+	<insert id="ractInsert" parameterType="ractDto">
+		INSERT INTO sv300040
+		(
+		SERVICENO,RACTDATE,SENDYN,RACTDESC,FILESEARCHKEY
+		,SITEID,REGDATE,REGUSER,EDTDATE,EDTUSER,RACTCODE
+		)VALUES(
+		#{serviceno},#{ractdate},#{sendyn},#{ractdesc},#{filesearchkey}
+		,#{siteid},NOW(),#{reguser},NOW(),#{edtuser},#{ractcode}
+		)
+	</insert>
+	<!-- 서비스 Update -->
+	<update id="serviceUpdate" parameterType="serviceDto">
+		UPDATE sv300010
+			SET SERVICENAME = #{servicename}
+			,SERVICEDESC = #{servicedesc}
+			,SERVICEOWNER = #{serviceowner}
+			,RECEPTIONDATE = #{receptiondate}
+			,CUSTNO = #{custno}
+			,CLINO = #{clino}
+			,OWNER = #{owner}
+			,FILESEARCHKEY = #{filesearchkey}
+			,EDTDATE = NOW()
+			,EDTUSER = #{edtuser}
+			,SERVICETYPE = #{servicetype}
+			,SERVICECODE1 = #{servicecode1}
+			,SERVICECODE2 = #{servicecode2}
+			,SERVICECHANNEL = #{servicechannel}
+		WHERE SERVICENO = #{serviceno}
+		AND SITEID = #{siteid}
+	</update>
+	<!-- 현상파악 Update -->
+	<update id="rewardUpdate" parameterType="rewardDto">
+	Update sv300030
+		SET VISITDATE = #{visitdate}
+			,VISITTIME = #{visittime}
+			,REWARDTYPE = #{rewardtype}
+			,CAUSECODE = #{causecode}
+			,DELAYTYPE = #{delaytype}
+			,DELAYDESC = #{delaydesc}
+			,REWARDDESC = #{rewarddesc}
+			,FILESEARCHKEY = #{filesearchkey}
+			,EDTDATE = NOW()
+			,EDTUSER = #{edtuser}
+		WHERE SITEID = #{siteid}
+		AND SERVICENO = #{serviceno}
+		AND REWARDNO = #{rewardno}
+	</update>
+	<!-- 처리결과 Update -->
+	<update id="ractUpdate" parameterType="ractDto">
+		UPDATE sv300040
+			SET RACTDATE = #{ractdate}
+				,SENDYN = #{sendyn}
+				,RACTDESC = #{ractdes}
+				,FILESEARCHKEY = #{filesearchkey}
+				,EDTDATE = NOW()
+				,EDTUSER = #{edtuser}
+				,RACTCODE = #{ractcode}
+		WHERE SITEID = #{siteid}
+		AND SERVICENO = #{serviceno}
+		AND RACTNO = #{ractno}
+	</update>
+	<!-- 서비스 단계 변경 -->
+	<update id="serviceStepUpdate" parameterType="int">
+		UPDATE sv300010
+			SET SERVICESTEP = #{servicestep}
+		WHERE SERVICENO = #{serviceno}
+		AND SITEID = #{siteid}
+	</update>
+
 
 </mapper>

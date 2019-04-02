@@ -35,7 +35,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/cust">서비스 목록</a>
+                        <a href="${pageContext.request.contextPath}/service">서비스 목록</a>
                     </li>
                     <li class="breadcrumb-item active">
                         <strong>서비스 등록</strong>
@@ -48,11 +48,11 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-        <form:form>
+        <form:form action="/serviceinsert" method="post">
             <div class="row">
                 <div class="col-lg-12">
                     <button type="button" class="btn btn-default pull-left">저장</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <a href="/service" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -132,9 +132,9 @@
                                         <tr>
                                             <th>고객 주소</th>
                                             <td colspan="7">
-                                                <div style="display: inline-block"><input type="text" placeholder=".col-md-2" class="form-control form-control-sm"></div>
+                                                <div style="display: inline-block"><input type="text" placeholder=".col-md-1" class="form-control form-control-sm"></div>
                                                 <div style="display: inline-block"><input type="text" placeholder=".col-md-3" class="form-control form-control-sm"></div>
-                                                <div style="display: inline-block"><input type="text" placeholder=".col-md-4" class="form-control form-control-sm"></div>
+                                                <div style="display: inline-block"><input type="text" placeholder=".col-md-5" class="form-control form-control-sm"></div>
                                                 <div style="display: inline-block"><button class="btn btn-white btn-sm" type="submit">주소 검색</button></div>
                                             </td>
                                         </tr>

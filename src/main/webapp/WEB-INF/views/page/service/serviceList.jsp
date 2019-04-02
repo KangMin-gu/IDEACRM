@@ -73,12 +73,12 @@
                                             <td>
                                                 <div class="input-group" style="width:230px;">
                                                     <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                    <input class="form-control form-control-sm daterange searchparam" type="text" />
+                                                    <input class="form-control form-control-sm daterange searchparam" name="RECEIPTDATEN" type="text" />
                                                 </div>
                                             </td>
                                             <th>접수구분</th>
                                             <td>
-                                                <select class="form-control searchparam" style="width: 100px;">
+                                                <select class="form-control searchparam" name="servicetype" id="servicetype" style="width: 100px;">
                                                     <option value="Bahamas">010</option>
                                                     <option value="Bahrain">011</option>
                                                     <option value="Bangladesh">017</option>
@@ -89,7 +89,7 @@
                                             <th>접수유형</th>
                                             <td colspan="1">
                                                 <div style="display: inline-block">
-                                                    <select class="form-control searchparam" style="width: 100px;">
+                                                    <select class="form-control searchparam" name="servicecode1" id="servicecode1" style="width: 100px;">
                                                         <option value="Bahamas">010</option>
                                                         <option value="Bahrain">011</option>
                                                         <option value="Bangladesh">017</option>
@@ -98,7 +98,7 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control searchparam" style="width: 100px;">
+                                                    <select class="form-control searchparam" name="servicecode2" id="servicecode2" style="width: 100px;">
                                                         <option value="Bahamas">010</option>
                                                         <option value="Bahrain">011</option>
                                                         <option value="Bangladesh">017</option>
@@ -108,8 +108,12 @@
                                                 </div>
                                             </td>
                                             <th>접수자</th>
-                                            <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
+                                            <td class="input-group owner" id="serviceowner_">
+                                                <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text" style="width: 100px;">
+                                                <input type="hidden" class="reset" name="serviceowner" id="serviceowner" value="${search.serviceowner }">
+                                                <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
                                             </td>
                                             <td>
                                                 <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
@@ -126,7 +130,11 @@
                                             </td>
                                             <th>고객명</th>
                                             <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
+                                                <div class="input-group custno_" style="width:180px;">
+                                                    <span class="input-group-addon" style="height:31px;"><i class="fa fa-search fa-sm"></i></span>
+                                                    <input class="form-control form-control-sm daterange searchparam" name="custno_" type="text" />
+                                                    <input class="form-control form-control-sm daterange searchparam" name="custno" id="custno" type="text" />
+                                                </div>
                                             </td>
                                             <th>담당자</th>
                                             <td>

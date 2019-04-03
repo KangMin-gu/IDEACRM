@@ -165,6 +165,7 @@
                         </div>
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+                            <a href="/serviceinsert" class="btn btn-default pull-right">추가</a>
                             <table class="footable table table-stripped" data-sorting="true">
                                 <thead>
                                 <tr>
@@ -209,8 +210,8 @@
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
-<!-- common js -->
-<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<!-- api js -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script>
     $(document).ready(function() {
 

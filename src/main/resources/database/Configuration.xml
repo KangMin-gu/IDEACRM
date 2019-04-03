@@ -10,6 +10,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<typeAliases>
 	<!--	<typeAlias type="saas.crud.crm.ce.MailDto" alias="emailDto" /> -->
+		<typeAlias type="com.crud.ideacrm.dto.ServiceDto" alias="serviceDto" />
+		<typeAlias type="com.crud.ideacrm.dto.RewardDto" alias="rewardDto" />
+		<typeAlias type="com.crud.ideacrm.dto.RactDto" alias="ractDto" />
 	</typeAliases>
 
 	<mappers>

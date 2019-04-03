@@ -29,16 +29,19 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>고객 신규 등록</h2>
+                <h2>서비스 정보 수정</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/cust">고객 목록</a>
+                        <a href="${pageContext.request.contextPath}/service">서비스 목록</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>고객 등록</strong>
+                        <a href="${pageContext.request.contextPath}/service/${serviceInfo.SERVICENO}">서비스 정보</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>서비스 정보 수정</strong>
                     </li>
                 </ol>
             </div>
@@ -48,20 +51,13 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <a href="/service/${serviecInfo.SERVICENO}" class="btn btn-default pull-right">취소</a>
+                    <button type="button" class="btn btn-default pull-right">저장</button>
                 </div>
             </div>
-
             <br/>
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">

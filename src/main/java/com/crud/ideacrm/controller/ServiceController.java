@@ -39,13 +39,23 @@ public class ServiceController {
     public ModelAndView serviceDetail(HttpServletRequest request, @PathVariable int serviceNo){
         ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
         mView.setViewName("page/service/serviceDetail");
+
         return mView;
     }
-    // 서비스 삭제(단일)
-    @RequestMapping(value="/service/delete/{serviceNo}",method=RequestMethod.POST)
-    public ModelAndView serviceDelete(HttpServletRequest request,@PathVariable int serviceNo){
-        ModelAndView mView = new ModelAndView();
-        mView.setViewName("redirect:/service");
+    // 서비스 수정 화면
+    @RequestMapping(value="/service/update/{serviceNo}",method=RequestMethod.GET)
+    public ModelAndView serviceUpdate(HttpServletRequest request,@PathVariable int serviceNo){
+        ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
+        mView.setViewName("page/service/serviceUpdate");
+
+        return mView;
+    }
+    // 서비스 수정
+    @RequestMapping(value="/service/update/{serviceNo}",method=RequestMethod.POST)
+    public ModelAndView serviceUpdateSet(HttpServletRequest request,@PathVariable int serviceNo){
+        ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
+        mView.setViewName("page/service/serviceUpdate");
+
         return mView;
     }
 
@@ -57,7 +67,7 @@ public class ServiceController {
         return mView;
     }
 
-    @RequestMapping(value="/sevriceinsert",method=RequestMethod.POST)
+    @RequestMapping(value="/serviceinsert",method=RequestMethod.POST)
     public ModelAndView serviceInsertSet(HttpServletRequest request, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto){
         ModelAndView mView = new ModelAndView();
         int serviceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);

@@ -45,6 +45,7 @@ if($('.footable').length > 0) {
 
 // daterange 호출
 if($('.daterange').length > 0){
+
     $('.daterange').daterangepicker();
 }
 

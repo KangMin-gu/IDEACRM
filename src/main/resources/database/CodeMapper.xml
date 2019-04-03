@@ -6,8 +6,8 @@
 	<select id="getCodeGrpList" parameterType="com.crud.ideacrm.dto.CodeDto" resultType="String">
 		SELECT DISTINCT CODEGRP
 		FROM SYS990020
-	    WHERE CODEMENU = #{codemenu}
-	    AND COMMONYN = #{custom}
+	    WHERE USINGMENU in (0, #{usingmenu})
+	    AND COMMONFLAG = #{commonflag}
 	</select>
 
 	<select id="getCodeList" parameterType="com.crud.ideacrm.dto.CodeDto" resultType="com.crud.ideacrm.dto.CodeDto">
@@ -15,7 +15,7 @@
 		FROM sys990020
 		WHERE
 			CODEGRP = #{codegrp}
-		<if test="siteid != 0">
+		<if test="commonflag != 0">
 			AND SITEID = #{siteid}
 		</if>
 	</select>

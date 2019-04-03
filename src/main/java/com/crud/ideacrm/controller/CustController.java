@@ -29,9 +29,12 @@ public class CustController {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
 
         ModelAndView mView = new ModelAndView();
-        mView.addAllObjects( codeService.getCode(USINGMENU,siteId) );
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
         mView.setViewName("page/cust/custList");
 
+        //boolean t = codeService.getCommonCode(USINGMENU) == codeService.getCommonCode(USINGMENU);
+        //System.out.println(t+"@@@@@@@@@@@@@@@@@@@@@@@컨트롤러임");
         return mView;
     }
     //고객 리스트 - fooTable에 모델 객체 반환
@@ -72,7 +75,8 @@ public class CustController {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
 
         ModelAndView mView = new ModelAndView();
-        mView.addAllObjects(codeService.getCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
         mView.setViewName("page/cust/custInsert");
         return mView;
     }

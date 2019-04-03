@@ -16,34 +16,25 @@ import java.util.Map;
 public class CodeServiceImple implements CodeService {
     @Autowired
     private CodeDao codeDao;
+    private final int COMMON_COMMONCODEFLAG = 0;
+    private final int CUSTOM_COMMONCODEFLAG = 1;
 
     @Override//해당 모듈에서 사용하는 공통코드 리턴. 캐쉬
     @Cacheable("code")
     public Map<String, Object> getCommonCode(int usingMenu) {
-        CodeDto paramCodeDto = new CodeDto();
-        paramCodeDto.setUsingmenu(usingMenu);
-        paramCodeDto.setCommonflag(0);
-        return getCode(paramCodeDto);
-    }
-
-    @Override//해당 모듈에서 사용하는 회원사별 코드 리턴.
-    public Map<String, Object> getCustomCode(CodeDto paramCodeDto) {
-        paramCodeDto.setCommonflag(1);
-        return getCode(paramCodeDto);
+        CodeDto codeDto = new CodeDto();
+        codeDto.setUsingmenu(usingMenu);
+        codeDto.setCommonflag(COMMON_COMMONCODEFLAG);
+        return getCode(codeDto);
     }
 
     @Override
-    public Map<String,Object> getCode(int usingMenu, int siteId) {
+    public Map<String,Object> getCustomCode(int usingMenu, int siteId) {
         CodeDto codeDto = new CodeDto();
         codeDto.setUsingmenu(usingMenu);
         codeDto.setSiteid(siteId);
-
-        Map<String, Object> codeMap = new HashMap<String, Object>();
-        codeMap.putAll(getCommonCode(usingMenu));
-        codeMap.putAll(getCustomCode(codeDto));
-
-
-        return codeMap;
+        codeDto.setCommonflag(CUSTOM_COMMONCODEFLAG);
+        return getCode(codeDto);
     }
 
     @Override
@@ -66,6 +57,8 @@ public class CodeServiceImple implements CodeService {
         }
         return codeMap;
     }
+
+
 
 
 }

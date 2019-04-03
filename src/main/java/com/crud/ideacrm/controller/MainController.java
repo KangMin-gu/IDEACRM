@@ -20,6 +20,7 @@ public class MainController {
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView authmain(HttpServletRequest request){
 		ModelAndView mView = new ModelAndView();
+
 		mView.setViewName("page/index");
 		return mView;
 	}

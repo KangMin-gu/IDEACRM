@@ -78,17 +78,18 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa fa-phone"></i> <span class="nav-label">VOC</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-phone"></i> <span class="nav-label">콜센터</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/voc/dashboard">VOC</a></li>
+                    <li><a href="${pageContext.request.contextPath}/voc/dashboard">콜센터</a></li>
                     <li><a href="${pageContext.request.contextPath}/voc/satisfied">고객만족도 관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/voc/satisfied">콜센터공지</a></li>
                 </ul>
             </li>
 
             <li>
                 <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">리포트</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="form_basic.html">고객 </a></li>
+                    <li><a href="form_basic.html">고객</a></li>
                     <li><a href="form_basic.html">영업</a></li>
                     <li><a href="form_basic.html">서비스</a></li>
                     <li><a href="form_basic.html">CTR</a></li>
@@ -96,28 +97,32 @@
                 </ul>
             </li>
 
-
-
             <li>
-                <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">관리자</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/ad/user">회원 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/ad/code">코드 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/ad/content">서식 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/ad/company/${sessionScope.SITEID}">회원사 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/notice">공지사항 관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/info">회사정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/myinfo">내정보</a></li>
                 </ul>
             </li>
 
             <li>
-                <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">CRUD 관리자</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/ma/company">회원사 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/ma/code">공통코드</a></li>
-                    <li><a href="${pageContext.request.contextPath}/ma/license">라이센스 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/ma/menu">메뉴 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/ma/allnotice">전체 공지사항 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/ma/sitechk">접속 유저 확인</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/info">회사정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user">회원관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/code">코드관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/format">서식관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">CRUD</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="${pageContext.request.contextPath}/site">회원사관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/common/code">공통코드</a></li>
+                    <li><a href="${pageContext.request.contextPath}/common/notice">전체공지사항</a></li>
+                    <li><a href="${pageContext.request.contextPath}/contact">접속자</a></li>
                 </ul>
             </li>
         </ul>

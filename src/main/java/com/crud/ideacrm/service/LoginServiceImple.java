@@ -1,5 +1,7 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.crud.dto.ContactInfoDto;
+import com.crud.ideacrm.crud.util.ContactInfo;
 import com.crud.ideacrm.crud.util.LoginManager;
 import com.crud.ideacrm.dao.LoginDao;
 import com.crud.ideacrm.dto.UserDto;
@@ -70,6 +72,11 @@ public class LoginServiceImple implements LoginService{
                 request.getSession().setAttribute("CHKAUTH", urInfo.get("CHKAUTH")); //사용자 권한
                 request.getSession().setAttribute("SITELOGO", urInfo.get("IMGPATH")); //회사 로고
                 request.getSession().setAttribute("SIDESTATES","1");
+
+                ContactInfo ci = new ContactInfo();
+                ContactInfoDto ciDto = ci.agentInfo(request);
+                //고객접속정보 바인딩
+
                 if(url != null) {
                     buf.append("<script>location.href='");
                     buf.append(url);

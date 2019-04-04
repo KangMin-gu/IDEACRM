@@ -15,4 +15,8 @@ public interface CustDao {
     public int custDenyInsert(CustDenyDto custDenyDto);
 
     public int mergeCliCust(CustDto custDto);
+    public int custUpdate(CustDto custDto);
+    public int custDenyUpdate(CustDenyDto custDenyDto);
+    public int custDelete(CustDto custDto);
+    public int custDenyDelete(CustDto custDto);
 }

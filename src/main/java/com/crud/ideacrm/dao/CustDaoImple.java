@@ -39,4 +39,30 @@ public class CustDaoImple implements CustDao {
     public int mergeCliCust(CustDto custDto) {
         return session.insert("cust.mergeCliCust",custDto);
     }
+
+    //고객 수정
+    @Override
+    public int custUpdate(CustDto custDto) {
+        int res = session.update("cust.custUpdate", custDto);
+        return res;
+    }
+    //고객 수정 - 수신거부테이블
+    @Override
+    public int custDenyUpdate(CustDenyDto custDenyDto) {
+        int res = session.update("cust.custDenyUpdate", custDenyDto);
+        return res;
+    }
+
+    //고객 삭제
+    @Override
+    public int custDelete(CustDto custDto) {
+        int res = session.update("cust.custDelete",custDto);
+        return res;
+    }
+    //고객 수신거부 삭제
+    @Override
+    public int custDenyDelete(CustDto custDto) {
+        int res = session.update("cust.custDenyDelete",custDto);
+        return res;
+    }
 }

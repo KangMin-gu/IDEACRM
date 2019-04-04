@@ -12,7 +12,9 @@ function custListFormatter(value, options, rowData){
     return "";
 }
 
-
+function custListChkBoxFormatter(value, options, rowData){
+    return "<input type='checkbox' name='custno' value='"+ value + "'>";
+}
 
 /**
  * 작성자 신동우
@@ -23,7 +25,7 @@ function custListFormatter(value, options, rowData){
  * @param nameFieldId 이름<span> id
  */
 function drawMap(mapFieldId, addrFieldId, nameFieldId){
-    debugger;
+
     var mapContainer = document.getElementById(mapFieldId), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -54,7 +56,7 @@ function drawMap(mapFieldId, addrFieldId, nameFieldId){
 
     // 주소로 좌표를 검색합니다
     geocoder.addressSearch(accountAddr, function(result, status) {
-        debugger;
+
         // 정상적으로 검색이 완료됐으면
         if (status === daum.maps.services.Status.OK) {
 
@@ -95,3 +97,29 @@ function iboxDrawMap(mapFieldId, addrFieldId, nameFieldId,iboxDivId){
         }
     },300);
 }
+
+/**
+ * 작성자 신동우
+ * 2019-04-04
+ * 유저 단일 삭제
+ * @param custno
+ */
+function custDelete(custno){
+    var param = {"custno":custno};
+    $.ajax({
+        type: 'POST',
+        url: '/custdelete',
+        data: param,
+        async: false,
+        success: function(data) {
+            if(data != null) {
+                alert('삭제 되었습니다.');
+            }
+            location.href = "/cust";
+        },error:function(request,status,error){
+            alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+        }
+    });
+}
+
+function custMultyDelete(){}

@@ -159,9 +159,8 @@
                         <div class="ibox-title">
                             <h5>회원사 고객 목록</h5>
                             <div class="ibox-tools">
-                                <a href="/custdetail">디테일화면</a>
-                                <a href="/custinsert">입력화면</a>
-                                <a href="/custdetail">담당자팝업테스트</a>
+                                <a class="btn btn-default" href="/custinsert">추가</a>
+                                <button class="btn btn-default" onclick="custMultyDelete();">삭제</button>
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -170,7 +169,7 @@
                             <table class="footable table table-stripped "  data-paging="true" data-filter=#filter data-sorting="true">
                                 <thead>
                                 <tr>
-                                    <th data-name="CUSTNO" data-breakpoints="xs sm" >고객번호</th>
+                                    <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" >고객번호</th>
                                     <th data-name="CUSTNAME" data-formatter="custListFormatter">고객명</th>
                                     <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
                                     <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>

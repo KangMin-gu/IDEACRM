@@ -42,7 +42,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/">고객 목록</a>
+                        <a href="${pageContext.request.contextPath}/cust">고객 목록</a>
                     </li>
                     <li class="breadcrumb-item">
                         <strong>고객 정보</strong>
@@ -62,8 +62,8 @@
                     <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
+                    <a class="btn btn-default pull-right" href="/custupdate/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
                                             <th>고객명</th>
                                             <td><span id="custname">${custDetail.CUSTNAME}</span></td>
                                             <th>성별</th>
-                                            <td>${custDetail.SEX}</td>
+                                            <td>${custDetail.SEX_}</td>
                                             <th>생년월일</th>
                                             <td>${custDetail.BIRTH}</td>
                                             <th>담당자</th>
@@ -93,7 +93,7 @@
                                         </tr>
                                         <tr>
                                             <th>결혼여부</th>
-                                            <td>${custDetail.MARRIED}</td>
+                                            <td>${custDetail.MARRIED_}</td>
                                             <th>결혼기념일</th>
                                             <td>${custDetail.WEDDINGDAY}</td>
                                             <th>직업</th>
@@ -201,66 +201,66 @@
                                     <tbody>
                                     <tr>
                                         <th>회원 구분</th>
-                                        <td>${custDetail.CUSTGUBUN}</td>
+                                        <td>${custDetail.CUSTGUBUN_}</td>
                                         <th>고객 등급</th>
-                                        <td>${custDetail.CUSTGRADE}</td>
+                                        <td>${custDetail.CUSTGRADE_}</td>
                                         <th>활동 등급</th>
-                                        <td>${custDetail.ACTGRADE}</td>
+                                        <td>${custDetail.ACTGRADE_}</td>
                                         <th>발송처</th>
-                                        <td>${custDetail.MAILTO}</td>
+                                        <td>${custDetail.MAILTO_}</td>
                                         <th>정보 활용</th>
-                                        <td>${custDetail.INFOAGREE}</td>
+                                        <td>${custDetail.INFOAGREE_}</td>
                                     </tr>
                                     <tr>
                                         <th rowspan="6">수신 거부</th>
                                         <th class="denny" colspan="1">EMAIL</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILNOMAL eq "1" ? "checked='checked'" : ""}>&nbsp; 일반</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILSURVEY eq "1" ? "checked='checked'" : ""}>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILSEMINAR eq "1" ? "checked='checked'" : ""}>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILAD eq "1" ? "checked='checked'" : ""}>&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">SMS</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSNOMAL eq "1" ? "checked='checked'" : ""}>&nbsp; 일반</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSSURVEY eq "1" ? "checked='checked'" : ""}>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSSEMINAR eq "1" ? "checked='checked'" : ""}>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSAD eq "1" ? "checked='checked'" : ""}>&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">KAKAO</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""}>&nbsp; 일반</label>&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""}>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""}>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""}>&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">DM</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""}>&nbsp; 일반</label>&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""}>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""}>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""}>&nbsp; 광고</label>
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNEWS eq "1" ? "checked='checked'" : ""}>&nbsp; 뉴스레터</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNEWS eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 뉴스레터</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">전화</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYTELNEWS eq "1" ? "checked='checked'" : ""}>&nbsp; 광고</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYTELSURVEY  eq "1" ? "checked='checked'" : ""}>&nbsp; 해피콜</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYTELAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYTELSURVEY  eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">기타</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYFAX eq "1" ? "checked='checked'" : ""}>&nbsp; FAX</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYVISIT  eq "1" ? "checked='checked'" : ""}>&nbsp; 방문</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYFAX eq "1" ? "checked='checked'" : ""} disabled>&nbsp; FAX</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYVISIT  eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 방문</label>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -1390,8 +1390,8 @@
                     <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
+                    <a class="btn btn-default pull-right" href="/custupdate/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
 
@@ -1433,6 +1433,8 @@
         });
 
     });
+
+
 </script>
 
 

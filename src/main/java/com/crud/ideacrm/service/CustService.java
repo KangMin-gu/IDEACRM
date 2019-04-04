@@ -11,4 +11,6 @@ public interface CustService {
     public List<Map<String,Object>> custList(Map<String,Object> searchPrm);
     public Map<String,Object> custDetail(CustDto custDto);
     public int custinsert(CustDto custDto, CustDenyDto custDenyDto);
+    public int custUpdate(CustDto custDto, CustDenyDto custDenyDto);
+    public int custDelete(CustDto custDto, String[] custnoArr);
 }

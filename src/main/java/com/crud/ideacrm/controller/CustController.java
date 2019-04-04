@@ -67,6 +67,34 @@ public class CustController {
         mView.setViewName("page/cust/custDetail");
         return mView;
     }
+    //고객수정
+    @RequestMapping(value = "/custupdate/{custno}", method = RequestMethod.GET)
+    public ModelAndView authCustUpdateForm(HttpServletRequest request, @PathVariable int custno){
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        CustDto custDto = new CustDto();
+        custDto.setCustno(custno);
+        custDto.setSiteid(siteId);
+
+        ModelAndView mView = new ModelAndView();
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
+        mView.addObject("custUpdate",custService.custDetail(custDto));
+        mView.setViewName("page/cust/custUpdate");
+        return mView;
+    }
+    //고객 수정 실행
+    @RequestMapping(value = "/custupdate/{custno}", method = RequestMethod.POST)
+    public String authCustUpdate(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto
+            , @PathVariable int custno) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        custDto.setSiteid(siteId);
+        custDto.setEdituser(userNo);
+        custDenyDto.setEdituser(userNo);
+        int custNo = custService.custUpdate(custDto,custDenyDto);
+        return "redirect:/custdetail/"+custNo;
+    }
+
     //고객 추가 form
     @RequestMapping(value = "/custinsert", method = RequestMethod.GET)
     public ModelAndView authCustInsertForm(HttpServletRequest request){
@@ -87,5 +115,19 @@ public class CustController {
         custDenyDto.setReguser(userNo);
         int custNo = custService.custinsert(custDto,custDenyDto);
         return "redirect:/custdetail/"+custNo;
+    }
+
+    //고객삭제
+    @RequestMapping(value="/custdelete", method=RequestMethod.POST)
+    public String authcustDelete(HttpServletRequest request) {
+        int siteid = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userno = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        CustDto custDto=new CustDto();
+        custDto.setSiteid(siteid);
+        custDto.setEdituser(userno);
+        String[] custnoArr = request.getParameterValues("custno");
+        custService.custDelete(custDto,custnoArr);
+        return "redirect:/cust";
     }
 }

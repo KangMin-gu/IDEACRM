@@ -59,7 +59,7 @@
 
 	<!-- 고객 상세정보 출력 -->
 	<select id="custDetail" parameterType="hashMap" resultType="hashMap">
-				SELECT
+	SELECT
 		A.CUSTNO, A.CUSTNAME, A.DEPTNAME, A.DUTY
 		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(A.MOBILE1,''),IFNULL(A.MOBILE2,''),IFNULL(A.MOBILE3,'')) ) > 8
             THEN CONCAT( IFNULL(A.MOBILE1,''),'-',IFNULL(A.MOBILE2,''),'-',IFNULL(A.MOBILE3,'') )
@@ -76,31 +76,28 @@
 		,A.WRKFAX1,A.WRKFAX2,A.WRKFAX3
 		,A.WRKURL
 		,A.WRKADDR1, A.WRKADDR2, A.WRKADDR3
-		,A.OWNER, B.USERNAME AS OWNER_
+		,IFNULL(A.OWNER,0) AS OWNER, B.USERNAME AS OWNER_
 		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(A.HOMTEL1,''),IFNULL(A.HOMTEL2,''),IFNULL(A.HOMTEL3,'')) ) > 8
          THEN CONCAT( IFNULL(A.HOMTEL1,''),'-',IFNULL(A.HOMTEL2,''),'-',IFNULL(A.HOMTEL3,'') )
          ELSE CONCAT( IFNULL(A.HOMTEL1,''),IFNULL(A.HOMTEL2,''),IFNULL(A.HOMTEL3,'') )  END AS HOMTEL_
 		,A.HOMTEL1,A.HOMTEL2,A.HOMTEL3
-		,A.SEX
-		,A.BIRTH
-		,A.MARRIED
-		,A.MAILTO
-		,A.SOLAR
-		,A.WEDDINGDAY
-		,A.CUSTGRADE
-		,A.JOB
-		,A.HOBBY
-		,A.CUSTGUBUN
-		,A.ACTGRADE
+		,A.SEX, FN_GETCODE('SEX',A.SEX,#{siteid}) AS SEX_
+		,A.BIRTH,A.WEDDINGDAY,A.JOB,A.HOBBY
+		,A.MARRIED, FN_GETCODE('MARRIED',A.MARRIED,#{siteid}) AS MARRIED_
+		,A.MAILTO, FN_GETCODE('MAILTO',A.MAILTO,#{siteid}) AS MAILTO_
+		,A.SOLAR, FN_GETCODE('SOLAR',A.SOLAR,#{siteid}) AS SOLAR_
+		,A.CUSTGRADE, FN_GETCODE('CUSTGRADE',A.CUSTGRADE,#{siteid}) AS CUSTGRADE_
+		,A.CUSTGUBUN, FN_GETCODE('CUSTGUBUN',A.CUSTGUBUN,#{siteid}) AS CUSTGUBUN_
+		,A.ACTGRADE, FN_GETCODE('ACTGRADE',A.ACTGRADE,#{siteid}) AS ACTGRADE_
 		,A.HOMADDR1, A.HOMADDR2, A.HOMADDR3
 		,CONCAT(A.HOMADDR1 , A.HOMADDR2 , A.HOMADDR3) AS HOMADDR
 		,A.HOMADDR1, A.HOMADDR2, A.HOMADDR3
 		,A.MEMO
-		,A.INFOAGREE
+		,A.INFOAGREE, FN_GETCODE('INFOAGREE',A.INFOAGREE,#{siteid}) AS INFOAGREE_
 		,C.DENYMAILAD,C.DENYMAILNEWS ,C.DENYMAILSEMINAR, C.DENYMAILNOMAL, C.DENYMAILSURVEY
 		,C.DENYSMSNOMAL,C.DENYSMSSEMINAR,C.DENYSMSAD, C.DENYSMSSURVEY
 		,C.DENYDMNEWS ,C.DENYDMSEMINAR,C.DENYDMAD, C.DENYDMNOMAL, C.DENYDMSURVEY
-		,C.DENYTELNEWS ,C.DENYTELSEMINAR
+		,C.DENYTELNEWS ,C.DENYTELSEMINAR, C.DENYTELAD, C.DENYTELSURVEY
 		,C.DENYFAX ,C.DENYVISIT
 		,A.CLINO,D.CLINAME
 		,A.RELCUSTNO
@@ -114,9 +111,9 @@
 		LEFT OUTER JOIN sa200010 D ON A.CLINO = D.CLINO
 
 		WHERE
-		A.SITEID = #{siteid}
-		AND A.ISDELETE = 0
-		AND A.CUSTNO = #{custno}
+			A.SITEID = #{siteid}
+			AND A.ISDELETE = 0
+			AND A.CUSTNO = #{custno}
 	</select>
 
 	<!-- 고객 추가  -->
@@ -225,6 +222,8 @@
 		,DENYDMSURVEY
 		,DENYTELNEWS
 		,DENYTELSEMINAR
+		,DENYTELAD
+		,DENYTELSURVEY
 		,DENYFAX
 		,DENYVISIT
 
@@ -254,6 +253,8 @@
 		,#{denydmsurvey}
 		,#{denytelnews}
 		,#{denytelseminar}
+		,#{denytelad}
+		,#{denytelsurvey}
 		,#{denyfax}
 		,#{denyvisit}
 		)
@@ -265,4 +266,100 @@
 							VALUES (#{siteid}, #{custno}, #{clino}, now(), now(), #{reguser}, #{reguser}, 0 )
          ON DUPLICATE KEY UPDATE CLINO = #{clino}, SITEID = #{siteid}, CUSTNO = #{custno}, EDTUSER = #{reguser}, EDTDATE = now()
 	</insert>
+
+	<!-- 고객 정보 수정 -->
+	<update id="custUpdate" parameterType="com.crud.ideacrm.dto.CustDto" >
+		UPDATE cu100010
+		SET
+		EDITDATE = now()
+		,EDITUSER = #{edituser}
+		,CUSTNAME = #{custname}
+		,OWNER = #{owner}
+		,DEPTNAME = #{deptname}
+		,DUTY = #{duty}
+		,MOBILE1 = #{mobile1}
+		,MOBILE2 = #{mobile2}
+		,MOBILE3 = #{mobile3}
+		,EMAIL = #{email}
+		,WRKTEL1 = #{wrktel1}
+		,WRKTEL2 = #{wrktel2}
+		,WRKTEL3 = #{wrktel3}
+		,WRKFAX1 = #{wrkfax1}
+		,WRKFAX2 = #{wrkfax2}
+		,WRKFAX3 = #{wrkfax3}
+		,WRKURL = #{wrkurl}
+		,WRKADDR1 = #{wrkaddr1}
+		,WRKADDR2 = #{wrkaddr2}
+		,WRKADDR3 = #{wrkaddr3}
+		,HOMTEL1 = #{homtel1}
+		,HOMTEL2 = #{homtel2}
+		,HOMTEL3 = #{homtel3}
+		,SEX = #{sex}
+		,BIRTH = #{birth }
+		,MARRIED = #{married}
+		,MAILTO = #{mailto}
+		,SOLAR = #{solar}
+		,WEDDINGDAY = #{weddingday}
+		,CUSTGRADE = #{custgrade}
+		,JOB = #{job}
+		,HOBBY = #{hobby}
+		,CUSTGUBUN = #{custgubun}
+		,ACTGRADE = #{actgrade}
+		,HOMADDR1 = #{homaddr1}
+		,HOMADDR2 = #{homaddr2}
+		,HOMADDR3 = #{homaddr3}
+		,MEMO = #{memo}
+		,CLINO = #{clino}
+		<if test="infoagree == 0 or infoagree == 1 ">
+		,INFOAGREE = #{infoagree}
+		</if>
+		<if test="relcustno != null and relcustno =! 0">
+		,RELCUSTNO = #{relcustno}
+		</if>
+		WHERE
+			CUSTNO = #{custno}
+			AND SITEID = #{siteid}
+	</update>
+
+	<!-- 고객 수신거부 정보 수정 -->
+	<update id="custDenyUpdate" parameterType="com.crud.ideacrm.dto.CustDenyDto">
+		UPDATE cu100080 SET
+		EDITDATE = now()
+		,EDITUSER = #{edituser}
+
+		,DENYMAILNOMAL = #{denymailnomal}
+		,DENYMAILSURVEY = #{denymailsurvey}
+		,DENYMAILAD = #{denymailad}
+		,DENYMAILNEWS = #{denymailnews}
+		,DENYMAILSEMINAR = #{denymailseminar}
+		,DENYSMSNOMAL = #{denysmsnomal}
+		,DENYSMSSURVEY = #{denysmssurvey}
+		,DENYSMSSEMINAR = #{denysmsseminar}
+		,DENYSMSAD = #{denysmsad}
+		,DENYDMNOMAL = #{denydmnomal}
+		,DENYDMSURVEY = #{denydmsurvey}
+		,DENYDMNEWS = #{denydmnews}
+		,DENYDMSEMINAR = #{denydmseminar}
+		,DENYDMAD = #{denydmad}
+		,DENYTELNEWS = #{denytelnews}
+		,DENYTELSEMINAR = #{denytelseminar}
+		,DENYTELAD = #{denytelad}
+		,DENYTELSURVEY = #{denytelsurvey}
+		,DENYFAX = #{denyfax}
+		,DENYVISIT = #{denyvisit}
+
+		WHERE
+			CUSTNO = #{custno}
+	</update>
+
+	<!-- 고객 삭제 -->
+	<update id="custDelete" parameterType="com.crud.ideacrm.dto.CustDto" >
+		UPDATE cu100010 SET ISDELETE = 1 , EDITDATE = NOW() , EDITUSER = #{edituser}
+		WHERE SITEID = #{siteid} AND CUSTNO = #{custno}
+	</update>
+	<!-- 고객 수신거부 삭제 -->
+	<update id="custDenyDelete" parameterType="com.crud.ideacrm.dto.CustDto" >
+		UPDATE cu100080 SET ISDELETE = 1 , EDITDATE = NOW() , EDITUSER = #{edituser}
+		WHERE CUSTNO = #{custno}
+	</update>
 </mapper>

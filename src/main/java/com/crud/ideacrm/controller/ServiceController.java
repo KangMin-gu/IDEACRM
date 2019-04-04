@@ -30,7 +30,8 @@ public class ServiceController {
     public ModelAndView service(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        mView.addAllObjects( codeService.getCode(USINGMENU,siteId) );
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
         mView.setViewName("page/service/serviceList");
         return mView;
     }
@@ -54,7 +55,8 @@ public class ServiceController {
     public ModelAndView serviceUpdate(HttpServletRequest request,@PathVariable int serviceNo){
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
-        mView.addAllObjects(codeService.getCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
         mView.setViewName("page/service/serviceUpdate");
 
         return mView;
@@ -81,7 +83,8 @@ public class ServiceController {
     public ModelAndView serviceInsert(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        mView.addAllObjects(codeService.getCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
         mView.setViewName("page/service/serviceInsert");
         return mView;
     }

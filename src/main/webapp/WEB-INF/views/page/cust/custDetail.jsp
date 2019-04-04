@@ -42,7 +42,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/">고객 목록</a>
+                        <a href="${pageContext.request.contextPath}/cust">고객 목록</a>
                     </li>
                     <li class="breadcrumb-item">
                         <strong>고객 정보</strong>
@@ -62,8 +62,8 @@
                     <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
+                    <a class="btn btn-default pull-right" href="/custupdate/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
 
@@ -83,33 +83,33 @@
                                     <tbody>
                                         <tr>
                                             <th>고객명</th>
-                                            <td>강민구</td>
+                                            <td><span id="custname">${custDetail.CUSTNAME}</span></td>
                                             <th>성별</th>
-                                            <td>남자</td>
+                                            <td>${custDetail.SEX_}</td>
                                             <th>생년월일</th>
-                                            <td>2018-10-28</td>
+                                            <td>${custDetail.BIRTH}</td>
                                             <th>담당자</th>
-                                            <td>박진열</td>
+                                            <td>${custDetail.OWNER_}</td>
                                         </tr>
                                         <tr>
                                             <th>결혼여부</th>
-                                            <td>미혼</td>
+                                            <td>${custDetail.MARRIED_}</td>
                                             <th>결혼기념일</th>
-                                            <td>2018-10-28</td>
+                                            <td>${custDetail.WEDDINGDAY}</td>
                                             <th>직업</th>
-                                            <td>의사</td>
+                                            <td>${custDetail.JOB}</td>
                                             <th>취미</th>
-                                            <td>독서</td>
+                                            <td>${custDetail.HOBBY}</td>
                                         </tr>
                                         <tr>
                                             <th>휴대전화</th>
-                                            <td>010-7120-3655</td>
+                                            <td>${custDetail.MOBILE_}</td>
                                             <th>자택전화</th>
-                                            <td>02-394-8574</td>
+                                            <td>${custDetail.HOMTEL_}</td>
                                             <th>이메일</th>
-                                            <td>mincu1028@gmail.com</td>
+                                            <td>${custDetail.EMAIL}</td>
                                             <th>자택 주소</th>
-                                            <td>(03620) 서울시 서대문구 홍제3동 유원하나아파트 102동 203호</td>
+                                            <td>${custDetail.HOMADDR1} <span id="homaddr">${custDetail.HOMADDR2} ${custDetail.HOMADDR3}</span></td>
                                         </tr>
                                         <tr>
                                             <th>자택 위치</th>
@@ -128,7 +128,7 @@
                                     <tbody>
                                     <tr>
                                         <th>메모</th>
-                                        <td></td>
+                                        <td>${custDetail.MEMO}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -146,31 +146,31 @@
                             <h5>직장 정보</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
+                                    <i class="fa fa-chevron-up" id="custDetailWrkContentBtn"></i>
                                 </a>
                             </div>
                         </div>
-                        <div class="ibox-content">
+                        <div class="ibox-content" id="custDetailWrkContentDiv">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="white-space:nowrap;">
                                     <tbody>
                                     <tr>
                                         <th>직장명</th>
-                                        <td>(주)크루드 시스템</td>
+                                        <td><span id="cliname">${custDetail.CLINAME}</span></td>
                                         <th>부서</th>
-                                        <td>R&D</td>
+                                        <td>${custDetail.DEPTNAME}</td>
                                         <th>직책</th>
-                                        <td>대리</td>
+                                        <td>${custDetail.DUTY}</td>
                                         <th>홈페이지</th>
-                                        <td>www.crudsystem.co.kr</td>
+                                        <td>${custDetail.WRKURL}</td>
                                     </tr>
                                     <tr>
                                         <th>직장 전화</th>
-                                        <td>02-336-7800</td>
-                                        <th>직장 FAX</th>
-                                        <td>02-336-7822</td>
+                                        <td>${custDetail.WRKTEL_}</td>
+                                        <th>직장 팩스</th>
+                                        <td>${custDetail.WRKFAX_}</td>
                                         <th>직장 주소</th>
-                                        <td colspan="3">(03620) 서울시 서대문구 홍제3동 유원하나아파트 102동 203호</td>
+                                        <td colspan="3">${custDetail.WRKADDR1} <span id="wrkaddr"> ${custDetail.WRKADDR2} ${custDetail.WRKADDR3}</span></td>
                                     </tr>
                                     <tr>
                                         <th>직장 위치</th>
@@ -201,66 +201,66 @@
                                     <tbody>
                                     <tr>
                                         <th>회원 구분</th>
-                                        <td>회원</td>
+                                        <td>${custDetail.CUSTGUBUN_}</td>
                                         <th>고객 등급</th>
-                                        <td>VIP</td>
+                                        <td>${custDetail.CUSTGRADE_}</td>
                                         <th>활동 등급</th>
-                                        <td>우수</td>
+                                        <td>${custDetail.ACTGRADE_}</td>
                                         <th>발송처</th>
-                                        <td>자택</td>
+                                        <td>${custDetail.MAILTO_}</td>
                                         <th>정보 활용</th>
-                                        <td>동의</td>
+                                        <td>${custDetail.INFOAGREE_}</td>
                                     </tr>
                                     <tr>
                                         <th rowspan="6">수신 거부</th>
                                         <th class="denny" colspan="1">EMAIL</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 일반</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">SMS</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 일반</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">KAKAO</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 일반</label>&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">DM</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 일반</label>&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 광고</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 뉴스레터</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNEWS eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 뉴스레터</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">전화</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 광고</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYTELAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYTELSURVEY  eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">기타</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; FAX</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 방문</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYFAX eq "1" ? "checked='checked'" : ""} disabled>&nbsp; FAX</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYVISIT  eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 방문</label>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -1390,8 +1390,8 @@
                     <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
+                    <a class="btn btn-default pull-right" href="/custupdate/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
 
@@ -1414,6 +1414,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- daum map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
+<!-- crud -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 <script>
     $(document).ready(function() {
         $('.footable').footable();
@@ -1424,117 +1426,19 @@
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
+
+        drawMap('map','homaddr','custname');
+        $('#custDetailWrkContentBtn').click(function(){
+            iboxDrawMap('map2','wrkaddr','cliname','custDetailWrkContentDiv');
+        });
+
     });
+
+
 </script>
-<script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
 
-    var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-    // 지도를 표시하는 div 크기를 변경하는 함수입니다
-    function resizeMap() {
-        var mapContainer = document.getElementById('map');
-        mapContainer.style.width = '650px';
-        mapContainer.style.height = '650px';
-    }
 
-    function relayout() {
 
-        // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-        // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
-        // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-        map.relayout();
-    }
-
-    var geocoder = new daum.maps.services.Geocoder();
-
-    //var accountAddr = "${cliDetail.CLIADDR2 }${cliDetail.CLIADDR3 }";
-    //var accountName = "${cliDetail.CLINAME }";
-    var accountAddr = "서울시 서대문구 홍제3동 유원하나아파트";
-    var accountName = "강민구고객집";
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(accountAddr, function(result, status) {
-
-        // 정상적으로 검색이 완료됐으면
-        if (status === daum.maps.services.Status.OK) {
-
-            var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new daum.maps.Marker({
-                map: map,
-                position: coords
-            });
-
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new daum.maps.InfoWindow({
-                content: "<div style='width:150px;text-align:center;padding:6px 0;''>"+accountName+"</div>"
-            });
-            infowindow.open(map, marker);
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        }
-    });
-</script>
-<script>
-    var mapContainer = document.getElementById('map2'), // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
-
-    var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-    // 지도를 표시하는 div 크기를 변경하는 함수입니다
-    function resizeMap() {
-        var mapContainer = document.getElementById('map2');
-        mapContainer.style.width = '650px';
-        mapContainer.style.height = '650px';
-    }
-
-    function relayout() {
-
-        // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-        // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
-        // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-        map.relayout();
-    }
-
-    var geocoder = new daum.maps.services.Geocoder();
-
-    //var accountAddr = "${cliDetail.CLIADDR2 }${cliDetail.CLIADDR3 }";
-    //var accountName = "${cliDetail.CLINAME }";
-    var accountAddr = "서울시 서대문구 홍제3동 유원하나아파트";
-    var accountName = "강민구고객집";
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(accountAddr, function(result, status) {
-
-        // 정상적으로 검색이 완료됐으면
-        if (status === daum.maps.services.Status.OK) {
-
-            var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new daum.maps.Marker({
-                map: map,
-                position: coords
-            });
-
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new daum.maps.InfoWindow({
-                content: "<div style='width:150px;text-align:center;padding:6px 0;''>"+accountName+"</div>"
-            });
-            infowindow.open(map, marker);
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        }
-    });
-</script>
 </body>
 </html>

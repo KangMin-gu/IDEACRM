@@ -76,12 +76,12 @@
                                             <td>
                                                 <div class="input-group" style="width:230px;">
                                                     <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                    <input class="form-control form-control-sm" type="text" id="daterange"  />
+                                                    <input class="form-control form-control-sm daterange searchparam" type="text" id="daterange" name="daterange" />
                                                 </div>
                                             </td>
                                             <th>회원구분</th>
                                             <td><!--Todo.코드로 받아오기-->
-                                                <select class="form-control" style="width:100px;">
+                                                <select class="form-control searchparam" style="width:100px;" id="custgubun" name="custgubun">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="CUSTGUBUN" items="${CUSTGUBUN}"  >
                                                     <option value="${CUSTGUBUN.codeval}">${CUSTGUBUN.codename}</option>
@@ -90,7 +90,7 @@
                                             </td>
                                             <th>고객등급</th>
                                             <td><!--Todo.코드로 받아오기-->
-                                                <select class="form-control" style="width:100px;">
+                                                <select class="form-control searchparam" style="width:100px;" id="custgrade" name="custgrade">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="CUSTGRADE" items="${CUSTGRADE}"  >
                                                         <option value="${CUSTGRADE.codeval}">${CUSTGRADE.codename}</option>
@@ -99,7 +99,7 @@
                                             </td>
                                             <th>활동등급</th>
                                             <td><!--Todo.코드로 받아오기-->
-                                                <select class="form-control" style="width:100px;">
+                                                <select class="form-control searchparam" style="width:100px;" id="actgrade" name="actgrade">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="ACTGRADE" items="${ACTGRADE}"  >
                                                         <option value="${ACTGRADE.codeval}">${ACTGRADE.codename}</option>
@@ -108,7 +108,7 @@
                                             </td>
                                             <th>정보활용</th>
                                             <td>
-                                                <select class="form-control" style="width:100px;">
+                                                <select class="form-control searchparam" style="width:100px;" id="infoagree" name="infoagree">
                                                     <option value="0">전체</option>
                                                     <c:forEach var="INFOAGREE" items="${INFOAGREE}"  >
                                                     <option value="${INFOAGREE.codeval}" ${INFOAGREE.codeval eq "1" ? "selected" :""}>${INFOAGREE.codename}</option>
@@ -116,29 +116,29 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-w-m btn-primary" id="custSearch">검색</button>
+                                                <button type="button" class="btn btn-w-m btn-primary" id="custListSearch">검색</button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>고객명</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="custname" name="custname">
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="custname" name="custname">
                                             </td>
                                             <th>휴대전화</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="mobile" name="mobile">
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="mobile" name="mobile">
                                             </td>
                                             <th>이메일</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="email" name="email">
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="email" name="email">
                                             </td>
                                             <th>직장명</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="cliname" name="cliname">
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="cliname" name="cliname">
                                             </td>
                                             <th>담당자</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;" id="owner" name="owner">
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="owner" name="owner">
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-w-m btn-default" id="reset">초기화</button>
@@ -159,9 +159,8 @@
                         <div class="ibox-title">
                             <h5>회원사 고객 목록</h5>
                             <div class="ibox-tools">
-                                <a href="/custdetail">디테일화면</a>
-                                <a href="/custinsert">입력화면</a>
-                                <a href="/custdetail">담당자팝업테스트</a>
+                                <a class="btn btn-default" href="/custinsert">추가</a>
+                                <button class="btn btn-default" onclick="custMultyDelete();">삭제</button>
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -170,7 +169,7 @@
                             <table class="footable table table-stripped "  data-paging="true" data-filter=#filter data-sorting="true">
                                 <thead>
                                 <tr>
-                                    <th data-name="CUSTNO" data-breakpoints="xs sm" >고객번호</th>
+                                    <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" >고객번호</th>
                                     <th data-name="CUSTNAME" data-formatter="custListFormatter">고객명</th>
                                     <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
                                     <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
@@ -199,6 +198,9 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<!-- crud js -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
@@ -210,47 +212,10 @@
             format: 'YYYY-MM-DD',
             separator:' ~ '
         });
+        footableSearchList('/cust');
     });
-</script>
-<script>
-    jQuery(function ($) {
-        $('.footable').footable({
-            "rows": $.post('/cust')
-        });
-    });
-    $('#custSearch').click(function(e){
-        debugger;
-        searchTable('custListForm');
-    });
-
-
-
-    function searchTable(formId){
-        debugger;
-        var urlStr = $('#'+formId).attr('action');
-        //Todo. serialize 함수 변경. dateRange 파싱
-        var params = $('#'+formId).serialize();
-        $.ajax({
-            url: urlStr,
-            method: "POST",
-            data: params,
-            dataType: "json",
-            cache: false,
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            success: function (data) {
-                $('.footable').footable({ "rows": data });
-            }
-        });
-    }
-
-    function custListFormatter(value){
-        if(value){
-            return '<a href="/custdetail/">'+value+'</a>';
-        }
-        return "";
-    }
-        $('#daterange').daterangepicker();
-
+    $('#custListSearch').click(function(e){
+        footableSearchList('/cust');
     });
 </script>
 </body>

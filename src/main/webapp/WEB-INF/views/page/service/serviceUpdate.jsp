@@ -39,7 +39,10 @@
                         <a href="${pageContext.request.contextPath}/service">서비스 목록</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>서비스 등록</strong>
+                        <a href="${pageContext.request.contextPath}/service/${serviceInfo.SERVICENO}">서비스 정보</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>서비스 정보 수정</strong>
                     </li>
                 </ol>
             </div>
@@ -53,7 +56,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <button type="submit" class="btn btn-default pull-left">저장</button>
-                        <a href="/service" class="btn btn-default pull-right">취소</a>
+                        <a href="/service/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">취소</a>
                     </div>
                 </div>
 

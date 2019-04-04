@@ -33,8 +33,6 @@ public class CustController {
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
         mView.setViewName("page/cust/custList");
 
-        //boolean t = codeService.getCommonCode(USINGMENU) == codeService.getCommonCode(USINGMENU);
-        //System.out.println(t+"@@@@@@@@@@@@@@@@@@@@@@@컨트롤러임");
         return mView;
     }
     //고객 리스트 - fooTable에 모델 객체 반환

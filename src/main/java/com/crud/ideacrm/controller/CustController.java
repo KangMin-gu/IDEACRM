@@ -54,7 +54,7 @@ public class CustController {
         List<Map<String, Object>> custList = custService.custList(searchPrm);
         return custList;
     }
-    //고객상세
+    //고객상세1
     @RequestMapping(value = "/custdetail/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable int custno){
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());

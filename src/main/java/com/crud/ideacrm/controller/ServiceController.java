@@ -3,6 +3,7 @@ package com.crud.ideacrm.controller;
 import com.crud.ideacrm.dto.RactDto;
 import com.crud.ideacrm.dto.RewardDto;
 import com.crud.ideacrm.dto.ServiceDto;
+import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,16 @@ public class ServiceController {
 
     @Autowired
     private ServiceService serviceService;
+    @Autowired
+    private CodeService codeService;
+
+    private final int USINGMENU = 3;//고객의 사용 메뉴 값은 1
     //화면 호출
     @RequestMapping(value = "/service", method = RequestMethod.GET)
     public ModelAndView service(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        mView.addAllObjects( codeService.getCode(USINGMENU,siteId) );
         mView.setViewName("page/service/serviceList");
         return mView;
     }
@@ -45,7 +52,9 @@ public class ServiceController {
     // 서비스 수정 화면
     @RequestMapping(value="/service/update/{serviceNo}",method=RequestMethod.GET)
     public ModelAndView serviceUpdate(HttpServletRequest request,@PathVariable int serviceNo){
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
+        mView.addAllObjects(codeService.getCode(USINGMENU,siteId));
         mView.setViewName("page/service/serviceUpdate");
 
         return mView;
@@ -58,11 +67,21 @@ public class ServiceController {
 
         return mView;
     }
+    // 서비스 삭제
+    @RequestMapping(value="/service/delete/{serviceNo}",method=RequestMethod.POST)
+    public ModelAndView serviceDelete(HttpServletRequest request,@PathVariable int serviceNo){
+        ModelAndView mView = new ModelAndView();
+        serviceService.serviceDelete(request,serviceNo);
+        mView.setViewName("page/service/serviceList");
+        return mView;
+    }
 
 
     @RequestMapping(value = "/serviceinsert", method = RequestMethod.GET)
     public ModelAndView serviceInsert(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        mView.addAllObjects(codeService.getCode(USINGMENU,siteId));
         mView.setViewName("page/service/serviceInsert");
         return mView;
     }

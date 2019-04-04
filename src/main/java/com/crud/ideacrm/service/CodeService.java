@@ -1,9 +1,12 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.dto.CodeDto;
+
 import java.util.Map;
 
 public interface CodeService {
-    public Map<String,Object> getCommonCode(String moduleName, int siteid);
-    public Map<String,Object> getCustomCode(String moduleName, int siteid);
-    public void test();
+    public Map<String,Object> getCommonCode(int usingMenu);
+    public Map<String,Object> getCustomCode(CodeDto paramCodeDto);
+    public Map<String,Object> getCode(int usingMenu, int siteId);
+    public Map<String,Object> getCode(CodeDto codeDto);
 }

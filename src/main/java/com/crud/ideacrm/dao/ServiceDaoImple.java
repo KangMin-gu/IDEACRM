@@ -43,7 +43,8 @@ public class ServiceDaoImple implements ServiceDao {
 
     @Override
     public int serviceInsert(ServiceDto serviceDto) {
-        int serviceNo = session.insert("service.serviceInsert",serviceDto);
+        session.insert("service.serviceInsert",serviceDto);
+        int serviceNo = serviceDto.getServiceno();
         return serviceNo;
     }
 
@@ -77,5 +78,11 @@ public class ServiceDaoImple implements ServiceDao {
     @Override
     public void serviceStepUpdate(ServiceDto serviceDto) {
         session.update("service.serviceStepUpdate",serviceDto);
+    }
+
+    @Override
+    public void serviceDelete(ServiceDto serviceDto) {
+        session.update("service.serviceDelete",serviceDto);
+
     }
 }

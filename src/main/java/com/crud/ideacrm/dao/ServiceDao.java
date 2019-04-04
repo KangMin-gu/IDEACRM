@@ -31,6 +31,8 @@ public interface ServiceDao {
     // 서비스 단계 변경
     public void serviceStepUpdate(ServiceDto serviceDto);
 
+    public void serviceDelete(ServiceDto serviceDto);
+
 
 
 

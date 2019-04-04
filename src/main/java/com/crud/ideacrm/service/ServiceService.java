@@ -14,6 +14,7 @@ public interface ServiceService {
     public List<Map<String,Object>> serviceList(HttpServletRequest request);
     public ModelAndView serviceDetail(HttpServletRequest request, int serviceNo);
     public int serviceInsertUpdate(HttpServletRequest request, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto);
+    public void serviceDelete(HttpServletRequest request,int serviceNo);
 
 
 }

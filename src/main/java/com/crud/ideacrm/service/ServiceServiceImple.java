@@ -105,6 +105,8 @@ public class ServiceServiceImple implements ServiceService{
         if(serviceNo == 0) {
             serviceDto.setIsdelete(0);
             serviceNo = serviceDao.serviceInsert(serviceDto);
+            serviceDto.setServicestep(1);
+            serviceDao.serviceStepUpdate(serviceDto);
         }
 
         String visitDate = rewardDto.getVisitdate();
@@ -120,7 +122,7 @@ public class ServiceServiceImple implements ServiceService{
                     rewardDto.setServiceno(serviceNo);
                     rewardDto.setReguser(userNo);
                     serviceDao.rewardInsert(rewardDto);
-                    serviceDto.setServicestep(3);
+                    serviceDto.setServicestep(2);
                     serviceDao.serviceStepUpdate(serviceDto);
                 }
             }
@@ -129,7 +131,8 @@ public class ServiceServiceImple implements ServiceService{
         String ractDate = ractDto.getRactdate();
         int ractNo = ractDto.getRactno();
 
-        if(ractDate.length() > 0) {
+        if(ractDate == null || ractDate =="") {
+        }else{
             if(ractNo != 0) {
                 serviceDao.ractUpdate(ractDto);
             }else{
@@ -174,5 +177,15 @@ public class ServiceServiceImple implements ServiceService{
         }
         return serviceNo;
 
+    }
+
+    @Override
+    public void serviceDelete(HttpServletRequest request, int serviceNo) {
+        ServiceDto serviceDto = new ServiceDto();
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        serviceDto.setSiteid(siteId);
+        serviceDto.setServiceno(serviceNo);
+
+        serviceDao.serviceDelete(serviceDto);
     }
 }

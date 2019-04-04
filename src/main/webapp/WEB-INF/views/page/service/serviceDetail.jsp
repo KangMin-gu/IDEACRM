@@ -58,7 +58,7 @@
                         <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                         <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
                         <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                        <button type="button" class="btn btn-default pull-right">삭제</button>
+                        <button type="submit" class="btn btn-default pull-right">삭제</button>
                         <a href="/service/update/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
                     </form:form>
                 </div>
@@ -195,9 +195,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>상담내용</th>
-                                                        <td colspan="7">
-                                                            ${sevriceinfo.SERVICEDESC}
-                                                        </td>
+                                                        <td colspan="5">${serviceInfo.SERVICEDESC}</td>
                                                     </tr>
                                                 </tobdy>
                                             </table>
@@ -225,24 +223,28 @@
                                                 </colgroup>
                                                 <tobdy>
                                                     <tr>
-                                                        <th>방문예약일시</th>
+                                                        <th>방문예약일</th>
                                                         <td>${rewardInfo.VISITDATE_}${rewardInfo.VISITTIME}</td>
+                                                        <th>방문예약시간</th>
+                                                        <td>${rewardInfo.VISITDATE_}${rewardInfo.VISITAPM_} ${rewardInfo.VISITHOUR} ${rewardInfo.VISITMINUTE}</td>
                                                         <th>담당자</th>
                                                         <td>${rewardInfo.OWNER_}</td>
                                                         <th>현상</th>
                                                         <td>${rewardInfo.REWARDTYPE_}</td>
                                                         <th>원인구분</th>
                                                         <td>${rewardInfo.CAUSECODE_}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>방문주소</th>
-                                                        <td colspan="3">${rewardInfo.VISITADDR_}</td>
+                                                        <td colspan="9">${rewardInfo.VISITADDR_}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>상세내역</th>
-                                                        <td colspan="11">${rewardInfo.REWARDDESC}</td>
+                                                        <td colspan="9">${rewardInfo.REWARDDESC}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>지연사유</th>
-                                                        <td colspan="11">${rewardInfo.DELAYDESC}</td>
+                                                        <td colspan="9">${rewardInfo.DELAYDESC}</td>
                                                     </tr>
                                                 </tobdy>
                                             </table>

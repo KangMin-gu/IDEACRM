@@ -6,39 +6,37 @@ import java.io.Serializable;
 
 
 public class CodeDto implements Serializable{
-	
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	private int codeno;
-	private String codegrp;
-	private String codename;
-	private String codeval;
-	private int uppercodegrp;
-	private int siteid;
-	private String regdate;
-	private int reguser;
-	private String edtdate;
-	private int edtuser;
-	private int isdelete;
-	
-	public CodeDto() {}
 
-	public CodeDto(int codeno, String codegrp, String codename, String codeval, int uppercodegrp, int siteid,
-			String regdate, int reguser, String edtdate, int edtuser, int isdelete) {
-		super();
+	private int	codeno;	//코드번호
+	private String	codegrp;	//코드그룹
+	private String	codename;	//코드명
+	private String	codeval;	//코드값
+	private String	uppercodegrp;	//상위그룹코드
+	private String	regdate;	//등록일
+	private int	reguser;	//등록자
+	private String	edtdate;	//수정일
+	private int	edtuser;	//수정자
+	private int	isdelete;	//삭제여부
+	private int	siteid;	//회원사번호
+	private int	commonflag;	//공통코드여부 0=공통, 1=회원사별
+	private int	usingmenu;	//코드사용 메뉴 0=모든메뉴,1=고객,2=영업,3=서비스,4=캠페인
+
+	public CodeDto(){}
+
+	public CodeDto(int codeno, String codegrp, String codename, String codeval, String uppercodegrp, String regdate, int reguser, String edtdate, int edtuser, int isdelete, int siteid, int commonflag, int usingmenu) {
 		this.codeno = codeno;
 		this.codegrp = codegrp;
 		this.codename = codename;
 		this.codeval = codeval;
 		this.uppercodegrp = uppercodegrp;
-		this.siteid = siteid;
 		this.regdate = regdate;
 		this.reguser = reguser;
 		this.edtdate = edtdate;
 		this.edtuser = edtuser;
 		this.isdelete = isdelete;
+		this.siteid = siteid;
+		this.commonflag = commonflag;
+		this.usingmenu = usingmenu;
 	}
 
 	public int getCodeno() {
@@ -73,20 +71,12 @@ public class CodeDto implements Serializable{
 		this.codeval = codeval;
 	}
 
-	public int getUppercodegrp() {
+	public String getUppercodegrp() {
 		return uppercodegrp;
 	}
 
-	public void setUppercodegrp(int uppercodegrp) {
+	public void setUppercodegrp(String uppercodegrp) {
 		this.uppercodegrp = uppercodegrp;
-	}
-
-	public int getSiteid() {
-		return siteid;
-	}
-
-	public void setSiteid(int siteid) {
-		this.siteid = siteid;
 	}
 
 	public String getRegdate() {
@@ -129,5 +119,27 @@ public class CodeDto implements Serializable{
 		this.isdelete = isdelete;
 	}
 
-	
+	public int getSiteid() {
+		return siteid;
+	}
+
+	public void setSiteid(int siteid) {
+		this.siteid = siteid;
+	}
+
+	public int getCommonflag() {
+		return commonflag;
+	}
+
+	public void setCommonflag(int commonflag) {
+		this.commonflag = commonflag;
+	}
+
+	public int getUsingmenu() {
+		return usingmenu;
+	}
+
+	public void setUsingmenu(int usingmenu) {
+		this.usingmenu = usingmenu;
+	}
 }

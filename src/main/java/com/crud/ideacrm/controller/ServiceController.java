@@ -98,7 +98,7 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "/service/calendar", method = RequestMethod.GET)
-    public ModelAndView serviceCalendar(HttpServletRequest request){//됬냐..
+    public ModelAndView serviceCalendar(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/service/calendar/serviceCalendar");
         return mView;

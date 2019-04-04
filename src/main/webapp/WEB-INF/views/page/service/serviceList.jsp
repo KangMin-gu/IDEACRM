@@ -73,43 +73,44 @@
                                             <td>
                                                 <div class="input-group" style="width:230px;">
                                                     <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                    <input class="form-control form-control-sm daterange searchparam" type="text" />
+                                                    <input class="form-control form-control-sm daterange searchparam" autocomplete="off" name="receptiondate" id="receptiondate" type="text" />
                                                 </div>
                                             </td>
                                             <th>접수구분</th>
                                             <td>
-                                                <select class="form-control searchparam" style="width: 100px;">
-                                                    <option value="Bahamas">010</option>
-                                                    <option value="Bahrain">011</option>
-                                                    <option value="Bangladesh">017</option>
-                                                    <option value="Barbados">018</option>
-                                                    <option value="Belarus">019</option>
+                                                <select class="form-control searchparam" name="servicetype" id="servicetype" style="width: 100px;">
+                                                    <option value="">선택</option>
+                                                    <c:forEach var="serviceType" items="${SERVICETYPE}">
+                                                        <option value="${serviceType.codeval}">${serviceType.codename}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
                                             <th>접수유형</th>
                                             <td colspan="1">
                                                 <div style="display: inline-block">
-                                                    <select class="form-control searchparam" style="width: 100px;">
-                                                        <option value="Bahamas">010</option>
-                                                        <option value="Bahrain">011</option>
-                                                        <option value="Bangladesh">017</option>
-                                                        <option value="Barbados">018</option>
-                                                        <option value="Belarus">019</option>
+                                                    <select class="form-control searchparam" name="servicecode1" id="servicecode1" style="width: 100px;">
+                                                        <option value="">선택</option>
+                                                        <c:forEach var="serviceCode1" items="${SERVICECODE1}">
+                                                            <option value="${serviceCode1.codeval}">${serviceCode1.codename}</option>
+                                                        </c:forEach>
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control searchparam" style="width: 100px;">
-                                                        <option value="Bahamas">010</option>
-                                                        <option value="Bahrain">011</option>
-                                                        <option value="Bangladesh">017</option>
-                                                        <option value="Barbados">018</option>
-                                                        <option value="Belarus">019</option>
+                                                    <select class="form-control searchparam" name="servicecode2" id="servicecode2" style="width: 100px;">
+                                                        <option value="">선택</option>
+                                                        <c:forEach var="serviceCode2" items="${SERVICECODE2}">
+                                                            <option value="${serviceCode2.codeval}">${serviceCode2.codename}</option>
+                                                        </c:forEach>
                                                     </select>
                                                 </div>
                                             </td>
                                             <th>접수자</th>
-                                            <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
+                                            <td class="input-group owner" id="serviceowner_">
+                                                <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text" style="width: 100px;">
+                                                <input type="hidden" class="searchparam" name="serviceowner" id="serviceowner" value="${search.serviceowner }">
+                                                <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
                                             </td>
                                             <td>
                                                 <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
@@ -126,14 +127,26 @@
                                             </td>
                                             <th>고객명</th>
                                             <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
+                                                <div class="input-group cust" id="custno_" style="width: 150px;">
+                                                    <input type="text" class="form-control searchparam" autocomplete="off" name="custno_" value="">
+                                                    <input type="hidden" class="searchparam" name="owner" id="custno" value="">
+                                                    <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </div>
                                             </td>
                                             <th>담당자</th>
                                             <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
+                                                <div class="input-group owner" id="owner_" >
+                                                    <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
+                                                    <input type="hidden" class="searchparam" name="owner" id="owner" value="${sessionScope.USERNO}">
+                                                    <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </div>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-w-m btn-default">초기화</button>
+                                                <button type="button" id="reset" class="btn btn-w-m btn-default">초기화</button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -157,7 +170,8 @@
                         </div>
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                            <table class="footable table table-stripped" data-sorting="true">
+                            <a href="/serviceinsert" class="btn btn-default pull-right">추가</a>
+                            <table class="footable table table-stripped" data-sorting="true" >
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-name="SERVICENO">서비스번호</th>
@@ -177,7 +191,11 @@
 
                                 </tbody>
                                 <tfoot>
-
+                                <tr>
+                                    <td colspan="9">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -201,23 +219,14 @@
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
-<!-- common js -->
+<!-- api js -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
     $(document).ready(function() {
-
-        $('.footable').on("after.ft.breakpoints",function(e,ft,row){
-           var test = row.value.SERVICENO;
-           var RowElement = $(row.$el)
-            if(test){
-            }
-        });
         $('#search').click(function(e){
-
             footableSearchList('/service/list');
-
         });
-
         footableSearchList('/service/list');
     });
 

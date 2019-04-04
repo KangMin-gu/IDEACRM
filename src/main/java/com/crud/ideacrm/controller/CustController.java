@@ -1,15 +1,16 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.service.CodeService;
-import com.crud.ideacrm.service.CustService;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
-
+import com.crud.ideacrm.service.CodeService;
+import com.crud.ideacrm.service.CustService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -28,7 +29,6 @@ public class CustController {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
 
         ModelAndView mView = new ModelAndView();
-
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
         mView.setViewName("page/cust/custList");

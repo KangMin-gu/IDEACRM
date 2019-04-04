@@ -53,12 +53,14 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <form:form action="/service/delete/${serviceInfo.SERVICENO}" method="POST">
+                        <a href="/service" class="btn btn-default pull-left">목록</a>
+                        <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                        <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
+                        <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
+                        <button type="submit" class="btn btn-default pull-right">삭제</button>
+                        <a href="/service/update/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                    </form:form>
                 </div>
             </div>
 
@@ -91,17 +93,17 @@
                                     <tobdy>
                                         <tr>
                                             <th>고객명</th>
-                                            <td></td>
+                                            <td>${serviceInfo.CUSTNAME}</td>
                                             <th>자택전화</th>
-                                            <td></td>
+                                            <td>${serviceInfo.HOMTEL}</td>
                                             <th>휴대전화</th>
-                                            <td></td>
+                                            <td>${serviceInfo.MOBILE}</td>
                                             <th>이메일</th>
-                                            <td></td>
+                                            <td>${serviceInfo.EMAIL}</td>
                                         </tr>
                                         <tr>
                                             <th>고객 주소</th>
-                                            <td colspan="7"></td>
+                                            <td colspan="7">${serviceInfo.CUSTADDRESS}</td>
                                         </tr>
                                     </tobdy>
                                 </table>
@@ -110,13 +112,63 @@
                     </div>
                 </div>
             </div>
-
-
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>접수 정보</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <tobdy>
+                                        <tr>
+                                            <th>접수일</th>
+                                            <td>${serviceInfo.RECEPTIONDATE_}</td>
+                                            <th>접수자</th>
+                                            <td>${serviceInfo.SERVICEOWNER_}</td>
+                                            <th>구분</th>
+                                            <td>${serviceInfo.SERVICETYPE_}</td>
+                                            <th>유형</th>
+                                            <td>${serviceInfo.SERVICECODE_} </td>
+                                        </tr>
+                                        <tr>
+                                            <th>처리담당자</th>
+                                            <td>${serviceInfo.OWNER_}</td>
+                                            <th>채널</th>
+                                            <td>${serviceInfo.SERVICECHANNEL_}</td>
+                                            <th>진행단계</th>
+                                            <td>${serviceInfo.SERVICESTEP_}</td>
+                                            <th>제품명</th>
+                                            <td>${serviceInfo.EMAIL}</td>
+                                        </tr>
+                                    </tobdy>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">접수정보</a></li>
+                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">상세정보</a></li>
                             <li><a class="nav-link" data-toggle="tab" href="#tab-2">현상파악</a></li>
                             <li><a class="nav-link" data-toggle="tab" href="#tab-3">처리정보</a></li>
                         </ul>
@@ -138,34 +190,12 @@
                                                 </colgroup>
                                                 <tobdy>
                                                     <tr>
-                                                        <th>접수일</th>
-                                                        <td></td>
-                                                        <th>접수자</th>
-                                                        <td></td>
-                                                        <th>제품명</th>
-                                                        <td></td>
-                                                        <th>처리담당자</th>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>접수구분</th>
-                                                        <td></td>
-                                                        <th>접수유형1</th>
-                                                        <td></td>
-                                                        <th>접수유형2</th>
-                                                        <td></td>
-                                                        <th>진행단계</th>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>서비스명</th>
-                                                        <td colspan="7"></td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>접수내용</th>
-                                                        <td colspan="7">
-
-                                                        </td>
+                                                        <td colspan="7">${serviceInfo.SERVICENAME}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>상담내용</th>
+                                                        <td colspan="5">${serviceInfo.SERVICEDESC}</td>
                                                     </tr>
                                                 </tobdy>
                                             </table>
@@ -194,25 +224,27 @@
                                                 <tobdy>
                                                     <tr>
                                                         <th>방문예약일</th>
-                                                        <td></td>
+                                                        <td>${rewardInfo.VISITDATE_}${rewardInfo.VISITTIME}</td>
                                                         <th>방문예약시간</th>
-                                                        <td></td>
+                                                        <td>${rewardInfo.VISITDATE_}${rewardInfo.VISITAPM_} ${rewardInfo.VISITHOUR} ${rewardInfo.VISITMINUTE}</td>
                                                         <th>담당자</th>
-                                                        <td></td>
+                                                        <td>${rewardInfo.OWNER_}</td>
                                                         <th>현상</th>
-                                                        <td></td>
+                                                        <td>${rewardInfo.REWARDTYPE_}</td>
                                                         <th>원인구분</th>
-                                                        <td></td>
+                                                        <td>${rewardInfo.CAUSECODE_}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>방문주소</th>
-                                                        <td></td>
+                                                        <td colspan="9">${rewardInfo.VISITADDR_}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>상세내역</th>
-                                                        <td colspan="11"></td>
+                                                        <td colspan="9">${rewardInfo.REWARDDESC}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>지연사유</th>
-                                                        <td colspan="11"></td>
+                                                        <td colspan="9">${rewardInfo.DELAYDESC}</td>
                                                     </tr>
                                                 </tobdy>
                                             </table>
@@ -235,15 +267,15 @@
                                                 <tobdy>
                                                     <tr>
                                                         <th>처리일</th>
-                                                        <td></td>
+                                                        <td>${ractInfo.RACTDATE_}</td>
                                                         <th>처리담당자</th>
-                                                        <td></td>
+                                                        <td>${serviceInfo.OWNER_}</td>
                                                         <th>처리발송여부</th>
-                                                        <td></td>
+                                                        <td>${ractInfo.SENDYN_}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>처리내용</th>
-                                                        <td colspan="5"></td>
+                                                        <td colspan="5">${ractInfo.RACTDESC}</td>
                                                     </tr>
                                                 </tobdy>
                                             </table>
@@ -268,270 +300,25 @@
                         </ul>
 
                         <div class="tab-content">
-                            <div role="tabpanel" id="tab-4" class="tab-pane active">
+                            <div role="tabpanel" id="tab-4" url="/tab/ract/${serviceInfo.SERVICENO}" class="tab-pane active">
                                 <div class="panel-body">
                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                    <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                    <table class="tabfootable table table-stripped">
                                         <thead>
                                         <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                            <th data-hide="phone,tablet">Engine version</th>
-                                            <th data-hide="phone,tablet">CSS grade</th>
+                                            <th data-visible="false" data-name="RACTNO">처리번호</th>
+                                            <th data-name="RACTDATE_">처리일</th>
+                                            <th data-name="RACTTYPE_">처리유형</th>
+                                            <th data-name="OWNER_">담당자</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="gradeX">
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td class="center">4</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 5.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td class="center">5</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 5.5
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td class="center">5.5</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Gecko</td>
-                                            <td>Netscape Navigator 9</td>
-                                            <td>Win 98+ / OSX.2+</td>
-                                            <td class="center">1.8</td>
-                                            <td class="center">A</td>
-                                        </tr>
 
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>Safari 1.3</td>
-                                            <td>OSX.3</td>
-                                            <td class="center">312.8</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>Safari 2.0</td>
-                                            <td>OSX.4+</td>
-                                            <td class="center">419.3</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>Safari 3.0</td>
-                                            <td>OSX.4+</td>
-                                            <td class="center">522.1</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>OmniWeb 5.5</td>
-                                            <td>OSX.4+</td>
-                                            <td class="center">420</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>iPod Touch / iPhone</td>
-                                            <td>iPod</td>
-                                            <td class="center">420.1</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>S60</td>
-                                            <td>S60</td>
-                                            <td class="center">413</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 7.0</td>
-                                            <td>Win 95+ / OSX.1+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 7.5</td>
-                                            <td>Win 95+ / OSX.2+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 8.0</td>
-                                            <td>Win 95+ / OSX.2+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 8.5</td>
-                                            <td>Win 95+ / OSX.2+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 9.0</td>
-                                            <td>Win 95+ / OSX.3+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 9.2</td>
-                                            <td>Win 88+ / OSX.3+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 9.5</td>
-                                            <td>Win 88+ / OSX.3+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera for Wii</td>
-                                            <td>Wii</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Nokia N800</td>
-                                            <td>N800</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Nintendo DS browser</td>
-                                            <td>Nintendo DS</td>
-                                            <td class="center">8.5</td>
-                                            <td class="center">C/A<sup>1</sup></td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.1</td>
-                                            <td>KDE 3.1</td>
-                                            <td class="center">3.1</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.3</td>
-                                            <td>KDE 3.3</td>
-                                            <td class="center">3.3</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.5</td>
-                                            <td>KDE 3.5</td>
-                                            <td class="center">3.5</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Tasman</td>
-                                            <td>Internet Explorer 4.5</td>
-                                            <td>Mac OS 8-9</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Tasman</td>
-                                            <td>Internet Explorer 5.1</td>
-                                            <td>Mac OS 7.6-9</td>
-                                            <td class="center">1</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Tasman</td>
-                                            <td>Internet Explorer 5.2</td>
-                                            <td>Mac OS 8-X</td>
-                                            <td class="center">1</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Misc</td>
-                                            <td>NetFront 3.1</td>
-                                            <td>Embedded devices</td>
-                                            <td class="center">-</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Misc</td>
-                                            <td>NetFront 3.4</td>
-                                            <td>Embedded devices</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Misc</td>
-                                            <td>Dillo 0.8</td>
-                                            <td>Embedded devices</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Misc</td>
-                                            <td>Links</td>
-                                            <td>Text only</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Misc</td>
-                                            <td>Lynx</td>
-                                            <td>Text only</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Misc</td>
-                                            <td>IE Mobile</td>
-                                            <td>Windows Mobile 6</td>
-                                            <td class="center">-</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Misc</td>
-                                            <td>PSP browser</td>
-                                            <td>PSP</td>
-                                            <td class="center">-</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeU">
-                                            <td>Other browsers</td>
-                                            <td>All others</td>
-                                            <td>-</td>
-                                            <td class="center">-</td>
-                                            <td class="center">U</td>
-                                        </tr>
                                         </tbody>
                                         <tfoot>
                                         <tr>
-                                            <td colspan="5">
-                                                <ul class="pagination float-right"></ul>
+                                            <td colspan="9">
+                                                <ul class="pagination pull-right"></ul>
                                             </td>
                                         </tr>
                                         </tfoot>
@@ -539,270 +326,27 @@
                                 </div>
                             </div>
 
-                            <div role="tabpanel" id="tab-5" class="tab-pane">
+                            <div role="tabpanel" id="tab-5" url="/tab/convey/${serviceInfo.SERVICENO}" class="tab-pane">
                                 <div class="panel-body">
                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                    <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                    <table class="tabfootable table table-stripped" data-page-size="8" data-filter=#filter>
                                         <thead>
                                         <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                            <th data-hide="phone,tablet">Engine version</th>
-                                            <th data-hide="phone,tablet">CSS grade</th>
+                                            <th data-visible="false" data-name="CONVEYLNO">이관번호</th>
+                                            <th data-name="CONVEYDATE">이관일자</th>
+                                            <th data-name="CONVEYREASON_">이관사유</th>
+                                            <th data-name="PREVOWNER_">이전담당자</th>
+                                            <th data-name="NEXTOWNER_">이관 담당자</th>
+                                            <th data-name="CONVEYLDESC">비고</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="gradeX">
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td class="center">4</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 5.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td class="center">5</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 5.5
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td class="center">5.5</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Gecko</td>
-                                            <td>Netscape Navigator 9</td>
-                                            <td>Win 98+ / OSX.2+</td>
-                                            <td class="center">1.8</td>
-                                            <td class="center">A</td>
-                                        </tr>
 
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>Safari 1.3</td>
-                                            <td>OSX.3</td>
-                                            <td class="center">312.8</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>Safari 2.0</td>
-                                            <td>OSX.4+</td>
-                                            <td class="center">419.3</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>Safari 3.0</td>
-                                            <td>OSX.4+</td>
-                                            <td class="center">522.1</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>OmniWeb 5.5</td>
-                                            <td>OSX.4+</td>
-                                            <td class="center">420</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>iPod Touch / iPhone</td>
-                                            <td>iPod</td>
-                                            <td class="center">420.1</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>S60</td>
-                                            <td>S60</td>
-                                            <td class="center">413</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 7.0</td>
-                                            <td>Win 95+ / OSX.1+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 7.5</td>
-                                            <td>Win 95+ / OSX.2+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 8.0</td>
-                                            <td>Win 95+ / OSX.2+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 8.5</td>
-                                            <td>Win 95+ / OSX.2+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 9.0</td>
-                                            <td>Win 95+ / OSX.3+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 9.2</td>
-                                            <td>Win 88+ / OSX.3+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 9.5</td>
-                                            <td>Win 88+ / OSX.3+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera for Wii</td>
-                                            <td>Wii</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Nokia N800</td>
-                                            <td>N800</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Nintendo DS browser</td>
-                                            <td>Nintendo DS</td>
-                                            <td class="center">8.5</td>
-                                            <td class="center">C/A<sup>1</sup></td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.1</td>
-                                            <td>KDE 3.1</td>
-                                            <td class="center">3.1</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.3</td>
-                                            <td>KDE 3.3</td>
-                                            <td class="center">3.3</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.5</td>
-                                            <td>KDE 3.5</td>
-                                            <td class="center">3.5</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Tasman</td>
-                                            <td>Internet Explorer 4.5</td>
-                                            <td>Mac OS 8-9</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Tasman</td>
-                                            <td>Internet Explorer 5.1</td>
-                                            <td>Mac OS 7.6-9</td>
-                                            <td class="center">1</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Tasman</td>
-                                            <td>Internet Explorer 5.2</td>
-                                            <td>Mac OS 8-X</td>
-                                            <td class="center">1</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Misc</td>
-                                            <td>NetFront 3.1</td>
-                                            <td>Embedded devices</td>
-                                            <td class="center">-</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Misc</td>
-                                            <td>NetFront 3.4</td>
-                                            <td>Embedded devices</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Misc</td>
-                                            <td>Dillo 0.8</td>
-                                            <td>Embedded devices</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Misc</td>
-                                            <td>Links</td>
-                                            <td>Text only</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Misc</td>
-                                            <td>Lynx</td>
-                                            <td>Text only</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Misc</td>
-                                            <td>IE Mobile</td>
-                                            <td>Windows Mobile 6</td>
-                                            <td class="center">-</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>Misc</td>
-                                            <td>PSP browser</td>
-                                            <td>PSP</td>
-                                            <td class="center">-</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeU">
-                                            <td>Other browsers</td>
-                                            <td>All others</td>
-                                            <td>-</td>
-                                            <td class="center">-</td>
-                                            <td class="center">U</td>
-                                        </tr>
                                         </tbody>
                                         <tfoot>
                                         <tr>
-                                            <td colspan="5">
-                                                <ul class="pagination float-right"></ul>
+                                            <td colspan="9">
+                                                <ul class="pagination pull-right"></ul>
                                             </td>
                                         </tr>
                                         </tfoot>
@@ -844,22 +388,16 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.footable').footable();
-        $('.footable2').footable();
-        $('#daterange').daterangepicker();
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
-    });
-</script>
+<!-- common -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<!-- api -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+
 </body>
 </html>

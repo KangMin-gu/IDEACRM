@@ -16,6 +16,7 @@
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 </head>
 <style>
 </style>
@@ -35,7 +36,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/cust">서비스 목록</a>
+                        <a href="${pageContext.request.contextPath}/service">서비스 목록</a>
                     </li>
                     <li class="breadcrumb-item active">
                         <strong>서비스 등록</strong>
@@ -48,11 +49,11 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-        <form:form>
+        <form:form action="/serviceinsert" method="post">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">저장</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
+                    <a href="/service" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -86,7 +87,21 @@
                                         <tr>
                                             <th>고객명</th>
                                             <td>
-                                                <input type="text" class="form-control form-control-sm" style="width:230px;">
+                                                <!--
+                                                <div style="display: inline-block">
+                                                    <input type="text" class="form-control form-control-sm" style="width:230px;">
+                                                </div>
+                                                <div style="display: inline-block">
+                                                        <a><i class="fa fa-search fa-lg"></i></a>
+                                                </div>
+                                                -->
+                                                <div class="input-group owner" id="custno_" >
+                                                    <input type="text" class="form-control" autocomplete="off" name="custno_">
+                                                    <input type="hidden" name="custno" id="custno" value="3">
+                                                    <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </div>
                                             </td>
                                             <th>자택전화</th>
                                             <td>
@@ -100,11 +115,12 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block;">
-                                                    <input type="text" class="form-control form-control-sm" style="width:80px;">
+                                                    <input type="text" id="mobile2" data-validation="url" class="form-control form-control-sm" style="width:80px;">
                                                 </div>
                                                 <div style="display: inline-block">
                                                     <input type="text" class="form-control form-control-sm" style="width:80px;">
                                                 </div>
+                                                <label class="form-error" for="mobile2"></label>
                                             </td>
                                             <th>휴대전화</th>
                                             <td>
@@ -132,10 +148,143 @@
                                         <tr>
                                             <th>고객 주소</th>
                                             <td colspan="7">
-                                                <div style="display: inline-block"><input type="text" placeholder=".col-md-2" class="form-control form-control-sm"></div>
+                                                <div style="display: inline-block"><input type="text" placeholder=".col-md-1" class="form-control form-control-sm"></div>
                                                 <div style="display: inline-block"><input type="text" placeholder=".col-md-3" class="form-control form-control-sm"></div>
-                                                <div style="display: inline-block"><input type="text" placeholder=".col-md-4" class="form-control form-control-sm"></div>
+                                                <div style="display: inline-block"><input type="text" placeholder=".col-md-5" class="form-control form-control-sm"></div>
                                                 <div style="display: inline-block"><button class="btn btn-white btn-sm" type="submit">주소 검색</button></div>
+                                            </td>
+                                        </tr>
+                                    </tobdy>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>접수 정보</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <tobdy>
+                                        <tr>
+                                            <th>접수일</th>
+                                            <td>
+                                                <div class="input-group" style="width:230px;">
+                                                    <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
+                                                    <input class="form-control form-control-sm date" autocomplete="off" name="receptiondate" id="receptiondate" type="text"/>
+                                                </div>
+                                            </td>
+                                            <th>접수자</th>
+                                            <td>
+                                                <div class="input-group owner" id="serviceowner_" >
+                                                    <input type="text" class="form-control" autocomplete="off" name="serviceowner_" value="${sessionScope.USERNAME}">
+                                                    <input type="hidden" name="serviceowner" id="serviceowner" value="${sessionScope.USERNO}">
+                                                    <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <th>구분</th>
+                                            <td>
+                                                <!-- radio -->
+                                                <div class="i-checks">
+                                                    <c:forEach var="serviceType" items="${SERVICETYPE}">
+                                                        <label><input type="radio" value="${serviceType.codeval}" name="sex"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                    </c:forEach>
+                                                </div>
+                                            </td>
+                                            <th>유형</th>
+                                            <td>
+                                                <div style="display: inline-block">
+                                                    <select class="form-control" name="servicecode1" id="servicecode1" style="width: 100px;">
+                                                        <option value="0">선택</option>
+                                                        <c:forEach var="serviceCode1" items="${SERVICECODE1}">
+                                                            <option value="${serviceCode1.codeval}">${serviceCode1.codename}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                                <div style="display: inline-block">
+                                                    <select class="form-control" name="servicecode2" id="servicecode2" style="width: 100px;">
+                                                        <option value="0">선택</option>
+                                                        <c:forEach var="serviceCode2" items="${SERVICECODE2}">
+                                                            <option value="${serviceCode2.codeval}">${serviceCode2.codename}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>처리담당자</th>
+                                            <td>
+                                                <div class="input-group owner" id="owner_" >
+                                                    <input type="text" class="form-control" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
+                                                    <input type="hidden" name="owner" id="owner" value="${sessionScope.USERNO}">
+                                                    <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <th>채널</th>
+                                            <td>
+                                                <select class="form-control" name="servicechannel" id="servicechannel" style="width:230px;">
+                                                    <option value="0">선택</option>
+                                                    <c:forEach var="serviceChannel" items="${SERVICECHANNEL}">
+                                                        <option value="${serviceChannel.codeval}">${serviceChannel.codename}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </td>
+                                            <th>진행단계</th>
+                                            <td>접수</td>
+                                            <th>제품명</th>
+                                            <td>
+                                                <div style="display: inline-block">
+                                                    <select class="form-control" name="product11" id="product11" style="width: 100px;">
+                                                        <option value="010">010</option>
+                                                        <option value="011">011</option>
+                                                        <option value="017">017</option>
+                                                        <option value="018">018</option>
+                                                        <option value="019">019</option>
+                                                    </select>
+                                                </div>
+                                                <div style="display: inline-block">
+                                                    <select class="form-control" name="product12" id="product12" style="width: 100px;">
+                                                        <option value="010">010</option>
+                                                        <option value="011">011</option>
+                                                        <option value="017">017</option>
+                                                        <option value="018">018</option>
+                                                        <option value="019">019</option>
+                                                    </select>
+                                                </div>
+                                                <div style="display: inline-block">
+                                                    <select class="form-control" name="product13" id="product13" style="width: 100px;">
+                                                        <option value="010">010</option>
+                                                        <option value="011">011</option>
+                                                        <option value="017">017</option>
+                                                        <option value="018">018</option>
+                                                        <option value="019">019</option>
+                                                    </select>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tobdy>
@@ -173,78 +322,15 @@
                                             </colgroup>
                                             <tobdy>
                                                 <tr>
-                                                    <th>접수일</th>
-                                                    <td>
-                                                        <div class="input-group" style="width:230px;">
-                                                            <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                            <input class="form-control form-control-sm" type="text" id="daterange2"  />
-                                                        </div>
-                                                    </td>
-                                                    <th>접수자</th>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm" style="width:230px;">
-                                                    </td>
-                                                    <th>제품명</th>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm" style="width:230px;">
-                                                    </td>
-                                                    <th>처리담당자</th>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm" style="width:230px;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>접수구분</th>
-                                                    <td>
-                                                        <select class="form-control" style="width:230px;">
-                                                            <option value="Bahamas">010</option>
-                                                            <option value="Bahrain">011</option>
-                                                            <option value="Bangladesh">017</option>
-                                                            <option value="Barbados">018</option>
-                                                            <option value="Belarus">019</option>
-                                                        </select>
-                                                    </td>
-                                                    <th>접수유형1</th>
-                                                    <td>
-                                                        <select class="form-control" style="width:230px;">
-                                                            <option value="Bahamas">010</option>
-                                                            <option value="Bahrain">011</option>
-                                                            <option value="Bangladesh">017</option>
-                                                            <option value="Barbados">018</option>
-                                                            <option value="Belarus">019</option>
-                                                        </select>
-                                                    </td>
-                                                    <th>접수유형2</th>
-                                                    <td>
-                                                        <select class="form-control" style="width:230px;">
-                                                            <option value="Bahamas">010</option>
-                                                            <option value="Bahrain">011</option>
-                                                            <option value="Bangladesh">017</option>
-                                                            <option value="Barbados">018</option>
-                                                            <option value="Belarus">019</option>
-                                                        </select>
-                                                    </td>
-                                                    <th>진행단계</th>
-                                                    <td>
-                                                        <select class="form-control" style="width:230px;" >
-                                                            <option value="Bahamas">010</option>
-                                                            <option value="Bahrain">011</option>
-                                                            <option value="Bangladesh">017</option>
-                                                            <option value="Barbados">018</option>
-                                                            <option value="Belarus">019</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>서비스명</th>
-                                                    <td colspan="7">
-                                                        <textarea name="need" id="" class="form-control" style="resize: none;" rows="1"></textarea>
-                                                    </td>
-                                                </tr>
-                                                <tr>
                                                     <th>접수내용</th>
                                                     <td colspan="7">
-                                                        <textarea id="mytextarea"></textarea>
+                                                        <textarea name="servicename" id="servicename" class="form-control" style="resize: none;" rows="1"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>상담내용</th>
+                                                    <td colspan="7">
+                                                        <textarea class="tinymce" name="servicedesc" id="servicedesc"></textarea>
                                                     </td>
                                                 </tr>
                                             </tobdy>
@@ -275,62 +361,84 @@
                                                     <td>
                                                         <div class="input-group" style="width:230px;">
                                                             <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                            <input class="form-control form-control-sm" type="text" id="daterange"  />
+                                                            <input class="form-control form-control-sm date" autocomplete="off" name="visitdate" id="visitdate" type="text" id="daterange"  />
                                                         </div>
                                                     </td>
                                                     <th>방문예약시간</th>
                                                     <td>
-                                                        <div style="display: inline-block;">
-                                                            <input type="text" class="form-control form-control-sm" style="width:100px;">
+                                                        <div style="display: inline-block">
+                                                            <select class="form-control" name="apm" id="apm" style="width:70px;">
+                                                                <option value="0">선택</option>
+                                                                <c:forEach var="apm" items="${APM}">
+                                                                    <option value="${apm.codeval}">${apm.codename}</option>
+                                                                </c:forEach>
+                                                            </select>
                                                         </div>
                                                         <div style="display: inline-block">
-                                                            <input type="text" class="form-control form-control-sm" style="width:100px;">
+                                                            <select class="form-control" name="hour" id="hour" style="width:70px;">
+                                                                <c:forEach var="hour" items="${HOUR}">
+                                                                    <option value="${hour.codeval}">${hour.codename}</option>
+                                                                </c:forEach>
+                                                            </select>
                                                         </div>
+                                                        <span style="display: inline-block">시</span>
+                                                        <div style="display: inline-block">
+                                                            <select class="form-control" name="minute" id="minute" style="width:70px;">
+                                                                <c:forEach var="minute" items="${MINUTE}">
+                                                                    <option value="${minute.codeval}">${minute.codename}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
+                                                        <span style="display: inline-block">분</span>
                                                     </td>
                                                     <th>담당자</th>
                                                     <td>
-                                                        <input type="text" class="form-control form-control-sm" style="width:230px;">
+                                                        <div class="input-group owner" id="rewardowner_" >
+                                                            <input type="text" class="form-control" autocomplete="off" name="rewardowner_" value="${sessionScope.USERNAME}">
+                                                            <input type="hidden" name="rewardowner" id="rewardowner" value="${sessionScope.USERNO}">
+                                                            <span class="input-group-addon">
+                                                                <a><i class="fa fa-search"></i></a>
+                                                            </span>
+                                                        </div>
                                                     </td>
                                                     <th>현상</th>
                                                     <td>
-                                                        <select class="form-control" style="width:230px;">
-                                                            <option value="Bahamas">010</option>
-                                                            <option value="Bahrain">011</option>
-                                                            <option value="Bangladesh">017</option>
-                                                            <option value="Barbados">018</option>
-                                                            <option value="Belarus">019</option>
+                                                        <select class="form-control" style="width:230px;" name="rewardtype" id="rewardtype">
+                                                            <option value="0">선택</option>
+                                                            <c:forEach var="rewardType" items="${REWARDTYPE}">
+                                                                <option value="${rewardType.codeval}">${rewardType.codename}</option>
+                                                            </c:forEach>
                                                         </select>
                                                     </td>
                                                     <th>원인구분</th>
                                                     <td>
-                                                        <select class="form-control" style="width:230px;">
-                                                            <option value="Bahamas">010</option>
-                                                            <option value="Bahrain">011</option>
-                                                            <option value="Bangladesh">017</option>
-                                                            <option value="Barbados">018</option>
-                                                            <option value="Belarus">019</option>
+                                                        <select class="form-control" style="width:230px;" name="causecode" id="causecode">
+                                                            <option value="0">선택</option>
+                                                            <c:forEach var="causeCode" items="${CAUSECODE}">
+                                                                <option value="${causeCode.codeval}">${causeCode.codename}</option>
+                                                            </c:forEach>
                                                         </select>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>방문주소</th>
                                                     <td colspan="9">
-                                                        <div style="display: inline-block"><input type="text" placeholder=".col-md-2" class="form-control form-control-sm"></div>
-                                                        <div style="display: inline-block"><input type="text" placeholder=".col-md-3" class="form-control form-control-sm"></div>
-                                                        <div style="display: inline-block"><input type="text" placeholder=".col-md-4" class="form-control form-control-sm"></div>
-                                                        <div style="display: inline-block"><button class="btn btn-white btn-sm" type="submit">주소 검색</button></div>
+                                                        <div style="display: inline-block"><input type="text" id="visitaddr1" name="visitaddr1" class="form-control form-control-sm"></div>
+                                                        <div style="display: inline-block"><input type="text" id="visitaddr2" name="visitaddr2" class="form-control form-control-sm"></div>
+                                                        <div style="display: inline-block"><input type="text" id="visitaddr3" name="visitaddr3" class="form-control form-control-sm"></div>
+                                                        <div style="display: inline-block"><button class="btn btn-white btn-sm daumzip" id="visitaddr" type="submit">주소 검색</button></div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>상세내역</th>
                                                     <td colspan="9">
-                                                        <textarea id="mytextarea2"></textarea>
+                                                        <textarea class="tinymce" id="rewarddesc" name="rewarddesc"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>지연사유</th>
                                                     <td colspan="9">
-                                                        <textarea name="need" id="" class="form-control" style="resize: none;" rows="4"></textarea>
+                                                        <textarea name="need" id="delaydesc" name="delaydesc" class="form-control" style="resize: none;" rows="4"></textarea>
                                                     </td>
                                                 </tr>
                                             </tobdy>
@@ -357,28 +465,31 @@
                                                     <td>
                                                         <div class="input-group" style="width:230px;">
                                                             <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                            <input class="form-control form-control-sm" type="text" id="daterange3"  />
+                                                            <input class="form-control form-control-sm date" autocomplete="off" type="text" id="ractdate" name="ractdate"  />
                                                         </div>
                                                     </td>
                                                     <th>처리담당자</th>
                                                     <td>
-                                                        <input type="text" class="form-control form-control-sm" style="width:230px;">
+                                                        <div class="input-group owner" id="ractowner_" >
+                                                            <input type="text" class="form-control" autocomplete="off" name="ractowner_" value="${sessionScope.USERNAME}">
+                                                            <input type="hidden" name="ractowner" id="ractowner" value="${sessionScope.USERNO}">
+                                                            <span class="input-group-addon">
+                                                                <a><i class="fa fa-search"></i></a>
+                                                            </span>
+                                                        </div>
                                                     </td>
                                                     <th>처리발송여부</th>
                                                     <td>
                                                         <select class="form-control" style="width:230px;">
-                                                            <option value="Bahamas">010</option>
-                                                            <option value="Bahrain">011</option>
-                                                            <option value="Bangladesh">017</option>
-                                                            <option value="Barbados">018</option>
-                                                            <option value="Belarus">019</option>
+                                                            <option value="0">발송</option>
+                                                            <option value="1">미발송</option>
                                                         </select>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>처리내용</th>
                                                     <td colspan="5">
-                                                        <textarea id="mytextarea3"></textarea>
+                                                        <textarea class="tinymce" name="ractdesc" id="ractdesc"></textarea>
                                                     </td>
                                                 </tr>
                                             </tobdy>
@@ -416,30 +527,30 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+
+<!-- FooTable -->
+<script src="${pageContext.request.contextPath}/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<!-- daumAPI -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<!-- validate -->
+<!--<script src="${pageContext.request.contextPath}/resources/js/plugins/validate/jquery.validate.min.js"></script>-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+<!-- api js -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.footable').footable();
-        $('#daterange').daterangepicker();
-        $('#daterange2').daterangepicker();
-        $('#daterange3').daterangepicker();
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
-        tinymce.init({
-            selector: '#mytextarea, #mytextarea2,#mytextarea3 ',
-            height : 400,
-            language:'ko_KR'
-        });
+    $.validate({
+        lang:'ko'
     });
 </script>
 </body>

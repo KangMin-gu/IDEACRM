@@ -24,7 +24,7 @@ public class ServiceController {
     @Autowired
     private CodeService codeService;
 
-    private final int USINGMENU = 3;//고객의 사용 메뉴 값은 1
+    private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
     //화면 호출
     @RequestMapping(value = "/service", method = RequestMethod.GET)
     public ModelAndView service(HttpServletRequest request){

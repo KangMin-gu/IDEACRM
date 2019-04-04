@@ -85,4 +85,16 @@ public class ServiceDaoImple implements ServiceDao {
         session.update("service.serviceDelete",serviceDto);
 
     }
+
+    @Override
+    public List<Map<String, Object>> ractList(Map<String, Object> param) {
+        List<Map<String,Object>> ractList = session.selectList("service.ractList",param);
+        return ractList;
+    }
+
+    @Override
+    public List<Map<String, Object>> conveyList(Map<String, Object> param) {
+        List<Map<String,Object>> conveyList = session.selectList("service.conveyList",param);
+        return conveyList;
+    }
 }

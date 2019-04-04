@@ -58,4 +58,10 @@ function parentCustname(tr){
         window.close();
     },300);
 }
-
+$('.nav-link').click(function(e){
+    // click 탭의 href의 값을 가지고 온다.
+    var href = e.target.attributes.href.value;
+    // href의 tabpanel에 footable에 사용할 url을 가지고 온다.
+    var url = $(href).attr('url');
+    tabFootableSearchList(href,url);
+});

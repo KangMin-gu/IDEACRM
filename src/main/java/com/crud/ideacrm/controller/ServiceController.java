@@ -100,4 +100,18 @@ public class ServiceController {
         mView.setViewName("page/service/calendar/serviceCalendar");
         return mView;
     }
+
+    @RequestMapping(value="/tab/ract/{serviceNo}",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable int serviceNo){
+        List<Map<String,Object>> tabRactList = serviceService.ractList(request,serviceNo);
+        return tabRactList;
+    }
+
+    @RequestMapping(value="/tab/convey/{serviceNo}",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authTabConveyList(HttpServletRequest request,@PathVariable int serviceNo){
+        List<Map<String,Object>> tabConveyList = serviceService.conveyList(request,serviceNo);
+        return tabConveyList;
+    }
 }

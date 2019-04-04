@@ -27,6 +27,19 @@ function popPupFootableSearchList(url) {
         });
     });
 }
+function tabFootableSearchList(id,url) {
+    var param = searchDataToJson();
+    $.post(url, param, function (response) {
+        $(id).find('.tabfootable').footable({
+            "toggleSelector": ".footable-toggle",
+            "paging": {
+                "enabled": true,
+                "container" : ".pagination"
+            },
+            "rows": response
+        });
+    });
+}
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
     if(globalUrl =='/popowner'){
         parentOwnerUser($(obj.target.parentElement));

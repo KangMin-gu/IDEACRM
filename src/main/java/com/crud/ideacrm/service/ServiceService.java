@@ -16,5 +16,8 @@ public interface ServiceService {
     public int serviceInsertUpdate(HttpServletRequest request, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto);
     public void serviceDelete(HttpServletRequest request,int serviceNo);
 
+    public List<Map<String,Object>> ractList(HttpServletRequest request, int serviceNo);
+    public List<Map<String,Object>> conveyList(HttpServletRequest request, int serviceNo);
+
 
 }

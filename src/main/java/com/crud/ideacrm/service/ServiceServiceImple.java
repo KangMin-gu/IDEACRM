@@ -188,4 +188,26 @@ public class ServiceServiceImple implements ServiceService{
 
         serviceDao.serviceDelete(serviceDto);
     }
+
+    @Override
+    public List<Map<String, Object>> ractList(HttpServletRequest request, int serviceNo) {
+
+        ParameterUtil parameterUtil = new ParameterUtil();
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        param.put("serviceno",serviceNo);
+
+        List<Map<String,Object>> ractList = serviceDao.ractList(param);
+
+        return ractList;
+    }
+
+    @Override
+    public List<Map<String, Object>> conveyList(HttpServletRequest request, int serviceNo) {
+        ParameterUtil parameterUtil = new ParameterUtil();
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        param.put("serviceno",serviceNo);
+
+        List<Map<String,Object>> conveyList = serviceDao.conveyList(param);
+        return conveyList;
+    }
 }

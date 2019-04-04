@@ -33,6 +33,10 @@ public interface ServiceDao {
 
     public void serviceDelete(ServiceDto serviceDto);
 
+    public List<Map<String,Object>> ractList(Map<String,Object> param);
+
+    public List<Map<String,Object>> conveyList(Map<String,Object> param);
+
 
 
 

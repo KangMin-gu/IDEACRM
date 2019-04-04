@@ -23,7 +23,7 @@ public class CustController {
     CustService custService;
     private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1
 
-    //고객 리스트 기본 화면.
+    //고객 리스트 기본 화면.test
     @RequestMapping(value = "/cust", method = RequestMethod.GET)
     public ModelAndView authCustList(HttpServletRequest request){
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());

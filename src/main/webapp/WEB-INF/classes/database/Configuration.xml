@@ -13,6 +13,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.crud.ideacrm.dto.ServiceDto" alias="serviceDto" />
 		<typeAlias type="com.crud.ideacrm.dto.RewardDto" alias="rewardDto" />
 		<typeAlias type="com.crud.ideacrm.dto.RactDto" alias="ractDto" />
+		<typeAlias type="com.crud.ideacrm.dto.ProductDto" alias="productDto" />
+		<typeAlias type="com.crud.ideacrm.dto.CodeDto" alias="codeDto" />
 	</typeAliases>
 
 	<mappers>
@@ -21,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="database/CustMapper.xml" />
 		<mapper resource="database/ServiceMapper.xml" />
 		<mapper resource="database/UserMapper.xml" />
+		<mapper resource="database/ProductMapper.xml" />
 	</mappers>
 	
 </configuration>

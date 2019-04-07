@@ -24,4 +24,17 @@ public class CodeDaoImple implements CodeDao {
         return session.selectList("code.getCodeList",codeDto);
     }
 
+    // 상위 코드 값으로 하위 코드 값을 가져옴
+    @Override
+    public List<CodeDto> getUpperCodeGrp(CodeDto codeDto) {
+        List<CodeDto> upperGrpCodeList = session.selectList("code.getUpperCodeGrp",codeDto);
+        return upperGrpCodeList;
+    }
+
+    @Override
+    public String getCodeNo(CodeDto codeDto) {
+        String codeNo = session.selectOne("code.getCodeNo",codeDto);
+        return codeNo;
+    }
+
 }

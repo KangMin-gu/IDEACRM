@@ -20,4 +20,18 @@
 		</if>
 	</select>
 
+	<select id="getCodeNo" parameterType="codeDto" resultType="String">
+    	SELECT CODENO FROM SYS990020
+    	WHERE SITEID = #{siteid}
+    	AND CODEGRP = #{codegrp}
+    	AND CODEVAL = #{codeval}
+
+    </select>
+
+	<select id="getUpperCodeGrp" parameterType="codeDto" resultType="codeDto">
+    	SELECT * FROM sys990020
+    	WHERE SITEID = #{siteid}
+    	AND UPPERCODEGRP = #{uppercodegrp}
+    </select>
+
 </mapper>

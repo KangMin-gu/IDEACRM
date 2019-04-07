@@ -7,4 +7,7 @@ import java.util.List;
 public interface CodeDao {
     public List<String> getCodeGrpList(CodeDto codeDto);
     public List<CodeDto> getCodeList(CodeDto codeDto);
+
+    public String getCodeNo(CodeDto codeDto);
+    public List<CodeDto> getUpperCodeGrp(CodeDto codeDto);
 }

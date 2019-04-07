@@ -30,6 +30,8 @@ jQuery.extend(jQuery.validator.messages, {
 });
 
 $(function(){
+    $.validator.addClassRules("name",{required: true, minlength: 2, maxlength:20})
+
 
     $(".crudForm").validate({
 

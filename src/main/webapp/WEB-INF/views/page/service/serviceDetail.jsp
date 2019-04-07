@@ -53,13 +53,18 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form:form action="/service/delete/${serviceInfo.SERVICENO}" method="POST">
+                    <form:form action="/servicedelete/${serviceInfo.SERVICENO}" method="POST">
                         <a href="/service" class="btn btn-default pull-left">목록</a>
-                        <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                        <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                        <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                        <button type="submit" class="btn btn-default pull-right">삭제</button>
-                        <a href="/service/update/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                        <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
+                            <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
+                            <a href="#" class="btn btn-default servicenext" data-toggle="tooltip" data-placement="top" title="이관"><i class="fa fa-external-link"></i></a>
+                            <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                            <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
+                            <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
+                            <button type="submit" class="btn btn-default pull-right">삭제</button>
+                            <a href="/serviceupdate/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                            </c:if>
+                        </c:if>
                     </form:form>
                 </div>
             </div>
@@ -154,8 +159,6 @@
                                             <td>${serviceInfo.SERVICECHANNEL_}</td>
                                             <th>진행단계</th>
                                             <td>${serviceInfo.SERVICESTEP_}</td>
-                                            <th>제품명</th>
-                                            <td>${serviceInfo.EMAIL}</td>
                                         </tr>
                                     </tobdy>
                                 </table>
@@ -190,12 +193,21 @@
                                                 </colgroup>
                                                 <tobdy>
                                                     <tr>
+                                                        <th>제품명</th>
+                                                        <td colspan="7">
+                                                        <c:forEach var="product" items="${product }">
+                                                            <div class="product">
+                                                                ${product.PRODUCTBNAME } / ${product.PRODUCTMNAME } / ${product.PRODUCTSNAME }
+                                                            </div>
+                                                        </c:forEach>
+                                                    </tr>
+                                                    <tr>
                                                         <th>접수내용</th>
                                                         <td colspan="7">${serviceInfo.SERVICENAME}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>상담내용</th>
-                                                        <td colspan="5">${serviceInfo.SERVICEDESC}</td>
+                                                        <td colspan="5" value="${serviceInfo.SERVICEDESC}">${serviceInfo.SERVICEDESC}</td>
                                                     </tr>
                                                 </tobdy>
                                             </table>
@@ -224,14 +236,14 @@
                                                 <tobdy>
                                                     <tr>
                                                         <th>방문예약일</th>
-                                                        <td>${rewardInfo.VISITDATE_}${rewardInfo.VISITTIME}</td>
+                                                        <td>${rewardInfo.VISITDATE_}</td>
                                                         <th>방문예약시간</th>
-                                                        <td>${rewardInfo.VISITDATE_}${rewardInfo.VISITAPM_} ${rewardInfo.VISITHOUR} ${rewardInfo.VISITMINUTE}</td>
+                                                        <td>${rewardInfo.VISITTIME_}</td>
                                                         <th>담당자</th>
-                                                        <td>${rewardInfo.OWNER_}</td>
+                                                        <td>${serviceInfo.OWNER_}</td>
                                                         <th>현상</th>
                                                         <td>${rewardInfo.REWARDTYPE_}</td>
-                                                        <th>원인구분</th>
+                                                        <th>지연원인구분</th>
                                                         <td>${rewardInfo.CAUSECODE_}</td>
                                                     </tr>
                                                     <tr>
@@ -294,7 +306,7 @@
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="tabs-container">
-                        <ul class="nav nav-tabs" role="tablist">
+                        <ul class="nav nav-tabs detail" role="tablist">
                             <li><a class="nav-link active" data-toggle="tab" href="#tab-4">처리이력</a></li>
                             <li><a class="nav-link" data-toggle="tab" href="#tab-5">이관이력</a></li>
                         </ul>
@@ -364,12 +376,19 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <form:form action="/servicedelete/${serviceInfo.SERVICENO}" method="POST">
+                        <a href="/service" class="btn btn-default pull-left">목록</a>
+                        <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
+                            <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
+                                <a href="#" class="btn btn-default servicenext" data-toggle="tooltip" data-placement="top" title="이관"><i class="fa fa-external-link"></i></a>
+                                <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                                <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
+                                <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
+                                <button type="submit" class="btn btn-default pull-right">삭제</button>
+                                <a href="/serviceupdate/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                            </c:if>
+                        </c:if>
+                    </form:form>
                 </div>
             </div>
 

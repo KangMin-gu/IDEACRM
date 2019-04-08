@@ -173,13 +173,11 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>회원사 고객 목록</h5>
-                            <div class="ibox-tools">
-                                <a class="btn btn-default" href="/custinsert">추가</a>
-                                <button class="btn btn-default" onclick="custMultyDelete();">삭제</button>
-                            </div>
                         </div>
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm" id="test"><i class="fa fa-file-excel-o"></i></button>
+                            <a class="btn btn-default pull-right" href="/custinsert">추가</a>
+                            <button class="btn btn-default pull-right" onclick="custMultyDelete();">삭제</button>
                             <form class="checkedForm" action="/custdelete" method="post">
                             <table class="footable table table-stripped "  data-paging="true" data-filter=#filter data-sorting="true">
                                 <thead>

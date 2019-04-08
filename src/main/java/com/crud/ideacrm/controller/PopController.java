@@ -83,4 +83,25 @@ public class PopController {
         return clientService.clientList(searchPrm);
     }
 
+    @RequestMapping(value = "/popsms", method = RequestMethod.GET)
+    public ModelAndView authSmsPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/smsPop");
+        return mView;
+    }
+
+    @RequestMapping(value = "/popkakao", method = RequestMethod.GET)
+    public ModelAndView authKakaoPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/kakaoPop");
+        return mView;
+    }
+
+    @RequestMapping(value = "/popemail", method = RequestMethod.GET)
+    public ModelAndView authEmailPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/emailPop");
+        return mView;
+    }
+
 }

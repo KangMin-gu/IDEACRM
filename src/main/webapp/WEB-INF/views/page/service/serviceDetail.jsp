@@ -58,9 +58,9 @@
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
                             <a href="#" class="btn btn-default servicenext" data-toggle="tooltip" data-placement="top" title="이관"><i class="fa fa-external-link"></i></a>
-                            <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                            <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                            <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
+                            <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                            <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
+                            <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                             <button type="submit" class="btn btn-default pull-right">삭제</button>
                             <a href="/serviceupdate/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
                             </c:if>
@@ -381,9 +381,9 @@
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
                                 <a href="#" class="btn btn-default servicenext" data-toggle="tooltip" data-placement="top" title="이관"><i class="fa fa-external-link"></i></a>
-                                <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                                <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                                <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
+                                <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                                <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
+                                <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                                 <button type="submit" class="btn btn-default pull-right">삭제</button>
                                 <a href="/serviceupdate/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
                             </c:if>

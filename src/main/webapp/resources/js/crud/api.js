@@ -48,18 +48,8 @@ function tabFootableSearchList(id,url) {
         });
     });
 }
-$(".footable").on("click.ft.row",function(obj,e,ft,row){
-    if(globalUrl =='/popowner'){
-        parentOwnerUser($(obj.target.parentElement));
-    }
-    if(globalUrl == '/popcust'){
-        parentCustname($(obj.target.parentElement));
-    }
-    if(globalUrl == '/popclient'){
-        popParentNameClick($(obj.target.parentElement));
-    }
-
-
+$(".popfootable").on("click.ft.row",function(obj,e,ft,row){
+    popParentNameClick($(obj.target.parentElement));
 });
 
 

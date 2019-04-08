@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <table class="footable table table-stripped" data-sorting="true">
+                    <table class="popfootable table table-stripped" data-sorting="true">
                         <thead>
                         <tr data-formatter="test">
                             <th data-visible="false" data-name="USERNO">사용자번호</th>

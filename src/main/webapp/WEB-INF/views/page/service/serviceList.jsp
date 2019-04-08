@@ -103,11 +103,11 @@
                                             </td>
                                             <th>접수자</th>
                                             <td class="input-group owner" id="serviceowner_">
-                                                <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text" style="width: 100px;">
+                                                <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text">
                                                 <input type="hidden" class="searchparam" name="serviceowner" id="serviceowner" value="${search.serviceowner }">
                                                 <span class="input-group-addon">
-                                                        <a><i class="fa fa-search"></i></a>
-                                                    </span>
+                                                    <a><i class="fa fa-search"></i></a>
+                                                </span>
                                             </td>
                                             <td>
                                                 <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
@@ -124,7 +124,7 @@
                                             </td>
                                             <th>고객명</th>
                                             <td>
-                                                <div class="input-group cust" id="custno_" style="width: 150px;">
+                                                <div class="input-group cust" id="custno_">
                                                     <input type="text" class="form-control searchparam" autocomplete="off" name="custno_" value="">
                                                     <input type="hidden" class="searchparam" name="owner" id="custno" value="">
                                                     <span class="input-group-addon">
@@ -134,7 +134,7 @@
                                             </td>
                                             <th>담당자</th>
                                             <td>
-                                                <div class="input-group owner" id="owner_" >
+                                                <div class="input-group owner" id="owner_">
                                                     <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
                                                     <input type="hidden" class="searchparam" name="owner" id="owner" value="${sessionScope.USERNO}">
                                                     <span class="input-group-addon">

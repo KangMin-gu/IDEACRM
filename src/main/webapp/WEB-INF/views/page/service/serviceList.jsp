@@ -30,7 +30,7 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>서비스 목록</h2>
+                <h2>서비스 관리</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
@@ -88,19 +88,16 @@
                                             <th>접수유형</th>
                                             <td colspan="1">
                                                 <div style="display: inline-block">
-                                                    <select class="form-control searchparam" name="servicecode1" id="servicecode1" style="width: 100px;">
-                                                        <option value="">선택</option>
+                                                    <select class="form-control " name="servicecode1" id="servicecode1" style="width: 100px;">
+                                                        <option value="0">선택</option>
                                                         <c:forEach var="serviceCode1" items="${SERVICECODE1}">
                                                             <option value="${serviceCode1.codeval}">${serviceCode1.codename}</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control searchparam" name="servicecode2" id="servicecode2" style="width: 100px;">
-                                                        <option value="">선택</option>
-                                                        <c:forEach var="serviceCode2" items="${SERVICECODE2}">
-                                                            <option value="${serviceCode2.codeval}">${serviceCode2.codename}</option>
-                                                        </c:forEach>
+                                                    <select class="form-control " name="servicecode2" id="servicecode2" upper ="servicecode1" style="width: 100px;">
+                                                        <option value="0">선택</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -162,11 +159,6 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>서비스 목록</h5>
-                            <div class="ibox-tools">
-                                <a href="/servicedetail">디테일화면1</a>
-                                <a href="/serviceinsert">입력화면</a>
-                                <a href="/servicedetail">담당자팝업테스트</a>
-                            </div>
                         </div>
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
@@ -174,7 +166,7 @@
                             <table class="footable table table-stripped" data-sorting="true" >
                                 <thead>
                                 <tr>
-                                    <th data-visible="false" data-name="SERVICENO">서비스번호</th>
+                                    <th data-visible="true" data-name="SERVICENO">서비스번호</th>
                                     <th data-visible="false" data-name="URL">URL</th>
                                     <th data-name="SERVICENAME_" data-formatter="formatter">서비스명</th>
                                     <th data-name="SERVICETYPE_" data-breakpoints="xs sm">접수구분</th>
@@ -187,9 +179,6 @@
                                     <th data-name="SERVICESTEP_">처리상태</th>
                                 </tr>
                                 </thead>
-                                <tbody class="test">
-
-                                </tbody>
                                 <tfoot>
                                 <tr>
                                     <td colspan="9">
@@ -222,6 +211,7 @@
 <!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){

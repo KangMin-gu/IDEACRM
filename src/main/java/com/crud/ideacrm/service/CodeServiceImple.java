@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +65,27 @@ public class CodeServiceImple implements CodeService {
             */
         }
         return codeMap;
+    }
+
+    @Override
+    public List<CodeDto> getUpperCodeGrp(HttpServletRequest request) {
+
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        String codeVal = request.getParameter("codeval").toString();
+        String codeGrp = request.getParameter("codegrp").toString().toUpperCase();
+
+
+        CodeDto codeDto = new CodeDto();
+        codeDto.setSiteid(siteId);
+        codeDto.setCodeval(codeVal);
+        codeDto.setCodegrp(codeGrp);
+
+        String getCodeNo = codeDao.getCodeNo(codeDto);
+
+        codeDto.setUppercodegrp(getCodeNo);
+
+        List<CodeDto> getUpperCodeGrp = codeDao.getUpperCodeGrp(codeDto);
+        return getUpperCodeGrp;
     }
 
 }

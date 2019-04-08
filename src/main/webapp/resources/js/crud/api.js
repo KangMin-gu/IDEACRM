@@ -12,6 +12,14 @@ function footableSearchList(url) {
             },
             "rows": response
         });
+        if(response.length > 0){
+            //tr의 값이 0 이상이면 empty tr을 삭제
+            $('.footable-empty').remove();
+        }
+        if($('.footable-pagination-wrapper').length > 0){
+            // footable의 pagination이 1개 이상이면 삭제
+            $('.footable-pagination-wrapper:gt(0)').remove();
+        }
     });
 }
 function popPupFootableSearchList(url) {
@@ -28,10 +36,8 @@ function popPupFootableSearchList(url) {
     });
 }
 function tabFootableSearchList(id,url) {
-    debugger;
     var param = searchDataToJson();
     $.post(url, param, function (response) {
-        debugger;
         $(id).find('.tabfootable').footable({
             "toggleSelector": ".footable-toggle",
             "paging": {
@@ -62,28 +68,7 @@ function formatter(value, options, rowData) {
     return "<a href='" + rowData.URL + "'>" + value + "</a>"
 }
 
-// 검색조건들 footable에서 사용하기 위해서 json형태로 변환
-function searchDataToJson() {
-    var param = {};
-    var data = $('.searchparam');
-    var dataLength = data.length;
 
-    for (i = 0; i < dataLength; i++) {
-        var idVal = data[i].id;
-        if (idVal != '') {
-            if (idVal.substring(0, 4) == 'deny') { // 수신거부 체크박스 항목일 경우
-                if ($('#' + idVal).prop('checked') == true) {
-                    param[idVal] = dataata[i].value;//체크 되었으면 값 바인딩
-                } else {
-                    param[idVal] = 0; // 체크 해제 되었다면 0
-                }
-            } else {
-                param[idVal] = data[i].value;
-            }
-        }
-    }
-    return param;
-}
 
 // tinymce
 if($('.tinymce').length> 0) {

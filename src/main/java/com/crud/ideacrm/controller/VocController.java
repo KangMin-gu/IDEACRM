@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -50,14 +49,14 @@ public class VocController {
     @RequestMapping(value = "/voc/sms", method = RequestMethod.GET)
     public ModelAndView vocSmsPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/voc/pop/smsPop");
+        mView.setViewName("page/popup/smsPop");
         return mView;
     }
 
     @RequestMapping(value = "/voc/kakao", method = RequestMethod.GET)
     public ModelAndView vocKakaoPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/voc/pop/kakaoPop");
+        mView.setViewName("page/popup/kakaoPop");
         return mView;
     }
 

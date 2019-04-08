@@ -3,10 +3,12 @@ package com.crud.ideacrm.controller;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ClientDao;
 import com.crud.ideacrm.service.ClientService;
+import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.service.CustService;
 import com.crud.ideacrm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,6 +57,16 @@ public class PopController {
 
         List<Map<String,Object>> custList = custService.custList(param);
         return custList;
+    }
+    @RequestMapping(value="/popcust/{custNo}",method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> authPopCustDetail(HttpServletRequest request, @PathVariable int custNo){
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        CustDto custDto = new CustDto();
+        custDto.setCustno(custNo);
+        custDto.setSiteid(siteId);
+        Map<String,Object> custDetail = custService.custDetail(custDto);
+        return custDetail;
     }
 
     //담당자팝업

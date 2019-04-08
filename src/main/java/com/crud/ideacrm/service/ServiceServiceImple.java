@@ -2,6 +2,7 @@ package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ServiceDao;
+import com.crud.ideacrm.dto.ProductDto;
 import com.crud.ideacrm.dto.RactDto;
 import com.crud.ideacrm.dto.RewardDto;
 import com.crud.ideacrm.dto.ServiceDto;
@@ -41,9 +42,9 @@ public class ServiceServiceImple implements ServiceService{
         Map<String,Object> serviceInfo = serviceDao.serviceDetail(param);
         Map<String,Object> rewardInfo = serviceDao.rewardDetail(param);
         Map<String,Object> ractInfo = serviceDao.ractDetail(param);
-        //List<ProductDto> product = serviceDao.svProductRead(param);
+        List<ProductDto> product = serviceDao.serviceProductRead(param);
 
-       // mView.addObject("product",product);
+        mView.addObject("product",product);
         mView.addObject("serviceInfo", serviceInfo);
         mView.addObject("rewardInfo", rewardInfo);
         mView.addObject("ractInfo", ractInfo);
@@ -170,7 +171,7 @@ public class ServiceServiceImple implements ServiceService{
                     }else if(cnt ==3) {
                         map.put("products", value);
                         cnt = 0;
-                        //serviceDao.svProductInsert(map);
+                        serviceDao.serviceProductInsert(map);
                     }
                 }
             }

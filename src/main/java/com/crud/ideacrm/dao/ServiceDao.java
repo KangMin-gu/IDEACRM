@@ -1,5 +1,6 @@
 package com.crud.ideacrm.dao;
 
+import com.crud.ideacrm.dto.ProductDto;
 import com.crud.ideacrm.dto.RactDto;
 import com.crud.ideacrm.dto.RewardDto;
 import com.crud.ideacrm.dto.ServiceDto;
@@ -36,6 +37,11 @@ public interface ServiceDao {
     public List<Map<String,Object>> ractList(Map<String,Object> param);
 
     public List<Map<String,Object>> conveyList(Map<String,Object> param);
+
+    // 서비스 제품등록
+    public void serviceProductInsert(Map<String,Object> param);
+    // 서비스 제품 Detail
+    public List<ProductDto> serviceProductRead(Map<String,Object> param);
 
 
 

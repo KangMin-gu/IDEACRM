@@ -81,6 +81,9 @@
 		 	, A.SERVICESTEP
 		 	, A.FILESEARCHKEY
 		 	, A.OWNER
+		 	,A.SERVICECODE1
+			,A.SERVICECODE2
+			,A.SERVICECHANNEL
 		 	,(case when length(A.SERVICECODE2) > 0 then CONCAT(FN_GETCODE('SERVICECODE1',A.SERVICECODE1,#{siteid}), ' / ', FN_GETCODEUPPER('SERVICECODE2',A.SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',A.SERVICECODE1,#{siteid})))
 	         	   when length(A.SERVICECODE1) > 0 then FN_GETCODE('SERVICECODE1',A.SERVICECODE1,#{siteid})
 	    		else '' end) SERVICECODE_
@@ -113,6 +116,8 @@
 		,CONCAT(FN_GETCODE('APM',A.VISITAPM,#{siteId}),A.VISITHOUR,'시',A.VISITMINUTE,'분') AS VISITTIME_
 		,CONCAT(A.VISITADDR1,' ',A.VISITADDR2,' ',A.VISITADDR3) AS VISITADDR_
 		,A.VISITADDR1, A.VISITADDR2, A.VISITADDR3
+		, A.REWARDTYPE
+		, A.CAUSECODE
 		, FN_GETCODE('REWARDTYPE',A.REWARDTYPE,#{siteid}) AS REWARDTYPE_
 		, FN_GETCODE('CAUSECODE',A.CAUSECODE,#{siteid}) AS CAUSECODE_
 		, FN_GETCODE('DELAYTYPE',A.DELAYTYPE,#{siteid}) AS DELAYTYPE_
@@ -214,13 +219,18 @@
 	<update id="rewardUpdate" parameterType="rewardDto">
 	Update sv300030
 		SET VISITDATE = #{visitdate}
-			,VISITTIME = #{visittime}
+			,VISITAPM = #{visitapm}
+			,VISITHOUR = #{visithour}
+			,VISITMINUTE = #{visitminute}
 			,REWARDTYPE = #{rewardtype}
 			,CAUSECODE = #{causecode}
 			,DELAYTYPE = #{delaytype}
 			,DELAYDESC = #{delaydesc}
 			,REWARDDESC = #{rewarddesc}
 			,FILESEARCHKEY = #{filesearchkey}
+			,VISITADDR1 = #{visitaddr1}
+			,VISITADDR2 = #{visitaddr2}
+			,VISITADDR3 = #{visitaddr3}
 			,EDTDATE = NOW()
 			,EDTUSER = #{edtuser}
 		WHERE SITEID = #{siteid}
@@ -287,6 +297,40 @@
 		WHERE A.SERVICENO = #{serviceno}
 		AND A.SITEID = #{siteid}
 	</select>
+	<insert id="serviceProductInsert" parameterType="hashMap">
+		INSERT INTO sv300060
+		(
+		SERVICENO
+		 ,PRODUCTB
+		 ,PRODUCTM
+		 ,PRODUCTS
+		 ,REGDATE
+		 ,REGUSER
+		 ,EDTDATE
+		 ,EDTUSER
+		 ,SITEID
+		)VALUES(
+		#{serviceno}
+		,#{productb}
+		,#{productm}
+		,#{products}
+		,NOW()
+		,#{reguser}
+		,NOW()
+		,#{edtuser}
+		,#{siteid}
+		)
+	</insert>
 
+	<select id="serviceProductRead" parameterType="hashMap" resultType="hashMap">
+		SELECT PRODUCTB,PRODUCTM,PRODUCTS
+		,FN_PRODUCT(PRODUCTB,#{siteid}) AS PRODUCTBNAME
+		,FN_PRODUCT(PRODUCTM,#{siteid}) AS PRODUCTMNAME
+		,FN_PRODUCT(PRODUCTS,#{siteid}) AS PRODUCTSNAME
+		,(SELECT COUNT(*) FROM sv300060 where siteid = #{siteid} and serviceno = #{serviceno}) AS CNT
+		 FROM SV300060
+		WHERE SITEID = #{siteid}
+		AND SERVICENO = #{serviceno}
+	</select>
 
 </mapper>

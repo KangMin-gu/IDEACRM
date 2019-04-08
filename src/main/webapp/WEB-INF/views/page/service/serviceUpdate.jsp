@@ -30,7 +30,7 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>서비스 신규 등록</h2>
+                <h2>서비스 관리</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
@@ -50,18 +50,16 @@
             </div>
         </div>
 
-
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/serviceinsert" method="post">
+            <form:form action="/serviceupdate/${serviceInfo.SERVICENO}" method="POST">
                 <div class="row">
                     <div class="col-lg-12">
-                        <button type="submit" class="btn btn-default pull-left">저장</button>
+                        <button type="submit" class="btn btn-default pull-left save">저장</button>
                         <a href="/service/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">취소</a>
                     </div>
                 </div>
 
                 <br/>
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox">
@@ -89,7 +87,7 @@
                                         <tobdy>
                                             <tr>
                                                 <th>고객명</th>
-                                                <td>
+                                                <td>${serviceInfo.CUSTNAME}</td>
                                                     <!--
                                                     <div style="display: inline-block">
                                                         <input type="text" class="form-control form-control-sm" style="width:230px;">
@@ -98,6 +96,7 @@
                                                             <a><i class="fa fa-search fa-lg"></i></a>
                                                     </div>
                                                     -->
+                                                <!--
                                                     <div class="input-group owner" id="custno_" >
                                                         <input type="text" class="form-control" autocomplete="off" name="custno_" value="${serviceInfo.CUSTNAME}">
                                                         <input type="hidden" name="custno" id="custno" value="${serviceInfo.CUSTNO}">
@@ -106,6 +105,7 @@
                                                         </span>
                                                     </div>
                                                 </td>
+                                                -->
                                                 <th>자택전화</th>
                                                 <td>${serviceInfo.HOMTEL}</td>
                                                 <th>휴대전화</th>
@@ -153,117 +153,32 @@
                                             <tr>
                                                 <th>접수일</th>
                                                 <td>
-                                                    <div class="input-group" style="width:230px;">
-                                                        <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                        <input class="form-control form-control-sm date" autocomplete="off" name="receptiondate" id="receptiondate" type="text" value="${serviceInfo.RECEPTIONDATE_}"/>
-                                                    </div>
+                                                        ${serviceInfo.RECEPTIONDATE_}
                                                 </td>
                                                 <th>접수자</th>
                                                 <td>
-                                                    <div class="input-group owner" id="serviceowner_" >
-                                                        <input type="text" class="form-control" autocomplete="off" name="serviceowner_" value="${serviceInfo.SERVICEOWNER_}">
-                                                        <input type="hidden" name="serviceowner" id="serviceowner" value="${serviceInfo.SERVICEOWNER}">
-                                                        <span class="input-group-addon">
-                                                        <a><i class="fa fa-search"></i></a>
-                                                    </span>
-                                                    </div>
+                                                        ${serviceInfo.SERVICEOWNER_}
                                                 </td>
                                                 <th>구분</th>
                                                 <td>
-                                                    <!-- radio -->
-                                                    <div class="i-checks">
-                                                        <c:forEach var="serviceType" items="${SERVICETYPE}">
-                                                            <label><input type="radio" value="${serviceType.codeval}" name="sex"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
-                                                        </c:forEach>
-                                                    </div>
+                                                        ${serviceInfo.SERVICETYPE_}
                                                 </td>
                                                 <th>유형</th>
                                                 <td>
-                                                    <div style="display: inline-block">
-                                                        <select class="form-control" name="servicecode1" id="servicecode1" style="width: 100px;">
-                                                            <option value="0">선택</option>
-                                                            <c:forEach var="serivceCode1" items="${SERVICECODE1 }">
-                                                                <c:choose>
-                                                                    <c:when test="${serviceInfo.SERVICECODE1 eq serivceCode1.codeval}">
-                                                                        <option selected label="${serivceCode1.codename }" value="${serivceCode1.codeval }"/>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <option label="${serivceCode1.codename }" value="${serivceCode1.codeval }"/>
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </c:forEach>
-
-                                                        </select>
-                                                    </div>
-                                                    <div style="display: inline-block">
-                                                        <select class="form-control" name="servicecode2" id="servicecode2" style="width: 100px;">
-                                                            <option value="0">선택</option>
-                                                            <c:forEach var="serivceCode2" items="${SERVICECODE2 }">
-                                                                <c:choose>
-                                                                    <c:when test="${serviceInfo.SERVICECODE2 eq serivceCode2.codeval}">
-                                                                        <option selected label="${serivceCode2.codename }" value="${serivceCode2.codeval }"/>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <option label="${serivceCode2.codename }" value="${serivceCode2.codeval }"/>
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
+                                                    ${serviceInfo.SERVICECODE_}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>처리담당자</th>
                                                 <td>
-                                                    <div class="input-group owner" id="owner_" >
-                                                        <input type="text" class="form-control" autocomplete="off" name="owner_" value="${serviceInfo.OWNER_}">
-                                                        <input type="hidden" name="owner" id="owner" value="${serviceInfo.OWNER}">
-                                                        <span class="input-group-addon">
-                                                        <a><i class="fa fa-search"></i></a>
-                                                    </span>
-                                                    </div>
+                                                        ${serviceInfo.OWNER_}
                                                 </td>
                                                 <th>채널</th>
                                                 <td>
-                                                    <select class="form-control" name="servicechannel" id="servicechannel" style="width:230px;">
-                                                        <option value="0">선택</option>
-                                                        <c:forEach var="serviceChannel" items="${SERVICECHANNEL}">
-                                                            <option value="${serviceChannel.codeval}">${serviceChannel.codename}</option>
-                                                        </c:forEach>
-                                                    </select>
+                                                    ${serviceInfo.SERVICECHANNEL_}
                                                 </td>
                                                 <th>진행단계</th>
                                                 <td>${serviceInfo.SERVICESTEP_}</td>
-                                                <th>제품명</th>
-                                                <td>
-                                                    <div style="display: inline-block">
-                                                        <select class="form-control" name="product11" id="product11" style="width: 100px;">
-                                                            <option value="010">010</option>
-                                                            <option value="011">011</option>
-                                                            <option value="017">017</option>
-                                                            <option value="018">018</option>
-                                                            <option value="019">019</option>
-                                                        </select>
-                                                    </div>
-                                                    <div style="display: inline-block">
-                                                        <select class="form-control" name="product12" id="product12" style="width: 100px;">
-                                                            <option value="010">010</option>
-                                                            <option value="011">011</option>
-                                                            <option value="017">017</option>
-                                                            <option value="018">018</option>
-                                                            <option value="019">019</option>
-                                                        </select>
-                                                    </div>
-                                                    <div style="display: inline-block">
-                                                        <select class="form-control" name="product13" id="product13" style="width: 100px;">
-                                                            <option value="010">010</option>
-                                                            <option value="011">011</option>
-                                                            <option value="017">017</option>
-                                                            <option value="018">018</option>
-                                                            <option value="019">019</option>
-                                                        </select>
-                                                    </div>
-                                                </td>
                                             </tr>
                                         </tobdy>
                                     </table>
@@ -272,17 +187,15 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="row ">
+
                     <div class="col-lg-12">
                         <div class="tabs-container">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li><a class="nav-link active" data-toggle="tab" href="#tab-1">접수정보</a></li>
+                                <li><a class="nav-link active" data-toggle="tab" href="#tab-1">상세정보</a></li>
                                 <li><a class="nav-link" data-toggle="tab" href="#tab-2">현상파악</a></li>
                                 <li><a class="nav-link" data-toggle="tab" href="#tab-3">처리정보</a></li>
                             </ul>
-
                             <div class="tab-content">
                                 <div role="tabpanel" id="tab-1" class="tab-pane active">
                                     <div class="panel-body">
@@ -300,15 +213,25 @@
                                                 </colgroup>
                                                 <tobdy>
                                                     <tr>
+                                                        <th>제품명</th>
+                                                        <td colspan="7">
+                                                            <c:forEach var="product" items="${product }">
+                                                                <div class="product">
+                                                                        ${product.PRODUCTBNAME } / ${product.PRODUCTMNAME } / ${product.PRODUCTSNAME }
+                                                                </div>
+                                                            </c:forEach>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>접수내용</th>
                                                         <td colspan="7">
-                                                            <textarea name="servicename" id="servicename" class="form-control" style="resize: none;" rows="1">${serviceInfo.SERVICENAME}</textarea>
+                                                            ${serviceInfo.SERVICENAME}
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th>상담내용</th>
                                                         <td colspan="7">
-                                                            <textarea class="tinymce" name="ractdesc" id="servicedesc">${serviceInfo.SERVICEDESC}</textarea>
+                                                            ${serviceInfo.SERVICEDESC}
                                                         </td>
                                                     </tr>
                                                 </tobdy>
@@ -316,7 +239,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div role="tabpanel" id="tab-2" class="tab-pane">
                                     <div class="panel-body">
                                         <div class="table-responsive">
@@ -339,13 +261,13 @@
                                                         <td>
                                                             <div class="input-group" style="width:230px;">
                                                                 <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                                <input class="form-control form-control-sm date" autocomplete="off" name="visitdate" id="visitdate" type="text" id="daterange" value="${rewardInfo.VISITDATE_}" />
+                                                                <input class="form-control form-control-sm date reward" autocomplete="off" name="visitdate" id="visitdate" type="text"  value="${rewardInfo.VISITDATE_}" />
                                                             </div>
                                                         </td>
                                                         <th>방문예약시간</th>
                                                         <td>
                                                             <div style="display: inline-block">
-                                                                <select class="form-control" name="apm" id="apm" style="width:70px;">
+                                                                <select class="form-control reward" name="visitapm" id="visitapm" style="width:70px;">
                                                                     <option value="0">선택</option>
                                                                     <c:forEach var="apm" items="${APM }">
                                                                         <c:choose>
@@ -361,7 +283,7 @@
                                                                 </select>
                                                             </div>
                                                             <div style="display: inline-block">
-                                                                <select class="form-control" name="hour" id="hour" style="width:70px;">
+                                                                <select class="form-control reward" name="visithour" id="visithour" style="width:70px;">
                                                                     <c:forEach var="hour" items="${HOUR }">
                                                                         <c:choose>
                                                                             <c:when test="${rewardInfo.VISITHOUR eq hour.codeval}">
@@ -376,7 +298,7 @@
                                                             </div>
                                                             <span style="display: inline-block">시</span>
                                                             <div style="display: inline-block">
-                                                                <select class="form-control" name="minute" id="minute" style="width:70px;">
+                                                                <select class="form-control reward" name="visitminute" id="visitminute" style="width:70px;">
                                                                     <c:forEach var="minute" items="${MINUTE }">
                                                                         <c:choose>
                                                                             <c:when test="${rewardInfo.VISITMINUTE eq minute.codeval}">
@@ -394,8 +316,8 @@
                                                         <th>담당자</th>
                                                         <td>
                                                             <div class="input-group" style="width:200px;">
-                                                                <input type="text" class="form-control" autocomplete="off" name="rewardowner_" value="${serviceInfo.OWNER_}" style="width:150px;">
-                                                                <input type="hidden" name="rewardowner" id="rewardowner" value="${serviceInfo.OWNER}">
+                                                                <input type="text" class="form-control reward" autocomplete="off" name="rewardowner_" value="${serviceInfo.OWNER_}" style="width:150px;">
+                                                                <input type="hidden" name="rewardowner" id="rewardowner" class="reward" value="${serviceInfo.OWNER}">
                                                                 <span class="input-group-addon">
                                                                     <a><i class="fa fa-search"></i></a>
                                                                 </span>
@@ -403,7 +325,7 @@
                                                         </td>
                                                         <th>현상</th>
                                                         <td>
-                                                            <select class="form-control" style="width:180px;" name="rewardtype" id="rewardtype">
+                                                            <select class="form-control reward" style="width:180px;" name="rewardtype" id="rewardtype">
                                                                 <option value="0">선택</option>
                                                                 <c:forEach var="rewardType" items="${REWARDTYPE }">
                                                                     <c:choose>
@@ -417,9 +339,9 @@
                                                                 </c:forEach>
                                                             </select>
                                                         </td>
-                                                        <th>원인구분</th>
+                                                        <th>지연원인구분</th>
                                                         <td>
-                                                            <select class="form-control" style="width:180px;" name="causecode" id="causecode">
+                                                            <select class="form-control reward" style="width:180px;" name="causecode" id="causecode">
                                                                 <option value="0">선택</option>
                                                                 <c:forEach var="causeCode" items="${CAUSECODE }">
                                                                     <c:choose>
@@ -437,22 +359,22 @@
                                                     <tr>
                                                         <th>방문주소</th>
                                                         <td colspan="9">
-                                                            <div style="display: inline-block"><input type="text" id="visitaddr1" name="visitaddr1" class="form-control form-control-sm" value="${rewardInfo.VISITADDR1}"></div>
-                                                            <div style="display: inline-block"><input type="text" id="visitaddr2" name="visitaddr2" class="form-control form-control-sm" value="${rewardInfo.VISITADDR2}"></div>
-                                                            <div style="display: inline-block"><input type="text" id="visitaddr3" name="visitaddr3" class="form-control form-control-sm" value="${rewardInfo.VISITADDR3}"></div>
-                                                            <div style="display: inline-block"><button class="btn btn-white btn-sm daumzip" id="visitaddr" type="submit">주소 검색</button></div>
+                                                            <div style="display: inline-block"><input type="text" id="visitaddr1" name="visitaddr1" class="form-control form-control-sm reward" value="${rewardInfo.VISITADDR1}"></div>
+                                                            <div style="display: inline-block"><input type="text" id="visitaddr2" name="visitaddr2" class="form-control form-control-sm reward" value="${rewardInfo.VISITADDR2}"></div>
+                                                            <div style="display: inline-block"><input type="text" id="visitaddr3" name="visitaddr3" class="form-control form-control-sm reward" value="${rewardInfo.VISITADDR3}"></div>
+                                                            <div style="display: inline-block"><button class="btn btn-white btn-sm daumzip reward" id="visitaddr" type="submit">주소 검색</button></div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th>상세내역</th>
                                                         <td colspan="9">
-                                                            <textarea class="tinymce" id="rewarddesc" name="rewarddesc">${rewardInfo.REWARDDESC}</textarea>
+                                                            <textarea class="tinymce reward" id="rewarddesc" name="rewarddesc">${rewardInfo.REWARDDESC}</textarea>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th>지연사유</th>
                                                         <td colspan="9">
-                                                            <textarea name="need" id="delaydesc" name="delaydesc" class="form-control" style="resize: none;" rows="4">${rewardInfo.DELAYDESC}</textarea>
+                                                            <textarea id="delaydesc" name="delaydesc" class="form-control reward" style="resize: none;" rows="4">${rewardInfo.DELAYDESC}</textarea>
                                                         </td>
                                                     </tr>
                                                 </tobdy>
@@ -479,14 +401,14 @@
                                                         <td>
                                                             <div class="input-group" style="width:230px;">
                                                                 <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                                <input class="form-control form-control-sm date" autocomplete="off" type="text" id="ractdate" name="ractdate" value="${ractInfo.RACTDATE}"  />
+                                                                <input class="form-control form-control-sm date ract" autocomplete="off" type="text" id="ractdate" name="ractdate" value="${ractInfo.RACTDATE}"  />
                                                             </div>
                                                         </td>
                                                         <th>처리담당자</th>
                                                         <td>
                                                             <div class="input-group owner" id="ractowner_" >
-                                                                <input type="text" class="form-control" autocomplete="off" name="ractowner_" value="${serviceInfo.OWNER_}">
-                                                                <input type="hidden" name="ractowner" id="ractowner" value="${serviceInfo.OWNER}">
+                                                                <input type="text" class="form-control ract" autocomplete="off" name="ractowner_" value="${serviceInfo.OWNER_}">
+                                                                <input type="hidden" name="ractowner ract" id="ractowner" value="${serviceInfo.OWNER}">
                                                                 <span class="input-group-addon">
                                                                 <a><i class="fa fa-search"></i></a>
                                                             </span>
@@ -494,7 +416,7 @@
                                                         </td>
                                                         <th>처리발송여부</th>
                                                         <td>
-                                                            <select class="form-control" style="width:230px;">
+                                                            <select class="form-control ract" style="width:230px;">
                                                                 <option value="0">발송</option>
                                                                 <option value="1">미발송</option>
                                                             </select>
@@ -503,7 +425,7 @@
                                                     <tr>
                                                         <th>처리내용</th>
                                                         <td colspan="5">
-                                                            <textarea class="tinymce" name="ractdesc" id="ractdesc">${ractInfo.RACTDESC}</textarea>
+                                                            <textarea class="tinymce ract" name="ractdesc" id="ractdesc">${ractInfo.RACTDESC}</textarea>
                                                         </td>
                                                     </tr>
                                                 </tobdy>
@@ -520,17 +442,35 @@
 
                 <br/>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button type="button" class="btn btn-default pull-left">저장</button>
-                        <button type="button" class="btn btn-default pull-right">취소</button>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-default pull-left save">저장</button>
+                    <a href="/service/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">취소</a>
                 </div>
+            </div>
 
                 <br/>
-                <input type="hidden" name="serviceno" id="serviceno" value="${serviceInfo.SERVICENO}">
-                <input type="hidden" name="rewardno" id="rewardno" value="${rewardInfo.REWARDNO}">
-                <input type="hidden" name="ractinfo" id="ractinfo" value="${ractInfo.RACTNO}">
+
+                <input type="hidden" class="" name="serviceno" id="serviceno" value="${serviceInfo.SERVICENO}"/>
+                <input type="hidden" class="" name="servicestep" id="servicestep" value="${serviceInfo.SERVICESTEP}"/>
+
+                <c:choose>
+                    <c:when test="${rewardInfo.REWARDNO eq null}">
+                        <input type="hidden" class="" name="rewardno" id="rewardno" value="0"/>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="hidden" class="" name="rewardno" id="rewardno" value="${rewardInfo.REWARDNO}"/>
+                    </c:otherwise>
+                </c:choose>
+            <c:choose>
+                <c:when test="${ractInfo.RACTNO eq null}">
+                    <input type="hidden" class="" name="ractno" id="ractno" value="0"/>
+                </c:when>
+                <c:otherwise>
+                    <input type="hidden" class="" name="ractno" id="ractno" value="${ractInfo.RACTNO}"/>
+                </c:otherwise>
+            </c:choose>
+                <input type="hidden" class="" name="custno" id="custno" value="${serviceInfo.CUSTNO}"/>
             </form:form>
         </div>
 
@@ -561,6 +501,12 @@
 <!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
+<script>
+    $(document).ready(function() {
+        serviceStep();
+    });
 
+</script>
 </body>
 </html>

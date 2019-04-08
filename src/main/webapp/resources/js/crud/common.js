@@ -24,13 +24,13 @@ $('#reset').click(function(e){
 });
 
 $('.smsBtn').click(function(){
-    window.open("/voc/sms", "고객상세정보","width=400px, height=600px");
+    window.open("/popsms", "고객상세정보","width=450px, height=600px");
 });
 $('.emailBtn').click(function(){
-    window.open("/voc/email", "고객상세정보","width=1200px, height=900px");
+    window.open("/popemail", "고객상세정보","width=1200px, height=900px");
 });
 $('.kakaoBtn').click(function(){
-    window.open("/voc/kakao", "고객상세정보","width=400px, height=600px");
+    window.open("/popkakao", "고객상세정보","width=450px, height=600px");
 });
 
 var newWindow = null;
@@ -179,4 +179,58 @@ function upperCode(codeGrp){
             alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
         }
     });
+}
+// text길이 값 가지고옴
+function getTextLength(str) {
+    var len = 0;
+    for (var i = 0; i < str.length; i++) {
+        if (escape(str.charAt(i)).length == 6) {
+            len++;
+        }
+        len++;
+    }
+    return len;
+}
+function smsToLms(id){
+    var str =  $('#'+id).val();
+    var textLength = getTextLength(str);
+    if(textLength > 80){
+        var bool = confirm("80바이트이상 작성하여서 LMS로 자동 전환합니다.");
+        if(bool){
+            $('#'+id).val(str);
+            $('#lengthtype').val(1);
+            alert("Lms로 전환되어 저장됩니다.");
+            return true;
+        }else{
+            var limit = '80' //제한byte를 가져온다.
+            var strLength = 0;
+            var strTitle = "";
+            var strPiece = "";
+            var check = false;
+
+            for (i = 0; i < textLength; i++){
+                var code = str.charCodeAt(i);
+                var ch = str.substr(i,1).toUpperCase();
+                //체크 하는 문자를 저장
+                strPiece = str.substr(i,1);
+
+                code = parseInt(code);
+
+                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0))){
+                    strLength = strLength + 2; //UTF-8 3byte 로 계산
+                }else{
+                    strLength = strLength + 1;
+                }
+                if(strLength>limit){
+                    $('#lengthtype').val(0);
+                    alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
+                    $('#'+id).val(strTitle);
+                    e.preventDefault();
+                    return false;
+                }else{
+                    strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.
+                }
+            }
+        }
+    }
 }

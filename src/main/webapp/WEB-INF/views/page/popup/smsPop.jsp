@@ -38,13 +38,13 @@
                     </colgroup>
                     <tr>
                         <th>고객명</th>
-                        <td>강민구</td>
-                        <th>고객번호</th>
-                        <td>01071203655</td>
+                        <td id="custname"></td>
+                        <th>고객연락처</th>
+                        <td id="mobile"></td>
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <textarea name="need" id="" class="form-control" style="resize: none;" rows="10"></textarea>
+                            <textarea name="senddesc" id="senddesc" class="form-control" style="resize: none;" rows="10"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -53,8 +53,9 @@
                     </tr>
                 </table>
                 <button type="button" class="btn btn-default pull-left">취소</button>
-                <button type="button" class="btn btn-default pull-right" >발송</button>
+                <button type="button" class="btn btn-default pull-right save" >발송</button>
             </div>
+            <input type="hidden" name="lengthtype" id="lengthtype"/>
         </div>
     </div>
 
@@ -110,9 +111,24 @@
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
     $(document).ready(function() {
         $('.footable').footable();
+
+        var custName = opener.$('#custname').text();
+        var mobile = opener.$('#mobile').text();
+        var custNo = opener.$('#custno').val();
+        if(mobile ==''){
+            mobile = opener.$('#homtel').text();
+        }
+        $('#custname').text(custName);
+        $('#mobile').text(mobile);
+        $('#custno').val(custNo);
+    });
+    $('.save').click(function(e){
+        smsToLms('senddesc');
+
     });
 </script>
 </body>

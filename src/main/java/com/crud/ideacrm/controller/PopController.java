@@ -82,5 +82,25 @@ public class PopController {
         Map<String,Object> searchPrm = new ParameterUtil().searchParam(request);
         return clientService.clientList(searchPrm);
     }
+    @RequestMapping(value = "/popsms", method = RequestMethod.GET)
+    public ModelAndView vocSmsPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/smsPop");
+        return mView;
+    }
+
+    @RequestMapping(value = "/popkakao", method = RequestMethod.GET)
+    public ModelAndView vocKakaoPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/kakaoPop");
+        return mView;
+    }
+
+    @RequestMapping(value = "/popemail", method = RequestMethod.GET)
+    public ModelAndView vocEmailPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/emailPop");
+        return mView;
+    }
 
 }

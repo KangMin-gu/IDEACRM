@@ -28,8 +28,10 @@ function popPupFootableSearchList(url) {
     });
 }
 function tabFootableSearchList(id,url) {
+    debugger;
     var param = searchDataToJson();
     $.post(url, param, function (response) {
+        debugger;
         $(id).find('.tabfootable').footable({
             "toggleSelector": ".footable-toggle",
             "paging": {
@@ -46,6 +48,9 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
     }
     if(globalUrl == '/popcust'){
         parentCustname($(obj.target.parentElement));
+    }
+    if(globalUrl == '/popclient'){
+        popParentNameClick($(obj.target.parentElement));
     }
 
 

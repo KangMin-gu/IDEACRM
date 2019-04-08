@@ -40,11 +40,11 @@
         	<if test="actgrade != null and actgrade != 0 ">
             AND ACTGRADE = #{actgrade}
         	</if>
-			<if test="fromregdt != null">
-			AND CU.REGDATE <![CDATA[>=]]> #{fromregdt}
+			<if test="regdatefr != null">
+			AND CU.REGDATE <![CDATA[>=]]> #{regdatefr}
 			</if>
-			<if test="toregdt != null">
-			AND CU.REGDATE <![CDATA[<=]]> #{toregdt}
+			<if test="regdateto != null">
+			AND CU.REGDATE <![CDATA[<=]]> #{regdateto}
 			</if>
 			<if test="infoagree != 0 and infoagree != null">
 			AND CU.INFOAGREE = #{infoagree}

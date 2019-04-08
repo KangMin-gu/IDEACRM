@@ -9,10 +9,28 @@ $('.owner').click(function(e){
         openNewWindow('사용자','/popowner',e.currentTarget.id,650,700);
     }
 });
+$('.client').click(function(e){
+    if( e.target.classList.contains('dataCancle') == false ){
+        openNewWindow('사용자','/popclient',e.currentTarget.id,650,700);
+    }
+});
 
 $('#reset').click(function(e){
     $('.searchparam').val('');
-})
+    if( $('#infoagree') ){
+        $('#infoagree').val(1);
+    }
+});
+
+$('.smsBtn').click(function(){
+    window.open("/voc/sms", "고객상세정보","width=400px, height=600px");
+});
+$('.emailBtn').click(function(){
+    window.open("/voc/email", "고객상세정보","width=1200px, height=900px");
+});
+$('.kakaoBtn').click(function(){
+    window.open("/voc/kakao", "고객상세정보","width=400px, height=600px");
+});
 
 var newWindow = null;
 // 부모 window 가 실행
@@ -58,6 +76,16 @@ function parentCustname(tr){
         window.close();
     },300);
 }
+// 거래처 팝업 클릭
+function popParentNameClick(tr){
+    var parentid = $('#parentid').val();
+    opener.$('[name="'+parentid+'"]').next().val(tr.children().get(0).textContent);
+    opener.$('[name="'+parentid+'"]').val(tr.children().get(1).textContent).trigger('keyup');
+    setTimeout(function(){
+        window.close();
+    },300);
+}
+
 $('.nav-link').click(function(e){
     // click 탭의 href의 값을 가지고 온다.
     var href = e.target.attributes.href.value;

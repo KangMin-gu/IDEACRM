@@ -13,6 +13,7 @@ public class ParameterUtil {
     public Map<String, Object> searchParam(HttpServletRequest request) {
 
         Map<String, Object> search = new HashMap();
+
         if (request.getSession().getAttribute("SITEID") != null) {
             int SITEID = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
             search.put("siteid", SITEID);

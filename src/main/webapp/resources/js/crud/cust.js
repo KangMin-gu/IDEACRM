@@ -1,3 +1,7 @@
+$('#custListBtn').click(function(){
+    location.href = "/cust";
+});
+
 /**
  * 작성자 신동우
  * 2019-04-02
@@ -5,7 +9,7 @@
  * @param value
  * @param options
  * @param rowData
- * @returns {string}
+ * @returns {string}\
  */
 function custListFormatter(value, options, rowData){
     if(value){  return "<a href='/custdetail/"+ rowData.CUSTNO + "'>" + value + "</a>";  }
@@ -13,7 +17,7 @@ function custListFormatter(value, options, rowData){
 }
 
 function custListChkBoxFormatter(value, options, rowData){
-    return "<input type='checkbox' name='custno' value='"+ value + "'>";
+    return "<input type='checkbox' class='row-checkbox' name='custno' value='"+ value + "' >";
 }
 
 /**
@@ -122,4 +126,3 @@ function custDelete(custno){
     });
 }
 
-function custMultyDelete(){}

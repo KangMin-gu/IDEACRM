@@ -12,10 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 </head>
 <style>
 </style>
@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="button" class="btn btn-default pull-left" onclick="custFormSubmit();">등록</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <a type="button" class="btn btn-default pull-right" href="/custdetail/${custUpdate.CUSTNO}">취소</a>
                 </div>
             </div>
 
@@ -84,16 +84,13 @@
                                                 <c:forEach var="sex" items="${SEX}">
                                                     <label><input type="radio" value="${sex.codeval}" name="sex" ${custUpdate.SEX eq sex.codeval ? "checked" :"" }> <i></i>&nbsp;${sex.codename}</label>&nbsp;&nbsp;
                                                 </c:forEach>
-                                                <!--<label><input type="radio" value="option1" name="sex"> <i></i>&nbsp;남자</label>&nbsp;&nbsp;
-                                                <label class="radio-inline"><input type="radio" value="option2" name="sex"> <i></i>&nbsp;여자</label>
-                                                -->
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">생년월일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm" id="birth" name="birth" value="${custUpdate.BIRTH}">
+                                                <input type="text" class="form-control form-control form-control-sm date" id="birth" name="birth" value="${custUpdate.BIRTH}" readonly>
                                             </div>
                                             <label class="col-sm-2 col-form-label">이메일</label>
                                             <div class="col-sm-4">
@@ -113,8 +110,8 @@
                                                         </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="mobile2" name="mobile2" value="${custUpdate.MOBILE2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="mobile3" name="mobile3" value="${custUpdate.MOBILE3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile2" name="mobile2" value="${custUpdate.MOBILE2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile3" name="mobile3" value="${custUpdate.MOBILE3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
                                                 </div>
                                                 <div class="row">
                                                     <label class="error" for="mobile1"></label><label class="error" for="mobile2"></label><label class="error" for="mobile3"></label>
@@ -131,8 +128,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homtel2" name="homtel2" value="${custUpdate.HOMTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homtel3" name="homtel3" value="${custUpdate.HOMTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel2" name="homtel2" value="${custUpdate.HOMTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel3" name="homtel3" value="${custUpdate.HOMTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +150,7 @@
                                             </div>
                                             <label class="col-sm-2 col-form-label">결혼기념일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control-sm" id="weddingday" name="weddingday" value="${custUpdate.WEDDINGDAY}" >
+                                                <input type="text" class="form-control form-control-sm date" id="weddingday" name="weddingday" value="${custUpdate.WEDDINGDAY}"  readonly>
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -172,10 +169,10 @@
                                             <label class="col-sm-2 col-form-label">주소</label>
                                             <div class="col-sm-10">
                                                 <div class="row">
-                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="homaddr1" name="homaddr1" value="${custUpdate.HOMADDR1}"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homaddr2" name="homaddr2" value="${custUpdate.HOMADDR2}"></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="homaddr1" name="homaddr1" value="${custUpdate.HOMADDR1}" readonly></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homaddr2" name="homaddr2" value="${custUpdate.HOMADDR2}" readonly></div>
                                                     <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="homaddr3" name="homaddr3" value="${custUpdate.HOMADDR3}"></div>
-                                                    <div class="col-md-3"><button class="btn btn-white btn-sm" type="submit">주소 검색</button></div>
+                                                    <div class="col-md-3"><button class="btn btn-white btn-sm daumzip" type="button" id="homaddr">주소 검색</button></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -187,9 +184,10 @@
 
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">직장명</label>
-                                            <div class="col-sm-4">
-                                                <input type="hidden" id="clino" name="clino" value="${custUpdate.CLINO}"/>
-                                                <input type="text" class="form-control form-control-sm" id="cliname" name="cliname" value="${custUpdate.CLINAME}">
+                                            <div class="col-sm-4 input-group client" id="cliname" >
+                                                <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname" value="${custUpdate.CLINAME}" readonly>
+                                                <input type="hidden" class="searchparam" name="clino" id="clino" value="${custUpdate.CLINO}">
+                                                <span class="input-group-addon" style="height:31px;"> <a><i class="fa fa-search"></i></a> </span>
                                             </div>
                                             <label class="col-sm-2 col-form-label">홈페이지</label>
                                             <div class="col-sm-4">
@@ -220,8 +218,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrktel2" name="wrktel2" value="${custUpdate.WRKTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrktel3" name="wrktel3" value="${custUpdate.WRKTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel2" name="wrktel2" value="${custUpdate.WRKTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel3" name="wrktel3" value="${custUpdate.WRKTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">직장 FAX</label>
@@ -235,8 +233,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkfax2" name="wrkfax2" value="${custUpdate.WRKFAX2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkfax3" name="wrkfax3" value="${custUpdate.WRKFAX3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax2" name="wrkfax2" value="${custUpdate.WRKFAX2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax3" name="wrkfax3" value="${custUpdate.WRKFAX3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,10 +243,10 @@
                                             <label class="col-sm-2 col-form-label">직장 주소</label>
                                             <div class="col-sm-10">
                                                 <div class="row">
-                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="wrkaddr1" name="wrkaddr1" value="${custUpdate.WRKADDR1}"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkaddr2" name="wrkaddr2" value="${custUpdate.WRKADDR2}"></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="wrkaddr1" name="wrkaddr1" value="${custUpdate.WRKADDR1}" readonly></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkaddr2" name="wrkaddr2" value="${custUpdate.WRKADDR2}" readonly></div>
                                                     <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="wrkaddr3" name="wrkaddr3" value="${custUpdate.WRKADDR3}"> </div>
-                                                    <div class="col-md-3"><button class="btn btn-white btn-sm" type="submit">주소 검색</button></div>
+                                                    <div class="col-md-3"><button class="btn btn-white btn-sm daumzip" type="button" id="wrkaddr">주소 검색</button></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -298,9 +296,14 @@
                                                 </select>
                                             </div>
                                             <label class="col-sm-2 col-form-label">담당자</label>
-                                            <div class="col-sm-2">
+                                            <!--<div class="col-sm-2">
                                                 <input type="hidden" id="owner" name="owner" value="${custUpdate.OWNER}">
                                                 <input type="text" class="form-control form-control-sm" id="owner_" name="owner_" value="${custUpdate.OWNER_}">
+                                            </div>-->
+                                            <div class="col-sm-2 input-group owner" id="owner_" >
+                                                <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="owner_" value="${custUpdate.OWNER_}" readonly>
+                                                <input type="hidden" class="searchparam" name="owner" id="owner" value="${custUpdate.OWNER}">
+                                                <span class="input-group-addon" style="height:31px;"> <a><i class="fa fa-search"></i></a> </span>
                                             </div>
                                             <label class="col-sm-2 col-form-label">정보활용</label>
                                             <div class="col-sm-2">
@@ -407,9 +410,15 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- daumAPI -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<!-- crud -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 <script>
     $(document).ready(function() {
         $('.i-checks').iCheck({

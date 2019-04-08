@@ -1,6 +1,8 @@
 package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.dao.ClientDao;
+import com.crud.ideacrm.service.ClientService;
 import com.crud.ideacrm.service.CustService;
 import com.crud.ideacrm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class PopController {
     private UserService userService;
     @Autowired
     private CustService custService;
+    @Autowired
+    private ClientService clientService;
+
     //담당자팝업
     @RequestMapping(value="/popowner", method= RequestMethod.GET)
     public ModelAndView authPopUser(HttpServletRequest request) {
@@ -50,6 +55,20 @@ public class PopController {
 
         List<Map<String,Object>> custList = custService.custList(param);
         return custList;
+    }
+
+    //담당자팝업
+    @RequestMapping(value="/popclient", method= RequestMethod.GET)
+    public ModelAndView authPopClient(HttpServletRequest request) {
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/clientPop");
+        return mView;
+    }
+    @RequestMapping(value="/popclient", method= RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authPopClientList(HttpServletRequest request) {
+        Map<String,Object> searchPrm = new ParameterUtil().searchParam(request);
+        return clientService.clientList(searchPrm);
     }
 
 }

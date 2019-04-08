@@ -318,7 +318,7 @@
                                         <tfoot>
                                         <tr>
                                             <td colspan="9">
-                                                <ul class="pagination pull-right"></ul>
+                                                <ul class="pagination pull-left"></ul>
                                             </td>
                                         </tr>
                                         </tfoot>

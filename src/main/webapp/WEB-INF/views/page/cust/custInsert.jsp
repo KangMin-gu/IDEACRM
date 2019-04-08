@@ -12,10 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 </head>
 <style>
 </style>
@@ -89,8 +89,9 @@
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">생년월일</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm" id="birth" name="birth">
+                                            <div class="input-group col-sm-4" style="width:230px;">
+                                                <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
+                                                <input type="text" class="form-control form-control-sm date" name="birth" id="birth" autocomplete="off" readonly/>
                                             </div>
                                             <label class="col-sm-2 col-form-label">이메일</label>
                                             <div class="col-sm-4">
@@ -110,8 +111,8 @@
                                                         </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="mobile2" name="mobile2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="mobile3" name="mobile3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile2" name="mobile2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile3" name="mobile3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
                                                 </div>
                                                 <div class="row">
                                                     <label class="error" for="mobile1"></label><label class="error" for="mobile2"></label><label class="error" for="mobile3"></label>
@@ -128,8 +129,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homtel2" name="homtel2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homtel3" name="homtel3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel2" name="homtel2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel3" name="homtel3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -149,8 +150,9 @@
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">결혼기념일</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control-sm" id="weddingday" name="weddingday" >
+                                            <div class="input-group col-sm-4" style="width:230px;">
+                                                <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
+                                                <input class="form-control form-control-sm date" autocomplete="off" name="weddingday" id="weddingday" type="text" readonly/>
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -169,10 +171,10 @@
                                             <label class="col-sm-2 col-form-label">주소</label>
                                             <div class="col-sm-10">
                                                 <div class="row">
-                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="homaddr1" name="homaddr1"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homaddr2" name="homaddr2"></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="homaddr1" name="homaddr1" readonly></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homaddr2" name="homaddr2" readonly></div>
                                                     <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="homaddr3" name="homaddr3"></div>
-                                                    <div class="col-md-3"><button class="btn btn-white btn-sm" type="submit">주소 검색</button></div>
+                                                    <div class="col-md-3"><button class="btn btn-white btn-sm daumzip" type="button" id="homaddr">주소 검색</button></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,15 +184,16 @@
                                 <div role="tabpanel" id="tab-2" class="tab-pane">
                                     <div class="panel-body">
 
-                                        <div class="form-group  row">
+                                        <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">직장명</label>
-                                            <div class="col-sm-4">
-                                                <input type="hidden" id="clino" name="clino" value="0"/>
-                                                <input type="text" class="form-control form-control-sm" id="cliname" name="cliname">
+                                            <div class="col-sm-4 input-group client" id="cliname" >
+                                                <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname" value="" readonly>
+                                                <input type="hidden" class="searchparam" name="clino" id="clino" value="0">
+                                                <span class="input-group-addon" style="height:31px;"> <a><i class="fa fa-search"></i></a> </span>
                                             </div>
                                             <label class="col-sm-2 col-form-label">홈페이지</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm" id="wrkurl" name="wrkurl">
+                                                <input type="text" class="form-control form-control form-control-sm url" id="wrkurl" name="wrkurl">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -217,8 +220,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrktel2" name="wrktel2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrktel3" name="wrktel3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel2" name="wrktel2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel3" name="wrktel3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">직장 FAX</label>
@@ -232,8 +235,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkfax2" name="wrkfax2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkfax3" name="wrkfax3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax2" name="wrkfax2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax3" name="wrkfax3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -242,10 +245,10 @@
                                             <label class="col-sm-2 col-form-label">직장 주소</label>
                                             <div class="col-sm-10">
                                                 <div class="row">
-                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="wrkaddr1" name="wrkaddr1"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkaddr2" name="wrkaddr2"></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="wrkaddr1" name="wrkaddr1" readonly></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkaddr2" name="wrkaddr2" readonly></div>
                                                     <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="wrkaddr3" name="wrkaddr3"></div>
-                                                    <div class="col-md-3"><button class="btn btn-white btn-sm" type="submit">주소 검색</button></div>
+                                                    <div class="col-md-3"><button class="btn btn-white btn-sm daumzip" type="button" id="wrkaddr">주소 검색</button></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -295,9 +298,11 @@
                                                 </select>
                                             </div>
                                             <label class="col-sm-2 col-form-label">담당자</label>
-                                            <div class="col-sm-2">
-                                                <input type="hidden" id="owner" name="owner" value="${sessionScope.USERNO}">
-                                                <input type="text" class="form-control form-control-sm" id="owner_" name="owner_">
+
+                                            <div class="col-sm-2 input-group owner" id="owner_" >
+                                                <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="owner_" value="${sessionScope.USERNAME}" readonly>
+                                                <input type="hidden" class="searchparam" name="owner" id="owner" value="${sessionScope.USERNO}">
+                                                <span class="input-group-addon" style="height:31px;"> <a><i class="fa fa-search"></i></a> </span>
                                             </div>
                                             <label class="col-sm-2 col-form-label">정보활용</label>
                                             <div class="col-sm-2">
@@ -405,9 +410,15 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<!-- daumAPI -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<!-- crud js -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 <script>
     $(document).ready(function() {
         $('.i-checks').iCheck({

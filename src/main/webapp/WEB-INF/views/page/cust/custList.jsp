@@ -53,7 +53,7 @@
                     <div class="ibox">
 
                         <div class="ibox-content">
-                            <form:form id="custListForm" action="/cust">
+                            <form:form id="custListSearchForm" action="/cust">
                                 <div class="table-responsive">
                                     <table style="white-space:nowrap;">
                                         <colgroup>
@@ -76,13 +76,13 @@
                                             <td>
                                                 <div class="input-group" style="width:230px;">
                                                     <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                    <input class="form-control form-control-sm daterange searchparam" type="text" id="daterange" name="daterange" />
+                                                    <input class="form-control form-control-sm daterange searchparam" type="text" id="regdate" name="regdate" />
                                                 </div>
                                             </td>
                                             <th>회원구분</th>
                                             <td><!--Todo.코드로 받아오기-->
                                                 <select class="form-control searchparam" style="width:100px;" id="custgubun" name="custgubun">
-                                                    <option value="0">선택</option>
+                                                    <option value="">선택</option>
                                                     <c:forEach var="CUSTGUBUN" items="${CUSTGUBUN}"  >
                                                     <option value="${CUSTGUBUN.codeval}">${CUSTGUBUN.codename}</option>
                                                     </c:forEach>
@@ -91,7 +91,7 @@
                                             <th>고객등급</th>
                                             <td><!--Todo.코드로 받아오기-->
                                                 <select class="form-control searchparam" style="width:100px;" id="custgrade" name="custgrade">
-                                                    <option value="0">선택</option>
+                                                    <option value="">선택</option>
                                                     <c:forEach var="CUSTGRADE" items="${CUSTGRADE}"  >
                                                         <option value="${CUSTGRADE.codeval}">${CUSTGRADE.codename}</option>
                                                     </c:forEach>
@@ -100,7 +100,7 @@
                                             <th>활동등급</th>
                                             <td><!--Todo.코드로 받아오기-->
                                                 <select class="form-control searchparam" style="width:100px;" id="actgrade" name="actgrade">
-                                                    <option value="0">선택</option>
+                                                    <option value="">선택</option>
                                                     <c:forEach var="ACTGRADE" items="${ACTGRADE}"  >
                                                         <option value="${ACTGRADE.codeval}">${ACTGRADE.codename}</option>
                                                     </c:forEach>
@@ -109,10 +109,11 @@
                                             <th>정보활용</th>
                                             <td>
                                                 <select class="form-control searchparam" style="width:100px;" id="infoagree" name="infoagree">
-                                                    <option value="0">전체</option>
+                                                    <option value="">전체</option>
                                                     <c:forEach var="INFOAGREE" items="${INFOAGREE}"  >
                                                     <option value="${INFOAGREE.codeval}" ${INFOAGREE.codeval eq "1" ? "selected" :""}>${INFOAGREE.codename}</option>
                                                     </c:forEach>
+
                                                 </select>
                                             </td>
                                             <td>
@@ -134,11 +135,25 @@
                                             </td>
                                             <th>직장명</th>
                                             <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="cliname" name="cliname">
+                                                <!--<input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="cliname" name="cliname">-->
+                                                <div class="input-group client" id="cliname" >
+                                                    <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname" readonly>
+                                                    <input type="hidden" class="searchparam" name="clino" id="clino" value="">
+                                                    <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </div>
                                             </td>
                                             <th>담당자</th>
                                             <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="owner" name="owner">
+                                                <!--<input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="owner" name="owner">-->
+                                                <div class="input-group owner" id="owner_" >
+                                                    <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="owner_" readonly>
+                                                    <input type="hidden" class="searchparam" name="owner" id="owner" value="">
+                                                    <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </div>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-w-m btn-default" id="reset">초기화</button>
@@ -164,12 +179,12 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-
+                            <button type="button" class="btn btn-sm" id="test"><i class="fa fa-file-excel-o"></i></button>
+                            <form class="checkedForm" action="/custdelete" method="post">
                             <table class="footable table table-stripped "  data-paging="true" data-filter=#filter data-sorting="true">
                                 <thead>
                                 <tr>
-                                    <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" >고객번호</th>
+                                    <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
                                     <th data-name="CUSTNAME" data-formatter="custListFormatter">고객명</th>
                                     <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
                                     <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
@@ -182,6 +197,7 @@
                                 </tr>
                                 </thead>
                             </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -198,25 +214,54 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<!-- crud js -->
-<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<!-- crud js -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 <script>
     $(document).ready(function() {
-        $('#daterange').daterangepicker({
-            format: 'YYYY-MM-DD',
-            separator:' ~ '
-        });
         footableSearchList('/cust');
     });
     $('#custListSearch').click(function(e){
         footableSearchList('/cust');
     });
+
+    function selectCheckbox(tagName){
+        if($("#checkAll").prop("checked")){
+            $("input[name="+tagName+"]").prop("checked",true);
+        }else{
+            $("input[name="+tagName+"]").prop("checked",false);
+        }
+    }
+
+
+    function custMultyDelete(){
+        $('.checkedForm').submit();
+    }
+
+$('#test').click(function(){
+    var param = searchDataToJson();
+    $.ajax({
+        type: 'POST',
+        url: '/custexcel',
+        data: param,
+        async: false,
+        success: function(data) {
+            if(data != null) {
+                alert('삭제 되었습니다.');
+            }
+            location.href = "/cust";
+        },error:function(request,status,error){
+            alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+        }
+    });
+});
+
 </script>
 </body>
 </html>

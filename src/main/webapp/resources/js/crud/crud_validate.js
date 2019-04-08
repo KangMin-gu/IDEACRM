@@ -2,12 +2,11 @@
 var emailPattern  = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 var passPattern = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,15}$/;
 var percentPattern = /^[0-9]{1}$|^[1-9]{1}[0-9]{1}$|^100$/; // -> 0~100 정수.
-
+var urlPattern = /^[^((http(s?))\:\/\/)]([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/; //-> www.crudsystem.co.kr
 
 $.validator.addMethod("regx", function(value,element,regexpr){
     return regexpr.test(value);
 });
-
 
 jQuery.extend(jQuery.validator.messages, {
     required: "반드시 입력해야 합니다.",
@@ -61,6 +60,7 @@ $(function(){
                 minlength:2,
                 maxlength:20
             },
+
         },
         messages: {
             name: "이름을 입력해 주세요",
@@ -74,7 +74,12 @@ $(function(){
                 equalTo: "암호가 일치하지 않습니다."
             },
             email: "형식에 맞는 이메일을 입력해 주세요.",
-            agree: "정책 동의에 체크해 주세요"
+            agree: "정책 동의에 체크해 주세요",
+
         }
     });
 });
+
+$.validator.addClassRules("test",{required: true, minlength: 2});
+$.validator.addClassRules("req-phone",{required: true, minlength: 3, maxlength:4});
+$.validator.addClassRules("phone",{minlength: 3, maxlength:4});

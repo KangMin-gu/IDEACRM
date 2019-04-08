@@ -1,9 +1,11 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.CustService;
+import com.crud.ideacrm.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,8 @@ public class CustController {
     CodeService codeService;
     @Autowired
     CustService custService;
+    @Autowired
+    ServiceService serviceService;
     private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1 .
 
     //고객 리스트 기본 화면.test
@@ -39,18 +43,7 @@ public class CustController {
     @RequestMapping(value = "/cust", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> authGetCustList(HttpServletRequest request){
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        Map<String, Object> searchPrm = new HashMap<>();
-        Enumeration params = request.getParameterNames();
-        while (params.hasMoreElements()) {
-            String name = (String)params.nextElement();
-            String value = request.getParameter(name);
-            if(value == "") {
-                value = null;
-            }
-            searchPrm.put(name, value);
-        }
-        searchPrm.put("siteid",siteId);
+        Map<String,Object> searchPrm = new ParameterUtil().searchParam(request);
         List<Map<String, Object>> custList = custService.custList(searchPrm);
         return custList;
     }
@@ -129,5 +122,12 @@ public class CustController {
         String[] custnoArr = request.getParameterValues("custno");
         custService.custDelete(custDto,custnoArr);
         return "redirect:/cust";
+    }
+
+    //고객상세 서비스 탭
+    @RequestMapping(value="/cust/tab/service/{custno}",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable int custno){
+        return serviceService.serviceList(request);
     }
 }

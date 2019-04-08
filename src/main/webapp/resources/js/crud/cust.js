@@ -105,7 +105,7 @@ function iboxDrawMap(mapFieldId, addrFieldId, nameFieldId,iboxDivId){
 /**
  * 작성자 신동우
  * 2019-04-04
- * 유저 단일 삭제
+ * 유저 단일  삭제 
  * @param custno
  */
 function custDelete(custno){

@@ -30,13 +30,13 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>서비스 목록</h2>
+                <h2>전체 공지사항</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>서비스 목록</strong>
+                        <strong>전체공지 목록</strong>
                     </li>
                 </ol>
             </div>
@@ -57,80 +57,41 @@
                                     <table style="white-space:nowrap;">
                                         <colgroup>
                                             <col width="5%">
-                                            <col width="10%">
+                                            <col width="20%">
                                             <col width="5%">
-                                            <col width="10%">
+                                            <col width="20%%">
                                             <col width="5%">
-                                            <col width="10%">
+                                            <col width="20%%">
                                             <col width="5%">
-                                            <col width="10%">
-                                            <col width="5%">
-                                            <col width="10%">
+                                            <col width="20%%">
                                         </colgroup>
                                         <tbody>
                                         <tr>
-                                            <th>접수일</th>
+                                            <th>등록일</th>
                                             <td>
                                                 <div class="input-group" style="width:230px;">
                                                     <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
                                                     <input class="form-control form-control-sm" type="text" id="daterange"  />
                                                 </div>
                                             </td>
-                                            <th>접수구분</th>
-                                            <td>
-                                                <select class="form-control" style="width: 100px;">
-                                                    <option value="Bahamas">010</option>
-                                                    <option value="Bahrain">011</option>
-                                                    <option value="Bangladesh">017</option>
-                                                    <option value="Barbados">018</option>
-                                                    <option value="Belarus">019</option>
-                                                </select>
-                                            </td>
-                                            <th>접수유형</th>
-                                            <td colspan="1">
-                                                <div style="display: inline-block">
-                                                    <select class="form-control" style="width: 100px;">
-                                                        <option value="Bahamas">010</option>
-                                                        <option value="Bahrain">011</option>
-                                                        <option value="Bangladesh">017</option>
-                                                        <option value="Barbados">018</option>
-                                                        <option value="Belarus">019</option>
-                                                    </select>
-                                                </div>
-                                                <div style="display: inline-block">
-                                                    <select class="form-control" style="width: 100px;">
-                                                        <option value="Bahamas">010</option>
-                                                        <option value="Bahrain">011</option>
-                                                        <option value="Bangladesh">017</option>
-                                                        <option value="Barbados">018</option>
-                                                        <option value="Belarus">019</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <th>접수자</th>
+                                            <th>제목</th>
                                             <td>
                                                 <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                            </td>
+                                            <th>글쓴이</th>
+                                            <td>
+                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                            </td>
+                                            <th>말머리</th>
+                                            <td>
+                                                <select class="form-control" style="width:100px;">
+                                                    <option value="Bahamas">전체</option>
+                                                    <option value="Bahrain">중요</option>
+                                                    <option value="Bangladesh">일반</option>
+                                                </select>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-w-m btn-primary">검색</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>서비스명</th>
-                                            <td colspan="1">
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>거래처명</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>고객명</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>담당자</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-w-m btn-default">초기화</button>
@@ -151,11 +112,10 @@
                     <div class="ibox ">
 
                         <div class="ibox-title">
-                            <h5>서비스 목록</h5>
+                            <h5>공지사항 목록</h5>
                             <div class="ibox-tools">
-                                <a href="/servicedetail">디테일화면</a>
-                                <a href="/serviceinsert">입력화면</a>
-                                <a href="/servicedetail">담당자팝업테스트</a>
+                                <a href="/notice/1">디테일화면</a>
+                                <a href="/noticeform">입력화면</a>
                             </div>
                         </div>
 

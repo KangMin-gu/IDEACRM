@@ -213,6 +213,14 @@
                                     </colgroup>
                                     <tbody>
                                     <tr>
+                                        <th>계정</th>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:200px;"></td>
+                                        <th>비밀번호</th>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:200px;"></td>
+                                        <th>비밀번호 확인</th>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:200px;"></td>
+                                    </tr>
+                                    <tr>
                                         <th>서비스상태</th>
                                         <td>
                                             <select class="form-control" style="width:230px;">
@@ -237,14 +245,6 @@
                                                 <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                             </div>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <th>계정</th>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:200px;"></td>
-                                        <th>비밀번호</th>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:200px;"></td>
-                                        <th>비밀번호 확인</th>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:200px;"></td>
                                     </tr>
                                     <tr>
                                         <th>회원사 메모</th>

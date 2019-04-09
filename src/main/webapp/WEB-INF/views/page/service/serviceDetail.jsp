@@ -164,7 +164,7 @@
                                                     <tr>
                                                         <th>접수내용</th>
                                                         <td colspan="7">
-
+                                                            <p>asdfasf</p>
                                                         </td>
                                                     </tr>
                                                 </tobdy>
@@ -284,9 +284,7 @@
                                         <tbody>
                                         <tr class="gradeX">
                                             <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
+                                            <td></td>
                                             <td>Win 95+</td>
                                             <td class="center">4</td>
                                             <td class="center">X</td>

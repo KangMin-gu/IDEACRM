@@ -30,13 +30,13 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>서비스 목록</h2>
+                <h2>회원사코드</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>서비스 목록</strong>
+                        <strong>회원사코드 관리</strong>
                     </li>
                 </ol>
             </div>
@@ -50,96 +50,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
-
                         <div class="ibox-content" >
-                            <form:form>
-                                <div class="table-responsive">
-                                    <table style="white-space:nowrap;">
-                                        <colgroup>
-                                            <col width="5%">
-                                            <col width="10%">
-                                            <col width="5%">
-                                            <col width="10%">
-                                            <col width="5%">
-                                            <col width="10%">
-                                            <col width="5%">
-                                            <col width="10%">
-                                            <col width="5%">
-                                            <col width="10%">
-                                        </colgroup>
-                                        <tbody>
-                                        <tr>
-                                            <th>접수일</th>
-                                            <td>
-                                                <div class="input-group" style="width:230px;">
-                                                    <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                    <input class="form-control form-control-sm" type="text" id="daterange"  />
-                                                </div>
-                                            </td>
-                                            <th>접수구분</th>
-                                            <td>
-                                                <select class="form-control" style="width: 100px;">
-                                                    <option value="Bahamas">010</option>
-                                                    <option value="Bahrain">011</option>
-                                                    <option value="Bangladesh">017</option>
-                                                    <option value="Barbados">018</option>
-                                                    <option value="Belarus">019</option>
-                                                </select>
-                                            </td>
-                                            <th>접수유형</th>
-                                            <td colspan="1">
-                                                <div style="display: inline-block">
-                                                    <select class="form-control" style="width: 100px;">
-                                                        <option value="Bahamas">010</option>
-                                                        <option value="Bahrain">011</option>
-                                                        <option value="Bangladesh">017</option>
-                                                        <option value="Barbados">018</option>
-                                                        <option value="Belarus">019</option>
-                                                    </select>
-                                                </div>
-                                                <div style="display: inline-block">
-                                                    <select class="form-control" style="width: 100px;">
-                                                        <option value="Bahamas">010</option>
-                                                        <option value="Bahrain">011</option>
-                                                        <option value="Bangladesh">017</option>
-                                                        <option value="Barbados">018</option>
-                                                        <option value="Belarus">019</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <th>접수자</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-w-m btn-primary">검색</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>서비스명</th>
-                                            <td colspan="1">
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>거래처명</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>고객명</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>담당자</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-w-m btn-default">초기화</button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </form:form>
+                            <button type="button" class="btn btn-w-m btn-xs btn-primary">이관목록</button>
+                            <button type="button" class="btn btn-w-m btn-xs btn-primary">회원구분</button>
+                            <button type="button" class="btn btn-w-m btn-xs btn-primary">고객등급</button>
+                            <button type="button" class="btn btn-w-m btn-xs btn-primary">친밀도</button>
+                            <button type="button" class="btn btn-w-m btn-xs btn-primary">캠페인유형</button>
+                            <button type="button" class="btn btn-w-m btn-xs btn-primary">서비스채널</button>
+                            <button type="button" class="btn btn-w-m btn-xs btn-primary">중요도</button>
+                            <button type="button" class="btn btn-w-m btn-xs btn-primary">영업단계</button>
                         </div>
                     </div>
                 </div>
@@ -151,16 +70,10 @@
                     <div class="ibox ">
 
                         <div class="ibox-title">
-                            <h5>서비스 목록</h5>
-                            <div class="ibox-tools">
-                                <a href="/servicedetail">디테일화면</a>
-                                <a href="/serviceinsert">입력화면</a>
-                                <a href="/servicedetail">담당자팝업테스트</a>
-                            </div>
+                            <h5>코드 목록</h5>
                         </div>
 
                         <div class="ibox-content">
-                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                             <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                 <thead>
                                 <tr>
@@ -431,8 +344,75 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+
+                        <div class="ibox-title">
+                            <h5>코드 등록</h5>
+                        </div>
+
+                        <div class="ibox-content">
+                            <form:form>
+                                <button type="button" class="btn btn-primary pull-right" style="margin-bottom: 10px; margin-left: 7px;">삭제</button>
+                                <button type="button" class="btn btn-primary pull-right" style="margin-bottom: 10px;">초기화</button>
+                                <button type="button" class="btn btn-primary pull-left" style="margin-bottom: 10px;">저장</button>
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" style="white-space:nowrap;">
+                                        <colgroup>
+                                            <col width="5%">
+                                            <col width="15%">
+                                            <col width="5%">
+                                            <col width="15%">
+                                            <col width="5%">
+                                            <col width="15%">
+                                            <col width="5%">
+                                            <col width="15%">
+                                            <col width="5%">
+                                            <col width="15%">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th>코드그룹명</th>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" style="width:200px;">
+                                                </td>
+                                                <th>코드명</th>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" style="width:200px;">
+                                                </td>
+                                                <th>코드값</th>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" style="width:200px;">
+                                                </td>
+                                                <th>사용여부</th>
+                                                <td>
+                                                    <select class="form-control" style="width:150px;">
+                                                        <option value="Bahamas">010</option>
+                                                        <option value="Bahrain">011</option>
+                                                        <option value="Bangladesh">017</option>
+                                                        <option value="Barbados">018</option>
+                                                        <option value="Belarus">019</option>
+                                                    </select>
+                                                </td>
+                                                <th>상위그룹코드</th>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" style="width:200px;">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
 
         <div class="footer">
             <%@ include file="/WEB-INF/views/common/footer.jsp"%>

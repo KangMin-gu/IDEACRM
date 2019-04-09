@@ -10,6 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class UserController {
 
+    //고객사 회원목록
+    @RequestMapping(value = "/company/user", method = RequestMethod.GET)
+    public ModelAndView companyUser(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/membership/member/memberList");
+        return mView;
+    }
+
     //회원가입폼호출
     @RequestMapping(value = "/sign", method = RequestMethod.GET)
     public ModelAndView sign(HttpServletRequest request){
@@ -17,5 +25,14 @@ public class UserController {
         mView.setViewName("page/membership/member/memberInsert");
         return mView;
     }
+
+    //회원상세정보
+    @RequestMapping(value = "/company/user/1", method = RequestMethod.GET)
+    public ModelAndView userDetail(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/membership/member/memberDetail");
+        return mView;
+    }
+
 
 }

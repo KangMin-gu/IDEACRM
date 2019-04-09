@@ -18,9 +18,9 @@
                         <span class="text-muted text-xs block">${USERNAME }<b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/myinfo/${sessionScope.USERNO}">내 정보</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/notice">공지사항</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/note/inbox">내부통지</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/company/user/${sessionScope.USERNO}">내 정보</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/company/notice">공지사항</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/inbox">내부통지</a></li>
                         <li class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
                     </ul>
@@ -100,19 +100,19 @@
             <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/company/info">회사정보</a></li>
-                    <li><a href="${pageContext.request.contextPath}/myinfo">내정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company">회사정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/user/1">내정보</a></li>
                 </ul>
             </li>
 
             <li>
                 <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/company/info">회사정보</a></li>
-                    <li><a href="${pageContext.request.contextPath}/user">회원관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/code">코드관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/format">서식관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company">회사정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/user">사용자관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/code">코드관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/format">서식관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/notice">공지사항</a></li>
                 </ul>
             </li>
 
@@ -121,7 +121,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/site">회원사관리</a></li>
                     <li><a href="${pageContext.request.contextPath}/common/code">공통코드</a></li>
-                    <li><a href="${pageContext.request.contextPath}/common/notice">전체공지사항</a></li>
+                    <li><a href="${pageContext.request.contextPath}/notice">전체공지사항</a></li>
                     <li><a href="${pageContext.request.contextPath}/contact">접속자</a></li>
                 </ul>
             </li>

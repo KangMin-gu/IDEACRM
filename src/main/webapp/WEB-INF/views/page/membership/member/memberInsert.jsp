@@ -47,9 +47,20 @@
 
         <div class="wrapper wrapper-content animated fadeInRight">
 
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-default pull-left">등록</button>
+                    <button type="button" class="btn btn-default pull-right">취소</button>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>사용자 등록</h5>
+                        </div>
                         <div class="ibox-content" >
                             <div class="container">
                                 <div class="row">
@@ -60,8 +71,6 @@
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control form-control-sm">
                                                 </div>
-                                            </div>
-                                            <div class="form-group  row">
                                                 <label class="col-sm-2 col-form-label">ID</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control form-control-sm">
@@ -72,8 +81,6 @@
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control form-control-sm">
                                                 </div>
-                                            </div>
-                                            <div class="form-group  row">
                                                 <label class="col-sm-2 col-form-label">비밀번호확인</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control form-control-sm">
@@ -82,13 +89,35 @@
                                             <div class="form-group  row">
                                                 <label class="col-sm-2 col-form-label">휴대번호</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <select class="form-control m-b">
+                                                                <option value="Bahamas">010</option>
+                                                                <option value="Bahrain">011</option>
+                                                                <option value="Bangladesh">017</option>
+                                                                <option value="Barbados">018</option>
+                                                                <option value="Belarus">019</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3"><input type="text" placeholder=".col-md-3" class="form-control form-control-sm"></div>
+                                                        <div class="col-md-3"><input type="text" placeholder=".col-md-4" class="form-control form-control-sm"></div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group  row">
                                                 <label class="col-sm-2 col-form-label">전화번호</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <select class="form-control m-b">
+                                                                <option value="Bahamas">010</option>
+                                                                <option value="Bahrain">011</option>
+                                                                <option value="Bangladesh">017</option>
+                                                                <option value="Barbados">018</option>
+                                                                <option value="Belarus">019</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3"><input type="text" placeholder=".col-md-3" class="form-control form-control-sm"></div>
+                                                        <div class="col-md-3"><input type="text" placeholder=".col-md-4" class="form-control form-control-sm"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group  row">
@@ -96,11 +125,15 @@
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control form-control-sm">
                                                 </div>
-                                            </div>
-                                            <div class="form-group  row">
                                                 <label class="col-sm-2 col-form-label">관리자여부</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
+                                                    <select class="form-control" style="width:100px;">
+                                                        <option value="Bahamas">010</option>
+                                                        <option value="Bahrain">011</option>
+                                                        <option value="Bangladesh">017</option>
+                                                        <option value="Barbados">018</option>
+                                                        <option value="Belarus">019</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group  row">
@@ -108,8 +141,6 @@
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control form-control-sm">
                                                 </div>
-                                            </div>
-                                            <div class="form-group  row">
                                                 <label class="col-sm-2 col-form-label">CTI번호</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control form-control-sm">
@@ -117,8 +148,8 @@
                                             </div>
                                             <div class="form-group  row">
                                                 <label class="col-sm-2 col-form-label">메모</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
+                                                <div class="col-sm-10">
+                                                    <textarea name="need" id="" class="form-control" style="resize: none;" rows="4"></textarea>
                                                 </div>
                                             </div>
                                         </form:form>
@@ -129,6 +160,14 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-default pull-left">등록</button>
+                    <button type="button" class="btn btn-default pull-right">취소</button>
+                </div>
+            </div>
+
         </div>
 
 

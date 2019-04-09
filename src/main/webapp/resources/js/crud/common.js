@@ -191,13 +191,13 @@ function getTextLength(str) {
     }
     return len;
 }
-function smsToLms(id){
-    var str =  $('#'+id).val();
+function smsToLms(obj){
+    var str =  $(obj).val();
     var textLength = getTextLength(str);
     if(textLength > 80){
         var bool = confirm("80바이트이상 작성하여서 LMS로 자동 전환합니다.");
         if(bool){
-            $('#'+id).val(str);
+            $(obj).val(str);
             $('#lengthtype').val(1);
             alert("Lms로 전환되어 저장됩니다.");
             return true;
@@ -224,8 +224,7 @@ function smsToLms(id){
                 if(strLength>limit){
                     $('#lengthtype').val(0);
                     alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
-                    $('#'+id).val(strTitle);
-                    e.preventDefault();
+                    $(obj).val(strTitle);
                     return false;
                 }else{
                     strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.

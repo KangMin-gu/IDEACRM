@@ -5,6 +5,7 @@ import com.crud.ideacrm.dao.ClientDao;
 import com.crud.ideacrm.service.ClientService;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.service.CustService;
+import com.crud.ideacrm.service.SendService;
 import com.crud.ideacrm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class PopController {
     private CustService custService;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private SendService sendService;
 
     //담당자팝업
     @RequestMapping(value="/popowner", method= RequestMethod.GET)
@@ -83,21 +86,25 @@ public class PopController {
         return clientService.clientList(searchPrm);
     }
     @RequestMapping(value = "/popsms", method = RequestMethod.GET)
-    public ModelAndView vocSmsPop(HttpServletRequest request){
+    public ModelAndView authSmsPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/smsPop");
         return mView;
     }
+    @RequestMapping(value = "/popsms", method = RequestMethod.POST)
+    public void authSmsPopSend(HttpServletRequest request){
+        sendService.sendSms(request);
+    }
 
     @RequestMapping(value = "/popkakao", method = RequestMethod.GET)
-    public ModelAndView vocKakaoPop(HttpServletRequest request){
+    public ModelAndView authKakaoPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/kakaoPop");
         return mView;
     }
 
     @RequestMapping(value = "/popemail", method = RequestMethod.GET)
-    public ModelAndView vocEmailPop(HttpServletRequest request){
+    public ModelAndView authEmailPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/emailPop");
         return mView;

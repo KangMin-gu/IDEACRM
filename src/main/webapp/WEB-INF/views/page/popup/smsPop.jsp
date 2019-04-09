@@ -28,6 +28,7 @@
             <h5>SMS 발송</h5>
         </div>
         <div class="ibox-content">
+            <form:form action="/popsms" method="post">
             <div class="table-responsive">
                 <table class="table table-bordered" style="white-space:nowrap;">
                     <colgroup>
@@ -40,7 +41,7 @@
                         <th>고객명</th>
                         <td id="custname"></td>
                         <th>고객연락처</th>
-                        <td id="mobile"></td>
+                        <td id="custmobile"></td>
                     </tr>
                     <tr>
                         <td colspan="4">
@@ -48,14 +49,18 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>글자수</th>
-                        <td colspan="3">10/90</td>
+                        <th>글자Byte수</th>
+                        <td colspan="3" id="bytelength">0/80</td>
                     </tr>
                 </table>
                 <button type="button" class="btn btn-default pull-left">취소</button>
-                <button type="button" class="btn btn-default pull-right save" >발송</button>
+                <button type="submit" class="btn btn-default pull-right save" >발송</button>
             </div>
             <input type="hidden" name="lengthtype" id="lengthtype"/>
+            <input type="hidden" name="custno" id="custno"/>
+            <input type="hidden" name="mobile" id="mobile"/>
+
+            </form:form>
         </div>
     </div>
 
@@ -123,12 +128,20 @@
             mobile = opener.$('#homtel').text();
         }
         $('#custname').text(custName);
-        $('#mobile').text(mobile);
+        $('#custmobile').text(mobile);
         $('#custno').val(custNo);
+        $('#mobile').val(mobile);
     });
     $('.save').click(function(e){
         smsToLms('senddesc');
-
+    });
+    $('#senddesc').keyup(function(e){
+        debugger;
+        smsToLms(this);
+        var str = $(this).val();
+        var textLength = getTextLength(str);
+        textLength = textLength +'/ 80';
+        $('#bytelength').text(textLength);
     });
 </script>
 </body>

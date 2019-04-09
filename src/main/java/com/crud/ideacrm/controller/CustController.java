@@ -1,69 +1,133 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.dto.CustDenyDto;
+import com.crud.ideacrm.dto.CustDto;
+import com.crud.ideacrm.service.CodeService;
+import com.crud.ideacrm.service.CustService;
+import com.crud.ideacrm.service.ServiceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class CustController {
 
+    @Autowired
+    CodeService codeService;
+    @Autowired
+    CustService custService;
+    @Autowired
+    ServiceService serviceService;
+    private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1 .
+
+    //고객 리스트 기본 화면.test
     @RequestMapping(value = "/cust", method = RequestMethod.GET)
-    public ModelAndView custList(HttpServletRequest request){
+    public ModelAndView authCustList(HttpServletRequest request){
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
         ModelAndView mView = new ModelAndView();
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
         mView.setViewName("page/cust/custList");
+
         return mView;
     }
+    //고객 리스트 - fooTable에 모델 객체 반환
+    @RequestMapping(value = "/cust", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String, Object>> authGetCustList(HttpServletRequest request){
+        Map<String,Object> searchPrm = new ParameterUtil().searchParam(request);
+        List<Map<String, Object>> custList = custService.custList(searchPrm);
+        return custList;
+    }
+    //고객상세1
+    @RequestMapping(value = "/custdetail/{custno}", method = RequestMethod.GET)
+    public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable int custno){
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        CustDto custDto = new CustDto();
+        custDto.setCustno(custno);
+        custDto.setSiteid(siteId);
 
-    @RequestMapping(value = "/custdetail", method = RequestMethod.GET)
-    public ModelAndView custDetail(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
+        mView.addObject("custDetail",custService.custDetail(custDto));
         mView.setViewName("page/cust/custDetail");
         return mView;
     }
+    //고객수정
+    @RequestMapping(value = "/custupdate/{custno}", method = RequestMethod.GET)
+    public ModelAndView authCustUpdateForm(HttpServletRequest request, @PathVariable int custno){
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        CustDto custDto = new CustDto();
+        custDto.setCustno(custno);
+        custDto.setSiteid(siteId);
 
-    @RequestMapping(value = "/custinsert", method = RequestMethod.GET)
-    public ModelAndView custInsert(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
+        mView.addObject("custUpdate",custService.custDetail(custDto));
+        mView.setViewName("page/cust/custUpdate");
+        return mView;
+    }
+    //고객 수정 실행
+    @RequestMapping(value = "/custupdate/{custno}", method = RequestMethod.POST)
+    public String authCustUpdate(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto
+            , @PathVariable int custno) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        custDto.setSiteid(siteId);
+        custDto.setEdituser(userNo);
+        custDenyDto.setEdituser(userNo);
+        int custNo = custService.custUpdate(custDto,custDenyDto);
+        return "redirect:/custdetail/"+custNo;
+    }
+
+    //고객 추가 form
+    @RequestMapping(value = "/custinsert", method = RequestMethod.GET)
+    public ModelAndView authCustInsertForm(HttpServletRequest request){
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
+        ModelAndView mView = new ModelAndView();
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
         mView.setViewName("page/cust/custInsert");
         return mView;
     }
-
-    @RequestMapping(value = "/a", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Map<String, Object>> test(HttpServletRequest request){
-        ModelAndView mav = new ModelAndView();
-        Map<String, Object> te = new HashMap<>();
-        List<Map<String, Object>> test = new ArrayList<>();
-
-        te.put("name","id");
-        te.put("title","ID");
-
-        test.add(te);
-
-        return test;
+    //고객 추가 실행
+    @RequestMapping(value = "/custinsert", method = RequestMethod.POST)
+    public String authCustInsert(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        custDto.setSiteid(siteId);custDto.setReguser(userNo);
+        custDenyDto.setReguser(userNo);
+        int custNo = custService.custinsert(custDto,custDenyDto);
+        return "redirect:/custdetail/"+custNo;
     }
 
-    @RequestMapping(value = "/b", method = RequestMethod.GET)
+    //고객삭제
+    @RequestMapping(value="/custdelete", method=RequestMethod.POST)
+    public String authcustDelete(HttpServletRequest request) {
+        int siteid = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userno = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        CustDto custDto=new CustDto();
+        custDto.setSiteid(siteid);
+        custDto.setEdituser(userno);
+        String[] custnoArr = request.getParameterValues("custno");
+        custService.custDelete(custDto,custnoArr);
+        return "redirect:/cust";
+    }
+
+    //고객상세 서비스 탭
+    @RequestMapping(value="/cust/tab/service/{custno}",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String, Object>> testb(HttpServletRequest request){
-        ModelAndView mav = new ModelAndView();
-        Map<String, Object> te = new HashMap<>();
-        List<Map<String, Object>> testb = new ArrayList<>();
-
-        te.put("name","id");
-        te.put("title","ID");
-
-        testb.add(te);
-
-        return testb;
+    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable int custno){
+        return serviceService.serviceList(request);
     }
 }

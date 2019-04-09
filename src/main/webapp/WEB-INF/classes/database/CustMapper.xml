@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cust">
+
+	<select id="custList" parameterType="map" resultType="hashMap">
+		SELECT
+		CU.CUSTNO, CU.CUSTNAME, CU.DEPTNAME, CU.DUTY
+        , CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(CU.MOBILE1,''),IFNULL(CU.MOBILE2,''),IFNULL(CU.MOBILE3,'')) ) > 8
+            THEN CONCAT( IFNULL(CU.MOBILE1,''),'-',IFNULL(CU.MOBILE2,''),'-',IFNULL(CU.MOBILE3,'') )
+            ELSE CONCAT( IFNULL(CU.MOBILE1,''),IFNULL(CU.MOBILE2,''),IFNULL(CU.MOBILE3,'') )  END AS MOBILE_
+		, CU.EMAIL, CU.SEX
+		, CU.OWNER, B.USERNAME AS OWNER_
+		, IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGUBUN AND CODEGRP = 'CUSTGUBUN'and SITEID = #{siteid} ),'' ) as CUSTGUBUN
+        , IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGRADE AND CODEGRP = 'CUSTGRADE'and SITEID = #{siteid} ),'' ) as CUSTGRADE
+        , IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.INFOAGREE AND CODEGRP = 'INFOAGREE'and SITEID = #{siteid} ),'' ) as INFOAGREE
+		, DATE_FORMAT(CU.REGDATE,'%Y-%m-%d') AS REGDATE
+		, CU.CLINO, C.CLINAME
+		FROM cu100010 CU
+		LEFT OUTER JOIN me800010 AS B ON CU.OWNER = B.USERNO
+		LEFT OUTER JOIN sa200010 AS C ON CU.CLINO = C.CLINO
+		INNER JOIN (SELECT @RNUM := 0) R
+		WHERE
+			CU.SITEID = #{siteid}
+			AND IFNULL(CU.ISDELETE,0) != 1
+			<if test="custname != null">
+			AND CU.CUSTNAME like CONCAT('%',#{custname},'%')
+			</if>
+			<if test="mobile != null">
+			AND CONCAT( IFNULL(CU.MOBILE1,''), IFNULL(CU.MOBILE2,''), IFNULL(CU.MOBILE3,'') ) like CONCAT('%',#{mobile},'%')
+			</if>
+			<if test="email != null">
+			AND CU.EMAIL like CONCAT('%',#{email},'%')
+			</if>
+			<if test="custgubun != null and custgubun != 0">
+			AND CUSTGUBUN = #{custgubun}
+			</if>
+			<if test="custgrade != null and custgrade != 0 ">
+			AND CUSTGRADE = #{custgrade}
+			</if>
+        	<if test="actgrade != null and actgrade != 0 ">
+            AND ACTGRADE = #{actgrade}
+        	</if>
+			<if test="regdatefr != null">
+			AND CU.REGDATE <![CDATA[>=]]> #{regdatefr}
+			</if>
+			<if test="regdateto != null">
+			AND CU.REGDATE <![CDATA[<=]]> #{regdateto}
+			</if>
+			<if test="infoagree != 0 and infoagree != null">
+			AND CU.INFOAGREE = #{infoagree}
+			</if>
+			<if test="owner != null and owner != 0 ">
+			AND CU.OWNER = #{owner}
+			</if>
+			<if test="clino != null and clino != 0 ">
+			AND CU.CLINO = #{clino}
+			</if>
+	</select>
+
+	<!-- 고객 상세정보 출력 -->
+	<select id="custDetail" parameterType="hashMap" resultType="hashMap">
+	SELECT
+		A.CUSTNO, A.CUSTNAME, A.DEPTNAME, A.DUTY
+		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(A.MOBILE1,''),IFNULL(A.MOBILE2,''),IFNULL(A.MOBILE3,'')) ) > 8
+            THEN CONCAT( IFNULL(A.MOBILE1,''),'-',IFNULL(A.MOBILE2,''),'-',IFNULL(A.MOBILE3,'') )
+            ELSE CONCAT( IFNULL(A.MOBILE1,''),IFNULL(A.MOBILE2,''),IFNULL(A.MOBILE3,'') )  END AS MOBILE_
+		,A.MOBILE1,A.MOBILE2,A.MOBILE3
+		,A.EMAIL
+		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(A.WRKTEL1,''),IFNULL(A.WRKTEL2,''),IFNULL(A.WRKTEL3,'')) ) > 8
+            THEN CONCAT( IFNULL(A.WRKTEL1,''),'-',IFNULL(A.WRKTEL2,''),'-',IFNULL(A.WRKTEL3,'') )
+            ELSE CONCAT( IFNULL(A.WRKTEL1,''),IFNULL(A.WRKTEL2,''),IFNULL(A.WRKTEL3,'') )  END AS WRKTEL_
+		,A.WRKTEL1,A.WRKTEL2,A.WRKTEL3
+		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(A.WRKFAX1,''),IFNULL(A.WRKFAX2,''),IFNULL(A.WRKFAX3,'')) ) > 8
+         THEN CONCAT( IFNULL(A.WRKFAX1,''),'-',IFNULL(A.WRKFAX2,''),'-',IFNULL(A.WRKFAX3,'') )
+         ELSE CONCAT( IFNULL(A.WRKFAX1,''),IFNULL(A.WRKFAX2,''),IFNULL(A.WRKFAX3,'') )  END AS WRKFAX_
+		,A.WRKFAX1,A.WRKFAX2,A.WRKFAX3
+		,A.WRKURL
+		,A.WRKADDR1, A.WRKADDR2, A.WRKADDR3
+		,IFNULL(A.OWNER,0) AS OWNER, B.USERNAME AS OWNER_
+		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(A.HOMTEL1,''),IFNULL(A.HOMTEL2,''),IFNULL(A.HOMTEL3,'')) ) > 8
+         THEN CONCAT( IFNULL(A.HOMTEL1,''),'-',IFNULL(A.HOMTEL2,''),'-',IFNULL(A.HOMTEL3,'') )
+         ELSE CONCAT( IFNULL(A.HOMTEL1,''),IFNULL(A.HOMTEL2,''),IFNULL(A.HOMTEL3,'') )  END AS HOMTEL_
+		,A.HOMTEL1,A.HOMTEL2,A.HOMTEL3
+		,A.SEX, FN_GETCODE('SEX',A.SEX,#{siteid}) AS SEX_
+		,A.BIRTH,A.WEDDINGDAY,A.JOB,A.HOBBY
+		,A.MARRIED, FN_GETCODE('MARRIED',A.MARRIED,#{siteid}) AS MARRIED_
+		,A.MAILTO, FN_GETCODE('MAILTO',A.MAILTO,#{siteid}) AS MAILTO_
+		,A.SOLAR, FN_GETCODE('SOLAR',A.SOLAR,#{siteid}) AS SOLAR_
+		,A.CUSTGRADE, FN_GETCODE('CUSTGRADE',A.CUSTGRADE,#{siteid}) AS CUSTGRADE_
+		,A.CUSTGUBUN, FN_GETCODE('CUSTGUBUN',A.CUSTGUBUN,#{siteid}) AS CUSTGUBUN_
+		,A.ACTGRADE, FN_GETCODE('ACTGRADE',A.ACTGRADE,#{siteid}) AS ACTGRADE_
+		,A.HOMADDR1, A.HOMADDR2, A.HOMADDR3
+		,CONCAT(A.HOMADDR1 , A.HOMADDR2 , A.HOMADDR3) AS HOMADDR
+		,A.HOMADDR1, A.HOMADDR2, A.HOMADDR3
+		,A.MEMO
+		,A.INFOAGREE, FN_GETCODE('INFOAGREE',A.INFOAGREE,#{siteid}) AS INFOAGREE_
+		,C.DENYMAILAD,C.DENYMAILNEWS ,C.DENYMAILSEMINAR, C.DENYMAILNOMAL, C.DENYMAILSURVEY
+		,C.DENYSMSNOMAL,C.DENYSMSSEMINAR,C.DENYSMSAD, C.DENYSMSSURVEY
+		,C.DENYDMNEWS ,C.DENYDMSEMINAR,C.DENYDMAD, C.DENYDMNOMAL, C.DENYDMSURVEY
+		,C.DENYTELNEWS ,C.DENYTELSEMINAR, C.DENYTELAD, C.DENYTELSURVEY
+		,C.DENYFAX ,C.DENYVISIT
+		,A.CLINO,D.CLINAME
+		,A.RELCUSTNO
+
+		, (SELECT SELF.CUSTNAME FROM CU100010 SELF WHERE SELF.CUSTNO = A.RELCUSTNO) AS RELCUSTNAME
+		, (SELECT COUNT(*) FROM CU120010 B WHERE B.CUSTNO = A.CUSTNO AND B.ISDELETE = 0) AS BLACKCNT
+
+		FROM cu100010 A
+		LEFT OUTER JOIN me800010 B ON A.OWNER = B.USERNO
+		LEFT OUTER JOIN CU100080 C on A.CUSTNO = C.CUSTNO
+		LEFT OUTER JOIN sa200010 D ON A.CLINO = D.CLINO
+
+		WHERE
+			A.SITEID = #{siteid}
+			AND A.ISDELETE = 0
+			AND A.CUSTNO = #{custno}
+	</select>
+
+	<!-- 고객 추가  -->
+	<insert id="custInsert" parameterType="com.crud.ideacrm.dto.CustDto">
+
+		INSERT INTO cu100010
+		(
+		CUSTNAME
+		,OWNER
+		,REGDATE
+		,REGUSER
+		,EDITDATE
+		,EDITUSER
+		,SITEID
+		,ISDELETE
+		,DEPTNAME
+		,DUTY
+		,MOBILE1,MOBILE2,MOBILE3
+		,EMAIL
+		,WRKTEL1,WRKTEL2,WRKTEL3
+		,WRKFAX1,WRKFAX2,WRKFAX3
+		,WRKURL
+		,WRKADDR1,WRKADDR2,WRKADDR3
+		,HOMTEL1,HOMTEL2,HOMTEL3
+		,SEX
+		,BIRTH
+		,MARRIED
+		,MAILTO
+		,SOLAR
+		,WEDDINGDAY
+		,CUSTGRADE
+		,JOB
+		,HOBBY
+		,CUSTGUBUN
+		,ACTGRADE
+		,HOMADDR1,HOMADDR2,HOMADDR3
+		,MEMO
+		,INFOAGREE
+		,CLINO
+		,RELCUSTNO
+		)
+		VALUES
+		(
+		#{custname}
+		,#{owner}
+		,NOW()
+		,#{reguser}
+		,NOW()
+		,#{reguser}
+		,#{siteid}
+		,0
+		,#{deptname}
+		,#{duty}
+		,#{mobile1},#{mobile2},#{mobile3}
+		,#{email}
+		,#{wrktel1},#{wrktel2},#{wrktel3}
+		,#{wrkfax1},#{wrkfax2},#{wrkfax3}
+		,#{wrkurl}
+		,#{wrkaddr1},#{wrkaddr2},#{wrkaddr3}
+		,#{homtel1},#{homtel2},#{homtel3}
+		,#{sex}
+		,#{birth}
+		,#{married}
+		,#{mailto}
+		,#{solar}
+		,#{weddingday}
+		,#{custgrade}
+		,#{job}
+		,#{hobby}
+		,#{custgubun}
+		,#{actgrade}
+		,#{homaddr1},#{homaddr2},#{homaddr3}
+		,#{memo}
+		,#{infoagree}
+		,#{clino}
+		,#{relcustno}
+		)
+		<selectKey keyProperty="custno"  resultType="integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<!-- 고객, 수신거부 정보 추가 -->
+	<insert id="custDenyInsert" parameterType="com.crud.ideacrm.dto.CustDenyDto">
+		INSERT INTO cu100080
+		(
+		CUSTNO
+		,REGDATE
+		,REGUSER
+		,EDITDATE
+		,EDITUSER
+		,ISDELETE
+
+		,DENYMAILAD
+		,DENYMAILNEWS
+		,DENYMAILSEMINAR
+		,DENYMAILNOMAL
+		,DENYMAILSURVEY
+		,DENYSMSNOMAL
+		,DENYSMSSEMINAR
+		,DENYSMSAD
+		,DENYSMSSURVEY
+		,DENYDMNEWS
+		,DENYDMSEMINAR
+		,DENYDMAD
+		,DENYDMNOMAL
+		,DENYDMSURVEY
+		,DENYTELNEWS
+		,DENYTELSEMINAR
+		,DENYTELAD
+		,DENYTELSURVEY
+		,DENYFAX
+		,DENYVISIT
+
+		)
+		VALUES
+		(
+		#{custno}
+		,NOW()
+		,#{reguser}
+		,NOW()
+		,#{reguser}
+		,0
+
+		,#{denymailad}
+		,#{denymailnews}
+		,#{denymailseminar}
+		,#{denymailnomal}
+		,#{denymailsurvey}
+		,#{denysmsnomal}
+		,#{denysmsseminar}
+		,#{denysmsad}
+		,#{denysmssurvey}
+		,#{denydmnews}
+		,#{denydmseminar}
+		,#{denydmad}
+		,#{denydmnomal}
+		,#{denydmsurvey}
+		,#{denytelnews}
+		,#{denytelseminar}
+		,#{denytelad}
+		,#{denytelsurvey}
+		,#{denyfax}
+		,#{denyvisit}
+		)
+	</insert>
+
+	<!-- 거래처관련고객 추가,수정 -->
+	<insert id="mergeCliCust" parameterType="com.crud.ideacrm.dto.CustDto">
+	INSERT INTO sa280010  (SITEID, CUSTNO, CLINO, REGDATE,EDTDATE, REGUSER,EDTUSER,ISDELETE  )
+							VALUES (#{siteid}, #{custno}, #{clino}, now(), now(), #{reguser}, #{reguser}, 0 )
+         ON DUPLICATE KEY UPDATE CLINO = #{clino}, SITEID = #{siteid}, CUSTNO = #{custno}, EDTUSER = #{reguser}, EDTDATE = now()
+	</insert>
+
+	<!-- 고객 정보 수정 -->
+	<update id="custUpdate" parameterType="com.crud.ideacrm.dto.CustDto" >
+		UPDATE cu100010
+		SET
+		EDITDATE = now()
+		,EDITUSER = #{edituser}
+		,CUSTNAME = #{custname}
+		,OWNER = #{owner}
+		,DEPTNAME = #{deptname}
+		,DUTY = #{duty}
+		,MOBILE1 = #{mobile1}
+		,MOBILE2 = #{mobile2}
+		,MOBILE3 = #{mobile3}
+		,EMAIL = #{email}
+		,WRKTEL1 = #{wrktel1}
+		,WRKTEL2 = #{wrktel2}
+		,WRKTEL3 = #{wrktel3}
+		,WRKFAX1 = #{wrkfax1}
+		,WRKFAX2 = #{wrkfax2}
+		,WRKFAX3 = #{wrkfax3}
+		,WRKURL = #{wrkurl}
+		,WRKADDR1 = #{wrkaddr1}
+		,WRKADDR2 = #{wrkaddr2}
+		,WRKADDR3 = #{wrkaddr3}
+		,HOMTEL1 = #{homtel1}
+		,HOMTEL2 = #{homtel2}
+		,HOMTEL3 = #{homtel3}
+		,SEX = #{sex}
+		,BIRTH = #{birth }
+		,MARRIED = #{married}
+		,MAILTO = #{mailto}
+		,SOLAR = #{solar}
+		,WEDDINGDAY = #{weddingday}
+		,CUSTGRADE = #{custgrade}
+		,JOB = #{job}
+		,HOBBY = #{hobby}
+		,CUSTGUBUN = #{custgubun}
+		,ACTGRADE = #{actgrade}
+		,HOMADDR1 = #{homaddr1}
+		,HOMADDR2 = #{homaddr2}
+		,HOMADDR3 = #{homaddr3}
+		,MEMO = #{memo}
+		,CLINO = #{clino}
+		<if test="infoagree == 0 or infoagree == 1 ">
+		,INFOAGREE = #{infoagree}
+		</if>
+		<if test="relcustno != null and relcustno =! 0">
+		,RELCUSTNO = #{relcustno}
+		</if>
+		WHERE
+			CUSTNO = #{custno}
+			AND SITEID = #{siteid}
+	</update>
+
+	<!-- 고객 수신거부 정보 수정 -->
+	<update id="custDenyUpdate" parameterType="com.crud.ideacrm.dto.CustDenyDto">
+		UPDATE cu100080 SET
+		EDITDATE = now()
+		,EDITUSER = #{edituser}
+
+		,DENYMAILNOMAL = #{denymailnomal}
+		,DENYMAILSURVEY = #{denymailsurvey}
+		,DENYMAILAD = #{denymailad}
+		,DENYMAILNEWS = #{denymailnews}
+		,DENYMAILSEMINAR = #{denymailseminar}
+		,DENYSMSNOMAL = #{denysmsnomal}
+		,DENYSMSSURVEY = #{denysmssurvey}
+		,DENYSMSSEMINAR = #{denysmsseminar}
+		,DENYSMSAD = #{denysmsad}
+		,DENYDMNOMAL = #{denydmnomal}
+		,DENYDMSURVEY = #{denydmsurvey}
+		,DENYDMNEWS = #{denydmnews}
+		,DENYDMSEMINAR = #{denydmseminar}
+		,DENYDMAD = #{denydmad}
+		,DENYTELNEWS = #{denytelnews}
+		,DENYTELSEMINAR = #{denytelseminar}
+		,DENYTELAD = #{denytelad}
+		,DENYTELSURVEY = #{denytelsurvey}
+		,DENYFAX = #{denyfax}
+		,DENYVISIT = #{denyvisit}
+
+		WHERE
+			CUSTNO = #{custno}
+	</update>
+
+	<!-- 고객 삭제 -->
+	<update id="custDelete" parameterType="com.crud.ideacrm.dto.CustDto" >
+		UPDATE cu100010 SET ISDELETE = 1 , EDITDATE = NOW() , EDITUSER = #{edituser}
+		WHERE SITEID = #{siteid} AND CUSTNO = #{custno}
+	</update>
+	<!-- 고객 수신거부 삭제 -->
+	<update id="custDenyDelete" parameterType="com.crud.ideacrm.dto.CustDto" >
+		UPDATE cu100080 SET ISDELETE = 1 , EDITDATE = NOW() , EDITUSER = #{edituser}
+		WHERE CUSTNO = #{custno}
+	</update>
+</mapper>

@@ -10,10 +10,22 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<typeAliases>
 	<!--	<typeAlias type="saas.crud.crm.ce.MailDto" alias="emailDto" /> -->
+		<typeAlias type="com.crud.ideacrm.dto.ServiceDto" alias="serviceDto" />
+		<typeAlias type="com.crud.ideacrm.dto.RewardDto" alias="rewardDto" />
+		<typeAlias type="com.crud.ideacrm.dto.RactDto" alias="ractDto" />
+		<typeAlias type="com.crud.ideacrm.dto.ProductDto" alias="productDto" />
+		<typeAlias type="com.crud.ideacrm.dto.CodeDto" alias="codeDto" />
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="database/LoginMapper.xml" />
+		<mapper resource="database/CodeMapper.xml" />
+		<mapper resource="database/CustMapper.xml" />
+		<mapper resource="database/ServiceMapper.xml" />
+		<mapper resource="database/UserMapper.xml" />
+		<mapper resource="database/SalesMapper.xml" />
+        <mapper resource="database/ClientMapper.xml" />
+		<mapper resource="database/ProductMapper.xml" />
 	</mappers>
 	
 </configuration>

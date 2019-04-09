@@ -16,9 +16,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
+
 @Service
 public class LoginServiceImple implements LoginService{
-
+    //TEST
     @Autowired
     private LoginDao login;
 
@@ -62,10 +63,10 @@ public class LoginServiceImple implements LoginService{
             }
             if(isValid){
                 //사용자정보 세션 등록
+                request.getSession().setAttribute("SITEID", urInfo.get("SITEID")); //사용자 사이트번호
                 request.getSession().setAttribute("USERID", urInfo.get("USERID")); //사용자아이디
                 request.getSession().setAttribute("USERNAME", urInfo.get("USERNAME")); //사용자이름
                 request.getSession().setAttribute("USERNO", urInfo.get("USERNO")); //사용자 PK
-                request.getSession().setAttribute("SITEID", urInfo.get("SITEID")); //사용자 사이트번호
                 request.getSession().setAttribute("SITENAME", urInfo.get("SITENAME")); //사이트 이름
                 request.getSession().setAttribute("CALLNAME", urInfo.get("CALLNAME")); //사이트 약어
                 request.getSession().setAttribute("USERLANG", urInfo.get("USERLANG")); //사용자 언어

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<select id="userList" parameterType="map" resultType="hashMap">
+		SELECT A.USERNO,A.USERNAME,A.USERID,A.EMAIL,A.USERDUTY
+		,CASE WHEN A.ISDELETE = 0 THEN '사용'
+		WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+		,CASE WHEN DATE_FORMAT(A.REGDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
+		ELSE DATE_FORMAT(A.REGDATE,'%Y-%m-%d') END AS REGDATE
+		,A.MOBILE1,A.MOBILE2,A.MOBILE3
+		,CASE WHEN DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
+		ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
+		, CONCAT(A.MOBILE1, A.MOBILE2, A.MOBILE3) AS MOBILE
+		,(SELECT COUNT(*) FROM CTI510010 WHERE CALLSTATUS = 1 AND CALLUSER = A.USERNO) AS CTICOUNT
+		FROM me800010 A
+		INNER JOIN (SELECT @RNUM := 0) R
+		WHERE A.SITEID = #{siteid}
+		AND A.ISDELETE = 0
+		AND IFNULL(A.MASTERYN,0) != 1
+		<if test="username != null">
+			AND A.USERNAME LIKE CONCAT('%',#{username},'%')
+		</if>
+		<if test="mobile != null">
+			AND A.MOBILE LIKE CONCAT('%',#{mobile},'%')
+		</if>
+		<if test="userid != null">
+			AND A.USERID LIKE CONCAT('%',#{userid},'%')
+		</if>
+		<if test="isdelete != null">
+			AND A.ISDELETE = #{isdelete}
+		</if>
+		<if test="strdate != null">
+			AND DATE_FORMAT(REGDATE,'%Y-%m-%d') <![CDATA[>=]]> #{strdate}
+		</if>
+		<if test="enddate != null">
+			AND DATE_FORMAT(REGDATE,'%Y-%m-%d') <![CDATA[<=]]> #{enddate}
+		</if>
+		<if test="role != null">
+			AND ROLE = #{role}
+		</if>
+		<if test="userNo != null">
+			AND USERNO = #{userNo}
+		</if>
+		ORDER BY A.USERNO DESC
+
+	</select>
+
+</mapper>

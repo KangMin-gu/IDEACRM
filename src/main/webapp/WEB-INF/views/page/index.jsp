@@ -19,7 +19,7 @@
   <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
   <div id="page-wrapper" class="gray-bg">
     <div class="row border-bottom">
-      <%@ include file="/WEB-INF/views/common/top.jsp"%>
+      <%@ include file="/WEB-INF/views/common/top_v2.jsp"%>
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">

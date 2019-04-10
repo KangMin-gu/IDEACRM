@@ -1,5 +1,6 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.crud.util.Codec;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class UserServiceImple implements UserService {
         Map<String,Object> param = parameterUtil.searchParam(request);
 
         List<Map<String,Object>> userList = userDao.userList(param);
+
 
         return userList;
     }

@@ -11,3 +11,7 @@
     <div class="float-right">
         <strong>Copyright</strong> CRUD SYSTEM &copy; 2019
     </div>
+    <input type="hidden" id="hiddenSideStates" value="${SIDESTATES }"/>
+    <input type="hidden" id="hiddenUserId" value="${USERID }"/>
+    <input type="hidden" id="hiddenSiteId" value="${SITEID }"/>
+    <input type="hidden" id="hiddenUserNo" value="${USERNO }"/>

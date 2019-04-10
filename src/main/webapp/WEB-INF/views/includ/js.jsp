@@ -17,4 +17,5 @@
 
 <!--menu seclect active-->
 <script src="${pageContext.request.contextPath}/resources/js/crud/menuactive.js"></script>
-
+<script src="${pageContext.request.contextPath}/resources/js/sockjs.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/alarm.js"></script>

@@ -46,4 +46,13 @@
 
 	</select>
 
+
+	<select id="userAram" parameterType="int" resultType="hashMap">
+		SELECT
+			 COUNT(CASE WHEN A.IMPORTANT = '1' AND B.READCHEK = '0' THEN 0 END) AS IMPORTANT ,
+			 COUNT(CASE WHEN B.READCHEK = '0' THEN 1 END) AS READCHEK
+		FROM sys970010 AS A
+		LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+		WHERE B.USERNO = #{userno} AND B.ISDELETE = 0;
+	</select>
 </mapper>

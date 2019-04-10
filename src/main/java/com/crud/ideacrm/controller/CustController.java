@@ -1,5 +1,6 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.crud.util.Codec;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
 @Controller
@@ -78,9 +81,17 @@ public class CustController {
     //고객 수정 실행
     @RequestMapping(value = "/custupdate/{custno}", method = RequestMethod.POST)
     public String authCustUpdate(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto
-            , @PathVariable int custno) {
+            , @PathVariable int custno) throws UnsupportedEncodingException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        String custName = custDto.getCustname();
+        Codec codec = new Codec();
+        try {
+            String a = codec.encrypt(custName);
+            custDto.setCustname(a);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
         custDto.setSiteid(siteId);
         custDto.setEdituser(userNo);
         custDenyDto.setEdituser(userNo);

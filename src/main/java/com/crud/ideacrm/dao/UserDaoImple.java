@@ -17,4 +17,10 @@ public class UserDaoImple implements UserDao {
         List<Map<String,Object>> userList = session.selectList("user.userList",param);
         return userList;
     }
+
+    @Override
+    public Map<String, Object> userAram(int userNo) {
+        Map<String, Object> userAram = session.selectOne("user.userAram", userNo);
+        return userAram;
+    }
 }

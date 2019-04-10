@@ -118,10 +118,6 @@
                                             <td colspan="1">
                                                 <input class="form-control form-control-sm searchparam" type="text" id="servicename" name="servicename" style="width: 150px;">
                                             </td>
-                                            <th>거래처명</th>
-                                            <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
-                                            </td>
                                             <th>고객명</th>
                                             <td>
                                                 <div class="input-group" style="width: 150px;">
@@ -131,6 +127,15 @@
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                 </div>
+                                            </td>
+                                            <th>처리상태</th>
+                                            <td>
+                                                <select class="form-control searchparam" name="servicestep" id="servicestep" style="width: 100px;">
+                                                    <option value="">선택</option>
+                                                    <c:forEach var="serviceStep" items="${SERVICESTEP}">
+                                                        <option value="${serviceStep.codeval}">${serviceStep.codename}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </td>
                                             <th>담당자</th>
                                             <td>
@@ -163,7 +168,7 @@
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                             <a href="/service/input" class="btn btn-default pull-right">추가</a>
-                            <table class="footable table table-stripped" data-sorting="true" >
+                            <table class="footable table table-striped" data-sorting="true" >
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="SERVICENO">서비스번호</th>
@@ -183,13 +188,12 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" id="paging" style="width:80px">
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
+                                            <c:forEach var="paging" items="${PAGING}">
+                                                <option vale="${paging.codeval}">${paging.codename}</option>
+                                            </c:forEach>
                                         </select>
                                     </td>
-                                    <td colspan="11">
+                                    <td colspan="4">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>

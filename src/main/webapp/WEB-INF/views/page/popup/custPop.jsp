@@ -50,8 +50,8 @@
                         <tr data-formatter="test">
                             <th data-visible="false" data-name="CUSTNO">고객번호</th>
                             <th data-name="CUSTNAME" >고객명</th>
-                            <th data-name="MOBILE" data-breakpoints="xs">전화번호</th>
-                            <th data-name="EMAIL" data-breakpoints="xs">이메일</th>
+                            <th data-name="MOBILE">전화번호</th>
+                            <th data-name="EMAIL">이메일</th>
                         </tr>
                         </thead>
                         <tbody>

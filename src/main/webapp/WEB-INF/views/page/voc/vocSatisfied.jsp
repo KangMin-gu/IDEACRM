@@ -163,7 +163,7 @@
                         <div class="ibox-title">
                             <h5>고객 만족도 목록</h5>
                             <div class="ibox-tools">
-                                <a href="/custdetail">디테일화면</a>
+                                <a href="/cust">디테일화면</a>
                             </div>
                         </div>
 

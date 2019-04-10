@@ -58,12 +58,12 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <a type="button" class="btn btn-default pull-left" href="/cust">목록</a>
+                    <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                     <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
-                    <a class="btn btn-default pull-right" href="/custupdate/${custDetail.CUSTNO}">수정</a>
+                    <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
 
@@ -235,10 +235,10 @@
                                     <tr>
                                         <th class="denny" colspan="1">KAKAO</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAONOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -314,11 +314,15 @@
                                                             <th data-name="SERVICESTEP_">처리상태</th>
                                                         </tr>
                                                         </thead>
+                                                        <tbody>  </tbody>
                                                         <tfoot>
-                                                        <tr> <td colspan="9"> <ul class="pagination pull-right"></ul> </td> </tr>
+                                                        <tr>
+                                                            <td colspan="9">
+                                                                <ul class="pagination pull-left"></ul>
+                                                            </td>
+                                                        </tr>
                                                         </tfoot>
                                                     </table>
-
                                                 </div>
                                             </div>
                                             <div role="tabpanel" id="tab-2" class="tab-pane">
@@ -1142,12 +1146,12 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <a type="button" class="btn btn-default pull-left" href="/cust">목록</a>
+                    <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                     <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
-                    <a class="btn btn-default pull-right" href="/custupdate/${custDetail.CUSTNO}">수정</a>
+                    <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
 

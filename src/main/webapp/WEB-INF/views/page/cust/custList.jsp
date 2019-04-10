@@ -13,7 +13,6 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <!--<link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">-->
     <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -176,10 +175,10 @@
                         </div>
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm" id="test"><i class="fa fa-file-excel-o"></i></button>
-                            <a class="btn btn-default pull-right" href="/custinsert">추가</a>
+                            <a class="btn btn-default pull-right" href="/cust/input">추가</a>
                             <button class="btn btn-default pull-right" onclick="custMultyDelete();">삭제</button>
-                            <form class="checkedForm" action="/custdelete" method="post">
-                            <table class="footable table table-stripped "  data-paging="true" data-filter=#filter data-sorting="true">
+                            <form class="deleteForm" action="/cust/del" method="post">
+                            <table class="footable table table-striped"  data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
                                 <thead>
                                 <tr>
                                     <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
@@ -194,6 +193,13 @@
                                     <th data-name="REGDATE" data-breakpoints="xs sm">등록일</th>
                                 </tr>
                                 </thead>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="12">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
                             </table>
                             </form>
                         </div>
@@ -229,20 +235,8 @@
         footableSearchList('/cust');
     });
 
-    function selectCheckbox(tagName){
-        if($("#checkAll").prop("checked")){
-            $("input[name="+tagName+"]").prop("checked",true);
-        }else{
-            $("input[name="+tagName+"]").prop("checked",false);
-        }
-    }
-
-
-    function custMultyDelete(){
-        $('.checkedForm').submit();
-    }
-
 $('#test').click(function(){
+
     var param = searchDataToJson();
     $.ajax({
         type: 'POST',
@@ -251,7 +245,7 @@ $('#test').click(function(){
         async: false,
         success: function(data) {
             if(data != null) {
-                alert('삭제 되었습니다.');
+                alert('dd.');
             }
             location.href = "/cust";
         },error:function(request,status,error){

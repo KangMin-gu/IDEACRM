@@ -28,9 +28,14 @@ public class CustDenyDto {
     private String	editdate;	//수정일
     private int	edituser;	//수정자
     private int	isdelete;	//삭제여부
+    private int denykakaonomal; //일반카카오거부
+    private int denykakaoad;  //광고카카오거부
+    private int denykakaosurvey; //설문카카오거부
+    private int denykakaoseminar; //세미나카카오거부
 
     public CustDenyDto(){}
-    public CustDenyDto(int denyno, int custno, int denymailnomal, int denymailsurvey, int denymailad, int denymailnews, int denymailseminar, int denysmsnomal, int denysmssurvey, int denysmsseminar, int denysmsad, int denydmnomal, int denydmsurvey, int denydmnews, int denydmseminar, int denydmad, int denytelnews, int denytelseminar, int denytelad, int denytelsurvey, int denyfax, int denyvisit, String regdate, int reguser, String editdate, int edituser, int isdelete) {
+
+    public CustDenyDto(int denyno, int custno, int denymailnomal, int denymailsurvey, int denymailad, int denymailnews, int denymailseminar, int denysmsnomal, int denysmssurvey, int denysmsseminar, int denysmsad, int denydmnomal, int denydmsurvey, int denydmnews, int denydmseminar, int denydmad, int denytelnews, int denytelseminar, int denytelad, int denytelsurvey, int denyfax, int denyvisit, String regdate, int reguser, String editdate, int edituser, int isdelete, int denykakaonomal, int denykakaoad, int denykakaosurvey, int denykakaoseminar) {
         this.denyno = denyno;
         this.custno = custno;
         this.denymailnomal = denymailnomal;
@@ -58,6 +63,10 @@ public class CustDenyDto {
         this.editdate = editdate;
         this.edituser = edituser;
         this.isdelete = isdelete;
+        this.denykakaonomal = denykakaonomal;
+        this.denykakaoad = denykakaoad;
+        this.denykakaosurvey = denykakaosurvey;
+        this.denykakaoseminar = denykakaoseminar;
     }
 
     public int getDenyno() {
@@ -274,5 +283,37 @@ public class CustDenyDto {
 
     public void setIsdelete(int isdelete) {
         this.isdelete = isdelete;
+    }
+
+    public int getDenykakaonomal() {
+        return denykakaonomal;
+    }
+
+    public void setDenykakaonomal(int denykakaonomal) {
+        this.denykakaonomal = denykakaonomal;
+    }
+
+    public int getDenykakaoad() {
+        return denykakaoad;
+    }
+
+    public void setDenykakaoad(int denykakaoad) {
+        this.denykakaoad = denykakaoad;
+    }
+
+    public int getDenykakaosurvey() {
+        return denykakaosurvey;
+    }
+
+    public void setDenykakaosurvey(int denykakaosurvey) {
+        this.denykakaosurvey = denykakaosurvey;
+    }
+
+    public int getDenykakaoseminar() {
+        return denykakaoseminar;
+    }
+
+    public void setDenykakaoseminar(int denykakaoseminar) {
+        this.denykakaoseminar = denykakaoseminar;
     }
 }

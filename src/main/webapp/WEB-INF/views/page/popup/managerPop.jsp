@@ -60,7 +60,6 @@
                         <tbody>
                         </tbody>
                         <tfoot>
-
                         </tfoot>
                     </table>
                 </div>

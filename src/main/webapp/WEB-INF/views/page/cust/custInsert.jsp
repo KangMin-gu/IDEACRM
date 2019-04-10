@@ -48,11 +48,10 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left" onclick="custInsert();">등록</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <button type="submit" class="btn btn-default pull-left save" >등록</button>
+                    <a href="/cust" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -62,11 +61,11 @@
                 <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">고객 정보</a></li>
-                            <li><a class="nav-link" data-toggle="tab" href="#tab-2">직장 정보</a></li>
-                            <li><a class="nav-link" data-toggle="tab" href="#tab-3">부가 정보</a></li>
+                            <li><a class="nav-link input-tab-link active" data-toggle="tab" href="#tab-1" id="tabLinkBtn1">고객 정보</a></li>
+                            <li><a class="nav-link input-tab-link" data-toggle="tab" href="#tab-2" id="tabLinkBtn2">직장 정보</a></li>
+                            <li><a class="nav-link input-tab-link" data-toggle="tab" href="#tab-3" id="tabLinkBtn3">부가 정보</a></li>
                         </ul>
-                        <form:form class="crudForm" id="custInfo" action="/custinsert" method="post">
+                            <form:form id="command" action="/cust/input" method="post">
                             <div class="tab-content">
                                 <div role="tabpanel" id="tab-1" class="tab-pane active">
                                     <div class="panel-body">
@@ -74,7 +73,7 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">고객명</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control-sm" id="custname" name="custname" required="required">
+                                                <input type="text" class="form-control form-control-sm name" id="custname" name="custname">
                                             </div>
                                             <label class="col-sm-2 col-form-label">성별</label>
                                             <div class="radio-inline i-checks">
@@ -308,7 +307,7 @@
                                             <div class="col-sm-2">
                                                 <div class="radio-inline i-checks">
                                                     <c:forEach var="infoagree" items="${INFOAGREE}">
-                                                        <label><input type="radio" value="${infoagree.codeval}" name="infoagree"> <i></i>&nbsp;${infoagree.codename}</label>&nbsp;&nbsp;
+                                                        <label><input type="radio" value="${infoagree.codeval}" name="infoagree" ${infoagree.codeval eq "1" ? "checked":""}> <i></i>&nbsp;${infoagree.codename}</label>&nbsp;&nbsp;
                                                     </c:forEach>
                                                     <!--<label><input type="radio" value="option1" name="a"> <i></i>&nbsp;동의</label>&nbsp;&nbsp;
                                                     <label class="radio-inline"><input type="radio" value="option2" name="a"> <i></i>&nbsp;거부</label>-->
@@ -335,14 +334,14 @@
                                                     <label class="i-checks"> <input type="checkbox" value="1" id="denysmsad" name="denysmsad">&nbsp; 광고</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
-                                                <!--<div class="row">
+                                                <div class="row">
                                                     <label class="col-sm-2 col-form-label">KAKAO</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denydmnomal" name="denydmnomal">&nbsp; 일반</label>&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmsurvey" name="denydmsurvey">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmseminar" name="denydmseminar">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmad" name="denydmad">&nbsp; 광고</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denykakaonomal" name="denykakaonomal">&nbsp; 일반</label>&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaosurvey" name="denykakaosurvey">&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaoseminar" name="denykakaoseminar">&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaoad" name="denykakaoad">&nbsp; 광고</label>
                                                 </div>
-                                                <div class="hr-line-dashed"></div>-->
+                                                <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">DM</label>
                                                     <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denydmnomal" name="denydmnomal">&nbsp; 일반</label>&nbsp;
@@ -384,13 +383,11 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">등록</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <button type="submit" class="btn btn-default pull-left save">등록</button>
+                    <a href="/cust" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
-
             <br/>
-
         </div>
 
 
@@ -426,9 +423,7 @@
             radioClass: 'iradio_square-green',
         });
     });
-    function custInsert(){
-        $('#custInfo').submit();
-    }
+
 </script>
 </body>
 </html>

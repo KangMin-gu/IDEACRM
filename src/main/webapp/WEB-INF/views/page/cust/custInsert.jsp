@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left save" >등록</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <a href="/cust" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -334,14 +334,14 @@
                                                     <label class="i-checks"> <input type="checkbox" value="1" id="denysmsad" name="denysmsad">&nbsp; 광고</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
-                                                <!--<div class="row">
+                                                <div class="row">
                                                     <label class="col-sm-2 col-form-label">KAKAO</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denydmnomal" name="denydmnomal">&nbsp; 일반</label>&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmsurvey" name="denydmsurvey">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmseminar" name="denydmseminar">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmad" name="denydmad">&nbsp; 광고</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denykakaonomal" name="denykakaonomal">&nbsp; 일반</label>&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaosurvey" name="denykakaosurvey">&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaoseminar" name="denykakaoseminar">&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaoad" name="denykakaoad">&nbsp; 광고</label>
                                                 </div>
-                                                <div class="hr-line-dashed"></div>-->
+                                                <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">DM</label>
                                                     <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denydmnomal" name="denydmnomal">&nbsp; 일반</label>&nbsp;
@@ -384,7 +384,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left save">등록</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <a href="/cust" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
             <br/>

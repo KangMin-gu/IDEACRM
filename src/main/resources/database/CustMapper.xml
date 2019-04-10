@@ -97,6 +97,7 @@
 		,C.DENYMAILAD,C.DENYMAILNEWS ,C.DENYMAILSEMINAR, C.DENYMAILNOMAL, C.DENYMAILSURVEY
 		,C.DENYSMSNOMAL,C.DENYSMSSEMINAR,C.DENYSMSAD, C.DENYSMSSURVEY
 		,C.DENYDMNEWS ,C.DENYDMSEMINAR,C.DENYDMAD, C.DENYDMNOMAL, C.DENYDMSURVEY
+		,C.DENYKAKAOSEMINAR,C.DENYKAKAOAD, C.DENYKAKAONOMAL, C.DENYKAKAOSURVEY
 		,C.DENYTELNEWS ,C.DENYTELSEMINAR, C.DENYTELAD, C.DENYTELSURVEY
 		,C.DENYFAX ,C.DENYVISIT
 		,A.CLINO,D.CLINAME
@@ -226,7 +227,10 @@
 		,DENYTELSURVEY
 		,DENYFAX
 		,DENYVISIT
-
+		,DENYKAKAOSEMINAR
+		,DENYKAKAOAD
+		,DENYKAKAONOMAL
+		,DENYKAKAOSURVEY
 		)
 		VALUES
 		(
@@ -257,6 +261,10 @@
 		,#{denytelsurvey}
 		,#{denyfax}
 		,#{denyvisit}
+		,#{denykakaoseminar}
+		,#{denykakaoad}
+		,#{denykakaonomal}
+		,#{denykakaosurvey}
 		)
 	</insert>
 
@@ -347,7 +355,10 @@
 		,DENYTELSURVEY = #{denytelsurvey}
 		,DENYFAX = #{denyfax}
 		,DENYVISIT = #{denyvisit}
-
+		,DENYKAKAONOMAL = #{denykakaonomal}
+		,DENYKAKAOSURVEY = #{denykakaosurvey}
+		,DENYKAKAOSEMINAR = #{denykakaoseminar}
+		,DENYKAKAOAD = #{denykakaoad}
 		WHERE
 			CUSTNO = #{custno}
 	</update>

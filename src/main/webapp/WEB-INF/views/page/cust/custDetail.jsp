@@ -58,7 +58,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <a type="button" class="btn btn-default pull-left" href="/cust">목록</a>
+                    <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
@@ -235,10 +235,10 @@
                                     <tr>
                                         <th class="denny" colspan="1">KAKAO</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAONOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1146,7 +1146,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <a type="button" class="btn btn-default pull-left" href="/cust">목록</a>
+                    <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>

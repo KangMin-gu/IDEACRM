@@ -4,6 +4,7 @@ function footableSearchList(url) {
     var param = searchDataToJson();
     globalUrl = url;
     $.post(url, param, function (response) {
+        debugger;
         $('.footable').footable({
             "toggleSelector": ".footable-toggle",
             "paging": {
@@ -12,10 +13,7 @@ function footableSearchList(url) {
             },
             "rows": response
         });
-        if(response.length > 0){
-            //tr의 값이 0 이상이면 empty tr을 삭제
-            $('.footable-empty').remove();
-        }
+        $('.footable-empty').remove();
         if($('.footable-pagination-wrapper').length > 0){
             // footable의 pagination이 1개 이상이면 삭제
             $('.footable-pagination-wrapper:gt(0)').remove();
@@ -175,3 +173,6 @@ $('.daumzip').click(function(e){ //이벤트를 걸 인풋,버튼에 daumzip 클
         }
     }).open();
 });
+
+
+

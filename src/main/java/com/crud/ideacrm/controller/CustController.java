@@ -79,7 +79,6 @@ public class CustController {
     @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.POST)
     public String authCustUpdate(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto
             , @PathVariable int custno) {
-        System.out.println("kkkkkkkkkkkk@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         custDto.setSiteid(siteId);

@@ -45,7 +45,10 @@ function custDelete(custno){
  * 선택 된 고객 삭제 (멀티)
  */
 function custMultyDelete(){
-    $('.deleteForm').submit();
+    var count=$('input:checkbox[name=custno]:checked').length;
+    if(count > 0){//선택값이 있다면 삭제 폼 실행
+        $('.deleteForm').submit();
+    }else{alert('선택 된 값이 없습니다.');}
 }
 
 /**

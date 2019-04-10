@@ -27,6 +27,31 @@
         <div class="ibox-top">
             <div class="ibox">
                 <div class="ibox-content clearfix">
+                    <div class="cti" style="display:block">
+                        서버아이피: <input type="text" name="cti_server_ip" id="cti_server_ip" value="127.0.0.1">
+                        웹소켓아이피: <input type="text" name="cti_server_socket_ip" id="cti_server_socket_ip" value="203.239.159.133">
+                        서버포트: <input type="text" name="cti_server_port" id="cti_server_port" value="7070">
+                        <input type="button" value="웹소켓접속" onclick="webSocketGo();">
+                        <input type="button" value="웹소켓끊기" onclick="func_logout();goWebSocketDisconnect();">
+                        <br/>
+                        아이디 : <input type="text" name="cti_login_id" id="cti_login_id" value="crud01">
+                        비밀번호 : <input type="text" name="cti_login_pwd" id="cti_login_pwd" value="0000">
+                        전화번호 : <input type="text" name="cti_login_ext" id="cti_login_ext" value="07042622865">
+                        <input type="hidden" name="checkGroupValue" id="checkGroupValue" value="N">
+                        <input type="hidden" name="checkGroupValue2" id="checkGroupValue2" value="N">
+                        <span id="outCallNum">07042622883</span>
+                        <input type="hidden" id="ctitelno" name="ctitelno" value="07042622883" />
+                        <input type="checkbox" class="check" id="did" onclick="javascript:didCheck();">
+                        <div>
+                            <textarea id="messages" cols="150" rows="10"></textarea>
+                            <input type="button" value="로그초기화" onclick="javascript:document.getElementById('messages').value='';">
+                            <select name="callGroup" id="callGroup" style="width:131px;" onchange="javascrpt:changeGroup();"></select>
+                        </div>
+                        <input type="hidden" id="userno" value="${sessionScope.USERNO }">
+                        <input type="hidden" id="chkauth" value="${sessionScope.CHKAUTH }" />
+                        <input type="hidden" id="trunk" value="07042622883" /><!-- 동적으로변경 -->
+                        <input type="hidden" id="reqno" name="reqno" value="" /><!-- 서비스랑 연결할 REQNO -->
+                    </div>
                     <ul class="top-btn">
                         <li><input type="text" class="form-control"></li>
                         <li class="liBtn"><button class="btn btn-primary btn-sm">걸기 <i class="fa fa-phone"></i></button></li>

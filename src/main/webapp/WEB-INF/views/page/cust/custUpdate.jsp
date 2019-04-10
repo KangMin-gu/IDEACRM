@@ -38,7 +38,7 @@
                         <a href="${pageContext.request.contextPath}/cust">고객 목록</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/custdetail/${custUpdate.CUSTNO}">고객 상세정보</a>
+                        <a href="${pageContext.request.contextPath}/cust/${custUpdate.CUSTNO}">고객 상세정보</a>
                     </li>
                     <li class="breadcrumb-item active">
                         <strong>고객 수정</strong>
@@ -54,8 +54,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left" onclick="custFormSubmit();">등록</button>
-                    <a type="button" class="btn btn-default pull-right" href="/custdetail/${custUpdate.CUSTNO}">취소</a>
+                    <button type="submit" class="btn btn-default pull-left save">등록</button>
+                    <a type="button" class="btn btn-default pull-right" href="/cust/${custUpdate.CUSTNO}">취소</a>
                 </div>
             </div>
 
@@ -65,11 +65,11 @@
                 <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">고객 정보</a></li>
-                            <li><a class="nav-link" data-toggle="tab" href="#tab-2">직장 정보</a></li>
-                            <li><a class="nav-link" data-toggle="tab" href="#tab-3">부가 정보</a></li>
+                            <li><a class="nav-link input-tab-link active" data-toggle="tab" href="#tab-1">고객 정보</a></li>
+                            <li><a class="nav-link input-tab-link" data-toggle="tab" href="#tab-2">직장 정보</a></li>
+                            <li><a class="nav-link input-tab-link" data-toggle="tab" href="#tab-3">부가 정보</a></li>
                         </ul>
-                        <form:form class="crudForm" id="custInfo" action="/custupdate/${custUpdate.CUSTNO}" method="post">
+                        <form:form id="command" action="/cust/modified/${custUpdate.CUSTNO}" method="post">
                             <div class="tab-content">
                                 <div role="tabpanel" id="tab-1" class="tab-pane active">
                                     <div class="panel-body">
@@ -77,7 +77,7 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">고객명</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control-sm" id="custname" name="custname" value="${custUpdate.CUSTNAME}" required="required">
+                                                <input type="text" class="form-control form-control-sm name" id="custname" name="custname" value="${custUpdate.CUSTNAME}">
                                             </div>
                                             <label class="col-sm-2 col-form-label">성별</label>
                                             <div class="radio-inline i-checks">
@@ -94,7 +94,7 @@
                                             </div>
                                             <label class="col-sm-2 col-form-label">이메일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm" id="email" name="email" value="${custUpdate.EMAIL}">
+                                                <input type="text" class="form-control form-control form-control-sm email" id="email" name="email" value="${custUpdate.EMAIL}">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -110,8 +110,8 @@
                                                         </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile2" name="mobile2" value="${custUpdate.MOBILE2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile3" name="mobile3" value="${custUpdate.MOBILE3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required="required"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile2" name="mobile2" value="${custUpdate.MOBILE2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile3" name="mobile3" value="${custUpdate.MOBILE3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
                                                 </div>
                                                 <div class="row">
                                                     <label class="error" for="mobile1"></label><label class="error" for="mobile2"></label><label class="error" for="mobile3"></label>
@@ -128,8 +128,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel2" name="homtel2" value="${custUpdate.HOMTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel3" name="homtel3" value="${custUpdate.HOMTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel2" name="homtel2" value="${custUpdate.HOMTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel3" name="homtel3" value="${custUpdate.HOMTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                                             </div>
                                             <label class="col-sm-2 col-form-label">홈페이지</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm" id="wrkurl" name="wrkurl" value="${custUpdate.WRKURL}">
+                                                <input type="text" class="form-control form-control form-control-sm url" id="wrkurl" name="wrkurl" value="${custUpdate.WRKURL}">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -218,8 +218,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel2" name="wrktel2" value="${custUpdate.WRKTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel3" name="wrktel3" value="${custUpdate.WRKTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel2" name="wrktel2" value="${custUpdate.WRKTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel3" name="wrktel3" value="${custUpdate.WRKTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">직장 FAX</label>
@@ -233,8 +233,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax2" name="wrkfax2" value="${custUpdate.WRKFAX2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax3" name="wrkfax3" value="${custUpdate.WRKFAX3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax2" name="wrkfax2" value="${custUpdate.WRKFAX2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax3" name="wrkfax3" value="${custUpdate.WRKFAX3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -385,7 +385,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left" onclick="custFormSubmit();">등록</button>
+                    <button type="submit" class="btn btn-default pull-left save">등록</button>
                     <button type="button" class="btn btn-default pull-right">취소</button>
                 </div>
             </div>
@@ -426,9 +426,6 @@
             radioClass: 'iradio_square-green',
         });
     });
-    function custFormSubmit(){
-        $('#custInfo').submit();
-    }
 </script>
 </body>
 </html>

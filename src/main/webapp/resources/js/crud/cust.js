@@ -4,6 +4,52 @@ $('#custListBtn').click(function(){
 
 /**
  * 작성자 신동우
+ * 2019-04-05
+ * 체크박스 전체 선택
+ * 해당 체크박스에 onclick 이벤트로 이 함수 호출. 파라미터로 선택 될 셀렉트박스 tag이름을 넣어준다 ex)custno
+ * @param tagName
+ */
+function selectCheckbox(tagName){
+    if($("#checkAll").prop("checked")){
+        $("input[name="+tagName+"]").prop("checked",true);
+    }else{
+        $("input[name="+tagName+"]").prop("checked",false);
+    }
+}
+
+/**
+ * 작성자 신동우
+ * 2019-04-04
+ * 유저 삭제 (단일)
+ * @param custno
+ */
+function custDelete(custno){
+    var param = {"custno":custno};
+    $.ajax({
+        type: 'POST',
+        url: '/cust/del',
+        data: param,
+        async: false,
+        success: function(data) {
+            if(data != null) { alert('삭제 되었습니다.');  }
+            location.href = "/cust";
+        },error:function(request,status,error){
+            alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+        }
+    });
+}
+
+/**
+ * 작성자 신동우
+ * 2019-04-05
+ * 선택 된 고객 삭제 (멀티)
+ */
+function custMultyDelete(){
+    $('.deleteForm').submit();
+}
+
+/**
+ * 작성자 신동우
  * 2019-04-02
  * 리스트 페이지 fooTable 컬럼에 옵션 부여
  * @param value
@@ -12,7 +58,7 @@ $('#custListBtn').click(function(){
  * @returns {string}\
  */
 function custListFormatter(value, options, rowData){
-    if(value){  return "<a href='/custdetail/"+ rowData.CUSTNO + "'>" + value + "</a>";  }
+    if(value){  return "<a href='/cust/"+ rowData.CUSTNO + "'>" + value + "</a>";  }
     return "";
 }
 
@@ -102,27 +148,5 @@ function iboxDrawMap(mapFieldId, addrFieldId, nameFieldId,iboxDivId){
     },300);
 }
 
-/**
- * 작성자 신동우
- * 2019-04-04
- * 유저 단일  삭제 
- * @param custno
- */
-function custDelete(custno){
-    var param = {"custno":custno};
-    $.ajax({
-        type: 'POST',
-        url: '/custdelete',
-        data: param,
-        async: false,
-        success: function(data) {
-            if(data != null) {
-                alert('삭제 되었습니다.');
-            }
-            location.href = "/cust";
-        },error:function(request,status,error){
-            alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-        }
-    });
-}
+
 

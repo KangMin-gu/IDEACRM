@@ -63,7 +63,7 @@
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                     <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
-                    <a class="btn btn-default pull-right" href="/custupdate/${custDetail.CUSTNO}">수정</a>
+                    <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
 
@@ -314,11 +314,15 @@
                                                             <th data-name="SERVICESTEP_">처리상태</th>
                                                         </tr>
                                                         </thead>
+                                                        <tbody>  </tbody>
                                                         <tfoot>
-                                                        <tr> <td colspan="9"> <ul class="pagination pull-right"></ul> </td> </tr>
+                                                        <tr>
+                                                            <td colspan="9">
+                                                                <ul class="pagination pull-left"></ul>
+                                                            </td>
+                                                        </tr>
                                                         </tfoot>
                                                     </table>
-
                                                 </div>
                                             </div>
                                             <div role="tabpanel" id="tab-2" class="tab-pane">
@@ -1147,7 +1151,7 @@
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                     <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
-                    <a class="btn btn-default pull-right" href="/custupdate/${custDetail.CUSTNO}">수정</a>
+                    <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
 

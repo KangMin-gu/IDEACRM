@@ -15,10 +15,10 @@ import java.util.Map;
 
 @Controller
 public class CodeController {
-    
+
     @Autowired
     private CodeService codeService;
-    
+
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ModelAndView Test(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
@@ -31,5 +31,19 @@ public class CodeController {
     public List<CodeDto> authGetUpperCodeList(HttpServletRequest request){
         List<CodeDto> upperCode = codeService.getUpperCodeGrp(request);
         return upperCode;
+    }
+
+    @RequestMapping(value = "/common/code", method = RequestMethod.GET)
+    public ModelAndView commonCodeList(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/membership/master/code/codeList");
+        return mView;
+    }
+
+    @RequestMapping(value = "/company/code", method = RequestMethod.GET)
+    public ModelAndView codeList(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/membership/manager/code/codeList");
+        return mView;
     }
 }

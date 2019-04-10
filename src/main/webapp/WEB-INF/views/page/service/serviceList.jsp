@@ -124,20 +124,20 @@
                                             </td>
                                             <th>고객명</th>
                                             <td>
-                                                <div class="input-group cust" id="custno_" style="width: 150px;">
+                                                <div class="input-group" style="width: 150px;">
                                                     <input type="text" class="form-control searchparam" autocomplete="off" name="custno_" value="">
-                                                    <input type="hidden" class="searchparam" name="owner" id="custno" value="">
-                                                    <span class="input-group-addon">
+                                                    <input type="hidden" class="searchparam" name="custno" id="custno" value="">
+                                                    <span class="input-group-addon cust" id="custno_">
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                 </div>
                                             </td>
                                             <th>담당자</th>
                                             <td>
-                                                <div class="input-group owner" id="owner_" >
+                                                <div class="input-group">
                                                     <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="">
                                                     <input type="hidden" class="searchparam" name="owner" id="owner" value="">
-                                                    <span class="input-group-addon">
+                                                    <span class="input-group-addon owner" id="owner_">
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                 </div>
@@ -166,7 +166,7 @@
                             <table class="footable table table-stripped" data-sorting="true" >
                                 <thead>
                                 <tr>
-                                    <th data-visible="true" data-name="SERVICENO">서비스번호</th>
+                                    <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="SERVICENO">서비스번호</th>
                                     <th data-visible="false" data-name="URL">URL</th>
                                     <th data-name="SERVICENAME_" data-formatter="formatter">서비스명</th>
                                     <th data-name="SERVICETYPE_" data-breakpoints="xs sm">접수구분</th>
@@ -181,6 +181,14 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
+                                    <td>
+                                        <select class="form-control" id="paging" style="width:80px">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                        </select>
+                                    </td>
                                     <td colspan="11">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
@@ -215,7 +223,10 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/service');
+            var bool = dateRangeError();
+            if(bool){
+                footableSearchList('/service');
+            }
         });
         footableSearchList('/service');
     });

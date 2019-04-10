@@ -37,6 +37,9 @@
 		<if test="custno != null">
 			AND A.CUSTNO = #{custno}
 		</if>
+		<if test="custno_ != null">
+			AND (SELECT CUSTNAME FROM cu100010 WHERE CUSTNO = A.CUSTNO) LIKE CONCAT('%' , #{custno_} , '%')
+		</if>
 		<if test="servicename != null">
 			AND A.SERVICENAME LIKE CONCAT('%' , #{servicename} , '%')
 		</if>
@@ -55,8 +58,14 @@
 		<if test="serviceowner != null">
 			AND A.SERVICEOWNER = #{serviceowner}
 		</if>
+		<if test="serviceowner_ != null">
+			AND IFNULL( (SELECT USERNAME FROM me800010 WHERE USERNO = A.SERVICENAME) ,'') LIKE CONCAT('%' , #{serviceowner_} , '%')
+		</if>
 		<if test="owner != null">
 			AND A.OWNER = #{owner}
+		</if>
+		<if test="owner_ != null">
+			AND IFNULL( (SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) ,'') LIKE CONCAT('%' , #{owner_} , '%')
 		</if>
 		<if test="servicestep != null">
 			AND A.SERVICESTEP = #{servicestep}

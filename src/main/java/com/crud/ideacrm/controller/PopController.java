@@ -31,13 +31,13 @@ public class PopController {
     private SendService sendService;
 
     //담당자팝업
-    @RequestMapping(value="/popowner", method= RequestMethod.GET)
+    @RequestMapping(value="/popuser", method= RequestMethod.GET)
     public ModelAndView authPopUser(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/managerPop");
         return mView;
     }
-    @RequestMapping(value="/popowner", method= RequestMethod.POST)
+    @RequestMapping(value="/popuser", method= RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authPopUserList(HttpServletRequest request) {
         List<Map<String,Object>> userList = userService.userList(request);
@@ -72,13 +72,13 @@ public class PopController {
     }
 
     //담당자팝업
-    @RequestMapping(value="/popclient", method= RequestMethod.GET)
+    @RequestMapping(value="/popaccount", method= RequestMethod.GET)
     public ModelAndView authPopClient(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/clientPop");
         return mView;
     }
-    @RequestMapping(value="/popclient", method= RequestMethod.POST)
+    @RequestMapping(value="/popaccount", method= RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authPopClientList(HttpServletRequest request) {
         Map<String,Object> searchPrm = new ParameterUtil().searchParam(request);

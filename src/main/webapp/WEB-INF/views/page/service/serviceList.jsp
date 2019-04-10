@@ -103,11 +103,11 @@
                                             </td>
                                             <th>접수자</th>
                                             <td class="input-group owner" id="serviceowner_">
-                                                <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text">
+                                                <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text" style="width: 100px;">
                                                 <input type="hidden" class="searchparam" name="serviceowner" id="serviceowner" value="${search.serviceowner }">
                                                 <span class="input-group-addon">
-                                                    <a><i class="fa fa-search"></i></a>
-                                                </span>
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
                                             </td>
                                             <td>
                                                 <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
@@ -118,26 +118,31 @@
                                             <td colspan="1">
                                                 <input class="form-control form-control-sm searchparam" type="text" id="servicename" name="servicename" style="width: 150px;">
                                             </td>
-                                            <th>거래처명</th>
-                                            <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
-                                            </td>
                                             <th>고객명</th>
                                             <td>
-                                                <div class="input-group cust" id="custno_">
+                                                <div class="input-group" style="width: 150px;">
                                                     <input type="text" class="form-control searchparam" autocomplete="off" name="custno_" value="">
-                                                    <input type="hidden" class="searchparam" name="owner" id="custno" value="">
-                                                    <span class="input-group-addon">
+                                                    <input type="hidden" class="searchparam" name="custno" id="custno" value="">
+                                                    <span class="input-group-addon cust" id="custno_">
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                 </div>
                                             </td>
+                                            <th>처리상태</th>
+                                            <td>
+                                                <select class="form-control searchparam" name="servicestep" id="servicestep" style="width: 100px;">
+                                                    <option value="">선택</option>
+                                                    <c:forEach var="serviceStep" items="${SERVICESTEP}">
+                                                        <option value="${serviceStep.codeval}">${serviceStep.codename}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </td>
                                             <th>담당자</th>
                                             <td>
-                                                <div class="input-group owner" id="owner_">
-                                                    <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
-                                                    <input type="hidden" class="searchparam" name="owner" id="owner" value="${sessionScope.USERNO}">
-                                                    <span class="input-group-addon">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="">
+                                                    <input type="hidden" class="searchparam" name="owner" id="owner" value="">
+                                                    <span class="input-group-addon owner" id="owner_">
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                 </div>
@@ -162,11 +167,11 @@
                         </div>
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                            <a href="/serviceinsert" class="btn btn-default pull-right">추가</a>
-                            <table class="footable table table-stripped" data-sorting="true" >
+                            <a href="/service/input" class="btn btn-default pull-right">추가</a>
+                            <table class="footable table table-striped" data-sorting="true" >
                                 <thead>
                                 <tr>
-                                    <th data-visible="true" data-name="SERVICENO">서비스번호</th>
+                                    <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="SERVICENO">서비스번호</th>
                                     <th data-visible="false" data-name="URL">URL</th>
                                     <th data-name="SERVICENAME_" data-formatter="formatter">서비스명</th>
                                     <th data-name="SERVICETYPE_" data-breakpoints="xs sm">접수구분</th>
@@ -181,7 +186,14 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="9">
+                                    <td>
+                                        <select class="form-control" id="paging" style="width:80px">
+                                            <c:forEach var="paging" items="${PAGING}">
+                                                <option vale="${paging.codeval}">${paging.codename}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </td>
+                                    <td colspan="4">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>
@@ -215,9 +227,12 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/service/list');
+            var bool = dateRangeError();
+            if(bool){
+                footableSearchList('/service');
+            }
         });
-        footableSearchList('/service/list');
+        footableSearchList('/service');
     });
 
 

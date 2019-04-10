@@ -38,7 +38,7 @@ public class ServiceController {
         return mView;
     }
     //footable에 바인딩할 LIst
-    @RequestMapping(value="/service/list",method = RequestMethod.POST)
+    @RequestMapping(value="/service",method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authServiceSearchList(HttpServletRequest request){
         List<Map<String,Object>> serviceList = serviceService.serviceList(request);
@@ -53,7 +53,7 @@ public class ServiceController {
         return mView;
     }
     // 서비스 수정 화면
-    @RequestMapping(value="/serviceupdate/{serviceNo}",method=RequestMethod.GET)
+    @RequestMapping(value="/service/modified/{serviceNo}",method=RequestMethod.GET)
     public ModelAndView authServiceUpdate(HttpServletRequest request,@PathVariable int serviceNo){
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
@@ -66,7 +66,7 @@ public class ServiceController {
         return mView;
     }
     // 서비스 수정
-    @RequestMapping(value="/serviceupdate/{serviceNo}",method=RequestMethod.POST)
+    @RequestMapping(value="/service/modified/{serviceNo}",method=RequestMethod.POST)
     public ModelAndView authServiceUpdateSet(HttpServletRequest request,@ModelAttribute ServiceDto serviceDto,@ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto,@PathVariable int serviceNo){
         ModelAndView mView = new ModelAndView();
         int resultServiceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
@@ -74,7 +74,7 @@ public class ServiceController {
         return mView;
     }
     // 서비스 삭제
-    @RequestMapping(value="/servicedelete/{serviceNo}",method=RequestMethod.POST)
+    @RequestMapping(value="/service/del/{serviceNo}",method=RequestMethod.POST)
     public ModelAndView authServiceDelete(HttpServletRequest request,@PathVariable int serviceNo){
         ModelAndView mView = new ModelAndView();
         serviceService.serviceDelete(request,serviceNo);
@@ -83,7 +83,7 @@ public class ServiceController {
     }
 
     // 서비스 추가 화면
-    @RequestMapping(value = "/serviceinsert", method = RequestMethod.GET)
+    @RequestMapping(value = "/service/input", method = RequestMethod.GET)
     public ModelAndView authServiceInsert(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
@@ -95,7 +95,7 @@ public class ServiceController {
         return mView;
     }
     // 서비스 추가
-    @RequestMapping(value="/serviceinsert",method=RequestMethod.POST)
+    @RequestMapping(value="/service/input",method=RequestMethod.POST)
     public ModelAndView authServiceInsertSet(HttpServletRequest request, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto){
         ModelAndView mView = new ModelAndView();
         int serviceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
@@ -110,14 +110,14 @@ public class ServiceController {
         return mView;
     }
     // 처리결과 이력
-    @RequestMapping(value="/tab/ract/{serviceNo}",method=RequestMethod.POST)
+    @RequestMapping(value="/service/tab/ract/{serviceNo}",method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable int serviceNo){
         List<Map<String,Object>> tabRactList = serviceService.ractList(request,serviceNo);
         return tabRactList;
     }
     // 이관 이력
-    @RequestMapping(value="/tab/convey/{serviceNo}",method=RequestMethod.POST)
+    @RequestMapping(value="/service/tab/delivery/{serviceNo}",method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authTabConveyList(HttpServletRequest request,@PathVariable int serviceNo){
         List<Map<String,Object>> tabConveyList = serviceService.conveyList(request,serviceNo);

@@ -51,7 +51,7 @@
         </div>
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/serviceupdate/${serviceInfo.SERVICENO}" method="POST">
+            <form:form action="/service/modified/${serviceInfo.SERVICENO}" method="POST">
                 <div class="row">
                     <div class="col-lg-12">
                         <button type="submit" class="btn btn-default pull-left save">저장</button>
@@ -179,6 +179,8 @@
                                                 </td>
                                                 <th>진행단계</th>
                                                 <td>${serviceInfo.SERVICESTEP_}</td>
+                                                <th>이관여부</th>
+                                                <td>${serviceInfo.CONVEYYN}</td>
                                             </tr>
                                         </tobdy>
                                     </table>

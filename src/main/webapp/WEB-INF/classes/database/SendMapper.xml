@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="send">
+
+	<insert id="directSmsSend" parameterType="hashMap">
+		INSERT INTO SC_TRAN (TR_SENDDATE, TR_SENDSTAT, TR_MSGTYPE, TR_PHONE, TR_CALLBACK, TR_MSG)
+		VALUES(current_timestamp(),'0','0',#{mobile},#{callback},#{senddesc})
+	</insert>
+
+	<insert id="directLmsSend" parameterType="hashMap">
+		INSERT INTO MMS_MSG (SUBJECT, PHONE, CALLBACK, STATUS, REQDATE, MSG, TYPE)
+		VALUES('[MMS발송]',#{mobile},#{callback},'0',current_timestamp(), #{senddesc},0)
+	</insert>
+
+</mapper>

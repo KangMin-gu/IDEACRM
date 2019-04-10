@@ -83,9 +83,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/popowner');
+            footableSearchList('/popuser');
         });
-        footableSearchList('/popowner');
+        footableSearchList('/popuser');
     });
 
 </script>

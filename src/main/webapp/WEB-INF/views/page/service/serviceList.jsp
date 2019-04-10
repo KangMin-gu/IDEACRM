@@ -232,7 +232,7 @@
                 footableSearchList('/service');
             }
         });
-        footableSearchList('/service');
+        footableSearchList('/service/list');
     });
 
 

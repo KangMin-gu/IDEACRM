@@ -130,4 +130,5 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="com.crud.ideacrm.*" />
+    <context:component-scan base-package="com.crud.ideacrm.crud.*" />
 </beans>

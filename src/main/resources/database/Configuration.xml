@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</settings>
 	
 	<typeAliases>
-	<!--	<typeAlias type="saas.crud.crm.ce.MailDto" alias="emailDto" /> -->
+		<typeAlias type="com.crud.ideacrm.crud.dto.MailDto" alias="emailDto" />
 		<typeAlias type="com.crud.ideacrm.dto.ServiceDto" alias="serviceDto" />
 		<typeAlias type="com.crud.ideacrm.dto.RewardDto" alias="rewardDto" />
 		<typeAlias type="com.crud.ideacrm.dto.RactDto" alias="ractDto" />
@@ -26,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="database/SalesMapper.xml" />
         <mapper resource="database/ClientMapper.xml" />
 		<mapper resource="database/ProductMapper.xml" />
+		<mapper resource="database/EmailMapper.xml" />
 	</mappers>
 	
 </configuration>

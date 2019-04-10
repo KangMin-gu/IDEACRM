@@ -102,12 +102,12 @@
                                                 </div>
                                             </td>
                                             <th>접수자</th>
-                                            <td class="input-group owner" id="serviceowner_">
-                                                <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text" style="width: 100px;">
+                                            <td class="input-group owner" id="serviceowner_" style="width: 150px;">
+                                                <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text">
                                                 <input type="hidden" class="searchparam" name="serviceowner" id="serviceowner" value="${search.serviceowner }">
                                                 <span class="input-group-addon">
-                                                        <a><i class="fa fa-search"></i></a>
-                                                    </span>
+                                                    <a><i class="fa fa-search"></i></a>
+                                                </span>
                                             </td>
                                             <td>
                                                 <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
@@ -134,7 +134,7 @@
                                             </td>
                                             <th>담당자</th>
                                             <td>
-                                                <div class="input-group owner" id="owner_" >
+                                                <div class="input-group owner" id="owner_" style="width: 150px;">
                                                     <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
                                                     <input type="hidden" class="searchparam" name="owner" id="owner" value="${sessionScope.USERNO}">
                                                     <span class="input-group-addon">
@@ -181,7 +181,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="11">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>

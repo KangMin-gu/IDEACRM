@@ -1,7 +1,6 @@
 package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.crud.util.ParameterUtil;
-import com.crud.ideacrm.dao.ClientDao;
 import com.crud.ideacrm.service.ClientService;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.service.CustService;

@@ -30,7 +30,7 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>서비스 신규 등록</h2>
+                <h2>서비스 관리</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
@@ -49,7 +49,7 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/serviceinsert" method="POST">
+            <form:form action="/service/input" method="POST">
                 <div class="row">
                     <div class="col-lg-12">
                         <button type="submit" class="btn btn-default pull-left">저장</button>
@@ -216,6 +216,10 @@
                                                 <th>진행단계</th>
                                                 <td>접수
                                                 <input type="hidden" class="" id="servicestep" name="servicestep" value="1"/>
+                                                </td>
+                                                <th>이관여부</th>
+                                                <td>
+                                                    이관 X
                                                 </td>
                                             </tr>
                                         </tobdy>

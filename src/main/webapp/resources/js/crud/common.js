@@ -5,12 +5,12 @@ $('.cust').click(function(e){
 });
 $('.owner').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
-        openNewWindow('사용자','/popowner',e.currentTarget.id,650,700);
+        openNewWindow('사용자','/popuser',e.currentTarget.id,650,700);
     }
 });
 $('.client').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
-        openNewWindow('사용자','/popclient',e.currentTarget.id,650,700);
+        openNewWindow('사용자','/popaccount',e.currentTarget.id,650,700);
     }
 });
 
@@ -160,7 +160,7 @@ $('.detail').find('.nav-link').click(function(e){
 function upperCode(codeGrp){
     var code = $('#'+codeGrp).val();
     var id = $('#'+codeGrp).attr('id');
-    var url = "/code/upper"
+    var url = "/company/code/upper"
     $.ajax({
         url: url+"?codegrp="+id+"&codeval="+code,
         method: "GET",

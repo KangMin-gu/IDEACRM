@@ -53,8 +53,8 @@
                         <tr data-formatter="test">
                             <th data-visible="false" data-name="USERNO">사용자번호</th>
                             <th data-name="USERNAME" >사용자명</th>
-                            <th data-name="USERID" data-breakpoints="xs sm">아이디</th>
-                            <th data-name="USERDUTY" data-breakpoints="xs sm">직급</th>
+                            <th data-name="USERID">아이디</th>
+                            <th data-name="USERDUTY">직급</th>
                         </tr>
                         </thead>
                         <tbody>

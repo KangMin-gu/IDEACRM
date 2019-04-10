@@ -31,7 +31,7 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>서비스 정보</h2>
+                <h2>서비스 관리</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
@@ -53,7 +53,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form:form action="/servicedelete/${serviceInfo.SERVICENO}" method="POST">
+                    <form:form action="/service/del/${serviceInfo.SERVICENO}" method="POST">
                         <a href="/service" class="btn btn-default pull-left">목록</a>
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
@@ -62,7 +62,7 @@
                             <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                             <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                             <button type="submit" class="btn btn-default pull-right">삭제</button>
-                            <a href="/serviceupdate/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                            <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
                             </c:if>
                         </c:if>
                     </form:form>
@@ -161,6 +161,8 @@
                                             <td>${serviceInfo.SERVICECHANNEL_}</td>
                                             <th>진행단계</th>
                                             <td>${serviceInfo.SERVICESTEP_}</td>
+                                            <th>이관여부</th>
+                                            <td>${serviceInfo.CONVEYYN}</td>
                                         </tr>
                                     </tobdy>
                                 </table>
@@ -314,7 +316,7 @@
                         </ul>
 
                         <div class="tab-content">
-                            <div role="tabpanel" id="tab-4" url="/tab/ract/${serviceInfo.SERVICENO}" class="tab-pane active">
+                            <div role="tabpanel" id="tab-4" url="/service/tab/ract/${serviceInfo.SERVICENO}" class="tab-pane active">
                                 <div class="panel-body">
                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                     <table class="tabfootable table table-stripped">
@@ -340,7 +342,7 @@
                                 </div>
                             </div>
 
-                            <div role="tabpanel" id="tab-5" url="/tab/convey/${serviceInfo.SERVICENO}" class="tab-pane">
+                            <div role="tabpanel" id="tab-5" url="/service/tab/delivery/${serviceInfo.SERVICENO}" class="tab-pane">
                                 <div class="panel-body">
                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                     <table class="tabfootable table table-stripped" data-page-size="8" data-filter=#filter>
@@ -378,7 +380,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form:form action="/servicedelete/${serviceInfo.SERVICENO}" method="POST">
+                    <form:form action="/service/del/${serviceInfo.SERVICENO}" method="POST">
                         <a href="/service" class="btn btn-default pull-left">목록</a>
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
@@ -387,7 +389,7 @@
                                 <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                                 <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                                 <button type="submit" class="btn btn-default pull-right">삭제</button>
-                                <a href="/serviceupdate/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                                <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
                             </c:if>
                         </c:if>
                     </form:form>

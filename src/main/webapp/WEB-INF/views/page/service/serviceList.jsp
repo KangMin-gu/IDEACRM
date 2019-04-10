@@ -135,8 +135,8 @@
                                             <th>담당자</th>
                                             <td>
                                                 <div class="input-group owner" id="owner_" >
-                                                    <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
-                                                    <input type="hidden" class="searchparam" name="owner" id="owner" value="${sessionScope.USERNO}">
+                                                    <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="">
+                                                    <input type="hidden" class="searchparam" name="owner" id="owner" value="">
                                                     <span class="input-group-addon">
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
@@ -162,7 +162,7 @@
                         </div>
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                            <a href="/serviceinsert" class="btn btn-default pull-right">추가</a>
+                            <a href="/service/input" class="btn btn-default pull-right">추가</a>
                             <table class="footable table table-stripped" data-sorting="true" >
                                 <thead>
                                 <tr>
@@ -181,7 +181,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="11">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>
@@ -215,9 +215,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/service/list');
+            footableSearchList('/service');
         });
-        footableSearchList('/service/list');
+        footableSearchList('/service');
     });
 
 

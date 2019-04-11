@@ -81,17 +81,11 @@ public class CustController {
     //고객 수정 실행
     @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.POST)
     public String authCustUpdate(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto
-            , @PathVariable int custno) throws UnsupportedEncodingException {
+            , @PathVariable int custno) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         String custName = custDto.getCustname();
-        Codec codec = new Codec();
-        try {
-            String a = codec.encrypt(custName);
-            custDto.setCustname(a);
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        }
+
         custDto.setSiteid(siteId);
         custDto.setEdituser(userNo);
         custDenyDto.setEdituser(userNo);

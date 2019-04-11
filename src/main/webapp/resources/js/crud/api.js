@@ -183,3 +183,19 @@ $('.daumzip').click(function(e){ //이벤트를 걸 인풋,버튼에 daumzip 클
         }
     }).open();
 });
+
+
+function iCheckClick(bool){
+    $('.icheckbox_square-green input[type="checkbox"]').each(function(index,item){
+        var checkVal = $(item).val();
+        if(checkVal == 1){
+            $(item).iCheck('check');
+        }
+        if(bool){
+            //true로 들어오면 Read 화면처럼 데이터 변경이 안되게 막음.
+            $(item).attr('disabled',bool);
+            $(item).parent().addClass('disabled');
+        }
+
+    });
+}

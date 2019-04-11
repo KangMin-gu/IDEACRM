@@ -416,14 +416,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
-    });
 
-</script>
 </body>
 </html>

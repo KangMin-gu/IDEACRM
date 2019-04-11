@@ -195,7 +195,14 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="12">
+                                    <td>
+                                        <select class="form-control" id="paging" style="width:80px">
+                                            <c:forEach var="paging" items="${PAGING}">
+                                                <option vale="${paging.codeval}">${paging.codename}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </td>
+                                    <td colspan="4">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>

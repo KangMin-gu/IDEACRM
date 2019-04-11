@@ -236,7 +236,6 @@ function dateRangeError(){
 }
 
 $('#paging').change(function(e){
-    debugger;
-    footableSearchList('/service');
-
+    var url = window.location.pathname;
+    footableSearchList(url);
 });

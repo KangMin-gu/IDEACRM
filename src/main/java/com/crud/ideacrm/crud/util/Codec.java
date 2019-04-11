@@ -23,7 +23,7 @@ public class Codec {
      * @throws UnsupportedEncodingException
      *             키값의 길이가 16이하일 경우 발생
      */
-    final static String key = "crudsystemaaaaaaaaa";
+    final static String key = "crudsystem01071203655";
 
     public Codec() throws UnsupportedEncodingException {
         this.iv = key.substring(0, 16);

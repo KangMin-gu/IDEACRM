@@ -82,7 +82,7 @@
                                                 </c:forEach>
                                                 <!--<label><input type="radio" value="option1" name="sex"> <i></i>&nbsp;남자</label>&nbsp;&nbsp;
                                                 <label class="radio-inline"><input type="radio" value="option2" name="sex"> <i></i>&nbsp;여자</label>
-                                                -->
+                                                 -->
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>

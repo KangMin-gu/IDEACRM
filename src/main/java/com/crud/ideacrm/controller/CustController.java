@@ -50,8 +50,8 @@ public class CustController {
         List<Map<String, Object>> custList = custService.custList(searchPrm);
         return custList;
     }
-    //고객상세1
-    @RequestMapping(value = "/custdetail/{custno}", method = RequestMethod.GET)
+    //고객상세
+    @RequestMapping(value = "/cust/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable int custno){
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         CustDto custDto = new CustDto();
@@ -64,7 +64,7 @@ public class CustController {
         return mView;
     }
     //고객수정
-    @RequestMapping(value = "/custupdate/{custno}", method = RequestMethod.GET)
+    @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustUpdateForm(HttpServletRequest request, @PathVariable int custno){
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         CustDto custDto = new CustDto();
@@ -79,7 +79,7 @@ public class CustController {
         return mView;
     }
     //고객 수정 실행
-    @RequestMapping(value = "/custupdate/{custno}", method = RequestMethod.POST)
+    @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.POST)
     public String authCustUpdate(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto
             , @PathVariable int custno) throws UnsupportedEncodingException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
@@ -96,11 +96,11 @@ public class CustController {
         custDto.setEdituser(userNo);
         custDenyDto.setEdituser(userNo);
         int custNo = custService.custUpdate(custDto,custDenyDto);
-        return "redirect:/custdetail/"+custNo;
+        return "redirect:/cust/"+custNo;
     }
 
     //고객 추가 form
-    @RequestMapping(value = "/custinsert", method = RequestMethod.GET)
+    @RequestMapping(value = "/cust/input", method = RequestMethod.GET)
     public ModelAndView authCustInsertForm(HttpServletRequest request){
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
 
@@ -111,18 +111,18 @@ public class CustController {
         return mView;
     }
     //고객 추가 실행
-    @RequestMapping(value = "/custinsert", method = RequestMethod.POST)
+    @RequestMapping(value = "/cust/input", method = RequestMethod.POST)
     public String authCustInsert(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto) {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         custDto.setSiteid(siteId);custDto.setReguser(userNo);
         custDenyDto.setReguser(userNo);
         int custNo = custService.custinsert(custDto,custDenyDto);
-        return "redirect:/custdetail/"+custNo;
+        return "redirect:/cust/"+custNo;
     }
 
     //고객삭제
-    @RequestMapping(value="/custdelete", method=RequestMethod.POST)
+    @RequestMapping(value="/cust/del", method=RequestMethod.POST)
     public String authcustDelete(HttpServletRequest request) {
         int siteid = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userno = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());

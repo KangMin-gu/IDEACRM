@@ -27,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <mapper resource="database/ClientMapper.xml" />
 		<mapper resource="database/ProductMapper.xml" />
 		<mapper resource="database/EmailMapper.xml" />
+		<mapper resource="database/SendMapper.xml" />
 	</mappers>
 	
 </configuration>

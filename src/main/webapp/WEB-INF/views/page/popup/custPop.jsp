@@ -45,13 +45,13 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <table class="footable table table-stripped" data-sorting="true">
+                    <table class="popfootable table table-stripped" data-sorting="true">
                         <thead>
                         <tr data-formatter="test">
                             <th data-visible="false" data-name="CUSTNO">고객번호</th>
                             <th data-name="CUSTNAME" >고객명</th>
-                            <th data-name="MOBILE" data-breakpoints="xs">전화번호</th>
-                            <th data-name="EMAIL" data-breakpoints="xs">이메일</th>
+                            <th data-name="MOBILE">전화번호</th>
+                            <th data-name="EMAIL">이메일</th>
                         </tr>
                         </thead>
                         <tbody>

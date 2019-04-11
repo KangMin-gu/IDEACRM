@@ -2,60 +2,68 @@ var globalUrl;
 // footable 검색 및 ready상태일때 사용할 수 있게 변경
 function footableSearchList(url) {
     var param = searchDataToJson();
+    var page = $('#paging').val();
     globalUrl = url;
     $.post(url, param, function (response) {
         $('.footable').footable({
             "toggleSelector": ".footable-toggle",
+            "empty": "",
             "paging": {
                 "enabled": true,
-                "container" : ".pagination"
+                "container" : ".pagination",
+                "size":page
             },
             "rows": response
         });
-        if(response.length > 0){
-            //tr의 값이 0 이상이면 empty tr을 삭제
-            $('.footable-empty').remove();
-        }
-        if($('.footable-pagination-wrapper').length > 0){
-            // footable의 pagination이 1개 이상이면 삭제
-            $('.footable-pagination-wrapper:gt(0)').remove();
-        }
+        // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
+        $('.footable-pagination-wrapper:eq(0)').remove();
+        $('.footable-empty').remove();
     });
 }
 function popPupFootableSearchList(url) {
     var param = searchDataToJson();
+    var page = $('#paging').val();
     $.post(url, param, function (response) {
         $('.footable').footable({
             "toggleSelector": ".footable-toggle",
+            "empty": "",
             "paging": {
                 "enabled": true,
-                "container" : ".pagination"
+                "container" : ".pagination",
+                "size":page
             },
             "rows": response
         });
+        // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
+        $('.footable-pagination-wrapper:eq(0)').remove();
     });
 }
 function tabFootableSearchList(id,url) {
     var param = searchDataToJson();
+    var page = $('#paging').val();
     $.post(url, param, function (response) {
         $(id).find('.tabfootable').footable({
             "toggleSelector": ".footable-toggle",
+            "empty": "",
             "paging": {
                 "enabled": true,
-                "container" : ".pagination"
+                "container" : ".pagination",
+                "size":page
             },
             "rows": response
         });
+        // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
+        $('.footable-pagination-wrapper:eq(0)').remove();
     });
 }
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
-    if(globalUrl =='/popowner'){
+    if(globalUrl =='/popuser'){
         parentOwnerUser($(obj.target.parentElement));
     }
     if(globalUrl == '/popcust'){
         parentCustname($(obj.target.parentElement));
     }
-    if(globalUrl == '/popclient'){
+    if(globalUrl == '/popaccount'){
         popParentNameClick($(obj.target.parentElement));
     }
 

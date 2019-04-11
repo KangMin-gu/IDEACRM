@@ -48,19 +48,18 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <table class="footable table table-stripped" data-sorting="true">
+                    <table class="popfootable table table-stripped" data-sorting="true">
                         <thead>
                         <tr data-formatter="test">
                             <th data-visible="false" data-name="USERNO">사용자번호</th>
                             <th data-name="USERNAME" >사용자명</th>
-                            <th data-name="USERID" data-breakpoints="xs sm">아이디</th>
-                            <th data-name="USERDUTY" data-breakpoints="xs sm">직급</th>
+                            <th data-name="USERID">아이디</th>
+                            <th data-name="USERDUTY">직급</th>
                         </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
-
                         </tfoot>
                     </table>
                 </div>
@@ -83,9 +82,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/popowner');
+            footableSearchList('/popuser');
         });
-        footableSearchList('/popowner');
+        footableSearchList('/popuser');
     });
 
 </script>

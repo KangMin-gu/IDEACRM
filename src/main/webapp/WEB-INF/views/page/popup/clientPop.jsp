@@ -45,13 +45,13 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <table class="footable table table-stripped" data-sorting="true">
+                    <table class="popfootable table table-stripped" data-sorting="true">
                         <thead>
                         <tr data-formatter="test">
                             <th data-visible="false" data-name="CLINO">고객번호</th>
                             <th data-name="CLINAME" >고객명</th>
-                            <th data-name="CLIADDR" data-breakpoints="xs">주소</th>
-                            <th data-name="TELNO" data-breakpoints="xs">대표전화</th>
+                            <th data-name="CLIADDR">주소</th>
+                            <th data-name="TELNO">대표전화</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -80,9 +80,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/popclient');
+            footableSearchList('/popaccount');
         });
-        footableSearchList('/popclient');
+        footableSearchList('/popaccount');
     });
 
 </script>

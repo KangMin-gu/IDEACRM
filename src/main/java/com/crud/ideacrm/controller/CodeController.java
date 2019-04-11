@@ -22,13 +22,11 @@ public class CodeController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ModelAndView Test(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-
-
         return mView;
     }
 
     // 상위코드의 GRPCODE, CODEVAL로 하위 코드들 가져오기
-    @RequestMapping(value="/code/upper", method=RequestMethod.GET)
+    @RequestMapping(value="/company/code/upper", method=RequestMethod.GET)
     @ResponseBody
     public List<CodeDto> authGetUpperCodeList(HttpServletRequest request){
         List<CodeDto> upperCode = codeService.getUpperCodeGrp(request);

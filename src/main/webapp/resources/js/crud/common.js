@@ -5,12 +5,12 @@ $('.cust').click(function(e){
 });
 $('.owner').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
-        openNewWindow('사용자','/popowner',e.currentTarget.id,650,700);
+        openNewWindow('사용자','/popuser',e.currentTarget.id,650,700);
     }
 });
 $('.client').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
-        openNewWindow('사용자','/popclient',e.currentTarget.id,650,700);
+        openNewWindow('사용자','/popaccount',e.currentTarget.id,650,700);
     }
 });
 
@@ -24,13 +24,13 @@ $('#reset').click(function(e){
 });
 
 $('.smsBtn').click(function(){
-    window.open("/voc/sms", "고객상세정보","width=400px, height=600px");
+    window.open("/popsms", "고객상세정보","width=450px, height=600px");
 });
 $('.emailBtn').click(function(){
-    window.open("/voc/email", "고객상세정보","width=1200px, height=900px");
+    window.open("/popemail", "고객상세정보","width=1200px, height=900px");
 });
 $('.kakaoBtn').click(function(){
-    window.open("/voc/kakao", "고객상세정보","width=400px, height=600px");
+    window.open("/popkakao", "고객상세정보","width=450px, height=600px");
 });
 
 var newWindow = null;
@@ -47,25 +47,6 @@ function openNewWindow(name,url,target,x,y){
             newWindow.document.getElementById("parentid").value = target;
         },1000);
     }
-}
-// 자식 window가 실행
-// 영업 담당자 및 담당자 가지고옴
-//tr -> 실제로 클릭한 tr 자체
-// 담당자 팝업 클릭
-function parentOwnerUser(tr){
-    // 접수자, 담당자가 겹치는 경우에 발생할 것 같아서 한번에 처리 할수 있게 수정작업함..
-    // parentid => 버튼을 눌렀을때의 id 값
-    var parentid = $('#parentid').val();
-    // opener -> 부모의 window를 의미함.
-    // tr.getAttribute("value") -> tr 값에 value를 넣어두었는데 해당 value 값을 가지고옴 => 여기서는 영업담당자의 키값(USERNO)
-    // 버튼을 눌렀을때의 id 값의 next값 즉 Owner_ 옆의 Owner 값(DB에 들어갈값)
-    opener.$('[name="'+parentid+'"]').next().val(tr.children().get(0).textContent);
-    // tr.children.userName.textContent -> tr하위에있는 td 값중 userName의 text값을 가지고옴 => 여기서는 영업담당자의 이름을 의미
-    // 버튼을 눌렀을때의 id 값을 실제로 넣음.
-    opener.$('[name="'+parentid+'"]').val(tr.children().get(1).textContent).trigger('keyup');
-    opener.$('#'+parentid).trigger('keyup');
-    // window 창을 종료 -> 담당자 팝업을 종료함.
-    window.close();
 }
 // 고객 팝업 클릭
 function parentCustname(tr){
@@ -132,7 +113,7 @@ function searchDataToJson() {
     var dataLength = data.length;
 
     for (i = 0; i < dataLength; i++) {
-        var idVal = data[i].id;
+        var idVal = data[i].name;
         if (idVal != '') {
             if (idVal.substring(0, 4) == 'deny') { // 수신거부 체크박스 항목일 경우
                 if ($('#' + idVal).prop('checked') == true) {
@@ -160,7 +141,7 @@ $('.detail').find('.nav-link').click(function(e){
 function upperCode(codeGrp){
     var code = $('#'+codeGrp).val();
     var id = $('#'+codeGrp).attr('id');
-    var url = "/code/upper"
+    var url = "/company/code/upper"
     $.ajax({
         url: url+"?codegrp="+id+"&codeval="+code,
         method: "GET",
@@ -180,3 +161,82 @@ function upperCode(codeGrp){
         }
     });
 }
+// text길이 값 가지고옴
+function getTextLength(str) {
+    var len = 0;
+    for (var i = 0; i < str.length; i++) {
+        if (escape(str.charAt(i)).length == 6) {
+            len++;
+        }
+        len++;
+    }
+    return len;
+}
+function smsToLms(obj){
+    var str =  $(obj).val();
+    var textLength = getTextLength(str);
+    if(textLength > 80){
+        var bool = confirm("80바이트이상 작성하여서 LMS로 자동 전환합니다.");
+        if(bool){
+            $(obj).val(str);
+            $('#lengthtype').val(1);
+            alert("Lms로 전환되어 저장됩니다.");
+            return true;
+        }else{
+            var limit = '80' //제한byte를 가져온다.
+            var strLength = 0;
+            var strTitle = "";
+            var strPiece = "";
+            var check = false;
+
+            for (i = 0; i < textLength; i++){
+                var code = str.charCodeAt(i);
+                var ch = str.substr(i,1).toUpperCase();
+                //체크 하는 문자를 저장
+                strPiece = str.substr(i,1);
+
+                code = parseInt(code);
+
+                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0))){
+                    strLength = strLength + 2; //UTF-8 3byte 로 계산
+                }else{
+                    strLength = strLength + 1;
+                }
+                if(strLength>limit){
+                    $('#lengthtype').val(0);
+                    alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
+                    $(obj).val(strTitle);
+                    return false;
+                }else{
+                    strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.
+                }
+            }
+        }
+    }
+}
+
+function dateRangeError(){
+    var boolean;
+    $('.daterange').each(function(index,item){
+        var val = $(item).val();
+        var dataLength = val.length;
+        if(val != ''){
+            if(dataLength < 23){
+                alert('올바른 날자형식이 아닙니다. 다시 선택해주세요');
+                $(item).focus();
+                boolean = false;
+            }else{
+                boolean = true;
+            }
+        }else{
+            boolean = true;
+        }
+    });
+    return boolean;
+}
+
+$('#paging').change(function(e){
+    debugger;
+    footableSearchList('/service');
+
+});

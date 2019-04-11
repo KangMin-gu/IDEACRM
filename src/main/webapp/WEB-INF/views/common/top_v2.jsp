@@ -56,7 +56,7 @@
         </li>
 
         <li>
-            <a href="login.html">
+            <a href="${pageContext.request.contextPath}/logout">
                 <i class="fa fa-sign-out"></i> 로그아웃
             </a>
         </li>

@@ -40,4 +40,10 @@ public class LoginController {
         login.login(response, request, urDto);
     }
 
+    //로그아웃
+    @RequestMapping(value="/logout", method=RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/";
+    }
 }

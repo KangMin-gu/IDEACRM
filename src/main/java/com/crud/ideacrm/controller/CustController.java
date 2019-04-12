@@ -1,7 +1,6 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.crud.util.CrudCommonUtil;
-import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.crud.util.CrudCommonUtil; 
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.service.CodeService;
@@ -135,5 +134,20 @@ public class CustController {
     @ResponseBody
     public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable String custno){
         return serviceService.serviceList(request);
+    }
+
+
+    @RequestMapping(value="/testtt",method=RequestMethod.GET)
+    public ModelAndView testtt(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        String uri = request.getRequestURI();
+        System.out.println(uri);
+        uri = URLDecoder.decode(uri, "UTF-8");
+        System.out.println(uri);
+        String abcd = commonUtil.encoding("abcd");
+        commonUtil.searchParam(request);
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/cust/test");
+        mView.addObject("abcd",abcd);
+        return mView;
     }
 }

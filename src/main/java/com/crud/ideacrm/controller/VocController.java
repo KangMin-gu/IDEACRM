@@ -41,7 +41,7 @@ public class VocController {
         return mView;
     }
 
-
+// voc 메인화면
     @RequestMapping(value = "/voc", method = RequestMethod.GET)
     public ModelAndView vocDetail(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();

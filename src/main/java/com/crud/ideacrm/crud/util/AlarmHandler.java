@@ -54,7 +54,7 @@ public class AlarmHandler extends TextWebSocketHandler {
                 return alarmInfo;
             }
 
-            @Override
+
             public int getPayloadLength() {
                 return 0;
             }

@@ -1,10 +1,10 @@
-$('#custListBtn').click(function(){
-    location.href = "/cust";
-});
+
+function goCustDetail(prm){
+    var url = "/cust/"+prm;
+    location.href = url;
+}
 
 /**
- * 작성자 신동우
- * 2019-04-05
  * 체크박스 전체 선택
  * 해당 체크박스에 onclick 이벤트로 이 함수 호출. 파라미터로 선택 될 셀렉트박스 tag이름을 넣어준다 ex)custno
  * @param tagName
@@ -18,8 +18,6 @@ function selectCheckbox(tagName){
 }
 
 /**
- * 작성자 신동우
- * 2019-04-04
  * 유저 삭제 (단일)
  * @param custno
  */
@@ -40,8 +38,6 @@ function custDelete(custno){
 }
 
 /**
- * 작성자 신동우
- * 2019-04-05
  * 선택 된 고객 삭제 (멀티)
  */
 function custMultyDelete(){
@@ -52,8 +48,6 @@ function custMultyDelete(){
 }
 
 /**
- * 작성자 신동우
- * 2019-04-02
  * 리스트 페이지 fooTable 컬럼에 옵션 부여
  * @param value
  * @param options
@@ -70,8 +64,6 @@ function custListChkBoxFormatter(value, options, rowData){
 }
 
 /**
- * 작성자 신동우
- * 2019-04-03
  * 다음 API 지도 구현
  * @param mapFieldId 맵<div> id
  * @param addrFieldId 주소<span> id
@@ -134,8 +126,6 @@ function drawMap(mapFieldId, addrFieldId, nameFieldId){
 }
 
 /**
- * 작성자 신동우
- * 2019-04-03
  * i-box content에 맵구현
  * 페이지 로드 되고 해당 i-box가 활성화 되면 맵을 구현한다.
  * @param mapFieldId  맵<div> id
@@ -150,6 +140,7 @@ function iboxDrawMap(mapFieldId, addrFieldId, nameFieldId,iboxDivId){
         }
     },300);
 }
+
 
 
 

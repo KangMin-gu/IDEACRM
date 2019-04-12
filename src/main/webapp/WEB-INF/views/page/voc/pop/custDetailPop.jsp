@@ -48,33 +48,33 @@
                             <tbody>
                             <tr>
                                 <th>고객명</th>
-                                <td>강민구</td>
+                                <td>${custDetail.CUSTNAME}</td>
                                 <th>성별</th>
-                                <td>남자</td>
+                                <td>${custDetail.SEX_}</td>
                                 <th>생년월일</th>
-                                <td>2018-10-28</td>
+                                <td>${custDetail.BIRTH}</td>
                                 <th>담당자</th>
-                                <td>박진열</td>
+                                <td>${custDetail.OWNER_}</td>
                             </tr>
                             <tr>
                                 <th>결혼여부</th>
-                                <td>미혼</td>
+                                <td>${custDetail.MARRIED_}</td>
                                 <th>결혼기념일</th>
-                                <td>2018-10-28</td>
+                                <td>${custDetail.WEDDINGDAY}</td>
                                 <th>직업</th>
-                                <td>의사</td>
+                                <td>${custDetail.JOB}</td>
                                 <th>취미</th>
-                                <td>독서</td>
+                                <td>${custDetail.HOBBY}</td>
                             </tr>
                             <tr>
                                 <th>휴대전화</th>
-                                <td>010-7120-3655</td>
+                                <td>${custDetail.MOBILE_}</td>
                                 <th>자택전화</th>
-                                <td>02-394-8574</td>
+                                <td>${custDetail.HOMTEL_}</td>
                                 <th>이메일</th>
-                                <td>mincu1028@gmail.com</td>
+                                <td>${custDetail.EMAIL}</td>
                                 <th>자택 주소</th>
-                                <td>(03620) 서울시 서대문구 홍제3동 유원하나아파트 102동 203호</td>
+                                <td>${custDetail.HOMADDR1}</td>
                             </tr>
                             <tr>
                                 <th>자택 위치</th>
@@ -93,7 +93,7 @@
                             <tbody>
                             <tr>
                                 <th>메모</th>
-                                <td></td>
+                                <td>${custDetail.MEMO}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -121,21 +121,21 @@
                             <tbody>
                             <tr>
                                 <th>직장명</th>
-                                <td>(주)크루드 시스템</td>
+                                <td>${custDetail.CLINAME}</td>
                                 <th>부서</th>
-                                <td>R&D</td>
+                                <td>${custDetail.DEPTNAME}</td>
                                 <th>직책</th>
-                                <td>대리</td>
+                                <td>${custDetail.DUTY}</td>
                                 <th>홈페이지</th>
-                                <td>www.crudsystem.co.kr</td>
+                                <td>${custDetail.HOMPAGE}</td>
                             </tr>
                             <tr>
                                 <th>직장 전화</th>
-                                <td>02-336-7800</td>
+                                <td>${custDetail.WRKTEL_}</td>
                                 <th>직장 FAX</th>
-                                <td>02-336-7822</td>
+                                <td>${custDetail.FAXTEL_}</td>
                                 <th>직장 주소</th>
-                                <td colspan="3">(03620) 서울시 서대문구 홍제3동 유원하나아파트 102동 203호</td>
+                                <td colspan="3">${custDetail.WRKADDR1} ${custDetail.WRKADDR2} ${custDetail.WRKADDR3}</td>
                             </tr>
                             <tr>
                                 <th>직장 위치</th>
@@ -166,66 +166,66 @@
                             <tbody>
                             <tr>
                                 <th>회원 구분</th>
-                                <td>회원</td>
+                                <td>${custDetail.CUSTGUBUN_}</td>
                                 <th>고객 등급</th>
-                                <td>VIP</td>
+                                <td>${custDetail.CUSTGRADE_}</td>
                                 <th>활동 등급</th>
-                                <td>우수</td>
+                                <td>${custDetail.ACTGRADE_}</td>
                                 <th>발송처</th>
-                                <td>자택</td>
+                                <td>${custDetail.MAILTO_}</td>
                                 <th>정보 활용</th>
-                                <td>동의</td>
+                                <td>${custDetail.INFOAGREE_}</td>
                             </tr>
                             <tr>
                                 <th rowspan="6">수신 거부</th>
                                 <th class="denny" colspan="1">EMAIL</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 일반</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 광고</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYMAILNOMAL}">&nbsp; 일반</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSURVEY}">&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSEMINAR}">&nbsp; 세미나</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILAD}">&nbsp; 광고</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">SMS</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 일반</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 광고</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYSMSNOMAL}">&nbsp; 일반</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSURVEY}">&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSEMINAR}">&nbsp; 세미나</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSAD}">&nbsp; 광고</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">KAKAO</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 일반</label>&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 광고</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAONOMAL}">&nbsp; 일반</label>&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSURVEY}">&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSEMINAR}">&nbsp; 세미나</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOAD}">&nbsp; 광고</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">DM</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 일반</label>&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 광고</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 뉴스레터</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYDMNOMAL}">&nbsp; 일반</label>&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSURVEY}">&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSEMINAR}">&nbsp; 세미나</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMAD}">&nbsp; 광고</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMNEWS}">&nbsp; 뉴스레터</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">전화</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; 광고</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 해피콜</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYTELAD}">&nbsp; 광고</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYTELSURVEY}">&nbsp; 해피콜</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">기타</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="option1">&nbsp; FAX</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="option2">&nbsp; 방문</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYFAX}">&nbsp; FAX</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYVISIT}">&nbsp; 방문</label>
                                 </td>
                             </tr>
                             </tbody>
@@ -1365,6 +1365,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+
 <!-- daum map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
 <script>
@@ -1373,10 +1376,7 @@
         $('.footable2').footable();
         $('.footable3').footable();
         $('.footable4').footable();
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
+        iCheckClick(true);
     });
 </script>
 <script>

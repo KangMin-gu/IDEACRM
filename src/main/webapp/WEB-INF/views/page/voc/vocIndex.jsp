@@ -27,7 +27,7 @@
         <div class="ibox-top">
             <div class="ibox">
                 <div class="ibox-content clearfix">
-                    <div class="cti" style="display:block">
+                    <div class="cti" style="display:none">
                         서버아이피: <input type="text" name="cti_server_ip" id="cti_server_ip" value="127.0.0.1">
                         웹소켓아이피: <input type="text" name="cti_server_socket_ip" id="cti_server_socket_ip" value="203.239.159.133">
                         서버포트: <input type="text" name="cti_server_port" id="cti_server_port" value="7070">
@@ -122,8 +122,9 @@
                                             <th>고객명</th>
                                             <td>
                                                 <div class="input-group" style="width:230px;">
-                                                    <input class="form-control form-control-sm" type="text" id="daterange"  />
-                                                    <span class="input-group-addon" style="height:30px;"><a href="#" onclick="custDetail()"><i class="fa fa-user-circle fa-sm"></i></a></span>
+                                                    <input class="form-control form-control-sm" id="custname" name="custname" type="text"/>
+                                                    <input type="hidden" class="form-control" id="custno" name="custno" value="1"/>
+                                                    <span class="input-group-addon" style="height:30px;"><a href="#" onclick="vocCustDetail()"><i class="fa fa-user-circle fa-sm"></i></a></span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -131,7 +132,7 @@
                                             <th>휴대전화</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                <select class="form-control form-control-sm" name="" id="" style="width: 70px; height: 30px;">
+                                                <select class="form-control form-control-sm" name="mobile1" id="mobile1" style="width: 70px; height: 30px;">
                                                     <option value="">010</option>
                                                     <option value="">011</option>
                                                     <option value="">017</option>
@@ -139,16 +140,16 @@
                                                 </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" type="text" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm" type="text" name="mobile2" id="mobile2" style="width: 70px; height: 30px;">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                <input class="form-control form-control-sm" type="text" style="width: 70px; height: 30px;">
+                                                <input class="form-control form-control-sm" type="text" name="mobile3" id="mobile3" style="width: 70px; height: 30px;">
                                                 </div>
                                             </td>
                                             <th>자택전화</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control form-control-sm" name="" id="" style="width: 70px; height: 30px;">
+                                                    <select class="form-control form-control-sm" name="homtel1" id="homtel1" style="width: 70px; height: 30px;">
                                                         <option value="">02</option>
                                                         <option value="">031</option>
                                                         <option value="">017</option>
@@ -156,17 +157,17 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" type="text" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm" name="homtel2" id="homtel2" type="text" style="width: 70px; height: 30px;">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" type="text" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm" name="homtel3" id="homtel3" type="text" style="width: 70px; height: 30px;">
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>고객구분</th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
+                                                <select class="form-control form-control-sm" name="custgubun" id="custgubun" style="height: 30px;">
                                                     <option value="">02</option>
                                                     <option value="">031</option>
                                                     <option value="">017</option>
@@ -175,7 +176,7 @@
                                             </td>
                                             <th>관련고객</th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
+                                                <select class="form-control form-control-sm" name="relcustname" id="relcustname" style="height: 30px;">
                                                     <option value="">02</option>
                                                     <option value="">031</option>
                                                     <option value="">017</option>
@@ -186,11 +187,11 @@
                                         <tr>
                                             <th>이메일</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="height: 30px;">
+                                                <input class="form-control form-control-sm" name="email" id="email" type="text" style="height: 30px;">
                                             </td>
                                             <th>등급</th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
+                                                <select class="form-control form-control-sm" name="custgrade" id="custgrade" style="height: 30px;">
                                                     <option value="">02</option>
                                                     <option value="">031</option>
                                                     <option value="">017</option>
@@ -202,13 +203,13 @@
                                             <th>주소</th>
                                             <td colspan="3">
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" type="text" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm" name="homaddr1" id="homaddr1" type="text" style="width: 70px; height: 30px;">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" type="text" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm" name="homaddr2" id="homaddr2" type="text" style="width: 200px; height: 30px;">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" type="text" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm" name="homaddr3" id="homaddr3" type="text" style="width: 200px; height: 30px; ">
                                                 </div>
                                             </td>
                                         </tr>
@@ -806,6 +807,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script>
     $(document).ready(function() {
         $('.footable').footable();
@@ -824,15 +827,7 @@
     });
 </script>
 <script>
-    $('#searchNumber').keydown(function(key){
-        if(key.keyCode == 13){
-            searchNumber();
-        }
-    });
-    searchNumber = function(){
-        //ajax 검색후 중복이아닐시 바로 바인딩 여러명검색시 팝업착작동
-        window.open("/voc/custsearch", "고객검색","width=1000px, height=500px");
-    };
+
     custDetail = function(){
         window.open("/voc/custdetail", "고객상세정보","width=1100px, height=600px");
     };

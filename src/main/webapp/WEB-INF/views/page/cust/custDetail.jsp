@@ -217,52 +217,52 @@
                                         <th rowspan="6">수신 거부</th>
                                         <th class="denny" colspan="1">EMAIL</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYMAILAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYMAILNOMAL}"  >&nbsp; 일반</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSURVEY}"  >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSEMINAR}"  >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILAD}"  >&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">SMS</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYSMSAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYSMSNOMAL}"  >&nbsp; 일반</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSURVEY}"  >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSEMINAR}"  >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSAD}"  >&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">KAKAO</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAONOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYKAKAOAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAONOMAL}"  >&nbsp; 일반</label>&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSURVEY}"  >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSEMINAR}"  >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOAD}"  >&nbsp; 광고</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">DM</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNOMAL eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 일반</label>&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSURVEY eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMSEMINAR eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYDMNEWS eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 뉴스레터</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYDMNOMAL}"  >&nbsp; 일반</label>&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSURVEY}"  >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSEMINAR}"  >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMAD}"  >&nbsp; 광고</label>
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMNEWS}"  >&nbsp; 뉴스레터</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">전화</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYTELAD eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 광고</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYTELSURVEY  eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 해피콜</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYTELAD}"  >&nbsp; 광고</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYTELSURVEY }"  >&nbsp; 해피콜</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="denny" colspan="1">기타</th>
                                         <td colspan="8">
-                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" ${custDetail.DENYFAX eq "1" ? "checked='checked'" : ""} disabled>&nbsp; FAX</label>&nbsp;&nbsp;
-                                            <label class="i-checks"> <input type="checkbox" value="1" ${custDetail.DENYVISIT  eq "1" ? "checked='checked'" : ""} disabled>&nbsp; 방문</label>
+                                            <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYFAX}"  >&nbsp; FAX</label>&nbsp;&nbsp;
+                                            <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYVISIT }"  >&nbsp; 방문</label>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -1186,6 +1186,7 @@
         });
     });
 
+    iCheckClick(true);
 
 </script>
 

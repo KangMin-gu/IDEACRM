@@ -322,47 +322,47 @@
                                             <div class="col-sm-10">
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">EMAIL</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denymailnomal" name="denymailnomal" ${custUpdate.DENYMAILNOMAL eq "1" ? "checked":""}>&nbsp; 일반</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denymailsurvey" name="denymailsurvey" ${custUpdate.DENYMAILSURVEY eq "1" ? "checked":""}>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denymailseminar" name="denymailseminar" ${custUpdate.DENYMAILSEMINAR eq "1" ? "checked":""}>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denymailad" name="denymailad" ${custUpdate.DENYMAILAD eq "1" ? "checked":""}>&nbsp; 광고</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYMAILNOMAL}" id="denymailnomal" name="denymailnomal" >&nbsp; 일반</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYMAILSURVEY}" id="denymailsurvey" name="denymailsurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYMAILSEMINAR}" id="denymailseminar" name="denymailseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYMAILAD}" id="denymailad" name="denymailad" >&nbsp; 광고</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">SMS</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denysmsnomal" name="denysmsnomal" ${custUpdate.DENYSMSNOMAL eq "1" ? "checked":""}>&nbsp; 일반</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denysmssurvey" name="denysmssurvey" ${custUpdate.DENYSMSSURVEY eq "1" ? "checked":""}>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denysmsseminar" name="denysmsseminar" ${custUpdate.DENYSMSSEMINAR eq "1" ? "checked":""}>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denysmsad" name="denysmsad" ${custUpdate.DENYSMSAD eq "1" ? "checked":""}>&nbsp; 광고</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYSMSNOMAL}" id="denysmsnomal" name="denysmsnomal" >&nbsp; 일반</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYSMSSURVEY}" id="denysmssurvey" name="denysmssurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYSMSSEMINAR}" id="denysmsseminar" name="denysmsseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYSMSAD}" id="denysmsad" name="denysmsad" >&nbsp; 광고</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">KAKAO</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denykakaonomal" name="denykakaonomal" ${custUpdate.DENYKAKAONOMAL eq "1" ? "checked":""}>&nbsp; 일반</label>&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaosurvey" name="denykakaosurvey" ${custUpdate.DENYKAKAONOMAL eq "1" ? "checked":""}>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaoseminar" name="denykakaoseminar" ${custUpdate.DENYKAKAONOMAL eq "1" ? "checked":""}>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denykakaoad" name="denykakaoad" ${custUpdate.DENYKAKAONOMAL eq "1" ? "checked":""}>&nbsp; 광고</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYKAKAONOMAL}" id="denykakaonomal" name="denykakaonomal" >&nbsp; 일반</label>&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYKAKAOSURVEY}" id="denykakaosurvey" name="denykakaosurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYKAKAOSEMINAR}" id="denykakaoseminar" name="denykakaoseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYKAKAOAD}" id="denykakaoad" name="denykakaoad" >&nbsp; 광고</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">DM</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denydmnomal" name="denydmnomal" ${custUpdate.DENYDMNOMAL eq "1" ? "checked":""}>&nbsp; 일반</label>&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmsurvey" name="denydmsurvey" ${custUpdate.DENYDMSURVEY eq "1" ? "checked":""}>&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmseminar" name="denydmseminar" ${custUpdate.DENYDMSEMINAR eq "1" ? "checked":""}>&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmad" name="denydmad" ${custUpdate.DENYDMAD eq "1" ? "checked":""}>&nbsp; 광고</label>
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denydmnews" name="denydmnews" ${custUpdate.DENYDMNEWS eq "1" ? "checked":""}>&nbsp; 뉴스레터</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYDMNOMAL}" id="denydmnomal" name="denydmnomal" >&nbsp; 일반</label>&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYDMSURVEY}" id="denydmsurvey" name="denydmsurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYDMSEMINAR}" id="denydmseminar" name="denydmseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYDMAD}" id="denydmad" name="denydmad" >&nbsp; 광고</label>
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYDMNEWS}" id="denydmnews" name="denydmnews" >&nbsp; 뉴스레터</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">전화</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denytelad" name="denytelad" ${custUpdate.DENYTELAD eq "1" ? "checked":""}>&nbsp; 광고</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denytelsurvey" name="denytelsurvey" ${custUpdate.DENYTELSURVEY eq "1" ? "checked":""}>&nbsp; 해피콜</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYTELAD}" id="denytelad" name="denytelad" >&nbsp; 광고</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYTELSURVEY}" id="denytelsurvey" name="denytelsurvey" >&nbsp; 해피콜</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">기타</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="1" id="denyfax" name="denyfax" ${custUpdate.DENYFAX eq "1" ? "checked":""}>&nbsp; FAX</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="1" id="denyvisit" name="denyvisit" ${custUpdate.DENYVISIT eq "1" ? "checked":""}>&nbsp; 방문</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYFAX}" id="denyfax" name="denyfax" >&nbsp; FAX</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYVISIT}" id="denyvisit" name="denyvisit" >&nbsp; 방문</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -421,10 +421,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 <script>
     $(document).ready(function() {
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
+        iCheckClick(false);
     });
 </script>
 </body>

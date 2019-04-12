@@ -2,8 +2,10 @@ package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dto.CustDto;
+import com.crud.ideacrm.dto.ProductDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.CustService;
+import com.crud.ideacrm.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +29,10 @@ public class VocController {
     @Autowired
     private CodeService codeService;
 
-    private final int USINGMENU = 0;//서비스 사용 메뉴 값은 3
+    @Autowired
+    private ProductService productService;
+
+    private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
     @RequestMapping(value = "/voc/dashboard", method = RequestMethod.GET)
     public ModelAndView vocList(HttpServletRequest request){
@@ -40,6 +45,11 @@ public class VocController {
     @RequestMapping(value = "/voc", method = RequestMethod.GET)
     public ModelAndView vocDetail(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
+        List<ProductDto> productB = productService.getProductB(request);
+        mView.addObject("productB",productB);
         mView.setViewName("page/voc/vocIndex");
         return mView;
     }

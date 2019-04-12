@@ -35,7 +35,7 @@
                        <tr data-formatter="test">
                            <th data-visible="false" data-name="CUSTNO">고객번호</th>
                            <th data-name="CUSTNAME" >고객명</th>
-                           <th data-name="MOBILE">전화번호</th>
+                           <th data-name="MOBILE"  data-filterable="false">전화번호</th>
                            <th data-name="EMAIL">이메일</th>
                            <th data-name="CUSTGRADE">고객등급</th>
                        </tr>

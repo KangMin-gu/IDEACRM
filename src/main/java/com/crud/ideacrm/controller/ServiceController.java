@@ -123,4 +123,11 @@ public class ServiceController {
         List<Map<String,Object>> tabConveyList = serviceService.conveyList(request,serviceNo);
         return tabConveyList;
     }
+
+    @RequestMapping(value="/service/{custNo}",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> custServiceTab(HttpServletRequest request, @PathVariable int custNo){
+        List<Map<String,Object>> custServiceTab = serviceService.serviceList(request);
+        return custServiceTab;
+    }
 }

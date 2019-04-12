@@ -177,7 +177,6 @@
                                     <th data-name="SERVICETYPE_" data-breakpoints="xs sm">접수구분</th>
                                     <th data-name="SERVICECODE_" data-breakpoints="xs sm">접수유형</th>
                                     <th data-name="CUSTNAME_" data-breakpoints="xs sm">고객명</th>
-                                    <th data-name="CLINAME_" data-breakpoints="xs sm">거래처명</th>
                                     <th data-name="RECEPTIONDATE_" data-breakpoints="xs sm">접수일</th>
                                     <th data-name="SERVICEOWNER_" data-breakpoints="xs sm">접수자</th>
                                     <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>

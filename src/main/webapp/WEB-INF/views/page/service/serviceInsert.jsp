@@ -257,27 +257,27 @@
                                                         <th>제품명</th>
                                                         <td colspan="7">
                                                             <div class="product">
-                                                            <div style="display: inline-block">
-                                                                <select id="product11" name="product11" class="form-control" style="width: 150px";>
-                                                                    <option value="">선택</option>
-                                                                    <c:forEach var="productB" items="${productB }">
-                                                                        <option label="${productB.prdname }" value="${productB.prdno }"/>
-                                                                    </c:forEach>
-                                                                </select>
-                                                            </div>
-                                                            <div style="display: inline-block">
-                                                                <select class="form-control " name="product12" id="product12" style="width: 250px;">
+                                                                <div style="display: inline-block">
+                                                                    <select id="product11" name="product11" class="form-control" style="width: 150px";>
+                                                                        <option value="">선택</option>
+                                                                        <c:forEach var="productB" items="${productB }">
+                                                                            <option label="${productB.prdname }" value="${productB.prdno }"/>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </div>
+                                                                <div style="display: inline-block">
+                                                                    <select class="form-control " name="product12" id="product12" style="width: 250px;">
 
-                                                                </select>
-                                                            </div>
-                                                            <div style="display: inline-block">
-                                                                <select class="form-control " name="product13" id="product13" style="width: 350px;">
+                                                                    </select>
+                                                                </div>
+                                                                <div style="display: inline-block">
+                                                                    <select class="form-control " name="product13" id="product13" style="width: 350px;">
 
-                                                                </select>
-                                                            </div>
-                                                            <div style="display: inline-block">
-                                                                <button type="button" class="btn btn-default plus">추가</button>
-                                                            </div>
+                                                                    </select>
+                                                                </div>
+                                                                <div style="display: inline-block">
+                                                                    <button type="button" class="btn btn-default plus">추가</button>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -485,11 +485,6 @@
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
-<!--datarange-->
-<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <!-- validate -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
@@ -503,6 +498,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 
 </body>
 </html>

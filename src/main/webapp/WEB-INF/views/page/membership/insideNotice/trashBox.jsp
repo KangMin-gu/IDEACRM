@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col-xl-8">
                                 <h2>
-                                    휴지통
+                                    휴지통1
                                 </h2>
                             </div>
                             <div class="col-xl-4">

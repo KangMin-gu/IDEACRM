@@ -12,44 +12,11 @@
 
 <!--내부통지-->
         <li class="dropdown">
-            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+            <a id="ins" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                    <i class="fa fa-envelope"></i>  <span class="label label-warning isnVal"></span>
             </a>
-            <ul class="dropdown-menu dropdown-messages">
-                <li>
-                    <div class="dropdown-messages-box">
-                        <div class="media-body">
-                            <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
-                            <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown-divider"></li>
-                <li>
-                    <div class="dropdown-messages-box">
-                        <div class="media-body ">
-                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
-                            <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown-divider"></li>
-                <li>
-                    <div class="dropdown-messages-box">
-                        <div class="media-body ">
-                            <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
-                            <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown-divider"></li>
-                <li>
-                    <div class="text-center link-block">
-                        <a href="mailbox.html" class="dropdown-item">
-                            <i class="fa fa-envelope"></i> <strong>모든 내부통지 확인</strong>
-                        </a>
-                    </div>
-                </li>
+            <ul id="insNotRead" class="dropdown-menu dropdown-messages">
+
             </ul>
         </li>
 
@@ -89,7 +56,7 @@
         </li>
 
         <li>
-            <a href="login.html">
+            <a href="${pageContext.request.contextPath}/logout">
                 <i class="fa fa-sign-out"></i> 로그아웃
             </a>
         </li>

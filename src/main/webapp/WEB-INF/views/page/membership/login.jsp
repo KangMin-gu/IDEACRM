@@ -29,7 +29,7 @@
         </div>
         <!--  <h4>고객 관계를 생각하는 IDEA CRM에 오신 것을 환영합니다.</h4> -->
 
-        <form:form class="m-t" role="form" action="${pageContext.request.contextPath}/login" method="post">
+        <form:form id="loginChk" class="m-t" role="form" action="${pageContext.request.contextPath}/login" method="post">
             <input type="hidden" name="url" value="${url }"/>
             <div class="form-group">
                 <input id="userid" name="userid" type="text" class="form-control" placeholder="계정" autofocus="autofocus" required>
@@ -37,7 +37,13 @@
             <div class="form-group">
                 <input id="userpassword" name="userpassword" type="password" class="form-control" placeholder="비밀번호" required>
             </div>
-            <button type="submit" class="btn btn-primary block full-width m-b">로그인</button>
+
+            <div class="form-check float-left">
+                <input type="checkbox" class="form-check-input" id="isSave">
+                <label class="form-check-label" for="isSave">아이디 저장</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary block full-width m-b" style="margin-top: 50px;">로그인</button>
             <small>Chrome, IE 11이상의 버전에 최적화 되어 있습니다.</small>
         </form:form>
         <br/>
@@ -89,5 +95,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/inspinia.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/login.js"></script>
 </body>
 </html>

@@ -19,12 +19,6 @@ public class CodeController {
     @Autowired
     private CodeService codeService;
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public ModelAndView Test(HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
-        return mView;
-    }
-
     // 상위코드의 GRPCODE, CODEVAL로 하위 코드들 가져오기
     @RequestMapping(value="/company/code/upper", method=RequestMethod.GET)
     @ResponseBody

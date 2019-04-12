@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Map;
 
@@ -53,16 +55,14 @@ public class PopController {
     }
     @RequestMapping(value="/popcust",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authPopCustList(HttpServletRequest request){
+    public List<Map<String,Object>> authPopCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> param = parameterUtil.searchParam(request);
-
-        List<Map<String,Object>> custList = custService.custList(param);
-        return custList;
+        return custService.custList(param);
     }
     @RequestMapping(value="/popcust/{custNo}",method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> authPopCustDetail(HttpServletRequest request, @PathVariable int custNo){
+    public Map<String,Object> authPopCustDetail(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         CustDto custDto = new CustDto();
         custDto.setCustno(custNo);

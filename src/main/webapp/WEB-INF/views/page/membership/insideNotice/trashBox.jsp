@@ -39,43 +39,82 @@
                         <div class="row">
                             <div class="col-xl-8">
                                 <h2>
-                                    휴지통 (16)
+                                    휴지통
                                 </h2>
                             </div>
                             <div class="col-xl-4">
-                                <div style="display: inline-block">
-                                    <select class="form-control" >
-                                        <option value="Bahamas">전체</option>
-                                        <option value="Belarus">제목+내용</option>
-                                        <option value="Bahrain">날짜</option>
-                                        <option value="Bangladesh">보낸이</option>
-                                        <option value="Barbados">내용</option>
-                                        <option value="Belarus">제목</option>
-                                    </select>
-                                </div>
-                                <div style="display: inline-block">
+                                <form:form action="/trash" method="post">
+                                    <input type="hidden" id="condition" value="${condition }" name="condition" />
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" name="search" style="width: 150px;">
                                         <div class="input-group-btn">
-                                            <button type="submit" class="btn btn-sm btn-primary">
-                                                Search
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                <span id="conditionBtn">제목+내용</span>
                                             </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="javascript:set('titlecontent')">제목+내용</a>
+                                                </li>
+                                                <li><a href="javascript:set('title')">제목</a>
+                                                </li>
+                                                <li><a href="javascript:set('recipient')">받는이</a>
+                                                </li>
+                                            </ul>
                                         </div>
+                                        <!-- /btn-group -->
+                                        <input type="text" id="keyword" name="keyword" value="${keyword }" class="form-control"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit" style="height: 35px;">
+                                              <span class="sr-only">검색</span>
+                                              <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
                                     </div>
-                                </div>
+                                </form:form>
                             </div>
                         </div>
 
                         <div class="mail-tools tooltip-demo m-t-md">
                             <div class="btn-group float-right">
-                                <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
-                                <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+                                <ul class="pagination">
+                                    <c:choose>
+                                        <c:when test="${page.startPageNum ne 1 }">
+                                            <li><a
+                                                    href="${pageContext.request.contextPath}/${url }?pageNum=${page.startPageNum-1 }&condition=${condition}&keyword=${keyword}">&laquo;</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="disabled"><a href="javascript:">&laquo;</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:forEach var="i" begin="${page.startPageNum }"
+                                               end="${page.endPageNum }">
+                                        <c:choose>
+                                            <c:when test="${i eq page.pageNum }">
+                                                <li class="active page-item"><a class="page-link"
+                                                                                href="${pageContext.request.contextPath}/inbox?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li><a
+                                                        href="${pageContext.request.contextPath}/inbox?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <c:choose>
+                                        <c:when test="${page.endPageNum lt page.totalPageCount }">
+                                            <li><a
+                                                    href="${pageContext.request.contextPath}/inbox?pageNum=${page.endPageNum+1 }&condition=${condition}&keyword=${keyword}">&raquo;</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="disabled"><a href="javascript:">&raquo;</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </ul>
                             </div>
 
-                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> 새로고침</button>
-                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i> </button>
-                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as important"><i class="fa fa-exclamation"></i> </button>
-                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </button>
+                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> 복구</button>
+                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> 완전삭제</button>
 
                         </div>
                     </div>
@@ -83,47 +122,7 @@
 
                         <table class="table table-hover table-mail">
                             <tbody>
-                            <tr class="unread">
-                                <td class="check-mail">
-                                    <input type="checkbox" class="i-checks">
-                                </td>
-                                <td class="mail-ontact">
-                                    <a href="mail_detail.html">강민구</a>
-                                </td>
-                                <td class="mail-subject">
-                                    <a href="mail_detail.html">안녕하세요</a>
-                                </td>
-                                <td class="">
-                                    <i class="fa fa-paperclip"></i>
-                                </td>
-                                <td class="text-right mail-date">6.10 AM</td>
-                            </tr>
-                            <tr class="unread">
-                                <td class="check-mail">
-                                    <input type="checkbox" class="i-checks" checked>
-                                </td>
-                                <td class="mail-ontact">
-                                    <a href="mail_detail.html">Jack Nowak</a>
-                                </td>
-                                <td class="mail-subject">
-                                    <a href="mail_detail.html">Aldus PageMaker including versions of Lorem Ipsum.</a>
-                                </td>
-                                <td class=""></td>
-                                <td class="text-right mail-date">8.22 PM</td>
-                            </tr>
-                            <tr class="read">
-                                <td class="check-mail">
-                                    <input type="checkbox" class="i-checks">
-                                </td>
-                                <td class="mail-ontact">
-                                    <a href="mail_detail.html">Facebook</a> <span class="label label-warning float-right">중요</span>
-                                </td>
-                                <td class="mail-subject">
-                                    <a href="mail_detail.html">Many desktop publishing packages and web page editors.</a>
-                                </td>
-                                <td class=""></td>
-                                <td class="text-right mail-date">Jan 16</td>
-                            </tr>
+
                             </tbody>
                         </table>
 
@@ -160,6 +159,22 @@
         });
     });
 
+    set("${condition}");
+
+    function set(condition) {
+        if (condition == "titlecontent" || condition == "") {
+            condition = "titlecontent";
+            $("#conditionBtn").text("제목+내용");
+        } else if (condition == "title") {
+            $("#conditionBtn").text("제목");
+        } else if (condition == "content") {
+            $("#conditionBtn").text("내용");
+        } else if (condition == "recipient") {
+            $("#conditionBtn").text("받는이");
+        }
+
+        $("#condition").val(condition);
+    }
 </script>
 </body>
 </html>

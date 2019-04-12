@@ -2,7 +2,7 @@ package com.crud.ideacrm.dto;
 
 public class CustDenyDto {
     private int	denyno;	//거부번호
-    private int	custno;	//고객번호
+    private String	custno;	//고객번호
     private int	denymailnomal;	//메일일반수신거부
     private int	denymailsurvey;	//메일설문수신거부
     private int	denymailad;	//메일광고수신거부
@@ -35,7 +35,7 @@ public class CustDenyDto {
 
     public CustDenyDto(){}
 
-    public CustDenyDto(int denyno, int custno, int denymailnomal, int denymailsurvey, int denymailad, int denymailnews, int denymailseminar, int denysmsnomal, int denysmssurvey, int denysmsseminar, int denysmsad, int denydmnomal, int denydmsurvey, int denydmnews, int denydmseminar, int denydmad, int denytelnews, int denytelseminar, int denytelad, int denytelsurvey, int denyfax, int denyvisit, String regdate, int reguser, String editdate, int edituser, int isdelete, int denykakaonomal, int denykakaoad, int denykakaosurvey, int denykakaoseminar) {
+    public CustDenyDto(int denyno, String custno, int denymailnomal, int denymailsurvey, int denymailad, int denymailnews, int denymailseminar, int denysmsnomal, int denysmssurvey, int denysmsseminar, int denysmsad, int denydmnomal, int denydmsurvey, int denydmnews, int denydmseminar, int denydmad, int denytelnews, int denytelseminar, int denytelad, int denytelsurvey, int denyfax, int denyvisit, String regdate, int reguser, String editdate, int edituser, int isdelete, int denykakaonomal, int denykakaoad, int denykakaosurvey, int denykakaoseminar) {
         this.denyno = denyno;
         this.custno = custno;
         this.denymailnomal = denymailnomal;
@@ -77,11 +77,11 @@ public class CustDenyDto {
         this.denyno = denyno;
     }
 
-    public int getCustno() {
+    public String getCustno() {
         return custno;
     }
 
-    public void setCustno(int custno) {
+    public void setCustno(String custno) {
         this.custno = custno;
     }
 

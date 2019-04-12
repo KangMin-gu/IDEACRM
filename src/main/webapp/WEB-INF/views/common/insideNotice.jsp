@@ -12,7 +12,10 @@
                 <div class="space-25"></div>
                 <h5>내부통지</h5>
                 <ul class="folder-list m-b-md" style="padding: 0">
-                    <li><a href="${pageContext.request.contextPath}/inbox"> <i class="fa fa-inbox "></i> 받은 편지 <span class="label label-warning float-right">16</span> </a></li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/inbox"> <i class="fa fa-inbox "></i>
+                            받은 편지 <span class="label label-warning float-right isnVal"></span> </a>
+                    </li>
                     <li><a href="${pageContext.request.contextPath}/outbox"> <i class="fa fa-envelope-o"></i> 보낸 편지 </a></li>
                     <li><a href="${pageContext.request.contextPath}/trashbox"> <i class="fa fa-trash-o"></i> 휴지통</a></li>
                 </ul>

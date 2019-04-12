@@ -10,7 +10,7 @@
     </div>
     <ul class="nav navbar-top-links navbar-right">
         <li>
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/logout">
                 <i class="fa fa-sign-out"></i> 로그아웃
             </a>
         </li>

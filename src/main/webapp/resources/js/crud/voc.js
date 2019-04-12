@@ -153,3 +153,6 @@ function vocCustDetail(){
     }
     openNewWindow('voc','/voc/custdetail/'+custNo,'voc',1200,700);
 }
+$('#servicecode1').change(function(){
+    upperCode('servicecode1');
+});

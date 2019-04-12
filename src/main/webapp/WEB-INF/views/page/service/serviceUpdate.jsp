@@ -504,6 +504,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script>
     $(document).ready(function() {
         serviceStep();

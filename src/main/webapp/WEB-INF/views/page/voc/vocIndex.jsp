@@ -632,15 +632,9 @@
                                         <th>접수구분</th>
                                         <td>
                                             <div class="i-checks">
-                                                <label>
-                                                    <input type="radio" value="option1" name="a" checked> <i></i> 일반
-                                                </label>
-                                                <label>
-                                                    <input type="radio" checked="" value="option2" name="a"> <i></i> 문의
-                                                </label>
-                                                <label>
-                                                    <input type="radio" checked="" value="option2" name="a"> <i></i> A/S
-                                                </label>
+                                                <c:forEach var="serviceType" items="${SERVICETYPE}">
+                                                    <label><input type="radio" class="" value="${serviceType.codeval}" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                </c:forEach>
                                             </div>
                                         </td>
                                     </tr>
@@ -648,19 +642,15 @@
                                         <th>접수유형</th>
                                         <td>
                                             <div style="display: inline-block;">
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px; width: 100px;">
-                                                    <option value="">02</option>
-                                                    <option value="">031</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
+                                                <select class="form-control form-control-sm" name="servicecode1" id="servicecode1" style="height: 30px; width: 100px;">
+                                                    <c:forEach var="serviceCode1" items="${SERVICECODE1}">
+                                                        <option label="${serviceCode1.codename}" value="${serviceCode1.codeval}"></option>
+                                                    </c:forEach>
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px; width: 100px;">
-                                                    <option value="">02</option>
-                                                    <option value="">031</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
+                                                <select class="form-control form-control-sm" name="servicecode2" id="servicecode2" upper="servicecode1" style="height: 30px; width: 100px;">
+
                                                 </select>
                                             </div>
                                         </td>
@@ -668,32 +658,28 @@
                                     <tr>
                                         <th>접수제품</th>
                                         <td>
-                                            <div style="display: inline-block;">
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px; width: 100px;">
-                                                    <option value="">02</option>
-                                                    <option value="">031</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
-                                                </select>
-                                            </div>
-                                            <div style="display: inline-block">
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px; width: 100px;">
-                                                    <option value="">02</option>
-                                                    <option value="">031</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
-                                                </select>
-                                            </div>
-                                            <div style="display: inline-block">
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px; width: 100px;">
-                                                    <option value="">02</option>
-                                                    <option value="">031</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
-                                                </select>
-                                            </div>
-                                            <div style="display: inline-block">
-                                                <button class="btn btn-primary btn-sm">추가</button>
+                                            <div class="product">
+                                                <div style="display: inline-block">
+                                                    <select id="product11" name="product11" class="form-control" style="width: 150px";>
+                                                        <option value="">선택</option>
+                                                        <c:forEach var="productB" items="${productB }">
+                                                            <option label="${productB.prdname }" value="${productB.prdno }"/>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                                <div style="display: inline-block">
+                                                    <select class="form-control " name="product12" id="product12" style="width: 250px;">
+
+                                                    </select>
+                                                </div>
+                                                <div style="display: inline-block">
+                                                    <select class="form-control " name="product13" id="product13" style="width: 300px;">
+
+                                                    </select>
+                                                </div>
+                                                <div style="display: inline-block">
+                                                    <button type="button" class="btn btn-default plus">추가</button>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -717,7 +703,7 @@
                                     <tr>
                                         <th>상담내용</th>
                                         <td>
-                                            <textarea id="mytextarea"></textarea>
+                                            <textarea class="tinymce" id="mytextarea"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
@@ -801,36 +787,19 @@
 </div>
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<!-- tinymce -->
+<script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
-<script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.footable').footable();
-        $('.footable2').footable();
-        $('.footable3').footable();
-        $('.footable4').footable();
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
-        });
-        tinymce.init({
-            selector: '#mytextarea',
-            height : 400,
-            language:'ko_KR'
-        });
-    });
-</script>
-<script>
 
-    custDetail = function(){
-        window.open("/voc/custdetail", "고객상세정보","width=1100px, height=600px");
-    };
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/product.js>"></script>
+<script>
     $('#smsTemp').click(function(){
         window.open("/voc/sms", "고객상세정보","width=400px, height=600px");
     });

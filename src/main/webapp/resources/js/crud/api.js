@@ -4,7 +4,7 @@ function footableSearchList(url) {
     var param = searchDataToJson();
     var page = $('#paging').val();
     globalUrl = url;
-    $.post(url, param, function (response) {
+    $.post(globalUrl, param, function (response) {
         $('.footable').footable({
             "toggleSelector": ".footable-toggle",
             "empty": "",
@@ -12,6 +12,9 @@ function footableSearchList(url) {
                 "enabled": true,
                 "container" : ".pagination",
                 "size":page
+            },
+            "filtering": {
+                "enabled": true
             },
             "rows": response
         });
@@ -20,24 +23,7 @@ function footableSearchList(url) {
         $('.footable-empty').remove();
     });
 }
-function popPupFootableSearchList(url) {
-    var param = searchDataToJson();
-    var page = $('#paging').val();
-    $.post(url, param, function (response) {
-        $('.footable').footable({
-            "toggleSelector": ".footable-toggle",
-            "empty": "",
-            "paging": {
-                "enabled": true,
-                "container" : ".pagination",
-                "size":page
-            },
-            "rows": response
-        });
-        // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
-        $('.footable-pagination-wrapper:eq(0)').remove();
-    });
-}
+
 function tabFootableSearchList(id,url) {
     var param = searchDataToJson();
     var page = $('#paging').val();
@@ -54,6 +40,7 @@ function tabFootableSearchList(id,url) {
         });
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();
+        $('.footable-empty').remove();
     });
 }
 $(".footable").on("click.ft.row",function(obj,e,ft,row){

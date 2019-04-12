@@ -522,7 +522,7 @@ function func_logout(){
 	goWebSocketDisconnect();
 	$('#vocLogInSpan').show();
 	$('#vocLogOutSpan').hide();
-	$('.ctidetail').hide();
+	$('.ctibtn').hide();
 	intervalFuncOff();
 	alert("로그아웃 되었습니다.");
 }
@@ -677,7 +677,7 @@ function ctiEvent(msg){
 		if(tmpData[4] == "1"){
 			alert("로그인되었습니다.");
 			$('#vocLogInSpan').hide();
-			$('.ctidetail').show();
+			$('.ctibtn').show();
 			$('#vocLogOutSpan').show();
 			intervalFuncOn();//세션 유지 실행
 			voc_send_message();//콜백 카운터 실행
@@ -701,7 +701,7 @@ function ctiEvent(msg){
     	alert("강제로그아웃 되었습니다.");
     	$('#vocLogInSpan').show();
 		$('#vocLogOutSpan').hide();
-		$('.ctidetail').hide();
+		$('.ctibtn').hide();
 		document.getElementById("status").innerHTML = "연결안됨";
 		document.getElementById("transferTryCnt").innerHTML = "0";
 		document.getElementById("transferConnectCnt").innerHTML = "0";
@@ -762,7 +762,7 @@ function ctiEvent(msg){
 	
 
 		document.getElementById("makeCallNum").value = tmpData[4];
-		document.getElementById("phone").value=tmpData[4];
+		document.getElementById("searchNumber").value=tmpData[4];
 		/*
 		top.MainView.document.getElementById("cti_screen_popup_01").innerHTML = tmpData[1];
 		top.MainView.document.getElementById("cti_screen_popup_02").innerHTML = tmpData[2];
@@ -931,7 +931,7 @@ function ctiEvent(msg){
         	func_logout();
         	$('#vocLogInSpan').show();
         	$('#vocLogOutSpan').hide();
-        	$('.ctidetail').hide();
+        	$('.ctibtn').hide();
             
         }
     } 

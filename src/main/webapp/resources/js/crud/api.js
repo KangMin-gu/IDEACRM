@@ -49,8 +49,9 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
     if(globalUrl == '/popaccount'){
         popParentNameClick($(obj.target.parentElement));
     }
-
-
+    if(globalUrl =='/voc/custsearch'){
+        parentCustname($(obj.target.parentElement));
+    }
 });
 
 

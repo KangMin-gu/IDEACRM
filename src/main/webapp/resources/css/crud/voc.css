@@ -15,8 +15,7 @@ table{margin-bottom: 0 !important;}
 .ibox-top ul li span.li-text{display: inline-block; padding: 0 7px; background: #fe6224; border-radius: 50%; color: #ffffff; position: absolute; top: -7px; right: -14px; z-index: 9999; font-weight: normal;}
 .ibox-top ul li > span{vertical-align: -2px;}
 .ibox-top ul.top-btn li button.btn-primary{background-color: #4b6780; border-color: #4b6780;}
-.ibox-top ul li input{width: 100px !important; height: 30px !important; border-radius: 5px !important;}
-.ibox-top ul li input{width: 100px !important; height: 30px !important; border-radius: 5px !important;}
+.ibox-top ul li input{width: 120px !important; height: 30px !important; border-radius: 5px !important;}
 .ibox-top ul li.liBtn{padding: 0 3px;}
 .ibox-top ul li.liBtn2{vertical-align: 1px;}
 .ibox-top ul li.liBtn2 button{margin-left: 5px;}

@@ -72,7 +72,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
     $(document).ready(function() {
-        footableSearchList('/cust')
+        footableSearchList('/cust');
     });
 </script>
 </body>

@@ -1,9 +1,10 @@
 $('#searchNumber').keydown(function(key){
+
     if(key.keyCode == 13){
-        custSearch(key.target);
+        openNewWindow('고객검색','/voc/custsearch','',1000,500);
     }
 });
-
+/*
 function custSearch(obj){
     var param = {
         "mobile" : $(obj).val()};
@@ -26,6 +27,7 @@ function custSearch(obj){
         }
     });
 }
+*/
 
 function custInfoBinding(data) {// 인풋 필드 데이터 바인딩
     var boolean;
@@ -156,3 +158,35 @@ function vocCustDetail(){
 $('#servicecode1').change(function(){
     upperCode('servicecode1');
 });
+
+
+
+// 타이머
+function startInterval() {
+    second = 1;
+    min = 00;
+    vocTimer = setInterval(function() {
+        // 0초면 초기화 후 이동되는 사이트
+        if (second == 60) {
+            second = 00;
+            min = parseInt(min) + 1;
+        }
+        if (second < 10) {
+            second = "0" + second;
+        }
+        var time = min + " : " + second;
+        $('#timer').text(time);
+        second = parseInt(second) + 1;// 카운트 증가
+    }, 1000);
+}
+
+function stopInterval() {
+    if (vocTimer != '') {
+        clearInterval(vocTimer);
+    }
+}
+
+function popVocCust(){
+    var searchPhoneNo = document.getElementById('searchNumber').value;
+    openNewWindow('voc','/voc/custsearch','voc',1260,800);
+}

@@ -30,7 +30,6 @@ public class AlarmHandler extends TextWebSocketHandler {
 
     private static List<WebSocketSession> list = new ArrayList<WebSocketSession>();
     private static final Logger logger = LoggerFactory.getLogger(AlarmHandler.class);
-//ㅅㄷㄴㅅ
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         list.add(session);

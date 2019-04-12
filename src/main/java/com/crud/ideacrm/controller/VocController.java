@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +62,7 @@ public class VocController {
     }
     @RequestMapping(value="/voc/custsearch", method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> vocCsutSearch(HttpServletRequest request){
+    public List<Map<String,Object>> vocCsutSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> param = parameterUtil.searchParam(request);
         List<Map<String,Object>> custSearchList = custService.custList(param);
@@ -69,7 +71,7 @@ public class VocController {
     }
 
     @RequestMapping(value = "/voc/custdetail/{custNo}", method = RequestMethod.GET)
-    public ModelAndView vocCustDetailPop(HttpServletRequest request, @PathVariable int custNo){
+    public ModelAndView vocCustDetailPop(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         CustDto custDto = new CustDto();
         custDto.setCustno(custNo);

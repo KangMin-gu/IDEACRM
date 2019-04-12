@@ -20,7 +20,7 @@ import java.security.GeneralSecurityException;
 import java.util.*;
 
 @Controller
-public class CustController {
+public class CustController {//
 
     @Autowired
     CodeService codeService;

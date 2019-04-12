@@ -11,4 +11,5 @@ public interface InsideNoticeService {
     public ModelAndView inboxList(HttpServletRequest request);
     public void inboxEyeChk(HttpServletRequest request, List<Integer> noticeid);
     public void inboxTrashChk(HttpServletRequest request, List<Integer> noticeid);
+    public ModelAndView outboxList(HttpServletRequest request);
 }

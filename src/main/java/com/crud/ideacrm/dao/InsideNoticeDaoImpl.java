@@ -40,4 +40,16 @@ public class InsideNoticeDaoImpl implements InsideNoticeDao {
     public void inboxTrashChk(Map<String, Object> noteVal) {
         session.update("insideNotice.inboxTrashChk",noteVal);
     }
+
+    @Override
+    public int outTotalRows(Map<String, Object> noteVal) {
+        int totalRows = session.selectOne("insideNotice.outTotalRows", noteVal);
+        return totalRows;
+    }
+
+    @Override
+    public List<Map<String, Object>> outboxList(Map<String, Object> noteVal) {
+        List<Map<String, Object>> note = session.selectList("insideNotice.outbox", noteVal);
+        return note;
+    }
 }

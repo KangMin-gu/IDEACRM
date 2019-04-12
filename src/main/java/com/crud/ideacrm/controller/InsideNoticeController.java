@@ -27,6 +27,7 @@ public class InsideNoticeController {
         return alarmNotRead;
     }
 
+
     //받은통지리스트
     @RequestMapping(value = "/inbox", method = RequestMethod.GET)
     public ModelAndView authinboxList(HttpServletRequest request){
@@ -54,26 +55,31 @@ public class InsideNoticeController {
         isns.inboxTrashChk(request, noticeid);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //보낸통지함
     @RequestMapping(value = "/outbox", method = RequestMethod.GET)
-    public ModelAndView outboxList(HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
+    public ModelAndView authOutboxList(HttpServletRequest request){
+        ModelAndView mView = isns.outboxList(request);
         mView.setViewName("page/membership/insideNotice/outBox");
         return mView;
     }
+    //보낸통지검색
+    @RequestMapping(value = "/outbox", method = RequestMethod.POST)
+    public ModelAndView authoutboxListSearch(HttpServletRequest request){
+        ModelAndView mView = isns.outboxList(request);
+        mView.setViewName("page/membership/insideNotice/outBox");
+        return mView;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     @RequestMapping(value = "/trashbox", method = RequestMethod.GET)
     public ModelAndView trashboxList(HttpServletRequest request){

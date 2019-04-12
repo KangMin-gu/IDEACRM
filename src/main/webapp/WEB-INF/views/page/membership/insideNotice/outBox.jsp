@@ -45,7 +45,7 @@
                                 </h2>
                             </div>
                             <div class="col-xl-4">
-                                <form:form action="/inbox" method="post">
+                                <form:form action="/outbox" method="post">
                                     <input type="hidden" id="condition" value="${condition }" name="condition" />
                                     <div class="input-group">
                                         <div class="input-group-btn">
@@ -93,18 +93,18 @@
                                         <c:choose>
                                             <c:when test="${i eq page.pageNum }">
                                                 <li class="active page-item"><a class="page-link"
-                                                                                href="${pageContext.request.contextPath}/inbox?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
+                                                                                href="${pageContext.request.contextPath}/outbox?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li><a
-                                                        href="${pageContext.request.contextPath}/inbox?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
+                                                        href="${pageContext.request.contextPath}/outbox?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
                                     <c:choose>
                                         <c:when test="${page.endPageNum lt page.totalPageCount }">
                                             <li><a
-                                                    href="${pageContext.request.contextPath}/inbox?pageNum=${page.endPageNum+1 }&condition=${condition}&keyword=${keyword}">&raquo;</a>
+                                                    href="${pageContext.request.contextPath}/outbox?pageNum=${page.endPageNum+1 }&condition=${condition}&keyword=${keyword}">&raquo;</a>
                                             </li>
                                         </c:when>
                                         <c:otherwise>
@@ -122,47 +122,37 @@
 
                         <table class="table table-hover table-mail">
                             <tbody>
-                            <tr class="unread">
-                                <td class="check-mail">
-                                    <input type="checkbox" class="i-checks">
-                                </td>
-                                <td class="mail-ontact">
-                                    <a href="mail_detail.html">강민구</a>
-                                </td>
-                                <td class="mail-subject">
-                                    <a href="mail_detail.html">안녕하세요</a>
-                                </td>
-                                <td class="">
-                                    <i class="fa fa-paperclip"></i>
-                                </td>
-                                <td class="text-right mail-date">6.10 AM</td>
-                            </tr>
-                            <tr class="unread">
-                                <td class="check-mail">
-                                    <input type="checkbox" class="i-checks" checked>
-                                </td>
-                                <td class="mail-ontact">
-                                    <a href="mail_detail.html">Jack Nowak</a>
-                                </td>
-                                <td class="mail-subject">
-                                    <a href="mail_detail.html">Aldus PageMaker including versions of Lorem Ipsum.</a>
-                                </td>
-                                <td class=""></td>
-                                <td class="text-right mail-date">8.22 PM</td>
-                            </tr>
-                            <tr class="read">
-                                <td class="check-mail">
-                                    <input type="checkbox" class="i-checks">
-                                </td>
-                                <td class="mail-ontact">
-                                    <a href="mail_detail.html">Facebook</a> <span class="label label-warning float-right">중요</span>
-                                </td>
-                                <td class="mail-subject">
-                                    <a href="mail_detail.html">Many desktop publishing packages and web page editors.</a>
-                                </td>
-                                <td class=""></td>
-                                <td class="text-right mail-date">Jan 16</td>
-                            </tr>
+                            <c:forEach var="tmp" items="${noteList }">
+                                <tr
+                                        <c:choose>
+                                            <c:when test="${tmp.READCHEK eq 0 }">class="unread"</c:when>
+                                            <c:otherwise>class="read"</c:otherwise>
+                                        </c:choose>
+                                >
+                                    <td class="check-mail">
+                                        <input id="noticeid" name="noticeid" type="checkbox" class="i-checks chksquare" value="${tmp.NOTICEID }">
+                                    </td>
+                                    <td class="mail-ontact">
+                                        <a href="mail_detail.html">${tmp.TOUSERNAME }</a>
+                                    </td>
+                                    <td class="mail-subject">
+                                        <a href="${pageContext.request.contextPath}/outbox/${tmp.NOTICEID}">${tmp.TITLE }</a>
+                                    </td>
+                                    <td>
+                                        <c:if test="${tmp.FILESEARCHKEY ne NULL }">
+                                            <i class="fa fa-paperclip"></i>
+                                        </c:if>
+                                    </td>
+                                    <td class="text-right mail-date">
+                                        <jsp:useBean id="toDay" class="java.util.Date" />
+                                        <fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" var="nowDate"/>
+                                        <c:choose>
+                                            <c:when test="${nowDate >  tmp.SENDDATE}">${tmp.SENDDATE }</c:when>
+                                            <c:otherwise>${tmp.SENDDATETIME }</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
 

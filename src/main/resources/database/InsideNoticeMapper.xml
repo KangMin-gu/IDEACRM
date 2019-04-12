@@ -73,4 +73,55 @@
 		WHERE SITEID = #{siteid} AND NOTICEID = #{noticeid} AND USERNO = #{userno} AND ISDELETE = 0
 	</update>
 
+    <!--보낸통지총갯수-->
+    <select id="outTotalRows" parameterType="hashMap" resultType="int">
+        SELECT COUNT(*) AS totalRows FROM
+        ( SELECT A.TITLE, A.CONTENT, D.USERNAME AS FROMUSERNAME, C.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+        FROM sys970010 AS A
+        LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+        LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+        LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+        WHERE B.ISDELETE = 0 AND A.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.NTCWAYEMAIL = 1
+        ) AS E
+        <where>
+            <if test="title != null">
+                AND E.TITLE LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="recipient != null">
+                AND E.TOUSERNAME LIKE CONCAT('%',#{recipient},'%')
+            </if>
+            <if test="titlecontent != null">
+                AND E.TITLE LIKE CONCAT('%',#{titlecontent},'%') AND E.CONTENT LIKE CONCAT ('%',#{titlecontent},'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 보낸 통지 리스트-->
+    <select id="outbox" parameterType="hashMap" resultType="hashMap">
+        SELECT * FROM (
+        SELECT A.NOTICEID, A.TITLE, D.USERNAME AS TOUSERNAME, C.USERNAME AS FROMUSERNAME,
+        A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
+        B.READCHEK
+        , @RNUM:=@RNUM + 1 AS ROWNUM
+        FROM sys970010 AS A
+        LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+        LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+        LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+        ,(SELECT @RNUM := 0) R
+        WHERE A.SITEID = #{siteid} AND A.USERNO = #{userno} AND B.ISDELETE = 0 AND A.NTCWAYEMAIL = 1
+        <if test="title != null">
+            AND A.TITLE LIKE CONCAT('%',#{title},'%')
+        </if>
+        <if test="recipient != null">
+            AND D.USERNAME LIKE CONCAT('%',#{recipient},'%')
+        </if>
+        <if test="titlecontent != null">
+            AND A.TITLE LIKE CONCAT('%',#{titlecontent},'%') AND A.CONTENT LIKE CONCAT ('%',#{titlecontent},'%')
+        </if>
+        order by A.NOTICEID DESC
+        ) AS result
+        WHERE result.ROWNUM BETWEEN #{startRowNum} AND #{endRowNum} ORDER BY result.NOTICEID DESC
+    </select>
+
+
 </mapper>

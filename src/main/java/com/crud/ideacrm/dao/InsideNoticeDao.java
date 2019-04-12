@@ -9,4 +9,6 @@ public interface InsideNoticeDao {
     public List<Map<String, Object>> inboxList(Map<String, Object> inBoxVal);
     public void inboxEyeChk(Map<String, Object> noteVal);
     public void inboxTrashChk(Map<String, Object> noteVal);
+    public int outTotalRows (Map<String, Object> noteVal);
+    public List<Map<String, Object>> outboxList(Map<String, Object> inBoxVal);
 }

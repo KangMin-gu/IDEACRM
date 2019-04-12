@@ -54,8 +54,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left save">등록</button>
-                    <a href="/cust/${custUpdate.CUSTNO}" class="btn btn-default pull-right">취소</a>
+                    <button type="submit" class="btn btn-default pull-left save">수정</button>
+                    <a class="btn btn-default pull-right" href="/cust/${custUpdate.CUSTNO}">취소</a>
                 </div>
             </div>
 
@@ -144,8 +144,6 @@
                                                             <option value="${married.codeval}" ${custUpdate.MARRIED eq married.codeval ? "selected" :"" }>${married.codename}</option>
                                                         </c:forEach>
                                                     </select>
-                                                    <!--<label><input type="radio" value="option1" name="a"> <i></i>&nbsp;미혼</label>&nbsp;&nbsp;
-                                                    <label class="radio-inline"><input type="radio" value="option2" name="a"> <i></i>&nbsp;기혼</label>-->
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">결혼기념일</label>
@@ -386,7 +384,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left save">등록</button>
-                    <a href="/cust/${custUpdate.CUSTNO}" class="btn btn-default pull-right">취소</a>
+                    <a class="btn btn-default pull-right" href="/cust/${custUpdate.CUSTNO}">취소</a>
                 </div>
             </div>
 

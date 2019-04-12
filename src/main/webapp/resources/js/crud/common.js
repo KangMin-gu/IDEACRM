@@ -240,3 +240,4 @@ $('#paging').change(function(e){
     footableSearchList('/service');
 
 });
+

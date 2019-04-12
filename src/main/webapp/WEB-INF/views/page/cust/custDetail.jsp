@@ -55,14 +55,14 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-
+            <form:form id="command" method="POST" action="/cust/del">
             <div class="row">
                 <div class="col-lg-12">
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
+                    <button type="submit" class="btn btn-default pull-right">삭제</button>
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
@@ -79,6 +79,9 @@
                         </div>
                         <div class="ibox-content">
                             <div class="table-responsive">
+
+                                    <input type="hidden" name="custno" value="${custDetail.CUSTNO}"/>
+
                                 <table class="table table-bordered" style="white-space:nowrap;">
                                     <tbody>
                                         <tr>
@@ -105,9 +108,9 @@
                                         </tr>
                                         <tr>
                                             <th>휴대전화</th>
-                                            <td>${custDetail.MOBILE_}</td>
+                                            <td>${custDetail.MOBILE}</td>
                                             <th>자택전화</th>
-                                            <td>${custDetail.HOMTEL_}</td>
+                                            <td>${custDetail.HOMTEL}</td>
                                             <th>이메일</th>
                                             <td>${custDetail.EMAIL}</td>
                                             <th>자택 주소</th>
@@ -1142,6 +1145,7 @@
                         </div>
                     </div>
                 </div>
+                </form:form>
             </div>
 
             <div class="row">
@@ -1150,7 +1154,8 @@
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right" onclick="custDelete(${custDetail.CUSTNO});">삭제</button>
+                    <button type="submit" class="btn btn-default pull-right">삭제</button>
+
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>

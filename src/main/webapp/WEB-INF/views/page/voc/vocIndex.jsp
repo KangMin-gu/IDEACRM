@@ -68,7 +68,7 @@
                         <li class="ctibtn">
                         &nbsp; | &nbsp;
                         </li>
-                        <li class="ctibtn">00 : 00 : 12</li>
+                        <li class="ctibtn"><span id="timer">00 : 00</span></li>
                         <li class="ctibtn">
                         &nbsp; | &nbsp;
                         </li>

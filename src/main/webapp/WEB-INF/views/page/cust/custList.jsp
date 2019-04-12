@@ -122,7 +122,7 @@
                                         <tr>
                                             <th>고객명</th>
                                             <td>
-                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="custname" name="custname">
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="custname" name="custname" data-filterable="true">
                                             </td>
                                             <th>휴대전화</th>
                                             <td>
@@ -177,12 +177,18 @@
                             <button type="button" class="btn btn-sm" id="test"><i class="fa fa-file-excel-o"></i></button>
                             <a class="btn btn-default pull-right" href="/cust/input">추가</a>
                             <button class="btn btn-default pull-right" onclick="custMultyDelete();">삭제</button>
+
+                            <!--test-->
+                            <input type="text" class="form-control form-control-sm m-b-xs" id="filter" placeholder="Search in table">
+
+
                             <form class="deleteForm" action="/cust/del" method="post">
+
                             <table class="footable table table-striped"  data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
                                 <thead>
                                 <tr>
                                     <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
-                                    <th data-name="CUSTNAME" data-formatter="custListFormatter">고객명</th>
+                                    <th data-name="CUSTNAME" data-formatter="custListFormatter"  data-filterable="true">고객명</th>
                                     <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
                                     <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
                                     <th data-name="MOBILE" data-breakpoints="xs sm">휴대폰</th>

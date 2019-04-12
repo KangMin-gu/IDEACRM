@@ -13,7 +13,10 @@ function footableSearchList(url) {
                 "container" : ".pagination",
                 "size":page
             },
-            "rows": response
+            "rows": response,
+            components: {
+                filtering: FooTable.MyFiltering
+            },
         });
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();

@@ -1,6 +1,6 @@
 package com.crud.ideacrm.service;
 
-import com.crud.ideacrm.crud.util.CrudCommonUtil;
+import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.dao.CustDao;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
@@ -19,7 +19,7 @@ public class CustServiceImple implements CustService{
     @Autowired
     CustDao custDao;
     @Autowired
-    CrudCommonUtil commonUtil;
+    CodecUtil codecUtil;
 
     //고객 리스트
     @Override
@@ -27,22 +27,23 @@ public class CustServiceImple implements CustService{
         List<Map<String,Object>> custList = custDao.custList(searchPrm);
 
         for(int i=0;i<custList.size();i++){ //pk값 암호화
-            String deCustNo = "";
-           deCustNo = Integer.toString( (int)(custList.get(i).get("CUSTNO")));
-           String enCustNo = commonUtil.encodePkNo(deCustNo);
+            String custNo = Integer.toString( (int)(custList.get(i).get("CUSTNO")));
+           String enCustNo = codecUtil.encodePkNo(custNo);
            custList.get(i).put("CUSTNO",enCustNo);
         }
-        return commonUtil.decodeList(custList);
+        return codecUtil.decodeList(custList);
     }
 
     //고객 상세
     @Override
     public Map<String, Object> custDetail(CustDto custDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        //dto에 인코딩 되어들어온 custno를 복호화 후 전달
         String enCustNo = custDto.getCustno();
-        String deCustNo = commonUtil.decodePkNo(enCustNo);//복호화 후 전달
+        String deCustNo = codecUtil.decodePkNo(enCustNo);
         custDto.setCustno(deCustNo);
+
         Map<String,Object> detailMap = custDao.custDetail(custDto);
-        detailMap = commonUtil.decodeMap(detailMap);
+        detailMap = codecUtil.decodeMap(detailMap);//암호화 필드 복호화작업
         detailMap.put("CUSTNO",enCustNo);
         return detailMap;
     }
@@ -58,7 +59,7 @@ public class CustServiceImple implements CustService{
         if(enCustDto.getClino() != 0) {//clino가 존재하면 거래처-관련고객 테이블에 insert
             custDao.mergeCliCust(enCustDto);
         }
-        String enCustNo = commonUtil.encodePkNo(deCustNo);
+        String enCustNo = codecUtil.encodePkNo(deCustNo);
         return enCustNo;
     }
 
@@ -67,7 +68,7 @@ public class CustServiceImple implements CustService{
     public String custUpdate(CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException {
         CustDto enCustDto = new EnCustDto(custDto);
         String enCustNo = enCustDto.getCustno();
-        String deCustNo = commonUtil.decodePkNo(enCustNo);
+        String deCustNo = codecUtil.decodePkNo(enCustNo);
         enCustDto.setCustno(deCustNo);
 
         custDao.custUpdate(enCustDto);//업데이트 dao호출
@@ -80,7 +81,7 @@ public class CustServiceImple implements CustService{
         if(enCustDto.getClino() != 0) {//clino가 존재하면 거래처-관련고객 테이블에 update or insert
             custDao.mergeCliCust(enCustDto);
         }
-        enCustNo = commonUtil.encodePkNo(deCustNo);
+        enCustNo = codecUtil.encodePkNo(deCustNo);
         return enCustNo;
     }
 
@@ -94,7 +95,7 @@ public class CustServiceImple implements CustService{
         for (int i=0;i<custnoArrLength;i++) {
             if(custnoArr[i] !=null && !custnoArr[i].equals("")) {
                 String enCustNo = custnoArr[i];
-                String deCustNo = commonUtil.decodePkNo(enCustNo);
+                String deCustNo = codecUtil.decodePkNo(enCustNo);
                 custDto.setCustno(deCustNo);
                 res += custDao.custDelete(custDto);
                 custDao.custDenyDelete(custDto);

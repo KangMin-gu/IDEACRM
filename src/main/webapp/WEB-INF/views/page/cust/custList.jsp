@@ -79,7 +79,7 @@
                                                 </div>
                                             </td>
                                             <th>회원구분</th>
-                                            <td><!--Todo.코드로 받아오기-->
+                                            <td>
                                                 <select class="form-control searchparam" style="width:100px;" id="custgubun" name="custgubun">
                                                     <option value="">선택</option>
                                                     <c:forEach var="CUSTGUBUN" items="${CUSTGUBUN}"  >
@@ -88,7 +88,7 @@
                                                 </select>
                                             </td>
                                             <th>고객등급</th>
-                                            <td><!--Todo.코드로 받아오기-->
+                                            <td>
                                                 <select class="form-control searchparam" style="width:100px;" id="custgrade" name="custgrade">
                                                     <option value="">선택</option>
                                                     <c:forEach var="CUSTGRADE" items="${CUSTGRADE}"  >
@@ -97,7 +97,7 @@
                                                 </select>
                                             </td>
                                             <th>활동등급</th>
-                                            <td><!--Todo.코드로 받아오기-->
+                                            <td>
                                                 <select class="form-control searchparam" style="width:100px;" id="actgrade" name="actgrade">
                                                     <option value="">선택</option>
                                                     <c:forEach var="ACTGRADE" items="${ACTGRADE}"  >
@@ -134,22 +134,20 @@
                                             </td>
                                             <th>직장명</th>
                                             <td>
-                                                <!--<input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="cliname" name="cliname">-->
-                                                <div class="input-group client" id="cliname" >
-                                                    <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname" readonly>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname">
                                                     <input type="hidden" class="searchparam" name="clino" id="clino" value="">
-                                                    <span class="input-group-addon">
+                                                    <span class="input-group-addon client" id="cliname">
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                 </div>
                                             </td>
                                             <th>담당자</th>
                                             <td>
-                                                <!--<input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="owner" name="owner">-->
-                                                <div class="input-group owner" id="owner_" >
-                                                    <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="owner_" readonly>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="owner_">
                                                     <input type="hidden" class="searchparam" name="owner" id="owner" value="">
-                                                    <span class="input-group-addon">
+                                                    <span class="input-group-addon owner" id="owner_">
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                 </div>
@@ -178,21 +176,16 @@
                             <a class="btn btn-default pull-right" href="/cust/input">추가</a>
                             <button class="btn btn-default pull-right" onclick="custMultyDelete();">삭제</button>
 
-                            <!--test-->
-                            <input type="text" class="form-control form-control-sm m-b-xs" id="filter" placeholder="Search in table">
-
-
                             <form class="deleteForm" action="/cust/del" method="post">
-
                             <table class="footable table table-striped"  data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
                                 <thead>
                                 <tr>
                                     <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
-                                    <th data-name="CUSTNAME" data-formatter="custListFormatter"  data-filterable="true">고객명</th>
-                                    <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
-                                    <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
-                                    <th data-name="MOBILE" data-breakpoints="xs sm">휴대폰</th>
-                                    <th data-name="EMAIL" data-breakpoints="xs sm">이메일</th>
+                                    <th data-name="CUSTNAME" data-formatter="custListFormatter" data-filterable="true">고객명</th>
+                                    <th data-name="CLINAME" data-breakpoints="xs sm" data-filterable="true">직장</th>
+                                    <th data-name="DEPTNAME" data-breakpoints="xs sm" data-filterable="true">부서</th>
+                                    <th data-name="MOBILE" data-breakpoints="xs sm" data-filterable="true">휴대폰</th>
+                                    <th data-name="EMAIL" data-breakpoints="xs sm" data-filtering="false">이메일</th>
                                     <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
                                     <th data-name="CUSTGUBUN" data-breakpoints="xs sm">회원구분</th>
                                     <th data-name="CUSTGRADE" data-breakpoints="xs sm">고객등급</th>
@@ -231,41 +224,24 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
+
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<!-- FooTable -->
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- crud js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 <script>
     $(document).ready(function() {
-        footableSearchList('/cust');
+        var bool = dateRangeError();
+        if(bool)  footableSearchList('/cust');
     });
     $('#custListSearch').click(function(e){
         footableSearchList('/cust');
     });
-
-$('#test').click(function(){
-
-    var param = searchDataToJson();
-    $.ajax({
-        type: 'POST',
-        url: '/custexcel',
-        data: param,
-        async: false,
-        success: function(data) {
-            if(data != null) {
-                alert('dd.');
-            }
-            location.href = "/cust";
-        },error:function(request,status,error){
-            alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-        }
-    });
-});
 
 </script>
 </body>

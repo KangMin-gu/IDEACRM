@@ -13,7 +13,7 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <!-- orris -->
@@ -28,36 +28,30 @@
             <h5>고객 조회</h5>
         </div>
         <div class="ibox-content">
-           <div class="row">
-               <div class="col-lg-12">
-                   <table class="footable table table-striped">
-                       <thead>
-                       <tr data-formatter="test">
-                           <th data-visible="false" data-name="CUSTNO">고객번호</th>
-                           <th data-name="CUSTNAME" >고객명</th>
-                           <th data-name="MOBILE"  data-filterable="false">전화번호</th>
-                           <th data-name="EMAIL">이메일</th>
-                           <th data-name="CUSTGRADE">고객등급</th>
-                       </tr>
-                       </thead>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="btn btn-default pull-right" onclick="makeCustAddBtn();">추가</button>
+                    <table class="footable table table-stripped" data-sorting="true" data-filter="true">
+                        <thead>
+                        <tr>
+                            <th data-visible="false" data-name="CUSTNO">고객번호</th>
+                            <th data-name="CUSTNAME" >고객명</th>
+                            <th data-name="MOBILE">핸드폰</th>
+                            <th data-name="PHONE">집전화</th>
+                            <th data-name="WRKTEL_">직장전화</th>
+                            <th data-name="HOMADDR">주소</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
 
-                       <tfoot>
-                       <tr>
-                           <td>
-                               <select class="form-control" id="paging" style="width:80px">
-                                   <c:forEach var="paging" items="${PAGING}">
-                                       <option vale="${paging.codeval}">${paging.codename}</option>
-                                   </c:forEach>
-                               </select>
-                           </td>
-                           <td colspan="4">
-                               <ul class="pagination pull-right"></ul>
-                           </td>
-                       </tr>
-                       </tfoot>
-                   </table>
-               </div>
-           </div>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <input type="hidden" id="parentid" name="parentid" value=""/>
+            </div>
         </div>
     </div>
 </div>
@@ -68,12 +62,18 @@
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
+<!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script>
     $(document).ready(function() {
-        footableSearchList('/cust')
+        $('#search').click(function(e){
+            footableSearchList('/voc/custsearch');
+        });
+        footableSearchList('/voc/custsearch');
     });
+
 </script>
 </body>
 </html>

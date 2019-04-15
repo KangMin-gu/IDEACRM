@@ -4,7 +4,7 @@ function send_message(){
     $('.isnVal').hide();
     // var sock = new SockJS("http://211.233.81.190/noteCount");
     // var sock = new SockJS("http://localhost/noteCount");
-    var sock = new SockJS("http://localhost:8080/alramCount");
+    var sock = new SockJS("http://localhost:80/alramCount");
     sock.onopen = function(evt) {
         timerNote();
     };

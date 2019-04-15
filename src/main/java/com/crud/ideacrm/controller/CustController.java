@@ -1,6 +1,7 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.crud.util.CrudCommonUtil; 
+import com.crud.ideacrm.crud.util.CodecUtil;
+import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.service.CodeService;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
@@ -29,7 +29,9 @@ public class CustController {//
     @Autowired
     ServiceService serviceService;
     @Autowired
-    CrudCommonUtil commonUtil;
+    CodecUtil commonUtil;
+    @Autowired
+    ParameterUtil prmUtil;
 
     private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1 .
 
@@ -49,7 +51,7 @@ public class CustController {//
     @RequestMapping(value = "/cust", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> authGetCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        return custService.custList(commonUtil.searchParam(request));
+        return custService.custList(prmUtil.searchParam(request));
     }
 
     //고객상세
@@ -137,17 +139,4 @@ public class CustController {//
     }
 
 
-    @RequestMapping(value="/testtt",method=RequestMethod.GET)
-    public ModelAndView testtt(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        String uri = request.getRequestURI();
-        System.out.println(uri);
-        uri = URLDecoder.decode(uri, "UTF-8");
-        System.out.println(uri);
-        String abcd = commonUtil.encoding("abcd");
-        commonUtil.searchParam(request);
-        ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/cust/test");
-        mView.addObject("abcd",abcd);
-        return mView;
-    }
 }

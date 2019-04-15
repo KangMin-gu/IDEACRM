@@ -122,8 +122,8 @@
                                             <th>고객명</th>
                                             <td>
                                                 <div class="input-group" style="width:230px;">
-                                                    <input class="form-control form-control-sm" id="custname" name="custname" type="text"/>
-                                                    <input type="hidden" class="form-control" id="custno" name="custno" value="1"/>
+                                                    <input class="form-control form-control-sm vocCustInput" id="custname" name="custname" type="text"/>
+                                                    <input type="hidden" class="form-control vocCustInput" id="custno" name="custno" value=""/>
                                                     <span class="input-group-addon" style="height:30px;"><a href="#" onclick="vocCustDetail()"><i class="fa fa-user-circle fa-sm"></i></a></span>
                                                 </div>
                                             </td>
@@ -132,84 +132,85 @@
                                             <th>휴대전화</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                <select class="form-control form-control-sm" name="mobile1" id="mobile1" style="width: 70px; height: 30px;">
-                                                    <option value="">010</option>
-                                                    <option value="">011</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
+                                                <select class="form-control form-control-sm vocCustInput" name="mobile1" id="mobile1" style="width: 70px; height: 30px;">
+                                                    <option value="">선택</option>
+                                                    <c:forEach var="mobile" items="${MOBILE}">
+                                                        <option value="${mobile.codeval}">${mobile.codename}</option>
+                                                    </c:forEach>
                                                 </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" type="text" name="mobile2" id="mobile2" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile2" id="mobile2" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                <input class="form-control form-control-sm" type="text" name="mobile3" id="mobile3" style="width: 70px; height: 30px;">
+                                                <input class="form-control form-control-sm vocCustInput" type="text" name="mobile3" id="mobile3" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                             </td>
                                             <th>자택전화</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control form-control-sm" name="homtel1" id="homtel1" style="width: 70px; height: 30px;">
-                                                        <option value="">02</option>
-                                                        <option value="">031</option>
-                                                        <option value="">017</option>
-                                                        <option value="">018</option>
+                                                    <select class="form-control form-control-sm vocCustInput" name="homtel1" id="homtel1" style="width: 70px; height: 30px;">
+                                                        <option value="">선택</option>
+                                                        <c:forEach var="phone" items="${PHONE}">
+                                                            <option value="${phone.codeval}">${phone.codename}</option>
+                                                        </c:forEach>
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" name="homtel2" id="homtel2" type="text" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm vocCustInput" name="homtel2" id="homtel2" type="text" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" name="homtel3" id="homtel3" type="text" style="width: 70px; height: 30px;">
+                                                    <input class="form-control form-control-sm vocCustInput" name="homtel3" id="homtel3" type="text" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>고객구분</th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="custgubun" id="custgubun" style="height: 30px;">
-                                                    <option value="">02</option>
-                                                    <option value="">031</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
+                                                <select class="form-control form-control-sm vocCustInput" name="custgubun" id="custgubun" style="height: 30px;">
+                                                    <option value="0">선택</option>
+                                                    <c:forEach var="custgubun" items="${CUSTGUBUN}">
+                                                        <option value="${custgubun.codeval}">${custgubun.codename}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
                                             <th>관련고객</th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="relcustname" id="relcustname" style="height: 30px;">
-                                                    <option value="">02</option>
-                                                    <option value="">031</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
-                                                </select>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control form-control-sm vocCustInput"  autocomplete="off" name="relcustname">
+                                                        <input type="hidden" class="vocCustInput" name="relcustno" id="relcustno" value="">
+                                                        <span class="input-group-addon cust" id="relcustname">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                    </div>
+
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>이메일</th>
                                             <td>
-                                                <input class="form-control form-control-sm" name="email" id="email" type="text" style="height: 30px;">
+                                                <input class="form-control form-control-sm vocCustInput" name="email" id="email" type="text" style="height: 30px;">
                                             </td>
                                             <th>등급</th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="custgrade" id="custgrade" style="height: 30px;">
-                                                    <option value="">02</option>
-                                                    <option value="">031</option>
-                                                    <option value="">017</option>
-                                                    <option value="">018</option>
+                                                <select class="form-control form-control-sm vocCustInput" name="custgrade" id="custgrade" style="height: 30px;">
+                                                    <option value="0">선택</option>
+                                                    <c:forEach var="custgrade" items="${CUSTGRADE}">
+                                                        <option value="${custgrade.codeval}">${custgrade.codename}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>주소</th>
                                             <td colspan="3">
-                                                <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" name="homaddr1" id="homaddr1" type="text" style="width: 70px; height: 30px;">
-                                                </div>
-                                                <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" name="homaddr2" id="homaddr2" type="text" style="width: 200px; height: 30px;">
-                                                </div>
-                                                <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm" name="homaddr3" id="homaddr3" type="text" style="width: 200px; height: 30px; ">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-md-2"><input type="text" class="form-control form-control-sm vocCustInput" id="homaddr1" name="homaddr1" readonly></div>
+                                                        <div class="col-md-4"><input type="text" class="form-control form-control-sm vocCustInput" id="homaddr2" name="homaddr2" readonly></div>
+                                                        <div class="col-md-4"><input type="text" class="form-control form-control-sm vocCustInput" id="homaddr3" name="homaddr3"></div>
+                                                        <div class="col-md-2"><button class="btn btn-white btn-sm daumzip" type="button" id="homaddr">주소 검색</button></div>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -220,9 +221,49 @@
                             <br/>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;">수신거부상태</button>
+                                    <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" data-toggle="collapse" data-target="#denyfield">수신거부상태</button>
                                     <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;">블랙해제</button>
-                                    <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;">고객수정</button>
+                                    <span id="custRegSpan"><button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" onClick="goCustUpdate();">고객수정</button></span>
+                                </div>
+                            </div>
+
+                            <div class="collapse" id="denyfield" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="float-left" style="width:100px;"><label for="denymailnomal"><b>일반</b></label></div>
+                                                <div class="checkbox float-left">
+                                                    <input id="denymailnomal" name="denymailnomal" type="checkbox" class=" vocCustInput" value="1">
+                                                    <label for="denymailnomal">이메일 거부</label>
+                                                </div>
+                                                <div class="checkbox float-left">
+                                                    <input id="denysmsnomal" name="denysmsnomal" type="checkbox" class="vocCustInput" value="1">
+                                                    <label for="denysmsnomal">SMS 거부</label>
+                                                </div>
+                                                <div class="checkbox float-left">
+                                                    <input id="denydmnomal" name="denydmnomal" type="checkbox" class="vocCustInput" value="1">
+                                                    <label for="denydmnomal">DM 거부</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="float-left" style="width:100px;"><label for="denymailnomal"><b>해피콜</b></label></div>
+                                                <div class="checkbox float-left">
+                                                    <input id="denymailsurvey" name="denymailsurvey" type="checkbox" class="vocCustInput" value="1">
+                                                    <label for="denymailsurvey">이메일 거부</label>
+                                                </div>
+                                                <div class="checkbox float-left">
+                                                    <input id="denysmssurvey" name="denysmssurvey" type="checkbox" class="vocCustInput" value="1">
+                                                    <label for="denysmssurvey">SMS 거부</label>
+                                                </div>
+                                                <div class="checkbox float-left">
+                                                    <input id="denydmsurvey" name="denydmsurvey" type="checkbox" class="vocCustInput" value="1">
+                                                    <label for="denydmsurvey">DM 거부</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -794,11 +835,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<!-- daumAPI -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/product.js>"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script>
     $('#smsTemp').click(function(){
         window.open("/voc/sms", "고객상세정보","width=400px, height=600px");

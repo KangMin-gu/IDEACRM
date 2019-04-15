@@ -40,7 +40,7 @@ public class CustController {
 
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
         mView.setViewName("page/cust/custList");
 
         return mView;
@@ -74,7 +74,7 @@ public class CustController {
 
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
         mView.addObject("custUpdate",custService.custDetail(custDto));
         mView.setViewName("page/cust/custUpdate");
         return mView;
@@ -100,7 +100,7 @@ public class CustController {
 
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
         mView.setViewName("page/cust/custInsert");
         return mView;
     }

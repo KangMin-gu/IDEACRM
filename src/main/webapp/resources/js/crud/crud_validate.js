@@ -87,7 +87,6 @@ validator = $("#command").validate({
 });
 
 function inputValidate(){
-    debugger;
     var size = $('.input-tab-link').length;
     for(var i=0;i<size;i++) {
         $('.input-tab-link:eq('+i+')').trigger('click');

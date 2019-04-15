@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site">
+	<select id="siteList" parameterType="productDto" resultType="map">
+		SELECT A.SITENAME,A.SITEID,A.PRSDNAME,A.BSTYPE
+     			,A.BSNO1,A.BSNO2,A.BSNO3
+     			,A.MOBILE1,A.MOBILE2,A.MOBILE3
+     			,IF(DATE_FORMAT(A.FREGDATE,'%Y-%m-%d')='1900-01-01','',DATE_FORMAT(A.FREGDATE,'%Y-%m-%d')) AS FREGDATE_
+     			,FN_GETCODE('SITESIZE',A.SITESIZE,#{siteid}) AS SITESIZE_
+     			,FN_GETCODE('ISDELETE',A.ISDELETE,#{siteid}) AS ISDELETE_
+     			,(SELECT SUM(BUYCNT) AS BUYCNT FROM me810010 WHERE SITEID = A.SITEID) AS BUYCNT
+     			,CONCAT('/common/site/',A.SITEID) AS URL
+     	FROM MA900010 A
+     	WHERE A.ISDELETE = 0
+		<if test ="strDate != null">
+			AND IFNULL(A.FREGDATE,'1900-01-01')<![CDATA[>=]]> #{strDate}
+		</if>
+		<if test ="endDate != null">
+			AND IFNULL(A.FREGDATE,'1900-01-01') <![CDATA[<=]]> #{endDate}
+		</if>
+		<if test ="sitename != null">
+			AND A.SITENAME LIKE CONCAT('%',#{sitename},'%')
+		</if>
+		<if test ="sitesize != null">
+			AND A.SITESIZE = #{sitesize}
+		</if>
+	</select>
+
+	<select id="siteDetail" parameterType="String" resultType="map">
+		SELECT
+     	A.SITEID,A.SITENAME
+     	,A.BSNO1,A.BSNO2,A.BSNO3
+     	,REPLACE(CONCAT(A.BSNO1,'-',A.BSNO2,'-',A.BSNO3),'--','') AS BSNO
+     	,CONCAT(A.INCNO1,'-',A.INCNO2) AS INCNO
+     	,A.INCNO1,A.INCNO2
+     	,A.ADDR1,A.ADDR2,A.ADDR3
+     	,A.PRSDNAME
+     	,A.MOBILE1,A.MOBILE2,A.MOBILE3
+     	,REPLACE(CONCAT(A.MOBILE1,'-',A.MOBILE2,'-',A.MOBILE3),'--','') AS MOBILE
+     	,A.FAXTEL1,A.FAXTEL2,A.FAXTEL3
+     	,REPLACE(CONCAT(A.FAXTEL1,'-',A.FAXTEL2,'-',A.FAXTEL3),'--','') AS FAXTEL
+     	,A.TELNO1,A.TELNO2,A.TELNO3
+     	,REPLACE(CONCAT(A.TELNO1,'-',A.TELNO2,'-',A.TELNO3),'--','') AS TELNO
+     	,A.EMAIL
+     	,FN_GETCODE('SITESIZE',A.SITESIZE,#{siteid}) AS SITESIZE_
+     	,SITESIZE
+     	,(SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS OWNER_
+     	,A.OWNER
+     	,A.COTYPE,A.BSCOND,A.BSTYPE
+     	,IF(DATE_FORMAT(A.FREGDATE,'%Y-%m-%d')='1900-01-01','',DATE_FORMAT(A.FREGDATE,'%Y-%m-%d')) AS FREGDATE_
+     	,A.SITELOGO
+     	,FN_GETCODE('ISDELETE',A.ISDELETE,#{siteid}) AS ISDELETE_
+     	,A.ISDELETE
+     	,A.SITEMEMO
+     	,(SELECT COUNT(*) FROM me810010 WHERE SITEID = A.SITEID) AS TOTALCNT
+     	,(SELECT USERID FROM me800010 WHERE SITEID = #{siteid} AND MASTERYN = 1) AS ADMINID
+     	,(SELECT COUNT(*) FROM ma900011 WHERE SITEID = #{siteid}) AS CTIYN
+     	,(SELECT COUNT(*) FROM ma900012 WHERE SITEID = #{siteid}) AS KKOYN
+     	FROM ma900010 A
+     	WHERE A.SITEID = #{siteid}
+
+	</select>
+
+	<select id="siteCti" parameterType="int" resultType="map">
+		SELECT * FROM MA900012
+		WHERE SITEID = #{siteid}
+	</select>
+
+	<select id="siteKko" parameterType="int" resultType="map">
+		SELECT * FROM MA900013
+		WHERE SITEID = #{siteid}
+	</select>
+
+</mapper>

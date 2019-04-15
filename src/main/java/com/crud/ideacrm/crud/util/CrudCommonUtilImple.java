@@ -152,7 +152,7 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
     @Override
     public String encodePkNo(String pkNo) throws UnsupportedEncodingException, GeneralSecurityException {
         String encodeRes = encoding(pkNo);
-        return URLEncoder.encode(encodeRes, "UTF-8");
+        return encodeRes;
     }
 
     /**

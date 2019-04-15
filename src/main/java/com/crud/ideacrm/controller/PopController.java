@@ -1,11 +1,8 @@
 package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.crud.util.ParameterUtil;
-import com.crud.ideacrm.service.ClientService;
+import com.crud.ideacrm.service.*;
 import com.crud.ideacrm.dto.CustDto;
-import com.crud.ideacrm.service.CustService;
-import com.crud.ideacrm.service.SendService;
-import com.crud.ideacrm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,11 +28,16 @@ public class PopController {
     private ClientService clientService;
     @Autowired
     private SendService sendService;
+    @Autowired
+    private CodeService codeService;
 
+    private final int USINGMENU = 0;//서비스 사용 메뉴 값은 3
     //담당자팝업
     @RequestMapping(value="/popuser", method= RequestMethod.GET)
     public ModelAndView authPopUser(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("page/popup/managerPop");
         return mView;
     }

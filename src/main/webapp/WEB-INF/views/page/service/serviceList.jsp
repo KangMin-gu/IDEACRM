@@ -233,8 +233,6 @@
         });
         footableSearchList('/service');
     });
-
-
 </script>
 </body>
 </html>

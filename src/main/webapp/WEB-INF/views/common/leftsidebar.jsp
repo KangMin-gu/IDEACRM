@@ -119,7 +119,7 @@
             <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">CRUD</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/site">회원사관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/common/site">회원사관리</a></li>
                     <li><a href="${pageContext.request.contextPath}/common/code">공통코드</a></li>
                     <li><a href="${pageContext.request.contextPath}/notice">전체공지사항</a></li>
                     <li><a href="${pageContext.request.contextPath}/contact">접속자</a></li>

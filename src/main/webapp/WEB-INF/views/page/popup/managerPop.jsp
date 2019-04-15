@@ -48,9 +48,9 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <table class="popfootable table table-stripped" data-sorting="true">
+                    <table class="footable table table-stripped" data-sorting="true">
                         <thead>
-                        <tr data-formatter="test">
+                        <tr>
                             <th data-visible="false" data-name="USERNO">사용자번호</th>
                             <th data-name="USERNAME" >사용자명</th>
                             <th data-name="USERID">아이디</th>
@@ -60,6 +60,18 @@
                         <tbody>
                         </tbody>
                         <tfoot>
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="paging" style="width:80px">
+                                        <c:forEach var="paging" items="${PAGING}">
+                                            <option vale="${paging.codeval}">${paging.codename}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -72,13 +84,13 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
-<!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){

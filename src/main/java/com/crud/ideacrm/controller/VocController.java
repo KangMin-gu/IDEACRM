@@ -47,7 +47,7 @@ public class VocController {
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         List<ProductDto> productB = productService.getProductB(request);
         mView.addObject("productB",productB);
         mView.setViewName("page/voc/vocIndex");
@@ -66,7 +66,7 @@ public class VocController {
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("page/voc/pop/custSearchPop");
         return mView;
     }

@@ -31,9 +31,8 @@ public class ServiceController {
     @RequestMapping(value = "/service", method = RequestMethod.GET)
     public ModelAndView authService(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("page/service/serviceList");
         return mView;
     }
@@ -60,7 +59,7 @@ public class ServiceController {
         List<ProductDto> productB = productService.getProductB(request);
         mView.addObject("productB",productB);
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("page/service/serviceUpdate");
 
         return mView;
@@ -90,7 +89,7 @@ public class ServiceController {
         List<ProductDto> productB = productService.getProductB(request);
         mView.addObject("productB",productB);
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("page/service/serviceInsert");
         return mView;
     }

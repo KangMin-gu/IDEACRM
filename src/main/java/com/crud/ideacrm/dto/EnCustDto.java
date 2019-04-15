@@ -1,7 +1,6 @@
 package com.crud.ideacrm.dto;
 
-import com.crud.ideacrm.crud.util.CrudCommonUtil;
-import com.crud.ideacrm.crud.util.CrudCommonUtilImple;
+import com.crud.ideacrm.crud.util.CodecUtil;
 
 
 import java.io.Serializable;
@@ -117,7 +116,7 @@ public class EnCustDto extends CustDto implements Serializable {
     }
 
     private void setEncodingCustDto() throws UnsupportedEncodingException, GeneralSecurityException {
-        CrudCommonUtil commonUtil = new CrudCommonUtilImple();
+        CodecUtil commonUtil = new CodecUtil();
 
         if(this.mobile1 != null && this.mobile1 != ""){ this.mobile1 = commonUtil.encoding(this.mobile1);}
         if(this.mobile2 != null && this.mobile2 != ""){ this.mobile2 = commonUtil.encoding(this.mobile2);}

@@ -50,59 +50,56 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
-
                         <div class="ibox-content" >
-                            <form:form>
-                                <div class="table-responsive">
-                                    <table style="white-space:nowrap;">
-                                        <colgroup>
-                                            <col width="5%">
-                                            <col width="20%">
-                                            <col width="5%">
-                                            <col width="20%%">
-                                            <col width="5%">
-                                            <col width="20%%">
-                                            <col width="5%">
-                                            <col width="20%%">
-                                        </colgroup>
-                                        <tbody>
-                                           <tr>
-                                               <th>등록일</th>
-                                               <td>
-                                                   <div class="input-group" style="width:230px;">
-                                                       <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                       <input class="form-control form-control-sm" type="text" id="daterange"  />
-                                                   </div>
-                                               </td>
-                                               <th>회원사명</th>
-                                               <td>
-                                                   <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                               </td>
-                                               <th>대표자명</th>
-                                               <td>
-                                                   <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                               </td>
-                                               <th>서비스상태</th>
-                                               <td>
-                                                   <select class="form-control" style="width:100px;">
-                                                       <option value="Bahamas">010</option>
-                                                       <option value="Bahrain">011</option>
-                                                       <option value="Bangladesh">017</option>
-                                                       <option value="Barbados">018</option>
-                                                       <option value="Belarus">019</option>
-                                                   </select>
-                                               </td>
-                                               <td>
-                                                   <button type="button" class="btn btn-w-m btn-primary">검색</button>
-                                               </td>
-                                               <td>
-                                                   <button type="button" class="btn btn-w-m btn-default">초기화</button>
-                                               </td>
-                                           </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </form:form>
+                            <div class="table-responsive">
+                                <table style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%%">
+                                        <col width="5%">
+                                        <col width="20%%">
+                                        <col width="5%">
+                                        <col width="20%%">
+                                    </colgroup>
+                                    <tbody>
+                                       <tr>
+                                           <th>등록일</th>
+                                           <td>
+                                               <div class="input-group" style="width:230px;">
+                                                   <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
+                                                   <input class="form-control form-control-sm" type="text" id="daterange"  />
+                                               </div>
+                                           </td>
+                                           <th>회원사명</th>
+                                           <td>
+                                               <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                           </td>
+                                           <th>대표자명</th>
+                                           <td>
+                                               <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                           </td>
+                                           <th>서비스상태</th>
+                                           <td>
+                                               <select class="form-control" style="width:100px;">
+                                                   <option value="Bahamas">010</option>
+                                                   <option value="Bahrain">011</option>
+                                                   <option value="Bangladesh">017</option>
+                                                   <option value="Barbados">018</option>
+                                                   <option value="Belarus">019</option>
+                                               </select>
+                                           </td>
+                                           <td>
+                                               <button type="button" class="btn btn-w-m btn-primary">검색</button>
+                                           </td>
+                                           <td>
+                                               <button type="button" class="btn btn-w-m btn-default">초기화</button>
+                                           </td>
+                                       </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,19 +112,15 @@
 
                         <div class="ibox-title">
                             <h5>회원사 목록</h5>
-                            <div class="ibox-tools">
-                                <a href="/sitedetail">디테일화면</a>
-                                <a href="/siteinsert">입력화면</a>
-                                <a href="/servicedetail">담당자팝업테스트</a>
-                            </div>
                         </div>
 
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+                            <a href="/common/site/input" class="btn btn-default pull-right">추가</a>
                             <table class="footable table table-striped">
                                 <thead>
                                     <tr>
-                                        <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="SITEID">서비스번호</th>
+                                        <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">서비스번호</th>
                                         <th data-visible="false" data-name="URL">URL</th>
                                         <th data-name="SITENAME" data-formatter="formatter">회원사명</th>
                                         <th data-name="PSRDNAME" data-breakpoints="xs sm">대표자명</th>

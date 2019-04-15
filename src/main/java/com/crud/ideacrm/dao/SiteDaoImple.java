@@ -1,5 +1,8 @@
 package com.crud.ideacrm.dao;
 
+import com.crud.ideacrm.dto.CtiDto;
+import com.crud.ideacrm.dto.KakaoDto;
+import com.crud.ideacrm.dto.SiteDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,5 +40,32 @@ public class SiteDaoImple implements SiteDao {
     public List<Map<String, Object>> siteKkoDetail(String siteId) {
         List<Map<String,Object>> siteKkoDetail = session.selectList("site.siteKko",siteId);
         return siteKkoDetail;
+    }
+
+    @Override
+    public String siteInsert(SiteDto siteDto) {
+        session.insert("site.siteInsert",siteDto);
+        String siteId = siteDto.getSiteid();
+        return siteId;
+    }
+
+    @Override
+    public void ctiInsert(CtiDto ctiDto) {
+        session.insert("site.ctiInsert",ctiDto);
+    }
+
+    @Override
+    public void kakaoInsert(KakaoDto kakaoDto) {
+        session.insert("site.kakaoInsert",kakaoDto);
+    }
+
+    @Override
+    public void siteUserInsert(SiteDto siteDto) {
+        session.insert("site.siteUserInsert",siteDto);
+    }
+
+    @Override
+    public void siteDelete(String siteId) {
+        session.update("site.siteDelete",siteId);
     }
 }

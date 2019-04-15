@@ -45,7 +45,7 @@ public class VocController {
     @RequestMapping(value = "/voc", method = RequestMethod.GET)
     public ModelAndView vocDetail(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         List<ProductDto> productB = productService.getProductB(request);
@@ -64,7 +64,7 @@ public class VocController {
     @RequestMapping(value = "/voc/custsearch", method = RequestMethod.GET)
     public ModelAndView vocCustSearchPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("page/voc/pop/custSearchPop");
@@ -73,21 +73,17 @@ public class VocController {
     @RequestMapping(value="/voc/custsearch", method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> vocCsutSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        ParameterUtil parameterUtil = new ParameterUtil();
-        Map<String,Object> param = parameterUtil.searchParam(request);
-        List<Map<String,Object>> custSearchList = custService.custList(param);
+
+        List<Map<String,Object>> custSearchList = custService.custList(request);
 
         return custSearchList;
     }
 
     @RequestMapping(value = "/voc/custdetail/{custNo}", method = RequestMethod.GET)
     public ModelAndView vocCustDetailPop(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        CustDto custDto = new CustDto();
-        custDto.setCustno(custNo);
-        custDto.setSiteid(siteId);
-        ModelAndView mView = new ModelAndView();
-        mView.addObject("custDetail",custService.custDetail(custDto));
+
+        ModelAndView mView = custService.custDetail(request,custNo);
+
         mView.setViewName("page/voc/pop/custDetailPop");
         return mView;
     }

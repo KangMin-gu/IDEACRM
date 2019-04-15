@@ -58,19 +58,13 @@ public class PopController {
     @RequestMapping(value="/popcust",method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authPopCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        ParameterUtil parameterUtil = new ParameterUtil();
-        Map<String,Object> param = parameterUtil.searchParam(request);
-        return custService.custList(param);
+        return custService.custList(request);
     }
     @RequestMapping(value="/popcust/{custNo}",method=RequestMethod.GET)
-    @ResponseBody
-    public Map<String,Object> authPopCustDetail(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        CustDto custDto = new CustDto();
-        custDto.setCustno(custNo);
-        custDto.setSiteid(siteId);
-        Map<String,Object> custDetail = custService.custDetail(custDto);
-        return custDetail;
+    public ModelAndView authPopCustDetail(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        ModelAndView mView  = custService.custDetail(request,custNo);
+        return mView;
     }
 
     //담당자팝업

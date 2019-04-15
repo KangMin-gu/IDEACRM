@@ -1,13 +1,13 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.dto.CtiDto;
+import com.crud.ideacrm.dto.KakaoDto;
+import com.crud.ideacrm.dto.SiteDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +45,7 @@ public class SiteController {
         return mView;
     }
 
+    //회원사 목록(footable)
     @RequestMapping(value="/common/site",method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> siteiList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -54,21 +55,50 @@ public class SiteController {
 
     //master 회원사 상세정보
     @RequestMapping(value="/common/site/{siteId}", method= RequestMethod.GET)
-    public ModelAndView siteDetail(HttpServletRequest request, @PathVariable String siteId){
+    public ModelAndView siteDetail(HttpServletRequest request, @PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
 
         ModelAndView mView = siteService.siteDetail(request,siteId);
         mView.setViewName("page/membership/site/siteDetail");
         return mView;
     }
 
-    //회원사 등록
-    @RequestMapping(value="/siteinsert", method= RequestMethod.GET)
-    public ModelAndView siteInsert(HttpServletRequest request){
+    // master 회원사 추가 화면
+    @RequestMapping(value = "/common/site/input", method = RequestMethod.GET)
+    public ModelAndView authServiceInsert(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("page/membership/site/siteInsert");
         return mView;
     }
 
+    // master 회원사 추가
+    @RequestMapping(value = "/common/site/input", method = RequestMethod.POST)
+    public ModelAndView authSiteInsertSet(HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto,@ModelAttribute KakaoDto kakaoDto ) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
 
+        String siteId = siteService.siteInsert(request,siteDto,ctiDto,kakaoDto);
+        mView.setViewName("redirect:/common/site/"+siteId);
+        return mView;
+    }
+
+    //master 회원사 수정 화면
+    @RequestMapping(value="/common/site/modified/{siteId}",method=RequestMethod.GET)
+    public ModelAndView authSiteUpdate(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = siteService.siteDetail(request,siteId);
+        mView.setViewName("/page/membership/site/siteUpdate");
+        return mView;
+    }
+
+
+
+
+
+    @RequestMapping(value="/common/site/del/{siteId}",method=RequestMethod.POST)
+    public ModelAndView authSiteDelte(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        siteService.siteDelete(request,siteId);
+        mView.setViewName("redirect:/common/site");
+        return mView;
+    }
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site">
-	<select id="siteList" parameterType="productDto" resultType="map">
-		SELECT A.SITENAME,A.SITEID,A.PRSDNAME,A.BSTYPE
+	<select id="siteList" parameterType="map" resultType="map">
+		SELECT A.SITENAME,A.SITEID as NO,A.PRSDNAME,A.BSTYPE
      			,A.BSNO1,A.BSNO2,A.BSNO3
      			,A.MOBILE1,A.MOBILE2,A.MOBILE3
      			,IF(DATE_FORMAT(A.FREGDATE,'%Y-%m-%d')='1900-01-01','',DATE_FORMAT(A.FREGDATE,'%Y-%m-%d')) AS FREGDATE_
      			,FN_GETCODE('SITESIZE',A.SITESIZE,#{siteid}) AS SITESIZE_
      			,FN_GETCODE('ISDELETE',A.ISDELETE,#{siteid}) AS ISDELETE_
      			,(SELECT SUM(BUYCNT) AS BUYCNT FROM me810010 WHERE SITEID = A.SITEID) AS BUYCNT
-     			,CONCAT('/common/site/',A.SITEID) AS URL
+     			,CONCAT('/common/site/') AS URL
      	FROM MA900010 A
      	WHERE A.ISDELETE = 0
 		<if test ="strDate != null">
@@ -61,14 +61,69 @@
 
 	</select>
 
-	<select id="siteCti" parameterType="int" resultType="map">
+	<select id="siteCti" parameterType="String" resultType="map">
+		SELECT * FROM MA900011
+		WHERE SITEID = #{siteid}
+	</select>
+
+	<select id="siteKko" parameterType="String" resultType="map">
 		SELECT * FROM MA900012
 		WHERE SITEID = #{siteid}
 	</select>
 
-	<select id="siteKko" parameterType="int" resultType="map">
-		SELECT * FROM MA900013
-		WHERE SITEID = #{siteid}
-	</select>
+	<insert id="siteInsert" parameterType="siteDto">
+		<selectKey keyProperty="siteid"  resultType="String" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO ma900010
+		(
+		SITENAME,BSNO1,BSNO2,BSNO3,INCNO1,INCNO2
+		,ADDR1,ADDR2,ADDR3,FREGDATE,PRSDNAME
+		,MOBILE1,MOBILE2,MOBILE3,FAXTEL1,FAXTEL2,FAXTEL3
+		,TELNO1,TELNO2,TELNO3,EMAIL,SITESIZE
+		,OWNER,COTYPE,BSCOND,BSTYPE,ISDELETE
+		,SITEMEMO,REGDATE,REGUSER,EDTDATE,EDTUSER,SITELOGO
+		)VALUES(
+		#{sitename},#{bsno1},#{bsno2},#{bsno3},#{incno1},#{incno2}
+		,#{addr1},#{addr2},#{addr3},now(),#{prsdname}
+		,#{mobile1},#{mobile2},#{mobile3},#{faxtel1},#{faxtel2},#{faxtel3}
+		,#{telno1},#{telno2},#{telno3},#{email},#{sitesize}
+		,#{owner},#{cotype},#{bscond},#{bstype},#{isdelete}
+		,#{sitememo},NOW(),#{reguser},NOW(),#{edtuser},#{sitelogo}
+		)
+
+	</insert>
+
+	<insert id="ctiInsert" parameterType="ctiDto">
+		INSERT INTO MA900011
+		(
+		SITEID,IP,SOCKETIP,PORT,TELNO
+		,REGUSER,REGDATE,EDTUSER,EDTDATE
+		)VALUES(
+		#{siteid},#{ip},#{socketip},#{port},#{telno}
+		,#{reguser},now(),#{edtuser},now()
+		)
+	</insert>
+	<insert id="kakaoInsert" parameterType="kakaoDto">
+		INSERT INTO MA900012
+		(
+		PLUSFRIEND,KKOSERVICENO,KKOTELNO,KKOGUBUN,SITEID
+		,REGUSER,REGDATE,EDTUSER,EDTDATE
+		)VALUES(
+		#{plusfriend},#{kkoserviceno},#{kkotelno},#{kkogubun},#{siteid}
+		,#{reguser},now(),#{edtuser},now()
+		)
+	</insert>
+
+	<insert id="siteUserInsert" parameterType="siteDto">
+		INSERT INTO me800010
+		(SITEID, USERID, USERNAME, USERPASSWORD, EMAIL, CHKAUTH, ENTERDATE, REGDATE, REGUSER, EDTDATE, EDTUSER, MASTERYN )
+		VALUES
+		(#{siteid}, #{adminid}, #{sitename}, #{adminpassword}, #{email}, 20, NOW(), NOW(), #{owner}, NOW(), #{owner}, 1);
+	</insert>
+
+	<update id="siteDelete" parameterType="String">
+		UPDATE MA900010 SET ISDELETE = '1' WHERE SITEID = #{siteid}
+	</update>
 
 </mapper>

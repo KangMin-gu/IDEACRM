@@ -1,5 +1,8 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.dto.CtiDto;
+import com.crud.ideacrm.dto.KakaoDto;
+import com.crud.ideacrm.dto.SiteDto;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +15,11 @@ public interface SiteService {
 
     public List<Map<String,Object>> siteList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
 
-    public ModelAndView siteDetail (HttpServletRequest request,String siteId);
+    public ModelAndView siteDetail (HttpServletRequest request,String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto, KakaoDto kakaoDto) throws UnsupportedEncodingException, GeneralSecurityException;
+
+
+    public void siteDelete(HttpServletRequest request,String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
 
 }

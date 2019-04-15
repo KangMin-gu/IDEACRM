@@ -15,7 +15,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.crud.ideacrm.dto.RactDto" alias="ractDto" />
 		<typeAlias type="com.crud.ideacrm.dto.ProductDto" alias="productDto" />
 		<typeAlias type="com.crud.ideacrm.dto.CodeDto" alias="codeDto" />
-		<!--<typeAlias type="com.crud.ideacrm.dto.SiteDto" alias="siteDto" />-->
+		<typeAlias type="com.crud.ideacrm.dto.SiteDto" alias="siteDto" />
+		<typeAlias type="com.crud.ideacrm.dto.KakaoDto" alias="kakaoDto" />
+		<typeAlias type="com.crud.ideacrm.dto.CtiDto" alias="ctiDto" />
 	</typeAliases>
 
 	<mappers>

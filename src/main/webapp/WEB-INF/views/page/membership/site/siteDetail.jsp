@@ -57,14 +57,18 @@
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
+
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
+                    <form:form action="/common/site/del/${siteInfo.SITEID}" method="POST">
+                    <a href="/common/site" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <button type="submit" class="btn btn-default pull-right">삭제</button>
+                    <a href="/common/site/modified/" class="btn btn-default pull-right">수정</a>
+                    </form:form>
                 </div>
+
             </div>
 
             <br/>
@@ -252,7 +256,7 @@
                                                     <th>대표발신번호</th>
                                                     <td>${kko.KKOTELNO}</td>
                                                     <th>서비스번호</th>
-                                                    <td>${kko.KKOSERVICESEQ}</td>
+                                                    <td>${kko.KKOSERVICENO}</td>
                                                     <th>구분값</th>
                                                     <td>${kko.KKOGUBUN}</td>
                                                 </tr>
@@ -1237,10 +1241,9 @@
 
     var geocoder = new daum.maps.services.Geocoder();
 
-    //var accountAddr = "${cliDetail.CLIADDR2 }${cliDetail.CLIADDR3 }";
-    //var accountName = "${cliDetail.CLINAME }";
-    var accountAddr = "서울시 서대문구 홍제3동 유원하나아파트";
-    var accountName = "강민구고객집";
+    var accountAddr = "${siteInfo.ADDR2 }${siteInfo.ADDR3 }";
+    var accountName = "${siteInfo.SITENAME }";
+
     // 주소로 좌표를 검색합니다
     geocoder.addressSearch(accountAddr, function(result, status) {
 

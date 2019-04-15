@@ -1,15 +1,14 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.dto.InsideNoticeDto;
 import com.crud.ideacrm.service.InsideNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -70,30 +69,55 @@ public class InsideNoticeController {
         return mView;
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    //휴지통
     @RequestMapping(value = "/trashbox", method = RequestMethod.GET)
-    public ModelAndView trashboxList(HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
+    public ModelAndView authtrashboxList(HttpServletRequest request){
+        ModelAndView mView = isns.trashbox(request);
         mView.setViewName("page/membership/insideNotice/trashBox");
         return mView;
     }
 
+    //휴지통검색
+    @RequestMapping(value = "/trashbox", method = RequestMethod.POST)
+    public ModelAndView authtrashboxListSearch(HttpServletRequest request){
+        ModelAndView mView = isns.trashbox(request);
+        mView.setViewName("page/membership/insideNotice/trashBox");
+        return mView;
+    }
+
+    //삭제
+    @RequestMapping(value="/delchk", method=RequestMethod.GET)
+    @ResponseBody
+    public void authnoteDeleteChk(HttpServletRequest request, @RequestParam(value="checkArr[]") List<Integer> noticeid) {
+        isns.noteDeleteChk(request, noticeid);
+    }
+
+    //보관함 되돌리기
+    @RequestMapping(value="/returnchk", method=RequestMethod.GET)
+    @ResponseBody
+    public void authnoteReturnChk(HttpServletRequest request, @RequestParam(value="checkArr[]") List<Integer> noticeid) {
+        isns.noteReturnChk(request, noticeid);	//return으로 수정
+    }
+
+    //메일발송폼
     @RequestMapping(value = "/compose", method = RequestMethod.GET)
     public ModelAndView sendForm(HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
+        ModelAndView mView = isns.composeData(request);
         mView.setViewName("page/membership/insideNotice/sendForm");
         return mView;
     }
+
+    //메일발송
+    @RequestMapping(value = "/compose", method = RequestMethod.POST)
+    public String send(HttpServletResponse response, HttpServletRequest request, @ModelAttribute InsideNoticeDto insDto){
+        int noticeId = isns.send(response, request, insDto);
+        return "redirect:/note/outbox/"+noticeId;
+    }
+
+
+
+
+
 
     @RequestMapping(value = "/inbox/1", method = RequestMethod.GET)
     public ModelAndView boxDetail(HttpServletRequest request){

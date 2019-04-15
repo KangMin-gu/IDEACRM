@@ -39,11 +39,11 @@
                         <div class="row">
                             <div class="col-xl-8">
                                 <h2>
-                                    휴지통1
+                                    휴지통
                                 </h2>
                             </div>
                             <div class="col-xl-4">
-                                <form:form action="/trash" method="post">
+                                <form:form action="/trashbox" method="post">
                                     <input type="hidden" id="condition" value="${condition }" name="condition" />
                                     <div class="input-group">
                                         <div class="input-group-btn">
@@ -51,11 +51,14 @@
                                                 <span id="conditionBtn">제목+내용</span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="javascript:set('titlecontent')">제목+내용</a>
+                                                <li>
+                                                    <a href="javascript:set('titlecontent')">제목+내용</a>
                                                 </li>
-                                                <li><a href="javascript:set('title')">제목</a>
+                                                <li>
+                                                    <a href="javascript:set('title')">제목</a>
                                                 </li>
-                                                <li><a href="javascript:set('recipient')">받는이</a>
+                                                <li>
+                                                    <a href="javascript:set('sender')">작성자</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -91,18 +94,18 @@
                                         <c:choose>
                                             <c:when test="${i eq page.pageNum }">
                                                 <li class="active page-item"><a class="page-link"
-                                                                                href="${pageContext.request.contextPath}/inbox?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
+                                                                                href="${pageContext.request.contextPath}/trash?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li><a
-                                                        href="${pageContext.request.contextPath}/inbox?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
+                                                        href="${pageContext.request.contextPath}/trash?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a></li>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
                                     <c:choose>
                                         <c:when test="${page.endPageNum lt page.totalPageCount }">
                                             <li><a
-                                                    href="${pageContext.request.contextPath}/inbox?pageNum=${page.endPageNum+1 }&condition=${condition}&keyword=${keyword}">&raquo;</a>
+                                                    href="${pageContext.request.contextPath}/trash?pageNum=${page.endPageNum+1 }&condition=${condition}&keyword=${keyword}">&raquo;</a>
                                             </li>
                                         </c:when>
                                         <c:otherwise>
@@ -113,8 +116,8 @@
                                 </ul>
                             </div>
 
-                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> 복구</button>
-                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> 완전삭제</button>
+                            <button id="returnChk" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 복구</button>
+                            <button id="deleteChk" class="btn btn-white btn-sm"><i class="fa fa-trash-o"></i> 완전삭제</button>
 
                         </div>
                     </div>
@@ -122,6 +125,35 @@
 
                         <table class="table table-hover table-mail">
                             <tbody>
+                            <c:forEach var="tmp" items="${noteList }">
+                                <tr<c:choose>
+                                    <c:when test="${tmp.READCHEK eq 0 }">class="unread"</c:when>
+                                    <c:otherwise>class="read"</c:otherwise>
+                                </c:choose>>
+                                    <td class="check-mail">
+                                        <input id="noticeid" name="noticeid" type="checkbox" class="i-checks chksquare" value="${tmp.NOTICEID }">
+                                    </td>
+                                    <td class="mail-ontact">
+                                        <a href="mail_detail.html">${tmp.FROMUSERNAME }</a>
+                                    </td>
+                                    <td class="mail-subject">
+                                        <a href="${pageContext.request.contextPath}/note/inbox/${tmp.NOTICEID}">${tmp.TITLE }</a>
+                                    </td>
+                                    <td>
+                                        <c:if test="${tmp.FILESEARCHKEY ne NULL }">
+                                            <i class="fa fa-paperclip"></i>
+                                        </c:if>
+                                    </td>
+                                    <td class="text-right mail-date">
+                                        <jsp:useBean id="toDay" class="java.util.Date" />
+                                        <fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" var="nowDate"/>
+                                        <c:choose>
+                                            <c:when test="${nowDate >  tmp.SENDDATE}">${tmp.SENDDATE }</c:when>
+                                            <c:otherwise>${tmp.SENDDATETIME }</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
 
                             </tbody>
                         </table>
@@ -150,6 +182,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/insidenotice.js"></script>
 <script>
     $(document).ready(function() {
         $('#daterange').daterangepicker();
@@ -169,8 +202,8 @@
             $("#conditionBtn").text("제목");
         } else if (condition == "content") {
             $("#conditionBtn").text("내용");
-        } else if (condition == "recipient") {
-            $("#conditionBtn").text("받는이");
+        } else if (condition == "sender") {
+            $("#conditionBtn").text("작성자");
         }
 
         $("#condition").val(condition);

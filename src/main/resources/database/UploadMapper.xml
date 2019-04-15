@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<insert id="upload" parameterType="uploadDto">
+			INSERT INTO sys990030
+			( TABLENAME, FILESEARCHKEY, SAVEFILENAME, ORGFILENAME, FILESIZE, PATH, REGUSER, REGDATE, SITEID, IMGPATH, ISDELETE )
+			VALUES
+			( #{tablename}, #{filesearchkey}, #{savefilename}, #{orgfilename}, #{filesize}, #{path}, #{userno}, now(), #{siteid}, #{imgpath}, 0)
+	</insert>
+</mapper>

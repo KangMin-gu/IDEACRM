@@ -1,23 +1,29 @@
 package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.crud.util.PagingUtil;
+import com.crud.ideacrm.crud.util.Uplaod;
 import com.crud.ideacrm.dao.InsideNoticeDao;
+import com.crud.ideacrm.dto.InsideNoticeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class InsideNoticeServiceImpl implements InsideNoticeService {
+public class InsideNoticeServiceImple implements InsideNoticeService {
 
     @Autowired
     private InsideNoticeDao insnd;
     @Autowired
     private PagingUtil paging;
+    @Autowired
+    private Uplaod uplaod;
 
     @Override
     public List<Map<String, Object>> alarmNotRead(HttpServletRequest request) {
@@ -162,6 +168,135 @@ public class InsideNoticeServiceImpl implements InsideNoticeService {
 
         return mView;
 
+    }
+
+    @Override
+    public ModelAndView trashbox(HttpServletRequest request) {
+        //세션에서 사용자정보를 가져온다.
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        //검색과 관련된 파라미터를 읽어와 본다.
+        String keyword=request.getParameter("keyword");
+        String condition=request.getParameter("condition");
+
+        //한 페이지에 나타낼 갯수 설정
+        int PAGE_DISPLAY_COUNT = 5;
+        int PAGE_ROW_COUNT = 14;
+
+        ModelAndView mView = new ModelAndView();
+        Map<String, Object> noteTrashVal = new HashMap<>();
+
+        if(keyword != null && !keyword.equals("")){ //검색어가 전달된 경우
+            if(condition.equals("titlecontent")){
+                noteTrashVal.put("titlecontent", keyword);
+            }else if(condition.equals("title")){//제목 검색
+                noteTrashVal.put("title", keyword);
+            }else if(condition.equals("sender")){//작성자 검색
+                noteTrashVal.put("sender", keyword);
+            }
+
+            mView.addObject("condition", condition);
+            mView.addObject("keyword", keyword);
+        }
+
+        //Mapper 검색 조건 담기
+        noteTrashVal.put("siteid", siteId);
+        noteTrashVal.put("userno", userNo);
+
+        //토탈로우 디비컨넥션
+        int totalRows = insnd.trashTotalRows(noteTrashVal);
+
+        //페이징 생성자 호출 후 로직실행
+        Map<String, Integer> page = paging.paging(request, totalRows, PAGE_ROW_COUNT, PAGE_DISPLAY_COUNT);
+        int startRowNum = page.get("startRowNum");
+        int endRowNum = page.get("endRowNum");
+
+        //받은메세지 리스트 추출
+        noteTrashVal.put("startRowNum", startRowNum);
+        noteTrashVal.put("endRowNum", endRowNum);
+
+        //보낸통지 리스트 출력
+        List<Map<String, Object>> note = insnd.trashBox(noteTrashVal);
+
+
+        mView.addObject("page", page); //페이징처리
+        mView.addObject("noteList", note); //리스트처리
+
+        return mView;
+    }
+
+    @Override
+    public void noteDeleteChk(HttpServletRequest request, List<Integer> noticeid) {
+        Map<String, Object> noteVal = new HashMap<>();
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        for(int i = 0; i<noticeid.size(); i++) {
+            noteVal.put("siteid", siteId);
+            noteVal.put("userno", userNo);
+            noteVal.put("noticeid", noticeid.get(i));
+            insnd.noteDeleteChk(noteVal);
+            noteVal.clear();
+        }
+    }
+
+    @Override
+    public void noteReturnChk(HttpServletRequest request, List<Integer> noticeid) {
+        Map<String, Object> noteVal = new HashMap<>();
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        for(int i = 0; i<noticeid.size(); i++) {
+            noteVal.put("siteid", siteId);
+            noteVal.put("userno", userNo);
+            noteVal.put("noticeid", noticeid.get(i));
+            insnd.noteReturnChk(noteVal);
+            noteVal.clear();
+        }
+    }
+
+    @Override
+    public ModelAndView composeData(HttpServletRequest request) {
+
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        Map<String, Object> composeVal = new HashMap<>();
+        composeVal.put("userno", userNo);
+        composeVal.put("siteid", siteId);
+
+        List<Map<String, Object>> composeData = insnd.composeData(composeVal);
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("companyUserData", composeData);
+        return mView;
+    }
+
+    @Override
+    public int send(HttpServletResponse response, HttpServletRequest request, InsideNoticeDto insDto) {
+
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        insDto.setSiteid(siteId);
+        insDto.setFromuserno(userNo);
+
+        //파일업로드
+        List<MultipartFile> mFile = insDto.getFile();
+        if(mFile.size() > 1 ){
+            String fileSearchKey = uplaod.multiUpload(response, request, mFile);
+            insDto.setFilesearchkey(fileSearchKey);
+        }
+
+
+        //통지등록
+        int noticeId =  insnd.send(insDto);
+
+        String toUserList[] = request.getParameterValues("touser");
+        for(String a : toUserList) {
+            int toUserNo = Integer.parseInt(a);
+            insDto.setTouserno(toUserNo);
+            //수신인 통지발송
+            insnd.send(insDto);
+        }
+
+        return noticeId;
     }
 
 

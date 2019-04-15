@@ -184,7 +184,7 @@
 
                             <form class="deleteForm" action="/cust/del" method="post">
 
-                            <table class="footable table table-striped"  data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
+                            <table class="footable table table-stripped"  data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
                                 <thead>
                                 <tr>
                                     <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>

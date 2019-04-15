@@ -16,6 +16,8 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/jasny-bootstrap.min.css" rel="stylesheet">
+    <!-- choosen -->
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/chosen/chosen.css" rel="stylesheet">
 </head>
 <style>
 </style>
@@ -34,36 +36,27 @@
                 <%@ include file="/WEB-INF/views/common/insideNotice.jsp"%>
                 <div class="col-lg-9 animated fadeInRight">
                     <div class="mail-box-header">
-                        <div class="float-right tooltip-demo">
-                            <a href="mailbox.html" class="btn btn-white btn-sm"><i class="fa fa-times"></i> 취소</a>
-                        </div>
                         <h2>
                             편지 작성
                         </h2>
                     </div>
                     <div class="mail-box">
-                    <form:form>
+                    <form:form action="/compose" method="post" enctype="multipart/form-data">
                         <div class="mail-body">
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">말머리:</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control" style="width:100px;">
-                                        <option value="Bahamas">중요</option>
-                                        <option value="Bahrain">알림</option>
-                                        <option value="Bangladesh">공지</option>
-                                    </select>
-                                </div>
-                            </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">받는이:</label>
+                                    <label class="col-sm-2 col-form-label" for="touser">받는이:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control">
+                                        <select id="touser" name="touser" class="chosen-select" multiple="multiple" tabindex="2">
+                                            <c:forEach var="tmp" items="${companyUserData }">
+                                                <option value="${tmp.USERNO}">${tmp.USERNAME}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">제목:</label>
+                                    <label class="col-sm-2 col-form-label" for="title">제목:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="">
+                                        <input id="title" name="title" type="text" class="form-control" value="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -73,9 +66,10 @@
                                                     <span class="btn btn-outline-secondary btn-file">
                                                         <span class="fileinput-new">파일선택</span>
                                                         <span class="fileinput-exists">변경</span>
-                                                        <input type="file" name="..." multiple>
+                                                        <input id="file" type="file" class="fileChk" name="file" multiple
+                                                               accept=".xls,.xlsx,.doc,.docx,.ppt,.pptx,.pdf,.jpg,.gif,.tif,.bmp,.mov,.ogg,.zip,.wav,.txt,.png,.PNG">
                                                     </span>
-                                            <span class="fileinput-filename"></span>
+                                            <span id="filesChk" class="fileinput-filename"></span>
                                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                         </div>
                                     </div>
@@ -83,14 +77,14 @@
                         </div>
 
                         <div class="mail-text h-200">
-                            <textarea id="mytextarea"></textarea>
+                            <textarea id="content" name="content"></textarea>
                             <div class="clearfix"></div>
                         </div>
 
                         <div class="mail-body text-right tooltip-demo">
-                            <a href="mailbox.html" class="btn btn-sm btn-primary float-left"><i class="fa fa-reply"></i> 발송</a>
-                            <a href="mailbox.html" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 초기화</a>
-                            <a href="mailbox.html" class="btn btn-white btn-sm"><i class="fa fa-times"></i> 취소</a>
+                            <a href="mailbox.html" class="btn btn-white btn-sm float-left"><i class="fa fa-pencil"></i> 초기화</a>
+                            <a href="mailbox.html" class="btn btn-white btn-sm float-left"><i class="fa fa-times"></i> 취소</a>
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i>발송 </button>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -113,13 +107,22 @@
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
 <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/chosen.jquery.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
 <script>
     $(document).ready(function() {
         tinymce.init({
-            selector: '#mytextarea, #mytextarea2,#mytextarea3 ',
+            selector: '#content',
             height : 400,
             language:'ko_KR'
         });
+
+        $('.chosen-select').chosen(
+            {
+                width:"100%",
+                search_contains : true
+            }
+        );
     });
 
 </script>

@@ -1,5 +1,6 @@
 package com.crud.ideacrm.dao;
 
+import com.crud.ideacrm.dto.InsideNoticeDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class InsideNoticeDaoImpl implements InsideNoticeDao {
+public class InsideNoticeDaoImple implements InsideNoticeDao {
 
     @Autowired
     private SqlSession session;
@@ -51,5 +52,39 @@ public class InsideNoticeDaoImpl implements InsideNoticeDao {
     public List<Map<String, Object>> outboxList(Map<String, Object> noteVal) {
         List<Map<String, Object>> note = session.selectList("insideNotice.outbox", noteVal);
         return note;
+    }
+
+    @Override
+    public int trashTotalRows(Map<String, Object> noteTrashVal) {
+        int totalRows = session.selectOne("insideNotice.trashTotalRows", noteTrashVal);
+        return totalRows;
+    }
+
+    @Override
+    public List<Map<String, Object>> trashBox(Map<String, Object> noteTrashVal) {
+        List<Map<String, Object>> note = session.selectList("insideNotice.trashbox", noteTrashVal);
+        return note;
+    }
+
+    @Override
+    public void noteDeleteChk(Map<String, Object> noteTrashVal) {
+        session.update("insideNotice.noteDeleteChk",noteTrashVal);
+    }
+
+    @Override
+    public void noteReturnChk(Map<String, Object> noteTrashVal) {
+        session.update("insideNotice.noteReturnChk",noteTrashVal);
+    }
+
+    @Override
+    public List<Map<String, Object>> composeData(Map<String, Object> composeVal) {
+        List<Map<String, Object>> composeData = session.selectList("insideNotice.composeUserData", composeVal);
+        return composeData;
+    }
+
+    @Override
+    public int send(InsideNoticeDto insDto) {
+        int noticeId = session.insert("insideNotice.send", insDto);
+        return noticeId;
     }
 }

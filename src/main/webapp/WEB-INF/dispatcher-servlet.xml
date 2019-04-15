@@ -46,11 +46,15 @@
         </property>
     </bean>
 
+    <util:properties id="props" location="classpath:crud.properties"/>
+
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location">
             <value>classpath:db.properties</value>
         </property>
     </bean>
+
+
 
     <!--MariaDB DataSource 설정 -->
     <bean  id="mariaDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
@@ -87,7 +91,6 @@
         </bean>
     </mvc:interceptors>
 
-    <util:properties id="props" location="classpath:crud.properties"/>
 
     <!--cache설정 -->
     <cache:annotation-driven cache-manager="cacheManager" />
@@ -107,7 +110,7 @@
     <task:annotation-driven />
     <aop:aspectj-autoproxy/>
     <!-- 어노테이션으로 트렌젝션 처리 하도록 설정 -->
-    <tx:annotation-driven/>
+    <tx:annotation-driven />
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
@@ -131,4 +134,6 @@
     <context:annotation-config/>
     <context:component-scan base-package="com.crud.ideacrm.*" />
     <context:component-scan base-package="com.crud.ideacrm.crud.*" />
+    <context:component-scan base-package="com.crud.ideacrm.crud.util" />
+
 </beans>

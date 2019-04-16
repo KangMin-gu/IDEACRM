@@ -1,11 +1,9 @@
-/*********확장자 체크***********/
 
-/*
- *
- * Ajax 파일업로드 확장체크
- *
- *
- */
+
+$(document).ready(function(){
+    $('#files').removeAttr('disabled');
+});
+
 
 //회원사 로고 체크
 $('input[id=logoChk]').change(function(){
@@ -44,18 +42,17 @@ $('input[id=logoChk]').change(function(){
 });
 
 
-
-
-//내부통지 파일업로드
+//멀티 파일업로드 확장자 및 사이즈 체크
 $('input[class=fileChk]').change(function(){
     fileBuffer = [];
-    const target2 = document.getElementsByName('file');
-    const target = $('.fileChk').val();
-    Array.prototype.push.apply(fileBuffer, target[0].files);
+    const target = document.getElementById('files');
+    const target2 = $('#files').val();
+    //Array.prototype.push.apply(fileBuffer, target.files[0].name);
 
-    $.each(fileBuffer, function(index, file){
-        const fileName = file.name;
-        const fileEx = fileName.slice(fileName.indexOf(".") + 1).toLowerCase();
+    for(var i =0; i<target.files.length; i++){
+        const fileName = target.files[i].name;
+        const fileSize = target.files[i].size;
+        var fileEx = fileName.slice(fileName.indexOf(".") + 1).toLowerCase();
 
         if($.inArray(fileEx, ["xls","xlsx","doc","docx","ppt","pptx","pdf","jpg","gif","tif","bmp","mov","ogg","zip","wav","txt","png","PNG"]) == -1 ){
             alert("해당 파일은 등록 가능한 확장자가 아닙니다.");
@@ -63,15 +60,23 @@ $('input[class=fileChk]').change(function(){
             return false;
         }
 
-        const fileSize = file.size;
-        var maxSize = 1024*1024;
-        if(fileSize > maxSize){
+        var maxSize = 50*1024*1024;
+        if(fileSize > maxSize) {
             alert("파일사이즈를 초과하였습니다.");
-            $('input[id=noteChk]').val("");
+            $('input[class=fileChk]').val("");
             return false;
         }
 
-    });
+    }
 
+});
+
+//파일폼 전송시 file null 체크
+$('#multiFile').submit(function(){
+    var fileChk = $('#files').val();
+
+    if(fileChk == ""){
+        $('#files').attr('disabled','true');
+    }
 
 });

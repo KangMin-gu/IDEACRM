@@ -1,6 +1,8 @@
 package com.crud.ideacrm.crud.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import com.crud.ideacrm.crud.dao.UploadDao;
 import com.crud.ideacrm.crud.dto.UploadDto;
@@ -65,7 +67,6 @@ public class UploadImple implements Uplaod {
             StringBuffer buf = new StringBuffer();
             UploadDto fileInfo = new UploadDto();
             String realPath = null;
-            realPath = request.getSession().getServletContext().getRealPath("/insidenotice/"+years+"/"+months);
 
             List<MultipartFile> mFile = multiFile;
 
@@ -86,15 +87,42 @@ public class UploadImple implements Uplaod {
                 }
 
                 if(!whiteListFlag){
-                    //alert('확장자가 틀립니다.')
-                }
 
+                    buf.append("<script>alert('허용하지 않는 확장자 입니다.');");
+                    buf.append("window.location.replace('");
+                    buf.append(referer);
+                    buf.append("');</script>");
+                    response.setContentType("text/html; charset=UTF-8");
+                    PrintWriter out;
+                    try {
+                        out = response.getWriter();
+                        out.println(buf);
+                        out.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
 
                 long fileSize = mFile.get(i).getSize();
                 sizeFlag = uploadutil.whiteSizeFlag(fileSize);
 
                 if(!sizeFlag){
-                    //alert(파일사이즈가 큽니다.);
+
+                    buf.append("<script>alert('파일용량이 제한용량보다 큽니다.');");
+                    buf.append("window.location.replace('");
+                    buf.append(referer);
+                    buf.append("');</script>");
+                    response.setContentType("text/html; charset=UTF-8");
+                    PrintWriter out;
+                    try {
+                        out = response.getWriter();
+                        out.println(buf);
+                        out.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
                 //파일 유입별 경로설정

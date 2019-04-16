@@ -41,7 +41,7 @@
                         </h2>
                     </div>
                     <div class="mail-box">
-                    <form:form action="/compose" method="post" enctype="multipart/form-data">
+                    <form:form id="multiFile" action="/compose" method="post" enctype="multipart/form-data">
                         <div class="mail-body">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="touser">받는이:</label>
@@ -66,8 +66,7 @@
                                                     <span class="btn btn-outline-secondary btn-file">
                                                         <span class="fileinput-new">파일선택</span>
                                                         <span class="fileinput-exists">변경</span>
-                                                        <input id="file" type="file" class="fileChk" name="file" multiple
-                                                               accept=".xls,.xlsx,.doc,.docx,.ppt,.pptx,.pdf,.jpg,.gif,.tif,.bmp,.mov,.ogg,.zip,.wav,.txt,.png,.PNG">
+                                                        <input id="files" type="file" class="fileChk" name="file" multiple>
                                                     </span>
                                             <span id="filesChk" class="fileinput-filename"></span>
                                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>

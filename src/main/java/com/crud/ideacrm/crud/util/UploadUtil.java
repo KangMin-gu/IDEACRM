@@ -23,8 +23,8 @@ public class UploadUtil {
     //파일사이즈체크
     public boolean whiteSizeFlag(long fileSize) {
         boolean whiteSizeFlag = false;
-        long limitSize = 500000;
-        if(fileSize < limitSize) {
+        long limitSize = 50000000;
+        if(fileSize <= limitSize) {
             whiteSizeFlag = true;
         }
         return whiteSizeFlag;

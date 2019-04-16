@@ -279,11 +279,10 @@ public class InsideNoticeServiceImple implements InsideNoticeService {
 
         //파일업로드
         List<MultipartFile> mFile = insDto.getFile();
-        if(mFile.size() > 1 ){
+        if(mFile  != null && mFile.size() > 0 && mFile.isEmpty() == false){
             String fileSearchKey = uplaod.multiUpload(response, request, mFile);
             insDto.setFilesearchkey(fileSearchKey);
         }
-
 
         //통지등록
         int noticeId =  insnd.send(insDto);

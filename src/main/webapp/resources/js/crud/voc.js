@@ -188,7 +188,7 @@ function popVocCustNameClick(tr){
     });
 }
 
-// 버튼 생성 메서드
+// 버튼 생성 메서드 
 // 파라미터에 따라 insert/ update 버튼을 생성
 function custFormActivation(statusStr, fromStr) {
     var btnStr = "";

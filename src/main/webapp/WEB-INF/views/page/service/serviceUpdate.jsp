@@ -261,7 +261,7 @@
                                                     <tr>
                                                         <th>방문예약일</th>
                                                         <td>
-                                                            <div class="input-group" style="width:230px;">
+                                                            <div class="input-group" style="width:200px;">
                                                                 <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
                                                                 <input class="form-control form-control-sm date reward" autocomplete="off" name="visitdate" id="visitdate" type="text"  value="${rewardInfo.VISITDATE_}" />
                                                             </div>
@@ -269,7 +269,7 @@
                                                         <th>방문예약시간</th>
                                                         <td>
                                                             <div style="display: inline-block">
-                                                                <select class="form-control reward" name="visitapm" id="visitapm" style="width:70px;">
+                                                                <select class="form-control reward" name="visitapm" id="visitapm" style="width:80px;">
                                                                     <option value="0">선택</option>
                                                                     <c:forEach var="apm" items="${APM }">
                                                                         <c:choose>
@@ -317,8 +317,8 @@
                                                         </td>
                                                         <th>담당자</th>
                                                         <td>
-                                                            <div class="input-group" style="width:200px;">
-                                                                <input type="text" class="form-control reward" autocomplete="off" name="rewardowner_" value="${serviceInfo.OWNER_}" style="width:150px;">
+                                                            <div class="input-group" style="width:180px;">
+                                                                <input type="text" class="form-control reward" autocomplete="off" name="rewardowner_" value="${serviceInfo.OWNER_}">
                                                                 <input type="hidden" name="rewardowner" id="rewardowner" class="reward" value="${serviceInfo.OWNER}">
                                                                 <span class="input-group-addon">
                                                                     <a><i class="fa fa-search"></i></a>

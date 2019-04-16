@@ -408,7 +408,7 @@
                                                                        autocomplete="off" name="rewardowner_"
                                                                        value="${sessionScope.USERNAME}">
                                                                 <input type="hidden" name="rewardowner" id="rewardowner"
-                                                                       value="${sessionScope.USERNO}">
+                                                                       value="${sessionScope.USERNO}" style="width:200px;">
                                                                 <span class="input-group-addon">
                                                                 <a><i class="fa fa-search"></i></a>
                                                             </span>

@@ -69,32 +69,30 @@
                                            <td>
                                                <div class="input-group" style="width:230px;">
                                                    <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                   <input class="form-control form-control-sm" type="text" id="daterange"  />
+                                                   <input class="form-control form-control-sm searchparam" type="text" id="daterange"  />
                                                </div>
                                            </td>
                                            <th>회원사명</th>
                                            <td>
-                                               <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                               <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
                                            </td>
                                            <th>대표자명</th>
                                            <td>
-                                               <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                               <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
                                            </td>
                                            <th>서비스상태</th>
                                            <td>
-                                               <select class="form-control" style="width:100px;">
-                                                   <option value="Bahamas">010</option>
-                                                   <option value="Bahrain">011</option>
-                                                   <option value="Bangladesh">017</option>
-                                                   <option value="Barbados">018</option>
-                                                   <option value="Belarus">019</option>
+                                               <select class="form-control searchparam" style="width:100px;">
+                                                   <c:forEach var="isDelete" items="${ISDELETE}">
+                                                       <option label="${isDelete.codename}" value="${isDelete.codeval}"></option>
+                                                   </c:forEach>
                                                </select>
                                            </td>
                                            <td>
-                                               <button type="button" class="btn btn-w-m btn-primary">검색</button>
+                                               <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
                                            </td>
                                            <td>
-                                               <button type="button" class="btn btn-w-m btn-default">초기화</button>
+                                               <button type="button" id="reset" class="btn btn-w-m btn-default">초기화</button>
                                            </td>
                                        </tr>
                                     </tbody>

@@ -55,7 +55,8 @@ public class CustController {//
     @RequestMapping(value = "/cust/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
 
-        ModelAndView mView = custService.custDetail(request,custno);
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("custDetail",custService.custDetail(request,custno));
         mView.setViewName("page/cust/custDetail");
         return mView;
     }
@@ -63,7 +64,8 @@ public class CustController {//
     @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustUpdateForm(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
 
-        ModelAndView mView = custService.custDetail(request,custno);
+        ModelAndView mView = new ModelAndView();
+                mView.addObject("custDetail",custService.custDetail(request,custno));
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
         mView.setViewName("page/cust/custUpdate");
@@ -111,7 +113,7 @@ public class CustController {//
     //고객상세 서비스 탭
     @RequestMapping(value="/cust/tab/service/{custno}",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable String custno){
+    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
         return serviceService.serviceList(request);
     }
 

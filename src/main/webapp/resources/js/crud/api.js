@@ -55,7 +55,6 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
 
 });
 
-
 // footable에서 click했을때 view화면으로 가기 위한 처리
 function formatter(value, options, rowData) {
     return "<a href='" + rowData.URL+rowData.NO + "'>" + value + "</a>"
@@ -94,7 +93,6 @@ if($('.tinymce').length> 0) {
             });
         }
     });
-
 
 // tinymce4 이미지 업로드
     function minymceUploadFile(inp, editor) {

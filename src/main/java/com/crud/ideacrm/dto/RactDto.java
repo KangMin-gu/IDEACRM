@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class RactDto {
 
     private int ractno;
-    private int serviceno;
+    private String serviceno;
     private String ractdate;
     private int sendyn;
     private int ractowner;
@@ -23,7 +23,7 @@ public class RactDto {
 
     public RactDto() {}
 
-    public RactDto(int ractno, int serviceno, String ractdate, int sendyn, int ractowner, String ractdesc,
+    public RactDto(int ractno, String serviceno, String ractdate, int sendyn, int ractowner, String ractdesc,
                    String filesearchkey, String regdate, int reguser, String edtdate, int edtuser, int siteid, int ractcode,
                    List<MultipartFile> ractfile) {
         super();
@@ -51,11 +51,11 @@ public class RactDto {
         this.ractno = ractno;
     }
 
-    public int getServiceno() {
+    public String getServiceno() {
         return serviceno;
     }
 
-    public void setServiceno(int serviceno) {
+    public void setServiceno(String serviceno) {
         this.serviceno = serviceno;
     }
 

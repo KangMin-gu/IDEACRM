@@ -13,7 +13,7 @@ import java.util.Map;
 public interface CustService {
 
     public List<Map<String,Object>> custList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
-    public ModelAndView custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException;
+    public Map<String,Object> custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException;
     public String custinsert(HttpServletRequest request,CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
     public String custUpdate(HttpServletRequest request,CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
     public int custDelete(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;

@@ -6,12 +6,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ServiceDto {
 
-    private int serviceno;
+    private String serviceno;
     private String servicename;
     private String servicedesc;
     private int serviceowner;
     private String receptiondate;
-    private int custno;
+    private String custno;
     private int clino;
     private int servicestep;
     private int owner;
@@ -33,8 +33,8 @@ public class ServiceDto {
 
     public ServiceDto() {}
 
-    public ServiceDto(int serviceno, String servicename, String servicedesc, int serviceowner, String receptiondate,
-                      int custno, int clino, int servicestep, int owner, int siteid, int servicetype, int servicecode1,
+    public ServiceDto(String serviceno, String servicename, String servicedesc, int serviceowner, String receptiondate,
+                      String custno, int clino, int servicestep, int owner, int siteid, int servicetype, int servicecode1,
                       int servicecode2, int servicechannel, String filesearchkey, String regdate, int reguser, String edtdate,
                       int edtuser, int isdelete, String memo, int complete, List<MultipartFile> servicefile, String reqno) {
         super();
@@ -64,11 +64,11 @@ public class ServiceDto {
         this.reqno = reqno;
     }
 
-    public int getServiceno() {
+    public String getServiceno() {
         return serviceno;
     }
 
-    public void setServiceno(int serviceno) {
+    public void setServiceno(String serviceno) {
         this.serviceno = serviceno;
     }
 
@@ -104,11 +104,11 @@ public class ServiceDto {
         this.receptiondate = receptiondate;
     }
 
-    public int getCustno() {
+    public String getCustno() {
         return custno;
     }
 
-    public void setCustno(int custno) {
+    public void setCustno(String custno) {
         this.custno = custno;
     }
 

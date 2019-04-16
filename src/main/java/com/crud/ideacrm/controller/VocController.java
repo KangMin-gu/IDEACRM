@@ -97,7 +97,8 @@ public class VocController {
     @RequestMapping(value = "/voc/custdetail/{custNo}", method = RequestMethod.GET)
     public ModelAndView vocCustDetailPop(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
 
-        ModelAndView mView = custService.custDetail(request,custNo);
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("custDetail",custService.custDetail(request,custNo));
 
         mView.setViewName("page/voc/pop/custDetailPop");
         return mView;

@@ -47,7 +47,7 @@ public class CodecUtil {
      */
     public Map<String, Object> decodeMap(Map<String, Object> map) throws UnsupportedEncodingException, GeneralSecurityException {
         final String[] FIELD_NAME_ARR = {"MOBILE1","MOBILE2","MOBILE3","HOMTEL1","HOMTEL2","HOMTEL3","HOMADDR1","HOMADDR2","HOMADDR3","EMAIL","BSNO1","BSNO2","BSNO3","INCNO1","INCNO2",
-                                            "FAXTEL1","FAXTEL2","FAXTEL3","TELNO1","TELNO2","TELNO3","ADDR1","ADDR2","ADDR3"};
+                                            "FAXTEL1","FAXTEL2","FAXTEL3","TELNO1","TELNO2","TELNO3","ADDR1","ADDR2","ADDR3","VISITADDR1","VISITADDR2","VISITADDR3"};
         //final String[] FIELD_NAME_ARR = {"MOBILE","TEL","ADDR","EMAIL","BSNO"};
         String[] mobileArr = new String[3];
         String[] homtelArr = new String[3];

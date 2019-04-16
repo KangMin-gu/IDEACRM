@@ -1,13 +1,16 @@
 package com.crud.ideacrm.dto;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
+import com.crud.ideacrm.crud.util.CodecUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 public class RewardDto {
 
     private int rewardno;
-    private int serviceno;
+    private String serviceno;
     private String visitdate;
     private int visitapm;
     private String visithour;
@@ -31,7 +34,14 @@ public class RewardDto {
 
     public RewardDto() {}
 
-    public RewardDto(int rewardno, int serviceno, String visitdate, int visitapm, String visithour, String visitminute, int rewardtype, int causecode, int delaytype, String rewarddesc, String delaydesc, String filesearchkey, String regdate, int reguser, String edtdate, int edtuser, int siteid, List<MultipartFile> rewardfile, String visitaddr1, String visitaddr2, String visitaddr3, int owner) {
+    public void setEncodingRewardDto() throws UnsupportedEncodingException, GeneralSecurityException {
+        CodecUtil commonUtil = new CodecUtil();
+        if(this.visitaddr1 != null && this.visitaddr1 != ""){ this.visitaddr1 = commonUtil.encoding(this.visitaddr1);}
+        if(this.visitaddr2 != null && this.visitaddr2 != ""){ this.visitaddr2 = commonUtil.encoding(this.visitaddr2);}
+        if(this.visitaddr3 != null && this.visitaddr3 != ""){ this.visitaddr3 = commonUtil.encoding(this.visitaddr3);}
+    }
+
+    public RewardDto(int rewardno, String serviceno, String visitdate, int visitapm, String visithour, String visitminute, int rewardtype, int causecode, int delaytype, String rewarddesc, String delaydesc, String filesearchkey, String regdate, int reguser, String edtdate, int edtuser, int siteid, List<MultipartFile> rewardfile, String visitaddr1, String visitaddr2, String visitaddr3, int owner) {
         this.rewardno = rewardno;
         this.serviceno = serviceno;
         this.visitdate = visitdate;
@@ -64,11 +74,11 @@ public class RewardDto {
         this.rewardno = rewardno;
     }
 
-    public int getServiceno() {
+    public String getServiceno() {
         return serviceno;
     }
 
-    public void setServiceno(int serviceno) {
+    public void setServiceno(String serviceno) {
         this.serviceno = serviceno;
     }
 

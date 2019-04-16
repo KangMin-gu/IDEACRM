@@ -75,7 +75,7 @@ public class SiteServiceImple implements SiteService{
             ctiDto.setSiteid(siteId);
             String ctiIp = ctiDto.getIp();
             if(!ctiIp.equals("") ){
-                ctiDto.setEncodingSiteDto();
+                ctiDto.setEncodingCtiDto();
                 siteDao.ctiInsert(ctiDto);
             }
         }
@@ -95,12 +95,12 @@ public class SiteServiceImple implements SiteService{
         Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deSiteId);
 
         if(siteCtiDetail == null){
-            ctiDto.setEncodingSiteDto();
+            ctiDto.setEncodingCtiDto();
             siteDao.ctiInsert(ctiDto);
         }else{
             String ctiIp = siteCtiDetail.get("IP").toString();
             if(!ctiIp.equals(ctiDto.getIp())){
-                ctiDto.setEncodingSiteDto();
+                ctiDto.setEncodingCtiDto();
                 siteDao.ctiUpdate(ctiDto);
             }
         }

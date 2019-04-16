@@ -41,7 +41,7 @@ public class CustServiceImple implements CustService{
 
     //고객 상세
     @Override
-    public ModelAndView custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public Map<String,Object> custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
 
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         CustDto custDto = new CustDto();
@@ -60,8 +60,7 @@ public class CustServiceImple implements CustService{
             detailMap.put("RELCUSTNO",relCustNo);
         }
 
-        mView.addObject("custDetail",detailMap);
-        return mView;
+        return detailMap;
     }
 
     //고객 추가

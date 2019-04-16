@@ -14,8 +14,6 @@ $('.client').click(function(e){
     }
 });
 
-
-
 $('#reset').click(function(e){
     $('.searchparam').val('');
     if( $('#infoagree') ){
@@ -76,6 +74,7 @@ function popCustClick(id){
         url: "/popcust/"+id,
         method: "GET",
         dataType: "json",
+        cache:false,
         success: function (data) {
             var addr = data.HOMADDR1 + data.HOMADDR2 + data.HOMADDR3;
             if(addr == '0'){
@@ -91,10 +90,10 @@ function popCustClick(id){
             opener.$('#duty').val(data.DUTY);
             opener.$('#custaddress').val(addr);
             opener.$('#custaddress').text(addr);
-            opener.$('#mobile').val(data.MOBILE_);
-            opener.$('#mobile').text(data.MOBILE_);
-            opener.$('#hometel').val(data.HOMTEL_);
-            opener.$('#hometel').text(data.HOMTEL_);
+            opener.$('#mobile').val(data.MOBILE);
+            opener.$('#mobile').text(data.MOBILE);
+            opener.$('#hometel').val(data.HOMTEL);
+            opener.$('#hometel').text(data.HOMTEL);
             opener.$('#email').val(data.EMAIL);
             opener.$('#email').text(data.EMAIL);
         },

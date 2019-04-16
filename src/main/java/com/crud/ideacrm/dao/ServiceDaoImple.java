@@ -43,9 +43,9 @@ public class ServiceDaoImple implements ServiceDao {
     }
 
     @Override
-    public int serviceInsert(ServiceDto serviceDto) {
+    public String serviceInsert(ServiceDto serviceDto) {
         session.insert("service.serviceInsert",serviceDto);
-        int serviceNo = serviceDto.getServiceno();
+        String serviceNo = serviceDto.getServiceno();
         return serviceNo;
     }
 

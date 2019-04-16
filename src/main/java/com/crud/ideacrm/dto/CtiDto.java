@@ -18,7 +18,7 @@ public class CtiDto {
 
     public CtiDto(){};
 
-    public void setEncodingSiteDto() throws UnsupportedEncodingException, GeneralSecurityException {
+    public void setEncodingCtiDto() throws UnsupportedEncodingException, GeneralSecurityException {
         CodecUtil commonUtil = new CodecUtil();
         if(this.telno != null && this.telno != ""){ this.telno = commonUtil.encoding(this.telno);}
     }

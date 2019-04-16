@@ -3,7 +3,7 @@
 <mapper namespace="service">
 <!-- 서비스 List -->
     <select id="serviceList" parameterType="map" resultType="hashMap">
-		SELECT SERVICENO,SERVICENAME_,SERVICECHANNEL_,CUSTNAME_
+		SELECT NO,SERVICENAME_,SERVICECHANNEL_,CUSTNAME_
 		,CLINAME_,RECEPTIONDATE_,SERVICEOWNER_,OWNER_,SERVICESTEP_,SERVICETYPE_
 		,IF(LENGTH(SERVICECODE_) <![CDATA[<]]> 4,REPLACE(SERVICECODE_,'/',''),SERVICECODE_) AS SERVICECODE_
 		,RECFILENAME,RECDATE_,RECEXT,REQNO,URL
@@ -103,18 +103,13 @@
 			, FN_GETCODE('SERVICESTEP',A.SERVICESTEP,#{siteid}) AS SERVICESTEP_
 			, FN_GETCODE('SERVICECHANNEL',A.SERVICECHANNEL,#{siteid}) AS SERVICECHANNEL_
 			, B.CUSTNAME, B.EMAIL, B.DUTY
-			, CONCAT(B.HOMADDR1,' ', B.HOMADDR2, ' ', B.HOMADDR3) AS CUSTADDRESS
 			,B.HOMADDR1,B.HOMADDR2,B.HOMADDR3
-			, CONCAT(B.MOBILE1 , '-' , B.MOBILE2 , '-' , B.MOBILE3) AS MOBILE
-			, CONCAT(B.HOMTEL1 , '-' , B.HOMTEL2 , '-' , B.HOMTEL3) AS HOMTEL
-			, C.BSNO, C.CORP_SN AS INCNO
-			, CONCAT(C.MOBILE1 , '-' , C.MOBILE2 , '-' , C.MOBILE3) AS CLIMOBILE
-			, C.PRSDNAME, C.HOMEPAGE, C.CLINO, C.CLINAME,B.CUSTNO
+			,B.MOBILE1,B.MOBILE2,B.MOBILE3
+			,B.HOMTEL1,B.HOMTEL2,B.HOMTEL3
 			, CASE WHEN (SELECT COUNT(SERVICENO) FROM sv300050 WHERE SITEID = #{siteid} AND SERVICENO = #{serviceno}) = 0 THEN '이관 X'
 				ELSE '이관 O' END AS CONVEYYN
 		FROM sv300010 A
 		LEFT OUTER JOIN cu100010 B ON B.CUSTNO = A.CUSTNO
-		LEFT OUTER JOIN sa200010 C ON C.CLINO = A.CLINO
 		WHERE A.SITEID = #{siteid}
 		AND A.SERVICENO = #{serviceno}
 
@@ -161,7 +156,7 @@
 	</select>
 	<!-- 서비스 Insert -->
 	<insert id="serviceInsert" parameterType="serviceDto">
-		<selectKey keyProperty="serviceno"  resultType="integer" order="AFTER">
+		<selectKey keyProperty="serviceno"  resultType="String" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO sv300010
@@ -263,7 +258,7 @@
 		AND RACTNO = #{ractno}
 	</update>
 	<!-- 서비스 단계 변경 -->
-	<update id="serviceStepUpdate" parameterType="int">
+	<update id="serviceStepUpdate" parameterType="serviceDto">
 		UPDATE sv300010
 			SET SERVICESTEP = #{servicestep}
 		WHERE SERVICENO = #{serviceno}

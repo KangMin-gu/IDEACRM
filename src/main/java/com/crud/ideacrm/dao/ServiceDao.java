@@ -18,7 +18,7 @@ public interface ServiceDao {
     // 처리결과 Detail
     public Map<String,Object> ractDetail(Map<String,Object> param);
     // 서비스 Insert
-    public int serviceInsert(ServiceDto serviceDto);
+    public String serviceInsert(ServiceDto serviceDto);
     // 현상파악 Insert
     public void rewardInsert(RewardDto rewardDto);
     // 처리결과 Insert

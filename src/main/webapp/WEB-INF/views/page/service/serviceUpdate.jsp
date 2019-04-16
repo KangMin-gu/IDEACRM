@@ -341,7 +341,7 @@
                                                                 </c:forEach>
                                                             </select>
                                                         </td>
-                                                        <th>지연원인구분</th>
+                                                        <th>지연원인</th>
                                                         <td>
                                                             <select class="form-control reward" style="width:180px;" name="causecode" id="causecode">
                                                                 <option value="0">선택</option>

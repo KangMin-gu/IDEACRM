@@ -54,7 +54,7 @@ $('input[class=fileChk]').change(function(){
         const fileSize = target.files[i].size;
         var fileEx = fileName.slice(fileName.indexOf(".") + 1).toLowerCase();
 
-        if($.inArray(fileEx, ["xls","xlsx","doc","docx","ppt","pptx","pdf","jpg","gif","tif","bmp","mov","ogg","zip","wav","txt","png","PNG"]) == -1 ){
+        if($.inArray(fileEx, ["xls","xlsx","doc","docx","ppt","pptx","pdf","jpg","gif","tif","bmp","mov","ogg","zip","wav","txt","png","PNG","ZIP"]) == -1 ){
             alert("해당 파일은 등록 가능한 확장자가 아닙니다.");
             $('input[class=fileChk]').val("");
             return false;

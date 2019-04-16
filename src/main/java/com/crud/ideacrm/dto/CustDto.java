@@ -53,11 +53,11 @@ public class CustDto implements Serializable {
     private int	actgrade;	//활동등급
     private int	clino;	//고객사번호
     private int	clicustno;	//클라이언트고객번호
-    private int	relcustno;	//고객관계번호
+    private String	relcustno;	//고객관계번호
 
 
     public CustDto(){}
-    public CustDto(String custno, int siteid, String custname, String deptname, String duty, String mobile1, String mobile2, String mobile3, String email, int sex, int custgubun, int custgrade, int infoagree, String birth, int married, String weddingday, int solar, String job, String hobby, int ismember, String homtel1, String homtel2, String homtel3, String homaddr1, String homaddr2, String homaddr3, String wrkaddr1, String wrkaddr2, String wrkaddr3, String wrktel1, String wrktel2, String wrktel3, String wrkurl, int owner, String memo, String regdate, int reguser, String editdate, int edituser, int isdelete, String wrkfax1, String wrkfax2, String wrkfax3, int mailto, int actgrade, int clino, int clicustno, int relcustno) {
+    public CustDto(String custno, int siteid, String custname, String deptname, String duty, String mobile1, String mobile2, String mobile3, String email, int sex, int custgubun, int custgrade, int infoagree, String birth, int married, String weddingday, int solar, String job, String hobby, int ismember, String homtel1, String homtel2, String homtel3, String homaddr1, String homaddr2, String homaddr3, String wrkaddr1, String wrkaddr2, String wrkaddr3, String wrktel1, String wrktel2, String wrktel3, String wrkurl, int owner, String memo, String regdate, int reguser, String editdate, int edituser, int isdelete, String wrkfax1, String wrkfax2, String wrkfax3, int mailto, int actgrade, int clino, int clicustno, String relcustno) {
         this.custno = custno;
         this.siteid = siteid;
         this.custname = custname;
@@ -486,11 +486,11 @@ public class CustDto implements Serializable {
         this.clicustno = clicustno;
     }
 
-    public int getRelcustno() {
+    public String getRelcustno() {
         return relcustno;
     }
 
-    public void setRelcustno(int relcustno) {
+    public void setRelcustno(String relcustno) {
         this.relcustno = relcustno;
     }
 }

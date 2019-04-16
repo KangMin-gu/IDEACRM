@@ -176,10 +176,10 @@
                                             </td>
                                             <th>관련고객</th>
                                             <td>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control form-control-sm vocCustInput"  autocomplete="off" name="relcustname">
-                                                        <input type="hidden" class="vocCustInput" name="relcustno" id="relcustno" value="">
-                                                        <span class="input-group-addon cust" id="relcustname">
+                                                    <div class="input-group cust" id="relcustname">
+                                                        <input type="text" class="form-control form-control-sm vocCustInput"  autocomplete="off" name="relcustname" readonly>
+                                                        <input type="hidden" class="vocCustInput" name="relcustno" id="relcustno" value="0">
+                                                        <span class="input-group-addon">
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                     </div>
@@ -223,7 +223,7 @@
                                 <div class="col-lg-12">
                                     <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" data-toggle="collapse" data-target="#denyfield">수신거부상태</button>
                                     <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;">블랙해제</button>
-                                    <span id="custRegSpan"><button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" onClick="goCustUpdate();">고객수정</button></span>
+                                    <span id="custRegSpan"><button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustInsert()'>고객추가</button></span>
                                 </div>
                             </div>
 

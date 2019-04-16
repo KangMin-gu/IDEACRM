@@ -106,6 +106,7 @@ public class CustController {//
         mView.setViewName("page/cust/custInsert");
         return mView;
     }
+
     //고객 추가 실행
     @RequestMapping(value = "/cust/input", method = RequestMethod.POST)
     public String authCustInsert(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException {

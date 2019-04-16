@@ -45,6 +45,10 @@ public class CustServiceImple implements CustService{
         Map<String,Object> detailMap = custDao.custDetail(custDto);
         detailMap = codecUtil.decodeMap(detailMap);//암호화 필드 복호화작업
         detailMap.put("CUSTNO",enCustNo);
+        if(detailMap.get("RELCUSTNO") != null && (int)detailMap.get("RELCUSTNO") != 0){
+            String relCustNo = codecUtil.encoding( Integer.toString((int)(detailMap.get("RELCUSTNO"))));
+            detailMap.put("RELCUSTNO",relCustNo);
+        }
         return detailMap;
     }
 
@@ -52,6 +56,10 @@ public class CustServiceImple implements CustService{
     @Override
     public String custinsert(CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException {
         CustDto enCustDto = new EnCustDto(custDto);
+        String deRelCustNo = codecUtil.decodePkNo(enCustDto.getRelcustno());
+        if(!deRelCustNo.equals("")){
+            enCustDto.setRelcustno(deRelCustNo);
+        }
         custDao.custInsert(enCustDto);
         String deCustNo = enCustDto.getCustno();
         custDenyDto.setCustno(deCustNo);
@@ -69,6 +77,8 @@ public class CustServiceImple implements CustService{
         CustDto enCustDto = new EnCustDto(custDto);
         String enCustNo = enCustDto.getCustno();
         String deCustNo = codecUtil.decodePkNo(enCustNo);
+        String deRelCustNo = codecUtil.decodePkNo(enCustDto.getRelcustno());
+        enCustDto.setRelcustno(deRelCustNo);
         enCustDto.setCustno(deCustNo);
 
         custDao.custUpdate(enCustDto);//업데이트 dao호출

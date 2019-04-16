@@ -80,9 +80,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/voc/custsearch');
+            footableSearchList('/popcust');
         });
-        footableSearchList('/voc/custsearch');
+        footableSearchList('/popcust');
     });
 
 </script>

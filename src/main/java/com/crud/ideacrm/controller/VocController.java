@@ -116,6 +116,18 @@ public class VocController {
         return res;
     }
 
+    //고객 추가 실행
+    @RequestMapping(value = "/voc/cust/input", method = RequestMethod.POST)
+    @ResponseBody
+    public String authVocCustInsert(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        custDto.setSiteid(siteId);custDto.setReguser(userNo);
+        custDenyDto.setReguser(userNo);
+        String custNo = custService.custinsert(custDto,custDenyDto);
+        return "{\"CUSTNO\":\""+custNo+"\"}";
+    }
+
     @RequestMapping(value = "/voc/sms", method = RequestMethod.GET)
     public ModelAndView authVocSmsPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();

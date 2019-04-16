@@ -25,6 +25,8 @@ public class VocServiceImple implements VocService {
         CustDto enCustDto = new EnCustDto(custDto);
         String enCustNo = enCustDto.getCustno();
         String deCustNo = codecUtil.decodePkNo(enCustNo);
+        String deRelCustNo = codecUtil.decodePkNo(enCustDto.getRelcustno());
+        enCustDto.setRelcustno(deRelCustNo);
         enCustDto.setCustno(deCustNo);
 
         int res = vocDao.vocCustUpdate(enCustDto);//업데이트 dao호출

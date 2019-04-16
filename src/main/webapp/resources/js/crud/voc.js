@@ -156,7 +156,7 @@ function custInfoBinding(data) {
 //voc 고객 상세보기 팝업
 function vocCustDetail(){
     var custNo = $('#custno').val();
-    if(custNo == 0 || custNo == '' ){
+    if(custNo == '' ){
         alert('고객이 선택되지 않았습니다.');
         return;
     }
@@ -175,6 +175,7 @@ function popVocCustNameClick(tr){
         dataType: "json",
         cache: false,
         success: function (data) {
+            vocCustFieldReset();
             custFormActivation('update');
             custInfoBinding(data);
             setTimeout(function(){
@@ -190,10 +191,9 @@ function popVocCustNameClick(tr){
 // 버튼 생성 메서드
 // 파라미터에 따라 insert/ update 버튼을 생성
 function custFormActivation(statusStr, fromStr) {
-    debugger;
     var btnStr = "";
     if (statusStr == 'insert') {
-        btnStr = "<button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustInsert()'>고객등록</button>";
+        btnStr = "<button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustInsert()'>고객추가</button>";
     } else if (statusStr == 'update') {
         btnStr = "<button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustUpdate()'>고객수정</button>";
     }
@@ -208,15 +208,33 @@ function custFormActivation(statusStr, fromStr) {
 
 //voc 고객 추가 버튼 생성 이벤트
 function makeCustAddBtn(){
+    vocCustFieldReset();
     custFormActivation('insert');
-    opener.$('.vocCustInput').val('');
-    opener.$('.vocCustInput').val();
     window.close();
+}
+//voc 고객 필드 초기화
+function vocCustFieldReset(){
+    if(window.location.pathname == '/voc'){
+        $('#relcustname').val('');
+        $('.vocCustInput').val('');
+        $('#custgrade').val(0);//int type
+        $('#custgubun').val(0);
+        $('#relcustno').val(0);
+        $('.vocCustInput:input:checkbox').val(1);
+        $('.vocCustInput:input:checkbox').prop('checked',false);
+    }else{ //팝업에서 호출
+        opener.$('#relcustname').val('');
+        opener.$('.vocCustInput').val('');
+        opener.$('#custgrade').val(0);
+        opener.$('#custgubun').val(0);
+        opener.$('#relcustno').val(0);
+        opener.$('.vocCustInput:input:checkbox').val(1);
+        opener.$('.vocCustInput:input:checkbox').prop('checked',false);
+    }
 }
 
 // voc 고객 수정
 function goCustUpdate() {
-    debugger;
     var custNo = $("#custno").val();
     if(custNo != ""){
         var urlStr = "/voc/cust/modified/"+custNo;
@@ -236,6 +254,41 @@ function goCustUpdate() {
             }
         });
     }else alert('고객이 선택되지 않았습니다.');
+}
+
+function goCustInsert(){
+    if(vocCustRequiredFieldCheck() == false){
+        alert('휴대전화를 입력해 주세요.');
+        return;
+    }
+    var urlStr = "/voc/cust/input";
+    var param = getCustInfoToJson();
+    $.ajax({
+        url : urlStr,
+        method : "POST",
+        dataType : "json",
+        data : param,
+        cache : false,
+        success : function(data) {
+            $('#custno').val(data.CUSTNO);
+            alert("추가 되었습니다.");
+        },
+        error : function(request, status, error) {
+            alert("code:" + request.status + "\n" + "message:"
+                + request.responseText + "\n" + "error:" + error);
+        }
+    });
+}
+
+function vocCustRequiredFieldCheck(){
+    var mobile = $('#mobile1').val() + $('#mobile2').val() + $('#mobile3').val();
+    var custname = $('#custname').val();
+    if(mobile == ''){
+        return false;
+    }else {
+        if(custname == ''){  $('#custname').val(mobile); }
+    }
+    return;
 }
 
 //고객 인풋 필드 데이터 json형식 리턴.

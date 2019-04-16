@@ -60,7 +60,7 @@ public class EnCustDto extends CustDto implements Serializable {
     private int	actgrade;	//활동등급
     private int	clino;	//고객사번호
     private int	clicustno;	//클라이언트고객번호
-    private int	relcustno;	//고객관계번호
+    private String	relcustno;	//고객관계번호
 
     public EnCustDto(CustDto custDto) throws UnsupportedEncodingException, GeneralSecurityException {
         this.custno = custDto.getCustno();
@@ -601,12 +601,12 @@ public class EnCustDto extends CustDto implements Serializable {
     }
 
     @Override
-    public int getRelcustno() {
+    public String getRelcustno() {
         return relcustno;
     }
 
     @Override
-    public void setRelcustno(int relcustno) {
+    public void setRelcustno(String relcustno) {
         this.relcustno = relcustno;
     }
 }

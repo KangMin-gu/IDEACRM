@@ -1,5 +1,6 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.crud.dao.UploadDao;
 import com.crud.ideacrm.crud.util.PagingUtil;
 import com.crud.ideacrm.crud.util.Uplaod;
 import com.crud.ideacrm.dao.InsideNoticeDao;
@@ -24,6 +25,8 @@ public class InsideNoticeServiceImple implements InsideNoticeService {
     private PagingUtil paging;
     @Autowired
     private Uplaod uplaod;
+    @Autowired
+    private UploadDao uploadDao;
 
     @Override
     public List<Map<String, Object>> alarmNotRead(HttpServletRequest request) {
@@ -258,14 +261,28 @@ public class InsideNoticeServiceImple implements InsideNoticeService {
 
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        String reno = request.getParameter("reno");
+        String reply = request.getParameter("reply");
+
+        ModelAndView mView = new ModelAndView();
+        if(reply != null && reply != ""){
+            int replyNo = Integer.parseInt(request.getParameter("reply"));
+            Map<String, Object> noteInfo = insnd.boxDetail(replyNo);
+            mView.addObject("noteInfo",noteInfo);
+        }
+
+        if(reno != null && reno != ""){
+            mView.addObject("reno",reno);
+        }
 
         Map<String, Object> composeVal = new HashMap<>();
         composeVal.put("userno", userNo);
         composeVal.put("siteid", siteId);
 
         List<Map<String, Object>> composeData = insnd.composeData(composeVal);
-        ModelAndView mView = new ModelAndView();
         mView.addObject("companyUserData", composeData);
+        mView.addObject("reply", reply);
+
         return mView;
     }
 
@@ -286,16 +303,83 @@ public class InsideNoticeServiceImple implements InsideNoticeService {
 
         //통지등록
         int noticeId =  insnd.send(insDto);
+        insDto.setNoticeid(noticeId);
 
         String toUserList[] = request.getParameterValues("touser");
         for(String a : toUserList) {
             int toUserNo = Integer.parseInt(a);
             insDto.setTouserno(toUserNo);
             //수신인 통지발송
-            insnd.send(insDto);
+            insnd.to(insDto);
         }
 
+
+        //메일발송로직구현예정
+
+
         return noticeId;
+    }
+
+    @Override
+    public ModelAndView boxDetail(HttpServletRequest request, int noticeId) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+
+        ModelAndView mView = new ModelAndView();
+        Map<String, Object> noteInfo = insnd.boxDetail(noticeId);
+        List<Map<String,Object>> fileInfo = uploadDao.fileInfo(noteInfo);
+
+        Map<String, Object> noteVal = new HashMap<>();
+        noteVal.put("siteid", siteId);
+        noteVal.put("userno", userNo);
+        noteVal.put("noticeid", noticeId);
+        insnd.inboxEyeChk(noteVal);
+        List<Map<String,Object>> toList = insnd.toList(noticeId);
+
+        mView.addObject("fileInfo",fileInfo);
+        mView.addObject("toList",toList);
+        mView.addObject("noteInfo",noteInfo);
+        mView.addObject("location","inbox");
+        return mView;
+    }
+
+    @Override
+    public ModelAndView outBoxDetail(HttpServletRequest request, int noticeId) {
+        ModelAndView mView = new ModelAndView();
+        Map<String, Object> noteInfo = insnd.boxDetail(noticeId);
+        List<Map<String,Object>> fileInfo = uploadDao.fileInfo(noteInfo);
+        List<Map<String,Object>> toList = insnd.toList(noticeId);
+
+        mView.addObject("toList",toList);
+        mView.addObject("fileInfo",fileInfo);
+        mView.addObject("noteInfo",noteInfo);
+        mView.addObject("location","outbox");
+        return mView;
+    }
+
+    @Override
+    public void trashIn(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        int noticeId = Integer.parseInt(request.getParameter("noticeid"));
+        Map<String, Object> noteVal = new HashMap<>();
+        noteVal.put("siteid", siteId);
+        noteVal.put("userno", userNo);
+        noteVal.put("noticeid", noticeId);
+        insnd.inboxTrashChk(noteVal);
+    }
+
+    @Override
+    public void del(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        int noticeId = Integer.parseInt(request.getParameter("noticeid"));
+        Map<String, Object> noteVal = new HashMap<>();
+        noteVal.put("siteid", siteId);
+        noteVal.put("userno", userNo);
+        noteVal.put("noticeid", noticeId);
+        insnd.noteDeleteChk(noteVal);
     }
 
 

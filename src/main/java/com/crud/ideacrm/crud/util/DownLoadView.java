@@ -20,7 +20,7 @@ public class DownLoadView extends AbstractView{
     @Override
     protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
                                            HttpServletResponse response) throws Exception {
-        UploadDto fileInfo = (UploadDto)model.get("fileInfo");
+        UploadDto fileInfo = (UploadDto)model.get("uploadDto");
         String orgFileName = fileInfo.getOrgfilename();
         String saveFileName = fileInfo.getSavefilename();
         long fileSize=fileInfo.getFilesize();

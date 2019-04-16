@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UploadImple implements Uplaod {
@@ -158,5 +160,14 @@ public class UploadImple implements Uplaod {
 
             return fileSearchKey;
         }
+
+    @Override
+    public ModelAndView download(int fileId) {
+        UploadDto uploadDto = uploadDao.download(fileId);
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("uploadDto", uploadDto);
+        return mView;
     }
+
+}
 

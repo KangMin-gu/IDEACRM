@@ -84,7 +84,25 @@ public class InsideNoticeDaoImple implements InsideNoticeDao {
 
     @Override
     public int send(InsideNoticeDto insDto) {
-        int noticeId = session.insert("insideNotice.send", insDto);
+        session.insert("insideNotice.send", insDto);
+        int noticeId = insDto.getNoticeid();
         return noticeId;
+    }
+
+    @Override
+    public void to(InsideNoticeDto insDto) {
+        session.insert("insideNotice.to",insDto);
+    }
+
+    @Override
+    public Map<String, Object> boxDetail(int noticeId) {
+        Map<String, Object> noteInfo = session.selectOne("insideNotice.noteDetail", noticeId);
+        return noteInfo;
+    }
+
+    @Override
+    public List<Map<String, Object>> toList (int noticeId) {
+        List<Map<String, Object>> toList = session.selectList("insideNotice.toList", noticeId);
+        return toList;
     }
 }

@@ -19,4 +19,7 @@ public interface InsideNoticeDao {
     public void noteReturnChk(Map<String, Object> noteTrashVal);
     public List<Map<String, Object>> composeData(Map<String, Object> composeVal);
     public int send(InsideNoticeDto insDto);
+    public void to(InsideNoticeDto insDto);
+    public Map<String, Object> boxDetail(int noticeId);
+    public List<Map<String, Object>> toList (int noticeId);
 }

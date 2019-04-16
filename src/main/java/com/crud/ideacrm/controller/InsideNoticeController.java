@@ -53,7 +53,6 @@ public class InsideNoticeController {
     public void authnoteTrashChk(HttpServletRequest request, @RequestParam(value="checkArr[]") List<Integer> noticeid) {
         isns.inboxTrashChk(request, noticeid);
     }
-
     //보낸통지함
     @RequestMapping(value = "/outbox", method = RequestMethod.GET)
     public ModelAndView authOutboxList(HttpServletRequest request){
@@ -101,7 +100,7 @@ public class InsideNoticeController {
 
     //메일발송폼
     @RequestMapping(value = "/compose", method = RequestMethod.GET)
-    public ModelAndView sendForm(HttpServletRequest request){
+    public ModelAndView authsendForm(HttpServletRequest request){
         ModelAndView mView = isns.composeData(request);
         mView.setViewName("page/membership/insideNotice/sendForm");
         return mView;
@@ -109,21 +108,48 @@ public class InsideNoticeController {
 
     //메일발송
     @RequestMapping(value = "/compose", method = RequestMethod.POST)
-    public String send(HttpServletResponse response, HttpServletRequest request, @ModelAttribute InsideNoticeDto insDto){
+    public String authsend(HttpServletResponse response, HttpServletRequest request, @ModelAttribute InsideNoticeDto insDto){
         int noticeId = isns.send(response, request, insDto);
-        return "redirect:/note/outbox/"+noticeId;
+        return "redirect:/inbox/view/"+noticeId;
     }
 
 
-
-
-
-
-    @RequestMapping(value = "/inbox/1", method = RequestMethod.GET)
-    public ModelAndView boxDetail(HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
+    //받은메일상세보기
+    @RequestMapping(value = "/inbox/view/{noticeId}", method = RequestMethod.GET)
+    public ModelAndView authboxDetail(HttpServletRequest request, @PathVariable int noticeId){
+        ModelAndView mView = isns.boxDetail(request, noticeId);
         mView.setViewName("page/membership/insideNotice/boxDetail");
         return mView;
     }
 
+    //보낸메일상세보기
+    @RequestMapping(value = "/outbox/view/{noticeId}", method = RequestMethod.GET)
+    public ModelAndView authOutBoxDetail(HttpServletRequest request, @PathVariable int noticeId){
+        ModelAndView mView = isns.outBoxDetail(request, noticeId);
+        mView.setViewName("page/membership/insideNotice/boxDetail");
+        return mView;
+    }
+
+    //휴지통메일상세보기
+    @RequestMapping(value = "/trashbox/view/{noticeId}", method = RequestMethod.GET)
+    public ModelAndView authTrashBoxDetail(HttpServletRequest request, @PathVariable int noticeId){
+        ModelAndView mView = isns.boxDetail(request, noticeId);
+        mView.setViewName("page/membership/insideNotice/boxDetail");
+        mView.addObject("location","trash");
+        return mView;
+    }
+
+    //휴지통버리기
+    @RequestMapping(value = "/trashin", method = RequestMethod.GET)
+    public String authTrashIn(HttpServletRequest request){
+        isns.trashIn(request);
+        return "redirect:/inbox";
+    }
+
+    //휴지통버리기
+    @RequestMapping(value = "/del", method = RequestMethod.GET)
+    public String authDel(HttpServletRequest request){
+        isns.del(request);
+        return "redirect:/trashbox";
+    }
 }

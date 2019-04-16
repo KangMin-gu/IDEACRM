@@ -48,7 +48,7 @@
                                     <div class="col-sm-10">
                                         <select id="touser" name="touser" class="chosen-select" multiple="multiple" tabindex="2">
                                             <c:forEach var="tmp" items="${companyUserData }">
-                                                <option value="${tmp.USERNO}">${tmp.USERNAME}</option>
+                                                <option value="${tmp.USERNO}" <c:if test="${tmp.USERNO eq noteInfo.FROMUSERNO || tmp.USERNO eq reno}">selected</c:if>>${tmp.USERNAME}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
@@ -56,7 +56,14 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="title">제목:</label>
                                     <div class="col-sm-10">
-                                        <input id="title" name="title" type="text" class="form-control" value="">
+                                        <c:choose>
+                                            <c:when test="${not empty noteInfo.TITLE}">
+                                                <input id="title" name="title" type="text" class="form-control" value="RE : ${noteInfo.TITLE}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input id="title" name="title" type="text" class="form-control" value="">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -76,13 +83,22 @@
                         </div>
 
                         <div class="mail-text h-200">
-                            <textarea id="content" name="content"></textarea>
+                            <textarea id="content" name="content">
+                                <c:if test="${not empty noteInfo.CONTENT}">
+                                    <br/>
+                                    ------------Original Message------------<br/>
+                                    Subject : ${noteInfo.TITLE}<br/>
+                                    Date : ${noteInfo.REGDATE}<br/>
+                                    From : ${noteInfo.FROMUSERNAME}<br/>
+                                    To : ${noteInfo.TOUSERNAME}<br/>
+                                    ${noteInfo.CONTENT}<br/>
+                                </c:if>
+                            </textarea>
                             <div class="clearfix"></div>
                         </div>
 
                         <div class="mail-body text-right tooltip-demo">
-                            <a href="mailbox.html" class="btn btn-white btn-sm float-left"><i class="fa fa-pencil"></i> 초기화</a>
-                            <a href="mailbox.html" class="btn btn-white btn-sm float-left"><i class="fa fa-times"></i> 취소</a>
+                            <a href="${pageContext.request.contextPath}/inbox" class="btn btn-white btn-sm float-left"><i class="fa fa-times"></i> 취소</a>
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i>발송 </button>
                         </div>
                         <div class="clearfix"></div>

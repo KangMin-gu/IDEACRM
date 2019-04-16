@@ -134,10 +134,10 @@
                                         <input id="noticeid" name="noticeid" type="checkbox" class="i-checks chksquare" value="${tmp.NOTICEID }">
                                     </td>
                                     <td class="mail-ontact">
-                                        <a href="mail_detail.html">${tmp.FROMUSERNAME }</a>
+                                        <a href="${pageContext.request.contextPath}/compose?reno=${tmp.FROMUSERNO}">${tmp.FROMUSERNAME }</a>
                                     </td>
                                     <td class="mail-subject">
-                                        <a href="${pageContext.request.contextPath}/note/inbox/${tmp.NOTICEID}">${tmp.TITLE }</a>
+                                        <a href="${pageContext.request.contextPath}/inbox/view/${tmp.NOTICEID}">${tmp.TITLE }</a>
                                     </td>
                                     <td>
                                         <c:if test="${tmp.FILESEARCHKEY ne NULL }">

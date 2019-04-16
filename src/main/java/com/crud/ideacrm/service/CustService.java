@@ -2,7 +2,9 @@ package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -10,9 +12,9 @@ import java.util.Map;
 
 public interface CustService {
 
-    public List<Map<String,Object>> custList(Map<String,Object> searchPrm) throws UnsupportedEncodingException, GeneralSecurityException;
-    public Map<String,Object> custDetail(CustDto custDto) throws UnsupportedEncodingException, GeneralSecurityException;
-    public String custinsert(CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
-    public String custUpdate(CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
-    public int custDelete(CustDto custDto, String[] custnoArr) throws UnsupportedEncodingException, GeneralSecurityException;
+    public List<Map<String,Object>> custList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+    public ModelAndView custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException;
+    public String custinsert(HttpServletRequest request,CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
+    public String custUpdate(HttpServletRequest request,CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
+    public int custDelete(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
 }

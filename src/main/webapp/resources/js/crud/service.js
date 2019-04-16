@@ -1,7 +1,7 @@
 $('#servicecode1').change(function(){
     upperCode('servicecode1');
 });
-
+// 커밋 테스트
 function serviceStep(){
     var step = $('#servicestep').val();
     if(step == 3){

@@ -60,6 +60,18 @@
                         <tbody>
                         </tbody>
                         <tfoot>
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="paging" style="width:80px">
+                                        <c:forEach var="paging" items="${PAGING}">
+                                            <option vale="${paging.codeval}">${paging.codename}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -79,6 +91,7 @@
 <!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){

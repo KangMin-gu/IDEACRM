@@ -36,7 +36,7 @@
                         <br/>
                         아이디 : <input type="text" name="cti_login_id" id="cti_login_id" value="crud01">
                         비밀번호 : <input type="text" name="cti_login_pwd" id="cti_login_pwd" value="0000">
-                        전화번호 : <input type="text" name="cti_login_ext" id="cti_login_ext" value="07042622865">
+                        전화번호 : <input type="text" name="cti_login_ext" id="cti_login_ext" value="07042622864">
                         <input type="hidden" name="checkGroupValue" id="checkGroupValue" value="N">
                         <input type="hidden" name="checkGroupValue2" id="checkGroupValue2" value="N">
                         <span id="outCallNum">07042622883</span>
@@ -53,32 +53,45 @@
                         <input type="hidden" id="reqno" name="reqno" value="" /><!-- 서비스랑 연결할 REQNO -->
                     </div>
                     <ul class="top-btn">
-                        <li><input type="text" class="form-control"></li>
-                        <li class="liBtn"><button class="btn btn-primary btn-sm">걸기 <i class="fa fa-phone"></i></button></li>
-                        <li class="liBtn"><button class="btn btn-primary btn-sm">당겨받기 <i class="fa fa-phone"></i></button></li>
-                        <li class="liBtn"><button class="btn btn-primary btn-sm">호전환</button></li>
+                        <li class="ctibtn"><input type="text" id="makeCallNum" class="form-control" value="" style="color:black"></li>
+                        <li class="liBtn ctibtn"><button onclick="javascript:func_answer();" class="btn btn-primary btn-sm" id="answerBtn">받기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn"><button onclick="javascript:func_pickup();" class="btn btn-primary btn-sm" id="pickupBtn">당겨받기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn"><button onclick="javascript:func_hangup();" class="btn btn-primary btn-sm" id="hangUpBtn">끊기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn"><button onClick="javascript:func_hold();" class="btn btn-primary btn-sm status" id="delayBtn">보류 <i class="fa fa-times-circle"></i></button></li>
+                        <li class="liBtn ctibtn"><button onClick="javascript:func_unhold();" class="btn btn-primary btn-sm status" id="delayCancelBtn">보류해제 <i class="fa fa-times-circle-o"></i></button></li>
+                        <li class="ctibtn">
                         &nbsp; |&nbsp;
-                        <li class="liBtn"><button class="btn btn-primary btn-sm">대기 <i class="fa fa-spinner"></i></button></li>
-                        <li class="liBtn"><button class="btn btn-primary btn-sm">휴식 <i class="fa fa-coffee"></i></button></li>
-                        <li class="liBtn"><button class="btn btn-primary btn-sm">후처리 <i class="fa fa-phone"></i></button></li>
+                        </li>
+                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('0300');"class="btn btn-primary btn-sm status" id="waitingBtn">대기 <i class="fa fa-spinner"></i></button></li>
+                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('R001');" class="btn btn-primary btn-sm status" id="restBtn">휴식 <i class="fa fa-coffee"></i></button></li>
+                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('W004');" class="btn btn-primary btn-sm status" id="postCleaningBtn">후처리 <i class="fa fa-phone"></i></button></li>
+                        <li class="ctibtn">
                         &nbsp; | &nbsp;
-                        <li>00 : 00 : 12</li>
+                        </li>
+                        <li class="ctibtn"><span id="timer">00 : 00</span></li>
+                        <li class="ctibtn">
                         &nbsp; | &nbsp;
-                        <li class=""><input type="text" class="form-control"></li>
-                        <li class=" liBtn2"><button class="btn btn-default btn-sm">호전환</button></li>
-                        <li class=" liBtn2"><button class="btn btn-default btn-sm">OB연결</button></li>
-                        <li class=" mr-2 ml-2"><strong>고객대기 <span>7</span></strong></li>
+                        </li>
+                        <li class="ctibtn"><input type="text" id="blindCall" class="form-control"></li>
+                        <li class="liBtn2 ctibtn"><button onclick="javascript:didCheckMakeCall();" class="btn btn-default btn-sm">OB연결</button></li>
+                        <li class=" liBtn2 ctibtn"><button onClick="javascript:func_blindTransfer(document.getElementById('blindCall').value,'');" class="btn btn-primary btn-sm status" id="transferBtn">호전환</button></li>
+                        <li class="liBtn ctibtn"><button onClick="javascript:func_threeWayCall();" class="btn btn-primary btn-sm status" id="threeWayBtn">3자 통화</button></li>
+                        <li class=" mr-2 ml-2 ctibtn"><strong>고객대기 <span id="cti_waitting_cnt">0</span></strong></li>
+                        <li>
+                            <input type="hidden" id="tellerStatus" name="tellerStatus"/>
+                            <input type="hidden" id="status" name="status"/>
+                        </li>
                         <li class="float-right">
                             <ul class="top-ul03">
-                                <li>
+                                <li class="ctibtn">
                                     <i class="fa fa-bell"></i>
                                     <span class="li-text">3</span>
                                 </li>
-                                <li>
+                                <li class="ctibtn">
                                     <i class="fa fa-envelope"></i>
                                     <span class="li-text">3</span>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown ctibtn">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;">
                                         <i class="fa fa-bars" style=""></i>
                                     </a>
@@ -89,7 +102,10 @@
                                         <li><a href="">콜이력</a></li>
                                     </ul>
                                 </li>
-                                <li><i class="fa fa-power-off"></i></li>
+                                <li>
+                                    <span id="vocLogInSpan"><i class="fa fa-power-off" style="color:#d11507 ;" id="vocLogInBtn" onclick="vocLoginGo();"></i></span>
+                                    <span id="vocLogOutSpan" style="display:none;"><i class="fa fa-power-off" style="color: #75bc63;" id="vocLogOutBtn" onclick="func_logout();"></i></span>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -683,15 +699,16 @@
                                         <th>접수유형</th>
                                         <td>
                                             <div style="display: inline-block;">
-                                                <select class="form-control form-control-sm" name="servicecode1" id="servicecode1" style="height: 30px; width: 100px;">
+                                                <select class="form-control form-control-sm" name="servicecode1" id="servicecode1">
+                                                    <option value="">선택</option>
                                                     <c:forEach var="serviceCode1" items="${SERVICECODE1}">
                                                         <option label="${serviceCode1.codename}" value="${serviceCode1.codeval}"></option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <select class="form-control form-control-sm" name="servicecode2" id="servicecode2" upper="servicecode1" style="height: 30px; width: 100px;">
-
+                                                <select class="form-control form-control-sm" name="servicecode2" id="servicecode2" upper="servicecode1">
+                                                    <option value="">선택</option>
                                                 </select>
                                             </div>
                                         </td>
@@ -710,12 +727,13 @@
                                                 </div>
                                                 <div style="display: inline-block">
                                                     <select class="form-control " name="product12" id="product12" style="width: 250px;">
+                                                        <option value="">선택</option>
 
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
                                                     <select class="form-control " name="product13" id="product13" style="width: 300px;">
-
+                                                        <option value="">선택</option>
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
@@ -727,7 +745,7 @@
                                     <tr>
                                         <th>접수내용</th>
                                         <td>
-                                            <textarea name="need" id="" class="form-control" style="resize: none;" rows="2"></textarea>
+                                            <textarea name="servicename" id="servicenmae" class="form-control" style="resize: none;" rows="2"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
@@ -795,31 +813,31 @@
                     <h3 class="float-left">개인전광판</h3>
                     <ul class="call-option float-left">
                         <li class="call-tit">평균통화</li>
-                        <li class="yellow"><strong>00:01:30</strong></li>
+                        <li class="yellow"><strong><span id="avgCall">00:00:00</span></strong></li>
                         <li class="call-tit">평균대기</li>
-                        <li><strong>00:01:30</strong></li>
+                        <li><strong><span id="avgWait">0</span></strong></li>
                         <li class="call-tit">응대율</li>
-                        <li><strong>89%</strong></li>
+                        <li><strong><span id="ResponseRate">0%</span></strong></li>
                         <li class="call-tit">누적통화시간</li>
-                        <li class="yellow"><strong>00:01:30</strong></li>
+                        <li class="yellow"><strong><span id="sumCall">0</span></strong></li>
                         <li class="call-tit">CB</li>
-                        <li><strong>20</strong></li>
+                        <li><strong><span id="callbackCnt"></span>0</strong></li>
                         <li class="call-tit">CB완료</li>
-                        <li><strong>3</strong></li>
+                        <li><strong><span id="successCallback">0</span></strong></li>
                         <li class="call-tit">미처리</li>
                         <li><strong>0</strong></li>
                         <li class="call-tit">통화분배시도</li>
-                        <li><strong>0</strong></li>
+                        <li><strong><span id="transferTryCnt">0</span></strong></li>
                         <li class="call-tit">통화분배연결</li>
-                        <li><strong>0</strong></li>
+                        <li><strong><span id="transferConnectCnt">0</span></strong></li>
                         <li class="call-tit">IB시도</li>
-                        <li><strong>0</strong></li>
+                        <li><strong><span id="ibTryCnt">0</span></strong></li>
                         <li class="call-tit">IB연결</li>
-                        <li><strong>0</strong></li>
+                        <li><strong><span id="ibConnectCnt">0</span></strong></li>
                         <li class="call-tit">OB시도</li>
-                        <li><strong>0</strong></li>
+                        <li><strong><span id="obTryCnt">0</span></strong></li>
                         <li class="call-tit">OB연결</li>
-                        <li><strong>0</strong></li>
+                        <li><strong><span id="obConnectCnt">0</span></strong></li>
                     </ul>
                 </div>
             </div>
@@ -828,6 +846,10 @@
 </div>
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<!-- cti js -->
+<script src="${pageContext.request.contextPath}/resources/js/crud/cti.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc_socket.js
+"></script>
 <!-- tinymce -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
@@ -842,6 +864,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.ctibtn').hide();
+    });
+</script>
+
 <script>
     $('#smsTemp').click(function(){
         window.open("/voc/sms", "고객상세정보","width=400px, height=600px");

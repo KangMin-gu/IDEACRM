@@ -38,7 +38,7 @@
                         <a href="${pageContext.request.contextPath}/cust">고객 목록</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/cust/${custUpdate.CUSTNO}">고객 상세정보</a>
+                        <a href="${pageContext.request.contextPath}/cust/${custDetail.CUSTNO}">고객 상세정보</a>
                     </li>
                     <li class="breadcrumb-item active">
                         <strong>고객 수정</strong>
@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left save">수정</button>
-                    <a class="btn btn-default pull-right" href="/cust/${custUpdate.CUSTNO}">취소</a>
+                    <a class="btn btn-default pull-right" href="/cust/${custDetail.CUSTNO}">취소</a>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                             <li><a class="nav-link input-tab-link" data-toggle="tab" href="#tab-2">직장 정보</a></li>
                             <li><a class="nav-link input-tab-link" data-toggle="tab" href="#tab-3">부가 정보</a></li>
                         </ul>
-                        <form:form id="command" action="/cust/modified/${custUpdate.CUSTNO}" method="post">
+                        <form:form id="command" action="/cust/modified/${custDetail.CUSTNO}" method="post">
                             <div class="tab-content">
                                 <div role="tabpanel" id="tab-1" class="tab-pane active">
                                     <div class="panel-body">
@@ -77,12 +77,12 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">고객명</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control-sm name" id="custname" name="custname" value="${custUpdate.CUSTNAME}">
+                                                <input type="text" class="form-control form-control-sm name" id="custname" name="custname" value="${custDetail.CUSTNAME}">
                                             </div>
                                             <label class="col-sm-2 col-form-label">성별</label>
                                             <div class="radio-inline i-checks">
                                                 <c:forEach var="sex" items="${SEX}">
-                                                    <label><input type="radio" value="${sex.codeval}" name="sex" ${custUpdate.SEX eq sex.codeval ? "checked" :"" }> <i></i>&nbsp;${sex.codename}</label>&nbsp;&nbsp;
+                                                    <label><input type="radio" value="${sex.codeval}" name="sex" ${custDetail.SEX eq sex.codeval ? "checked" :"" }> <i></i>&nbsp;${sex.codename}</label>&nbsp;&nbsp;
                                                 </c:forEach>
                                             </div>
                                         </div>
@@ -90,11 +90,11 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">생년월일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm date" id="birth" name="birth" value="${custUpdate.BIRTH}" readonly>
+                                                <input type="text" class="form-control form-control form-control-sm date" id="birth" name="birth" value="${custDetail.BIRTH}" readonly>
                                             </div>
                                             <label class="col-sm-2 col-form-label">이메일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm email" id="email" name="email" value="${custUpdate.EMAIL}">
+                                                <input type="text" class="form-control form-control form-control-sm email" id="email" name="email" value="${custDetail.EMAIL}">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -106,12 +106,12 @@
                                                         <select class="form-control m-b" id="mobile1" name="mobile1" required="required">
                                                             <option value="">선택</option>
                                                         <c:forEach var="mobile" items="${MOBILE}">
-                                                            <option value="${mobile.codeval}" ${custUpdate.MOBILE1 eq mobile.codeval ? "selected" :"" }>${mobile.codename}</option>
+                                                            <option value="${mobile.codeval}" ${custDetail.MOBILE1 eq mobile.codeval ? "selected" :"" }>${mobile.codename}</option>
                                                         </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile2" name="mobile2" value="${custUpdate.MOBILE2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile3" name="mobile3" value="${custUpdate.MOBILE3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile2" name="mobile2" value="${custDetail.MOBILE2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm req-phone" id="mobile3" name="mobile3" value="${custDetail.MOBILE3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
                                                 </div>
                                                 <div class="row">
                                                     <label class="error" for="mobile1"></label><label class="error" for="mobile2"></label><label class="error" for="mobile3"></label>
@@ -124,12 +124,12 @@
                                                         <select class="form-control m-b" id="homtel1" name="homtel1">
                                                             <option value="">선택</option>
                                                             <c:forEach var="phone" items="${PHONE}">
-                                                                <option value="${phone.codeval}" ${custUpdate.HOMTEL1 eq phone.codeval ? "selected" :"" }>${phone.codename}</option>
+                                                                <option value="${phone.codeval}" ${custDetail.HOMTEL1 eq phone.codeval ? "selected" :"" }>${phone.codename}</option>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel2" name="homtel2" value="${custUpdate.HOMTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel3" name="homtel3" value="${custUpdate.HOMTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel2" name="homtel2" value="${custDetail.HOMTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="homtel3" name="homtel3" value="${custDetail.HOMTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -141,25 +141,25 @@
                                                     <select class="form-control m-b" id="married" name="married">
                                                         <option value="0">선택</option>
                                                         <c:forEach var="married" items="${MARRIED}">
-                                                            <option value="${married.codeval}" ${custUpdate.MARRIED eq married.codeval ? "selected" :"" }>${married.codename}</option>
+                                                            <option value="${married.codeval}" ${custDetail.MARRIED eq married.codeval ? "selected" :"" }>${married.codename}</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">결혼기념일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control-sm date" id="weddingday" name="weddingday" value="${custUpdate.WEDDINGDAY}"  readonly>
+                                                <input type="text" class="form-control form-control-sm date" id="weddingday" name="weddingday" value="${custDetail.WEDDINGDAY}"  readonly>
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">직업</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control-sm" id="job" name="job" value="${custUpdate.JOB}">
+                                                <input type="text" class="form-control form-control-sm" id="job" name="job" value="${custDetail.JOB}">
                                             </div>
                                             <label class="col-sm-2 col-form-label">취미</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control-sm" id="hobby" name="hobby" value="${custUpdate.HOBBY}">
+                                                <input type="text" class="form-control form-control-sm" id="hobby" name="hobby" value="${custDetail.HOBBY}">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -167,9 +167,9 @@
                                             <label class="col-sm-2 col-form-label">주소</label>
                                             <div class="col-sm-10">
                                                 <div class="row">
-                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="homaddr1" name="homaddr1" value="${custUpdate.HOMADDR1}" readonly></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homaddr2" name="homaddr2" value="${custUpdate.HOMADDR2}" readonly></div>
-                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="homaddr3" name="homaddr3" value="${custUpdate.HOMADDR3}"></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="homaddr1" name="homaddr1" value="${custDetail.HOMADDR1}" readonly></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="homaddr2" name="homaddr2" value="${custDetail.HOMADDR2}" readonly></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="homaddr3" name="homaddr3" value="${custDetail.HOMADDR3}"></div>
                                                     <div class="col-md-3"><button class="btn btn-white btn-sm daumzip" type="button" id="homaddr">주소 검색</button></div>
                                                 </div>
                                             </div>
@@ -183,24 +183,24 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">직장명</label>
                                             <div class="col-sm-4 input-group client" id="cliname" >
-                                                <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname" value="${custUpdate.CLINAME}" readonly>
-                                                <input type="hidden" class="searchparam" name="clino" id="clino" value="${custUpdate.CLINO}">
+                                                <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname" value="${custDetail.CLINAME}" readonly>
+                                                <input type="hidden" class="searchparam" name="clino" id="clino" value="${custDetail.CLINO}">
                                                 <span class="input-group-addon" style="height:31px;"> <a><i class="fa fa-search"></i></a> </span>
                                             </div>
                                             <label class="col-sm-2 col-form-label">홈페이지</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm url" id="wrkurl" name="wrkurl" value="${custUpdate.WRKURL}">
+                                                <input type="text" class="form-control form-control form-control-sm url" id="wrkurl" name="wrkurl" value="${custDetail.WRKURL}">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">소속 부서</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm" id="deptname" name="deptname" value="${custUpdate.DEPTNAME}">
+                                                <input type="text" class="form-control form-control form-control-sm" id="deptname" name="deptname" value="${custDetail.DEPTNAME}">
                                             </div>
                                             <label class="col-sm-2 col-form-label">직책</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control form-control form-control-sm" id="duty" name="duty" value="${custUpdate.DUTY}">
+                                                <input type="text" class="form-control form-control form-control-sm" id="duty" name="duty" value="${custDetail.DUTY}">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -212,12 +212,12 @@
                                                         <select class="form-control m-b" id="wrktel1" name="wrktel1">
                                                             <option value="">선택</option>
                                                             <c:forEach var="phone" items="${PHONE}">
-                                                                <option value="${phone.codeval}" ${custUpdate.WRKTEL1 eq phone.codeval ? "selected" : "" }>${phone.codename}</option>
+                                                                <option value="${phone.codeval}" ${custDetail.WRKTEL1 eq phone.codeval ? "selected" : "" }>${phone.codename}</option>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel2" name="wrktel2" value="${custUpdate.WRKTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel3" name="wrktel3" value="${custUpdate.WRKTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel2" name="wrktel2" value="${custDetail.WRKTEL2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrktel3" name="wrktel3" value="${custDetail.WRKTEL3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">직장 FAX</label>
@@ -227,12 +227,12 @@
                                                         <select class="form-control m-b" id="wrkfax1" name="wrkfax1">
                                                             <option value="">선택</option>
                                                             <c:forEach var="fax" items="${FAX}">
-                                                                <option value="${fax.codeval}" ${custUpdate.WRKFAX1 eq fax.codeval ? "selected":"" }>${fax.codename}</option>
+                                                                <option value="${fax.codeval}" ${custDetail.WRKFAX1 eq fax.codeval ? "selected":"" }>${fax.codename}</option>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax2" name="wrkfax2" value="${custUpdate.WRKFAX2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax3" name="wrkfax3" value="${custUpdate.WRKFAX3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax2" name="wrkfax2" value="${custDetail.WRKFAX2}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm phone" id="wrkfax3" name="wrkfax3" value="${custDetail.WRKFAX3}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,9 +241,9 @@
                                             <label class="col-sm-2 col-form-label">직장 주소</label>
                                             <div class="col-sm-10">
                                                 <div class="row">
-                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="wrkaddr1" name="wrkaddr1" value="${custUpdate.WRKADDR1}" readonly></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkaddr2" name="wrkaddr2" value="${custUpdate.WRKADDR2}" readonly></div>
-                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="wrkaddr3" name="wrkaddr3" value="${custUpdate.WRKADDR3}"> </div>
+                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="wrkaddr1" name="wrkaddr1" value="${custDetail.WRKADDR1}" readonly></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="wrkaddr2" name="wrkaddr2" value="${custDetail.WRKADDR2}" readonly></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="wrkaddr3" name="wrkaddr3" value="${custDetail.WRKADDR3}"> </div>
                                                     <div class="col-md-3"><button class="btn btn-white btn-sm daumzip" type="button" id="wrkaddr">주소 검색</button></div>
                                                 </div>
                                             </div>
@@ -259,7 +259,7 @@
                                                 <select class="form-control m-b" id="custgubun" name="custgubun">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="custgubun" items="${CUSTGUBUN}">
-                                                        <option value="${custgubun.codeval}" ${custUpdate.CUSTGUBUN eq custgubun.codeval ? "selected":""}>${custgubun.codename}</option>
+                                                        <option value="${custgubun.codeval}" ${custDetail.CUSTGUBUN eq custgubun.codeval ? "selected":""}>${custgubun.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -268,7 +268,7 @@
                                                 <select class="form-control m-b" id="custgrade" name="custgrade">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="custgrade" items="${CUSTGRADE}">
-                                                        <option value="${custgrade.codeval}" ${custUpdate.CUSTGRADE eq custgrade.codeval ? "selected":""}>${custgrade.codename}</option>
+                                                        <option value="${custgrade.codeval}" ${custDetail.CUSTGRADE eq custgrade.codeval ? "selected":""}>${custgrade.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -277,7 +277,7 @@
                                                 <select class="form-control m-b" id="actgrade" name="actgrade">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="actgrade" items="${ACTGRADE}">
-                                                        <option value="${actgrade.codeval}" ${custUpdate.ACTGRADE eq actgrade.codeval ? "selected":""}>${actgrade.codename}</option>
+                                                        <option value="${actgrade.codeval}" ${custDetail.ACTGRADE eq actgrade.codeval ? "selected":""}>${actgrade.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -289,25 +289,25 @@
                                                 <select class="form-control m-b" id="mailto" name="mailto">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="mailto" items="${MAILTO}">
-                                                        <option value="${mailto.codeval}" ${custUpdate.MAILTO eq mailto.codeval ? "selected":""}>${mailto.codename}</option>
+                                                        <option value="${mailto.codeval}" ${custDetail.MAILTO eq mailto.codeval ? "selected":""}>${mailto.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                             <label class="col-sm-2 col-form-label">담당자</label>
                                             <!--<div class="col-sm-2">
-                                                <input type="hidden" id="owner" name="owner" value="${custUpdate.OWNER}">
-                                                <input type="text" class="form-control form-control-sm" id="owner_" name="owner_" value="${custUpdate.OWNER_}">
+                                                <input type="hidden" id="owner" name="owner" value="${custDetail.OWNER}">
+                                                <input type="text" class="form-control form-control-sm" id="owner_" name="owner_" value="${custDetail.OWNER_}">
                                             </div>-->
                                             <div class="col-sm-2 input-group owner" id="owner_" >
-                                                <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="owner_" value="${custUpdate.OWNER_}" readonly>
-                                                <input type="hidden" class="searchparam" name="owner" id="owner" value="${custUpdate.OWNER}">
+                                                <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="owner_" value="${custDetail.OWNER_}" readonly>
+                                                <input type="hidden" class="searchparam" name="owner" id="owner" value="${custDetail.OWNER}">
                                                 <span class="input-group-addon" style="height:31px;"> <a><i class="fa fa-search"></i></a> </span>
                                             </div>
                                             <label class="col-sm-2 col-form-label">정보활용</label>
                                             <div class="col-sm-2">
                                                 <div class="radio-inline i-checks">
                                                     <c:forEach var="infoagree" items="${INFOAGREE}">
-                                                        <label><input type="radio" value="${infoagree.codeval}" name="infoagree" ${custUpdate.INFOAGREE eq infoagree.codeval ? "checked":""}> <i></i>&nbsp;${infoagree.codename}</label>&nbsp;&nbsp;
+                                                        <label><input type="radio" value="${infoagree.codeval}" name="infoagree" ${custDetail.INFOAGREE eq infoagree.codeval ? "checked":""}> <i></i>&nbsp;${infoagree.codename}</label>&nbsp;&nbsp;
                                                     </c:forEach>
                                                     <!--<label><input type="radio" value="option1" name="a"> <i></i>&nbsp;동의</label>&nbsp;&nbsp;
                                                     <label class="radio-inline"><input type="radio" value="option2" name="a"> <i></i>&nbsp;거부</label>-->
@@ -320,47 +320,47 @@
                                             <div class="col-sm-10">
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">EMAIL</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYMAILNOMAL}" id="denymailnomal" name="denymailnomal" >&nbsp; 일반</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYMAILSURVEY}" id="denymailsurvey" name="denymailsurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYMAILSEMINAR}" id="denymailseminar" name="denymailseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYMAILAD}" id="denymailad" name="denymailad" >&nbsp; 광고</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYMAILNOMAL}" id="denymailnomal" name="denymailnomal" >&nbsp; 일반</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSURVEY}" id="denymailsurvey" name="denymailsurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSEMINAR}" id="denymailseminar" name="denymailseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILAD}" id="denymailad" name="denymailad" >&nbsp; 광고</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">SMS</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYSMSNOMAL}" id="denysmsnomal" name="denysmsnomal" >&nbsp; 일반</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYSMSSURVEY}" id="denysmssurvey" name="denysmssurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYSMSSEMINAR}" id="denysmsseminar" name="denysmsseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYSMSAD}" id="denysmsad" name="denysmsad" >&nbsp; 광고</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYSMSNOMAL}" id="denysmsnomal" name="denysmsnomal" >&nbsp; 일반</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSURVEY}" id="denysmssurvey" name="denysmssurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSEMINAR}" id="denysmsseminar" name="denysmsseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSAD}" id="denysmsad" name="denysmsad" >&nbsp; 광고</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">KAKAO</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYKAKAONOMAL}" id="denykakaonomal" name="denykakaonomal" >&nbsp; 일반</label>&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYKAKAOSURVEY}" id="denykakaosurvey" name="denykakaosurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYKAKAOSEMINAR}" id="denykakaoseminar" name="denykakaoseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYKAKAOAD}" id="denykakaoad" name="denykakaoad" >&nbsp; 광고</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAONOMAL}" id="denykakaonomal" name="denykakaonomal" >&nbsp; 일반</label>&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSURVEY}" id="denykakaosurvey" name="denykakaosurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSEMINAR}" id="denykakaoseminar" name="denykakaoseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOAD}" id="denykakaoad" name="denykakaoad" >&nbsp; 광고</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">DM</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYDMNOMAL}" id="denydmnomal" name="denydmnomal" >&nbsp; 일반</label>&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYDMSURVEY}" id="denydmsurvey" name="denydmsurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYDMSEMINAR}" id="denydmseminar" name="denydmseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYDMAD}" id="denydmad" name="denydmad" >&nbsp; 광고</label>
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYDMNEWS}" id="denydmnews" name="denydmnews" >&nbsp; 뉴스레터</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYDMNOMAL}" id="denydmnomal" name="denydmnomal" >&nbsp; 일반</label>&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSURVEY}" id="denydmsurvey" name="denydmsurvey" >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSEMINAR}" id="denydmseminar" name="denydmseminar" >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMAD}" id="denydmad" name="denydmad" >&nbsp; 광고</label>
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMNEWS}" id="denydmnews" name="denydmnews" >&nbsp; 뉴스레터</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">전화</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYTELAD}" id="denytelad" name="denytelad" >&nbsp; 광고</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYTELSURVEY}" id="denytelsurvey" name="denytelsurvey" >&nbsp; 해피콜</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYTELAD}" id="denytelad" name="denytelad" >&nbsp; 광고</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYTELSURVEY}" id="denytelsurvey" name="denytelsurvey" >&nbsp; 해피콜</label>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="row">
                                                     <label class="col-sm-2 col-form-label">기타</label>
-                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custUpdate.DENYFAX}" id="denyfax" name="denyfax" >&nbsp; FAX</label>&nbsp;&nbsp;
-                                                    <label class="i-checks"> <input type="checkbox" value="${custUpdate.DENYVISIT}" id="denyvisit" name="denyvisit" >&nbsp; 방문</label>
+                                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYFAX}" id="denyfax" name="denyfax" >&nbsp; FAX</label>&nbsp;&nbsp;
+                                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYVISIT}" id="denyvisit" name="denyvisit" >&nbsp; 방문</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -368,7 +368,7 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">메모</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="memo" id="memo" cols="30" rows="5">${custUpdate.MEMO}</textarea>
+                                                <textarea class="form-control" name="memo" id="memo" cols="30" rows="5">${custDetail.MEMO}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -384,7 +384,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left save">등록</button>
-                    <a class="btn btn-default pull-right" href="/cust/${custUpdate.CUSTNO}">취소</a>
+                    <a class="btn btn-default pull-right" href="/cust/${custDetail.CUSTNO}">취소</a>
                 </div>
             </div>
 

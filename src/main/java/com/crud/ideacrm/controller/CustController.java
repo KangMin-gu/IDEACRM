@@ -23,26 +23,23 @@ import java.util.*;
 public class CustController {//
 
     @Autowired
-    CodeService codeService;
+    private CodeService codeService;
     @Autowired
-    CustService custService;
+    private CustService custService;
     @Autowired
-    ServiceService serviceService;
+    private ServiceService serviceService;
     @Autowired
-    CodecUtil commonUtil;
-    @Autowired
-    ParameterUtil prmUtil;
+    private CodecUtil commonUtil;
 
     private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1 .
 
     //고객 리스트 기본 화면.testd
     @RequestMapping(value = "/cust", method = RequestMethod.GET)
     public ModelAndView authCustList(HttpServletRequest request){
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
 
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
         mView.setViewName("page/cust/custList");
 
         return mView;
@@ -51,33 +48,24 @@ public class CustController {//
     @RequestMapping(value = "/cust", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> authGetCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        return custService.custList(prmUtil.searchParam(request));
+        return custService.custList(request);
     }
 
     //고객상세
     @RequestMapping(value = "/cust/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        CustDto custDto = new CustDto();
-        custDto.setCustno(custno);
-        custDto.setSiteid(siteId);
-        ModelAndView mView = new ModelAndView();
-        mView.addObject("custDetail",custService.custDetail(custDto));
+
+        ModelAndView mView = custService.custDetail(request,custno);
         mView.setViewName("page/cust/custDetail");
         return mView;
     }
     //고객수정
     @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustUpdateForm(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        CustDto custDto = new CustDto();
-        custDto.setCustno(custno);
-        custDto.setSiteid(siteId);
 
-        ModelAndView mView = new ModelAndView();
+        ModelAndView mView = custService.custDetail(request,custno);
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
-        mView.addObject("custUpdate",custService.custDetail(custDto));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
         mView.setViewName("page/cust/custUpdate");
         return mView;
     }
@@ -85,12 +73,8 @@ public class CustController {//
     @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.POST)
     public String authCustUpdate(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto
             , @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
-        custDto.setSiteid(siteId);
-        custDto.setEdituser(userNo);
-        custDenyDto.setEdituser(userNo);
-        String custNo = custService.custUpdate(custDto,custDenyDto);
+
+        String custNo = custService.custUpdate(request,custDto,custDenyDto);
 
         return "redirect:/cust/"+custNo;
     }
@@ -98,11 +82,9 @@ public class CustController {//
     //고객 추가 form
     @RequestMapping(value = "/cust/input", method = RequestMethod.GET)
     public ModelAndView authCustInsertForm(HttpServletRequest request){
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId) );
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
         mView.setViewName("page/cust/custInsert");
         return mView;
     }
@@ -114,21 +96,15 @@ public class CustController {//
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         custDto.setSiteid(siteId);custDto.setReguser(userNo);
         custDenyDto.setReguser(userNo);
-        String custNo = custService.custinsert(custDto,custDenyDto);
+        String custNo = custService.custinsert(request,custDto,custDenyDto);
         return "redirect:/cust/"+custNo;
     }
 
     //고객삭제
     @RequestMapping(value="/cust/del", method=RequestMethod.POST)
     public String authcustDelete(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteid = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        int userno = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
-        CustDto custDto=new CustDto();
-        custDto.setSiteid(siteid);
-        custDto.setEdituser(userno);
-        String[] custnoArr = request.getParameterValues("custno");
-        custService.custDelete(custDto,custnoArr);
+        custService.custDelete(request);
         return "redirect:/cust";
     }
 

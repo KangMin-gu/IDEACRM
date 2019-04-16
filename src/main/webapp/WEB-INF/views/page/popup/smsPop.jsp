@@ -136,7 +136,6 @@
         smsToLms('senddesc');
     });
     $('#senddesc').keyup(function(e){
-        debugger;
         smsToLms(this);
         var str = $(this).val();
         var textLength = getTextLength(str);

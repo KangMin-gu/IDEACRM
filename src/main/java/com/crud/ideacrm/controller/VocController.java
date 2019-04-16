@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class VocController {
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
     @RequestMapping(value = "/voc/dashboard", method = RequestMethod.GET)
-    public ModelAndView authVocList(HttpServletRequest request){
+    public ModelAndView vocList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/voc/vocDashboard");
         return mView;
@@ -42,11 +43,11 @@ public class VocController {
 
 
     @RequestMapping(value = "/voc", method = RequestMethod.GET)
-    public ModelAndView authVocDetail(HttpServletRequest request){
+    public ModelAndView vocDetail(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         List<ProductDto> productB = productService.getProductB(request);
         mView.addObject("productB",productB);
         mView.setViewName("page/voc/vocIndex");
@@ -54,25 +55,26 @@ public class VocController {
     }
 
     @RequestMapping(value = "/voc/satisfied", method = RequestMethod.GET)
-    public ModelAndView authVocstisfied(HttpServletRequest request){
+    public ModelAndView vocstisfied(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/voc/vocSatisfied");
         return mView;
     }
 
     @RequestMapping(value = "/voc/custsearch", method = RequestMethod.GET)
-    public ModelAndView authVocCustSearchPop(HttpServletRequest request){
+    public ModelAndView vocCustSearchPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("page/voc/pop/custSearchPop");
         return mView;
     }
     @RequestMapping(value="/voc/custsearch", method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authVocCustSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        ParameterUtil parameterUtil = new ParameterUtil();
-        Map<String,Object> param = parameterUtil.searchParam(request);
-        List<Map<String,Object>> custSearchList = custService.custList(param);
+    public List<Map<String,Object>> vocCustSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        List<Map<String,Object>> custSearchList = custService.custList(request);
 
         return custSearchList;
     }
@@ -85,19 +87,18 @@ public class VocController {
         CustDto custDto = new CustDto();
         custDto.setCustno(custno);
         custDto.setSiteid(siteId);
-        Map<String,Object> custDetail = custService.custDetail(custDto);
+        // Map으로 변경 필요
+        //Map<String,Object> custDetail = custService.custDetail(request,custno);
+        Map<String,Object> custDetail = new HashMap<>();
         return custDetail;
     }
 
 
     @RequestMapping(value = "/voc/custdetail/{custNo}", method = RequestMethod.GET)
-    public ModelAndView authVocCustDetailPop(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        CustDto custDto = new CustDto();
-        custDto.setCustno(custNo);
-        custDto.setSiteid(siteId);
-        ModelAndView mView = new ModelAndView();
-        mView.addObject("custDetail",custService.custDetail(custDto));
+    public ModelAndView vocCustDetailPop(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        ModelAndView mView = custService.custDetail(request,custNo);
+
         mView.setViewName("page/voc/pop/custDetailPop");
         return mView;
     }
@@ -120,11 +121,8 @@ public class VocController {
     @RequestMapping(value = "/voc/cust/input", method = RequestMethod.POST)
     @ResponseBody
     public String authVocCustInsert(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
-        custDto.setSiteid(siteId);custDto.setReguser(userNo);
-        custDenyDto.setReguser(userNo);
-        String custNo = custService.custinsert(custDto,custDenyDto);
+
+        String custNo = custService.custinsert(request,custDto,custDenyDto);
         return "{\"CUSTNO\":\""+custNo+"\"}";
     }
 

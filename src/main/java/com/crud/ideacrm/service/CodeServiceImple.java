@@ -31,7 +31,8 @@ public class CodeServiceImple implements CodeService {
     }
 
     @Override//해당 모듈에서 사용하는 회원사별 코드
-    public Map<String,Object> getCustomCode(int usingMenu, int siteId) {
+    public Map<String,Object> getCustomCode(int usingMenu, HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         CodeDto codeDto = new CodeDto();
         codeDto.setUsingmenu(usingMenu);
         codeDto.setSiteid(siteId);

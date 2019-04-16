@@ -42,7 +42,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/">회원사 목록</a>
+                        <a href="${pageContext.request.contextPath}/common/site">회원사 목록</a>
                     </li>
                     <li class="breadcrumb-item">
                         <strong>회원사 정보</strong>
@@ -57,14 +57,18 @@
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
+
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
+                    <form:form action="/common/site/del/${siteInfo.SITEID}" method="POST">
+                    <a href="/common/site" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <button type="submit" class="btn btn-default pull-right">삭제</button>
+                    <a href="/common/site/modified/${siteInfo.SITEID}" class="btn btn-default pull-right">수정</a>
+                    </form:form>
                 </div>
+
             </div>
 
             <br/>
@@ -93,37 +97,37 @@
                                     <tbody>
                                     <tr>
                                         <th>회원사명</th>
-                                        <td>크루드시스템</td>
+                                        <td>${siteInfo.SITENAME}</td>
                                         <th>사업자번호</th>
-                                        <td>379-87-01037</td>
+                                        <td>${siteInfo.BSNO}</td>
                                         <th>법인번호</th>
-                                        <td>110111-6888882</td>
+                                        <td>${siteInfo.INCNO}</td>
                                         <th>대표자명</th>
-                                        <td>강민구</td>
+                                        <td>${siteInfo.PRSDNAME}</td>
                                     </tr>
                                     <tr>
                                         <th>전화번호</th>
-                                        <td>02-336-7800</td>
+                                        <td>${siteInfo.TELNO}</td>
                                         <th>팩스번호</th>
-                                        <td>02-336-7822</td>
+                                        <td>${siteInfo.FAXNO}</td>
                                         <th>휴대전화</th>
-                                        <td>010-7120-3655</td>
+                                        <td>${siteInfo.MOBILE}</td>
                                         <th>이메일</th>
-                                        <td>manggo@crudsystem.co.kr</td>
+                                        <td>${siteInfo.EMAIL}</td>
                                     </tr>
                                     <tr>
                                         <th>업태</th>
-                                        <td>서비스</td>
+                                        <td>${siteInfo.COTYPE}</td>
                                         <th>업종</th>
-                                        <td>서비스</td>
+                                        <td>${siteInfo.BSCOND}</td>
                                         <th>종목</th>
-                                        <td>소프트웨어개발 및 공급</td>
+                                        <td>${siteInfo.BSTYPE}</td>
                                         <th>기업규모</th>
-                                        <td>중소기업</td>
+                                        <td>${siteInfo.SITESIZE_}</td>
                                     </tr>
                                     <tr>
                                         <th rowspan="3">주소 및 위치</th>
-                                        <td colspan="8">서울시 서대문구 홍제3동 유원하나아파트 102동 203호</td>
+                                        <td colspan="8">${siteInfo.ADDR_}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="8"><div id="map" style="width:100%;height:200px;"></div></td>
@@ -166,23 +170,23 @@
                                     <tbody>
                                     <tr>
                                         <th>가입일</th>
-                                        <td>2018-10-08</td>
+                                        <td>${siteInfo.FREGDATE_}</td>
                                         <th>서비스상태</th>
-                                        <td>활성</td>
+                                        <td>${siteInfo.ISDELETE_}</td>
                                         <th>담당자</th>
-                                        <td>강민구</td>
+                                        <td>${siteInfo.OWNER_}</td>
                                     </tr>
                                     <tr>
                                         <th>계정</th>
-                                        <td>crudsystem</td>
+                                        <td>${siteInfo.ADMINID}</td>
                                         <th>비밀번호</th>
                                         <td><button type="button" class="btn btn-w-m btn-xs btn-primary">초기화</button></td>
                                         <th>회원사로고</th>
-                                        <td>www.crudsystem.co.kr</td>
+                                        <td>${siteInfo.SITELOGO}</td>
                                     </tr>
                                     <tr>
                                         <th>회원사 메모</th>
-                                        <td colspan="11"></td>
+                                        <td colspan="11">${siteInfo.SITEMEMO}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -191,6 +195,50 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>CTI 정보</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>CTI 서버 IP</th>
+                                        <td>${ctiInfo.IP}</td>
+                                        <th>CTI 소켓 IP</th>
+                                        <td>${ctiInfo.SOCKETIP}</td>
+                                        <th>CTI PORT</th>
+                                        <td>${ctiInfo.PORT}</td>
+                                        <th>CTI 대표번호</th>
+                                        <td>${ctiInfo.TELNO}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
 
             <div class="row">
                 <div class="col-lg-12">
@@ -1159,10 +1207,9 @@
 
     var geocoder = new daum.maps.services.Geocoder();
 
-    //var accountAddr = "${cliDetail.CLIADDR2 }${cliDetail.CLIADDR3 }";
-    //var accountName = "${cliDetail.CLINAME }";
-    var accountAddr = "서울시 서대문구 홍제3동 유원하나아파트";
-    var accountName = "강민구고객집";
+    var accountAddr = "${siteInfo.ADDR2 }${siteInfo.ADDR3 }";
+    var accountName = "${siteInfo.SITENAME }";
+
     // 주소로 좌표를 검색합니다
     geocoder.addressSearch(accountAddr, function(result, status) {
 

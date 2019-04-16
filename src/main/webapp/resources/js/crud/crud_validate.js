@@ -12,7 +12,6 @@ $.validator.addMethod("url", function(value,element) {
 $.validator.addMethod(
     "testconnect",
     function (value, element) {
-        debugger;
         if(value != "") {
             return true;
         } else {
@@ -23,7 +22,7 @@ $.validator.addMethod(
 );
 
 //클래스 규칙 추가 - 아래 name 룰과는 별계로 작동함
-$.validator.addClassRules("testconnect",{required:false});
+$.validator.addClassRules("connect",{required:false,"testconnect":true});
 $.validator.addClassRules("test",{required: true, minlength: 2});
 $.validator.addClassRules("req-phone",{required: true, minlength: 3, maxlength:4});
 $.validator.addClassRules("phone",{minlength: 3, maxlength:4});

@@ -48,10 +48,10 @@ public class SiteServiceImple implements SiteService{
     @Override
     public ModelAndView siteDetail(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
-        String deCustNo = codecUtil.decodePkNo(siteId);//복호화 후 전달
-        Map<String,Object> siteDetail = siteDao.siteDetail(deCustNo);
-        Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deCustNo);
-        List<Map<String,Object>> siteKkoDetail = siteDao.siteKkoDetail(deCustNo);
+        String deSiteId = codecUtil.decodePkNo(siteId);//복호화 후 전달
+        Map<String,Object> siteDetail = siteDao.siteDetail(deSiteId);
+        Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deSiteId);
+        List<Map<String,Object>> siteKkoDetail = siteDao.siteKkoDetail(deSiteId);
         siteDetail.put("SITEID",siteId);
 
         mView.addObject("siteInfo",siteDetail);
@@ -61,7 +61,7 @@ public class SiteServiceImple implements SiteService{
     }
 
     @Override
-    public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto, KakaoDto kakaoDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
 
         String siteId = siteDao.siteInsert(siteDto);
 
@@ -72,18 +72,28 @@ public class SiteServiceImple implements SiteService{
         if(siteId != null){
             ctiDto.setSiteid(siteId);
             String ctiIp = ctiDto.getIp();
-            String kakaoPlus = kakaoDto.getPlusfriend();
 
             if(!ctiIp.equals("") ){
                 siteDao.ctiInsert(ctiDto);
             }
-            if(kakaoPlus != null){
-                kakaoDto.setSiteid(siteId);
-                siteDao.kakaoInsert(kakaoDto);
-            }
+
         }
         siteId = codecUtil.encodePkNo(siteId);
         return siteId;
+    }
+
+    @Override
+    public void siteUpdate(HttpServletRequest request, String siteId, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        String deSiteId = codecUtil.decodePkNo(siteId);
+        siteDto.setSiteid(deSiteId);
+
+        siteDao.siteUpdate(siteDto);
+
+        Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deSiteId);
+        String ctiIp = siteCtiDetail.get("IP").toString();
+        if(ctiIp != ctiDto.getIp()){
+            siteDao.ctiUpdate(ctiDto);
+        }
     }
 
     @Override

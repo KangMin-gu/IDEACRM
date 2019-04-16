@@ -17,8 +17,9 @@ public interface SiteService {
 
     public ModelAndView siteDetail (HttpServletRequest request,String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
 
-    public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto, KakaoDto kakaoDto) throws UnsupportedEncodingException, GeneralSecurityException;
+    public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException;
 
+    public void siteUpdate(HttpServletRequest request, String siteId,SiteDto siteDto,CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException;
 
     public void siteDelete(HttpServletRequest request,String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
 

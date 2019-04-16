@@ -93,17 +93,17 @@
                                     <tbody>
                                         <tr>
                                             <th>회원사명</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="sitename" id="sitename" value="${siteInfo.SITENAME}" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm name" name="sitename" required id="sitename" value="${siteInfo.SITENAME}" style="width:200px;"></td>
                                             <th>사업자번호</th>
                                             <td>
-                                                <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" class="form-control form-control-sm" value="${siteInfo.BSNO1}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="bsno2" id="bsno2" class="form-control form-control-sm" value="${siteInfo.BSNO2}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="bsno3" id="bsno3" class="form-control form-control-sm" value="${siteInfo.BSNO3}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" minlength="3" maxlength="3" class="form-control form-control-sm" value="${siteInfo.BSNO1}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno2" id="bsno2" minlength="2" maxlength="2" class="form-control form-control-sm" value="${siteInfo.BSNO2}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno3" id="bsno3" minlength="5" maxlength="5" class="form-control form-control-sm" value="${siteInfo.BSNO3}" style="width:80px;"></div>
                                             </td>
                                             <th>법인번호</th>
                                             <td>
-                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" class="form-control form-control-sm" value="${siteInfo.INCNO1}" style="width:100px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" class="form-control form-control-sm" value="${siteInfo.INCNO2}" style="width:100px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm" value="${siteInfo.INCNO1}" style="width:100px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm" value="${siteInfo.INCNO2}" style="width:100px;"></div>
                                             </td>
                                             <th>대표자명</th>
                                             <td><input type="text" class="form-control form-control-sm" name="prsdname" id="prsdname" value="${siteInfo.PRSDNAME}" style="width:200px;"></td>
@@ -112,28 +112,28 @@
                                             <th>전화번호</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control" name="tel1" id="tel1" style="width:80px;">
+                                                    <select class="form-control testconnect" name="tel1" id="tel1" style="width:80px;">
                                                         <option value="0" label="선택"></option>
                                                         <c:forEach var="phone" items="${PHONE}">
                                                             <option value="${phone.codeval}" label="${phone.codename}"></option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="tel2" id="tel2" class="form-control form-control-sm" value="${siteInfo.TEL2}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="tel3" id="tel3" class="form-control form-control-sm" value="${siteInfo.TEL3}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="tel2" id="tel2" class="form-control form-control-sm testconnect" value="${siteInfo.TEL2}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="tel3" id="tel3" class="form-control form-control-sm testconnect" value="${siteInfo.TEL3}" style="width:80px;"></div>
                                             </td>
                                             <th>팩스번호</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control" name="faxtel1" id="faxtel" style="width:80px;">
+                                                    <select class="form-control" name="faxtel1" id="faxtel1" style="width:80px;">
                                                         <option value="0" label="선택"></option>
                                                         <c:forEach var="fax" items="${FAX}">
                                                             <option value="${fax.codeval}" label="${fax.codename}"></option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="faxtel2" id="faxtel2" class="form-control form-control-sm" value="${siteInfo.FAXTEL2}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="faxtel3" id="faxtel3" class="form-control form-control-sm" value="${siteInfo.FAXTEL3}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="faxtel2" id="faxtel2" class="form-control form-control-sm req-phone" value="${siteInfo.FAXTEL2}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="faxtel3" id="faxtel3" class="form-control form-control-sm req-phone" value="${siteInfo.FAXTEL3}" style="width:80px;"></div>
                                             </td>
                                             <th>휴대전화</th>
                                             <td>
@@ -145,8 +145,8 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="mobile2" id="mobile2" class="form-control form-control-sm" value="${siteInfo.MOBILE2}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm" value="${siteInfo.MOBILE3}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="mobile2" id="mobile2" class="form-control form-control-sm req-phone" value="${siteInfo.MOBILE2}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm req-phone" value="${siteInfo.MOBILE3}" style="width:80px;"></div>
                                             </td>
                                             <th>이메일</th>
                                             <td><input type="text" class="form-control form-control-sm" name="email" id="email" value="${siteInfo.EMAIL}" style="width:200px;"></td>
@@ -353,6 +353,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<!-- validate -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
 <!-- daum map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
 <!-- daumAPI -->

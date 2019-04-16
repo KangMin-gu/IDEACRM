@@ -3,9 +3,9 @@ package com.crud.ideacrm.dto;
 public class KakaoDto {
     private String kakaono;
     private String plusfriend;
-    private int kkoserviceno;
+    private String kkoserviceno;
     private String kkotelno;
-    private int kkogubun;
+    private String kkogubun;
     private String siteid;
     private int reguser;
     private String regdate;
@@ -14,7 +14,7 @@ public class KakaoDto {
 
     public KakaoDto(){};
 
-    public KakaoDto(String kakaono, String plusfriend, int kkoserviceno, String kkotelno, int kkogubun, String siteid, int reguser, String regdate, int edtuser, String edtdate) {
+    public KakaoDto(String kakaono, String plusfriend, String kkoserviceno, String kkotelno, String kkogubun, String siteid, int reguser, String regdate, int edtuser, String edtdate) {
         this.kakaono = kakaono;
         this.plusfriend = plusfriend;
         this.kkoserviceno = kkoserviceno;
@@ -43,11 +43,11 @@ public class KakaoDto {
         this.plusfriend = plusfriend;
     }
 
-    public int getKkoserviceno() {
+    public String getKkoserviceno() {
         return kkoserviceno;
     }
 
-    public void setKkoserviceno(int kkoserviceno) {
+    public void setKkoserviceno(String kkoserviceno) {
         this.kkoserviceno = kkoserviceno;
     }
 
@@ -59,11 +59,11 @@ public class KakaoDto {
         this.kkotelno = kkotelno;
     }
 
-    public int getKkogubun() {
+    public String getKkogubun() {
         return kkogubun;
     }
 
-    public void setKkogubun(int kkogubun) {
+    public void setKkogubun(String kkogubun) {
         this.kkogubun = kkogubun;
     }
 

@@ -65,7 +65,7 @@
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
                     <button type="submit" class="btn btn-default pull-right">삭제</button>
-                    <a href="/common/site/modified/" class="btn btn-default pull-right">수정</a>
+                    <a href="/common/site/modified/${siteInfo.SITEID}" class="btn btn-default pull-right">수정</a>
                     </form:form>
                 </div>
 
@@ -195,77 +195,43 @@
                     </div>
                 </div>
             </div>
-            <div class="row ">
+            <div class="row">
                 <div class="col-lg-12">
-                    <div class="tabs-container">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">CTI 정보</a></li>
-                            <li><a class="nav-link" data-toggle="tab" href="#tab-2">Kakao 정보</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" id="tab-1" class="tab-pane active">
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" style="white-space:nowrap;">
-                                            <colgroup>
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                            </colgroup>
-                                            <tbody>
-                                            <tr>
-                                                <th>CTI 서버 IP</th>
-                                                <td>${ctiInfo.IP}</td>
-                                                <th>CTI 소켓 IP</th>
-                                                <td>${ctiInfo.SOCKETIP}</td>
-                                                <th>CTI PORT</th>
-                                                <td>${ctiInfo.PORT}</td>
-                                                <th>CTI 대표번호</th>
-                                                <td>${ctiInfo.TELNO}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>CTI 정보</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
                             </div>
-
-                            <div role="tabpanel" id="tab-2" class="tab-pane">
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" style="white-space:nowrap;">
-                                            <colgroup>
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                            </colgroup>
-                                            <tbody>
-                                            <c:forEach var="kko" items="${kkoInfo}">
-                                                <tr>
-                                                    <th>플러스친구</th>
-                                                    <td>${kko.PLUSFRIEND}</td>
-                                                    <th>대표발신번호</th>
-                                                    <td>${kko.KKOTELNO}</td>
-                                                    <th>서비스번호</th>
-                                                    <td>${kko.KKOSERVICENO}</td>
-                                                    <th>구분값</th>
-                                                    <td>${kko.KKOGUBUN}</td>
-                                                </tr>
-                                            </c:forEach>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>CTI 서버 IP</th>
+                                        <td>${ctiInfo.IP}</td>
+                                        <th>CTI 소켓 IP</th>
+                                        <td>${ctiInfo.SOCKETIP}</td>
+                                        <th>CTI PORT</th>
+                                        <td>${ctiInfo.PORT}</td>
+                                        <th>CTI 대표번호</th>
+                                        <td>${ctiInfo.TELNO}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

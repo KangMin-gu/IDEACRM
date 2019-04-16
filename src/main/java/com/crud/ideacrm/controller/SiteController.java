@@ -74,10 +74,10 @@ public class SiteController {
 
     // master 회원사 추가
     @RequestMapping(value = "/common/site/input", method = RequestMethod.POST)
-    public ModelAndView authSiteInsertSet(HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto,@ModelAttribute KakaoDto kakaoDto ) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authSiteInsertSet(HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
 
-        String siteId = siteService.siteInsert(request,siteDto,ctiDto,kakaoDto);
+        String siteId = siteService.siteInsert(request,siteDto,ctiDto);
         mView.setViewName("redirect:/common/site/"+siteId);
         return mView;
     }
@@ -86,7 +86,18 @@ public class SiteController {
     @RequestMapping(value="/common/site/modified/{siteId}",method=RequestMethod.GET)
     public ModelAndView authSiteUpdate(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = siteService.siteDetail(request,siteId);
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         mView.setViewName("/page/membership/site/siteUpdate");
+        return mView;
+    }
+
+    //master 회원사 수정
+    @RequestMapping(value="/common/site/modified/{siteId}",method=RequestMethod.POST)
+    public ModelAndView authSiteUpdateSet(HttpServletRequest request,@PathVariable String siteId,@ModelAttribute SiteDto siteDto,@ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        siteService.siteUpdate(request,siteId,siteDto,ctiDto);
+        mView.setViewName("redirect:/common/site/"+siteId);
         return mView;
     }
 

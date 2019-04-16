@@ -90,17 +90,17 @@
                                     <tbody>
                                         <tr>
                                             <th>회원사명</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="sitename" id="sitename" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm name" name="sitename" id="sitename" style="width:200px;"></td>
                                             <th>사업자번호</th>
                                             <td>
-                                                <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" class="form-control form-control-sm" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="bsno2" id="bsno2" class="form-control form-control-sm" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="bsno3" id="bsno3" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" minlength="3" maxlength="3" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno2" id="bsno2" minlength="2" maxlength="2" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno3" id="bsno3" minlength="5" maxlength="5" class="form-control form-control-sm" style="width:80px;"></div>
                                             </td>
                                             <th>법인번호</th>
                                             <td>
-                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" class="form-control form-control-sm" style="width:100px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" class="form-control form-control-sm" style="width:100px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm" style="width:100px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm" style="width:100px;"></div>
                                             </td>
                                             <th>대표자명</th>
                                             <td><input type="text" class="form-control form-control-sm" name="prsdname" id="prsdname" style="width:200px;"></td>
@@ -109,15 +109,15 @@
                                             <th>전화번호</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control" name="tel1" id="tel1" style="width:80px;">
+                                                    <select class="form-control req-phone" name="tel1" id="tel1" style="width:80px;">
                                                         <option value="0" label="선택"></option>
                                                         <c:forEach var="phone" items="${PHONE}">
                                                             <option value="${phone.codeval}" label="${phone.codename}"></option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="tel2" id="tel2" class="form-control form-control-sm" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="tel3" id="tel3" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="tel2" id="tel2" class="form-control form-control-sm req-phone" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="tel3" id="tel3" class="form-control form-control-sm req-phone" style="width:80px;"></div>
                                             </td>
                                             <th>팩스번호</th>
                                             <td>
@@ -129,8 +129,8 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="faxtel2" id="faxtel2" class="form-control form-control-sm" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="faxtel3" id="faxtel3" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="faxtel2" id="faxtel2" class="form-control form-control-sm req-phone" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="faxtel3" id="faxtel3" class="form-control form-control-sm req-phone" style="width:80px;"></div>
                                             </td>
                                             <th>휴대전화</th>
                                             <td>
@@ -142,8 +142,8 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="mobile2" id="mobile2" class="form-control form-control-sm" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="mobile2" id="mobile2" class="form-control form-control-sm req-phone" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm req-phone" style="width:80px;"></div>
                                             </td>
                                             <th>이메일</th>
                                             <td><input type="text" class="form-control form-control-sm" name="email" id="email" style="width:200px;"></td>
@@ -210,11 +210,11 @@
                                     <tbody>
                                     <tr>
                                         <th>계정</th>
-                                        <td><input type="text" name="adminid" id="adminid" class="form-control form-control-sm" style="width:200px;"></td>
+                                        <td><input type="text" name="adminid" id="adminid" class="form-control form-control-sm name" style="width:200px;"></td>
                                         <th>비밀번호</th>
-                                        <td><input type="text" name="adminpassword" id="adminpassword" class="form-control form-control-sm" style="width:200px;"></td>
+                                        <td><input type="password" name="adminpassword" id="adminpassword" class="form-control form-control-sm password" style="width:200px;"></td>
                                         <th>비밀번호 확인</th>
-                                        <td><input type="text" name="adminpasswordretry" id="adminpasswordretry" class="form-control form-control-sm" style="width:200px;"></td>
+                                        <td><input type="password" name="adminpasswordretry" id="adminpasswordretry" class="form-control form-control-sm confirmpassword" style="width:200px;"></td>
                                     </tr>
                                     <tr>
                                         <th>서비스상태</th>
@@ -262,92 +262,56 @@
                     </div>
                 </div>
             </div>
-            <div class="row ">
+            <div class="row">
                 <div class="col-lg-12">
-                    <div class="tabs-container">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">CTI 정보</a></li>
-                            <li><a class="nav-link" data-toggle="tab" href="#tab-2">Kakao 정보</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" id="tab-1" class="tab-pane active">
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" style="white-space:nowrap;">
-                                            <colgroup>
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                            </colgroup>
-                                            <tbody>
-                                            <tr>
-                                                <th>CTI 서버 IP</th>
-                                                <td>
-                                                    <input type="text" name="ip" id="ip" class="form-control form-control-sm" style="width:200px;">
-                                                </td>
-                                                <th>CTI 소켓 IP</th>
-                                                <td>
-                                                    <input type="text" name="socketip" id="socketip" class="form-control form-control-sm" style="width:200px;">
-                                                </td>
-                                                <th>CTI PORT</th>
-                                                <td>
-                                                    <input type="text" name="port" id="port" class="form-control form-control-sm" style="width:200px;">
-                                                </td>
-                                                <th>CTI 대표번호</th>
-                                                <td>
-                                                    <input type="text" name="telno" id="telno" class="form-control form-control-sm" style="width:200px;">
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>CTI 등록</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
                             </div>
-
-                            <div role="tabpanel" id="tab-2" class="tab-pane">
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" style="white-space:nowrap;">
-                                            <colgroup>
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                                <col width="5%">
-                                                <col width="20%">
-                                            </colgroup>
-                                            <tbody>
-                                            <c:forEach var="kko" items="${kkoInfo}">
-                                                <tr>
-                                                    <th>플러스친구</th>
-                                                    <td>${kko.PLUSFRIEND}</td>
-                                                    <th>대표발신번호</th>
-                                                    <td>${kko.KKOTELNO}</td>
-                                                    <th>서비스번호</th>
-                                                    <td>${kko.KKOSERVICENO}</td>
-                                                    <th>구분값</th>
-                                                    <td>${kko.KKOGUBUN}</td>
-                                                </tr>
-                                            </c:forEach>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>CTI 서버 IP</th>
+                                        <td>
+                                            <input type="text" name="ip" id="ip" class="form-control form-control-sm" style="width:200px;">
+                                        </td>
+                                        <th>CTI 소켓 IP</th>
+                                        <td>
+                                            <input type="text" name="socketip" id="socketip" class="form-control form-control-sm" style="width:200px;">
+                                        </td>
+                                        <th>CTI PORT</th>
+                                        <td>
+                                            <input type="text" name="port" id="port" class="form-control form-control-sm" style="width:200px;">
+                                        </td>
+                                        <th>CTI 대표번호</th>
+                                        <td>
+                                            <input type="text" name="telno" id="telno" class="form-control form-control-sm" style="width:200px;">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">등록</button>
@@ -370,8 +334,9 @@
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- Jasny -->
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<!-- validate -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
 <!-- daum map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
 <!-- daumAPI -->
@@ -381,13 +346,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script>
     $(document).ready(function() {
-        $('.footable').footable();
-        $('.footable2').footable();
-        $('.footable3').footable();
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
-        });
+
     });
 </script>
 </body>

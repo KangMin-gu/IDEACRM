@@ -20,5 +20,9 @@ public interface SiteDao {
 
     public void siteUserInsert(SiteDto siteDto);
 
+    public void siteUpdate(SiteDto siteDto);
+
     public void siteDelete(String siteId);
+
+    public void ctiUpdate(CtiDto ctiDto);
 }

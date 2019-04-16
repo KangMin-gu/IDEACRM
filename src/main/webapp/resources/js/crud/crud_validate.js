@@ -9,12 +9,29 @@ $.validator.addMethod("url", function(value,element) {
     return this.optional(element) || /^[^((http(s?))\:\/\/)]([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/.test(value);
 },"URL을 올바로 입력해 주세요.(http://, https:// 문구 제외)");
 
+$.validator.addMethod(
+    "testconnect",
+    function (value, element) {
+        debugger;
+        if(value != "") {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    "값이 없습니다."
+);
+
 //클래스 규칙 추가 - 아래 name 룰과는 별계로 작동함
+$.validator.addClassRules("testconnect",{required:false});
 $.validator.addClassRules("test",{required: true, minlength: 2});
 $.validator.addClassRules("req-phone",{required: true, minlength: 3, maxlength:4});
 $.validator.addClassRules("phone",{minlength: 3, maxlength:4});
 $.validator.addClassRules("url",{required:false, url: true});
 $.validator.addClassRules("name",{required: true, minlength: 2, maxlength:20});
+$.validator.addClassRules("password",{required: true, minlength: 8});
+$.validator.addClassRules("confirmpassword",{required: true, minlength: 8, equalTo: "#adminpassword"});
+
 
 //한글 메시지 변경
 jQuery.extend(jQuery.validator.messages, {

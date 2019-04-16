@@ -412,7 +412,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- daumAPI -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<!-- crud js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>

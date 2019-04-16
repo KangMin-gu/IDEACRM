@@ -104,6 +104,10 @@
 		,#{reguser},now(),#{edtuser},now()
 		)
 	</insert>
+	<update id="siteUpdate" parameterType="siteDto">
+
+
+	</update>
 	<insert id="kakaoInsert" parameterType="kakaoDto">
 		INSERT INTO MA900012
 		(

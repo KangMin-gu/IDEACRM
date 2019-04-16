@@ -65,7 +65,17 @@ public class SiteDaoImple implements SiteDao {
     }
 
     @Override
+    public void siteUpdate(SiteDto siteDto) {
+        session.update("site.siteUpdate",siteDto);
+    }
+
+    @Override
     public void siteDelete(String siteId) {
         session.update("site.siteDelete",siteId);
+    }
+
+    @Override
+    public void ctiUpdate(CtiDto ctiDto) {
+        session.update("site.ctiUpdate",ctiDto);
     }
 }

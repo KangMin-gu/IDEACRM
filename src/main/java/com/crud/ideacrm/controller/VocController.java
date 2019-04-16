@@ -1,17 +1,16 @@
 package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.dto.ProductDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.CustService;
 import com.crud.ideacrm.service.ProductService;
+import com.crud.ideacrm.service.VocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,17 +24,17 @@ public class VocController {
 
     @Autowired
     private CustService custService;
-
     @Autowired
     private CodeService codeService;
-
     @Autowired
     private ProductService productService;
+    @Autowired
+    private VocService vocService;
 
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
     @RequestMapping(value = "/voc/dashboard", method = RequestMethod.GET)
-    public ModelAndView vocList(HttpServletRequest request){
+    public ModelAndView authVocList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/voc/vocDashboard");
         return mView;
@@ -43,7 +42,7 @@ public class VocController {
 
 
     @RequestMapping(value = "/voc", method = RequestMethod.GET)
-    public ModelAndView vocDetail(HttpServletRequest request){
+    public ModelAndView authVocDetail(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
@@ -55,24 +54,22 @@ public class VocController {
     }
 
     @RequestMapping(value = "/voc/satisfied", method = RequestMethod.GET)
-    public ModelAndView vocstisfied(HttpServletRequest request){
+    public ModelAndView authVocstisfied(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/voc/vocSatisfied");
         return mView;
     }
 
     @RequestMapping(value = "/voc/custsearch", method = RequestMethod.GET)
-    public ModelAndView vocCustSearchPop(HttpServletRequest request){
+    public ModelAndView authVocCustSearchPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
-        mView.addAllObjects( codeService.getCustomCode(USINGMENU,siteId));
         mView.setViewName("page/voc/pop/custSearchPop");
         return mView;
     }
     @RequestMapping(value="/voc/custsearch", method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> vocCsutSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+    public List<Map<String,Object>> authVocCustSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> param = parameterUtil.searchParam(request);
         List<Map<String,Object>> custSearchList = custService.custList(param);
@@ -80,8 +77,21 @@ public class VocController {
         return custSearchList;
     }
 
+    //고객 팝업 클릭 된 고객의 상세정보
+    @RequestMapping(value="/voc/cust/{custno}", method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> authVocCustDetail(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        CustDto custDto = new CustDto();
+        custDto.setCustno(custno);
+        custDto.setSiteid(siteId);
+        Map<String,Object> custDetail = custService.custDetail(custDto);
+        return custDetail;
+    }
+
+
     @RequestMapping(value = "/voc/custdetail/{custNo}", method = RequestMethod.GET)
-    public ModelAndView vocCustDetailPop(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authVocCustDetailPop(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         CustDto custDto = new CustDto();
         custDto.setCustno(custNo);
@@ -92,22 +102,48 @@ public class VocController {
         return mView;
     }
 
+    //voc 고객 수정 실행
+    @RequestMapping(value = "/voc/cust/modified/{custno}", method = RequestMethod.POST)
+    @ResponseBody
+    public int authVocCustUpdate(HttpServletRequest request, @ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto
+            , @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        custDto.setSiteid(siteId);
+        custDto.setEdituser(userNo);
+        custDenyDto.setEdituser(userNo);
+        int res = vocService.vocCustUpdate(custDto,custDenyDto);
+        return res;
+    }
+
+    //고객 추가 실행
+    @RequestMapping(value = "/voc/cust/input", method = RequestMethod.POST)
+    @ResponseBody
+    public String authVocCustInsert(HttpServletRequest request,@ModelAttribute CustDto custDto, @ModelAttribute CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        custDto.setSiteid(siteId);custDto.setReguser(userNo);
+        custDenyDto.setReguser(userNo);
+        String custNo = custService.custinsert(custDto,custDenyDto);
+        return "{\"CUSTNO\":\""+custNo+"\"}";
+    }
+
     @RequestMapping(value = "/voc/sms", method = RequestMethod.GET)
-    public ModelAndView vocSmsPop(HttpServletRequest request){
+    public ModelAndView authVocSmsPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/smsPop");
         return mView;
     }
 
     @RequestMapping(value = "/voc/kakao", method = RequestMethod.GET)
-    public ModelAndView vocKakaoPop(HttpServletRequest request){
+    public ModelAndView authVocKakaoPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/kakaoPop");
         return mView;
     }
 
     @RequestMapping(value = "/voc/email", method = RequestMethod.GET)
-    public ModelAndView vocEmailPop(HttpServletRequest request){
+    public ModelAndView authVocEmailPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/voc/pop/emailPop");
         return mView;

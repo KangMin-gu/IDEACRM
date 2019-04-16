@@ -45,9 +45,9 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <table class="popfootable table table-stripped" data-sorting="true">
+                    <table class="footable table table-stripped" data-sorting="true">
                         <thead>
-                        <tr data-formatter="test">
+                        <tr>
                             <th data-visible="false" data-name="CLINO">고객번호</th>
                             <th data-name="CLINAME" >고객명</th>
                             <th data-name="CLIADDR">주소</th>
@@ -70,7 +70,7 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>

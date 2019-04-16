@@ -1,6 +1,7 @@
 var globalUrl;
 // footable 검색 및 ready상태일때 사용할 수 있게 변경
 function footableSearchList(url) {
+    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     globalUrl = url;
@@ -13,6 +14,11 @@ function footableSearchList(url) {
                 "container" : ".pagination",
                 "size":page
             },
+            // "filtering": {
+            //     "enabled": true,
+            //     "delay": -1,
+            //     "position": "left"
+            // },
             "rows": response
         });
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
@@ -43,13 +49,15 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
     if(globalUrl =='/popuser'){
         parentOwnerUser($(obj.target.parentElement));
     }
-    if(globalUrl == '/popcust'){
+    else if(globalUrl == '/popcust'){
         parentCustname($(obj.target.parentElement));
     }
-    if(globalUrl == '/popaccount'){
+    else if(globalUrl == '/popaccount'){
         popParentNameClick($(obj.target.parentElement));
     }
-
+    else if(globalUrl == '/voc/custsearch'){
+        popVocCustNameClick($(obj.target.parentElement));
+    }
 
 });
 

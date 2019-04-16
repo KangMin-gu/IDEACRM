@@ -1,9 +1,14 @@
 $('#searchNumber').keydown(function(key){
-    if(key.keyCode == 13){
+    if(key.keyCode == 13){ //엔터키 입력시 이벤트 실행
         custSearch(key.target);
     }
 });
 
+$('#servicecode1').change(function(){
+    upperCode('servicecode1');
+});
+
+//voc고객팝업창
 function custSearch(obj){
     var param = {
         "mobile" : $(obj).val()};
@@ -16,7 +21,7 @@ function custSearch(obj){
         success: function (data) {
             var length = data.length;
             if(length > 1){
-                openNewWindow('고객검색','/voc/custsearch','',1000,500);
+                openNewWindow('고객검색','/voc/custsearch','',1000,680);
             }else if(length == 1){
                 custInfoBinding(data[0]);
             }
@@ -27,7 +32,9 @@ function custSearch(obj){
     });
 }
 
-function custInfoBinding(data) {// 인풋 필드 데이터 바인딩
+// voc 고객 인풋 필드 데이터 바인딩
+function custInfoBinding(data) {
+    debugger;
     var boolean;
     if(newWindow == null){
         boolean = false;
@@ -39,7 +46,8 @@ function custInfoBinding(data) {// 인풋 필드 데이터 바인딩
         }
     }
 
-    if(boolean){
+//    if(boolean){
+    if(true){
         opener.$('#custname').val(data.CUSTNAME);
         opener.$('#custno').val(data.CUSTNO);
         opener.$('#custgubun').val(data.CUSTGUBUN);
@@ -145,14 +153,163 @@ function custInfoBinding(data) {// 인풋 필드 데이터 바인딩
     }
 }
 
+//voc 고객 상세보기 팝업
 function vocCustDetail(){
     var custNo = $('#custno').val();
-    if(custNo == 0 || custNo == '' ){
+    if(custNo == '' ){
         alert('고객이 선택되지 않았습니다.');
         return;
     }
     openNewWindow('voc','/voc/custdetail/'+custNo,'voc',1200,700);
 }
-$('#servicecode1').change(function(){
-    upperCode('servicecode1');
-});
+
+
+// voc 고객 팝업 tr 클릭
+// 상세정보를 가져와서 필드에 바인딩한다.
+function popVocCustNameClick(tr){
+    var custno = tr.children().get(0).textContent;
+    console.log(custno);
+    $.ajax({
+        url: "/voc/cust/"+custno,
+        method: "GET",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            vocCustFieldReset();
+            custFormActivation('update');
+            custInfoBinding(data);
+            setTimeout(function(){
+                window.close();
+            },300);
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+}
+
+// 버튼 생성 메서드
+// 파라미터에 따라 insert/ update 버튼을 생성
+function custFormActivation(statusStr, fromStr) {
+    var btnStr = "";
+    if (statusStr == 'insert') {
+        btnStr = "<button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustInsert()'>고객추가</button>";
+    } else if (statusStr == 'update') {
+        btnStr = "<button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustUpdate()'>고객수정</button>";
+    }
+    if (fromStr == "voc") {// 호출한 곳이 voc 페이지면
+        $('#regSpan').empty();
+        $('#regSpan').html(btnStr);
+    } else {// 팝업
+        opener.$('#custRegSpan').empty();
+        opener.$('#custRegSpan').html(btnStr);
+    }
+}
+
+//voc 고객 추가 버튼 생성 이벤트
+function makeCustAddBtn(){
+    vocCustFieldReset();
+    custFormActivation('insert');
+    window.close();
+}
+//voc 고객 필드 초기화
+function vocCustFieldReset(){
+    if(window.location.pathname == '/voc'){
+        $('#relcustname').val('');
+        $('.vocCustInput').val('');
+        $('#custgrade').val(0);//int type
+        $('#custgubun').val(0);
+        $('#relcustno').val(0);
+        $('.vocCustInput:input:checkbox').val(1);
+        $('.vocCustInput:input:checkbox').prop('checked',false);
+    }else{ //팝업에서 호출
+        opener.$('#relcustname').val('');
+        opener.$('.vocCustInput').val('');
+        opener.$('#custgrade').val(0);
+        opener.$('#custgubun').val(0);
+        opener.$('#relcustno').val(0);
+        opener.$('.vocCustInput:input:checkbox').val(1);
+        opener.$('.vocCustInput:input:checkbox').prop('checked',false);
+    }
+}
+
+// voc 고객 수정
+function goCustUpdate() {
+    var custNo = $("#custno").val();
+    if(custNo != ""){
+        var urlStr = "/voc/cust/modified/"+custNo;
+        var param = getCustInfoToJson();
+        $.ajax({
+            url : urlStr,
+            method : "POST",
+            dataType : "json",
+            data : param,
+            cache : false,
+            success : function(data) {
+                alert("수정 되었습니다.");
+            },
+            error : function(request, status, error) {
+                alert("code:" + request.status + "\n" + "message:"
+                    + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    }else alert('고객이 선택되지 않았습니다.');
+}
+
+function goCustInsert(){
+    if(vocCustRequiredFieldCheck() == false){
+        alert('휴대전화를 입력해 주세요.');
+        return;
+    }
+    var urlStr = "/voc/cust/input";
+    var param = getCustInfoToJson();
+    $.ajax({
+        url : urlStr,
+        method : "POST",
+        dataType : "json",
+        data : param,
+        cache : false,
+        success : function(data) {
+            $('#custno').val(data.CUSTNO);
+            alert("추가 되었습니다.");
+        },
+        error : function(request, status, error) {
+            alert("code:" + request.status + "\n" + "message:"
+                + request.responseText + "\n" + "error:" + error);
+        }
+    });
+}
+
+function vocCustRequiredFieldCheck(){
+    var mobile = $('#mobile1').val() + $('#mobile2').val() + $('#mobile3').val();
+    var custname = $('#custname').val();
+    if(mobile == ''){
+        return false;
+    }else {
+        if(custname == ''){  $('#custname').val(mobile); }
+    }
+    return;
+}
+
+//고객 인풋 필드 데이터 json형식 리턴.
+function getCustInfoToJson(){
+    var param={};
+    var custData = $('.vocCustInput');
+    var custLength = custData.length;
+
+    for(i=0; i<custLength;i++){
+        var idVal = custData[i].id;
+
+        if(idVal.substring(0,4) =='deny' ){ // 수신거부 체크박스 항목일 경우
+            if($('#'+idVal).prop('checked') == true){
+                param[idVal] = custData[i].value;//체크 되었으면 값 바인딩
+            }else{
+                param[idVal] = 0; // 체크 해제 되었다면 0
+            }
+
+        }else{
+            param[idVal] = custData[i].value;
+        }
+    }
+    return param;
+}

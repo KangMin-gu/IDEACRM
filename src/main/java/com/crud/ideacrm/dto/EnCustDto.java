@@ -1,7 +1,6 @@
 package com.crud.ideacrm.dto;
 
-import com.crud.ideacrm.crud.util.CrudCommonUtil;
-import com.crud.ideacrm.crud.util.CrudCommonUtilImple;
+import com.crud.ideacrm.crud.util.CodecUtil;
 
 
 import java.io.Serializable;
@@ -61,7 +60,7 @@ public class EnCustDto extends CustDto implements Serializable {
     private int	actgrade;	//활동등급
     private int	clino;	//고객사번호
     private int	clicustno;	//클라이언트고객번호
-    private int	relcustno;	//고객관계번호
+    private String	relcustno;	//고객관계번호
 
     public EnCustDto(CustDto custDto) throws UnsupportedEncodingException, GeneralSecurityException {
         this.custno = custDto.getCustno();
@@ -117,7 +116,7 @@ public class EnCustDto extends CustDto implements Serializable {
     }
 
     private void setEncodingCustDto() throws UnsupportedEncodingException, GeneralSecurityException {
-        CrudCommonUtil commonUtil = new CrudCommonUtilImple();
+        CodecUtil commonUtil = new CodecUtil();
 
         if(this.mobile1 != null && this.mobile1 != ""){ this.mobile1 = commonUtil.encoding(this.mobile1);}
         if(this.mobile2 != null && this.mobile2 != ""){ this.mobile2 = commonUtil.encoding(this.mobile2);}
@@ -602,12 +601,12 @@ public class EnCustDto extends CustDto implements Serializable {
     }
 
     @Override
-    public int getRelcustno() {
+    public String getRelcustno() {
         return relcustno;
     }
 
     @Override
-    public void setRelcustno(int relcustno) {
+    public void setRelcustno(String relcustno) {
         this.relcustno = relcustno;
     }
 }

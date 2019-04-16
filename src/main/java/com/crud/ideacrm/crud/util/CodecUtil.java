@@ -2,18 +2,13 @@ package com.crud.ideacrm.crud.util;
 
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Component
-public class CrudCommonUtilImple implements CrudCommonUtil {
+public class CodecUtil {
 
     /**
      * String 파라미터가 들어오면 암호화 된 문자를 return 한다.
@@ -22,7 +17,6 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
      * @throws UnsupportedEncodingException
      * @throws GeneralSecurityException
      */
-    @Override
     public String encoding(String arg) throws UnsupportedEncodingException, GeneralSecurityException {
         Codec codec = new Codec();
         String encodeStr = codec.encrypt(arg);
@@ -36,7 +30,6 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
      * @throws UnsupportedEncodingException
      * @throws GeneralSecurityException
      */
-    @Override
     public String decoding(String arg) throws UnsupportedEncodingException, GeneralSecurityException {
         Codec codec = new Codec();
         String decodeStr = codec.decrypt(arg);
@@ -45,17 +38,18 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
 
     /**
      * 암호화 된 값을 복호화하여 반환
+     * 암호화 필드가 추가되면 이곳 수정 필요.
      * @param map
      * @return
      * @throws UnsupportedEncodingException
      * @throws GeneralSecurityException
      */
-    @Override
     public Map<String, Object> decodeMap(Map<String, Object> map) throws UnsupportedEncodingException, GeneralSecurityException {
         final String[] FIELD_NAME_ARR = {"MOBILE1","MOBILE2","MOBILE3","HOMTEL1","HOMTEL2","HOMTEL3","HOMADDR1","HOMADDR2","HOMADDR3","EMAIL"};
 
         String[] mobileArr = new String[3];
         String[] homtelArr = new String[3];
+        String[] homaddrArr = new String[3];
 
         int length = FIELD_NAME_ARR.length;
         for(int i=0; i < length ; i++){
@@ -63,20 +57,24 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
             if(map.get( keyNm ) != null && !map.get( keyNm ).equals("") ){//FIELD_NAME_ARR에 정의된 값이 있다면 복호화
                 String tmpStr = (String)map.get(keyNm);
                 tmpStr = decoding(tmpStr);
-                map.put(keyNm, tmpStr );
+                map.put(keyNm, tmpStr );//복호화한 값으로 변경
 
-                if ( keyNm.contains("MOBILE") ){// MOBILE 필드
-                    mobileArr = setPhoneArr(keyNm,tmpStr,mobileArr);//배열에 정리
+                if ( keyNm.contains("MOBILE") ){// MOBILE1,2,3 필드
+                    mobileArr = sortFieldArr(keyNm,tmpStr,mobileArr);//배열에 정리
                 }else if ( keyNm.contains("HOMTEL") ){//HOMTEL 필드
-                    homtelArr = setPhoneArr(keyNm,tmpStr,homtelArr);
+                    homtelArr = sortFieldArr(keyNm,tmpStr,homtelArr);
+                }else if( keyNm.contains("HOMADDR" )){
+                    homaddrArr = sortFieldArr(keyNm,tmpStr,homaddrArr);
                 }
+
             }
         }
         String mobile = parsingPhoneNo(mobileArr);//010-123-123 형식으로 셋팅 자리수가 비정상이라면 '-' 제거
         String phone = parsingPhoneNo(homtelArr);
+        String homaddr = parsingAddr(homaddrArr);
         map.put("MOBILE",mobile);
         map.put("HOMTEL",phone);
-
+        map.put("HOMADDR",homaddr);
         return map;
     }
 
@@ -87,7 +85,6 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
      * @throws UnsupportedEncodingException
      * @throws GeneralSecurityException
      */
-    @Override
     public List<Map<String, Object>> decodeList(List<Map<String, Object>> list) throws UnsupportedEncodingException, GeneralSecurityException {
         for(int i=0;i<list.size();i++){
             Map<String,Object> tmpMap = (Map<String,Object>)list.get(i);
@@ -99,13 +96,12 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
 
     /**
      * 전화번호 배열에 셋팅
-     * @param name
-     * @param value
-     * @param valArr
+     * @param name 필드명
+     * @param value 값
+     * @param valArr 전화번호 배열 (String[3] phone)
      * @return
      */
-    @Override
-    public String[] setPhoneArr(String name,String value,String[] valArr) {
+    public String[] sortFieldArr(String name,String value,String[] valArr) {
         char last = name.charAt(name.length()-1); //필드의 마지막 문자열
         switch (last) {
             case '1':
@@ -128,7 +124,6 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
      * @param phoneArr
      * @return
      */
-    @Override
     public String parsingPhoneNo(String[] phoneArr) {
         for(int i=0;i<phoneArr.length;i++){
             if(phoneArr[i] == null) phoneArr[i]="";//배열값이 null이면 ""로변환
@@ -142,72 +137,42 @@ public class CrudCommonUtilImple implements CrudCommonUtil {
     }
 
     /**
-     * step1.url에 들어가는 pk값을 암호화.
-     * step2.url encoding 한 값을 리턴
+     * 주소 배열을 받아 변환 된 String으로 반환
+     * @param addrArr
+     * @return
+     */
+    public String parsingAddr(String[] addrArr) {
+        for(int i=0;i<addrArr.length;i++){
+            if(addrArr[i] == null) addrArr[i]="";//배열값이 null이면 ""로변환
+        }
+        return addrArr[0]+" "+addrArr[1]+" "+addrArr[2];
+    }
+
+    /**
+     * url에 들어가는 pk값을 암호화.
+     * 암호화 된 문자중 char'/'가 있다면 "__"로 치환
+     * (url에서 '/'는 경로를 의미하기에 escape 개념으로 활용 )
      * @param pkNo
      * @return
      * @throws UnsupportedEncodingException
      * @throws GeneralSecurityException
      */
-    @Override
     public String encodePkNo(String pkNo) throws UnsupportedEncodingException, GeneralSecurityException {
         String encodeRes = encoding(pkNo);
-        return URLEncoder.encode(encodeRes, "UTF-8");
+        return encodeRes.replaceAll("/","__");
     }
 
     /**
-     * step1.url decoding
-     * step2.파라미터 pk값을 복호화.
+     * 파라미터 pk값을 복호화.
+     * "__"로 치환해둔 문자를 다시'/'로 복구 후 디코딩
      * @param pkNo
      * @return
      * @throws UnsupportedEncodingException
      * @throws GeneralSecurityException
      */
-    @Override
     public String decodePkNo(String pkNo) throws UnsupportedEncodingException, GeneralSecurityException {
-        String decodeRes = URLDecoder.decode(pkNo, "UTF-8");
+        String decodeRes = pkNo.replaceAll("__","/");
         return decoding(decodeRes);
-    }
-
-    /**
-     * request의 parameter 객체를 map으로 정렬하여 리턴.
-     * @param request
-     * @return
-     */
-    @Override
-    public Map<String, Object> searchParam(HttpServletRequest request) {
-        Map<String, Object> search = new HashMap();
-
-        if (request.getSession().getAttribute("SITEID") != null) {
-            int SITEID = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-            search.put("siteid", SITEID);
-        }
-        Enumeration params = request.getParameterNames();
-
-        while (params.hasMoreElements()) {
-            String name = (String) params.nextElement();
-            String value = request.getParameter(name);
-            if (name.contains("date")) {
-                //date라는 name 이 있는 경우 date형이 2019-01-01 ~ 2019-02-01 으로 넘어오기때문에 fr, to로 나누어서 처리해 주어야 할것 같음.
-                // 또한 고객중 일부가 input 창에서 데이터를 임의로 지우는 경우가 있을 것으로 보아서 ~포함해서 지우는 경우에는 fr로 인식한다.
-                if (value.contains("~")) {
-                    // ~표가 있는경우
-                    int idx = value.replace(" ", "").indexOf("~");
-
-                    search.put(name + "fr", value.substring(0, idx));
-                    search.put(name + "to", value.substring(idx + 3));
-                } else {
-                    // ~표가 없는경우
-                    search.put(name + "fr", value);
-                }
-            } else {
-                if (value == "") {
-                    value = null;
-                }
-                search.put(name, value);
-            }
-        }
-        return search;
     }
 
 

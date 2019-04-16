@@ -18,7 +18,7 @@ $.validator.addMethod(
             return false;
         }
     },
-    "값이 없습니다."
+    "값이 없습니다!."
 );
 
 //클래스 규칙 추가 - 아래 name 룰과는 별계로 작동함

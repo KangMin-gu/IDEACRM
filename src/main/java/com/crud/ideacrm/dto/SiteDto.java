@@ -1,5 +1,10 @@
 package com.crud.ideacrm.dto;
 
+import com.crud.ideacrm.crud.util.CodecUtil;
+
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+
 public class SiteDto {
 
     private String siteid; //사이트 ID PK
@@ -43,6 +48,29 @@ public class SiteDto {
     private int owner; // 담당자
 
     public SiteDto(){};
+
+    public void setEncodingSiteDto() throws UnsupportedEncodingException, GeneralSecurityException {
+        CodecUtil commonUtil = new CodecUtil();
+
+        if(this.mobile1 != null && this.mobile1 != ""){ this.mobile1 = commonUtil.encoding(this.mobile1);}
+        if(this.mobile2 != null && this.mobile2 != ""){ this.mobile2 = commonUtil.encoding(this.mobile2);}
+        if(this.mobile3 != null && this.mobile3 != ""){ this.mobile3 = commonUtil.encoding(this.mobile3);}
+        if(this.telno1 != null && this.telno1 != ""){ this.telno1 = commonUtil.encoding(this.telno1);}
+        if(this.telno2 != null && this.telno2 != ""){ this.telno2 = commonUtil.encoding(this.telno2);}
+        if(this.telno3 != null && this.telno3 != ""){ this.telno3 = commonUtil.encoding(this.telno3);}
+        if(this.faxtel1 != null && this.faxtel1 != ""){ this.faxtel1 = commonUtil.encoding(this.faxtel1);}
+        if(this.faxtel2 != null && this.faxtel2 != ""){ this.faxtel2 = commonUtil.encoding(this.faxtel2);}
+        if(this.faxtel3 != null && this.faxtel3 != ""){ this.faxtel3 = commonUtil.encoding(this.faxtel3);}
+        if(this.addr1 != null && this.addr1 != ""){ this.addr1 = commonUtil.encoding(this.addr1);}
+        if(this.addr2 != null && this.addr2 != ""){ this.addr2 = commonUtil.encoding(this.addr2);}
+        if(this.addr3 != null && this.addr3 != ""){ this.addr3 = commonUtil.encoding(this.addr3);}
+        if(this.bsno1 != null && this.bsno1 != ""){ this.bsno1 = commonUtil.encoding(this.bsno1);}
+        if(this.bsno2 != null && this.bsno2 != ""){ this.bsno2 = commonUtil.encoding(this.bsno2);}
+        if(this.bsno3 != null && this.bsno3 != ""){ this.bsno3 = commonUtil.encoding(this.bsno3);}
+        if(this.incno1 != null && this.incno1 != ""){ this.incno1 = commonUtil.encoding(this.incno1);}
+        if(this.incno2 != null && this.incno2 != ""){ this.incno2 = commonUtil.encoding(this.incno2);}
+        if(this.email != null && this.email != ""){ this.email = commonUtil.encoding(this.email); }
+    }
 
     public SiteDto(String siteid, String sitename, String bsno1, String bsno2, String bsno3, String incno1, String incno2, String addr1, String addr2, String addr3, String fregdate, String expirdate, String telno1, String telno2, String telno3, String faxtel1, String faxtel2, String faxtel3, String mobile1, String mobile2, String mobile3, String email, String sitememo, String sitelogo, String bscond, String cotype, String bstype, String regdate, int reguser, String edtdate, int edtuser, String callname, String sitesize, String prsdname, String adminid, String adminpassword, int isdelete, int owner) {
         this.siteid = siteid;

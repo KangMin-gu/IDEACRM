@@ -39,19 +39,22 @@ public class CodecUtil {
     /**
      * 암호화 된 값을 복호화하여 반환
      * 암호화 필드가 추가되면 이곳 수정 필요.
+     * 차후에 시간되면 map의 키랑 FIELD_NAME_ARR과 contains 하면 FIELD_NAME_ARR에 길게 안써도 될듯
      * @param map
      * @return
      * @throws UnsupportedEncodingException
      * @throws GeneralSecurityException
      */
     public Map<String, Object> decodeMap(Map<String, Object> map) throws UnsupportedEncodingException, GeneralSecurityException {
-        final String[] FIELD_NAME_ARR = {"MOBILE1","MOBILE2","MOBILE3","HOMTEL1","HOMTEL2","HOMTEL3","HOMADDR1","HOMADDR2","HOMADDR3","EMAIL"};
-
+        final String[] FIELD_NAME_ARR = {"MOBILE1","MOBILE2","MOBILE3","HOMTEL1","HOMTEL2","HOMTEL3","HOMADDR1","HOMADDR2","HOMADDR3","EMAIL","BSNO1","BSNO2","BSNO3","INCNO1","INCNO2",
+                                            "FAXTEL1","FAXTEL2","FAXTEL3","TELNO1","TELNO2","TELNO3","ADDR1","ADDR2","ADDR3"};
+        //final String[] FIELD_NAME_ARR = {"MOBILE","TEL","ADDR","EMAIL","BSNO"};
         String[] mobileArr = new String[3];
         String[] homtelArr = new String[3];
         String[] homaddrArr = new String[3];
 
         int length = FIELD_NAME_ARR.length;
+        //int mapSize = map.size();
         for(int i=0; i < length ; i++){
             String keyNm = FIELD_NAME_ARR[i];
             if(map.get( keyNm ) != null && !map.get( keyNm ).equals("") ){//FIELD_NAME_ARR에 정의된 값이 있다면 복호화
@@ -66,7 +69,6 @@ public class CodecUtil {
                 }else if( keyNm.contains("HOMADDR" )){
                     homaddrArr = sortFieldArr(keyNm,tmpStr,homaddrArr);
                 }
-
             }
         }
         String mobile = parsingPhoneNo(mobileArr);//010-123-123 형식으로 셋팅 자리수가 비정상이라면 '-' 제거

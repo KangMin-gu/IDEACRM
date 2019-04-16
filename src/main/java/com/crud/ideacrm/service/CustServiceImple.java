@@ -72,7 +72,6 @@ public class CustServiceImple implements CustService{
         custDto.setSiteid(siteId);
         custDto.setEdituser(userNo);
         custDenyDto.setEdituser(userNo);
-
         CustDto enCustDto = new EnCustDto(custDto);
         String deRelCustNo = codecUtil.decodePkNo(enCustDto.getRelcustno());
         if(!deRelCustNo.equals("")){

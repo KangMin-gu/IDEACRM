@@ -49,11 +49,12 @@ public class SiteServiceImple implements SiteService{
     public ModelAndView siteDetail(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         String deSiteId = codecUtil.decodePkNo(siteId);//복호화 후 전달
+
         Map<String,Object> siteDetail = siteDao.siteDetail(deSiteId);
         Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deSiteId);
         List<Map<String,Object>> siteKkoDetail = siteDao.siteKkoDetail(deSiteId);
         siteDetail.put("SITEID",siteId);
-
+        siteDetail = codecUtil.decodeMap(siteDetail);//암호화 필드 복호화작업
         mView.addObject("siteInfo",siteDetail);
         mView.addObject("ctiInfo",siteCtiDetail);
         mView.addObject("kkoInfo",siteKkoDetail);
@@ -63,6 +64,7 @@ public class SiteServiceImple implements SiteService{
     @Override
     public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
 
+        siteDto.setEncodingSiteDto();
         String siteId = siteDao.siteInsert(siteDto);
 
         String EncodePass = encoder.encode(siteDto.getAdminpassword());
@@ -72,11 +74,10 @@ public class SiteServiceImple implements SiteService{
         if(siteId != null){
             ctiDto.setSiteid(siteId);
             String ctiIp = ctiDto.getIp();
-
             if(!ctiIp.equals("") ){
+                ctiDto.setEncodingSiteDto();
                 siteDao.ctiInsert(ctiDto);
             }
-
         }
         siteId = codecUtil.encodePkNo(siteId);
         return siteId;
@@ -86,13 +87,22 @@ public class SiteServiceImple implements SiteService{
     public void siteUpdate(HttpServletRequest request, String siteId, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         String deSiteId = codecUtil.decodePkNo(siteId);
         siteDto.setSiteid(deSiteId);
+        ctiDto.setSiteid(deSiteId);
 
+        siteDto.setEncodingSiteDto();
         siteDao.siteUpdate(siteDto);
 
         Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deSiteId);
-        String ctiIp = siteCtiDetail.get("IP").toString();
-        if(ctiIp != ctiDto.getIp()){
-            siteDao.ctiUpdate(ctiDto);
+
+        if(siteCtiDetail == null){
+            ctiDto.setEncodingSiteDto();
+            siteDao.ctiInsert(ctiDto);
+        }else{
+            String ctiIp = siteCtiDetail.get("IP").toString();
+            if(!ctiIp.equals(ctiDto.getIp())){
+                ctiDto.setEncodingSiteDto();
+                siteDao.ctiUpdate(ctiDto);
+            }
         }
     }
 

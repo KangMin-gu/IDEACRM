@@ -61,7 +61,6 @@
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                     <button type="submit" class="btn btn-default pull-right">삭제</button>
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
@@ -301,7 +300,6 @@
                                         <div class="tab-content">
                                             <div role="tabpanel" id="tab-1" class="tab-pane active" url="/cust/tab/service/${custDetail.CUSTNO}" >
                                                 <div class="panel-body">
-                                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                                     <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true">
                                                         <thead>
                                                         <tr>
@@ -330,7 +328,6 @@
                                             </div>
                                             <div role="tabpanel" id="tab-2" class="tab-pane">
                                                 <div class="panel-body">
-                                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                                     <table class="footable2 table table-stripped" data-page-size="8" data-filter=#filter>
                                                         <thead>
                                                         <tr>
@@ -600,7 +597,6 @@
                                             </div>
                                             <div role="tabpanel" id="tab-3" class="tab-pane">
                                                 <div class="panel-body">
-                                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                                     <table class="footable3 table table-stripped" data-page-size="8" data-filter=#filter>
                                                         <thead>
                                                         <tr>
@@ -1153,7 +1149,6 @@
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                     <button type="submit" class="btn btn-default pull-right">삭제</button>
 
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>

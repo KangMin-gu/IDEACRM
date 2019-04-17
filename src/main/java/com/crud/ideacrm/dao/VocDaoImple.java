@@ -1,5 +1,6 @@
 package com.crud.ideacrm.dao;
 
+import com.crud.ideacrm.dto.BlackCustDto;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import org.apache.ibatis.session.SqlSession;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class VocDaoImple implements VocDao {
 
     @Autowired
-    SqlSession session;
+    private SqlSession session;
 
     //voc 고객 업데이트
     @Override
@@ -23,4 +24,15 @@ public class VocDaoImple implements VocDao {
     public int vocCustDenyUpdate(CustDenyDto custDenyDto) {
         return session.update("vocCustDenyUpdate",custDenyDto);
     }
+
+    @Override
+    public int vocBlackCustInsert(BlackCustDto blackCustDto) {
+        return session.insert("vocBlackCustInsert",blackCustDto);
+    }
+
+    @Override
+    public int vocBlackCustDelete(BlackCustDto blackCustDto) {
+        return session.update("vocBlackCustDelete",blackCustDto);
+    }
+
 }

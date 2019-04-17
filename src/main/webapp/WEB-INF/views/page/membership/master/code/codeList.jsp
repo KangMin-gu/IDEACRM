@@ -46,25 +46,58 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
-                        <div class="ibox-content" >
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">이관목록</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">회원구분</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">고객등급</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">친밀도</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">캠페인유형</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">서비스채널</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">중요도</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">영업단계</button>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>등록일</th>
+                                        <td>
+                                            <div class="input-group" style="width:230px;">
+                                                <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
+                                                <input class="form-control form-control-sm" type="text" id="daterange"  />
+                                            </div>
+                                        </td>
+                                        <th>ID</th>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                        </td>
+                                        <th>이름</th>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" style="width: 150px;">
+                                        </td>
+                                        <th>활성상태</th>
+                                        <td>
+                                            <select class="form-control searchparam" style="width:100px;">
+                                                <option value="Bahamas">활성</option>
+                                                <option value="Bahrain">비활성</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-w-m btn-primary">검색</button>
+                                            <button type="button" id="reset" class="btn btn-w-m btn-primary">초기화</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox ">

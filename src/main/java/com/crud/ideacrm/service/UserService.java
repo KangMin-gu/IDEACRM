@@ -9,9 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    public List<Map<String,Object>> userList(HttpServletRequest request);
+    public List<Map<String,Object>> userList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+    public List<Map<String,Object>> userTabList(String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
 
     public String userInsert(HttpServletRequest request, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException;
 
     public Map<String,Object> userDetail(HttpServletRequest request, String userNo) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public void userUpdate(HttpServletRequest request, String userNo, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException;
 }

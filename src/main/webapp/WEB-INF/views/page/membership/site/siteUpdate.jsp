@@ -12,11 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet"/>
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/jasny-bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -42,9 +38,11 @@
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
-                    <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/common/site">회원사 목록</a>
-                    </li>
+                    <c:if test="${sessionScope.CHKAUTH eq '30'}">
+                        <li class="breadcrumb-item active">
+                            <a href="${pageContext.request.contextPath}/common/site">회원사 목록</a>
+                        </li>
+                    </c:if>
                     <li class="breadcrumb-item active">
                         <a href="${pageContext.request.contextPath}/common/site/${siteInfo.SITEID}">회원사 정보</a>
                     </li>
@@ -52,8 +50,6 @@
                         <strong>회원사 정보 수정</strong>
                     </li>
                 </ol>
-            </div>
-            <div class="col-lg-2">
             </div>
         </div>
 
@@ -93,7 +89,7 @@
                                     <tbody>
                                         <tr>
                                             <th>회원사명</th>
-                                            <td><input type="text" class="form-control form-control-sm name" name="sitename" required id="sitename" value="${siteInfo.SITENAME}" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm name" name="sitename" required id="sitename" value="${siteInfo.SITENAME}" style="width:248px;"></td>
                                             <th>사업자번호</th>
                                             <td>
                                                 <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" minlength="3" maxlength="3" class="form-control form-control-sm" value="${siteInfo.BSNO1}" style="width:80px;"></div>
@@ -102,11 +98,11 @@
                                             </td>
                                             <th>법인번호</th>
                                             <td>
-                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm" value="${siteInfo.INCNO1}" style="width:100px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm" value="${siteInfo.INCNO2}" style="width:100px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm" value="${siteInfo.INCNO1}" style="width:123px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm" value="${siteInfo.INCNO2}" style="width:123px;"></div>
                                             </td>
                                             <th>대표자명</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="prsdname" id="prsdname" value="${siteInfo.PRSDNAME}" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="prsdname" id="prsdname" value="${siteInfo.PRSDNAME}" style="width:230px;"></td>
                                         </tr>
                                         <tr>
                                             <th>전화번호</th>
@@ -170,15 +166,15 @@
                                                 <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm req-phone" value="${siteInfo.MOBILE3}" style="width:80px;"></div>
                                             </td>
                                             <th>이메일</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="email" id="email" value="${siteInfo.EMAIL}" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="email" id="email" value="${siteInfo.EMAIL}" style="width:230px;"></td>
                                         </tr>
                                         <tr>
                                             <th>업태</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="cotype" id="cotype" value="${siteInfo.COTYPE}" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="cotype" id="cotype" value="${siteInfo.COTYPE}" style="width:248px;"></td>
                                             <th>업종</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="bscond" id="bscond" value="${siteInfo.BSCOND}" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="bscond" id="bscond" value="${siteInfo.BSCOND}" style="width:248px;"></td>
                                             <th>종목</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="bstype" id="bstype" value="${siteInfo.BSTYPE}" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="bstype" id="bstype" value="${siteInfo.BSTYPE}" style="width:248px;"></td>
                                             <th>기업규모</th>
                                             <td>
                                                 <select class="form-control" name="sitesize" id="sitesize" style="width:230px;">
@@ -379,13 +375,9 @@
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- Jasny -->
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- validate -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
-<!-- daum map -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
 <!-- daumAPI -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- 공용js -->
@@ -393,13 +385,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script>
     $(document).ready(function() {
-        $('.footable').footable();
-        $('.footable2').footable();
-        $('.footable3').footable();
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
-        });
+
     });
 </script>
 </body>

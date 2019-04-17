@@ -13,7 +13,7 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
@@ -52,7 +52,6 @@
                     <div class="ibox">
 
                         <div class="ibox-content">
-                            <form:form>
                                 <div class="table-responsive">
                                     <table style="white-space:nowrap;">
                                         <colgroup>
@@ -104,7 +103,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-w-m btn-primary">검색</button>
+                                                <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -135,7 +134,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -144,19 +142,42 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox ">
-
                         <div class="ibox-title">
                             <h5>사용자 목록</h5>
-                            <div class="ibox-tools">
-                                <a href="/company/user/1">디테일화면</a>
-                                <a href="/sign">입력화면</a>
-                                <a href="/custdetail">담당자팝업테스트</a>
-                            </div>
                         </div>
 
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+                            <a href="/company/user/input" class="btn btn-default pull-right">추가</a>
                             <table class="footable table table-stripped"  data-paging="true">
+                                <thead>
+                                <tr>
+                                    <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">고객번호</th>
+                                    <th data-visible="false" data-name="URL">URL</th>
+                                    <th data-name="USERNAME" data-formatter="formatter">사용자명</th>
+                                    <th data-name="USERID" data-breakpoints="xs sm">사용자ID</th>
+                                    <th data-name="USERDUTY" data-breakpoints="xs sm">직책</th>
+                                    <th data-name="FREGDATE_" data-breakpoints="xs sm">입사일자</th>
+                                    <th data-name="ISDELETE_" data-breakpoints="xs sm">사용자상태</th>
+                                    <th data-name="REGDATE_" data-breakpoints="xs sm">등록일시</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td>
+                                        <select class="form-control" id="paging" style="width:80px">
+                                            <c:forEach var="paging" items="${PAGING}">
+                                                <option vale="${paging.codeval}">${paging.codename}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </td>
+                                    <td colspan="4">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
 
                             </table>
                         </div>
@@ -176,22 +197,23 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
+<!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
     $(document).ready(function() {
-        $('#daterange').daterangepicker();
-    });
-
-    jQuery(function ($) {
-        $('.footable').footable({
-            "columns": $.get('/a'),
-            "rows": $.get('https://fooplugins.github.io/FooTable/docs/content/rows.json')
+        $('#search').click(function(e){
+            var bool = dateRangeError();
+            if(bool){
+                footableSearchList('/company/user');
+            }
         });
-    })
+        footableSearchList('/company/user');
+    });
 </script>
 </body>
 </html>

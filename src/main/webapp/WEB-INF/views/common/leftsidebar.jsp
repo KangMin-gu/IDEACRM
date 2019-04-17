@@ -100,11 +100,11 @@
             <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/company">회사정보</a></li>
-                    <li><a href="${pageContext.request.contextPath}/company/user/1">내정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/user/${sessionScope.ENCUSERNO}">내정보</a></li>
                 </ul>
             </li>
-
+            <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
             <li>
                 <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -115,7 +115,9 @@
                     <li><a href="${pageContext.request.contextPath}/company/notice">공지사항</a></li>
                 </ul>
             </li>
+            </c:if>
 
+            <c:if test="${sessionScope.CHKAUTH eq '30'}">
             <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">CRUD</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -125,6 +127,7 @@
                     <li><a href="${pageContext.request.contextPath}/contact">접속자</a></li>
                 </ul>
             </li>
+            </c:if>
         </ul>
     </div>
 </nav>

@@ -43,7 +43,7 @@ public class PopController {
     }
     @RequestMapping(value="/popuser", method= RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authPopUserList(HttpServletRequest request) {
+    public List<Map<String,Object>> authPopUserList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> userList = userService.userList(request);
         return userList;
     }
@@ -107,6 +107,12 @@ public class PopController {
     public ModelAndView authEmailPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/emailPop");
+        return mView;
+    }
+    @RequestMapping(value="/popuppercode",method=RequestMethod.GET)
+    public ModelAndView authCodeUpperPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/codePop");
         return mView;
     }
 

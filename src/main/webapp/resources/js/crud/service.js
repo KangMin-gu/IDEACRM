@@ -1,7 +1,8 @@
 $('#servicecode1').change(function(){
     upperCode('servicecode1');
 });
-// 커밋 테스트
+
+// 단계에 따른 화면처리
 function serviceStep(){
     var step = $('#servicestep').val();
     if(step == 3){

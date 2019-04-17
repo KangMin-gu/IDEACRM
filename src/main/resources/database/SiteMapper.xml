@@ -12,17 +12,23 @@
      			,CONCAT('/common/site/') AS URL
      	FROM MA900010 A
      	WHERE A.ISDELETE = 0
-		<if test ="strDate != null">
-			AND IFNULL(A.FREGDATE,'1900-01-01')<![CDATA[>=]]> #{strDate}
+		<if test ="regdatefr != null">
+			AND IFNULL(A.FREGDATE,'1900-01-01')<![CDATA[>=]]> #{regdatefr}
 		</if>
-		<if test ="endDate != null">
-			AND IFNULL(A.FREGDATE,'1900-01-01') <![CDATA[<=]]> #{endDate}
+		<if test ="regdateto != null">
+			AND IFNULL(A.FREGDATE,'1900-01-01') <![CDATA[<=]]> #{regdateto}
 		</if>
 		<if test ="sitename != null">
 			AND A.SITENAME LIKE CONCAT('%',#{sitename},'%')
 		</if>
 		<if test ="sitesize != null">
 			AND A.SITESIZE = #{sitesize}
+		</if>
+		<if test="prsdname != null">
+			AND A.PRSDNAME LIKE CONCAT('%',#{prsdname},'%')
+		</if>
+		<if test="isdelete != null">
+			AND A.ISDELETE = #{isdelete}
 		</if>
 	</select>
 

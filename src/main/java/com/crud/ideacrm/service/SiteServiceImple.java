@@ -41,7 +41,8 @@ public class SiteServiceImple implements SiteService{
             String enSiteId = codecUtil.encodePkNo(deSiteId);
             siteList.get(i).put("NO",enSiteId);
         }
-//        return commonUtil.decodeList(siteList);
+
+        //return codecUtil.decodeList(siteList);
         return siteList;
     }
 

@@ -35,7 +35,7 @@
     <!-- 받은 통지 리스트-->
     <select id="inbox" parameterType="hashMap" resultType="hashMap">
         SELECT * FROM (
-        SELECT A.NOTICEID, A.TITLE, A.CONTENT, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME,
+        SELECT A.NOTICEID, A.TITLE, A.CONTENT, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, C.USERNO AS FROMUSERNO, D.USERNO AS TOUSERNO,
         A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
         B.READCHEK
         , @RNUM:=@RNUM + 1 AS ROWNUM
@@ -81,7 +81,7 @@
         LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
         LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
         LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
-        WHERE B.ISDELETE = 0 AND A.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.NTCWAYEMAIL = 1
+        WHERE A.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.NTCWAYEMAIL = 1
         ) AS E
         <where>
             <if test="title != null">
@@ -99,7 +99,7 @@
     <!-- 보낸 통지 리스트-->
     <select id="outbox" parameterType="hashMap" resultType="hashMap">
         SELECT * FROM (
-        SELECT A.NOTICEID, A.TITLE, D.USERNAME AS TOUSERNAME, C.USERNAME AS FROMUSERNAME,
+        SELECT A.NOTICEID, A.TITLE, D.USERNAME AS TOUSERNAME, D.USERNO AS TOUSERNO, C.USERNAME AS FROMUSERNAME, C.USERNO AS FROMUSERNO,
         A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
         B.READCHEK
         , @RNUM:=@RNUM + 1 AS ROWNUM
@@ -108,7 +108,7 @@
         LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
         LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
         ,(SELECT @RNUM := 0) R
-        WHERE A.SITEID = #{siteid} AND A.USERNO = #{userno} AND B.ISDELETE = 0 AND A.NTCWAYEMAIL = 1
+        WHERE A.SITEID = #{siteid} AND A.USERNO = #{userno} AND A.NTCWAYEMAIL = 1
         <if test="title != null">
             AND A.TITLE LIKE CONCAT('%',#{title},'%')
         </if>
@@ -150,7 +150,7 @@
     <!-- 휴지통 통지 리스트-->
     <select id="trashbox" parameterType="hashMap" resultType="hashMap">
         SELECT * FROM (
-        SELECT A.NOTICEID, A.CONTENT, A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME,
+        SELECT A.NOTICEID, A.CONTENT, A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, C.USERNO AS FROMUSERNO, D.USERNO AS TOUSERNO,
         A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT( A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
         B.READCHEK
         , @RNUM:=@RNUM + 1 AS ROWNUM
@@ -189,5 +189,37 @@
     <!--내부통지 쓰기 받는이 목록리스트-->
     <select id="composeUserData" parameterType="hashMap" resultType="hashMap">
         SELECT USERNO, USERNAME FROM me800010 WHERE SITEID = #{siteid}
+    </select>
+
+    <insert id="send" parameterType="insideNoticeDto">
+        INSERT INTO sys970010
+        (USERNO, NTCWAYEMAIL, TITLE, CONTENT, LNKURL, REGUSER, REGDATE, SITEID, EDTUSER, EDTDATE, FILESEARCHKEY, ISDELETE)
+        VALUES
+        (#{fromuserno}, 1, #{title}, #{content}, #{linkurl}, #{fromuserno}, now(), #{siteid},  #{fromuserno}, now(), #{filesearchkey}, 0 )
+
+        <selectKey resultType="int" keyProperty="noticeid" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="to" parameterType="insideNoticeDto">
+        INSERT INTO sys970011
+		(NOTICEID, USERNO, CHKCC, SITEID, EDTUSER, EDTDATE, ISDELETE, CHKRLTCODE, READCHEK )
+		VALUES
+		(#{noticeid}, #{touserno}, #{chkcc}, #{siteid}, 0, now(), 0, 0, 0 )
+    </insert>
+
+    <select id="noteDetail" parameterType="int" resultType="hashMap">
+        SELECT A.NOTICEID, A.USERNO AS TOUSERNO, C.USERNAME AS TOUSERNAME, A.NOTICEID, A.TITLE, A.CONTENT, A.LNKURL, A.FILESEARCHKEY, B.USERNAME AS FROMUSERNAME, B.USERNO AS FROMUSERNO, B.EMAIL AS FROMEMAIL, A.REGDATE
+		FROM sys970010 AS A
+		LEFT OUTER JOIN me800010 AS B ON A.USERNO = B.USERNO
+		LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+		WHERE A.ISDELETE = 0 AND A.NTCWAYEMAIL = 1 AND A.NOTICEID = #{noticeid}
+    </select>
+
+    <select id="toList" parameterType="hashMap" resultType="hashMap">
+        SELECT A.USERNO, B.USERNAME FROM sys970011 AS A
+		INNER JOIN me800010 AS B ON A.USERNO = B.USERNO
+		WHERE A.NOTICEID = #{noticeid}
     </select>
 </mapper>

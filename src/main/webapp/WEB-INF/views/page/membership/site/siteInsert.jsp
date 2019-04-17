@@ -12,11 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet"/>
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/jasny-bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -90,7 +86,7 @@
                                     <tbody>
                                         <tr>
                                             <th>회원사명</th>
-                                            <td><input type="text" class="form-control form-control-sm name" name="sitename" id="sitename" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm name" name="sitename" id="sitename" style="width:248px;"></td>
                                             <th>사업자번호</th>
                                             <td>
                                                 <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" minlength="3" maxlength="3" class="form-control form-control-sm" style="width:80px;"></div>
@@ -99,11 +95,11 @@
                                             </td>
                                             <th>법인번호</th>
                                             <td>
-                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm" style="width:100px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm" style="width:100px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm" style="width:123px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm" style="width:123px;"></div>
                                             </td>
                                             <th>대표자명</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="prsdname" id="prsdname" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="prsdname" id="prsdname" style="width:230px;"></td>
                                         </tr>
                                         <tr>
                                             <th>전화번호</th>
@@ -146,15 +142,15 @@
                                                 <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm" style="width:80px;"></div>
                                             </td>
                                             <th>이메일</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="email" id="email" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="email" id="email" style="width:230px;"></td>
                                         </tr>
                                         <tr>
                                             <th>업태</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="cotype" id="cotype" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="cotype" id="cotype" style="width:248px;"></td>
                                             <th>업종</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="bscond" id="bscond" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="bscond" id="bscond" style="width:248px;"></td>
                                             <th>종목</th>
-                                            <td><input type="text" class="form-control form-control-sm" name="bstype" id="bstype" style="width:200px;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" name="bstype" id="bstype" style="width:248px;"></td>
                                             <th>기업규모</th>
                                             <td>
                                                 <select class="form-control" name="sitesize" id="sitesize" style="width:230px;">
@@ -210,11 +206,11 @@
                                     <tbody>
                                     <tr>
                                         <th>계정</th>
-                                        <td><input type="text" name="adminid" id="adminid" class="form-control form-control-sm name" style="width:200px;"></td>
+                                        <td><input type="text" name="adminid" id="adminid" class="form-control form-control-sm name" style="width:230px;"></td>
                                         <th>비밀번호</th>
-                                        <td><input type="password" name="adminpassword" id="adminpassword" class="form-control form-control-sm password" style="width:200px;"></td>
+                                        <td><input type="password" name="adminpassword" id="adminpassword" class="form-control form-control-sm password" style="width:250px;"></td>
                                         <th>비밀번호 확인</th>
-                                        <td><input type="password" name="adminpasswordretry" id="adminpasswordretry" class="form-control form-control-sm confirmpassword" style="width:200px;"></td>
+                                        <td><input type="password" name="adminpasswordretry" id="adminpasswordretry" class="form-control form-control-sm confirmpassword" style="width:250px;"></td>
                                     </tr>
                                     <tr>
                                         <th>서비스상태</th>
@@ -228,7 +224,7 @@
                                         </td>
                                         <th>담당자</th>
                                         <td>
-                                            <div class="input-group owner" id="owner_">
+                                            <div class="input-group owner" id="owner_" style="width:250px">
                                                 <input type="text" class="form-control" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
                                                 <input type="hidden" name="owner" id="owner" value="${sessionScope.USERNO}">
                                                 <span class="input-group-addon">
@@ -337,8 +333,6 @@
 <!-- validate -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
-<!-- daum map -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
 <!-- daumAPI -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- 공용js -->

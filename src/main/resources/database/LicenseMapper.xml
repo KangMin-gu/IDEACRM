@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="license">
+
+    <select id="siteLicenseList" parameterType="String" resultType="map">
+        SELECT licenseno FROM ME810010 WHERE SITEID = #{siteid}
+    </select>
+
+    <select id="allList" resultType="licenseDto">
+        SELECT * FROM ma900020
+    </select>
+
+
+</mapper>

@@ -44,11 +44,11 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/company/user/input" method="POST">
+            <form:form action="/company/user/modified/${userInfo.USERNO}" method="POST">
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">등록</button>
-                    <a href="/company/user" class="btn btn-default pull-right">취소</a>
+                    <a href="/company/user/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -68,36 +68,60 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">사용자명</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="username" id="username" class="form-control form-control-sm">
+                                                <input type="text" name="username" id="username" value="${userInfo.USERNAME}" class="form-control form-control-sm">
                                             </div>
                                             <label class="col-sm-2 col-form-label">ID</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="userid" id="userid" class="form-control form-control-sm">
+                                                <input type="text" name="userid" id="userid" value="${userInfo.USERID}" class="form-control form-control-sm">
                                             </div>
                                         </div>
-                                        <div class="form-group  row">
-                                            <label class="col-sm-2 col-form-label">비밀번호</label>
-                                            <div class="col-sm-4">
-                                                <input type="password" name="userpassword" id="userpassword" class="form-control form-control-sm password">
-                                            </div>
-                                            <label class="col-sm-2 col-form-label">비밀번호확인</label>
-                                            <div class="col-sm-4">
-                                                <input type="password" class="form-control form-control-sm confirmpassword">
-                                            </div>
-                                        </div>
+                                        <c:choose>
+                                            <c:when  test="${userInfo.USERNO eq sessionScope.ENCUSERNO}">
+                                                <div class="form-group  row">
+                                                    <label class="col-sm-2 col-form-label">비밀번호</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="password" name="userpassword" id="userpassword" class="form-control form-control-sm password">
+                                                    </div>
+                                                    <label class="col-sm-2 col-form-label">비밀번호확인</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="password" class="form-control form-control-sm confirmpassword">
+                                                    </div>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <p>비밀번호 : </p>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <button type="button" class="btn btn-w-m btn-xs btn-primary">초기화</button>
+                                                        </div>
+                                                    </div>
+                                                </c:if>
+                                            </c:otherwise>
+                                        </c:choose>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">휴대번호</label>
                                             <div class="col-sm-4">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <select class="form-control m-b" id="mobile1" name="mobile1">
+                                                            <option label="선택" value="0"></option>
                                                             <c:forEach var="mobile" items="${MOBILE}">
-                                                                <option label="${mobile.codename}" value="${mobile.codeval}"></option>
+                                                                <c:choose>
+                                                                    <c:when test="${userInfo.MOBILE1 eq mobile.codeval}">
+                                                                        <option selected label="${mobile.codename }" value="${mobile.codeval }"/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <option label="${mobile.codename }" value="${mobile.codeval }"/>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" value="${userInfo.MOBILE2}" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" value="${userInfo.MOBILE3}" class="form-control form-control-sm"></div>
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">전화번호</label>
@@ -105,26 +129,41 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <select class="form-control m-b" name="telno1" id="telno1" >
+                                                            <option label="선택" value="0"></option>
                                                             <c:forEach var="phone" items="${PHONE}">
-                                                                <option label="${phone.codename}" value="${phone.codeval}"></option>
+                                                                <c:choose>
+                                                                    <c:when test="${userInfo.TELNO1 eq phone.codeval}">
+                                                                        <option selected label="${phone.codename }" value="${phone.codeval }"/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <option label="${phone.codename }" value="${phone.codeval }"/>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" name="telno2" id="telno2" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" name="telno3" id="telno3" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" name="telno2" id="telno2" value="${userInfo.TELNO2}" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" name="telno3" id="telno3" value="${userInfo.TELNO3}" class="form-control form-control-sm"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">이메일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="email" id="email" class="form-control form-control-sm">
+                                                <input type="text" name="email" id="email" value="${userInfo.EMAIL}" class="form-control form-control-sm">
                                             </div>
                                             <label class="col-sm-2 col-form-label">관리자여부</label>
                                             <div class="col-sm-4">
                                                 <select class="form-control" name="chkauth" id="chkauth" style="width:130px;">
                                                     <c:forEach var="chkAuth_" items="${CHKAUTH_}">
-                                                        <option label="${chkAuth_.codename}" value="${chkAuth_.codeval}"></option>
+                                                        <c:choose>
+                                                            <c:when test="${userInfo.CHKAUTH_ eq chkAuth_.codeval}">
+                                                                <option selected label="${chkAuth_.codename }" value="${chkAuth_.codeval }"/>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <option label="${chkAuth_.codename }" value="${chkAuth_.codeval }"/>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -132,27 +171,27 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">직책</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="userduty" id="userduty" class="form-control form-control-sm">
+                                                <input type="text" name="userduty" id="userduty" value="${userInfo.USERDUTY}" class="form-control form-control-sm">
                                             </div>
                                             <label class="col-sm-2 col-form-label">CTI전화번호</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="ctitelno" id="ctitelno"  class="form-control form-control-sm">
+                                                <input type="text" name="ctitelno" id="ctitelno" value="${userInfo.CTITELNO}" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">CTIID</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="ctiid" id="ctiid" class="form-control form-control-sm">
+                                                <input type="text" name="ctiid" id="ctiid" value="${userInfo.CTIID}" class="form-control form-control-sm">
                                             </div>
                                             <label class="col-sm-2 col-form-label">CTIPW</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="ctipass" id="ctipass" class="form-control form-control-sm">
+                                                <input type="text" name="ctipass" id="ctipass" value="${userInfo.CTIPASS}" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">메모</label>
                                             <div class="col-sm-10">
-                                                <textarea name="userdesc" id=" userdesc" class="form-control" style="resize: none;" rows="4"></textarea>
+                                                <textarea name="userdesc" id=" userdesc" class="form-control" value="${uesrInfo.USERDESC}" style="resize: none;" rows="4">${uesrInfo.USERDESC}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +205,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">등록</button>
-                    <a href="/company/user" class="btn btn-default pull-right">취소</a>
+                    <a href="/company/user/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
             </form:form>

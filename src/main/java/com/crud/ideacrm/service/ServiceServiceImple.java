@@ -39,7 +39,7 @@ public class ServiceServiceImple implements ServiceService{
             svList.get(i).put("NO",enSiteId);
         }
 
-        return svList;
+        return codecUtil.decodeList(svList);
     }
 
     @Override

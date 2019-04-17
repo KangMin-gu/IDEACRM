@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.crud.ideacrm.dto.BlackCustDto" alias="blackCustDto" />
 		<typeAlias type="com.crud.ideacrm.dto.InsideNoticeDto" alias="insideNoticeDto" />
 		<typeAlias type="com.crud.ideacrm.dto.UserDto" alias="userDto" />
+		<typeAlias type="com.crud.ideacrm.dto.LicenseDto" alias="licenseDto" />
 	</typeAliases>
 
 	<mappers>
@@ -41,6 +42,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="database/VocMapper.xml" />
 		<mapper resource="database/SiteMapper.xml"/>
 		<mapper resource="database/FileMapper.xml"/>
+		<mapper resource="database/LicenseMapper.xml"/>
 	</mappers>
 	
 </configuration>

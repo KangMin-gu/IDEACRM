@@ -13,10 +13,8 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 </head>
 <style>
 </style>
@@ -46,300 +44,101 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
-                        <div class="ibox-content" >
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">이관목록</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">회원구분</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">고객등급</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">친밀도</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">캠페인유형</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">서비스채널</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">중요도</button>
-                            <button type="button" class="btn btn-w-m btn-xs btn-primary">영업단계</button>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="20%">
+                                        <col width="5%">
+                                        <col width="20%%">
+                                        <col width="5%">
+                                        <col width="20%%">
+                                        <col width="5%">
+                                        <col width="20%%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>코드그룹명</th>
+                                        <td>
+                                            <input class="form-control form-control-sm searchparam" type="text" name="codegrp" id="codegrp" style="width: 150px;">
+                                        </td>
+                                        <th>코드명</th>
+                                        <td>
+                                            <input class="form-control form-control-sm searchparam" type="text" name="codename" id="codename" style="width: 150px;">
+                                        </td>
+                                        <th>코드값</th>
+                                        <td>
+                                            <input class="form-control form-control-sm searchparam" type="text" name="codeval" id="codeval" style="width: 150px;">
+                                        </td>
+                                        <th>사용메뉴</th>
+                                        <td>
+                                            <select class="form-control searchparam" name="usingmenu" id="usingmenu" style="width:180px;">
+                                                <option label="선택" value=""></option>
+                                                <c:forEach var="allLicense" items="${allLicense}">
+                                                    <c:forEach var="siteLicense" items="${siteLicense}">
+                                                        <c:if test="${allLicense.licenseno eq siteLicense.licenseno}">
+                                                            <option label="${allLicense.licensename}" value="${allLicense.licenseno}"></option>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:forEach>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" id="reset" class="btn btn-w-m btn-default">초기화</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox ">
-
                         <div class="ibox-title">
                             <h5>코드 목록</h5>
                         </div>
-
                         <div class="ibox-content">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <table class="footable table table-striped head"  data-paging="true">
                                 <thead>
                                 <tr>
-                                    <th>Rendering engine</th>
-                                    <th>Browser</th>
-                                    <th data-hide="phone,tablet">Platform(s)</th>
-                                    <th data-hide="phone,tablet">Engine version</th>
-                                    <th data-hide="phone,tablet">CSS grade</th>
+                                    <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">서비스번호</th>
+                                    <th data-visible="false" data-name="URL">URL</th>
+                                    <th data-name="CODEGRP">코드그룹명</th>
+                                    <th data-name="CODENAME" data-breakpoints="xs sm">코드명</th>
+                                    <th data-name="UPPERCODENAME" data-breakpoints="xs sm">상위그룹코드</th>
+                                    <th data-name="CODEVAL" data-breakpoints="xs sm">코드값</th>
+                                    <th data-name="USINGMENU" data-breakpoints="xs sm">사용메뉴</th>
+                                    <th data-name="REGDATE" data-breakpoints="xs sm">등록일시</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="gradeX">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 4.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td class="center">4</td>
-                                    <td class="center">X</td>
-                                </tr>
-                                <tr class="gradeC">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 5.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 5.5
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5.5</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Gecko</td>
-                                    <td>Netscape Navigator 9</td>
-                                    <td>Win 98+ / OSX.2+</td>
-                                    <td class="center">1.8</td>
-                                    <td class="center">A</td>
-                                </tr>
 
-                                <tr class="gradeA">
-                                    <td>Webkit</td>
-                                    <td>Safari 1.3</td>
-                                    <td>OSX.3</td>
-                                    <td class="center">312.8</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Webkit</td>
-                                    <td>Safari 2.0</td>
-                                    <td>OSX.4+</td>
-                                    <td class="center">419.3</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Webkit</td>
-                                    <td>Safari 3.0</td>
-                                    <td>OSX.4+</td>
-                                    <td class="center">522.1</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Webkit</td>
-                                    <td>OmniWeb 5.5</td>
-                                    <td>OSX.4+</td>
-                                    <td class="center">420</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Webkit</td>
-                                    <td>iPod Touch / iPhone</td>
-                                    <td>iPod</td>
-                                    <td class="center">420.1</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Webkit</td>
-                                    <td>S60</td>
-                                    <td>S60</td>
-                                    <td class="center">413</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera 7.0</td>
-                                    <td>Win 95+ / OSX.1+</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera 7.5</td>
-                                    <td>Win 95+ / OSX.2+</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera 8.0</td>
-                                    <td>Win 95+ / OSX.2+</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera 8.5</td>
-                                    <td>Win 95+ / OSX.2+</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera 9.0</td>
-                                    <td>Win 95+ / OSX.3+</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera 9.2</td>
-                                    <td>Win 88+ / OSX.3+</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera 9.5</td>
-                                    <td>Win 88+ / OSX.3+</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera for Wii</td>
-                                    <td>Wii</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Nokia N800</td>
-                                    <td>N800</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Nintendo DS browser</td>
-                                    <td>Nintendo DS</td>
-                                    <td class="center">8.5</td>
-                                    <td class="center">C/A<sup>1</sup></td>
-                                </tr>
-                                <tr class="gradeC">
-                                    <td>KHTML</td>
-                                    <td>Konqureror 3.1</td>
-                                    <td>KDE 3.1</td>
-                                    <td class="center">3.1</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>KHTML</td>
-                                    <td>Konqureror 3.3</td>
-                                    <td>KDE 3.3</td>
-                                    <td class="center">3.3</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>KHTML</td>
-                                    <td>Konqureror 3.5</td>
-                                    <td>KDE 3.5</td>
-                                    <td class="center">3.5</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeX">
-                                    <td>Tasman</td>
-                                    <td>Internet Explorer 4.5</td>
-                                    <td>Mac OS 8-9</td>
-                                    <td class="center">-</td>
-                                    <td class="center">X</td>
-                                </tr>
-                                <tr class="gradeC">
-                                    <td>Tasman</td>
-                                    <td>Internet Explorer 5.1</td>
-                                    <td>Mac OS 7.6-9</td>
-                                    <td class="center">1</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="gradeC">
-                                    <td>Tasman</td>
-                                    <td>Internet Explorer 5.2</td>
-                                    <td>Mac OS 8-X</td>
-                                    <td class="center">1</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Misc</td>
-                                    <td>NetFront 3.1</td>
-                                    <td>Embedded devices</td>
-                                    <td class="center">-</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Misc</td>
-                                    <td>NetFront 3.4</td>
-                                    <td>Embedded devices</td>
-                                    <td class="center">-</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                <tr class="gradeX">
-                                    <td>Misc</td>
-                                    <td>Dillo 0.8</td>
-                                    <td>Embedded devices</td>
-                                    <td class="center">-</td>
-                                    <td class="center">X</td>
-                                </tr>
-                                <tr class="gradeX">
-                                    <td>Misc</td>
-                                    <td>Links</td>
-                                    <td>Text only</td>
-                                    <td class="center">-</td>
-                                    <td class="center">X</td>
-                                </tr>
-                                <tr class="gradeX">
-                                    <td>Misc</td>
-                                    <td>Lynx</td>
-                                    <td>Text only</td>
-                                    <td class="center">-</td>
-                                    <td class="center">X</td>
-                                </tr>
-                                <tr class="gradeC">
-                                    <td>Misc</td>
-                                    <td>IE Mobile</td>
-                                    <td>Windows Mobile 6</td>
-                                    <td class="center">-</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="gradeC">
-                                    <td>Misc</td>
-                                    <td>PSP browser</td>
-                                    <td>PSP</td>
-                                    <td class="center">-</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="gradeU">
-                                    <td>Other browsers</td>
-                                    <td>All others</td>
-                                    <td>-</td>
-                                    <td class="center">-</td>
-                                    <td class="center">U</td>
-                                </tr>
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="5">
-                                        <ul class="pagination float-right"></ul>
+                                    <td>
+                                        <select class="form-control" id="paging" style="width:80px">
+                                            <c:forEach var="paging" items="${PAGING}">
+                                                <option vale="${paging.codeval}">${paging.codename}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </td>
+                                    <td colspan="1">
+                                        <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>
                                 </tfoot>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -348,17 +147,16 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox ">
-
                         <div class="ibox-title">
                             <h5>코드 등록</h5>
                         </div>
-
-                        <div class="ibox-content">
-                            <form:form>
-                                <button type="button" class="btn btn-primary pull-right" style="margin-bottom: 10px; margin-left: 7px;">삭제</button>
-                                <button type="button" class="btn btn-primary pull-right" style="margin-bottom: 10px;">초기화</button>
-                                <button type="button" class="btn btn-primary pull-left" style="margin-bottom: 10px;">저장</button>
-
+                        <div class="ibox-content body">
+                            <button type="button" class="btn btn-primary pull-right" id="delete" style="margin-bottom: 10px;  margin-left: 7px">삭제</button>
+                            <button type="button" class="btn btn-primary pull-right" id="cancel" style="margin-bottom: 10px;  margin-left: 7px">취소</button>
+                            <button type="button" class="btn btn-primary pull-right" id="update" style="margin-bottom: 10px;  margin-left: 7px">수정</button>
+                            <button type="button" class="btn btn-primary pull-right" id="save" style="margin-bottom: 10px;  margin-left: 7px">저장</button>
+                            <button type="button" class="btn btn-primary pull-right" id="create" style="margin-bottom: 10px;  margin-left: 7px">추가</button>
+                            <button type="button" class="btn btn-primary pull-right" id="bodyreset" style="margin-bottom: 10px; margin-left: 7px">초기화</button>
                                 <div class="table-responsive">
                                     <table class="table table-bordered" style="white-space:nowrap;">
                                         <colgroup>
@@ -377,35 +175,41 @@
                                             <tr>
                                                 <th>코드그룹명</th>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" style="width:200px;">
+                                                    <input type="text" class="form-control form-control-sm" name="codegrp" id="viewcodegrp" style="width:200px;">
                                                 </td>
                                                 <th>코드명</th>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" style="width:200px;">
+                                                    <input type="text" class="form-control form-control-sm" name="codename" id="viewcodename" style="width:200px;">
                                                 </td>
                                                 <th>코드값</th>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" style="width:200px;">
-                                                </td>
-                                                <th>사용여부</th>
-                                                <td>
-                                                    <select class="form-control" style="width:150px;">
-                                                        <option value="Bahamas">010</option>
-                                                        <option value="Bahrain">011</option>
-                                                        <option value="Bangladesh">017</option>
-                                                        <option value="Barbados">018</option>
-                                                        <option value="Belarus">019</option>
-                                                    </select>
+                                                    <input type="text" class="form-control form-control-sm" name="codeval" id="viewcodeval" style="width:200px;">
                                                 </td>
                                                 <th>상위그룹코드</th>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" style="width:200px;">
+                                                    <input type="text" class="form-control" name="viewuppercodegrp_" id="viewuppercodegrp_">
+                                                    <input type="hidden" class="form-control" name="viewuppercodegrp_" id="viewuppercodegrp">
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" id="codeno" name="codeno" value=""/>
+                                                </td>
+                                                <th>사용메뉴</th>
+                                                <td>
+                                                    <select class="form-control" name="viewusingmenu" id="viewusingmenu" style="width:150px;">
+                                                        <option label="선택" value="0"></option>
+                                                        <c:forEach var="allLicense" items="${allLicense}">
+                                                            <c:forEach var="siteLicense" items="${siteLicense}">
+                                                                <c:if test="${allLicense.licenseno eq siteLicense.licenseno}">
+                                                                    <option label="${allLicense.licensename}" value="${allLicense.licenseno}"></option>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:forEach>
+                                                    </select>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -424,14 +228,26 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
-<!--datarange-->
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/code.js"></script>
+
 <script>
     $(document).ready(function() {
-        $('.footable').footable();
-        $('#daterange').daterangepicker();
+        $('#search').click(function(e){
+            footableSearchList('/company/code/${sessionScope.ENCSITEID}');
+        });
+        footableSearchList('/company/code/${sessionScope.ENCSITEID}');
+        btnFirst();
+
+        $('#viewuppercodegrp_').click(function(e){
+            if($('#viewuppercodegrp_').attr('readonly') != 'readonly'){
+                openNewWindow('상위코드','/popuppercode',e.target.id,'600','800')
+            }
+        });
+
     });
 </script>
 </body>

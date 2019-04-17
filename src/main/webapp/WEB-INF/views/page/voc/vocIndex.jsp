@@ -288,8 +288,8 @@
                         </div>
                         <div class="ibox-content bot-cont">
                             <div class="tabs-container">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1" id="vocServiceTabBtn">서비스</a></li>
+                                <ul class="nav nav-tabs detail" role="tablist">
+                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">서비스</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-2">강성이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-3">콜백이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-4">SMS</a></li>
@@ -299,7 +299,7 @@
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-8">EMAIL</a></li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div role="tabpanel" id="tab-1" class="tab-pane active">
+                                    <div role="tabpanel" id="tab-1" url="/voc/tab/sv" class="tab-pane active">
                                         <div class="panel-body">
                                             <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true">
                                                 <thead>

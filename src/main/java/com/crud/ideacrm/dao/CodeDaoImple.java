@@ -7,12 +7,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CodeDaoImple implements CodeDao {
     @Autowired
     private SqlSession session;
-
 
     @Override
     public List<String> getCodeGrpList(CodeDto codeDto) {
@@ -24,11 +24,41 @@ public class CodeDaoImple implements CodeDao {
         return session.selectList("code.getCodeList",codeDto);
     }
 
+    @Override
+    public List<Map<String, Object>> codeList(Map<String, Object> param) {
+        List<Map<String,Object>> codeList = session.selectList("code.codeList",param);
+        return codeList;
+    }
+
     // 상위 코드 값으로 하위 코드 값을 가져옴
     @Override
     public List<CodeDto> getUpperCodeGrp(CodeDto codeDto) {
         List<CodeDto> upperGrpCodeList = session.selectList("code.getUpperCodeGrp",codeDto);
         return upperGrpCodeList;
+    }
+
+    @Override
+    public Map<String, Object> codeDetail(CodeDto codeDto) {
+        Map<String,Object> codeDetail = session.selectOne("code.codeDetail",codeDto);
+        return codeDetail;
+    }
+
+    @Override
+    public String codeInsert(CodeDto codeDto) {
+        session.insert("code.codeInsert",codeDto);
+        String codeNo = codeDto.getCodeno();
+
+        return codeNo;
+    }
+
+    @Override
+    public void codeUpdate(CodeDto codeDto) {
+        session.update("code.codeUpdate",codeDto);
+    }
+
+    @Override
+    public void codeDelete(CodeDto codeDto) {
+        session.update("code.codeDelete",codeDto);
     }
 
     @Override

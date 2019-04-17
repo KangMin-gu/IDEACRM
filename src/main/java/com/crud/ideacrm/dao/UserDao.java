@@ -12,5 +12,7 @@ public interface UserDao {
 
     public String userInsert(UserDto userDto);
 
-    public Map<String,Object> userDetail(String userNo);
+    public Map<String,Object> userDetail(UserDto userDto);
+
+    public void userUpdate(UserDto userDto);
 }

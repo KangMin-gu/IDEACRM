@@ -22,11 +22,10 @@ function footableSearchList(url) {
 }
 
 function tabFootableSearchList(id,url) {
-    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     $.post(url, param, function (response) {
-        $('#'+id).find('.tabfootable').footable({
+        $(id).find('.tabfootable').footable({
             "toggleSelector": ".footable-toggle",
             "empty": "",
             "paging": {
@@ -42,10 +41,10 @@ function tabFootableSearchList(id,url) {
 }
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
     if(globalUrl =='/popuser'){
-        parentOwnerUser($(obj.target.parentElement));
+        popParentNameClick($(obj.target.parentElement));
     }
     else if(globalUrl == '/popcust'){
-        parentCustname($(obj.target.parentElement));
+        popParentNameClick($(obj.target.parentElement));
     }
     else if(globalUrl == '/popaccount'){
         popParentNameClick($(obj.target.parentElement));

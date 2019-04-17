@@ -1,6 +1,7 @@
 package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.crud.dto.ContactInfoDto;
+import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ContactInfo;
 import com.crud.ideacrm.crud.util.LoginManager;
 import com.crud.ideacrm.dao.LoginDao;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.Map;
 
 
@@ -26,8 +29,11 @@ public class LoginServiceImple implements LoginService{
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private CodecUtil codecUtil;
+
     @Override
-    public ModelAndView login(HttpServletResponse response, HttpServletRequest request, UserDto urDto) {
+    public ModelAndView login(HttpServletResponse response, HttpServletRequest request, UserDto urDto) throws UnsupportedEncodingException, GeneralSecurityException {
         LoginManager loginManager = LoginManager.getInstance();
         String location=request.getRequestURI();
         String url = request.getParameter("url");
@@ -37,6 +43,9 @@ public class LoginServiceImple implements LoginService{
         if(urInfo != null) {
             String userId = urInfo.get("USERID").toString();
             String pwd = urDto.getUserpassword();
+            // 암호화된 userNo
+            String encUserNo = codecUtil.encodePkNo(urInfo.get("USERNO").toString());
+            String encSiteId = codecUtil.encodePkNo(urInfo.get("SITEID").toString());
             boolean isValid = false;
             if(urInfo != null) {
                 boolean isMatch=encoder.matches(pwd,urInfo.get("USERPASSWORD").toString());
@@ -73,6 +82,8 @@ public class LoginServiceImple implements LoginService{
                 request.getSession().setAttribute("CHKAUTH", urInfo.get("CHKAUTH")); //사용자 권한
                 request.getSession().setAttribute("SITELOGO", urInfo.get("IMGPATH")); //회사 로고
                 request.getSession().setAttribute("MSGTELNO", urInfo.get("MSGTELNO")); //회사 메세지발신번호
+                request.getSession().setAttribute("ENCUSERNO",encUserNo); // 암호화된 userNo
+                request.getSession().setAttribute("ENCSITEID",encSiteId); // 암호화된 siteId
                 request.getSession().setAttribute("SIDESTATES","1");
 
                 ContactInfo ci = new ContactInfo();

@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 
 @Controller
 public class LoginController {
@@ -36,7 +38,7 @@ public class LoginController {
 
     //로그인 요청
     @RequestMapping(value="/login", method=RequestMethod.POST)
-    public void login(HttpServletResponse response, HttpServletRequest request, @ModelAttribute UserDto urDto) {
+    public void login(HttpServletResponse response, HttpServletRequest request, @ModelAttribute UserDto urDto) throws UnsupportedEncodingException, GeneralSecurityException {
         login.login(response, request, urDto);
     }
 

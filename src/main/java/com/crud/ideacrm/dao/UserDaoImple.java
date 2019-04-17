@@ -28,13 +28,18 @@ public class UserDaoImple implements UserDao {
     @Override
     public String userInsert(UserDto userDto) {
         session.insert("user.userInsert",userDto);
-        String userNo = userDto.getUserid();
+        String userNo = userDto.getUserno();
         return userNo;
     }
 
     @Override
-    public Map<String, Object> userDetail(String userNo) {
-        Map<String,Object> userDetail = session.selectOne("user.userDetail",userNo);
+    public Map<String, Object> userDetail(UserDto userDto) {
+        Map<String,Object> userDetail = session.selectOne("user.userDetail",userDto);
         return userDetail;
+    }
+
+    @Override
+    public void userUpdate(UserDto userDto) {
+        session.update("user.userUpdate",userDto);
     }
 }

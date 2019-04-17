@@ -83,13 +83,13 @@
                                                     <p>사용자명 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>강민구</p>
+                                                    <p>${userInfo.USERNAME}</p>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <p>ID : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>manggo</p>
+                                                    <p>${userInfo.USERID}</p>
                                                 </div>
                                             </div>
                                         <!--관리자일경우 비밀번호 초기화 row 생성-->
@@ -106,13 +106,13 @@
                                                     <p>전화번호 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>02-394-8574</p>
+                                                    <p>${userInfo.TELNO1} ${userInfo.TELNO2} ${userInfo.TELNO3}</p>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <p>휴대전화 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>010-7120-3655</p>
+                                                    <p>${userInfo.MOBILE1} ${userInfo.MOBILE2} ${userInfo.MOBILE3}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -120,13 +120,13 @@
                                                     <p>Email : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>manggo@crudsystem.co.kr</p>
+                                                    <p>${userInfo.EMAIL}</p>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <p>CTI 번호 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>02-336-7800</p>
+                                                    <p>${userInfo.CTI}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -134,13 +134,13 @@
                                                     <p>직책 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>대표</p>
+                                                    <p>${userInfo.USERDUTY}</p>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <p>관리자여부 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>Y</p>
+                                                    <p>${userInfo.CHKAUTH_}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -148,7 +148,7 @@
                                                     <p>메모 : </p>
                                                 </div>
                                                 <div class="col-sm-10">
-                                                    <p>asdfasdf</p>
+                                                    <p>${userInfo.USERDESC}</p>
                                                 </div>
                                             </div>
                                         </div>

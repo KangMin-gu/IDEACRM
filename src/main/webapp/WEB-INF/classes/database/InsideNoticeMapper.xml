@@ -124,4 +124,70 @@
     </select>
 
 
+    <!-- 휴지통 통지 총 갯수 -->
+    <select id="trashTotalRows" parameterType="hashMap" resultType="int">
+        SELECT COUNT(*) AS totalRows FROM
+        ( SELECT A.TITLE, A.CONTENT, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, A.REGDATE AS REGDATE
+        FROM sys970010 AS A
+        LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+        LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+        LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+        WHERE B.ISDELETE = 2 AND B.USERNO = #{userno} AND A.SITEID = #{siteid} AND A.NTCWAYEMAIL = 1
+        ) AS E
+        <where>
+            <if test="title != null">
+                AND E.TITLE LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="sender != null">
+                AND E.FROMUSERNAME LIKE CONCAT('%',#{sender},'%')
+            </if>
+            <if test="titlecontent != null">
+                AND E.TITLE LIKE CONCAT('%',#{titlecontent},'%') AND E.CONTENT LIKE CONCAT ('%',#{titlecontent},'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 휴지통 통지 리스트-->
+    <select id="trashbox" parameterType="hashMap" resultType="hashMap">
+        SELECT * FROM (
+        SELECT A.NOTICEID, A.CONTENT, A.TITLE, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME,
+        A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT( A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
+        B.READCHEK
+        , @RNUM:=@RNUM + 1 AS ROWNUM
+        FROM sys970010 AS A
+        LEFT OUTER JOIN sys970011 AS B ON A.NOTICEID = B.NOTICEID
+        LEFT OUTER JOIN me800010 AS C ON A.USERNO = C.USERNO
+        LEFT OUTER JOIN me800010 AS D ON B.USERNO = D.USERNO
+        ,(SELECT @RNUM := 0) R
+        WHERE A.SITEID = #{siteid} AND B.USERNO = #{userno} AND B.ISDELETE = 2 AND A.NTCWAYEMAIL = 1
+        <if test="title != null">
+            AND A.TITLE LIKE CONCAT('%',#{title},'%')
+        </if>
+        <if test="sender != null">
+            AND C.USERNAME LIKE CONCAT('%',#{sender},'%')
+        </if>
+        <if test="titlecontent != null">
+            AND A.TITLE LIKE CONCAT('%',#{titlecontent},'%') AND A.CONTENT LIKE CONCAT ('%',#{titlecontent},'%')
+        </if>
+        order by A.NOTICEID DESC
+        ) AS result
+        WHERE result.ROWNUM BETWEEN #{startRowNum} AND #{endRowNum} ORDER BY result.NOTICEID DESC
+    </select>
+
+    <!--삭제-->
+    <update id="noteDeleteChk" parameterType="hashMap">
+		UPDATE sys970011 SET ISDELETE = 1, EDTUSER = #{userno}, EDTDATE = now()
+		WHERE SITEID = #{siteid} AND NOTICEID = #{noticeid} AND USERNO=#{userno} AND ISDELETE = 2
+	</update>
+
+    <!-- 보관함으로 이동-->
+    <update id="noteReturnChk" parameterType="hashMap">
+		UPDATE sys970011 SET ISDELETE = 0, EDTUSER = #{userno}, EDTDATE = now()
+		WHERE SITEID = #{siteid} AND NOTICEID = #{noticeid} AND USERNO=#{userno} AND ISDELETE = 2
+	</update>
+
+    <!--내부통지 쓰기 받는이 목록리스트-->
+    <select id="composeUserData" parameterType="hashMap" resultType="hashMap">
+        SELECT USERNO, USERNAME FROM me800010 WHERE SITEID = #{siteid}
+    </select>
 </mapper>

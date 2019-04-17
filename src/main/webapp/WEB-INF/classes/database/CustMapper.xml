@@ -6,6 +6,11 @@
 		SELECT
 		CU.CUSTNO, CU.CUSTNAME, CU.DEPTNAME, CU.DUTY
         , CU.MOBILE1, CU.MOBILE2, CU.MOBILE3
+		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(CU.WRKTEL1,''),IFNULL(CU.WRKTEL2,''),IFNULL(CU.WRKTEL3,'')) ) > 8
+			THEN CONCAT( IFNULL(CU.WRKTEL1,''),'-',IFNULL(CU.WRKTEL2,''),'-',IFNULL(CU.WRKTEL3,'') )
+			ELSE CONCAT( IFNULL(CU.WRKTEL1,''),IFNULL(CU.WRKTEL2,''),IFNULL(CU.WRKTEL3,'') )  END AS WRKTEL_
+		,CU.WRKTEL1,CU.WRKTEL2,CU.WRKTEL3
+		, CU.HOMADDR1 , CU.HOMADDR2 , CU.HOMADDR3
 		, CU.EMAIL, CU.SEX
 		, CU.OWNER, B.USERNAME AS OWNER_
 		, IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGUBUN AND CODEGRP = 'CUSTGUBUN'and SITEID = #{siteid} ),'' ) as CUSTGUBUN
@@ -22,10 +27,10 @@
 			AND CU.CUSTNAME like CONCAT('%',#{custname},'%')
 			</if>
 			<if test="mobile != null">
-			AND CONCAT( IFNULL(CU.MOBILE1,''), IFNULL(CU.MOBILE2,''), IFNULL(CU.MOBILE3,'') ) like CONCAT('%',#{mobile},'%')
+			AND CONCAT( IFNULL(CU.MOBILE1,''), IFNULL(CU.MOBILE2,''), IFNULL(CU.MOBILE3,'') ) = #{mobile}
 			</if>
 			<if test="email != null">
-			AND CU.EMAIL like CONCAT('%',#{email},'%')
+			AND CU.EMAIL = #{email}
 			</if>
 			<if test="custgubun != null and custgubun != 0">
 			AND CUSTGUBUN = #{custgubun}
@@ -45,11 +50,11 @@
 			<if test="infoagree != 0 and infoagree != null">
 			AND CU.INFOAGREE = #{infoagree}
 			</if>
-			<if test="owner != null and owner != 0 ">
-			AND CU.OWNER = #{owner}
+			<if test="owner_ != null">
+			AND B.USERNAME LIKE CONCAT('%',#{owner_},'%')
 			</if>
-			<if test="clino != null and clino != 0 ">
-			AND CU.CLINO = #{clino}
+			<if test="cliname != null">
+			AND C.CLINAME  LIKE CONCAT('%',#{cliname},'%')
 			</if>
 	</select>
 

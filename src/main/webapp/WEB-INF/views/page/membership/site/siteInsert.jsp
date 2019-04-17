@@ -109,15 +109,15 @@
                                             <th>전화번호</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control req-phone" name="tel1" id="tel1" style="width:80px;">
+                                                    <select class="form-control" name="telno1" id="telno1" style="width:80px;">
                                                         <option value="0" label="선택"></option>
                                                         <c:forEach var="phone" items="${PHONE}">
                                                             <option value="${phone.codeval}" label="${phone.codename}"></option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="tel2" id="tel2" class="form-control form-control-sm req-phone" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="tel3" id="tel3" class="form-control form-control-sm req-phone" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="telno2" id="telno2" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="telno3" id="telno3" class="form-control form-control-sm" style="width:80px;"></div>
                                             </td>
                                             <th>팩스번호</th>
                                             <td>
@@ -129,8 +129,8 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="faxtel2" id="faxtel2" class="form-control form-control-sm req-phone" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="faxtel3" id="faxtel3" class="form-control form-control-sm req-phone" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="faxtel2" id="faxtel2" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="faxtel3" id="faxtel3" class="form-control form-control-sm" style="width:80px;"></div>
                                             </td>
                                             <th>휴대전화</th>
                                             <td>
@@ -142,8 +142,8 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="mobile2" id="mobile2" class="form-control form-control-sm req-phone" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm req-phone" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="mobile2" id="mobile2" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm" style="width:80px;"></div>
                                             </td>
                                             <th>이메일</th>
                                             <td><input type="text" class="form-control form-control-sm" name="email" id="email" style="width:200px;"></td>

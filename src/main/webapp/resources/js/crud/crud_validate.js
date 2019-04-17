@@ -18,7 +18,7 @@ $.validator.addMethod(
             return false;
         }
     },
-    "값이 없습니다."
+    "값이 없습니다!."
 );
 
 //클래스 규칙 추가 - 아래 name 룰과는 별계로 작동함
@@ -29,7 +29,7 @@ $.validator.addClassRules("phone",{minlength: 3, maxlength:4});
 $.validator.addClassRules("url",{required:false, url: true});
 $.validator.addClassRules("name",{required: true, minlength: 2, maxlength:20});
 $.validator.addClassRules("password",{required: true, minlength: 8});
-$.validator.addClassRules("confirmpassword",{required: true, minlength: 8, equalTo: "#adminpassword"});
+$.validator.addClassRules("confirmpassword",{required: true, minlength: 8, equalTo: ".password"});
 
 
 //한글 메시지 변경

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,13 +41,13 @@ public class ServiceController {
     //footable에 바인딩할 LIst
     @RequestMapping(value="/service",method = RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authServiceSearchList(HttpServletRequest request){
+    public List<Map<String,Object>> authServiceSearchList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> serviceList = serviceService.serviceList(request);
         return serviceList;
     }
     // 서비스 상세 화면
     @RequestMapping(value="/service/{serviceNo}", method = RequestMethod.GET)
-    public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable int serviceNo){
+    public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
         mView.setViewName("page/service/serviceDetail");
 
@@ -53,7 +55,7 @@ public class ServiceController {
     }
     // 서비스 수정 화면
     @RequestMapping(value="/service/modified/{serviceNo}",method=RequestMethod.GET)
-    public ModelAndView authServiceUpdate(HttpServletRequest request,@PathVariable int serviceNo){
+    public ModelAndView authServiceUpdate(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
         List<ProductDto> productB = productService.getProductB(request);
@@ -66,15 +68,15 @@ public class ServiceController {
     }
     // 서비스 수정
     @RequestMapping(value="/service/modified/{serviceNo}",method=RequestMethod.POST)
-    public ModelAndView authServiceUpdateSet(HttpServletRequest request,@ModelAttribute ServiceDto serviceDto,@ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto,@PathVariable int serviceNo){
+    public ModelAndView authServiceUpdateSet(HttpServletRequest request,@ModelAttribute ServiceDto serviceDto,@ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
-        int resultServiceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
+        String resultServiceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
         mView.setViewName("redirect:/service/"+resultServiceNo);
         return mView;
     }
     // 서비스 삭제
     @RequestMapping(value="/service/del/{serviceNo}",method=RequestMethod.POST)
-    public ModelAndView authServiceDelete(HttpServletRequest request,@PathVariable int serviceNo){
+    public ModelAndView authServiceDelete(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         serviceService.serviceDelete(request,serviceNo);
         mView.setViewName("page/service/serviceList");
@@ -95,9 +97,9 @@ public class ServiceController {
     }
     // 서비스 추가
     @RequestMapping(value="/service/input",method=RequestMethod.POST)
-    public ModelAndView authServiceInsertSet(HttpServletRequest request, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto){
+    public ModelAndView authServiceInsertSet(HttpServletRequest request, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
-        int serviceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
+        String serviceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
         mView.setViewName("redirect:/service/"+serviceNo);
         return mView;
     }
@@ -111,21 +113,21 @@ public class ServiceController {
     // 처리결과 이력
     @RequestMapping(value="/service/tab/ract/{serviceNo}",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable int serviceNo){
+    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> tabRactList = serviceService.ractList(request,serviceNo);
         return tabRactList;
     }
     // 이관 이력
     @RequestMapping(value="/service/tab/delivery/{serviceNo}",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authTabConveyList(HttpServletRequest request,@PathVariable int serviceNo){
+    public List<Map<String,Object>> authTabConveyList(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> tabConveyList = serviceService.conveyList(request,serviceNo);
         return tabConveyList;
     }
 
     @RequestMapping(value="/service/{custNo}",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> custServiceTab(HttpServletRequest request, @PathVariable int custNo){
+    public List<Map<String,Object>> custServiceTab(HttpServletRequest request, @PathVariable int custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> custServiceTab = serviceService.serviceList(request);
         return custServiceTab;
     }

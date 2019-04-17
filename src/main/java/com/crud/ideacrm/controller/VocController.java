@@ -1,11 +1,15 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.crud.util.ParameterUtil;
+
 import com.crud.ideacrm.dto.BlackCustDto;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.dto.ProductDto;
-import com.crud.ideacrm.service.*;
+import com.crud.ideacrm.service.CodeService;
+import com.crud.ideacrm.service.CustService;
+import com.crud.ideacrm.service.ProductService;
+import com.crud.ideacrm.service.VocService;
+import com.crud.ideacrm.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -155,7 +158,7 @@ public class VocController {
     //VOC -  좌측탭 서비스 리스트
     @RequestMapping(value="/voc/tab/sv",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> vocTabServiceList(HttpServletRequest request) {
+    public List<Map<String,Object>> vocTabServiceList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         return serviceService.serviceList(request);
     }
 

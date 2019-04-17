@@ -1,8 +1,13 @@
 package com.crud.ideacrm.dto;
 
+import com.crud.ideacrm.crud.util.CodecUtil;
+
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+
 public class UserDto {
 
-    private int userno; //회원번호 PK
+    private String userno; //회원번호 PK
     private int siteid; //회원소속 회원사
     private String userid; //회원 ID
     private String username; //회원 이름
@@ -21,8 +26,9 @@ public class UserDto {
     private String telno3;
     private String userduty; //직책
     private int chkrole;
-    private int ctiid; //CTI ID
+    private String ctiid; //CTI ID
     private String ctipass; //CTI PASSWORD
+    private String ctitelno; // CTI 전화번호
     private String pwdchangedate; //비밀번호 변경일시
     private int isdelete; //사용여부 0 / 1
     private String regdate; //등록일시
@@ -33,9 +39,21 @@ public class UserDto {
     private int masteryn;
 
 
+
     public UserDto () {}
 
-    public UserDto(int userno, int siteid, String userid, String username, String userpassword, String userdesc, String email, int deptid, int chkauth, String enterdate, String userlang, String mobile1, String mobile2, String mobile3, String telno1, String telno2, String telno3, String userduty, int chkrole, int ctiid, String ctipass, String pwdchangedate, int isdelete, String regdate, int reguser, String edtdate, int edtuser, String code, int masteryn) {
+    public void setEncodingUserDto() throws UnsupportedEncodingException, GeneralSecurityException {
+        CodecUtil commonUtil = new CodecUtil();
+        if(this.mobile1 != null && this.mobile1 != ""){ this.mobile1 = commonUtil.encoding(this.mobile1);}
+        if(this.mobile2 != null && this.mobile2 != ""){ this.mobile2 = commonUtil.encoding(this.mobile2);}
+        if(this.mobile3 != null && this.mobile3 != ""){ this.mobile3 = commonUtil.encoding(this.mobile3);}
+        if(this.telno1 != null && this.telno1 != ""){ this.telno1 = commonUtil.encoding(this.telno1);}
+        if(this.telno2 != null && this.telno2 != ""){ this.telno2 = commonUtil.encoding(this.telno2);}
+        if(this.telno3 != null && this.telno3 != ""){ this.telno3 = commonUtil.encoding(this.telno3);}
+        if(this.email != null && this.email != ""){ this.email = commonUtil.encoding(this.email);}
+    }
+
+    public UserDto(String userno, int siteid, String userid, String username, String userpassword, String userdesc, String email, int deptid, int chkauth, String enterdate, String userlang, String mobile1, String mobile2, String mobile3, String telno1, String telno2, String telno3, String userduty, int chkrole, String ctiid, String ctipass, String ctitelno, String pwdchangedate, int isdelete, String regdate, int reguser, String edtdate, int edtuser, String code, int masteryn) {
         this.userno = userno;
         this.siteid = siteid;
         this.userid = userid;
@@ -57,6 +75,7 @@ public class UserDto {
         this.chkrole = chkrole;
         this.ctiid = ctiid;
         this.ctipass = ctipass;
+        this.ctitelno = ctitelno;
         this.pwdchangedate = pwdchangedate;
         this.isdelete = isdelete;
         this.regdate = regdate;
@@ -67,11 +86,11 @@ public class UserDto {
         this.masteryn = masteryn;
     }
 
-    public int getUserno() {
+    public String getUserno() {
         return userno;
     }
 
-    public void setUserno(int userno) {
+    public void setUserno(String userno) {
         this.userno = userno;
     }
 
@@ -219,11 +238,11 @@ public class UserDto {
         this.chkrole = chkrole;
     }
 
-    public int getCtiid() {
+    public String getCtiid() {
         return ctiid;
     }
 
-    public void setCtiid(int ctiid) {
+    public void setCtiid(String ctiid) {
         this.ctiid = ctiid;
     }
 
@@ -233,6 +252,14 @@ public class UserDto {
 
     public void setCtipass(String ctipass) {
         this.ctipass = ctipass;
+    }
+
+    public String getCtitelno() {
+        return ctitelno;
+    }
+
+    public void setCtitelno(String ctitelno) {
+        this.ctitelno = ctitelno;
     }
 
     public String getPwdchangedate() {

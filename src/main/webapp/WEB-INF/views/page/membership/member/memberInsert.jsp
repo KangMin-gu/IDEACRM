@@ -13,8 +13,6 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 </head>
@@ -46,12 +44,11 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-
-
+            <form:form action="/company/user/input" method="POST">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">등록</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <a href="/common/user" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -65,94 +62,97 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form:form>
-                                            <div class="form-group  row">
-                                                <label class="col-sm-2 col-form-label">사용자명</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                                <label class="col-sm-2 col-form-label">ID</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
+
+                                        <div class="form-group  row">
+                                            <label class="col-sm-2 col-form-label">사용자명</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="username" id="username" class="form-control form-control-sm">
                                             </div>
-                                            <div class="form-group  row">
-                                                <label class="col-sm-2 col-form-label">비밀번호</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                                <label class="col-sm-2 col-form-label">비밀번호확인</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
+                                            <label class="col-sm-2 col-form-label">ID</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="userid" id="userid" class="form-control form-control-sm">
                                             </div>
-                                            <div class="form-group  row">
-                                                <label class="col-sm-2 col-form-label">휴대번호</label>
-                                                <div class="col-sm-4">
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <select class="form-control m-b">
-                                                                <option value="Bahamas">010</option>
-                                                                <option value="Bahrain">011</option>
-                                                                <option value="Bangladesh">017</option>
-                                                                <option value="Barbados">018</option>
-                                                                <option value="Belarus">019</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3"><input type="text" placeholder=".col-md-3" class="form-control form-control-sm"></div>
-                                                        <div class="col-md-3"><input type="text" placeholder=".col-md-4" class="form-control form-control-sm"></div>
+                                        </div>
+                                        <div class="form-group  row">
+                                            <label class="col-sm-2 col-form-label">비밀번호</label>
+                                            <div class="col-sm-4">
+                                                <input type="password" name="userpassword" id="userpassword" class="form-control form-control-sm password">
+                                            </div>
+                                            <label class="col-sm-2 col-form-label">비밀번호확인</label>
+                                            <div class="col-sm-4">
+                                                <input type="password" class="form-control form-control-sm confirmpassword">
+                                            </div>
+                                        </div>
+                                        <div class="form-group  row">
+                                            <label class="col-sm-2 col-form-label">휴대번호</label>
+                                            <div class="col-sm-4">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <select class="form-control m-b" id="mobile1" name="mobile1">
+                                                            <c:forEach var="mobile" items="${MOBILE}">
+                                                                <option label="${mobile.codename}" value="${mobile.codeval}"></option>
+                                                            </c:forEach>
+                                                        </select>
                                                     </div>
+                                                    <div class="col-md-3"><input type="text" id="mobile2" name="mobile2" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-3"><input type="text" id="mobile3" name="mobile3" class="form-control form-control-sm"></div>
                                                 </div>
-                                                <label class="col-sm-2 col-form-label">전화번호</label>
-                                                <div class="col-sm-4">
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <select class="form-control m-b">
-                                                                <option value="Bahamas">010</option>
-                                                                <option value="Bahrain">011</option>
-                                                                <option value="Bangladesh">017</option>
-                                                                <option value="Barbados">018</option>
-                                                                <option value="Belarus">019</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3"><input type="text" placeholder=".col-md-3" class="form-control form-control-sm"></div>
-                                                        <div class="col-md-3"><input type="text" placeholder=".col-md-4" class="form-control form-control-sm"></div>
+                                            </div>
+                                            <label class="col-sm-2 col-form-label">전화번호</label>
+                                            <div class="col-sm-4">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <select class="form-control m-b" name="telno1" id="telno1" >
+                                                            <c:forEach var="phone" items="${PHONE}">
+                                                                <option label="${phone.codename}" value="${phone.codeval}"></option>
+                                                            </c:forEach>
+                                                        </select>
                                                     </div>
+                                                    <div class="col-md-3"><input type="text" name="telno2" id="telno2" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-3"><input type="text" name="telno3" id="telno3" class="form-control form-control-sm"></div>
                                                 </div>
                                             </div>
-                                            <div class="form-group  row">
-                                                <label class="col-sm-2 col-form-label">이메일</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                                <label class="col-sm-2 col-form-label">관리자여부</label>
-                                                <div class="col-sm-4">
-                                                    <select class="form-control" style="width:100px;">
-                                                        <option value="Bahamas">010</option>
-                                                        <option value="Bahrain">011</option>
-                                                        <option value="Bangladesh">017</option>
-                                                        <option value="Barbados">018</option>
-                                                        <option value="Belarus">019</option>
-                                                    </select>
-                                                </div>
+                                        </div>
+                                        <div class="form-group  row">
+                                            <label class="col-sm-2 col-form-label">이메일</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="email" id="email" class="form-control form-control-sm">
                                             </div>
-                                            <div class="form-group  row">
-                                                <label class="col-sm-2 col-form-label">직책</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                                <label class="col-sm-2 col-form-label">CTI번호</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
+                                            <label class="col-sm-2 col-form-label">관리자여부</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" name="chkauth" id="chkauth" style="width:100px;">
+                                                    <c:forEach var="chkAuth_" items="${CHKAUTH_}">
+                                                        <option label="${chkAuth_.codename}" value="${chkAuth_.codeval}"></option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
-                                            <div class="form-group  row">
-                                                <label class="col-sm-2 col-form-label">메모</label>
-                                                <div class="col-sm-10">
-                                                    <textarea name="need" id="" class="form-control" style="resize: none;" rows="4"></textarea>
-                                                </div>
+                                        </div>
+                                        <div class="form-group  row">
+                                            <label class="col-sm-2 col-form-label">직책</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="userduty" id="userduty" class="form-control form-control-sm">
                                             </div>
-                                        </form:form>
+                                            <label class="col-sm-2 col-form-label">CTI전화번호</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="ctitelno" id="ctitelno"  class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">CTIID</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="ctiid" id="ctiid" class="form-control form-control-sm">
+                                            </div>
+                                            <label class="col-sm-2 col-form-label">CTIPW</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="ctipass" id="ctipass" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group  row">
+                                            <label class="col-sm-2 col-form-label">메모</label>
+                                            <div class="col-sm-10">
+                                                <textarea name="userdesc" id=" userdesc" class="form-control" style="resize: none;" rows="4"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -163,11 +163,11 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">등록</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <a href="/common/user" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
-
+            </form:form>
         </div>
 
 
@@ -180,15 +180,12 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
-<!--datarange-->
-<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<!-- validate -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
+
 <script>
     $(document).ready(function() {
-        $('.footable').footable();
-        $('#daterange').daterangepicker();
     });
 </script>
 </body>

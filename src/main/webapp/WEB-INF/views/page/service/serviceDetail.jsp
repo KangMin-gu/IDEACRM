@@ -57,12 +57,11 @@
                         <a href="/service" class="btn btn-default pull-left">목록</a>
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
-                            <a href="#" class="btn btn-default servicenext" data-toggle="tooltip" data-placement="top" title="이관"><i class="fa fa-external-link"></i></a>
                             <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                             <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
-                            <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                             <button type="submit" class="btn btn-default pull-right">삭제</button>
                             <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                            <a href="#" class="btn btn-default pull-right servicenext">이관</a>
                             </c:if>
                         </c:if>
                     </form:form>
@@ -102,15 +101,15 @@
                                             <input type="hidden" id="custno" name="custno" value="${serviceInfo.CUSTNO}"/>
                                             </td>
                                             <th>자택전화</th>
-                                            <td id="homtel">${serviceInfo.HOMTEL}</td>
+                                            <td id="homtel">${serviceInfo.HOMTEL1} ${serviceInfo.HOMTEL2} ${serviceInfo.HOMTEL3}</td>
                                             <th>휴대전화</th>
-                                            <td id="mobile">${serviceInfo.MOBILE}</td>
+                                            <td id="mobile">${serviceInfo.MOBILE1} ${serviceInfo.MOBILE2} ${serviceInfo.MOBILE3}</td>
                                             <th>이메일</th>
                                             <td id="email">${serviceInfo.EMAIL}</td>
                                         </tr>
                                         <tr>
                                             <th>고객 주소</th>
-                                            <td colspan="7">${serviceInfo.CUSTADDRESS}</td>
+                                            <td colspan="7">${serviceInfo.HOMADDR1} ${serviceInfo.HOMADDR2} ${serviceInfo.HOMADDR3}</td>
                                         </tr>
                                     </tobdy>
                                 </table>
@@ -252,7 +251,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>방문주소</th>
-                                                        <td colspan="9">${rewardInfo.VISITADDR_}</td>
+                                                        <td colspan="9">${rewardInfo.VISITADDR1} ${rewardInfo.VISITADDR2} ${rewardInfo.VISITADDR3}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>상세내역</th>

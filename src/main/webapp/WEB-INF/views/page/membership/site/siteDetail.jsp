@@ -63,7 +63,6 @@
                     <a href="/common/site" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
                     <button type="submit" class="btn btn-default pull-right">삭제</button>
                     <a href="/common/site/modified/${siteInfo.SITEID}" class="btn btn-default pull-right">수정</a>
                     </form:form>
@@ -99,19 +98,19 @@
                                         <th>회원사명</th>
                                         <td>${siteInfo.SITENAME}</td>
                                         <th>사업자번호</th>
-                                        <td>${siteInfo.BSNO}</td>
+                                        <td>${siteInfo.BSNO1}${siteInfo.BSNO2}${siteInfo.BSNO3}</td>
                                         <th>법인번호</th>
-                                        <td>${siteInfo.INCNO}</td>
+                                        <td>${siteInfo.INCNO1}${siteInfo.INCNO2}</td>
                                         <th>대표자명</th>
                                         <td>${siteInfo.PRSDNAME}</td>
                                     </tr>
                                     <tr>
                                         <th>전화번호</th>
-                                        <td>${siteInfo.TELNO}</td>
+                                        <td>${siteInfo.TELNO1}${siteInfo.TELNO2}${siteInfo.TELNO3}</td>
                                         <th>팩스번호</th>
-                                        <td>${siteInfo.FAXNO}</td>
+                                        <td>${siteInfo.FAXTEL1}${siteInfo.FAXTEL2}${siteInfo.FAXTEL3}</td>
                                         <th>휴대전화</th>
-                                        <td>${siteInfo.MOBILE}</td>
+                                        <td>${siteInfo.MOBILE1}${siteInfo.MOBILE2}${siteInfo.MOBILE3}</td>
                                         <th>이메일</th>
                                         <td>${siteInfo.EMAIL}</td>
                                     </tr>
@@ -127,7 +126,7 @@
                                     </tr>
                                     <tr>
                                         <th rowspan="3">주소 및 위치</th>
-                                        <td colspan="8">${siteInfo.ADDR_}</td>
+                                        <td colspan="8">${siteInfo.ADDR1} ${siteInfo.ADDR2} ${siteInfo.ADDR3}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="8"><div id="map" style="width:100%;height:200px;"></div></td>
@@ -256,9 +255,9 @@
                                 <div class="col-lg-12">
                                     <div class="tabs-container">
                                         <ul class="nav nav-tabs" role="tablist">
+                                            <li><a class="nav-link" data-toggle="tab" href="#tab-3">사용자</a></li>
                                             <li><a class="nav-link active" data-toggle="tab" href="#tab-1">라이센스</a></li>
                                             <li><a class="nav-link" data-toggle="tab" href="#tab-2">서비스단가</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-3">사용자</a></li>
                                             <li><a class="nav-link" data-toggle="tab" href="#tab-4">IDEACRM 발송수</a></li>
                                         </ul>
                                         <div class="tab-content">

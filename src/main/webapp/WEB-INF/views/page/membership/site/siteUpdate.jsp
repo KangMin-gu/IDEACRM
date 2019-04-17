@@ -112,15 +112,22 @@
                                             <th>전화번호</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control testconnect" name="tel1" id="tel1" style="width:80px;">
+                                                    <select class="form-control testconnect" name="telno1" id="telno1" style="width:80px;">
                                                         <option value="0" label="선택"></option>
                                                         <c:forEach var="phone" items="${PHONE}">
-                                                            <option value="${phone.codeval}" label="${phone.codename}"></option>
+                                                            <c:choose>
+                                                                <c:when test="${siteInfo.TELNO1 eq phone.codeval}">
+                                                                    <option selected label="${phone.codename }" value="${phone.codeval }"/>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option label="${phone.codename }" value="${phone.codeval }"/>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="tel2" id="tel2" class="form-control form-control-sm testconnect" value="${siteInfo.TEL2}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="tel3" id="tel3" class="form-control form-control-sm testconnect" value="${siteInfo.TEL3}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="telno2" id="telno2" class="form-control form-control-sm testconnect" value="${siteInfo.TELNO2}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="telno3" id="telno3" class="form-control form-control-sm testconnect" value="${siteInfo.TELNO3}" style="width:80px;"></div>
                                             </td>
                                             <th>팩스번호</th>
                                             <td>
@@ -128,7 +135,14 @@
                                                     <select class="form-control" name="faxtel1" id="faxtel1" style="width:80px;">
                                                         <option value="0" label="선택"></option>
                                                         <c:forEach var="fax" items="${FAX}">
-                                                            <option value="${fax.codeval}" label="${fax.codename}"></option>
+                                                            <c:choose>
+                                                                <c:when test="${siteInfo.FAXTEL1 eq fax.codeval}">
+                                                                    <option selected label="${fax.codename }" value="${fax.codeval }"/>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option label="${fax.codename }" value="${fax.codeval }"/>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -141,7 +155,14 @@
                                                     <select class="form-control" name="mobile1" id="mobile1" style="width:80px;">
                                                         <option value="0" label="선택"></option>
                                                         <c:forEach var="mobile" items="${MOBILE}">
-                                                            <option value="${mobile.codeval}" label="${mobile.codename}"></option>
+                                                            <c:choose>
+                                                                <c:when test="${siteInfo.MOBILE1 eq mobile.codeval}">
+                                                                    <option selected label="${mobile.codename }" value="${mobile.codeval }"/>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option label="${mobile.codename }" value="${mobile.codeval }"/>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -163,7 +184,14 @@
                                                 <select class="form-control" name="sitesize" id="sitesize" style="width:230px;">
                                                     <option value="0" label="선택"></option>
                                                     <c:forEach var="companySize" items="${COMPANYSIZE}">
-                                                        <option value="${companySize.codeval}" label="${companySize.codename}"></option>
+                                                        <c:choose>
+                                                            <c:when test="${siteInfo.SITESIZE eq companySize.codeval}">
+                                                                <option selected label="${companySize.codename }" value="${companySize.codeval }"/>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <option label="${companySize.codename }" value="${companySize.codeval }"/>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:forEach>
                                                 </select>
                                             </td>

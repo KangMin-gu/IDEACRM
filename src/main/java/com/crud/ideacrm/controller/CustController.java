@@ -1,7 +1,6 @@
 package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.crud.util.CodecUtil;
-import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.service.CodeService;
@@ -28,8 +27,6 @@ public class CustController {//
     private CustService custService;
     @Autowired
     private ServiceService serviceService;
-    @Autowired
-    private CodecUtil commonUtil;
 
     private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1 .
 
@@ -54,6 +51,7 @@ public class CustController {//
     //고객상세
     @RequestMapping(value = "/cust/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
+
         ModelAndView mView = new ModelAndView();
         mView.addObject("custDetail",custService.custDetail(request,custno));
         mView.setViewName("page/cust/custDetail");
@@ -62,6 +60,7 @@ public class CustController {//
     //고객수정
     @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustUpdateForm(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
+
         ModelAndView mView = new ModelAndView();
         mView.addObject("custDetail",custService.custDetail(request,custno));
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
@@ -104,7 +103,7 @@ public class CustController {//
     //고객상세 서비스 탭
     @RequestMapping(value="/cust/tab/service/{custno}",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable String custno){
+    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
         return serviceService.serviceList(request);
     }
 

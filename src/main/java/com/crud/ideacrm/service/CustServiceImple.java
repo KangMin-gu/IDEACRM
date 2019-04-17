@@ -19,9 +19,9 @@ import java.util.Map;
 public class CustServiceImple implements CustService{
 
     @Autowired
-    CustDao custDao;
+    private CustDao custDao;
     @Autowired
-    CodecUtil codecUtil;
+    private CodecUtil codecUtil;
 
     //고객 리스트
     @Override
@@ -69,6 +69,8 @@ public class CustServiceImple implements CustService{
         custDto.setReguser(userNo);
         custDenyDto.setReguser(userNo);
 
+        custDto.setEdituser(userNo);
+        custDenyDto.setEdituser(userNo);
         CustDto enCustDto = new EnCustDto(custDto);
         String deRelCustNo = enCustDto.getRelcustno();
 

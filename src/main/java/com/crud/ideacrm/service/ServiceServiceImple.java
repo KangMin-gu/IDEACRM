@@ -1,5 +1,6 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dto.ProductDto;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
 @Service
@@ -18,25 +21,35 @@ public class ServiceServiceImple implements ServiceService{
 
     @Autowired
     private ServiceDao serviceDao;
+    @Autowired
+    private CodecUtil codecUtil;
 
     @Override
-    public List<Map<String,Object>> serviceList(HttpServletRequest request){
+    public List<Map<String,Object>> serviceList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ParameterUtil parameterUtil = new ParameterUtil();
 
         Map<String,Object> param = parameterUtil.searchParam(request);
 
         List<Map<String,Object>> svList = serviceDao.serviceList(param);
 
+        for(int i=0;i<svList.size();i++){ //pk값 암호화
+            String deServiceNo = "";
+            deServiceNo = svList.get(i).get("NO").toString();
+            String enSiteId = codecUtil.encodePkNo(deServiceNo);
+            svList.get(i).put("NO",enSiteId);
+        }
+
         return svList;
     }
 
     @Override
-    public ModelAndView serviceDetail(HttpServletRequest request, int serviceNo) {
+    public ModelAndView serviceDetail(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
 
         ParameterUtil parameterUtil = new ParameterUtil();
 
         Map<String,Object> param = parameterUtil.searchParam(request);
+        serviceNo = codecUtil.decodePkNo(serviceNo);
         param.put("serviceno",serviceNo);
 
         Map<String,Object> serviceInfo = serviceDao.serviceDetail(param);
@@ -44,7 +57,13 @@ public class ServiceServiceImple implements ServiceService{
         Map<String,Object> ractInfo = serviceDao.ractDetail(param);
         List<ProductDto> product = serviceDao.serviceProductRead(param);
 
+        serviceNo = codecUtil.encodePkNo(serviceInfo.get("SERVICENO").toString());
+        serviceInfo.put("SERVICENO",serviceNo);
         mView.addObject("product",product);
+        serviceInfo = codecUtil.decodeMap(serviceInfo);//암호화 필드 복호화작업
+        if(rewardInfo != null){
+            rewardInfo = codecUtil.decodeMap(rewardInfo);//암호화 필드 복호화작업
+        }
         mView.addObject("serviceInfo", serviceInfo);
         mView.addObject("rewardInfo", rewardInfo);
         mView.addObject("ractInfo", ractInfo);
@@ -53,11 +72,13 @@ public class ServiceServiceImple implements ServiceService{
     }
 
     @Override
-    public int serviceInsertUpdate(HttpServletRequest request, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto) {
+    public String serviceInsertUpdate(HttpServletRequest request, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
         ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> search = parameterUtil.searchParam(request);
+
         serviceDto.setSiteid(siteId);
         serviceDto.setEdtuser(userNo);
         serviceDto.setReguser(userNo);
@@ -102,12 +123,20 @@ public class ServiceServiceImple implements ServiceService{
             }
         }
 */
-        int serviceNo = serviceDto.getServiceno();
-        if(serviceNo == 0) {
+
+        String serviceNo = serviceDto.getServiceno();
+
+        String custNo = codecUtil.decodePkNo(serviceDto.getCustno());
+        serviceDto.setCustno(custNo);
+        if(serviceNo == null) {
             serviceDto.setIsdelete(0);
             serviceNo = serviceDao.serviceInsert(serviceDto);
             serviceDto.setServicestep(1);
+            serviceDto.setServiceno(serviceNo);
             serviceDao.serviceStepUpdate(serviceDto);
+        }else{
+            serviceNo = codecUtil.decodePkNo(serviceNo);
+            serviceDto.setServiceno(serviceNo);
         }
 
         String visitDate = rewardDto.getVisitdate();
@@ -118,8 +147,11 @@ public class ServiceServiceImple implements ServiceService{
         if(visitDate != null) {
             if(visitDate.length() > 0) {
                 if(rewardNo != 0) {
+                    rewardDto.setServiceno(serviceNo);
+                    rewardDto.setEncodingRewardDto();
                     serviceDao.rewardUpdate(rewardDto);
                 }else {
+                    rewardDto.setEncodingRewardDto();
                     rewardDto.setServiceno(serviceNo);
                     rewardDto.setReguser(userNo);
                     serviceDao.rewardInsert(rewardDto);
@@ -135,6 +167,7 @@ public class ServiceServiceImple implements ServiceService{
         if(ractDate == null || ractDate =="") {
         }else{
             if(ractNo != 0) {
+                ractDto.setServiceno(serviceNo);
                 serviceDao.ractUpdate(ractDto);
             }else{
                 ractDto.setServiceno(serviceNo);
@@ -158,7 +191,6 @@ public class ServiceServiceImple implements ServiceService{
         map.put("edtuser", userNo);
         map.put("serviceno", serviceNo);
         while(keyiterator.hasNext()) {
-
             key = keyiterator.next().toString();
             if(search.get(key) != null) {
                 value = search.get(key).toString();
@@ -176,25 +208,28 @@ public class ServiceServiceImple implements ServiceService{
                 }
             }
         }
+        serviceNo = codecUtil.encodePkNo(serviceNo);
         return serviceNo;
 
     }
 
     @Override
-    public void serviceDelete(HttpServletRequest request, int serviceNo) {
+    public void serviceDelete(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ServiceDto serviceDto = new ServiceDto();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         serviceDto.setSiteid(siteId);
+        serviceNo = codecUtil.decodePkNo(serviceNo);
         serviceDto.setServiceno(serviceNo);
 
         serviceDao.serviceDelete(serviceDto);
     }
 
     @Override
-    public List<Map<String, Object>> ractList(HttpServletRequest request, int serviceNo) {
+    public List<Map<String, Object>> ractList(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
 
         ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> param = parameterUtil.searchParam(request);
+        serviceNo = codecUtil.decodePkNo(serviceNo);
         param.put("serviceno",serviceNo);
 
         List<Map<String,Object>> ractList = serviceDao.ractList(param);
@@ -203,9 +238,10 @@ public class ServiceServiceImple implements ServiceService{
     }
 
     @Override
-    public List<Map<String, Object>> conveyList(HttpServletRequest request, int serviceNo) {
+    public List<Map<String, Object>> conveyList(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> param = parameterUtil.searchParam(request);
+        serviceNo = codecUtil.decodePkNo(serviceNo);
         param.put("serviceno",serviceNo);
 
         List<Map<String,Object>> conveyList = serviceDao.conveyList(param);

@@ -57,7 +57,6 @@
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
                             <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                            <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                             <button type="submit" class="btn btn-default pull-right">삭제</button>
                             <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
                             <button type="button" class="btn btn-default pull-right servicenext">이관</button>
@@ -342,7 +341,7 @@
                             <div role="tabpanel" id="tab-5" url="/service/tab/delivery/${serviceInfo.SERVICENO}" class="tab-pane">
                                 <div class="panel-body">
                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                    <table class="tabfootable table table-stripped" data-page-size="8" data-filter=#filter>
+                                    <table class="tabfootable table table-stripped" data-sorting="true">
                                         <thead>
                                         <tr>
                                             <th data-visible="false" data-name="CONVEYLNO">이관번호</th>
@@ -350,7 +349,7 @@
                                             <th data-name="CONVEYREASON_">이관사유</th>
                                             <th data-name="PREVOWNER_">이전담당자</th>
                                             <th data-name="NEXTOWNER_">이관 담당자</th>
-                                            <th data-name="CONVEYLDESC">비고</th>
+                                            <th data-name="CONVEYDESC">비고</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -358,7 +357,7 @@
                                         </tbody>
                                         <tfoot>
                                         <tr>
-                                            <td colspan="9">
+                                            <td colspan="3">
                                                 <ul class="pagination pull-right"></ul>
                                             </td>
                                         </tr>
@@ -381,12 +380,10 @@
                         <a href="/service" class="btn btn-default pull-left">목록</a>
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
-                                <a href="#" class="btn btn-default servicenext" data-toggle="tooltip" data-placement="top" title="이관"><i class="fa fa-external-link"></i></a>
                                 <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                                <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
-                                <a href="#" class="btn btn-default kakaoBtn"><i class="fa fa-comment fa-lg"></i></a>
                                 <button type="submit" class="btn btn-default pull-right">삭제</button>
                                 <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                                <button type="button" class="btn btn-default pull-right servicenext">이관</button>
                             </c:if>
                         </c:if>
                     </form:form>
@@ -408,7 +405,7 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <!-- iCheck -->

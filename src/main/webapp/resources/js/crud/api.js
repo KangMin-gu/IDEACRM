@@ -24,19 +24,24 @@ function footableSearchList(url) {
 function tabFootableSearchList(id,url) {
     var param = searchDataToJson();
     var page = $('#paging').val();
+    if(page == undefined){
+        page = 10;
+    }
+    var pagination = $(id).find('.pagination');
     $.post(url, param, function (response) {
         $(id).find('.tabfootable').footable({
             "toggleSelector": ".footable-toggle",
             "empty": "",
             "paging": {
                 "enabled": true,
-                "container" : ".pagination",
+                "container" : pagination,
                 "size":page
             },
             "rows": response
         });
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();
+        $('.footable-empty').remove();
     });
 }
 $(".footable").on("click.ft.row",function(obj,e,ft,row){

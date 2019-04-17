@@ -57,6 +57,7 @@
                                     <th>현담당자</th>
                                     <td>
                                         ${serviceInfo.OWNER_ }
+                                        <input type="hidden" class="form-control searchparam" name="prevowner" id="prevowner" value="${serviceInfo.OWNER}" />
                                     </td>
                                 </tr>
                                 <tr>

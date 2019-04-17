@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="voc">
+
+	<update id="vocCustUpdate" parameterType="custDto" >
+	UPDATE CU100010
+	SET
+	EDITUSER = #{edituser}
+	,EDITDATE = NOW()
+	,CUSTNAME = #{custname}
+	,CUSTGUBUN = #{custgubun}
+	,MOBILE1 = #{mobile1}
+	,MOBILE2 = #{mobile2}
+	,MOBILE3 = #{mobile3}
+	,HOMTEL1 = #{homtel1}
+	,HOMTEL2 = #{homtel2}
+	,HOMTEL3 = #{homtel3}
+	,RELCUSTNO = #{relcustno}
+	,EMAIL = #{email}
+	,CUSTGRADE = #{custgrade}
+	,HOMADDR1 = #{homaddr1}
+	,HOMADDR2 = #{homaddr2}
+	,HOMADDR3 = #{homaddr3}
+
+	WHERE
+		CUSTNO = #{custno}
+		AND SITEID = #{siteid}
+	</update>
+
+	<!-- VOC 고객 수신거부 정보 수정 -->
+	<update id="vocCustDenyUpdate" parameterType="custDenyDto" >
+	UPDATE CU100080
+	SET
+	EDITUSER = #{edituser}
+	,EDITDATE = NOW()
+
+	,DENYMAILNOMAL = #{denymailnomal}
+	,DENYMAILSURVEY = #{denymailsurvey}
+	,DENYSMSNOMAL = #{denysmsnomal}
+	,DENYSMSSURVEY = #{denysmssurvey}
+	,DENYDMNOMAL = #{denydmnomal}
+	,DENYDMSURVEY = #{denydmsurvey}
+
+	WHERE
+		CUSTNO = #{custno}
+	</update>
+
+</mapper>

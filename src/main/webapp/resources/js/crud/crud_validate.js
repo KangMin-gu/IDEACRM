@@ -29,7 +29,7 @@ $.validator.addClassRules("phone",{minlength: 3, maxlength:4});
 $.validator.addClassRules("url",{required:false, url: true});
 $.validator.addClassRules("name",{required: true, minlength: 2, maxlength:20});
 $.validator.addClassRules("password",{required: true, minlength: 8});
-$.validator.addClassRules("confirmpassword",{required: true, minlength: 8, equalTo: "#adminpassword"});
+$.validator.addClassRules("confirmpassword",{required: true, minlength: 8, equalTo: ".password"});
 
 
 //한글 메시지 변경

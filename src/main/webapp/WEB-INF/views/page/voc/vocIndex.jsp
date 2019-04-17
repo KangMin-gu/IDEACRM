@@ -131,6 +131,9 @@
                                         </colgroup>
                                         <tbody>
                                         <tr>
+                                            <!--고객 관련 hidden -->
+                                            <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt">
+
                                             <th>유입번호</th>
                                             <td class="p-xxs">
                                                 <input class="form-control form-control-sm" type="search" id="searchNumber" style="height: 30px;">
@@ -238,7 +241,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" data-toggle="collapse" data-target="#denyfield">수신거부상태</button>
-                                    <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;">블랙해제</button>
+                                    <span id="blackSpan"><button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" onclick="addBlack();">블랙추가</button></span>
                                     <span id="custRegSpan"><button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustInsert()'>고객추가</button></span>
                                 </div>
                             </div>
@@ -286,7 +289,7 @@
                         <div class="ibox-content bot-cont">
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">서비스</a></li>
+                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1" id="vocServiceTabBtn">서비스</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-2">강성이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-3">콜백이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-4">SMS</a></li>
@@ -298,52 +301,22 @@
                                 <div class="tab-content">
                                     <div role="tabpanel" id="tab-1" class="tab-pane active">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                            <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true">
                                                 <thead>
                                                 <tr>
-                                                    <th>Rendering engine</th>
-                                                    <th>Browser</th>
-                                                    <th>Platform(s)</th>
-                                                    <th>Engine version</th>
-                                                    <th>CSS grade</th>
+                                                    <th data-visible="false" data-name="SERVICENO">서비스번호</th>
+                                                    <th data-name="SERVICENAME_">서비스명</th>
+                                                    <th data-name="SERVICETYPE_">접수유형</th>
+                                                    <th data-name="SERVICECHANNEL_">접수매체</th>
+                                                    <th data-name="CUSTNAME_">고객명</th>
+                                                    <th data-name="CLINAME_">거래처명</th>
+                                                    <th data-name="RECEPTIONDATE_">접수일</th>
+                                                    <th data-name="SERVICEOWNER_">접수자</th>
+                                                    <th data-name="OWNER_">담당자</th>
+                                                    <th data-name="SERVICESTEP_">처리상태</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr class="gradeX">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 4.0
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">4</td>
-                                                    <td class="center">X</td>
-                                                </tr>
-                                                <tr class="gradeC">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 5.0
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">5</td>
-                                                    <td class="center">C</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 5.5
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">5.5</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Gecko</td>
-                                                    <td>Netscape Navigator 9</td>
-                                                    <td>Win 98+ / OSX.2+</td>
-                                                    <td class="center">1.8</td>
-                                                    <td class="center">A</td>
-                                                </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
@@ -358,7 +331,7 @@
                                     </div>
                                     <div role="tabpanel" id="tab-2" class="tab-pane">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+
                                             <table class="footable2 table table-stripped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
@@ -460,7 +433,7 @@
                                     </div>
                                     <div role="tabpanel" id="tab-3" class="tab-pane">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+
                                             <table class="footable3 table table-stripped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
@@ -527,7 +500,7 @@
                                     </div>
                                     <div role="tabpanel" id="tab-4" class="tab-pane">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+
                                             <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>

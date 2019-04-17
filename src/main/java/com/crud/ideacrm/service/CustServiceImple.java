@@ -8,7 +8,6 @@ import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.dto.EnCustDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -41,12 +40,10 @@ public class CustServiceImple implements CustService{
 
     //고객 상세
     @Override
-    public ModelAndView custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public Map<String,Object> custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
 
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         CustDto custDto = new CustDto();
-        ModelAndView mView = new ModelAndView();
-
         custDto.setSiteid(siteId);
         //dto에 인코딩 되어들어온 custno를 복호화 후 전달
         String deCustNo = codecUtil.decodePkNo(custNo);
@@ -60,8 +57,7 @@ public class CustServiceImple implements CustService{
             detailMap.put("RELCUSTNO",relCustNo);
         }
 
-        mView.addObject("custDetail",detailMap);
-        return mView;
+        return detailMap;
     }
 
     //고객 추가
@@ -70,14 +66,17 @@ public class CustServiceImple implements CustService{
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         custDto.setSiteid(siteId);
-        custDto.setEdituser(userNo);
-        custDenyDto.setEdituser(userNo);
+        custDto.setReguser(userNo);
+        custDenyDto.setReguser(userNo);
 
         CustDto enCustDto = new EnCustDto(custDto);
-        String deRelCustNo = codecUtil.decodePkNo(enCustDto.getRelcustno());
-        if(!deRelCustNo.equals("")){
+        String deRelCustNo = enCustDto.getRelcustno();
+
+        if(deRelCustNo != null && !deRelCustNo.equals("0") && !deRelCustNo.equals("")){
+            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
             enCustDto.setRelcustno(deRelCustNo);
         }
+
         custDao.custInsert(enCustDto);
         String deCustNo = enCustDto.getCustno();
         custDenyDto.setCustno(deCustNo);
@@ -101,21 +100,25 @@ public class CustServiceImple implements CustService{
         CustDto enCustDto = new EnCustDto(custDto);
         String enCustNo = enCustDto.getCustno();
         String deCustNo = codecUtil.decodePkNo(enCustNo);
-        String deRelCustNo = codecUtil.decodePkNo(enCustDto.getRelcustno());
-        enCustDto.setRelcustno(deRelCustNo);
         enCustDto.setCustno(deCustNo);
+        custDenyDto.setCustno(deCustNo);
+
+        String deRelCustNo = enCustDto.getRelcustno();
+        if(deRelCustNo != null && deRelCustNo != "0" && !deRelCustNo.equals("")){
+            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
+            enCustDto.setRelcustno(deRelCustNo);
+        }
 
         custDao.custUpdate(enCustDto);//업데이트 dao호출
         //업데이트한 pk값 수신거부 dto에 설정
-        String custno = enCustDto.getCustno();
-        custDenyDto.setCustno(custno);
+
         //수신거부 dao 호출
         custDao.custDenyUpdate(custDenyDto);
 
         if(enCustDto.getClino() != 0) {//clino가 존재하면 거래처-관련고객 테이블에 update or insert
             custDao.mergeCliCust(enCustDto);
         }
-        enCustNo = codecUtil.encodePkNo(deCustNo);
+
         return enCustNo;
     }
 

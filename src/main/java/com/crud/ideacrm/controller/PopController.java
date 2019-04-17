@@ -60,10 +60,11 @@ public class PopController {
     public List<Map<String,Object>> authPopCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         return custService.custList(request);
     }
+
     @RequestMapping(value="/popcust/{custNo}",method=RequestMethod.GET)
     public ModelAndView authPopCustDetail(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
-
-        ModelAndView mView  = custService.custDetail(request,custNo);
+        ModelAndView mView  = new ModelAndView();
+        mView.addObject("custDetail",custService.custDetail(request,custNo));
         return mView;
     }
 
@@ -74,18 +75,21 @@ public class PopController {
         mView.setViewName("page/popup/clientPop");
         return mView;
     }
+
     @RequestMapping(value="/popaccount", method= RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authPopClientList(HttpServletRequest request) {
         Map<String,Object> searchPrm = new ParameterUtil().searchParam(request);
         return clientService.clientList(searchPrm);
     }
+
     @RequestMapping(value = "/popsms", method = RequestMethod.GET)
     public ModelAndView authSmsPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/smsPop");
         return mView;
     }
+
     @RequestMapping(value = "/popsms", method = RequestMethod.POST)
     public void authSmsPopSend(HttpServletRequest request){
         sendService.sendSms(request);

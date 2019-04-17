@@ -45,4 +45,41 @@
 		CUSTNO = #{custno}
 	</update>
 
+	<!-- voc 블랙 추가 -->
+	<insert id="vocBlackCustInsert" parameterType="blackCustDto">
+		INSERT INTO cu120010
+		(
+			CUSTNO
+			,BLACKTYPE
+			,RECEIVENO
+			,MEMO
+			,REGDATE
+			,REGUSER
+			,ISDELETE
+			,SITEID
+		)
+		VALUES
+		(
+			#{custno}
+			,#{blacktype}
+			,#{receiveno}
+			,#{memo}
+			,NOW()
+			,#{reguser}
+			,0
+			,#{siteid}
+		)
+	</insert>
+	<!-- 블랙삭제-->
+	<update id="vocBlackCustDelete" parameterType="blackCustDto">
+		UPDATE CU120010
+		SET
+		EDTUSER = #{edtuser}
+		,EDTDATE = NOW()
+		,ISDELETE = 1
+		WHERE
+			CUSTNO = #{custno}
+			AND SITEID = #{siteid}
+			AND ISDELETE = 0
+	</update>
 </mapper>

@@ -22,10 +22,11 @@ function footableSearchList(url) {
 }
 
 function tabFootableSearchList(id,url) {
+    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     $.post(url, param, function (response) {
-        $(id).find('.tabfootable').footable({
+        $('#'+id).find('.tabfootable').footable({
             "toggleSelector": ".footable-toggle",
             "empty": "",
             "paging": {
@@ -184,3 +185,11 @@ function iCheckClick(bool){
 
     });
 }
+
+$('.icheckbox_square-green input[type="checkbox"]').on('ifChecked', function(e){
+    if(e.target.id != undefined && e.target.id != '' ){
+        if ( $('#'+e.target.id).prop('checked') == true ) {//icheck 선택 시 value를 1로 설정.
+            $('#'+e.target.id).val(1);
+        }
+    }
+});

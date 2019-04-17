@@ -30,6 +30,7 @@
         <div class="ibox-content">
            <div class="row">
                <div class="col-lg-12">
+                   <button class="btn btn-default pull-right" onclick="makeCustAddBtn();">추가</button>
                    <table class="footable table table-striped">
                        <thead>
                        <tr>

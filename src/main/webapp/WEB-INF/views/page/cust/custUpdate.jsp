@@ -294,10 +294,6 @@
                                                 </select>
                                             </div>
                                             <label class="col-sm-2 col-form-label">담당자</label>
-                                            <!--<div class="col-sm-2">
-                                                <input type="hidden" id="owner" name="owner" value="${custDetail.OWNER}">
-                                                <input type="text" class="form-control form-control-sm" id="owner_" name="owner_" value="${custDetail.OWNER_}">
-                                            </div>-->
                                             <div class="col-sm-2 input-group owner" id="owner_" >
                                                 <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="owner_" value="${custDetail.OWNER_}" readonly>
                                                 <input type="hidden" class="searchparam" name="owner" id="owner" value="${custDetail.OWNER}">
@@ -309,8 +305,6 @@
                                                     <c:forEach var="infoagree" items="${INFOAGREE}">
                                                         <label><input type="radio" value="${infoagree.codeval}" name="infoagree" ${custDetail.INFOAGREE eq infoagree.codeval ? "checked":""}> <i></i>&nbsp;${infoagree.codename}</label>&nbsp;&nbsp;
                                                     </c:forEach>
-                                                    <!--<label><input type="radio" value="option1" name="a"> <i></i>&nbsp;동의</label>&nbsp;&nbsp;
-                                                    <label class="radio-inline"><input type="radio" value="option2" name="a"> <i></i>&nbsp;거부</label>-->
                                                 </div>
                                             </div>
                                         </div>

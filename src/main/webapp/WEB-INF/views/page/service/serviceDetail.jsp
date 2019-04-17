@@ -13,8 +13,7 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
@@ -61,7 +60,7 @@
                             <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                             <button type="submit" class="btn btn-default pull-right">삭제</button>
                             <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
-                            <a href="#" class="btn btn-default pull-right servicenext">이관</a>
+                            <button type="button" class="btn btn-default pull-right servicenext">이관</button>
                             </c:if>
                         </c:if>
                     </form:form>
@@ -294,12 +293,11 @@
                                                     </tr>
                                                 </tobdy>
                                             </table>
+                                            <input type="hidden" id="serviceno" name="serviceno" value="${serviceInfo.SERVICENO}"/>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                     </div>
                 </div>
             </div>
@@ -413,13 +411,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- common -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <!-- api -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 
 </body>
 </html>

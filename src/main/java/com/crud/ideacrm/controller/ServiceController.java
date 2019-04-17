@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -48,7 +51,12 @@ public class ServiceController {
     // 서비스 상세 화면
     @RequestMapping(value="/service/{serviceNo}", method = RequestMethod.GET)
     public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
-        ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
+        mView.addObject("rewardInfo",serviceService.rewardDetail(request,serviceNo));
+        mView.addObject("ractInfo",serviceService.ractDetail(request,serviceNo));
+        mView.addObject("product",serviceService.productDetail(request,serviceNo));
+
         mView.setViewName("page/service/serviceDetail");
 
         return mView;
@@ -56,12 +64,18 @@ public class ServiceController {
     // 서비스 수정 화면
     @RequestMapping(value="/service/modified/{serviceNo}",method=RequestMethod.GET)
     public ModelAndView authServiceUpdate(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
-        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
-        ModelAndView mView = serviceService.serviceDetail(request,serviceNo);
+        ModelAndView mView = new ModelAndView();
+
+        mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
+        mView.addObject("rewardInfo",serviceService.rewardDetail(request,serviceNo));
+        mView.addObject("ractInfo",serviceService.ractDetail(request,serviceNo));
+        mView.addObject("product",serviceService.productDetail(request,serviceNo));
+
         List<ProductDto> productB = productService.getProductB(request);
         mView.addObject("productB",productB);
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
+
         mView.setViewName("page/service/serviceUpdate");
 
         return mView;
@@ -131,4 +145,14 @@ public class ServiceController {
         List<Map<String,Object>> custServiceTab = serviceService.serviceList(request);
         return custServiceTab;
     }
+
+    @RequestMapping(value = "/service/delivery", method = RequestMethod.POST)
+    @ResponseBody
+    public int deliveryInsert(HttpServletRequest request, @ModelAttribute ServiceDeliveryDto serviceDeliveryDto) throws IOException, GeneralSecurityException {
+        String serviceNo = serviceService.serviceDeliveryInsert(request,serviceDeliveryDto);
+        return 0;
+    }
+
+
+
 }

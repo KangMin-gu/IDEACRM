@@ -156,10 +156,11 @@
                                     <th data-visible="false" data-name="URL">URL</th>
                                     <th data-name="USERNAME" data-formatter="formatter">사용자명</th>
                                     <th data-name="USERID" data-breakpoints="xs sm">사용자ID</th>
+                                    <th data-name="MOBILE" data-breakpoints="xs sm">전화번호</th>
+                                    <th data-name="EMAIL" data-breakpoints="xs sm">이메일</th>
                                     <th data-name="USERDUTY" data-breakpoints="xs sm">직책</th>
                                     <th data-name="FREGDATE_" data-breakpoints="xs sm">입사일자</th>
-                                    <th data-name="ISDELETE_" data-breakpoints="xs sm">사용자상태</th>
-                                    <th data-name="REGDATE_" data-breakpoints="xs sm">등록일시</th>
+                                    <th data-name="CHKAUTH_" data-breakpoints="xs sm">사용자권한</th>
                                 </tr>
                                 </thead>
                                 <tbody>

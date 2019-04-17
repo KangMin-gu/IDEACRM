@@ -3,10 +3,7 @@ package com.crud.ideacrm.service;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ServiceDao;
-import com.crud.ideacrm.dto.ProductDto;
-import com.crud.ideacrm.dto.RactDto;
-import com.crud.ideacrm.dto.RewardDto;
-import com.crud.ideacrm.dto.ServiceDto;
+import com.crud.ideacrm.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,8 +40,7 @@ public class ServiceServiceImple implements ServiceService{
     }
 
     @Override
-    public ModelAndView serviceDetail(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
-        ModelAndView mView = new ModelAndView();
+    public Map<String,Object> serviceDetail(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
 
         ParameterUtil parameterUtil = new ParameterUtil();
 
@@ -53,22 +49,49 @@ public class ServiceServiceImple implements ServiceService{
         param.put("serviceno",serviceNo);
 
         Map<String,Object> serviceInfo = serviceDao.serviceDetail(param);
-        Map<String,Object> rewardInfo = serviceDao.rewardDetail(param);
-        Map<String,Object> ractInfo = serviceDao.ractDetail(param);
-        List<ProductDto> product = serviceDao.serviceProductRead(param);
 
         serviceNo = codecUtil.encodePkNo(serviceInfo.get("SERVICENO").toString());
         serviceInfo.put("SERVICENO",serviceNo);
-        mView.addObject("product",product);
         serviceInfo = codecUtil.decodeMap(serviceInfo);//암호화 필드 복호화작업
+        return serviceInfo;
+    }
+
+    @Override
+    public Map<String, Object> rewardDetail(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ParameterUtil parameterUtil = new ParameterUtil();
+
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        serviceNo = codecUtil.decodePkNo(serviceNo);
+        param.put("serviceno",serviceNo);
+
+        Map<String,Object> rewardInfo = serviceDao.rewardDetail(param);
         if(rewardInfo != null){
             rewardInfo = codecUtil.decodeMap(rewardInfo);//암호화 필드 복호화작업
         }
-        mView.addObject("serviceInfo", serviceInfo);
-        mView.addObject("rewardInfo", rewardInfo);
-        mView.addObject("ractInfo", ractInfo);
+        return rewardInfo;
+    }
 
-        return mView;
+    @Override
+    public Map<String, Object> ractDetail(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ParameterUtil parameterUtil = new ParameterUtil();
+
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        serviceNo = codecUtil.decodePkNo(serviceNo);
+        param.put("serviceno",serviceNo);
+
+        Map<String,Object> ractInfo = serviceDao.ractDetail(param);
+        return ractInfo;
+    }
+
+    @Override
+    public List<ProductDto> productDetail(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ParameterUtil parameterUtil = new ParameterUtil();
+
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        serviceNo = codecUtil.decodePkNo(serviceNo);
+        param.put("serviceno",serviceNo);
+        List<ProductDto> product = serviceDao.serviceProductRead(param);
+        return product;
     }
 
     @Override
@@ -246,5 +269,23 @@ public class ServiceServiceImple implements ServiceService{
 
         List<Map<String,Object>> conveyList = serviceDao.conveyList(param);
         return conveyList;
+    }
+
+    @Override
+    public String serviceDeliveryInsert(HttpServletRequest request, ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        String encServiceNo = serviceDeliveryDto.getServiceno();
+        String serviceNo = codecUtil.decodePkNo(serviceDeliveryDto.getServiceno());
+
+        serviceDeliveryDto.setSiteid(siteId);
+        serviceDeliveryDto.setReguser(userNo);
+        serviceDeliveryDto.setEdtuser(userNo);
+
+        serviceDeliveryDto.setServiceno(serviceNo);
+
+        serviceDao.serviceDeliveryInsert(serviceDeliveryDto);
+        return encServiceNo;
     }
 }

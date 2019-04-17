@@ -338,4 +338,29 @@
 		AND SERVICENO = #{serviceno}
 	</select>
 
+	<insert id="serviceDeliveryInsert" parameterType="serviceDeliveryDto">
+		INSERT INTO sv300050
+			(
+			SERVICENO,PREVOWNER,NEXTOWNER,CONVEYREASON
+			,CONVEYDATE,CONVEYDESC,REGDATE,REGUSER
+			,EDTDATE,EDTUSER,SITEID
+			)VALUES(
+			#{serviceno},#{prevowner},#{nextowner},#{conveyreason}
+			,#{conveydate},#{conveydesc},NOW(),#{reguser}
+			,NOW(),#{edtuser},#{siteid}
+			);
+
+			UPDATE sv300010
+			SET OWNER = #{nextowner}
+				,EDTDATE = NOW()
+				,EDTUSER = #{edtuser}
+			WHERE SERVICENO = #{serviceno}
+			AND SITEID = #{siteid};
+
+			UPDATE sv300010
+			SET SERVICESTEP = 5
+			WHERE SERVICENO = #{serviceno}
+			AND SITEID = #{siteid};
+	</insert>
+
 </mapper>

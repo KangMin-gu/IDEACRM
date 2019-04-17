@@ -13,7 +13,7 @@ import java.util.Map;
 public class CustDaoImple implements CustDao {
 
     @Autowired
-    SqlSession session;
+    private SqlSession session;
 
     @Override
     public List<Map<String, Object>> custList(Map<String, Object> searchPrm) {

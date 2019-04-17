@@ -10,7 +10,7 @@ import java.util.Map;
 @Repository
 public class ClientDaoImple implements ClientDao {
     @Autowired
-    SqlSession session;
+    private SqlSession session;
 
     @Override
     public List<Map<String, Object>> clientList(Map<String, Object> searchParam) {

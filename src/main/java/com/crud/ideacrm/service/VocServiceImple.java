@@ -17,9 +17,9 @@ import java.security.GeneralSecurityException;
 public class VocServiceImple implements VocService {
 
     @Autowired
-    CodecUtil codecUtil;
+    private CodecUtil codecUtil;
     @Autowired
-    VocDao vocDao;
+    private VocDao vocDao;
 
     //고객 수정 실행
     @Override

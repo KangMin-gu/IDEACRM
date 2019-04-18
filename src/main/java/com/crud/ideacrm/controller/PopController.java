@@ -1,17 +1,17 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.crud.dto.MailDto;
 import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.dto.InsideNoticeDto;
 import com.crud.ideacrm.service.*;
 import com.crud.ideacrm.dto.CustDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -32,6 +32,8 @@ public class PopController {
     private CodeService codeService;
     @Autowired
     private ServiceService serviceService;
+    @Autowired
+    private InsideNoticeService isns;
 
     private final int USINGMENU = 0;//서비스 사용 메뉴 값은 3
     private final int SERVICEMENU = 3;
@@ -105,12 +107,16 @@ public class PopController {
         mView.setViewName("page/popup/kakaoPop");
         return mView;
     }
-
     @RequestMapping(value = "/popemail", method = RequestMethod.GET)
     public ModelAndView authEmailPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/popup/emailPop");
         return mView;
+    }
+    @RequestMapping(value = "/popemail", method = RequestMethod.POST)
+    public String authEmailPopSend(HttpServletResponse response, HttpServletRequest request, @ModelAttribute MailDto mailDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        sendService.sendEmail(response, request, mailDto);
+        return "page/popup/selfClose";
     }
     @RequestMapping(value="/popuppercode",method=RequestMethod.GET)
     public ModelAndView authCodeUpperPop(HttpServletRequest request){
@@ -128,6 +134,18 @@ public class PopController {
         return mView;
     }
 
+    @RequestMapping(value="/popbox",method=RequestMethod.GET)
+    public ModelAndView authInsideNoticePop(HttpServletRequest request){
+        ModelAndView mView = isns.composeData(request);
+        mView.setViewName("page/popup/insideNoticePop");
+        return mView;
+    }
+
+    @RequestMapping(value="/popbox",method=RequestMethod.POST)
+    public String authInsideNoticePopSend(HttpServletResponse response, HttpServletRequest request, @ModelAttribute InsideNoticeDto insDto){
+        sendService.sendInsideNotice(response, request, insDto);
+        return "page/popup/selfClose";
+    }
 
 
 }

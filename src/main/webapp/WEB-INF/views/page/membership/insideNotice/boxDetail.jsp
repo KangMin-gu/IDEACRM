@@ -69,7 +69,7 @@
 
                                 <c:if test="${not empty noteInfo.LNKURL }">
                                     <h5>
-                                        <span class="font-normal">URL: </span>${noteInfo.LNKURL}
+                                        <span class="font-normal">공유 URL: </span> <a href="${noteInfo.LNKURL}">정보 확인</a>
                                     </h5>
                                 </c:if>
                             </div>

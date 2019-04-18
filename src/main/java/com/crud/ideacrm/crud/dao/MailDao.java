@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface MailDao {
-    public List<Map<String, Object>> allTarget(MailDto emailDto);
+    public List<Map<String, Object>> allTarget(Map<String,Object> mailVal);
     public void UpdateMailState(MailDto emailDto);
+    public List<Map<String, Object>> files(String fileSearchKey);
+    public void PwdChangeMailProcedure(Map<String, Object> userVal);
+    public void emailSend(MailDto mailDto);
+
     public void mailClick(MailDto emailDto);
     public void mailDeny(MailDto emailDto);
     public void clickHistory(Map<String,Object> param);
-    public void PwdChangeMailProcedure(Map<String, Object> userVal);
+
 }

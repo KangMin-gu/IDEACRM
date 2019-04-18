@@ -17,12 +17,14 @@
     <link href="${pageContext.request.contextPath}/resources/css/jasny-bootstrap.min.css" rel="stylesheet">
     <!-- orris -->
     <link href="${pageContext.request.contextPath}/resources/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- choosen -->
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/chosen/chosen.css" rel="stylesheet">
 </head>
 <style>
 </style>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
-    <form:form id="multiFile" action="/popemail" enctype="multipart/form-data" method="post">
+    <form:form id="multiFile" action="/popbox" enctype="multipart/form-data" method="post">
     <div class="ibox">
         <div class="ibox-title">
             <h5>Email 발송</h5>
@@ -38,33 +40,25 @@
                        <tr>
                            <th>보내는사람</th>
                            <td>
-                                   ${USERNAME}
+                               ${USERNAME}
                            </td>
                        </tr>
                         <tr>
                             <th>받는사람</th>
                             <td>
-                                <span id="to"></span>
-                                <input id="toemail" name="toemail" class="form-control form-control-sm" type="hidden" style="height: 30px;">
+                                <select id="touser" name="touser" class="chosen-select" multiple="multiple" tabindex="2">
+                                    <c:forEach var="tmp" items="${companyUserData }">
+                                        <option value="${tmp.USERNO}" <c:if test="${tmp.USERNO eq noteInfo.FROMUSERNO || tmp.USERNO eq reno}">selected</c:if>>${tmp.USERNAME}</option>
+                                    </c:forEach>
+                                </select>
                             </td>
                         </tr>
                         <tr>
                             <th>제목</th>
                             <td>
-                                <input id="subject" name="subject" class="form-control form-control-sm" type="text" style="height: 30px;">
+                                <input id="title" name="title" class="form-control form-control-sm" type="text" style="height: 30px;">
                             </td>
                         </tr>
-                       <tr>
-                           <th>서식</th>
-                           <td>
-                               <select class="form-control form-control-sm" name="formatnum" id="formatnum" style="height: 30px;">
-                                   <option value="0">02</option>
-                                   <option value="2">031</option>
-                                   <option value="3">017</option>
-                                   <option value="4">018</option>
-                               </select>
-                           </td>
-                       </tr>
                         <tr>
                             <th>내용</th>
                             <td>
@@ -92,13 +86,14 @@
     </div>
     <button type="button" class="btn btn-default pull-left">취소</button>
     <button type="submit" id="send" class="btn btn-primary pull-right save" >발송</button>
-        <input type="hidden" name="custno" id="custno"/>
+    <input type="hidden" id="linkurl" name="linkurl">
     </form:form>
 </div>
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/chosen.jquery.js"></script>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
@@ -113,14 +108,17 @@
             language:'ko_KR'
         });
 
-        var custName = opener.$('#custname').text();
-        var custNo = opener.$('#custno').val();
-        var email = opener.$('#email').text();
-        $('#custname').text(custName);
-        $('#toemail').val(email);
-        $('#to').text(email);
-        $('#custno').val(custNo);
+        var linkurl = document.referrer;
+        $('#linkurl').val(linkurl);
+
     });
+
+    $('.chosen-select').chosen(
+        {
+            width:"100%",
+            search_contains : true
+        }
+    );
 
     $('#send').click(function(){
         var result = confirm('메일 발송하시겠습니까?');

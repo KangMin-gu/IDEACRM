@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
@@ -59,7 +59,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
-                    <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                    <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <button type="submit" class="btn btn-default pull-right">삭제</button>
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
@@ -81,6 +81,16 @@
                                     <input type="hidden" name="custno" value="${custDetail.CUSTNO}"/>
 
                                 <table class="table table-bordered" style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="15%">
+                                        <col width="5%">
+                                        <col width="15%">
+                                        <col width="5%">
+                                        <col width="15%">
+                                        <col width="5%">
+                                        <col width="15%">
+                                    </colgroup>
                                     <tbody>
                                         <tr>
                                             <th>고객명</th>
@@ -106,11 +116,21 @@
                                         </tr>
                                         <tr>
                                             <th>휴대전화</th>
-                                            <td>${custDetail.MOBILE}</td>
+                                            <td>
+                                                <span id="mobile">${custDetail.MOBILE}</span>
+                                                <c:if test="${!empty custDetail.MOBILE}">
+                                                    <a style="color: #676a6c;" class="smsBtn pull-right" href=""><i class="fa fa-mobile fa-lg"></i></a>
+                                                </c:if>
+                                            </td>
                                             <th>자택전화</th>
                                             <td>${custDetail.HOMTEL}</td>
                                             <th>이메일</th>
-                                            <td>${custDetail.EMAIL}</td>
+                                            <td>
+                                                <span id="email">${custDetail.EMAIL}</span>
+                                                <c:if test="${!empty custDetail.EMAIL}">
+                                                    <a style="color: #676a6c;" class="emailBtn pull-right" href=""><i class="fa fa-envelope"></i></a>
+                                                </c:if>
+                                            </td>
                                             <th>자택 주소</th>
                                             <td>${custDetail.HOMADDR1} <span id="homaddr">${custDetail.HOMADDR2} ${custDetail.HOMADDR3}</span></td>
                                         </tr>
@@ -201,6 +221,18 @@
                         <div class="ibox-content">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="white-space:nowrap;">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="15%">
+                                        <col width="5%">
+                                        <col width="15%">
+                                        <col width="5%">
+                                        <col width="15%">
+                                        <col width="5%">
+                                        <col width="15%">
+                                        <col width="5%">
+                                        <col width="15%">
+                                    </colgroup>
                                     <tbody>
                                     <tr>
                                         <th>회원 구분</th>
@@ -1146,7 +1178,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
-                    <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                    <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                     <button type="submit" class="btn btn-default pull-right">삭제</button>
 
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
@@ -1187,9 +1219,5 @@
     iCheckClick(true);
 
 </script>
-
-
-
-
 </body>
 </html>

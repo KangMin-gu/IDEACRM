@@ -17,13 +17,22 @@ public class MailDaoImpl implements MailDao {
 
 
     @Override
-    public List<Map<String, Object>> allTarget(MailDto emailDto) {
-        List<Map<String, Object>> list = session.selectList("email.allTarget", emailDto);
+    public List<Map<String, Object>> allTarget(Map<String,Object> mailVal) {
+        List<Map<String, Object>> list = session.selectList("email.allTarget", mailVal);
         return list;
     }
 
     @Override
     public void UpdateMailState(MailDto emailDto) { session.update("email.sendstate", emailDto); }
+
+    @Override
+    public List<Map<String, Object>> files(String fileSearchKey) {
+        List<Map<String, Object>> list = session.selectList("email.files", fileSearchKey);
+        return list;
+    }
+
+
+
 
     @Override
     public void mailClick(MailDto emailDto) {
@@ -44,5 +53,10 @@ public class MailDaoImpl implements MailDao {
     @Override
     public void PwdChangeMailProcedure(Map<String, Object> userVal) {
         session.insert("email.pwdChangeMail", userVal);
+    }
+    //고객 메일발송
+    @Override
+    public void emailSend(MailDto mailDto) {
+        session.insert("email.mailsend", mailDto);
     }
 }

@@ -1,5 +1,6 @@
 package com.crud.ideacrm.dao;
 
+import com.crud.ideacrm.crud.dto.MailDto;
 import com.crud.ideacrm.dto.ChargeDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,4 +59,5 @@ public class SendDaoImple implements SendDao{
         ChargeDto chargeDto = session.selectOne("send.chargeType",siteId);
         return chargeDto;
     }
+
 }

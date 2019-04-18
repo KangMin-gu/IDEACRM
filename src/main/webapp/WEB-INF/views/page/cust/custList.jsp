@@ -13,7 +13,7 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
@@ -178,7 +178,8 @@
                             <button class="btn btn-default pull-right" onclick="custMultyDelete();">삭제</button>
 
                             <form class="deleteForm" action="/cust/del" method="post">
-                            <table class="footable table table-striped"  data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
+                            <table class="footable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
+
                                 <thead>
                                 <tr>
                                     <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
@@ -194,18 +195,13 @@
                                 </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    <td>
-                                        <select class="form-control" id="paging" style="width:80px">
-                                            <c:forEach var="paging" items="${PAGING}">
-                                                <option vale="${paging.codeval}">${paging.codename}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </td>
-                                    <td colspan="4">
-                                        <ul class="pagination pull-right"></ul>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="footable-pagination-wrapper">
+                                                <ul class="pagination"></ul>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tfoot>
                             </table>
                             </form>

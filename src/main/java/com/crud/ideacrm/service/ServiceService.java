@@ -19,10 +19,8 @@ public interface ServiceService {
     public List<ProductDto> productDetail(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException;
     public String serviceInsertUpdate(HttpServletRequest request, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException;
     public void serviceDelete(HttpServletRequest request,String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException;
-
     public List<Map<String,Object>> ractList(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException;
     public List<Map<String,Object>> conveyList(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException;
-
     public String serviceDeliveryInsert(HttpServletRequest request, ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException;
 
 

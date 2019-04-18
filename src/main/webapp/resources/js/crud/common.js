@@ -3,11 +3,13 @@ $('.cust').click(function(e){
             openNewWindow('고객','/popcust',e.currentTarget.id,650,700);
         }
 });
+
 $('.owner').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
         openNewWindow('사용자','/popuser',e.currentTarget.id,650,700);
     }
 });
+
 $('.client').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
         openNewWindow('사용자','/popaccount',e.currentTarget.id,650,700);
@@ -22,13 +24,16 @@ $('#reset').click(function(e){
 });
 
 $('.smsBtn').click(function(){
-    window.open("/popsms", "고객상세정보","width=450px, height=600px");
+    window.open("/popsms", "문자발송","width=450px, height=600px");
 });
 $('.emailBtn').click(function(){
-    window.open("/popemail", "고객상세정보","width=1200px, height=900px");
+    window.open("/popemail", "메일발송","width=1200px, height=900px");
+});
+$('.insideNoticeBtn').click(function(){
+    window.open("/popbox", "내부통지","width=1200px, height=900px");
 });
 $('.kakaoBtn').click(function(){
-    window.open("/popkakao", "고객상세정보","width=450px, height=600px");
+    window.open("/popkakao", "카카오발송","width=450px, height=600px");
 });
 
 var newWindow = null;
@@ -256,3 +261,5 @@ function today(){
 
     return today;
 }
+
+

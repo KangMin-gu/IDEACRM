@@ -77,13 +77,13 @@
                                     <table class="table table-bordered" style="white-space:nowrap;">
                                         <colgroup>
                                             <col width="5%">
-                                            <col width="20%">
+                                            <col width="15%">
                                             <col width="5%">
-                                            <col width="20%">
+                                            <col width="15%">
                                             <col width="5%">
-                                            <col width="20%">
+                                            <col width="15%">
                                             <col width="5%">
-                                            <col width="20%">
+                                            <col width="15%">
                                         </colgroup>
                                         <tobdy>
                                             <tr>
@@ -106,11 +106,17 @@
                                                     </div>
                                                 </td>
                                                 <th>자택전화</th>
-                                                <td id="hometel"></td>
+                                                <td id="hometel">
+                                                    <div style="width: 180px;"></div>
+                                                </td>
                                                 <th>휴대전화</th>
-                                                <td id="mobile"></td>
+                                                <td id="mobile">
+
+                                                </td>
                                                 <th>이메일</th>
-                                                <td id="email"></td>
+                                                <td id="email">
+
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>고객 주소</th>

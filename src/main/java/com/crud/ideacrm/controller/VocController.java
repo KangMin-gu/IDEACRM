@@ -162,4 +162,64 @@ public class VocController {
         return serviceService.serviceList(request);
     }
 
+    //VOC -  좌측탭 블랙이력 리스트
+    @RequestMapping(value="/voc/tab/black",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> vocTabBlackHistoryList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        return vocService.blackHistoryList(request);
+    }
+
+    //VOC -  좌측탭 고객 콜백 이력 리스트
+    @RequestMapping(value="/voc/tab/callbackhist",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> vocTabCallbackHistoryList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        List callbackHisList = vocService.callBackHistoryList(request);
+        return callbackHisList;
+    }
+
+    //voc 녹취듣기
+    @RequestMapping(value="/voc/pop/rec", method=RequestMethod.GET)
+    public String playRecording(HttpServletRequest request) {
+        return "page/voc/pop/vocRecPop";
+    }
+
+    //VOC 콜백 분배 팝업 목록 조회
+    @RequestMapping(value="/voc/tab/callback",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> vocCallBackList(HttpServletRequest request) {
+        List<Map<String,Object>> callBackList = vocService.vocCallBackList(request);
+        return callBackList;
+    }
+
+
+    //VOC 콜백 상태 변경 (상담원 제어)
+    @RequestMapping(value="/voc/callback/modified/{callbackno}",method=RequestMethod.POST)
+    @ResponseBody
+    public int authvocCallBackUpdate(HttpServletRequest request,@PathVariable int callbackno) throws UnsupportedEncodingException, GeneralSecurityException {
+        int res = vocService.vocCallBackUpdate(request);
+        return res;
+    }
+
+    //VOC 녹취정보 저장
+    @RequestMapping(value="/voc/rec", method=RequestMethod.POST)
+    public void authVocRecInsert(HttpServletRequest request) {
+        vocService.vocRecInsert(request);
+    }
+
+    //cti 서버에서 보내주는 콜백내역 저장
+    //url 변경시 온피아 전화 필요
+    @RequestMapping(value="/vc/callback", method=RequestMethod.POST)
+    public void vocGetCallBack(HttpServletRequest request) {
+        vocService.vocCallBackInsert(request);
+        return;
+    }
+
+    //voc 고객팝업창 tr 클릭 시 해당 고객의 최근 한건의 서비스 데이터 바인딩
+    @RequestMapping(value="/voc/pop/service/{custNo}", method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> authvocPopServiceSelect(HttpServletRequest request,@PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> serviceMap = vocService.svcVocPopServiceSelect(request,custNo);
+        return serviceMap;
+    }
+
 }

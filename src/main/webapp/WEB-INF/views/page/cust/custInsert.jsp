@@ -400,8 +400,6 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
 <!-- validate -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>

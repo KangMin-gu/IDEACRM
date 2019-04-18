@@ -21,7 +21,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.crud.ideacrm.dto.SiteDto" alias="siteDto" />
 		<typeAlias type="com.crud.ideacrm.dto.KakaoDto" alias="kakaoDto" />
 		<typeAlias type="com.crud.ideacrm.dto.CtiDto" alias="ctiDto" />
+		<typeAlias type="com.crud.ideacrm.dto.BlackCustDto" alias="blackCustDto" />
+		<typeAlias type="com.crud.ideacrm.dto.InsideNoticeDto" alias="insideNoticeDto" />
 		<typeAlias type="com.crud.ideacrm.dto.UserDto" alias="userDto" />
+		<typeAlias type="com.crud.ideacrm.dto.ConveyDto" alias="conveyDto" />
 	</typeAliases>
 
 	<mappers>
@@ -36,9 +39,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="database/EmailMapper.xml" />
 		<mapper resource="database/SendMapper.xml" />
 		<mapper resource="database/InsideNoticeMapper.xml"/>
-		<mapper resource="database/UploadMapper.xml"/>
 		<mapper resource="database/VocMapper.xml" />
 		<mapper resource="database/SiteMapper.xml"/>
+		<mapper resource="database/FileMapper.xml"/>
 	</mappers>
 	
 </configuration>

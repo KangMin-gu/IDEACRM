@@ -152,6 +152,7 @@
                                                     </span>
                                                 </div>
                                             </td>
+
                                             <td>
                                                 <button type="button" class="btn btn-w-m btn-default" id="reset">초기화</button>
                                             </td>

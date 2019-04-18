@@ -1,3 +1,48 @@
+$('.voc').find('.nav-link').click(function(e){
+    // click 탭의 href의 값을 가지고 온다.
+    var href = e.target.attributes.href.value;
+    // href의 tabpanel에 footable에 사용할 url을 가지고 온다.
+    var url = $(href).attr('url');
+    if(url != undefined){
+        vocFootableSearchList(href,url);
+    }
+});
+
+function vocFootableSearchList(id,url) {
+    var param = searchDataToJson();
+    var page = $('#paging').val();
+    if(page == undefined){
+        page = 5;
+    }
+    if( window.location.pathname == '/voc' && id != '#callbackBottomTab' ){
+        if( !$('#custno').val() ) return;//voc에서는 custno가 없다면 아래행 실행 x
+    }
+    var pagination = $(id).find('.pagination');
+    $.post(url, param, function (response) {
+        $(id).find('.vocfootable').footable({
+            "toggleSelector": ".footable-toggle",
+            "empty": "",
+            "filtering": {
+                "enabled": true,
+                "placeholder": "통합검색",
+                "delay": 300,
+                "min":1,
+            },
+            "paging": {
+                "enabled": true,
+                "container" : pagination,
+                "size":page
+            },
+            "rows": response
+        });
+        // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
+        $('.footable-pagination-wrapper:eq(0)').remove();
+        $('.footable-empty').remove();
+        $('.input-group-btn').remove();
+    });
+};
+
+
 $('#searchNumber').keydown(function(key){
 
     if(key.keyCode == 13){ //엔터키 입력시 이벤트 실행

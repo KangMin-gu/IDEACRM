@@ -403,7 +403,7 @@
 
 
 
-	<insert id="conveyInsert" parameterType="conveyDto">
+	<insert id="conveyInsert" parameterType="serviceDeliveryDto">
 		INSERT INTO sv300050
 			(SERVICENO
 			,PREVOWNER

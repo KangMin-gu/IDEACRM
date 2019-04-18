@@ -6,7 +6,6 @@ import com.crud.ideacrm.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -24,14 +23,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MailDao mailDao;
-
-    @Override
-    public ModelAndView userInfo(HttpServletRequest request, int userId) {
-        ModelAndView mView = new ModelAndView();
-        Map<String, Object> userInfo = memberDao.userInfo(userId);
-        mView.addObject("userInfo",userInfo);
-        return mView;
-    }
 
     @Override
     public void userPwdReset(HttpServletRequest request) {

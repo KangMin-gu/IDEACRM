@@ -7,6 +7,5 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 public interface MemberService {
-    public ModelAndView userInfo(HttpServletRequest request, int userId);
     public void userPwdReset(HttpServletRequest request);
 }

@@ -1,6 +1,5 @@
 package com.crud.ideacrm.dao;
 
-import com.crud.ideacrm.dto.ConveyDto;
 import com.crud.ideacrm.dto.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,8 +122,8 @@ public class VocDaoImple implements VocDao {
 
     // 이관 추가
     @Override
-    public void conveyInsert(ConveyDto conveyDto) {
-        session.insert("voc.conveyInsert",conveyDto);
+    public void conveyInsert(ServiceDeliveryDto serviceDeliveryDto) {
+        session.insert("voc.conveyInsert",serviceDeliveryDto);
     }
 
 

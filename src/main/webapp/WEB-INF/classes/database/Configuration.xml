@@ -44,7 +44,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="database/VocMapper.xml" />
 		<mapper resource="database/SiteMapper.xml"/>
 		<mapper resource="database/FileMapper.xml"/>
-		<mapper resource="database/FileMapper.xml"/>
 		<mapper resource="database/LicenseMapper.xml"/>
 	</mappers>
 	

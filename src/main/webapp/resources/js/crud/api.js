@@ -25,6 +25,7 @@ function footableSearchList(url) {
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();
         $('.footable-empty').remove();
+        $('.input-group-btn').remove();
     });
 }
 
@@ -34,11 +35,6 @@ function tabFootableSearchList(id,url) {
     if(page == undefined){
         page = 5;
     }
-    var pagination = $(id).find('.pagination');
-    if( window.location.pathname == '/voc' && id != '#callbackBottomTab' ){
-        if( !$('#custno').val() ) return;//voc에서는 custno가 없다면 아래행 실행 x
-    }
-
     var pagination = $(id).find('.pagination');
     $.post(url, param, function (response) {
         $(id).find('.tabfootable').footable({
@@ -60,8 +56,9 @@ function tabFootableSearchList(id,url) {
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();
         $('.footable-empty').remove();
+        $('.input-group-btn').remove();
     });
-}
+};
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
     if(globalUrl =='/popuser'){
         popParentNameClick($(obj.target.parentElement));
@@ -75,8 +72,16 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
     else if(globalUrl == '/voc/custsearch'){
         popVocCustNameClick($(obj.target.parentElement));
     }
-
 });
+
+// footable이 실행되고 나서 검색창의 지저분한 button 삭제
+$(".footable").on("ready.ft.table",function(obj,e,ft,row){
+    $('.input-group-btn').remove();
+});
+$(".tabfootable").on("ready.ft.table",function(obj,e,ft,row){
+    $('.input-group-btn').remove();
+});
+
 
 // footable에서 click했을때 view화면으로 가기 위한 처리
 function formatter(value, options, rowData) {

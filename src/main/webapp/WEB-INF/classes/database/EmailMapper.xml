@@ -2,60 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="email">
 
-    <!-- 발송코드변경 -->
-     <update id="sendstate" parameterType="emailDto">
-        UPDATE sys980010 SET RLTCODE = #{rltcode} WHERE EMAILLOGID = #{emaillogid};
-     </update>
-
-    <!--예약 / 다이렉트 전부가져오기 -->
-    <select id="allTarget" parameterType="emailDto" resultType="hashMap">
-      	SELECT * FROM sys980010 WHERE RLTCODE = 0 AND now() <![CDATA[>=]]> RLTDATE LIMIT 100;
+    <insert id="pwdChangeMail" parameterType="hashMap" statementType="CALLABLE">
+       {call userPwdChangeMAil(#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{touserno, mode=IN, jdbcType=INTEGER, javaType=int},#{fromuserno, mode=IN, jdbcType=INTEGER, javaType=int},#{pwd, mode=IN, jdbcType=VARCHAR, javaType=string})}
+    </insert>
+<!--
+    <select id="pwdChangeMail" parameterType="hashMap" resultType="hashmap" statementType="CALLABLE">
+       {call userPwdChangeMAil(#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{touserno, mode=IN, jdbcType=INTEGER, javaType=int},#{fromuserno, mode=IN, jdbcType=INTEGER, javaType=int},#{pwd, mode=IN, jdbcType=VARCHAR, javaType=string})}
     </select>
-    
-    <update id="clickCnt" parameterType="hashMap">
-    	UPDATE sys980010
-    		SET CLICKYN = 0
-    		WHERE EMAILLOGID = #{emaillogid}
-    </update>
-    
-    <update id="denyEmail" parameterType="hashMap">
-    	UPDATE CU100010
-    	SET DENYEMAIL = 1
-    	WHERE CUSTNO = #{custno}
-    </update>
-    
-    <insert id="clickHistory" parameterType="hashMap">
-		INSERT INTO sys980011(
-		CUSTNO
-		,CUSTIP
-		,CUSTOS
-		,CUSTDEVICE
-		,CUSTBROWSER
-		,CLICKYEAR
-		,CLICKMONTH
-		,CLICKDAY
-		,CLICKHOUR
-		,REGDATE
-		,SITEID
-		)VALUES(
-		#{custno}
-		,#{userip}
-		,#{useros}
-		,#{userdevice}
-		,#{userbrowser}
-		,YEAR(now())
-		,MONTH(now())
-		,DAY(now())
-		,HOUR(now())
-		,now()
-		,#{siteid}
-		)
-	</insert>
-	
-	<!-- 내부 통지 파일첨부  -->
-	<select id="noteAttach" parameterType="hashMap" resultType="hashMap">
-		SELECT SAVEFILENAME, PATH, ORGFILENAME, FILESIZE, FILEID FROM sys990030 WHERE SITEID = #{siteid} AND FILESEARCHKEY = #{filesearchkey}
-	</select>
-    
-
+-->
 </mapper>

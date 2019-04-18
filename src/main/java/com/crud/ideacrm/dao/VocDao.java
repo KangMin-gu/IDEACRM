@@ -1,6 +1,5 @@
 package com.crud.ideacrm.dao;
 
-import com.crud.ideacrm.dto.ConveyDto;
 import com.crud.ideacrm.dto.*;
 
 import java.util.List;
@@ -26,6 +25,6 @@ public interface VocDao {
     public String svInsert(ServiceDto serviceDto);
     public void svStepUpdate(ServiceDto serviceDto);
     public void svReservInsert(Map<String,Object> param);// voc 상담예약
-    public void conveyInsert(ConveyDto conveyDto); // 이관 추가
+    public void conveyInsert(ServiceDeliveryDto serviceDeliveryDto); // 이관 추가
 
 }

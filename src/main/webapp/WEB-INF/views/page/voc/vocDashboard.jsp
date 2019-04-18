@@ -34,7 +34,7 @@
 
         <div class="wrapper wrapper-content animated fadeInRight">
 
-            <div class="row">
+            <!--<div class="row">
                 <div class="col-lg-12">
                     <a href="#" class="btn btn-default"><i class="fa fa-envelope fa-lg"></i></a>
                     <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
@@ -43,6 +43,7 @@
                     <a href="#" class="btn btn-default"><i class="fa fa-file-pdf-o fa-lg"></i></a>
                 </div>
             </div>
+            -->
 
             <br/>
             <div class="row">

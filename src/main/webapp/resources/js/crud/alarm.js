@@ -41,7 +41,7 @@ function send_message(){
 }
 //내부통지 알람 MG
 $(document).ready(function(){
-    send_message();
+    // send_message();
 });
 
 //내부통지알람 읽지않은 통지 TOP10 바인딩

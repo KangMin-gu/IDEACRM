@@ -535,7 +535,7 @@ function func_answer(){
 	goWebSocketSendMsg("on^answer");
 	/*2019-02-08 신동우 코드 추가
 	해당번호 고객목록 조회 팝업 실행*/
-	popVocCust();
+	custSearch('#searchNumber');
 }
 
 //전화끊기
@@ -670,6 +670,7 @@ function func_changeGroup(cGroup1, cGroup2, cGroup3){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function ctiEvent(msg){
+
     // 예) msg: 86^데이터1^데이터2^데이터3^데이터4^시간     <--- "86": 스크린팝업, "^": 파라미터 구분자
 	var tmpData = msg.split("^");
 	
@@ -680,7 +681,7 @@ function ctiEvent(msg){
 			$('.ctibtn').show();
 			$('#vocLogOutSpan').show();
 			intervalFuncOn();//세션 유지 실행
-			voc_send_message();//콜백 카운터 실행
+			// voc_send_message();//콜백 카운터 실행
 	        //callGroupSelect(tmpData[6], tmpData[7], tmpData[8]);//소속그룹선택
             checkGroupInterval = setInterval("checkGroupTimeOut('"+tmpData[6]+"', '"+tmpData[7]+"', '"+tmpData[8]+"')", 1000);
 		}else if(tmpData[4] == "2"){
@@ -763,6 +764,8 @@ function ctiEvent(msg){
 
 		document.getElementById("makeCallNum").value = tmpData[4];
 		document.getElementById("searchNumber").value=tmpData[4];
+
+
 		/*
 		top.MainView.document.getElementById("cti_screen_popup_01").innerHTML = tmpData[1];
 		top.MainView.document.getElementById("cti_screen_popup_02").innerHTML = tmpData[2];
@@ -865,7 +868,7 @@ function ctiEvent(msg){
 		
 		var jsonPrm = {"reqno":fileNameArray[0]+fileNameArray[1], "recdate":tmpData[9], "recext":fileNameArray[1], "recfilename":fileName };
 		$.ajax({
-       		url: "/vc/rec",
+       		url: "/voc/rec",
         	method: "POST",
         	dataType: "json",
         	data: jsonPrm,
@@ -1055,3 +1058,4 @@ function chanegeStatusBtnImage(){//대기, 휴식, 후처리 상태에 대한 cs
 window.onbeforeunload = function (e) {
 	func_logout();
 };
+

@@ -37,7 +37,9 @@
                             <tbody>
                             <tr>
                                 <th>고객명</th>
-                                <td>${custDetail.CUSTNAME}</td>
+                                <td><input class="searchparam" type="hidden" id="custno" name="custno" value="${custDetail.CUSTNO}">
+                                    <span id="custname">${custDetail.CUSTNAME}</span>
+                                </td>
                                 <th>성별</th>
                                 <td>${custDetail.SEX_}</td>
                                 <th>생년월일</th>
@@ -57,13 +59,13 @@
                             </tr>
                             <tr>
                                 <th>휴대전화</th>
-                                <td>${custDetail.MOBILE_}</td>
+                                <td>${custDetail.MOBILE}</td>
                                 <th>자택전화</th>
-                                <td>${custDetail.HOMTEL_}</td>
+                                <td>${custDetail.HOMTEL}</td>
                                 <th>이메일</th>
                                 <td>${custDetail.EMAIL}</td>
                                 <th>자택 주소</th>
-                                <td>${custDetail.HOMADDR1}</td>
+                                <td>${custDetail.HOMADDR1} <span id="homaddr">${custDetail.HOMADDR2} ${custDetail.HOMADDR3}</span></td>
                             </tr>
                             <tr>
                                 <th>자택 위치</th>
@@ -110,21 +112,21 @@
                             <tbody>
                             <tr>
                                 <th>직장명</th>
-                                <td>${custDetail.CLINAME}</td>
+                                <td><span id="cliname">${custDetail.CLINAME}</span></td>
                                 <th>부서</th>
                                 <td>${custDetail.DEPTNAME}</td>
                                 <th>직책</th>
                                 <td>${custDetail.DUTY}</td>
                                 <th>홈페이지</th>
-                                <td>${custDetail.HOMPAGE}</td>
+                                <td>${custDetail.WRKURL}</td>
                             </tr>
                             <tr>
                                 <th>직장 전화</th>
                                 <td>${custDetail.WRKTEL_}</td>
-                                <th>직장 FAX</th>
-                                <td>${custDetail.FAXTEL_}</td>
+                                <th>직장 팩스</th>
+                                <td>${custDetail.WRKFAX_}</td>
                                 <th>직장 주소</th>
-                                <td colspan="3">${custDetail.WRKADDR1} ${custDetail.WRKADDR2} ${custDetail.WRKADDR3}</td>
+                                <td colspan="3">${custDetail.WRKADDR1} <span id="wrkaddr"> ${custDetail.WRKADDR2} ${custDetail.WRKADDR3}</span></td>
                             </tr>
                             <tr>
                                 <th>직장 위치</th>
@@ -169,52 +171,52 @@
                                 <th rowspan="6">수신 거부</th>
                                 <th class="denny" colspan="1">EMAIL</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYMAILNOMAL}">&nbsp; 일반</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSURVEY}">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSEMINAR}">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILAD}">&nbsp; 광고</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYMAILNOMAL}"  >&nbsp; 일반</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSURVEY}"  >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILSEMINAR}"  >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYMAILAD}"  >&nbsp; 광고</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">SMS</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYSMSNOMAL}">&nbsp; 일반</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSURVEY}">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSEMINAR}">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSAD}">&nbsp; 광고</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYSMSNOMAL}"  >&nbsp; 일반</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSURVEY}"  >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSSEMINAR}"  >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYSMSAD}"  >&nbsp; 광고</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">KAKAO</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAONOMAL}">&nbsp; 일반</label>&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSURVEY}">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSEMINAR}">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOAD}">&nbsp; 광고</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAONOMAL}"  >&nbsp; 일반</label>&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSURVEY}"  >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOSEMINAR}"  >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYKAKAOAD}"  >&nbsp; 광고</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">DM</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYDMNOMAL}">&nbsp; 일반</label>&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSURVEY}">&nbsp; 해피콜</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSEMINAR}">&nbsp; 세미나</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMAD}">&nbsp; 광고</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMNEWS}">&nbsp; 뉴스레터</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYDMNOMAL}"  >&nbsp; 일반</label>&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSURVEY}"  >&nbsp; 해피콜</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMSEMINAR}"  >&nbsp; 세미나</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMAD}"  >&nbsp; 광고</label>
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYDMNEWS}"  >&nbsp; 뉴스레터</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">전화</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYTELAD}">&nbsp; 광고</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYTELSURVEY}">&nbsp; 해피콜</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYTELAD}"  >&nbsp; 광고</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYTELSURVEY }"  >&nbsp; 해피콜</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="denny" colspan="1">기타</th>
                                 <td colspan="8">
-                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYFAX}">&nbsp; FAX</label>&nbsp;&nbsp;
-                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYVISIT}">&nbsp; 방문</label>
+                                    <label class="checkbox-inline i-checks"> <input type="checkbox" value="${custDetail.DENYFAX}"  >&nbsp; FAX</label>&nbsp;&nbsp;
+                                    <label class="i-checks"> <input type="checkbox" value="${custDetail.DENYVISIT }"  >&nbsp; 방문</label>
                                 </td>
                             </tr>
                             </tbody>
@@ -250,29 +252,26 @@
                                 <div class="tab-content">
                                     <div role="tabpanel" id="tab-1" url="/service/${custDetail.CUSTNO}" class="tab-pane active">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                            <table class="footable table table-striped">
+                                            <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true">
                                                 <thead>
-                                                    <tr>
-                                                        <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="SERVICENO">서비스번호</th>
-                                                        <th data-visible="false" data-name="URL">URL</th>
-                                                        <th data-name="SERVICENAME_" data-formatter="formatter">서비스명</th>
-                                                        <th data-name="SERVICETYPE_" data-breakpoints="xs sm">접수구분</th>
-                                                        <th data-name="SERVICECODE_" data-breakpoints="xs sm">접수유형</th>
-                                                        <th data-name="CUSTNAME_" data-breakpoints="xs sm">고객명</th>
-                                                        <th data-name="RECEPTIONDATE_" data-breakpoints="xs sm">접수일</th>
-                                                        <th data-name="SERVICEOWNER_" data-breakpoints="xs sm">접수자</th>
-                                                        <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
-                                                        <th data-name="SERVICESTEP_">처리상태</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th data-visible="false" data-name="SERVICENO">서비스번호</th>
+                                                    <th data-name="SERVICENAME_">서비스명</th>
+                                                    <th data-name="SERVICETYPE_">접수유형</th>
+                                                    <th data-name="SERVICECHANNEL_">접수매체</th>
+                                                    <th data-name="CUSTNAME_">고객명</th>
+                                                    <th data-name="CLINAME_">거래처명</th>
+                                                    <th data-name="RECEPTIONDATE_">접수일</th>
+                                                    <th data-name="SERVICEOWNER_">접수자</th>
+                                                    <th data-name="OWNER_">담당자</th>
+                                                    <th data-name="SERVICESTEP_">처리상태</th>
+                                                </tr>
                                                 </thead>
-                                                <tbody>
-
-                                                </tbody>
+                                                <tbody>  </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <td colspan="4">
-                                                        <ul class="pagination pull-right"></ul>
+                                                    <td colspan="9">
+                                                        <ul class="pagination pull-left"></ul>
                                                     </td>
                                                 </tr>
                                                 </tfoot>
@@ -282,7 +281,6 @@
                                     </div>
                                     <div role="tabpanel" id="tab-2" class="tab-pane">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                             <table class="footable2 table table-stripped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
@@ -552,7 +550,6 @@
                                     </div>
                                     <div role="tabpanel" id="tab-3" class="tab-pane">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                             <table class="footable3 table table-stripped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
@@ -822,7 +819,6 @@
                                     </div>
                                     <div role="tabpanel" id="tab-4" class="tab-pane">
                                         <div class="panel-body">
-                                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                             <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
@@ -1102,8 +1098,6 @@
     <div class="row">
         <div class="col-lg-12">
             <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-            <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-            <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
             <button type="button" class="btn btn-default pull-right">닫기</button>
             <button type="button" class="btn btn-default pull-right">수정</button>
         </div>
@@ -1112,128 +1106,28 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
+<!-- daum map -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
+<!-- crud -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
 
 <!-- daum map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
 <script>
     $(document).ready(function() {
-        iCheckClick(true);
+        drawMap('map','homaddr','custname');
+        $('#custDetailWrkContentBtn').click(function(){
+            iboxDrawMap('map2','wrkaddr','cliname','custDetailWrkContentDiv');
+        });
     });
+
+    iCheckClick(true);
 </script>
-<script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
 
-    var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-    // 지도를 표시하는 div 크기를 변경하는 함수입니다
-    function resizeMap() {
-        var mapContainer = document.getElementById('map');
-        mapContainer.style.width = '650px';
-        mapContainer.style.height = '650px';
-    }
-
-    function relayout() {
-
-        // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-        // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
-        // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-        map.relayout();
-    }
-
-    var geocoder = new daum.maps.services.Geocoder();
-
-    //var accountAddr = "${cliDetail.CLIADDR2 }${cliDetail.CLIADDR3 }";
-    //var accountName = "${cliDetail.CLINAME }";
-    var accountAddr = "서울시 서대문구 홍제3동 유원하나아파트";
-    var accountName = "강민구고객집";
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(accountAddr, function(result, status) {
-
-        // 정상적으로 검색이 완료됐으면
-        if (status === daum.maps.services.Status.OK) {
-
-            var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new daum.maps.Marker({
-                map: map,
-                position: coords
-            });
-
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new daum.maps.InfoWindow({
-                content: "<div style='width:150px;text-align:center;padding:6px 0;''>"+accountName+"</div>"
-            });
-            infowindow.open(map, marker);
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        }
-    });
-</script>
-<script>
-    var mapContainer = document.getElementById('map2'), // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
-
-    var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-    // 지도를 표시하는 div 크기를 변경하는 함수입니다
-    function resizeMap() {
-        var mapContainer = document.getElementById('map2');
-        mapContainer.style.width = '650px';
-        mapContainer.style.height = '650px';
-    }
-
-    function relayout() {
-
-        // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-        // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
-        // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-        map.relayout();
-    }
-
-    var geocoder = new daum.maps.services.Geocoder();
-
-    //var accountAddr = "${cliDetail.CLIADDR2 }${cliDetail.CLIADDR3 }";
-    //var accountName = "${cliDetail.CLINAME }";
-    var accountAddr = "서울시 서대문구 홍제3동 유원하나아파트";
-    var accountName = "강민구고객집";
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(accountAddr, function(result, status) {
-
-        // 정상적으로 검색이 완료됐으면
-        if (status === daum.maps.services.Status.OK) {
-
-            var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new daum.maps.Marker({
-                map: map,
-                position: coords
-            });
-
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new daum.maps.InfoWindow({
-                content: "<div style='width:150px;text-align:center;padding:6px 0;''>"+accountName+"</div>"
-            });
-            infowindow.open(map, marker);
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        }
-    });
-</script>
 </body>
 </html>

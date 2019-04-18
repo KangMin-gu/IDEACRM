@@ -31,6 +31,7 @@
            <div class="row">
                <div class="col-lg-12">
                    <button class="btn btn-default pull-right" onclick="makeCustAddBtn();">추가</button>
+                   <div id="filter-form-container"></div>
                    <table class="footable table table-striped">
                        <thead>
                        <tr>
@@ -76,9 +77,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script>
     $(document).ready(function() {
-        $('#search').click(function(e){
-            footableSearchList('/voc/custsearch');
-        });
         footableSearchList('/voc/custsearch');
     });
 

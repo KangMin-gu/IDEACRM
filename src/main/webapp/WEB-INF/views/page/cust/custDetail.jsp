@@ -60,7 +60,6 @@
                 <div class="col-lg-12">
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <button type="submit" class="btn btn-default pull-right">삭제</button>
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
@@ -1148,7 +1147,6 @@
                 <div class="col-lg-12">
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default smsBtn"><i class="fa fa-mobile fa-lg"></i></a>
                     <button type="submit" class="btn btn-default pull-right">삭제</button>
 
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>

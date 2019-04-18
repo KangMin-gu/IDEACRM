@@ -18,6 +18,7 @@
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/sweetalert/sweetalert.css" rel="stylesheet"><!-- Sweet Alert -->
 </head>
 <body>
 
@@ -40,7 +41,7 @@
                         <input type="hidden" name="checkGroupValue" id="checkGroupValue" value="N">
                         <input type="hidden" name="checkGroupValue2" id="checkGroupValue2" value="N">
                         <span id="outCallNum">07042622883</span>
-                        <input type="hidden" id="ctitelno" name="ctitelno" value="07042622883" />
+                        <input type="hidden" id="ctitelno" name="ctitelno" value="07042622883" class="searchparam"/>
                         <input type="checkbox" class="check" id="did" onclick="javascript:didCheck();">
                         <div>
                             <textarea id="messages" cols="150" rows="10"></textarea>
@@ -132,7 +133,9 @@
                                         <tbody>
                                         <tr>
                                             <!--고객 관련 hidden -->
-                                            <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt">
+                                            <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt"/>
+                                            <!-- 녹취 키값  -->
+                                            <input type="hidden" id="nucIdx"  name="nucIdx" value="" />
 
                                             <th>유입번호</th>
                                             <td class="p-xxs">
@@ -142,7 +145,7 @@
                                             <td>
                                                 <div class="input-group" style="width:230px;">
                                                     <input class="form-control form-control-sm vocCustInput" id="custname" name="custname" type="text"/>
-                                                    <input type="hidden" class="form-control vocCustInput" id="custno" name="custno" value=""/>
+                                                    <input type="hidden" class="form-control vocCustInput searchparam" id="custno" name="custno" value=""/>
                                                     <span class="input-group-addon" style="height:30px;"><a href="#" onclick="vocCustDetail()"><i class="fa fa-user-circle fa-sm"></i></a></span>
                                                 </div>
                                             </td>
@@ -241,7 +244,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" data-toggle="collapse" data-target="#denyfield">수신거부상태</button>
-                                    <span id="blackSpan"><button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" onclick="addBlack();">블랙추가</button></span>
+                                    <span id="blackSpan"><button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" onclick="addBlackPop();">블랙추가</button></span>
                                     <span id="custRegSpan"><button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustInsert()'>고객추가</button></span>
                                 </div>
                             </div>
@@ -288,10 +291,10 @@
                         </div>
                         <div class="ibox-content bot-cont">
                             <div class="tabs-container">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1" id="vocServiceTabBtn">서비스</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-2">강성이력</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-3">콜백이력</a></li>
+                                <ul class="nav nav-tabs detail" role="tablist">
+                                    <li><a class="nav-link active" data-toggle="tab" href="#vocSvTab">서비스</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocBlackTab">강성이력</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocCallbackHistTab">콜백이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-4">SMS</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-5">MMS</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-6">LMS</a></li>
@@ -299,17 +302,15 @@
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-8">EMAIL</a></li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div role="tabpanel" id="tab-1" class="tab-pane active">
+                                    <div role="tabpanel" id="vocSvTab" class="tab-pane active" url="/voc/tab/sv">
                                         <div class="panel-body">
-                                            <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true">
+                                            <table class="tabfootable table table-stripped" data-paging="true" data-sorting="true">
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="SERVICENO">서비스번호</th>
                                                     <th data-name="SERVICENAME_">서비스명</th>
                                                     <th data-name="SERVICETYPE_">접수유형</th>
-                                                    <th data-name="SERVICECHANNEL_">접수매체</th>
                                                     <th data-name="CUSTNAME_">고객명</th>
-                                                    <th data-name="CLINAME_">거래처명</th>
                                                     <th data-name="RECEPTIONDATE_">접수일</th>
                                                     <th data-name="SERVICEOWNER_">접수자</th>
                                                     <th data-name="OWNER_">담당자</th>
@@ -320,178 +321,65 @@
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <td colspan="5">
-                                                        <ul class="pagination float-right"></ul>
-                                                    </td>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-
-                                        </div>
-                                    </div>
-                                    <div role="tabpanel" id="tab-2" class="tab-pane">
-                                        <div class="panel-body">
-
-                                            <table class="footable2 table table-stripped" data-page-size="8" data-filter=#filter>
-                                                <thead>
-                                                <tr>
-                                                    <th>Rendering engine</th>
-                                                    <th>Browser</th>
-                                                    <th data-hide="phone,tablet">Platform(s)</th>
-                                                    <th data-hide="phone,tablet">Engine version</th>
-                                                    <th data-hide="phone,tablet">CSS grade</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr class="gradeX">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 4.0
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">4</td>
-                                                    <td class="center">X</td>
-                                                </tr>
-                                                <tr class="gradeC">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 5.0
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">5</td>
-                                                    <td class="center">C</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 5.5
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">5.5</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Gecko</td>
-                                                    <td>Netscape Navigator 9</td>
-                                                    <td>Win 98+ / OSX.2+</td>
-                                                    <td class="center">1.8</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-
-                                                <tr class="gradeA">
-                                                    <td>Webkit</td>
-                                                    <td>Safari 1.3</td>
-                                                    <td>OSX.3</td>
-                                                    <td class="center">312.8</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Webkit</td>
-                                                    <td>Safari 2.0</td>
-                                                    <td>OSX.4+</td>
-                                                    <td class="center">419.3</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Webkit</td>
-                                                    <td>Safari 3.0</td>
-                                                    <td>OSX.4+</td>
-                                                    <td class="center">522.1</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Webkit</td>
-                                                    <td>OmniWeb 5.5</td>
-                                                    <td>OSX.4+</td>
-                                                    <td class="center">420</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Webkit</td>
-                                                    <td>iPod Touch / iPhone</td>
-                                                    <td>iPod</td>
-                                                    <td class="center">420.1</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Webkit</td>
-                                                    <td>S60</td>
-                                                    <td>S60</td>
-                                                    <td class="center">413</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <ul class="pagination float-right"></ul>
+                                                    <td colspan="7" style="text-align:center">
+                                                        <ul class="pagination float-center"></ul>
                                                     </td>
                                                 </tr>
                                                 </tfoot>
                                             </table>
                                         </div>
                                     </div>
-                                    <div role="tabpanel" id="tab-3" class="tab-pane">
+                                    <div role="tabpanel" id="vocBlackTab" class="tab-pane" url="/voc/tab/black">
                                         <div class="panel-body">
-
-                                            <table class="footable3 table table-stripped" data-page-size="8" data-filter=#filter>
+                                            <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
                                                 <thead>
                                                 <tr>
-                                                    <th>Rendering engine</th>
-                                                    <th>Browser</th>
-                                                    <th data-hide="phone,tablet">Platform(s)</th>
-                                                    <th data-hide="phone,tablet">Engine version</th>
-                                                    <th data-hide="phone,tablet">CSS grade</th>
+                                                    <th data-visible="false" data-name="BCUSTNO">서비스번호</th>
+                                                    <th data-name="REGDATE_">접수일시</th>
+                                                    <th data-name="BLACKTYPE_">유형</th>
+                                                    <th data-name="MEMO_">접수사유</th>
+                                                    <th data-name="USERNAME">접수자</th>
+                                                    <th data-name="ISDELETE_">현재상태</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr class="gradeX">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 4.0
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">4</td>
-                                                    <td class="center">X</td>
-                                                </tr>
-                                                <tr class="gradeC">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 5.0
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">5</td>
-                                                    <td class="center">C</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 5.5
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">5.5</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Gecko</td>
-                                                    <td>Netscape Navigator 9</td>
-                                                    <td>Win 98+ / OSX.2+</td>
-                                                    <td class="center">1.8</td>
-                                                    <td class="center">A</td>
-                                                </tr>
-
-                                                <tr class="gradeA">
-                                                    <td>Webkit</td>
-                                                    <td>Safari 1.3</td>
-                                                    <td>OSX.3</td>
-                                                    <td class="center">312.8</td>
-                                                    <td class="center">A</td>
-                                                </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <td colspan="5">
-                                                        <ul class="pagination float-right"></ul>
+                                                    <td colspan="5" style="text-align:center">
+                                                        <ul class="pagination float-center"></ul>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" id="vocCallbackHistTab" class="tab-pane" url="/voc/tab/callbackhist">
+                                        <div class="panel-body">
+
+                                            <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
+                                                <thead>
+                                                <tr>
+                                                    <th data-visible="false" data-name="CALLBACKHISTNO"></th>
+                                                    <th data-visible="false" data-name="RECDATE_"></th>
+                                                    <th data-visible="false" data-name="RECEXT"></th>
+                                                    <th data-visible="false" data-name="RECFILENAME"></th>
+                                                    <th data-visible="false" data-name="REQNO"></th>
+                                                    <th data-name="REGDATE_">통화일시</th>
+                                                    <th data-name="CALLBACK">콜백번호</th>
+                                                    <th data-name="CALLER">발신자번호</th>
+                                                    <th data-name="USERNAME">상담원</th>
+                                                    <th data-name="MEMO_">메모</th>
+                                                    <th data-name="CALLSTATUS_">상태</th>
+                                                    <th data-formatter="callbackHistFormatter">녹취</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="7" style="text-align:center">
+                                                        <ul class="pagination float-center"></ul>
                                                     </td>
                                                 </tr>
                                                 </tfoot>
@@ -557,87 +445,37 @@
                         </div>
                         <div class="ibox-content bot-cont">
                             <div class="tabs-container">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-5">콜백 목록</a></li>
+                                <ul class="nav nav-tabs detail" role="tablist">
+                                    <li><a class="nav-link active" data-toggle="tab" href="#callbackBottomTab">콜백 목록</a></li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div role="tabpanel" id="tab-5" class="tab-pane active">
+                                    <div role="tabpanel" id="callbackBottomTab" class="tab-pane active" url="/voc/tab/callback">
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <table class="table" style="white-space:nowrap;">
+                                                <table class="tabfootable table table-stripped" style="white-space:nowrap;">
+                                                    <thead>
                                                     <tr>
-                                                        <th>접수일시</th>
-                                                        <th>콜백번호</th>
-                                                        <th>발신번호</th>
-                                                        <th>통화</th>
-                                                        <th>메모</th>
-                                                        <th>처리</th>
+                                                        <th data-visible="false" data-name="TRUNK"></th>
+                                                        <th data-visible="false" data-name="CALLCOUNT"></th>
+                                                        <th data-visible="false" data-name="CALLBACKNO"></th>
+                                                        <th data-visible="false" data-formatter="callBackHiddenFormatter"></th>
+                                                        <th data-name="RECEIVEDATE_">접수일시</th>
+                                                        <th data-name="CALLBACK">콜백번호</th>
+                                                        <th data-name="CALLER">발신번호</th>
+                                                        <th data-formatter="callBtnFormatter">통화</th>
+                                                        <!--<th>메모</th>-->
+                                                        <th data-formatter="processBtnFormatter">처리</th>
                                                     </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                    <tfoot>
                                                     <tr>
-                                                        <td>asdfasdfasdf</td>
-                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
+                                                        <td colspan="6" style="text-align:center">
+                                                            <ul class="pagination float-center"></ul>
+                                                        </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>asdfasdfasdf</td>
-                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>asdfasdfasdf</td>
-                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>asdfasdfasdf</td>
-                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>asdfasdfasdf</td>
-                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>asdfasdfasdf</td>
-                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>asdfasdfasdf</td>
-                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>asdfasdfasdf</td>
-                                                        <td>fasdfasdfasdfasdfasdfasdfasdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                        <td>asdf</td>
-                                                    </tr>
-
+                                                    </tfoot>
                                                 </table>
                                             </div>
                                         </div>
@@ -663,7 +501,7 @@
                                         <td>
                                             <div class="i-checks">
                                                 <c:forEach var="serviceType" items="${SERVICETYPE}">
-                                                    <label><input type="radio" class="" value="${serviceType.codeval}" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                    <label><input type="radio" class="" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
                                                 </c:forEach>
                                             </div>
                                         </td>
@@ -735,7 +573,7 @@
                                     <tr>
                                         <th>상담내용</th>
                                         <td>
-                                            <textarea class="tinymce" id="mytextarea"></textarea>
+                                            <textarea class="tinymce" id="servicedesc" name="servicedesc"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
@@ -743,13 +581,13 @@
                                         <td>
                                             <div class="i-checks">
                                                 <label>
-                                                    <input type="radio" value="option1" name="a"> <i></i> 처리
+                                                    <input class="check" type="radio" id="vocstep3" name="vocstep3" value="3" > <i></i> 처리
                                                 </label>
                                                 <label>
-                                                    <input type="radio" checked="" value="option2" name="a"> <i></i> 담당자이관
+                                                    <input class="check" type="radio" id="vocstep5" name="vocstep5" value="5" > <i></i> 담당자이관
                                                 </label>
                                                 <label>
-                                                    <input type="radio" checked="" value="option2" name="a"> <i></i> 상급자이관
+                                                    <input class="check" type="radio" id="vocstep6" name="vocstep6" value="6" > <i></i> 상급자이관
                                                 </label>
                                             </div>
                                         </td>
@@ -757,7 +595,7 @@
                                     <tr>
                                         <th>메모</th>
                                         <td>
-                                            <textarea name="need" id="" class="form-control" style="resize: none;" rows="4"></textarea>
+                                            <textarea name="memo" id="memo" class="form-control" style="resize: none;" rows="4"></textarea>
                                         </td>
                                     </tr>
                                 </table>
@@ -769,8 +607,8 @@
                                     <button type="button" id="smsTemp" class="btn btn-default pull-left" style="margin-right: 9px;">SMS발송</button>
                                     <button type="button" id="kakaoTemp" class="btn btn-default pull-left">KAKAO발송</button>
 
-                                    <button type="button" class="btn btn-default pull-right" style="margin-left: 9px;">초기화</button>
-                                    <button type="button" class="btn btn-primary pull-right">저장</button>
+                                    <button type="button" class="btn btn-default pull-right" style="margin-left: 9px;" id="reset">초기화</button>
+                                    <button type="button" class="btn btn-primary pull-right" id="save" >저장</button>
                                 </div>
                             </div>
                         </div>
@@ -838,9 +676,12 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/vocRec.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/sweetalert/custom-sweetalert.min.js"></script><!-- Sweet alert -->
 <script>
     $(document).ready(function(){
         $('.ctibtn').hide();
+
     });
 </script>
 

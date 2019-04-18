@@ -71,7 +71,7 @@
 
 </div>
 <!--js includ-->
-<%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
 <!-- Morris -->

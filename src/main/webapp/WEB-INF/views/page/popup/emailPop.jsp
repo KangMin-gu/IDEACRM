@@ -90,13 +90,13 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-default pull-left">취소</button>
+    <button type="button" class="btn btn-default pull-left cancel">취소</button>
     <button type="submit" id="send" class="btn btn-primary pull-right save" >발송</button>
         <input type="hidden" name="custno" id="custno"/>
     </form:form>
 </div>
 <!--js includ-->
-<%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
 <!-- Morris -->
@@ -130,7 +130,9 @@
             return false;
         }
     });
-
+    $('.cancel').click(function(){
+        close();
+    });
 </script>
 </body>
 </html>

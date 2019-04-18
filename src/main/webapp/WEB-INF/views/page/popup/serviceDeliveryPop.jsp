@@ -101,7 +101,7 @@
         </div>
     </div>
 <!--js includ-->
-<%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 <!-- FooTable -->
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>

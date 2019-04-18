@@ -1,3 +1,18 @@
+$(document).ready(function() {
+    var url = window.location.pathname;
+    if(url != '/service'){
+        url = '/service?servicestep=5&servicestep=6';
+    }
+
+    $('#search').click(function(e){
+        var bool = dateRangeError();
+        if(bool){
+            footableSearchList(url);
+        }
+    });
+    footableSearchList(url);
+});
+
 $('#servicecode1').change(function(){
     upperCode('servicecode1');
 });
@@ -61,3 +76,11 @@ $('#conveySave').click(function(e){
     });
 
 });
+
+function moveDetail(){
+    var serviceNo = $('#serviceno').val();
+    var href = "/service/" + serviceNo;
+
+    opener.window.location.href = href;
+    self.close();
+}

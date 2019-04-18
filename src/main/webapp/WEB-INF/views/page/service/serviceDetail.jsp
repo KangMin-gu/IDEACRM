@@ -314,7 +314,6 @@
                         <div class="tab-content">
                             <div role="tabpanel" id="tab-4" url="/service/tab/ract/${serviceInfo.SERVICENO}" class="tab-pane active">
                                 <div class="panel-body">
-                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                     <table class="tabfootable table table-stripped">
                                         <thead>
                                         <tr>
@@ -322,6 +321,7 @@
                                             <th data-name="RACTDATE_">처리일</th>
                                             <th data-name="RACTTYPE_">처리유형</th>
                                             <th data-name="OWNER_">담당자</th>
+                                            <th data-name="RACTDESC">처리내용</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -340,8 +340,7 @@
 
                             <div role="tabpanel" id="tab-5" url="/service/tab/delivery/${serviceInfo.SERVICENO}" class="tab-pane">
                                 <div class="panel-body">
-                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                    <table class="tabfootable table table-stripped" data-sorting="true">
+                                    <table class="tabfootable table table-stripped"  data-sorting="true">
                                         <thead>
                                         <tr>
                                             <th data-visible="false" data-name="CONVEYLNO">이관번호</th>

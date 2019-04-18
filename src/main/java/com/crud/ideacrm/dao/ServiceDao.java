@@ -41,4 +41,6 @@ public interface ServiceDao {
     // 서비스 이관
     public void serviceDeliveryInsert(ServiceDeliveryDto serviceDeliveryDto);
 
+    public List<Map<String,Object>> serviceCalList(RewardDto rewardDto);
+
 }

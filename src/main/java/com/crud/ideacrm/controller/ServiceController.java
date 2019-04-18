@@ -118,12 +118,6 @@ public class ServiceController {
         return mView;
     }
 
-    @RequestMapping(value = "/service/calendar", method = RequestMethod.GET)
-    public ModelAndView authServiceCalendar(HttpServletRequest request){//123
-        ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/service/calendar/serviceCalendar");
-        return mView;
-    }
     // 처리결과 이력
     @RequestMapping(value="/service/tab/ract/{serviceNo}",method=RequestMethod.POST)
     @ResponseBody
@@ -141,18 +135,39 @@ public class ServiceController {
 
     @RequestMapping(value="/service/{custNo}",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> custServiceTab(HttpServletRequest request, @PathVariable int custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public List<Map<String,Object>> authCustServiceTab(HttpServletRequest request, @PathVariable int custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> custServiceTab = serviceService.serviceList(request);
         return custServiceTab;
     }
 
+
+
     @RequestMapping(value = "/service/delivery", method = RequestMethod.POST)
     @ResponseBody
-    public int deliveryInsert(HttpServletRequest request, @ModelAttribute ServiceDeliveryDto serviceDeliveryDto) throws IOException, GeneralSecurityException {
+    public int authDeliveryInsert(HttpServletRequest request, @ModelAttribute ServiceDeliveryDto serviceDeliveryDto) throws IOException, GeneralSecurityException {
         String serviceNo = serviceService.serviceDeliveryInsert(request,serviceDeliveryDto);
         return 0;
     }
 
+    @RequestMapping(value="/service/calendar", method=RequestMethod.GET)
+    public ModelAndView authSvCalendar(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = serviceService.serviceCalList(request);
+        mView.setViewName("page/service/calendar/serviceCalendar");
+        return mView;
+    }
+
+    @RequestMapping(value="/service/calendar/{serviceNo}", method=RequestMethod.GET)
+    public ModelAndView authSvCalendarDetail(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("serviceInfo",serviceService.serviceDetail(request, serviceNo));
+        mView.addObject("rewardInfo",serviceService.rewardDetail(request, serviceNo));
+        mView.addObject("ractInfo",serviceService.ractDetail(request, serviceNo));
+        mView.addObject("product",serviceService.productDetail(request,serviceNo));
+        mView.setViewName("page/service/calendar/pop/serviceCalendarPop");
+
+        return mView;
+    }
 
 
 }
+

@@ -25,5 +25,7 @@ public interface ServiceService {
 
     public String serviceDeliveryInsert(HttpServletRequest request, ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException;
 
+    public ModelAndView serviceCalList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+
 
 }

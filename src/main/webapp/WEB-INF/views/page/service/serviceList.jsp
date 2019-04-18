@@ -31,13 +31,20 @@
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
                 <h2>서비스 관리</h2>
+                <c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="${pageContext.request.contextPath}/">메인</a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <strong>서비스 목록</strong>
-                    </li>
+                    <c:choose>
+                        <c:when test="${fn:substring(urls, 0, 17)  eq '/service/delivery' }">
+                            <li class="breadcrumb-item active">
+                                <strong>서비스 이관 목록</strong>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="breadcrumb-item active">
+                                <strong>서비스 목록</strong>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
                 </ol>
             </div>
             <div class="col-lg-2">
@@ -163,21 +170,30 @@
                             <h5>서비스 목록</h5>
                         </div>
                         <div class="ibox-content">
-                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+                            <c:choose>
+                                <c:when test="${fn:substring(urls, 0, 17)  eq '/service/delivery' }">
+                                    <a href="/serviceexcel?servicestep=5&servicestep=6" class="btn btn-default btn-sm"><i class="fa fa-file-excel-o"></i></a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/serviceexcel" class="btn btn-default btn-sm"><i class="fa fa-file-excel-o"></i></a>
+                                </c:otherwise>
+                            </c:choose>
+
                             <a href="/service/input" class="btn btn-default pull-right">추가</a>
                             <table class="footable table table-striped" data-sorting="true" >
                                 <thead>
                                 <tr>
-                                    <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">서비스번호</th>
+                                    <th data-visible="false" data-name="NO">서비스번호</th>
                                     <th data-visible="false" data-name="URL">URL</th>
-                                    <th data-name="SERVICENAME_" data-formatter="formatter">서비스명</th>
-                                    <th data-name="SERVICETYPE_" data-breakpoints="xs sm">접수구분</th>
-                                    <th data-name="SERVICECODE_" data-breakpoints="xs sm">접수유형</th>
-                                    <th data-name="CUSTNAME_" data-breakpoints="xs sm">고객명</th>
-                                    <th data-name="RECEPTIONDATE_" data-breakpoints="xs sm">접수일</th>
-                                    <th data-name="SERVICEOWNER_" data-breakpoints="xs sm">접수자</th>
-                                    <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
-                                    <th data-name="SERVICESTEP_">처리상태</th>
+                                    <th data-name="SERVICENAME_" data-formatter="formatter" >서비스명</th>
+                                    <th data-name="SERVICETYPE_" data-breakpoints="xs sm" >접수구분</th>
+                                    <th data-name="SERVICECODE_" data-breakpoints="xs sm" >접수유형</th>
+                                    <th data-name="CUSTNAME_" data-breakpoints="xs sm" >고객명</th>
+                                    <th data-name="RECEPTIONDATE_" data-breakpoints="xs sm" >접수일</th>
+                                    <th data-name="SERVICEOWNER_" data-breakpoints="xs sm" >접수자</th>
+                                    <th data-name="OWNER_" data-breakpoints="xs sm" >담당자</th>
+                                    <th data-name="SERVICESTEP_" >처리상태</th>
+                                    <th data-name="EDTDATE" data-visible="false" data-sorted="true" data-direction="DESC">수정일</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -222,15 +238,7 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#search').click(function(e){
-            var bool = dateRangeError();
-            if(bool){
-                footableSearchList('/service');
-            }
-        });
-        footableSearchList('/service');
-    });
+
 </script>
 </body>
 </html>

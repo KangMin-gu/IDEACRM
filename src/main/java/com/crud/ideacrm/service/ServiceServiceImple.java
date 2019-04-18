@@ -4,6 +4,8 @@ import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dto.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -287,5 +289,40 @@ public class ServiceServiceImple implements ServiceService{
 
         serviceDao.serviceDeliveryInsert(serviceDeliveryDto);
         return encServiceNo;
+    }
+
+    @Override
+    public ModelAndView serviceCalList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
+        ModelAndView mView = new ModelAndView();
+        RewardDto rewardDto = new RewardDto();
+
+
+        rewardDto.setSiteid(siteId);
+
+        List<Map<String,Object>> serviceCalList = serviceDao.serviceCalList(rewardDto);
+
+        for(int i=0;i<serviceCalList.size();i++){ //pk값 암호화
+            String deServiceNo = "";
+            deServiceNo = serviceCalList.get(i).get("id").toString();
+            String enSiteId = codecUtil.encodePkNo(deServiceNo);
+            serviceCalList.get(i).put("id",enSiteId);
+        }
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = "";
+        try {
+            jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(serviceCalList);
+        } catch (JsonProcessingException e) {
+
+            e.printStackTrace();
+        }
+
+        mView.addObject("schList",jsonStr);//캘린더 스케쥴
+        mView.addObject("svSchList",serviceCalList);//캘린더 틀 목록.
+
+        return mView;
     }
 }

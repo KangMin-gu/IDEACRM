@@ -109,6 +109,12 @@ public class SiteController {
     public List<Map<String,Object>> siteTabUserList(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> tabUserList = userService.userTabList(siteId);
         return tabUserList;
+    }
 
+    @RequestMapping(value="/common/site/totalMoney/{siteId}",method=RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> totalMoney(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> totalMoney = siteService.totalMoney(request,siteId);
+        return totalMoney;
     }
 }

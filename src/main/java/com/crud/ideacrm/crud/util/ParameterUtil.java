@@ -1,14 +1,19 @@
 package com.crud.ideacrm.crud.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class ParameterUtil {
+    @Autowired
+    private CodecUtil codecUtil;
 
     public Map<String, Object> searchParam(HttpServletRequest request) {
 
@@ -44,5 +49,16 @@ public class ParameterUtil {
             }
         }
         return search;
+    }
+
+    public String columnUnion(String column1,String column2, String column3) throws UnsupportedEncodingException, GeneralSecurityException {
+        String columnUnion = "";
+        if(column3.equals("")){
+            columnUnion = column1 + "-" + column2;
+        }else{
+            columnUnion = column1 + "-" + column2 + "-" + column3;
+        }
+        columnUnion = codecUtil.encoding(columnUnion);
+        return columnUnion;
     }
 }

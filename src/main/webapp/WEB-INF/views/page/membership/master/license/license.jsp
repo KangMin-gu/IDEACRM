@@ -34,7 +34,7 @@
 
         <div class="wrapper wrapper-content animated fadeInRight">
 
-        <form:form>
+        <form:form action="">
             <div class="row">
                 <div class="col-lg-12">
                     <button type="button" class="btn btn-default pull-left">적용</button>
@@ -57,112 +57,117 @@
                                         <col width="5%">
                                         <col width="5%">
                                         <col width="5%">
+                                        <col width="5%">
                                     </colgroup>
                                     <tbody>
                                         <tr>
                                             <th>모듈명</th>
                                             <th>상태</th>
                                             <th>수량</th>
+                                            <th>현재사용량</th>
                                             <th>반영날짜</th>
                                         </tr>
                                         <tr>
-                                            <th>고객관리</th>
+                                            <th><span name="licenseno" id="custlicenseno" value="1">고객관리</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">활성</option>
-                                                    <option value="">비활성</option>
+                                                <select class="form-control form-control-sm" name="isdelete" id="custisdelete" style="height: 35px;">
+                                                    <option value="0">활성</option>
+                                                    <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
+                                                <select class="form-control form-control-sm" name="licensecnt" id="custlicensecnt" style="height: 35px;">
+                                                    <c:forEach begin="0" end="50" step="1" varStatus="status">
+                                                        <option value="${status.count}">${status.count}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
-                                            <td></td>
+                                            <td><span name="usecnt" id="custusecnt"></span></td>
+                                            <td><span name="edtdate" id="custedtdate"></span></td>
                                         </tr>
                                         <tr>
-                                            <th>영업관리</th>
+                                            <th><span name="licenseno" id="accountcenseno" value="2">영업관리</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">활성</option>
-                                                    <option value="">비활성</option>
+                                                <select class="form-control form-control-sm" name="isdelete" id="accountisdelete" style="height: 35px;">
+                                                    <option value="0">활성</option>
+                                                    <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
+                                                <select class="form-control form-control-sm" name="licensecnt" id="accountlicensecnt" style="height: 35px;">
+                                                    <option value="0">0</option>
+                                                    <c:forEach begin="0" end="50" step="1" varStatus="status">
+                                                        <option value="${status.count}">${status.count}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
-                                            <td></td>
+                                            <td><span name="usecnt" id="accountusecnt"></span></td>
+                                            <td><span name="edtdate" id="accountedtdate"></span></td>
                                         </tr>
                                         <tr>
-                                            <th>서비스관리</th>
+                                            <th><span name="licenseno" id="servicelicenseno" value="3">서비스관리</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">활성</option>
-                                                    <option value="">비활성</option>
+                                                <select class="form-control form-control-sm" name="isdelete" id="serviceisdelete" style="height: 35px;">
+                                                    <option value="0">활성</option>
+                                                    <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
+                                                <select class="form-control form-control-sm" name="licensecnt" id="servicelicensecnt" style="height: 35px;">
+                                                    <option value="0">0</option>
+                                                    <c:forEach begin="0" end="50" step="1" varStatus="status">
+                                                        <option value="${status.count}">${status.count}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
-                                            <td></td>
+                                            <td><span name="usecnt" id="serviceusecnt"></span></td>
+                                            <td><span name="edtdate" id="serviceedtdate"></span></td>
                                         </tr>
                                         <tr>
-                                            <th>캠페인</th>
+                                            <th><span name="licenseno" id="campaignlicenseno" value="4">캠페인</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">활성</option>
-                                                    <option value="">비활성</option>
+                                                <select class="form-control form-control-sm" name="isdelete" id="campaignisdelete" style="height: 35px;">
+                                                    <option value="0">활성</option>
+                                                    <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
+                                                <select class="form-control form-control-sm" name="licensecnt" id="campaignlicensecnt" style="height: 35px;">
+                                                    <option value="0">0</option>
+                                                    <c:forEach begin="0" end="50" step="1" varStatus="status">
+                                                        <option value="${status.count}">${status.count}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
-                                            <td></td>
+                                            <td><span name="usecnt" id="campaignusecnt"></span></td>
+                                            <td><span name="edtdate" id="campaignedtdate"></span></td>
                                         </tr>
                                         <tr>
-                                            <th>콜센터</th>
+                                            <th><span name="licenseno" id="voclicenseno" value="5">콜센터</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">활성</option>
-                                                    <option value="">비활성</option>
+                                                <select class="form-control form-control-sm" name="isdelete" id="vocisdelete" style="height: 35px;">
+                                                    <option value="0">활성</option>
+                                                    <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
+                                                <select class="form-control form-control-sm" name="licensecnt" id="voclicensecnt" style="height: 35px;">
+                                                    <option value="0">0</option>
+                                                    <c:forEach begin="0" end="50" step="1" varStatus="status">
+                                                        <option value="${status.count}">${status.count}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </td>
-                                            <td></td>
+                                            <td><span name="usecnt" id="ctiusecnt"></span></td>
+                                            <td><span name="edtdate" id="ctiedtdate"></span></td>
                                         </tr>
                                         <tr>
                                             <th>라이센스활성수</th>
-                                            <td colspan="3"></td>
-                                        </tr>
-                                        <tr>
+                                            <td colspan="2"><span id="totallicensecnt"></span></td>
                                             <th>총유저수</th>
-                                            <td colspan="3"></td>
+                                            <td colspan="2"><span id="totalusercnt"></span></td>
                                         </tr>
+                                    <input type="hidden" name="siteid" id="siteid" value="${siteid}"/>
                                     </tbody>
                                 </table>
                             </div>
@@ -192,5 +197,13 @@
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/license.js"></script>
+<script>
+$(document).ready(function() {
+    var siteid = $('#siteid').val();
+    licenseDetail(siteid);
+});
+</script>
 </body>
+
 </html>

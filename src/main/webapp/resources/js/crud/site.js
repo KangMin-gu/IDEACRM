@@ -53,3 +53,43 @@ function map(mapFieldId, addrFieldId, nameFieldId){
         }
     });
 }
+// IDEA발송수 탭 클릭
+$('.totalCnt').click(function(e){
+
+    var siteId = $('#siteid').val();
+    var param = searchDataToJson();
+
+    $.ajax({
+        url: "/common/site/totalMoney/"+siteId,
+        method: "POST",
+        dataType: "json",
+        data : param,
+        cache: false,
+        success: function (data) {
+            debugger;
+            $('#smscharge').text(data.chargeType.smscharge);
+            $('#mmscharge').text(data.chargeType.mmscharge);
+            $('#lmscharge').text(data.chargeType.lmscharge);
+            $('#kakaocharge').text(data.chargeType.kakaocharge);
+            $('#emailcharge').text(data.chargeType.emailcharge);
+
+            $('#smscnt').text(data.smsCnt);
+            $('#mmscnt').text(data.mmsCnt);
+            $('#lmscnt').text(data.lmsCnt);
+            $('#kakaocnt').text(data.kakaoCnt);
+            $('#emailcnt').text(data.emailCnt);
+
+            $('#smstotal').text(data.smsTotal);
+            $('#mmstotal').text(data.mmsTotal);
+            $('#lmstotal').text(data.lmsTotal);
+            $('#kakaototal').text(data.kakaoTotal);
+            $('#emailtotal').text(data.emailTotal);
+
+            $('#mergemoney').text(data.mergeMoney);
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+
+});

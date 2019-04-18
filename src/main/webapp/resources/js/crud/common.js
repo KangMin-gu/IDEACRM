@@ -133,7 +133,9 @@ $('.detail').find('.nav-link').click(function(e){
     var href = e.target.attributes.href.value;
     // href의 tabpanel에 footable에 사용할 url을 가지고 온다.
     var url = $(href).attr('url');
-    tabFootableSearchList(href,url);
+    if(url != undefined){
+        tabFootableSearchList(href,url);
+    }
 });
 
 // 상위 코드 받아서 하위코드 매핑하기
@@ -238,3 +240,19 @@ $('#paging').change(function(e){
     var url = window.location.pathname;
     footableSearchList(url);
 });
+
+function today(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    }
+    if(mm<10) {
+        mm='0'+mm
+    }
+    today = yyyy+'-' + mm+'-'+dd;
+
+    return today;
+}

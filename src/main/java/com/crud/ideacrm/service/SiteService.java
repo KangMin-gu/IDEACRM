@@ -23,4 +23,6 @@ public interface SiteService {
 
     public void siteDelete(HttpServletRequest request,String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
 
+    public Map<String, Object> totalMoney(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
+
 }

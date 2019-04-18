@@ -13,7 +13,7 @@ public class LicenseDaoImple implements LicenseDao{
     @Autowired
     private SqlSession session;
     @Override
-    public List<Map<String, Object>> userLicenseList(String siteId) {
+    public List<Map<String, Object>> siteLicenseList(String siteId) {
         List<Map<String,Object>> siteLicenseList = session.selectList("license.siteLicenseList",siteId);
         return siteLicenseList;
     }

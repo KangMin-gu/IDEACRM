@@ -121,7 +121,7 @@
                                         <th data-visible="false" data-name="URL">URL</th>
                                         <th data-name="SITENAME" data-formatter="formatter">회원사명</th>
                                         <th data-name="PRSDNAME" data-breakpoints="xs sm">대표자명</th>
-                                        <th data-name="BSNO_" data-breakpoints="xs sm">사업자번호</th>
+                                        <th data-name="BSNO" data-breakpoints="xs sm">사업자번호</th>
                                         <th data-name="MOBILE_" data-breakpoints="xs sm">핸드폰번호</th>
                                         <th data-name="BSTYPE" data-breakpoints="xs sm">종목</th>
                                         <th data-name="SITESIZE_" data-breakpoints="xs sm">기업규모</th>

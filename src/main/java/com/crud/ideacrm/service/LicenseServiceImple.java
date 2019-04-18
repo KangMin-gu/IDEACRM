@@ -22,7 +22,7 @@ public class LicenseServiceImple implements LicenseService {
     public List<Map<String, Object>> siteLicenseList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         String siteId = request.getSession().getAttribute("ENCSITEID").toString();
         siteId = codecUtil.decodePkNo(siteId);
-        List<Map<String,Object>> siteLicenseList = licenseDao.userLicenseList(siteId);
+        List<Map<String,Object>> siteLicenseList = licenseDao.siteLicenseList(siteId);
         return siteLicenseList;
     }
 
@@ -30,5 +30,12 @@ public class LicenseServiceImple implements LicenseService {
     public List<Map<String, Object>> allLicenseList() {
         List<Map<String,Object>> allLicenseList = licenseDao.allLicenseList();
         return allLicenseList;
+    }
+
+    @Override
+    public List<Map<String, Object>> siteLicenseDetail(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        siteId = codecUtil.decodePkNo(siteId);
+        List<Map<String,Object>> siteLicenseDetail = licenseDao.siteLicenseList(siteId);
+        return siteLicenseDetail;
     }
 }

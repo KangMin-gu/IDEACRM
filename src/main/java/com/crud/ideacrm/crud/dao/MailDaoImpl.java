@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.crud.ideacrm.crud.dto.MailDto;
+import com.crud.ideacrm.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.apache.ibatis.session.SqlSession;
@@ -37,5 +38,11 @@ public class MailDaoImpl implements MailDao {
     @Override
     public void clickHistory(Map<String, Object> param) {
         session.insert("email.clickHistory",param);
+    }
+
+    //유저 메일 수정 프로시저
+    @Override
+    public void PwdChangeMailProcedure(Map<String, Object> userVal) {
+        session.insert("email.pwdChangeMail", userVal);
     }
 }

@@ -22,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.crud.ideacrm.dto.KakaoDto" alias="kakaoDto" />
 		<typeAlias type="com.crud.ideacrm.dto.CtiDto" alias="ctiDto" />
 		<typeAlias type="com.crud.ideacrm.dto.InsideNoticeDto" alias="insideNoticeDto" />
+		<typeAlias type="com.crud.ideacrm.dto.UserDto" alias="userDto" />
 	</typeAliases>
 
 	<mappers>

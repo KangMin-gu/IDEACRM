@@ -101,7 +101,7 @@
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/company">회사정보</a></li>
-                    <li><a href="${pageContext.request.contextPath}/company/user/1">내정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/user/${USERNO}">내정보</a></li>
                 </ul>
             </li>
 

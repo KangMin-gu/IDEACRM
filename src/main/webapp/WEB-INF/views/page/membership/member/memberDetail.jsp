@@ -83,13 +83,13 @@
                                                     <p>사용자명 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>강민구</p>
+                                                    <p>${userInfo.USERNAME}</p>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <p>ID : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>manggo</p>
+                                                    <p>${userInfo.USERID}</p>
                                                 </div>
                                             </div>
                                         <!--관리자일경우 비밀번호 초기화 row 생성-->
@@ -98,7 +98,8 @@
                                                     <p>비밀번호 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                   <button type="button" class="btn btn-w-m btn-xs btn-primary">초기화</button>
+                                                    <button class="btn btn-w-m btn-xs btn-primary" onclick="pwdReset()">초기화</button>
+                                                    <input type="hidden" id="userNo" value="${userInfo.USERNO}">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -120,7 +121,7 @@
                                                     <p>Email : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>manggo@crudsystem.co.kr</p>
+                                                    <p>${userInfo.EMAIL}</p>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <p>CTI 번호 : </p>
@@ -190,6 +191,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- daum map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/memeber.js"></script>
 <script>
     $(document).ready(function() {
         $('.footable').footable();

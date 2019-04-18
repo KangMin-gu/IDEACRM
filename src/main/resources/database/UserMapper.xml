@@ -45,7 +45,20 @@
 	</select>
 
 
+	<select id="userInfo" parameterType="int" resultType="hashMap">
+		SELECT A.USERID, A.USERPASSWORD, A.USERNAME, A.USERNO, A.SITEID, B.SITENAME,  A.EMAIL, B.CALLNAME, A.USERLANG, A.CHKAUTH, B.SITELOGO, B.SITENAME,B.MSGTELNO
+	    FROM crud_saas.me800010 AS A
+		LEFT JOIN crud_saas.ma900010 AS B ON A.SITEID = B.SITEID
+		WHERE USERNO = #{userno}
+	</select>
+
 	<select id="userAram" parameterType="int" resultType="hashMap">
 	SELECT COUNT(READCHEK) AS READCHEK FROM sys970011 WHERE USERNO = #{userno} AND ISDELETE = 0 AND READCHEK=0;
 	</select>
+
+	<!--유저 비밀번호 업데이트-->
+	<update id="pwdChange" parameterType="userDto">
+		UPDATE me800010 SET USERPASSWORD = #{userpassword}, EDTUSER = #{edtuser}, EDTDATE = NOW() WHERE SITEID = #{siteid} AND USERNO = #{userno}
+	</update>
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.crud.ideacrm.crud.dao;
 
 import com.crud.ideacrm.crud.dto.MailDto;
+import com.crud.ideacrm.dto.UserDto;
 
 import java.util.List;
 import java.util.Map;
@@ -11,4 +12,5 @@ public interface MailDao {
     public void mailClick(MailDto emailDto);
     public void mailDeny(MailDto emailDto);
     public void clickHistory(Map<String,Object> param);
+    public void PwdChangeMailProcedure(Map<String, Object> userVal);
 }

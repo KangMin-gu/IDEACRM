@@ -288,14 +288,14 @@
     	LIMIT 5
 	</select>
 
-	<select id="conveyList" parameterType="int" resultType="HashMap">
+	<select id="conveyList" parameterType="map" resultType="HashMap">
 		SELECT A.CONVEYNO
 			,A.SERVICENO
 			,A.PREVOWNER
 			,(SELECT USERNAME FROM me800010 WHERE A.PREVOWNER = USERNO) AS PREVOWNER_
 			,A.NEXTOWNER
 			,(SELECT USERNAME FROM me800010 WHERE A.NEXTOWNER = USERNO) AS NEXTOWNER_
-			,IFNULL((SELECT CODENAME FROM sys990020 WHERE CODEGRP = 'CONVEYREASON' AND SITEID = #{siteid} AND CODEVAL = A.CONVEYREASON),'') AS CONVEYREASON_
+			,IFNULL(FN_GETCODE('CONVEYREASON',A.CONVEYREASON,#{siteid}),'') AS CONVEYREASON_
 			,DATE_FORMAT(A.CONVEYDATE,'%Y-%m-%d') AS CONVEYDATE
 			,A.CONVEYDESC
 		FROM sv300050 A
@@ -337,5 +337,30 @@
 		WHERE SITEID = #{siteid}
 		AND SERVICENO = #{serviceno}
 	</select>
+
+	<insert id="serviceDeliveryInsert" parameterType="serviceDeliveryDto">
+		INSERT INTO sv300050
+			(
+			SERVICENO,PREVOWNER,NEXTOWNER,CONVEYREASON
+			,CONVEYDATE,CONVEYDESC,REGDATE,REGUSER
+			,EDTDATE,EDTUSER,SITEID
+			)VALUES(
+			#{serviceno},#{prevowner},#{nextowner},#{conveyreason}
+			,#{conveydate},#{conveydesc},NOW(),#{reguser}
+			,NOW(),#{edtuser},#{siteid}
+			);
+
+			UPDATE sv300010
+			SET OWNER = #{nextowner}
+				,EDTDATE = NOW()
+				,EDTUSER = #{edtuser}
+			WHERE SERVICENO = #{serviceno}
+			AND SITEID = #{siteid};
+
+			UPDATE sv300010
+			SET SERVICESTEP = 5
+			WHERE SERVICENO = #{serviceno}
+			AND SITEID = #{siteid};
+	</insert>
 
 </mapper>

@@ -76,7 +76,7 @@
                                         </td>
                                         <th>접수구분</th>
                                         <td>
-                                            <select class="form-control searchparam" name="servicetype" id="servicetype" style="width: 100px;">
+                                            <select class="form-control searchparam" name="servicetype" id="servicetype" style="width: 150px;">
                                                 <option value="">선택</option>
                                                 <c:forEach var="serviceType" items="${SERVICETYPE}">
                                                     <option value="${serviceType.codeval}">${serviceType.codename}</option>
@@ -114,7 +114,7 @@
                                     <tr>
                                         <th>서비스명</th>
                                         <td colspan="1">
-                                            <input class="form-control form-control-sm searchparam" type="text" id="servicename" name="servicename" style="width: 150px;">
+                                            <input class="form-control form-control-sm searchparam" type="text" id="servicename" name="servicename" style="width: 230px;">
                                         </td>
                                         <th>고객명</th>
                                         <td>
@@ -137,7 +137,7 @@
                                         </td>
                                         <th>담당자</th>
                                         <td>
-                                            <div class="input-group">
+                                            <div class="input-group" style="width: 150px;">
                                                 <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="">
                                                 <input type="hidden" class="searchparam" name="owner" id="owner" value="">
                                                 <span class="input-group-addon owner" id="owner_">

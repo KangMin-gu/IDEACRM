@@ -29,13 +29,17 @@ function footableSearchList(url) {
 }
 
 function tabFootableSearchList(id,url) {
-    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
+    if(page == undefined){
+        page = 5;
+    }
     var pagination = $(id).find('.pagination');
     if( window.location.pathname == '/voc' && id != '#callbackBottomTab' ){
         if( !$('#custno').val() ) return;//voc에서는 custno가 없다면 아래행 실행 x
     }
+
+    var pagination = $(id).find('.pagination');
     $.post(url, param, function (response) {
         $(id).find('.tabfootable').footable({
             "toggleSelector": ".footable-toggle",
@@ -54,15 +58,16 @@ function tabFootableSearchList(id,url) {
             "rows": response
         });
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
-        $('.footable-pagination-wrapper:eq(0)').remove(); 
+        $('.footable-pagination-wrapper:eq(0)').remove();
+        $('.footable-empty').remove();
     });
 }
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
     if(globalUrl =='/popuser'){
-        parentOwnerUser($(obj.target.parentElement));
+        popParentNameClick($(obj.target.parentElement));
     }
     else if(globalUrl == '/popcust'){
-        parentCustname($(obj.target.parentElement));
+        popParentNameClick($(obj.target.parentElement));
     }
     else if(globalUrl == '/popaccount'){
         popParentNameClick($(obj.target.parentElement));

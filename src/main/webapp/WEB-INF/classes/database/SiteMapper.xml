@@ -10,19 +10,26 @@
      			,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_
      			,(SELECT SUM(BUYCNT) AS BUYCNT FROM me810010 WHERE SITEID = A.SITEID) AS BUYCNT
      			,CONCAT('/common/site/') AS URL
+     			,A.BSNO
      	FROM MA900010 A
      	WHERE A.ISDELETE = 0
-		<if test ="strDate != null">
-			AND IFNULL(A.FREGDATE,'1900-01-01')<![CDATA[>=]]> #{strDate}
+		<if test ="regdatefr != null">
+			AND IFNULL(A.FREGDATE,'1900-01-01')<![CDATA[>=]]> #{regdatefr}
 		</if>
-		<if test ="endDate != null">
-			AND IFNULL(A.FREGDATE,'1900-01-01') <![CDATA[<=]]> #{endDate}
+		<if test ="regdateto != null">
+			AND IFNULL(A.FREGDATE,'1900-01-01') <![CDATA[<=]]> #{regdateto}
 		</if>
 		<if test ="sitename != null">
 			AND A.SITENAME LIKE CONCAT('%',#{sitename},'%')
 		</if>
 		<if test ="sitesize != null">
 			AND A.SITESIZE = #{sitesize}
+		</if>
+		<if test="prsdname != null">
+			AND A.PRSDNAME LIKE CONCAT('%',#{prsdname},'%')
+		</if>
+		<if test="isdelete != null">
+			AND A.ISDELETE = #{isdelete}
 		</if>
 	</select>
 
@@ -47,6 +54,7 @@
      	,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_
      	,A.ISDELETE
      	,A.SITEMEMO
+     	,A.BSNO
      	,(SELECT COUNT(*) FROM me810010 WHERE SITEID = A.SITEID) AS TOTALCNT
      	,(SELECT USERID FROM me800010 WHERE SITEID = #{siteid} AND MASTERYN = 1) AS ADMINID
      	,(SELECT COUNT(*) FROM ma900011 WHERE SITEID = #{siteid}) AS CTIYN
@@ -77,14 +85,14 @@
 		,MOBILE1,MOBILE2,MOBILE3,FAXTEL1,FAXTEL2,FAXTEL3
 		,TELNO1,TELNO2,TELNO3,EMAIL,SITESIZE
 		,OWNER,COTYPE,BSCOND,BSTYPE,ISDELETE
-		,SITEMEMO,REGDATE,REGUSER,EDTDATE,EDTUSER,SITELOGO
+		,SITEMEMO,REGDATE,REGUSER,EDTDATE,EDTUSER,SITELOGO,BSNO
 		)VALUES(
 		#{sitename},#{bsno1},#{bsno2},#{bsno3},#{incno1},#{incno2}
 		,#{addr1},#{addr2},#{addr3},now(),#{prsdname}
 		,#{mobile1},#{mobile2},#{mobile3},#{faxtel1},#{faxtel2},#{faxtel3}
 		,#{telno1},#{telno2},#{telno3},#{email},#{sitesize}
 		,#{owner},#{cotype},#{bscond},#{bstype},#{isdelete}
-		,#{sitememo},NOW(),#{reguser},NOW(),#{edtuser},#{sitelogo}
+		,#{sitememo},NOW(),#{reguser},NOW(),#{edtuser},#{sitelogo},#{bsno}
 		)
 
 	</insert>

@@ -1,13 +1,11 @@
 package com.crud.ideacrm.dto;
 
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 
 
 public class CodeDto implements Serializable{
 
-	private int	codeno;	//코드번호
+	private String	codeno;	//코드번호
 	private String	codegrp;	//코드그룹
 	private String	codename;	//코드명
 	private String	codeval;	//코드값
@@ -23,7 +21,7 @@ public class CodeDto implements Serializable{
 
 	public CodeDto(){}
 
-	public CodeDto(int codeno, String codegrp, String codename, String codeval, String uppercodegrp, String regdate, int reguser, String edtdate, int edtuser, int isdelete, int siteid, int commonflag, int usingmenu) {
+	public CodeDto(String codeno, String codegrp, String codename, String codeval, String uppercodegrp, String regdate, int reguser, String edtdate, int edtuser, int isdelete, int siteid, int commonflag, int usingmenu) {
 		this.codeno = codeno;
 		this.codegrp = codegrp;
 		this.codename = codename;
@@ -39,11 +37,11 @@ public class CodeDto implements Serializable{
 		this.usingmenu = usingmenu;
 	}
 
-	public int getCodeno() {
+	public String getCodeno() {
 		return codeno;
 	}
 
-	public void setCodeno(int codeno) {
+	public void setCodeno(String codeno) {
 		this.codeno = codeno;
 	}
 

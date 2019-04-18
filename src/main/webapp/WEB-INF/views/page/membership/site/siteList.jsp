@@ -16,7 +16,6 @@
     <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 </head>
 <style>
 </style>
@@ -69,20 +68,20 @@
                                            <td>
                                                <div class="input-group" style="width:230px;">
                                                    <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                   <input class="form-control form-control-sm searchparam" type="text" id="daterange"  />
+                                                   <input class="form-control form-control-sm daterange searchparam" type="text" name="regdate" id="regdate"  />
                                                </div>
                                            </td>
                                            <th>회원사명</th>
                                            <td>
-                                               <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
+                                               <input class="form-control form-control-sm searchparam" type="text" name="sitename" id="sitename" style="width: 150px;">
                                            </td>
                                            <th>대표자명</th>
                                            <td>
-                                               <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;">
+                                               <input class="form-control form-control-sm searchparam" type="text" name="prsdname" id="prsdname" style="width: 150px;">
                                            </td>
                                            <th>서비스상태</th>
                                            <td>
-                                               <select class="form-control searchparam" style="width:100px;">
+                                               <select class="form-control searchparam" name="isdelete" id="isdelete" style="width:100px;">
                                                    <c:forEach var="isDelete" items="${ISDELETE}">
                                                        <option label="${isDelete.codename}" value="${isDelete.codeval}"></option>
                                                    </c:forEach>
@@ -122,7 +121,7 @@
                                         <th data-visible="false" data-name="URL">URL</th>
                                         <th data-name="SITENAME" data-formatter="formatter">회원사명</th>
                                         <th data-name="PRSDNAME" data-breakpoints="xs sm">대표자명</th>
-                                        <th data-name="BSNO_" data-breakpoints="xs sm">사업자번호</th>
+                                        <th data-name="BSNO" data-breakpoints="xs sm">사업자번호</th>
                                         <th data-name="MOBILE_" data-breakpoints="xs sm">핸드폰번호</th>
                                         <th data-name="BSTYPE" data-breakpoints="xs sm">종목</th>
                                         <th data-name="SITESIZE_" data-breakpoints="xs sm">기업규모</th>

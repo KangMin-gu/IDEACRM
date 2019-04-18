@@ -2,7 +2,9 @@ package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.dao.SendDao;
 import com.crud.ideacrm.dao.SiteDao;
+import com.crud.ideacrm.dto.ChargeDto;
 import com.crud.ideacrm.dto.CtiDto;
 import com.crud.ideacrm.dto.KakaoDto;
 import com.crud.ideacrm.dto.SiteDto;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Service
@@ -22,8 +26,9 @@ public class SiteServiceImple implements SiteService{
     @Autowired
     private SiteDao siteDao;
     @Autowired
+    private SendDao sendDao;
+    @Autowired
     private CodecUtil codecUtil;
-
     @Autowired
     private PasswordEncoder encoder;
 
@@ -41,8 +46,9 @@ public class SiteServiceImple implements SiteService{
             String enSiteId = codecUtil.encodePkNo(deSiteId);
             siteList.get(i).put("NO",enSiteId);
         }
-//        return commonUtil.decodeList(siteList);
-        return siteList;
+
+        return codecUtil.decodeList(siteList);
+        //return siteList;
     }
 
     @Override
@@ -63,12 +69,17 @@ public class SiteServiceImple implements SiteService{
 
     @Override
     public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
-
+/*
+        ParameterUtil parameterUtil = new ParameterUtil();
+        String bsno = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
+        siteDto.setBsno(bsno);
+*/
         siteDto.setEncodingSiteDto();
         String siteId = siteDao.siteInsert(siteDto);
 
         String EncodePass = encoder.encode(siteDto.getAdminpassword());
         siteDto.setAdminpassword(EncodePass);
+
         siteDao.siteUserInsert(siteDto);
 
         if(siteId != null){
@@ -111,5 +122,58 @@ public class SiteServiceImple implements SiteService{
 
         String decSiteId = codecUtil.decodePkNo(siteId);
         siteDao.siteDelete(decSiteId);
+    }
+
+    @Override
+    public Map<String, Object> totalMoney(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        siteId = codecUtil.decodePkNo(siteId);
+
+        ParameterUtil parameterUtil = new ParameterUtil();
+        Map<String,Object> param = parameterUtil.searchParam(request);
+
+        Map<String,Object> total = new HashMap<>();
+
+        // 발송 횟수
+        int cntSms = sendDao.totalSms(param);
+        int cntMms = sendDao.totalMms(param);
+        int cntLms = sendDao.totalLms(param);
+        int cntKakao = sendDao.totalKakao(param);
+        int cntEmail = sendDao.totalEmail(param);
+
+
+        // 발송 단가
+        ChargeDto chargeType = sendDao.chareType(siteId);
+
+        // 발송 금액
+        int smsTotal = chargeType.getSmscharge() * cntSms;
+        int mmsTotal = chargeType.getMmscharge() * cntMms;
+        int lmsTotal = chargeType.getLmscharge()* cntLms;
+        int kakaoTotal = chargeType.getKakaocharge() * cntKakao;
+        int emailTotal = chargeType.getEmailcharge() * cntEmail;
+
+        int mergeMoney = smsTotal + mmsTotal + lmsTotal + kakaoTotal + emailTotal;
+
+        // 발송 횟수
+        total.put("smsCnt",cntSms);
+        total.put("mmsCnt",cntMms);
+        total.put("lmsCnt",cntLms);
+        total.put("kakaoCnt",cntKakao);
+        total.put("emailCnt",cntEmail);
+
+        // 발송 금액
+        total.put("smsTotal",smsTotal);
+        total.put("mmsTotal",mmsTotal);
+        total.put("lmsTotal",lmsTotal);
+        total.put("kakaoTotal",kakaoTotal);
+        total.put("emailTotal",emailTotal);
+
+        // 발송 총금액
+        total.put("mergeMoney",mergeMoney);
+
+        // 발송 단가
+        total.put("chargeType",chargeType);
+
+        return total;
     }
 }

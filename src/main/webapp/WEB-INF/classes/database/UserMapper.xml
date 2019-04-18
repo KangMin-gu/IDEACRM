@@ -3,9 +3,9 @@
 <mapper namespace="user">
 
 	<select id="userList" parameterType="map" resultType="hashMap">
-		SELECT A.USERNO,A.USERNAME,A.USERID,A.EMAIL,A.USERDUTY
-		,CASE WHEN A.ISDELETE = 0 THEN '사용'
-		WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+		SELECT A.USERNO, A.USERNO AS NO, A.USERNAME,A.USERID,A.EMAIL,A.USERDUTY
+		,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_
+		,FN_GETCODE('CHKAUTH_',A.CHKAUTH,1) AS CHKAUTH_
 		,CASE WHEN DATE_FORMAT(A.REGDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
 		ELSE DATE_FORMAT(A.REGDATE,'%Y-%m-%d') END AS REGDATE
 		,A.MOBILE1,A.MOBILE2,A.MOBILE3
@@ -13,10 +13,12 @@
 		ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
 		, CONCAT(A.MOBILE1, A.MOBILE2, A.MOBILE3) AS MOBILE
 		,(SELECT COUNT(*) FROM CTI510010 WHERE CALLSTATUS = 1 AND CALLUSER = A.USERNO) AS CTICOUNT
+		,'/company/user/' AS URL
 		FROM me800010 A
 		WHERE A.SITEID = #{siteid}
 		AND A.ISDELETE = 0
 		AND IFNULL(A.MASTERYN,0) != 1
+		AND A.USERNO != '77'
 		<if test="username != null">
 			AND A.USERNAME LIKE CONCAT('%',#{username},'%')
 		</if>
@@ -44,6 +46,36 @@
 		ORDER BY A.USERNO DESC
 	</select>
 
+	<select id="userDetail" parameterType="userDto" resultType="map">
+		SELECT
+			A.USERNO
+			,A.USERNAME
+			,A.USERID
+			,A.EMAIL
+			,A.USERDUTY
+			,CHKROLE
+			,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_
+			,ISDELETE
+			,FN_GETCODE('CHKAUTH_',A.CHKAUTH,1) AS CHKAUTH_
+			,CHKAUTH
+			,CASE WHEN DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
+					ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
+			,A.MOBILE1
+			,A.MOBILE2
+			,A.MOBILE3
+			,A.TELNO1
+			,A.TELNO2
+			,A.TELNO3
+			,A.USERDESC
+			,A.CTIID
+			,A.CTITELNO
+			,A.CTIPASS
+			,(SELECT SITENAME FROM ma900010 B WHERE B.SITEID = A.SITEID) AS SITENAME
+			FROM me800010 A
+			WHERE A.SITEID = #{siteid}
+			AND A.USERNO = #{userno}
+	</select>
+
 
 	<select id="userAram" parameterType="int" resultType="hashMap">
 	SELECT COUNT(READCHEK) AS READCHEK FROM sys970011 WHERE USERNO = #{userno} AND ISDELETE = 0 AND READCHEK=0;
@@ -53,7 +85,6 @@
 		<selectKey keyProperty="userno"  resultType="String" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-
 		INSERT INTO ME800010
 		(
 		SITEID,USERID,USERNAME,USERPASSWORD,USERDESC
@@ -70,4 +101,35 @@
 		,0,now(),#{reguser},now(),#{edtuser}
 		,#{chkrole},0)
 	</insert>
+
+	<update id="userUpdate" parameterType="userDto">
+		UPDATE me800010
+		SET
+		USERDUTY = #{userduty}
+		,MOBILE1 = #{mobile1}
+		,MOBILE2 = #{mobile2}
+		,MOBILE3 = #{mobile3}
+		,TELNO1 = #{telno1}
+		,TELNO2 = #{telno2}
+		,TELNO3 = #{telno3}
+		,EMAIL = #{email}
+		<if test="userpassword != null">
+			,USERPASSWORD = #{userpassword}
+		</if>
+		<if test="chkauth != null">
+			,CHKAUTH = #{chkauth}
+		</if>
+		<if test="userdesc != null">
+			,USERDESC = #{userdesc}
+		</if>
+		<if test="enterdate != ''">
+			,ENTERDATE = #{enterdate}
+		</if>
+		,CTIID = #{ctiid}
+		,CTIPASS = #{ctipass}
+		,CTITELNO = #{ctitelno}
+		,EDTDATE = NOW()
+		,EDTUSER = #{edtuser}
+		WHERE USERNO = #{userno}
+	</update>
 </mapper>

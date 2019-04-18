@@ -1,9 +1,6 @@
 package com.crud.ideacrm.dao;
 
-import com.crud.ideacrm.dto.ProductDto;
-import com.crud.ideacrm.dto.RactDto;
-import com.crud.ideacrm.dto.RewardDto;
-import com.crud.ideacrm.dto.ServiceDto;
+import com.crud.ideacrm.dto.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -109,5 +106,10 @@ public class ServiceDaoImple implements ServiceDao {
         List<ProductDto> serviceProductRead = session.selectList("service.serviceProductRead",param);
 
         return serviceProductRead;
+    }
+
+    @Override
+    public void serviceDeliveryInsert(ServiceDeliveryDto serviceDeliveryDto) {
+        session.insert("service.serviceDeliveryInsert",serviceDeliveryDto);
     }
 }

@@ -12,4 +12,31 @@
 		VALUES('[MMS발송]',#{mobile},#{callback},'0',current_timestamp(), #{senddesc},0)
 	</insert>
 
+	<select id="totalSms" parameterType="map" resultType="int">
+		SELECT COUNT(*) as SMSCNT FROM sc_tran <!--where siteid = #{siteid} AND 기간-->
+	</select>
+	<select id="totalMms" parameterType="map" resultType="int">
+		SELECT COUNT(*) as MMSCNT FROM mms_msg WHERE IFNULL(FILE_CNT,0) > 0 <!--where siteid = #{siteid} AND 기간-->
+	</select>
+	<select id="totalLms" parameterType="map" resultType="int">
+		SELECT COUNT(*) as LMSCNT FROM mms_msg WHERE IFNULL(FILE_CNT,0) = 0 <!--where siteid = #{siteid} AND 기간-->
+	</select>
+	<select id="totalKakao" parameterType="map" resultType="int">
+		SELECT COUNT(*) as KAKOCNT FROM TSMS_AGENT_MESSAGE_LOG
+		WHERE SITEID = #{siteid}
+		AND SEND_RESULT_CODE1 = 'OK'
+		AND SEND_DATE <![CDATA[>=]]> #{todayfr}
+		AND SEND_DATE <![CDATA[<=]]> #{todayto}
+	</select>
+	<select id="totalEmail" parameterType="map" resultType="int">
+		SELECT COUNT(*) as EMAILCNT FROM SYS980010
+		WHERE SITEID = #{siteid}
+		AND RLTDATE <![CDATA[>=]]> #{todayfr}
+		AND RLTDATE <![CDATA[<=]]> #{todayto}
+	</select>
+
+	<select id="chargeType" parameterType="String" resultType="chargeDto">
+		select * from SYS990099 WHERE SITEID = #{siteid}
+	</select>
+
 </mapper>

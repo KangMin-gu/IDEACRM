@@ -5,6 +5,7 @@ import com.crud.ideacrm.dto.KakaoDto;
 import com.crud.ideacrm.dto.SiteDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.SiteService;
+import com.crud.ideacrm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +25,10 @@ public class SiteController {
 
     @Autowired
     private CodeService codeService;
+    @Autowired
+    private UserService userService;
 
     private final static int USINGMENU = 0;
-
-    //회원사 회사정보
-    @RequestMapping(value = "/company", method = RequestMethod.GET)
-    public ModelAndView companyInfo(HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/membership/site/siteDetail");
-        return mView;
-    }
 
     //회원사목록
     @RequestMapping(value="/common/site", method= RequestMethod.GET)
@@ -101,15 +96,25 @@ public class SiteController {
         return mView;
     }
 
-
-
-
-
     @RequestMapping(value="/common/site/del/{siteId}",method=RequestMethod.POST)
     public ModelAndView authSiteDelte(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         siteService.siteDelete(request,siteId);
         mView.setViewName("redirect:/common/site");
         return mView;
+    }
+
+    @RequestMapping(value="/common/site/tab/user/{siteId}",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> siteTabUserList(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        List<Map<String,Object>> tabUserList = userService.userTabList(siteId);
+        return tabUserList;
+    }
+
+    @RequestMapping(value="/common/site/totalMoney/{siteId}",method=RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> totalMoney(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> totalMoney = siteService.totalMoney(request,siteId);
+        return totalMoney;
     }
 }

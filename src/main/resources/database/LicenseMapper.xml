@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="license">
+
+    <select id="siteLicenseList" parameterType="String" resultType="map">
+        SELECT A.LICENSENO,A.BUYCNT,A.SITEID,A.ISDELETE
+         ,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
+         ,DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE
+         ,(SELECT SUM(BUYCNT) FROM ME810010 WHERE SITEID = #{siteid}) AS TOTALCNT
+         ,X.USECNT
+         FROM ME810010 A,(select licenseno, count(licenseno) as USECNT
+								 from (select A.LICENSENO, B.USERNO
+											 from ma900030 A
+											  LEFT OUTER JOIN me810011 B ON B.MENUNO = A.MENUNO
+											  WHERE B.ISDELETE = 0
+											  AND SITEID = #{siteid}
+											  AND RIGHT(MENUVAL, 4) != '0000'
+											  group by A.licenseno, B.userno) X
+								 group by licenseno) X
+	WHERE X.LICENSENO = A.LICENSENO
+    AND SITEID = #{siteid}
+    </select>
+
+    <select id="allList" resultType="licenseDto">
+        SELECT * FROM ma900020
+    </select>
+
+
+</mapper>

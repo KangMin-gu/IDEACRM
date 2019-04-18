@@ -30,8 +30,11 @@ public class PopController {
     private SendService sendService;
     @Autowired
     private CodeService codeService;
+    @Autowired
+    private ServiceService serviceService;
 
     private final int USINGMENU = 0;//서비스 사용 메뉴 값은 3
+    private final int SERVICEMENU = 3;
     //담당자팝업
     @RequestMapping(value="/popuser", method= RequestMethod.GET)
     public ModelAndView authPopUser(HttpServletRequest request) {
@@ -43,7 +46,7 @@ public class PopController {
     }
     @RequestMapping(value="/popuser", method= RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> authPopUserList(HttpServletRequest request) {
+    public List<Map<String,Object>> authPopUserList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> userList = userService.userList(request);
         return userList;
     }
@@ -109,6 +112,22 @@ public class PopController {
         mView.setViewName("page/popup/emailPop");
         return mView;
     }
+    @RequestMapping(value="/popuppercode",method=RequestMethod.GET)
+    public ModelAndView authCodeUpperPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/popup/codePop");
+        return mView;
+    }
+    @RequestMapping(value="/popservicedelivery/{serviceNo}",method=RequestMethod.GET)
+    public ModelAndView authServiceDeliveryPop(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
+        mView.addAllObjects( codeService.getCommonCode(SERVICEMENU));
+        mView.addAllObjects( codeService.getCustomCode(SERVICEMENU,request));
+        mView.setViewName("page/popup/serviceDeliveryPop");
+        return mView;
+    }
+
 
 
 }

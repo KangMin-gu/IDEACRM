@@ -1,6 +1,8 @@
 package com.crud.ideacrm.service;
 
 
+import com.crud.ideacrm.crud.util.CodecUtil;
+import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.CodeDao;
 import com.crud.ideacrm.dto.CodeDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +21,8 @@ import java.util.Map;
 public class CodeServiceImple implements CodeService {
     @Autowired
     private CodeDao codeDao;
+    @Autowired
+    private CodecUtil codecUtil;
     private final int COMMON_COMMONCODEFLAG = 0;
     private final int CUSTOM_COMMONCODEFLAG = 1;
 
@@ -48,8 +54,6 @@ public class CodeServiceImple implements CodeService {
         int codeGrpListLength = codeGrpList.size();
         String codeGrp;
         int siteId = paramCodeDto.getSiteid();
-        //final int MASTER_SITEID = 1;
-        //int commonFlag = paramCodeDto.getCommonflag();
 
         for(int i = 0; i < codeGrpListLength; i++) {
             CodeDto codeDto = new CodeDto();
@@ -57,15 +61,82 @@ public class CodeServiceImple implements CodeService {
             codeGrp = codeDto.getCodegrp();
             codeDto.setSiteid(siteId);
             codeMap.put(codeGrp, codeDao.getCodeList(codeDto) );
-            /*
-            List<CodeDto> codeList = codeDao.getCodeList(codeDto);
-            if(commonFlag == CUSTOM_COMMONCODEFLAG && codeList.size() == 0 ){//회원사의 커스텀 코드 설정 값이 없다면 default 값으로 크루드회원사 설정값을 가져간다.
-                codeDto.setSiteid(MASTER_SITEID);
-                codeList = codeDao.getCodeList(codeDto);
-            }
-            */
         }
         return codeMap;
+    }
+
+    @Override
+    public List<Map<String, Object>> codeList(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        siteId = codecUtil.decodePkNo(siteId);
+        ParameterUtil parameterUtil = new ParameterUtil();
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        param.put("siteid",siteId);
+        List<Map<String,Object>> codeList = codeDao.codeList(param);
+        String deCodeNo = "";
+        for(int i=0;i < codeList.size();i++){ //pk값 암호화
+            deCodeNo = codeList.get(i).get("NO").toString();
+            String enSiteId = codecUtil.encodePkNo(deCodeNo);
+            codeList.get(i).put("NO",enSiteId);
+        }
+        return codeList;
+    }
+
+    @Override
+    public Map<String, Object> codeDetail(HttpServletRequest request, String codeNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        codeNo = codecUtil.decodePkNo(codeNo);
+        CodeDto codeDto = new CodeDto();
+        codeDto.setCodeno(codeNo);
+        codeDto.setSiteid(siteId);
+        Map<String,Object> codeDetail = codeDao.codeDetail(codeDto);
+        String encCodeNo = codeDetail.get("CODENO").toString();
+        codeNo = codecUtil.encodePkNo(encCodeNo);
+        codeDetail.put("CODENO",codeNo);
+
+        return codeDetail;
+    }
+
+    @Override
+    public String codeUpdate(HttpServletRequest request, CodeDto codeDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        codeDto.setEdtuser(userNo);
+        codeDto.setSiteid(siteId);
+        String encCodeNo = codeDto.getCodeno();
+        String desCodeNo = codecUtil.decodePkNo(codeDto.getCodeno());
+        codeDto.setCodeno(desCodeNo);
+        codeDao.codeUpdate(codeDto);
+
+        return encCodeNo;
+    }
+
+    @Override
+    public String codeInsert(HttpServletRequest request, CodeDto codeDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        codeDto.setSiteid(siteId);
+        codeDto.setReguser(userNo);
+        codeDto.setEdtuser(userNo);
+
+        String codeNo = codeDao.codeInsert(codeDto);
+
+        return codecUtil.encodePkNo(codeNo);
+
+    }
+
+    @Override
+    public void codeDelete(HttpServletRequest request, String codeNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        CodeDto codeDto = new CodeDto();
+        codeDto.setEdtuser(userNo);
+        codeDto.setSiteid(siteId);
+        codeDto.setCodeno(codecUtil.decodePkNo(codeNo));
+
+        codeDao.codeDelete(codeDto);
     }
 
     @Override

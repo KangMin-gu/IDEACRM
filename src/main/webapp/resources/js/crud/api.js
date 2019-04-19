@@ -1,8 +1,12 @@
 var globalUrl;
 // footable 검색 및 ready상태일때 사용할 수 있게 변경
 function footableSearchList(url) {
+    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
+    if(page == undefined){
+        page = 10;
+    }
     globalUrl = url;
     $.post(globalUrl, param, function (response) {
         $('.footable').footable({

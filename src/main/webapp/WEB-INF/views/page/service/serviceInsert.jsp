@@ -89,7 +89,7 @@
                                             <tr>
                                                 <th>고객명</th>
                                                 <td>
-                                                    <div class="input-group cust" id="custno_" style="width:180px;">
+                                                    <div class="input-group servicecust" id="custno_" style="width:180px;">
                                                         <input type="text" class="form-control name" autocomplete="off" name="custno_">
                                                         <input type="hidden" class="" name="custno" id="custno">
                                                         <span class="input-group-addon">

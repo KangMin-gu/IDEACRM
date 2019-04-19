@@ -56,19 +56,7 @@ function openNewWindow(name,url,target,x,y){
         },1000);
     }
 }
-// 고객 팝업 클릭
-function parentCustname(tr){
-    var parentid = $('#parentid').val();
-    opener.$('[name="'+parentid+'"]').next().val(tr.children().get(0).textContent);
-    opener.$('[name="'+parentid+'"]').val(tr.children().get(1).textContent).trigger('keyup');
-    if(parentid != "relcustname"){//관련 고객에서의 호출이 아니라면 아래행 실행
-        popCustClick(tr.children().get(0).textContent);
-    }
 
-    setTimeout(function(){
-        window.close();
-    },300);
-}
 // 거래처 팝업 클릭
 function popParentNameClick(tr){
     var parentid = $('#parentid').val();
@@ -266,18 +254,4 @@ function today(){
 
     return today;
 }
-// 고객 팝업 클릭
-function parentCustname(tr){
-    var parentid = $('#parentid').val();
-    opener.$('[name="'+parentid+'"]').next().val(tr.children().get(0).textContent);
-    opener.$('[name="'+parentid+'"]').val(tr.children().get(1).textContent).trigger('keyup');
-    if(parentid != "relcustname"){//관련 고객에서의 호출이 아니라면 아래행 실행
-        popCustClick(tr.children().get(0).textContent);
-    }
-
-    setTimeout(function(){
-        window.close();
-    },300);
-}
-
 

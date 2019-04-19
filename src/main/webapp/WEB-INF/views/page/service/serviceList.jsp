@@ -237,6 +237,20 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script>
+    $(document).ready(function() {
+        var url = window.location.pathname;
+        if(url != '/service'){
+            url = '/service?servicestep=5&servicestep=6';
+        }
+
+        $('#search').click(function(e){
+            var bool = dateRangeError();
+            if(bool){
+                footableSearchList(url);
+            }
+        });
+        footableSearchList(url);
+    });
 </script>
 </body>
 </html>

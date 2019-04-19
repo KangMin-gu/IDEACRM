@@ -94,6 +94,7 @@ public class UserServiceImple implements UserService {
 
         return userInfo;
     }
+    //사용자 업데이트
     @Override
     public void userUpdate(HttpServletRequest request, String userNo, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
 

@@ -11,7 +11,7 @@ function footableSearchList(url) {
             "filtering": {
                 "enabled": true,
                 "placeholder": "통합검색",
-                "delay": 300,
+                // "delay": 500,
                 "min":1,
                 "dropdownTitle": "Search in:"
             },
@@ -25,11 +25,11 @@ function footableSearchList(url) {
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();
         $('.footable-empty').remove();
-        $('.input-group-btn').remove();
     });
 }
 
 function tabFootableSearchList(id,url) {
+    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     if(page == undefined){
@@ -43,7 +43,7 @@ function tabFootableSearchList(id,url) {
             "filtering": {
                 "enabled": true,
                 "placeholder": "통합검색",
-                "delay": 300,
+                // "delay": 500,
                 "min":1,
             },
             "paging": {
@@ -56,7 +56,6 @@ function tabFootableSearchList(id,url) {
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();
         $('.footable-empty').remove();
-        $('.input-group-btn').remove();
     });
 };
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
@@ -76,10 +75,10 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
 
 // footable이 실행되고 나서 검색창의 지저분한 button 삭제
 $(".footable").on("ready.ft.table",function(obj,e,ft,row){
-    $('.input-group-btn').remove();
+    $('.input-group-btn').find('button').remove()
 });
 $(".tabfootable").on("ready.ft.table",function(obj,e,ft,row){
-    $('.input-group-btn').remove();
+    $('.input-group-btn').find('button').remove()
 });
 
 

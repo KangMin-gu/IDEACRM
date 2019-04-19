@@ -37,7 +37,7 @@
                                 <td>
                                     <div class="input-group" style="width:230px;">
                                         <input class="form-control form-control-sm searchparam" name="custname" id="custname" type="text" />
-                                        <button type="button" id="search" class="btn btn-primary">검색</button>
+                                        <!--<button type="button" id="search" class="btn btn-primary">검색</button>-->
                                     </div>
                                 </td>
                             </tr>
@@ -79,9 +79,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
     $(document).ready(function() {
-        $('#search').click(function(e){
-            footableSearchList('/popcust');
-        });
         footableSearchList('/popcust');
     });
 

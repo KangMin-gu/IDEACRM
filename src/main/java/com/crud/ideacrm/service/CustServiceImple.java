@@ -86,6 +86,7 @@ public class CustServiceImple implements CustService{
         if(enCustDto.getClino() != 0) {//clino가 존재하면 거래처-관련고객 테이블에 insert
             custDao.mergeCliCust(enCustDto);
         }
+
         String enCustNo = codecUtil.encodePkNo(deCustNo);
         return enCustNo;
     }

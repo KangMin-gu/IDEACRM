@@ -61,7 +61,8 @@ public class PopController {
     @RequestMapping(value="/popcust",method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authPopCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        return custService.custList(request);
+        List custList = custService.custList(request);
+        return custList;
     }
 
     @RequestMapping(value="/popcust/{custNo}",method=RequestMethod.GET)

@@ -4,6 +4,7 @@ function goCustDetail(prm){
     location.href = url;
 }
 
+
 /**
  * 체크박스 전체 선택
  * 해당 체크박스에 onclick 이벤트로 이 함수 호출. 파라미터로 선택 될 셀렉트박스 tag이름을 넣어준다 ex)custno
@@ -140,6 +141,8 @@ function iboxDrawMap(mapFieldId, addrFieldId, nameFieldId,iboxDivId){
         }
     },300);
 }
+
+
 
 
 

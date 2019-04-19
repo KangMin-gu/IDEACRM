@@ -65,4 +65,9 @@ public class CustDaoImple implements CustDao {
         int res = session.update("cust.custDenyDelete",custDto);
         return res;
     }
+
+    @Override
+    public List<Map<String, Object>> custMailList(Map<String, Object> searchPrm) {
+        return session.selectList("cust.custMailList",searchPrm);
+    }
 }

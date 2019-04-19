@@ -17,5 +17,5 @@ public interface CustService {
     public String custinsert(HttpServletRequest request,CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
     public String custUpdate(HttpServletRequest request,CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
     public int custDelete(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
-    public List<Map<String,Object>> GetCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+    public List<Map<String,Object>> getCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
 }

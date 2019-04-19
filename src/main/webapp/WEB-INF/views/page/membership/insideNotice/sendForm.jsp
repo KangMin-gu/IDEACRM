@@ -46,7 +46,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="touser">받는이:</label>
                                     <div class="col-sm-10">
-                                        <select id="touser" name="touser" class="chosen-select" multiple="multiple" tabindex="2">
+                                        <select id="touser" name="touser" class="chosen-select" multiple="multiple">
                                             <c:forEach var="tmp" items="${companyUserData }">
                                                 <option value="${tmp.USERNO}" <c:if test="${tmp.USERNO eq noteInfo.FROMUSERNO || tmp.USERNO eq reno}">selected</c:if>>${tmp.USERNAME}</option>
                                             </c:forEach>

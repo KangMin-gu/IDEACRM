@@ -2,7 +2,6 @@ package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.service.*;
-import com.crud.ideacrm.dto.CustDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -124,10 +123,8 @@ public class PopController {
         mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
         mView.addAllObjects( codeService.getCommonCode(SERVICEMENU));
         mView.addAllObjects( codeService.getCustomCode(SERVICEMENU,request));
-        mView.setViewName("page/popup/serviceDeliveryPop");
+        mView.setViewName("page/service/pop/serviceDeliveryPop");
         return mView;
     }
-
-
 
 }

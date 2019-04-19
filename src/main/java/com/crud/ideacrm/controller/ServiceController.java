@@ -1,5 +1,6 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.crud.dao.UploadDao;
 import com.crud.ideacrm.dto.*;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.CustService;
@@ -30,6 +31,8 @@ public class ServiceController {
     private CodeService codeService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UploadDao uploadDao;
 
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
     //화면 호출
@@ -52,6 +55,8 @@ public class ServiceController {
     @RequestMapping(value="/service/{serviceNo}", method = RequestMethod.GET)
     public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
+
+        mView.addObject("fileInfo",uploadDao.fileInfo(serviceService.serviceDetail(request,serviceNo)));
         mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
         mView.addObject("rewardInfo",serviceService.rewardDetail(request,serviceNo));
         mView.addObject("ractInfo",serviceService.ractDetail(request,serviceNo));
@@ -82,9 +87,9 @@ public class ServiceController {
     }
     // 서비스 수정
     @RequestMapping(value="/service/modified/{serviceNo}",method=RequestMethod.POST)
-    public ModelAndView authServiceUpdateSet(HttpServletRequest request,@ModelAttribute ServiceDto serviceDto,@ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authServiceUpdateSet(HttpServletRequest request, HttpServletResponse response,@ModelAttribute ServiceDto serviceDto,@ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
-        String resultServiceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
+        String resultServiceNo = serviceService.serviceInsertUpdate(request,response,serviceDto,rewardDto,ractDto);
         mView.setViewName("redirect:/service/"+resultServiceNo);
         return mView;
     }
@@ -111,9 +116,9 @@ public class ServiceController {
     }
     // 서비스 추가
     @RequestMapping(value="/service/input",method=RequestMethod.POST)
-    public ModelAndView authServiceInsertSet(HttpServletRequest request, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authServiceInsertSet(HttpServletRequest request,  HttpServletResponse response,@ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
-        String serviceNo = serviceService.serviceInsertUpdate(request,serviceDto,rewardDto,ractDto);
+        String serviceNo = serviceService.serviceInsertUpdate(request, response,serviceDto,rewardDto,ractDto);
         mView.setViewName("redirect:/service/"+serviceNo);
         return mView;
     }
@@ -140,14 +145,15 @@ public class ServiceController {
         return custServiceTab;
     }
 
-
-
     @RequestMapping(value = "/service/delivery", method = RequestMethod.POST)
     @ResponseBody
     public int authDeliveryInsert(HttpServletRequest request, @ModelAttribute ServiceDeliveryDto serviceDeliveryDto) throws IOException, GeneralSecurityException {
         String serviceNo = serviceService.serviceDeliveryInsert(request,serviceDeliveryDto);
         return 0;
     }
+
+
+
 
     @RequestMapping(value="/service/calendar", method=RequestMethod.GET)
     public ModelAndView authSvCalendar(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -164,7 +170,6 @@ public class ServiceController {
         mView.addObject("ractInfo",serviceService.ractDetail(request, serviceNo));
         mView.addObject("product",serviceService.productDetail(request,serviceNo));
         mView.setViewName("page/service/calendar/pop/serviceCalendarPop");
-
         return mView;
     }
 

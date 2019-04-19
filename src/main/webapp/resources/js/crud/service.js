@@ -84,3 +84,18 @@ function moveDetail(){
     opener.window.location.href = href;
     self.close();
 }
+
+function ractPop(ractNo){
+    var name = '처리 내용';
+    var url = '/popserviceract/'+ractNo;
+    var x = '1000';
+    var y = '500';
+    var e ='';
+    openNewWindow(name,url,e,x,y);
+}
+
+
+// footable에서 click했을때 view화면으로 가기 위한 처리
+function ractFormatter(value, options, rowData) {
+    return "<a href=javascript:ractPop("+rowData.RACTNO +")>"+ value + "</a>";
+}

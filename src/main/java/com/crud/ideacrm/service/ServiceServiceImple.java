@@ -1,16 +1,20 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.crud.dao.UploadDao;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.crud.util.Uplaod;
 import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dto.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.*;
@@ -22,6 +26,8 @@ public class ServiceServiceImple implements ServiceService{
     private ServiceDao serviceDao;
     @Autowired
     private CodecUtil codecUtil;
+    @Autowired
+    private Uplaod uplaod;
 
     @Override
     public List<Map<String,Object>> serviceList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -97,7 +103,7 @@ public class ServiceServiceImple implements ServiceService{
     }
 
     @Override
-    public String serviceInsertUpdate(HttpServletRequest request, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public String serviceInsertUpdate(HttpServletRequest request, HttpServletResponse response, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
@@ -111,43 +117,12 @@ public class ServiceServiceImple implements ServiceService{
         rewardDto.setEdtuser(userNo);
         ractDto.setSiteid(siteId);
         ractDto.setEdtuser(userNo);
-/*
-        int serviceFileSize = multipartHttpServletRequest.getFiles("servicefile").size();
-        int rewardFileSize = multipartHttpServletRequest.getFiles("rewardfile").size();
-        int ractFileSize = multipartHttpServletRequest.getFiles("ractfile").size();
-        List<MultipartFile> serviceFileUpload = null;
-        List<MultipartFile> rewardFileUpload = null;
-        List<MultipartFile> ractFileUpload = null;
-        MultipartFile sFile = null;
-
-        if(serviceFileSize > 0) {
-            serviceFileUpload = multipartHttpServletRequest.getFiles("servicefile");
-            int serviceFileUploadLength = serviceFileUpload.get(0).getOriginalFilename().length();
-            if(serviceFileUploadLength > 0) {
-                String fileSearchKey = crud.fileSearchKey(request);
-                crud.fileUpload(response, multipartHttpServletRequest, serviceFileUpload, sFile, fileSearchKey);
-                serviceDto.setFilesearchkey(fileSearchKey);
-            }
+        /* 첨부파일 */
+        List<MultipartFile> serviceFile = serviceDto.getServicefile();
+        if(serviceFile  != null && serviceFile.size() > 0 && serviceFile.isEmpty() == false){
+            String fileSearchKey = uplaod.multiUpload(response, request, serviceFile);
+            serviceDto.setFilesearchkey(fileSearchKey);
         }
-        if(rewardFileSize > 0) {
-            rewardFileUpload = multipartHttpServletRequest.getFiles("rewardfile");
-            int rewardFileUploadLength = rewardFileUpload.get(0).getOriginalFilename().length();
-            if(rewardFileUploadLength > 0) {
-                String fileSearchKey = crud.fileSearchKey(request);
-                crud.fileUpload(response, multipartHttpServletRequest, rewardFileUpload, sFile, fileSearchKey);
-                rewardDto.setFilesearchkey(fileSearchKey);
-            }
-        }
-        if(ractFileSize > 0) {
-            ractFileUpload = multipartHttpServletRequest.getFiles("ractfile");
-            int ractFileUploadLength = ractFileUpload.get(0).getOriginalFilename().length();
-            if(ractFileUploadLength > 0) {
-                String fileSearchKey = crud.fileSearchKey(request);
-                crud.fileUpload(response, multipartHttpServletRequest, ractFileUpload, sFile, fileSearchKey);
-                ractDto.setFilesearchkey(fileSearchKey);
-            }
-        }
-*/
 
         String serviceNo = serviceDto.getServiceno();
 
@@ -189,7 +164,7 @@ public class ServiceServiceImple implements ServiceService{
         String ractDate = ractDto.getRactdate();
         int ractNo = ractDto.getRactno();
 
-        if(ractDate == null || ractDate =="") {
+        if(ractDate == null || ractDate.equals("")) {
         }else{
             if(ractNo != 0) {
                 ractDto.setServiceno(serviceNo);
@@ -258,6 +233,16 @@ public class ServiceServiceImple implements ServiceService{
         param.put("serviceno",serviceNo);
 
         List<Map<String,Object>> ractList = serviceDao.ractList(param);
+        int chkLength = 60;
+        String ractDesc = "";
+
+        for(int i = 0;i <ractList.size(); i++){
+            ractDesc = ractList.get(i).get("RACTDESC").toString();
+            if(ractDesc.length() > chkLength){
+                ractDesc = ractDesc.substring(0,chkLength)+"...";
+                ractList.get(i).put("RACTDESC",ractDesc);
+            }
+        }
 
         return ractList;
     }
@@ -269,7 +254,19 @@ public class ServiceServiceImple implements ServiceService{
         serviceNo = codecUtil.decodePkNo(serviceNo);
         param.put("serviceno",serviceNo);
 
+        int chkLength = 60;
+
         List<Map<String,Object>> conveyList = serviceDao.conveyList(param);
+        String conveyDesc ="";
+        for(int i = 0;i <conveyList.size(); i++){
+            conveyDesc = conveyList.get(i).get("CONVEYDESC").toString();
+            if(conveyDesc.length() > chkLength){
+                conveyDesc = conveyDesc.substring(0,chkLength)+"...";
+                conveyList.get(i).put("CONVEYDESC",conveyDesc);
+            }
+        }
+
+
         return conveyList;
     }
 

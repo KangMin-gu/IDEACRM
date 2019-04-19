@@ -3,6 +3,9 @@ var globalUrl;
 function footableSearchList(url) {
     var param = searchDataToJson();
     var page = $('#paging').val();
+    if(page == undefined){
+        page = 10;
+    }
     globalUrl = url;
     $.post(globalUrl, param, function (response) {
         $('.footable').footable({
@@ -13,19 +16,24 @@ function footableSearchList(url) {
                 "placeholder": "통합검색",
                 "delay": 300,
                 "min":1,
+                "container" : "#filter",
+                "position":"right",
                 "dropdownTitle": "Search in:"
             },
             "paging": {
                 "enabled": true,
                 "container" : ".pagination",
+
                 "size":page
+            },
+            "state": {
+                "enabled": true
             },
             "rows": response
         });
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
-        $('.footable-pagination-wrapper:eq(0)').remove();
-        $('.footable-empty').remove();
-        $('.input-group-btn').remove();
+
+
     });
 }
 
@@ -77,10 +85,13 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
 $(".footable").on("ready.ft.table",function(obj,e,ft,row){
     // 이거 지우면 footable 검색안되서 hide 처리..
     $('.input-group-btn').hide();
+
+
 });
 $(".tabfootable").on("ready.ft.table",function(obj,e,ft,row){
     // 이거 지우면 footable 검색안되서 hide 처리..
     $('.input-group-btn').hide();
+    $('.footable-pagination-wrapper .label').hide();
 });
 
 

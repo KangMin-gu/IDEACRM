@@ -170,16 +170,28 @@
                             <h5>서비스 목록</h5>
                         </div>
                         <div class="ibox-content">
-                            <c:choose>
-                                <c:when test="${fn:substring(urls, 0, 17)  eq '/service/delivery' }">
-                                    <a href="/serviceexcel?servicestep=5&servicestep=6" class="btn btn-default btn-sm"><i class="fa fa-file-excel-o"></i></a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="/serviceexcel" class="btn btn-default btn-sm"><i class="fa fa-file-excel-o"></i></a>
-                                </c:otherwise>
-                            </c:choose>
-
-                            <a href="/service/input" class="btn btn-default pull-right">추가</a>
+                            <div>
+                                <div style="display: inline-block;">
+                                    <select class="form-control" id="paging" style="width:80px">
+                                        <c:forEach var="paging" items="${PAGING}">
+                                            <option vale="${paging.codeval}">${paging.codename}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="pull-right" style="display: inline-block;">
+                                    <a href="/service/input" class="btn btn-default pull-right" style="margin-left: 5px;">추가</a>
+                                </div>
+                                <div class="pull-right"  style="display: inline-block;">
+                                    <c:choose>
+                                        <c:when test="${fn:substring(urls, 0, 17)  eq '/service/delivery' }">
+                                            <a href="/serviceexcel?servicestep=5&servicestep=6" class="btn btn-default"><i class="fa fa-file-excel-o"></i></a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="/serviceexcel" class="btn btn-default "><i class="fa fa-file-excel-o"></i></a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
                             <table class="footable table table-striped" data-sorting="true" >
                                 <thead>
                                 <tr>
@@ -199,14 +211,9 @@
                                 <tfoot>
                                 <tr>
                                     <td>
-                                        <select class="form-control" id="paging" style="width:80px">
-                                            <c:forEach var="paging" items="${PAGING}">
-                                                <option vale="${paging.codeval}">${paging.codename}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </td>
-                                    <td colspan="3">
-                                        <ul class="pagination pull-right"></ul>
+                                        <div class="footable-pagination-wrapper" style="text-align:right;">
+                                            <ul class="pagination"></ul>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tfoot>
@@ -228,7 +235,7 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>

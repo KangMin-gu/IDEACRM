@@ -56,9 +56,9 @@
                         <a href="/service" class="btn btn-default pull-left">목록</a>
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
-                            <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                            <button type="submit" class="btn btn-default pull-right">삭제</button>
-                            <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                            <a href="#" class="btn btn-default emailBtn" style="margin-left:10px;"><i class="fa fa-envelope fa-lg"></i></a>
+                            <button type="submit" class="btn btn-default pull-right" style="margin-left:5px;">삭제</button>
+                            <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right" style="margin-left:5px;">수정</a>
                             <button type="button" class="btn btn-default pull-right servicenext">이관</button>
                             </c:if>
                         </c:if>
@@ -210,6 +210,26 @@
                                                         <th>상담내용</th>
                                                         <td colspan="5" value="${serviceInfo.SERVICEDESC}">${serviceInfo.SERVICEDESC}</td>
                                                     </tr>
+                                                    <c:if test="${fn:length(fileInfo) > 0}">
+                                                        <tr>
+                                                            <td colspan="6">
+                                                                <div>
+                                                                    <p>
+                                                                        <span><i class="fa fa-paperclip"></i> 첨부파일 - </span>
+                                                                        <c:forEach var="file" items="${fileInfo}">
+                                                                            <a href="${pageContext.request.contextPath}/download/${file.FILEID}">${file.ORGFILENAME}</a>
+                                                                            |
+                                                                        </c:forEach>
+                                                                    </p>
+
+                                                                    <div class="attachment">
+                                                                        <div class="clearfix"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                    </c:if>
                                                 </tobdy>
                                             </table>
                                         </div>
@@ -321,7 +341,7 @@
                                             <th data-name="RACTDATE_">처리일</th>
                                             <th data-name="RACTTYPE_">처리유형</th>
                                             <th data-name="OWNER_">담당자</th>
-                                            <th data-name="RACTDESC">처리내용</th>
+                                            <th data-name="RACTDESC" data-breakpoints="xs sm md">처리내용</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -348,7 +368,7 @@
                                             <th data-name="CONVEYREASON_">이관사유</th>
                                             <th data-name="PREVOWNER_">이전담당자</th>
                                             <th data-name="NEXTOWNER_">이관 담당자</th>
-                                            <th data-name="CONVEYDESC">비고</th>
+                                            <th data-name="CONVEYDESC" data-breakpoints="xs sm md">비고</th>
                                         </tr>
                                         </thead>
                                         <tbody>

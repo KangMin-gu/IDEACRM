@@ -151,7 +151,19 @@
 						FROM sv300040 GROUP BY SERVICENO )
 		AND A.SERVICENO = #{serviceno}
 		AND A.SITEID = #{siteid}
+	</select>
 
+	<!-- 처리결과 popDetail -->
+	<select id="popRactDetail" parameterType="map" resultType="hashMap">
+		SELECT
+		DATE_FORMAT(A.RACTDATE,'%Y-%m-%d') AS RACTDATE_
+		, FN_GETCODE('SENDYN',A.SENDYN,#{siteid}) AS SENDYN_
+		, A.RACTDESC
+		, A.FILESEARCHKEY
+		, A.RACTNO
+		FROM sv300040 A
+		WHERE A.RACTNO =#{ractno}
+		AND A.SITEID = #{siteid}
 	</select>
 	<!-- 서비스 Insert -->
 	<insert id="serviceInsert" parameterType="serviceDto">
@@ -281,11 +293,11 @@
     	, CASE WHEN A.SENDYN = 0 THEN '미발송'
     		   WHEN A.SENDYN = 1 THEN '발송' END AS SENDYN_
     	,A.RACTDESC
+    	,A.RACTNO
     	FROM sv300040 A
     	WHERE A.SITEID = #{siteid}
     	AND A.SERVICENO = #{serviceno}
     	ORDER BY A.RACTNO DESC
-    	LIMIT 5
 	</select>
 
 	<select id="conveyList" parameterType="map" resultType="HashMap">

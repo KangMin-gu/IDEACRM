@@ -51,7 +51,7 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/service/input" method="POST">
+            <form:form action="/service/input" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-12">
                         <button type="submit" class="btn btn-default pull-left">저장</button>
@@ -293,19 +293,23 @@
                                                     </tr>
                                                     <tr>
                                                         <th>첨부파일</th>
-                                                        <td>
-                                                            <div class="fileinput fileinput-new"
-                                                                 data-provides="fileinput">
-                                                                <span class="btn btn-outline-secondary btn-file">
-                                                                    <span class="fileinput-new">파일선택</span>
-                                                                    <span class="fileinput-exists">변경</span>
-                                                                    <input type="file" name="...">
-                                                                </span>
-                                                                <span class="fileinput-filename"></span>
-                                                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                                        <td colspan="9">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-10">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <span class="btn btn-outline-secondary btn-file">
+                                                                            <span class="fileinput-new">파일선택</span>
+                                                                            <span class="fileinput-exists">변경</span>
+                                                                            <input id="files" type="file" class="fileChk" name="servicefile" multiple>
+                                                                        </span>
+                                                                        <span id="filesChk" class="fileinput-filename"></span>
+                                                                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>
+
                                                 </tobdy>
                                             </table>
                                         </div>

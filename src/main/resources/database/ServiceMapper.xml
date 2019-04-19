@@ -151,7 +151,19 @@
 						FROM sv300040 GROUP BY SERVICENO )
 		AND A.SERVICENO = #{serviceno}
 		AND A.SITEID = #{siteid}
+	</select>
 
+	<!-- 처리결과 popDetail -->
+	<select id="popRactDetail" parameterType="map" resultType="hashMap">
+		SELECT
+		DATE_FORMAT(A.RACTDATE,'%Y-%m-%d') AS RACTDATE_
+		, FN_GETCODE('SENDYN',A.SENDYN,#{siteid}) AS SENDYN_
+		, A.RACTDESC
+		, A.FILESEARCHKEY
+		, A.RACTNO
+		FROM sv300040 A
+		WHERE A.RACTNO =#{ractno}
+		AND A.SITEID = #{siteid}
 	</select>
 	<!-- 서비스 Insert -->
 	<insert id="serviceInsert" parameterType="serviceDto">
@@ -281,11 +293,11 @@
     	, CASE WHEN A.SENDYN = 0 THEN '미발송'
     		   WHEN A.SENDYN = 1 THEN '발송' END AS SENDYN_
     	,A.RACTDESC
+    	,A.RACTNO
     	FROM sv300040 A
     	WHERE A.SITEID = #{siteid}
     	AND A.SERVICENO = #{serviceno}
     	ORDER BY A.RACTNO DESC
-    	LIMIT 5
 	</select>
 
 	<select id="conveyList" parameterType="map" resultType="HashMap">
@@ -362,5 +374,45 @@
 			WHERE SERVICENO = #{serviceno}
 			AND SITEID = #{siteid};
 	</insert>
+
+	<select id="serviceCalList" parameterType="rewardDto" resultType="map">
+		SELECT
+			A.SERVICENO AS id
+			, CASE WHEN A.SERVICESTEP = 2 THEN CONCAT('[현상파악]', A.SERVICENAME)
+		  		   WHEN A.SERVICESTEP = 3 THEN CONCAT('[처리]' , A.SERVICENAME)
+		  		   WHEN A.SERVICESTEP = 5 THEN CONCAT('[이관]' , A.SERVICENAME)
+  		  		   WHEN A.SERVICESTEP = 6 THEN CONCAT('[상급자이관]' , A.SERVICENAME)
+		  		   WHEN A.SERVICESTEP = 9 THEN CONCAT('[종료]' , A.SERVICENAME) END AS title
+			, CASE WHEN A.SERVICESTEP = 2 THEN DATE_FORMAT(B.VISITDATE,'%Y-%m-%d')
+	  	   	   WHEN A.SERVICESTEP = 3 THEN DATE_FORMAT(C.RACTDATE,'%Y-%m-%d')
+		  		   WHEN A.SERVICESTEP = 5 THEN DATE_FORMAT(D.CONVEYDATE,'%Y-%m-%d')
+		  		   WHEN A.SERVICESTEP = 6 THEN DATE_FORMAT(D.CONVEYDATE,'%Y-%m-%d')
+	  	   	   WHEN A.SERVICESTEP = 9 THEN DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') END  'start'
+			, CASE WHEN A.SERVICESTEP = 2 THEN DATE_FORMAT(B.VISITDATE,'%Y-%m-%d')
+	  	   	   WHEN A.SERVICESTEP = 3 THEN DATE_FORMAT(C.RACTDATE,'%Y-%m-%d')
+		  		   WHEN A.SERVICESTEP = 5 THEN DATE_FORMAT(D.CONVEYDATE,'%Y-%m-%d')
+		  		   WHEN A.SERVICESTEP = 6 THEN DATE_FORMAT(D.CONVEYDATE,'%Y-%m-%d')
+	  	   	   WHEN A.SERVICESTEP = 9 THEN DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') END  'end'
+
+			, CASE WHEN A.SERVICESTEP = 2 THEN '#FF33CC'
+		 		   WHEN A.SERVICESTEP = 3 THEN '#CC33FF'
+	 	   	   WHEN A.SERVICESTEP = 5 THEN '#9933FF'
+	 	   	   WHEN A.SERVICESTEP = 6 THEN '#9933FF'
+	 	   	   WHEN A.SERVICESTEP = 9 THEN '#333333' END AS color
+			, CASE WHEN A.SERVICESTEP = 2 THEN B.REWARDDESC
+		 		   WHEN A.SERVICESTEP = 3 THEN C.RACTDESC
+		 		   WHEN A.SERVICESTEP = 5 THEN D.CONVEYDESC
+		 		   WHEN A.SERVICESTEP = 6 THEN D.CONVEYDESC
+		 		   WHEN A.SERVICESTEP = 9 THEN A.SERVICEDESC END AS 'desc'
+			,(SELECT USERNAME FROM me800010 WHERE USERNO = A.SERVICEOWNER) AS SERVICEOWNER_
+			,(SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS OWNER_
+		FROM sv300010 A
+		LEFT OUTER JOIN sv300030 B ON B.SERVICENO = A.SERVICENO
+		LEFT OUTER JOIN (SELECT * FROM sv300040 WHERE RACTNO IN (SELECT max(ractno) AS ractno FROM sv300040 group by serviceno )) C ON C.SERVICENO = A.SERVICENO
+		LEFT OUTER JOIN (SELECT * FROM sv300050 WHERE CONVEYNO IN (SELECT max(conveyno) AS conveyno FROM sv300050 group by serviceno )) D ON D.SERVICENO = A.SERVICENO
+		WHERE A.SITEID = #{siteid}
+		AND A.SERVICESTEP NOT IN (1,4)
+		AND A.ISDELETE = 0
+	</select>
 
 </mapper>

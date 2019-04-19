@@ -112,4 +112,10 @@ public class ServiceDaoImple implements ServiceDao {
     public void serviceDeliveryInsert(ServiceDeliveryDto serviceDeliveryDto) {
         session.insert("service.serviceDeliveryInsert",serviceDeliveryDto);
     }
+
+    @Override
+    public List<Map<String, Object>> serviceCalList(RewardDto rewardDto) {
+        List<Map<String,Object>> serviceCalList = session.selectList("service.serviceCalList",rewardDto);
+        return serviceCalList;
+    }
 }

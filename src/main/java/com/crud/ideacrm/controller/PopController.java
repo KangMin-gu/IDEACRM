@@ -4,7 +4,6 @@ import com.crud.ideacrm.crud.dto.MailDto;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dto.InsideNoticeDto;
 import com.crud.ideacrm.service.*;
-import com.crud.ideacrm.dto.CustDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -63,7 +62,7 @@ public class PopController {
     @RequestMapping(value="/popcust",method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authPopCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        List custList = custService.custList(request);
+        List<Map<String,Object>> custList = custService.custList(request);
         return custList;
     }
 
@@ -131,7 +130,7 @@ public class PopController {
         mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
         mView.addAllObjects( codeService.getCommonCode(SERVICEMENU));
         mView.addAllObjects( codeService.getCustomCode(SERVICEMENU,request));
-        mView.setViewName("page/popup/serviceDeliveryPop");
+        mView.setViewName("page/service/pop/serviceDeliveryPop");
         return mView;
     }
 

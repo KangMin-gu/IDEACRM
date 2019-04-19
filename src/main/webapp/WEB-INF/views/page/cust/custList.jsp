@@ -173,15 +173,24 @@
                             <h5>회원사 고객 목록</h5>
                         </div>
                         <div class="ibox-content">
-                            <button type="button" class="btn btn-sm excel"><i class="fa fa-file-excel-o"></i></button>
-                            <input type="hidden" id="excelUrl" value="/custexcel"/>
-                            <button class="btn btn-default pull-right" onclick="custMultyDelete();">삭제</button>
-                            <a class="btn btn-default pull-right" href="/cust/input" style="margin-left:10px;">추가</a>
-
-
+                            <div>
+                                <div style="display: inline-block;">
+                                    <select class="form-control" id="paging" style="width:80px">
+                                        <c:forEach var="paging" items="${PAGING}">
+                                            <option vale="${paging.codeval}">${paging.codename}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="pull-right" style="display: inline-block;">
+                                    <a class="btn btn-default pull-right" style="margin-left: 5px;" href="/cust/input">추가</a>
+                                    <button class="btn btn-default pull-right" style="margin-left: 5px;" onclick="custMultyDelete();">삭제</button>
+                                </div>
+                                <div class="pull-right"  style="display: inline-block;">
+                                    <button type="button" class="btn btn-default" id="test"><i class="fa fa-file-excel-o"></i></button>
+                                </div>
+                            </div>
                             <form class="deleteForm" action="/cust/del" method="post">
-                            <table class="footable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
-
+                            <table class="footable table table-striped"  data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
                                 <thead>
                                 <tr>
                                     <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
@@ -199,14 +208,9 @@
                                 <tfoot>
                                 <tr>
                                     <td>
-                                        <select class="form-control" id="paging" style="width:80px">
-                                            <c:forEach var="paging" items="${PAGING}">
-                                                <option vale="${paging.codeval}">${paging.codename}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </td>
-                                    <td colspan="9" style="text-align:right;">
-                                        <ul class="pagination pull-right"></ul>
+                                        <div class="footable-pagination-wrapper" style="text-align:right;">
+                                            <ul class="pagination"></ul>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tfoot>

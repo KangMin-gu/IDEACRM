@@ -163,9 +163,29 @@
                             <h5>서비스 목록</h5>
                         </div>
                         <div class="ibox-content">
-                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                            <a href="/service/input" class="btn btn-default pull-right">추가</a>
-                            <table class="footable table table-striped" data-sorting="true" >
+                            <div>
+                                <div style="display: inline-block;">
+                                    <select class="form-control" id="paging" style="width:80px">
+                                        <c:forEach var="paging" items="${PAGING}">
+                                            <option vale="${paging.codeval}">${paging.codename}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="pull-right" style="display: inline-block;">
+                                    <a href="/service/input" class="btn btn-default pull-right" style="margin-left: 5px;">추가</a>
+                                </div>
+                                <div class="pull-right"  style="display: inline-block;">
+                                    <c:choose>
+                                        <c:when test="${fn:substring(urls, 0, 17)  eq '/service/delivery' }">
+                                            <a href="/serviceexcel?servicestep=5&servicestep=6" class="btn btn-default"><i class="fa fa-file-excel-o"></i></a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="/serviceexcel" class="btn btn-default "><i class="fa fa-file-excel-o"></i></a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                            <table class="footable table table-striped" data-paging-position="left" data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">서비스번호</th>
@@ -183,14 +203,9 @@
                                 <tfoot>
                                 <tr>
                                     <td>
-                                        <select class="form-control" id="paging" style="width:80px">
-                                            <c:forEach var="paging" items="${PAGING}">
-                                                <option vale="${paging.codeval}">${paging.codename}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </td>
-                                    <td colspan="3">
-                                        <ul class="pagination pull-right"></ul>
+                                        <div class="footable-pagination-wrapper">
+                                            <ul class="pagination"></ul>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tfoot>
@@ -222,15 +237,6 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#search').click(function(e){
-            var bool = dateRangeError();
-            if(bool){
-                footableSearchList('/service');
-            }
-        });
-        footableSearchList('/service');
-    });
 </script>
 </body>
 </html>

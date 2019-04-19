@@ -31,20 +31,13 @@
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
                 <h2>서비스 관리</h2>
-                <c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
                 <ol class="breadcrumb">
-                    <c:choose>
-                        <c:when test="${fn:substring(urls, 0, 17)  eq '/service/delivery' }">
-                            <li class="breadcrumb-item active">
-                                <strong>서비스 이관 목록</strong>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="breadcrumb-item active">
-                                <strong>서비스 목록</strong>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/">메인</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>서비스 목록</strong>
+                    </li>
                 </ol>
             </div>
             <div class="col-lg-2">
@@ -192,20 +185,19 @@
                                     </c:choose>
                                 </div>
                             </div>
-                            <table class="footable table table-striped" data-sorting="true" >
+                            <table class="footable table table-striped" data-paging-position="left" data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
                                 <thead>
                                 <tr>
-                                    <th data-visible="false" data-name="NO">서비스번호</th>
+                                    <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">서비스번호</th>
                                     <th data-visible="false" data-name="URL">URL</th>
-                                    <th data-name="SERVICENAME_" data-formatter="formatter" >서비스명</th>
-                                    <th data-name="SERVICETYPE_" data-breakpoints="xs sm" >접수구분</th>
-                                    <th data-name="SERVICECODE_" data-breakpoints="xs sm" >접수유형</th>
-                                    <th data-name="CUSTNAME_" data-breakpoints="xs sm" >고객명</th>
-                                    <th data-name="RECEPTIONDATE_" data-breakpoints="xs sm" >접수일</th>
-                                    <th data-name="SERVICEOWNER_" data-breakpoints="xs sm" >접수자</th>
-                                    <th data-name="OWNER_" data-breakpoints="xs sm" >담당자</th>
-                                    <th data-name="SERVICESTEP_" >처리상태</th>
-                                    <th data-name="EDTDATE" data-visible="false" data-sorted="true" data-direction="DESC">수정일</th>
+                                    <th data-name="SERVICENAME_" data-formatter="formatter">서비스명</th>
+                                    <th data-name="SERVICETYPE_" data-breakpoints="xs sm">접수구분</th>
+                                    <th data-name="SERVICECODE_" data-breakpoints="xs sm">접수유형</th>
+                                    <th data-name="CUSTNAME_" data-breakpoints="xs sm">고객명</th>
+                                    <th data-name="RECEPTIONDATE_" data-breakpoints="xs sm">접수일</th>
+                                    <th data-name="SERVICEOWNER_" data-breakpoints="xs sm">접수자</th>
+                                    <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
+                                    <th data-name="SERVICESTEP_">처리상태</th>
                                 </tr>
                                 </thead>
                                 <tfoot>

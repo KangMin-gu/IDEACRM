@@ -55,7 +55,7 @@ function tabFootableSearchList(id,url) {
                 "min":1,
             },
             "paging": {
-               "enabled": true,
+                "enabled": true,
                 "container" : pagination,
                 "size":page
             },
@@ -85,6 +85,7 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
 $(".footable").on("ready.ft.table",function(obj,e,ft,row){
     // 이거 지우면 footable 검색안되서 hide 처리..
     $('.input-group-btn').hide();
+    $('.footable-pagination-wrapper .label').hide();
 
 
 });

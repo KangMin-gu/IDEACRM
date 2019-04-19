@@ -52,6 +52,7 @@ public class ExcelDownLoad {
 			return "";
 		}
 	}
+	// 파일 서치키 생성
 	public String fileSearchKey(HttpServletRequest request) {
 		int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 		Calendar calendar = Calendar.getInstance();

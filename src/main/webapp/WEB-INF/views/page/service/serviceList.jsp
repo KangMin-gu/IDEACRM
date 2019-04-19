@@ -211,7 +211,7 @@
                                 <tfoot>
                                 <tr>
                                     <td>
-                                        <div class="footable-pagination-wrapper" style="text-align:right;">
+                                        <div class="footable-pagination-wrapper">
                                             <ul class="pagination"></ul>
                                         </div>
                                     </td>
@@ -235,7 +235,7 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>

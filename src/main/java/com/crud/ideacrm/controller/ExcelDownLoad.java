@@ -29,20 +29,7 @@ public class ExcelDownLoad {
 
 	@Autowired
 	private CustExcelImple custExcel;
-	/*
-	@Autowired
-	private AuDao auDao;
-	@Autowired
-	private CompanyDao companyDao;
-	@Autowired
-	private SvDao svDao;
-	@Autowired
-	private SalesDao saDao;
-	@Autowired
-	private ClientDao cliDao;
-	@Autowired
-	private CampaignDao campaignDao;
-	*/
+
 
 	//임시 메서드. getMapValueNullCheck, fileSearchKey 엔진단으로 빠질예정
 	public String getMapValueNullCheck(Map target, String key) {

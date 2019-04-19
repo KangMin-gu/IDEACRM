@@ -151,4 +151,11 @@ public class CustServiceImple implements CustService{
         return res;
     }
 
+    @Override
+    public List<Map<String, Object>> GetCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+
+
+        return null;
+    }
+
 }

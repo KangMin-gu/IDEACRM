@@ -304,7 +304,7 @@
                                         <div class="tab-content">
                                             <div role="tabpanel" id="tab-1" class="tab-pane active" url="/service" >
                                                 <div class="panel-body">
-                                                    <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true">
+                                                    <table class="tabfootable table table-stripped">
                                                         <thead>
                                                         <tr>
                                                             <th data-visible="false" data-name="SERVICENO">서비스번호</th>
@@ -441,6 +441,99 @@
                                                 </div>
                                             </div>
                                             </c:if>
+
+                                            <div role="tabpanel" id="tab-4" class="tab-pane" url="/cust/tab/mail/${custDetail.CUSTNO}">
+                                                <div class="panel-body">
+                                                    <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Rendering engine</th>
+                                                            <th>Browser</th>
+                                                            <th data-hide="phone,tablet">Platform(s)</th>
+                                                            <th data-hide="phone,tablet">Engine version</th>
+                                                            <th data-hide="phone,tablet">CSS grade</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="10" style="text-align:right;">
+                                                                <ul class="pagination pull-right"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" id="tab-4" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+                                                    <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Rendering engine</th>
+                                                            <th>Browser</th>
+                                                            <th data-hide="phone,tablet">Platform(s)</th>
+                                                            <th data-hide="phone,tablet">Engine version</th>
+                                                            <th data-hide="phone,tablet">CSS grade</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr class="gradeX">
+                                                            <td>Trident</td>
+                                                            <td>Internet
+                                                                Explorer 4.0
+                                                            </td>
+                                                            <td>Win 95+</td>
+                                                            <td class="center">4</td>
+                                                            <td class="center">X</td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <ul class="pagination float-right"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" id="tab-4" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+                                                    <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Rendering engine</th>
+                                                            <th>Browser</th>
+                                                            <th data-hide="phone,tablet">Platform(s)</th>
+                                                            <th data-hide="phone,tablet">Engine version</th>
+                                                            <th data-hide="phone,tablet">CSS grade</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr class="gradeX">
+                                                            <td>Trident</td>
+                                                            <td>Internet
+                                                                Explorer 4.0
+                                                            </td>
+                                                            <td>Win 95+</td>
+                                                            <td class="center">4</td>
+                                                            <td class="center">X</td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <ul class="pagination float-right"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>

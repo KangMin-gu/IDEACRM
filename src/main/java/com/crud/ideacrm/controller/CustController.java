@@ -45,7 +45,9 @@ public class CustController {//
     @RequestMapping(value = "/cust", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> authGetCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        return custService.custList(request);
+        List<Map<String,Object>> custList = custService.custList(request);
+        System.out.println("@@@@@@@@@@@@@@@@사이즈즈즈"+custList.size());
+        return custList;
     }
 
     //고객상세
@@ -100,12 +102,6 @@ public class CustController {//
         return "redirect:/cust";
     }
 
-    //고객상세 서비스 탭
-    @RequestMapping(value="/cust/tab/service/{custno}",method=RequestMethod.POST)
-    @ResponseBody
-    public List<Map<String,Object>> authTabRactList(HttpServletRequest request,@PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
-        return serviceService.serviceList(request);
-    }
 
 
 }

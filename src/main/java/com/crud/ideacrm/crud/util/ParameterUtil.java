@@ -61,4 +61,12 @@ public class ParameterUtil {
         columnUnion = codecUtil.encoding(columnUnion);
         return columnUnion;
     }
+
+    public String getMapValueNullCheck(Map target, String key) {
+        if(target.get(key) != null) {
+            return target.get(key).toString();
+        }else {
+            return "";
+        }
+    }
 }

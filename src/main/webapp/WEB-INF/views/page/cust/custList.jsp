@@ -96,7 +96,7 @@
                                                     </c:forEach>
                                                 </select>
                                             </td>
-                                            <th>활동등급</th>
+                                           <!-- <th>활동등급</th>
                                             <td>
                                                 <select class="form-control searchparam" style="width:100px;" id="actgrade" name="actgrade">
                                                     <option value="">선택</option>
@@ -104,7 +104,7 @@
                                                         <option value="${ACTGRADE.codeval}">${ACTGRADE.codename}</option>
                                                     </c:forEach>
                                                 </select>
-                                            </td>
+                                            </td>-->
                                             <th>정보활용</th>
                                             <td>
                                                 <select class="form-control searchparam" style="width:100px;" id="infoagree" name="infoagree">
@@ -124,14 +124,14 @@
                                             <td>
                                                 <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="custname" name="custname" data-filterable="true">
                                             </td>
-                                            <th>휴대전화</th>
+                                            <!--<th>휴대전화</th>
                                             <td>
                                                 <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="mobile" name="mobile">
                                             </td>
                                             <th>이메일</th>
                                             <td>
                                                 <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="email" name="email">
-                                            </td>
+                                            </td>-->
                                             <th>직장명</th>
                                             <td>
                                                 <div class="input-group">
@@ -152,8 +152,8 @@
                                                     </span>
                                                 </div>
                                             </td>
-
-                                            <td>
+                                            <td colspan="2" style="width:300px;" ></td>
+                                            <td >
                                                 <button type="button" class="btn btn-w-m btn-default" id="reset">초기화</button>
                                             </td>
                                         </tr>
@@ -173,9 +173,11 @@
                             <h5>회원사 고객 목록</h5>
                         </div>
                         <div class="ibox-content">
-                            <button type="button" class="btn btn-sm" id="test"><i class="fa fa-file-excel-o"></i></button>
-                            <a class="btn btn-default pull-right" href="/cust/input">추가</a>
+                            <button type="button" class="btn btn-sm excel"><i class="fa fa-file-excel-o"></i></button>
+                            <input type="hidden" id="excelUrl" value="/custexcel"/>
                             <button class="btn btn-default pull-right" onclick="custMultyDelete();">삭제</button>
+                            <a class="btn btn-default pull-right" href="/cust/input" style="margin-left:10px;">추가</a>
+
 
                             <form class="deleteForm" action="/cust/del" method="post">
                             <table class="footable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-empty="">
@@ -184,8 +186,8 @@
                                 <tr>
                                     <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
                                     <th data-name="CUSTNAME" data-formatter="custListFormatter" data-filterable="true">고객명</th>
-                                    <th data-name="CLINAME" data-breakpoints="xs sm" data-filterable="true">직장</th>
-                                    <th data-name="DEPTNAME" data-breakpoints="xs sm" data-filterable="true">부서</th>
+                                    <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
+                                    <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
                                     <th data-name="MOBILE" data-breakpoints="xs sm" data-filterable="true">휴대폰</th>
                                     <th data-name="EMAIL" data-breakpoints="xs sm" data-filtering="false">이메일</th>
                                     <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
@@ -195,13 +197,18 @@
                                 </tr>
                                 </thead>
                                 <tfoot>
-                                    <tr>
-                                        <td>
-                                            <div class="footable-pagination-wrapper">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        <select class="form-control" id="paging" style="width:80px">
+                                            <c:forEach var="paging" items="${PAGING}">
+                                                <option vale="${paging.codeval}">${paging.codename}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </td>
+                                    <td colspan="9" style="text-align:right;">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
                                 </tfoot>
                             </table>
                             </form>

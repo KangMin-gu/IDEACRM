@@ -1,13 +1,10 @@
 package com.crud.ideacrm.excel;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 
-@Controller
-public class CustExcel {
-
-    private static final Logger logger = LoggerFactory.getLogger(ServiceExcel.class);
-
-
+public interface CustExcel {
+    public void custListExcelDownload(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, GeneralSecurityException;
 }

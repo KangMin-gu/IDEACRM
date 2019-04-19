@@ -35,6 +35,11 @@ $('.insideNoticeBtn').click(function(){
 $('.kakaoBtn').click(function(){
     window.open("/popkakao", "카카오발송","width=450px, height=600px");
 });
+$('.excel').click(function(e){
+    var url = $('#excelUrl').val();//엑셀 페이지에 url이 담긴 히든값 셋팅 필요
+    var searchPrmJson = jQuery.param(searchDataToJson());
+    window.location.href = url + '?' + searchPrmJson;
+});
 
 var newWindow = null;
 // 부모 window 가 실행

@@ -26,6 +26,11 @@ public class ServiceServiceImple implements ServiceService{
         ParameterUtil parameterUtil = new ParameterUtil();
 
         Map<String,Object> param = parameterUtil.searchParam(request);
+        if( param.get("custno") != null ){
+            String custno = (String)param.get("custno");
+            custno = codecUtil.decodePkNo(custno);
+            param.put("custno",custno);
+        }
 
         List<Map<String,Object>> svList = serviceDao.serviceList(param);
 

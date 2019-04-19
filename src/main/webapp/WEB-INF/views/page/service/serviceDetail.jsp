@@ -360,7 +360,7 @@
 
                             <div role="tabpanel" id="tab-5" url="/service/tab/delivery/${serviceInfo.SERVICENO}" class="tab-pane">
                                 <div class="panel-body">
-                                    <table class="tabfootable table table-stripped"  data-sorting="true">
+                                    <table class="tabfootable table table-striped"  data-sorting="true">
                                         <thead>
                                         <tr>
                                             <th data-visible="false" data-name="CONVEYLNO">이관번호</th>

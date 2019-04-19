@@ -31,7 +31,7 @@
     </select>
 
     <insert id="shareViewMail" parameterType="emailDto" statementType="CALLABLE">
-        {call shareViewInsideMail(#{toemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{fromemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{subject, mode=IN, jdbcType=VARCHAR, javaType=string},#{content, mode=IN, jdbcType=VARCHAR, javaType=string},#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string},#{linkurl, mode=IN, jdbcType=VARCHAR, javaType=string),#{userno, mode=IN, jdbcType=INTEGER, javaType=int) }
+        {call shareViewInsideMail(#{toemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{fromemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{subject, mode=IN, jdbcType=VARCHAR, javaType=string},#{content, mode=IN, jdbcType=VARCHAR, javaType=string},#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string},#{linkurl, mode=IN, jdbcType=VARCHAR, javaType=string},#{userno, mode=IN, jdbcType=INTEGER, javaType=int},#{cstname, mode=IN, jdbcType=VARCHAR, javaType=string},#{username, mode=IN, jdbcType=VARCHAR, javaType=string}) }
     </insert>
 <!--
     <select id="pwdChangeMail" parameterType="hashMap" resultType="hashmap" statementType="CALLABLE">

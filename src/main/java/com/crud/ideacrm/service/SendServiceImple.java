@@ -65,6 +65,7 @@ public class SendServiceImple implements SendService {
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         mailDto.setSiteid(siteId);
         mailDto.setUserno(userNo);
+
         Map<String, Object> userInfo = loginDao.userInfo(userNo);
         String formemail = codecUtil.decodePkNo(userInfo.get("EMAIL").toString());
 
@@ -89,14 +90,21 @@ public class SendServiceImple implements SendService {
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         insDto.setSiteid(siteId);
         insDto.setFromuserno(userNo);
+        String content = insDto.getContent();
+        String title = insDto.getTitle();
+
         MailDto mailDto = new MailDto();
+        mailDto.setSubject(title);
+        mailDto.setContent(content);
+        mailDto.setLinkurl(insDto.getLinkurl());
+        mailDto.setSiteid(siteId);
         mailDto.setUserno(userNo);
         //발송인정보
         Map<String, Object> userInfo = loginDao.userInfo(userNo);
-        mailDto.setFromemail(userInfo.get("EMAIL").toString());
-        mailDto.setSubject(insDto.getTitle());
-        mailDto.setContent(insDto.getContent());
-
+        mailDto.setUsername(userInfo.get("USERNAME").toString());
+        String cyfromemail = userInfo.get("EMAIL").toString();
+        String defromemail = codecUtil.decodePkNo(cyfromemail);
+        mailDto.setFromemail(defromemail);
 
         //파일업로드
         List<MultipartFile> mFile = insDto.getFile();
@@ -120,6 +128,7 @@ public class SendServiceImple implements SendService {
 
             //수신인 이메일취득
             Map<String, Object> touserInfo = loginDao.userInfo(toUserNo);
+            mailDto.setCstname(touserInfo.get("USERNAME").toString());
             String cytoemail = touserInfo.get("EMAIL").toString();
             String detoemail = codecUtil.decodePkNo(cytoemail);
             mailDto.setToemail(detoemail);

@@ -24,11 +24,12 @@ public class MailDto {
     private int formatnum;
     private String custno;
     private int userno;
+    private String linkurl;
     private List<MultipartFile> file; //Spring 에서 파일 업로드 처리하기 위해
 
     public MailDto(){}
 
-    public MailDto(int emaillogid, int siteid, String cstname, String username, String fromemail, String toemail, String subject, String content, String filesearchkey, String rltdate, int clickyn, int linkyn, int reserv, int emailtype, int rltcode, int formatnum, String custno, int userno, List<MultipartFile> file) {
+    public MailDto(int emaillogid, int siteid, String cstname, String username, String fromemail, String toemail, String subject, String content, String filesearchkey, String rltdate, int clickyn, int linkyn, int reserv, int emailtype, int rltcode, int formatnum, String custno, int userno, String linkurl, List<MultipartFile> file) {
         this.emaillogid = emaillogid;
         this.siteid = siteid;
         this.cstname = cstname;
@@ -47,6 +48,7 @@ public class MailDto {
         this.formatnum = formatnum;
         this.custno = custno;
         this.userno = userno;
+        this.linkurl = linkurl;
         this.file = file;
     }
 
@@ -192,6 +194,14 @@ public class MailDto {
 
     public void setUserno(int userno) {
         this.userno = userno;
+    }
+
+    public String getLinkurl() {
+        return linkurl;
+    }
+
+    public void setLinkurl(String linkurl) {
+        this.linkurl = linkurl;
     }
 
     public List<MultipartFile> getFile() {

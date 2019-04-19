@@ -504,7 +504,7 @@
                                                             <th>Browser</th>
                                                             <th data-hide="phone,tablet">Platform(s)</th>
                                                             <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
+                                                            <th data-hide="phone,tablet">CSS </th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>

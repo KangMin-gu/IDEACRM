@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.crud.ideacrm.crud.dto.MailDto;
+import com.crud.ideacrm.dto.InsideNoticeDto;
 import com.crud.ideacrm.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -58,5 +59,10 @@ public class MailDaoImpl implements MailDao {
     @Override
     public void emailSend(MailDto mailDto) {
         session.insert("email.mailsend", mailDto);
+    }
+
+    @Override
+    public void shareViewInsideNotice(InsideNoticeDto insDto) {
+        session.insert("email.shareViewMail",insDto);
     }
 }

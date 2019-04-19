@@ -32,7 +32,7 @@ public class MailScheduler {
 
 
     //@Scheduled(cron="*/30 * * * * *")
-    //@Scheduled(cron="*/10 * * * * *")//삭제 후 윗코드 주석 제거 요망
+    @Scheduled(cron="*/10 * * * * *")//삭제 후 윗코드 주석 제거 요망
     public void sendmail() throws Exception {
         boolean isValid = false;
 
@@ -60,7 +60,7 @@ public class MailScheduler {
             String ccEmail =  (String) list.get(i).get("CCEMAIL"); //참조
             String bccEmail =  (String) list.get(i).get("BCCEMAIL"); //숨은참조
             int emailLogId = Integer.parseInt(list.get(i).get("EMAILLOGID").toString()); //이메일로그
-            String fileSearchKey = list.get(i).get("FILESEARCHKEY").toString();
+            String fileSearchKey = (String)list.get(i).get("FILESEARCHKEY");
             String sendDate = list.get(i).get("RLTDATE").toString();
             emailDto.setEmaillogid(emailLogId);
 

@@ -68,7 +68,7 @@
                         <tr>
                             <th>내용</th>
                             <td>
-                                <textarea id="content" name="content"></textarea>
+                                <textarea class="tinymce" id="content" name="content"></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -102,17 +102,12 @@
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script>
     $(document).ready(function() {
-        tinymce.init({
-            selector: '#content',
-            height : 400,
-            language:'ko_KR'
-        });
-
         var custName = opener.$('#custname').text();
         var custNo = opener.$('#custno').val();
         var email = opener.$('#email').text();

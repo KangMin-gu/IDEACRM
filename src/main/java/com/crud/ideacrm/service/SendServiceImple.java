@@ -103,9 +103,10 @@ public class SendServiceImple implements SendService {
             insDto.setTouserno(toUserNo);
             //수신인 통지발송
             insnd.to(insDto);
+
+            mailDao.shareViewInsideNotice(insDto);
         }
 
-        //메일발송로직구현예정
 
     }
 }

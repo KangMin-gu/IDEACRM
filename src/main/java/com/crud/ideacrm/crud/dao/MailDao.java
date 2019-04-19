@@ -1,6 +1,7 @@
 package com.crud.ideacrm.crud.dao;
 
 import com.crud.ideacrm.crud.dto.MailDto;
+import com.crud.ideacrm.dto.InsideNoticeDto;
 import com.crud.ideacrm.dto.UserDto;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface MailDao {
     public List<Map<String, Object>> files(String fileSearchKey);
     public void PwdChangeMailProcedure(Map<String, Object> userVal);
     public void emailSend(MailDto mailDto);
+    public void shareViewInsideNotice(InsideNoticeDto insDto);
+
 
     public void mailClick(MailDto emailDto);
     public void mailDeny(MailDto emailDto);

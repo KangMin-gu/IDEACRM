@@ -100,8 +100,10 @@ public class UserServiceImple implements UserService {
         userNo = codecUtil.decodePkNo(userNo);
         userDto.setEncodingUserDto();
         userDto.setUserno(userNo);
-        //String enCodePass = encoder.encode(userDto.getUserpassword());
-        //userDto.setUserpassword(enCodePass);
+        if(userDto.getUserpassword() != null){
+            String enCodePass = encoder.encode(userDto.getUserpassword());
+            userDto.setUserpassword(enCodePass);
+        }
         userDao.userUpdate(userDto);
     }
 }

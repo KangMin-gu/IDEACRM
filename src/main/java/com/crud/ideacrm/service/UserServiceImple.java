@@ -24,7 +24,7 @@ public class UserServiceImple implements UserService {
     private CodecUtil codecUtil;
     @Autowired
     private PasswordEncoder encoder;
-
+// 사용자 List
     @Override
     public List<Map<String, Object>> userList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ParameterUtil parameterUtil = new ParameterUtil();

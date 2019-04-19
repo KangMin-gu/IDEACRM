@@ -331,7 +331,7 @@
                                         <div class="tab-content">
                                             <div role="tabpanel" id="tab-1" class="tab-pane active" url="/service" >
                                                 <div class="panel-body">
-                                                    <table class="tabfootable table table-stripped"  data-sorting="true">
+                                                    <table class="tabfootable table table-striped"  data-sorting="true">
                                                         <thead>
                                                         <tr>
                                                             <th data-visible="false" data-name="SERVICENO">서비스번호</th>
@@ -361,7 +361,7 @@
                                             <c:if test="${sessionScope.CHKAUTH eq '30' }">
                                             <div role="tabpanel" id="tab-2" class="tab-pane">
                                                 <div class="panel-body">
-                                                    <table class="footable2 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                    <table class="footable2 table table-striped" data-page-size="8" data-filter=#filter>
                                                         <thead>
                                                         <tr>
                                                             <th>Rendering engine</th>
@@ -393,7 +393,7 @@
                                             </div>
                                             <div role="tabpanel" id="tab-3" class="tab-pane">
                                                 <div class="panel-body">
-                                                    <table class="footable3 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                    <table class="footable3 table table-striped" data-page-size="8" data-filter=#filter>
                                                         <thead>
                                                         <tr>
                                                             <th>Rendering engine</th>
@@ -436,7 +436,7 @@
                                             <div role="tabpanel" id="tab-4" class="tab-pane">
                                                 <div class="panel-body">
                                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                                    <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                    <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
                                                         <thead>
                                                         <tr>
                                                             <th>Rendering engine</th>
@@ -471,7 +471,7 @@
 
                                             <div role="tabpanel" id="tab-5" class="tab-pane" url="/cust/tab/mail">
                                                 <div class="panel-body">
-                                                    <table class="tabfootable table table-stripped">
+                                                    <table class="tabfootable table table-striped">
                                                         <thead>
                                                         <tr>
                                                             <th data-visible="false" data-name="EMAILLOGID">서비스번호</th>
@@ -497,7 +497,7 @@
                                             <div role="tabpanel" id="tab-6" class="tab-pane">
                                                 <div class="panel-body">
                                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                                    <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                    <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
                                                         <thead>
                                                         <tr>
                                                             <th>Rendering engine</th>
@@ -531,7 +531,7 @@
                                             <div role="tabpanel" id="tab-7" class="tab-pane">
                                                 <div class="panel-body">
                                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                                    <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                    <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
                                                         <thead>
                                                         <tr>
                                                             <th>Rendering engine</th>

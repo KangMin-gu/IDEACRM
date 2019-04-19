@@ -7,7 +7,7 @@
     </insert>
 
     <insert id="mailsend" parameterType="emailDto" statementType="CALLABLE">
-        {call CustmailSend(#{toemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{subject, mode=IN, jdbcType=VARCHAR, javaType=string},#{content, mode=IN, jdbcType=VARCHAR, javaType=string},#{formatnum, mode=IN, jdbcType=INTEGER, javaType=int},#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{userno, mode=IN, jdbcType=INTEGER, javaType=int},#{custno, mode=IN, jdbcType=VARCHAR, javaType=string},#{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string})}
+        {call CustmailSend(#{toemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{fromemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{subject, mode=IN, jdbcType=VARCHAR, javaType=string},#{content, mode=IN, jdbcType=VARCHAR, javaType=string},#{formatnum, mode=IN, jdbcType=INTEGER, javaType=int},#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{userno, mode=IN, jdbcType=INTEGER, javaType=int},#{custno, mode=IN, jdbcType=VARCHAR, javaType=string},#{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string})}
     </insert>
 
     <select id="allTarget" parameterType="hashMap" resultType="hashmap">
@@ -30,8 +30,8 @@
         SELECT FILESEARCHKEY, SAVEFILENAME, PATH, ORGFILENAME, FILEID FROM sys990030 WHERE FILESEARCHKEY = #{filesearchkey}
     </select>
 
-    <insert id="shareViewMail" parameterType="insideNoticeDto" statementType="CALLABLE">
-        {call shareViewInsideMail(#{touserno, jdbcType=INTEGER, javaType=int}, #{fromuserno, jdbcType=INTEGER, javaType=int}, #{linkurl, mode=IN, jdbcType=VARCHAR, javaType=string}, #{title, mode=IN, jdbcType=VARCHAR, javaType=string}, #{content, mode=IN, jdbcType=VARCHAR, javaType=string}, #{siteid, mode=IN, jdbcType=INTEGER, javaType=int}, #{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string}) }
+    <insert id="shareViewMail" parameterType="emailDto" statementType="CALLABLE">
+        {call shareViewInsideMail(#{toemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{fromemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{subject, mode=IN, jdbcType=VARCHAR, javaType=string},#{content, mode=IN, jdbcType=VARCHAR, javaType=string},#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string},#{linkurl, mode=IN, jdbcType=VARCHAR, javaType=string},#{userno, mode=IN, jdbcType=INTEGER, javaType=int},#{cstname, mode=IN, jdbcType=VARCHAR, javaType=string},#{username, mode=IN, jdbcType=VARCHAR, javaType=string}) }
     </insert>
 <!--
     <select id="pwdChangeMail" parameterType="hashMap" resultType="hashmap" statementType="CALLABLE">

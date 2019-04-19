@@ -62,7 +62,7 @@ public class MailDaoImpl implements MailDao {
     }
 
     @Override
-    public void shareViewInsideNotice(InsideNoticeDto insDto) {
-        session.insert("email.shareViewMail",insDto);
+    public void shareViewInsideNotice(MailDto mailDto) {
+        session.insert("email.shareViewMail",mailDto);
     }
 }

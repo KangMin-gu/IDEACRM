@@ -24,4 +24,10 @@ public class LoginDaoImple implements LoginDao{
         
     }
 
+    @Override
+    public Map<String, Object> userInfo(int userNo) {
+        Map<String, Object> urInfo = session.selectOne("login.userInfo",userNo);
+        return urInfo;
+    }
+
 }

@@ -54,6 +54,7 @@ public class UserController {
         return mView;
     }
 
+    // 회원가입
     @RequestMapping(value="/company/user/input",method=RequestMethod.POST)
     public ModelAndView companyUserInsertSet(HttpServletRequest request, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();

@@ -3,9 +3,6 @@ var globalUrl;
 function footableSearchList(url) {
     var param = searchDataToJson();
     var page = $('#paging').val();
-    if(page == undefined){
-        page = 10;
-    }
     globalUrl = url;
     $.post(globalUrl, param, function (response) {
         $('.footable').footable({
@@ -16,24 +13,20 @@ function footableSearchList(url) {
                 "placeholder": "통합검색",
                 "delay": 300,
                 "min":1,
-                "container" : "#filter",
-                "position":"right",
                 "dropdownTitle": "Search in:"
             },
             "paging": {
                 "enabled": true,
                 "container" : ".pagination",
-
+                "position":"center",
                 "size":page
-            },
-            "state": {
-                "enabled": true
             },
             "rows": response
         });
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
-
-
+        $('.footable-pagination-wrapper:eq(0)').remove();
+        $('.footable-empty').remove();
+        $('.input-group-btn').remove();
     });
 }
 
@@ -55,7 +48,7 @@ function tabFootableSearchList(id,url) {
                 "min":1,
             },
             "paging": {
-                "enabled": true,
+               "enabled": true,
                 "container" : pagination,
                 "size":page
             },
@@ -64,6 +57,7 @@ function tabFootableSearchList(id,url) {
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();
         $('.footable-empty').remove();
+        $('.input-group-btn').remove();
     });
 };
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
@@ -71,7 +65,7 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
         popParentNameClick($(obj.target.parentElement));
     }
     else if(globalUrl == '/popcust'){
-        parentCustname($(obj.target.parentElement));
+        popParentNameClick($(obj.target.parentElement));
     }
     else if(globalUrl == '/popaccount'){
         popParentNameClick($(obj.target.parentElement));
@@ -83,16 +77,10 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
 
 // footable이 실행되고 나서 검색창의 지저분한 button 삭제
 $(".footable").on("ready.ft.table",function(obj,e,ft,row){
-    // 이거 지우면 footable 검색안되서 hide 처리..
-    $('.input-group-btn').hide();
-    $('.footable-pagination-wrapper .label').hide();
-
-
+    $('.input-group-btn').remove();
 });
 $(".tabfootable").on("ready.ft.table",function(obj,e,ft,row){
-    // 이거 지우면 footable 검색안되서 hide 처리..
-    $('.input-group-btn').hide();
-    $('.footable-pagination-wrapper .label').hide();
+    $('.input-group-btn').remove();
 });
 
 

@@ -237,7 +237,6 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script>
-
 </script>
 </body>
 </html>

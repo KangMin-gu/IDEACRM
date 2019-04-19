@@ -16,12 +16,6 @@
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
 </head>
 <style>
-    th{
-        background-color: #f5f6f7;
-    }
-    .denny{
-        background-color: #f3f1f0;
-    }
 </style>
 <body>
 

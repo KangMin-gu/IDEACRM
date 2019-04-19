@@ -334,12 +334,11 @@
                         <div class="tab-content">
                             <div role="tabpanel" id="tab-4" url="/service/tab/ract/${serviceInfo.SERVICENO}" class="tab-pane active">
                                 <div class="panel-body">
-                                    <table class="tabfootable table table-stripped">
+                                    <table class="tabfootable table table-striped">
                                         <thead>
                                         <tr>
                                             <th data-visible="false" data-name="RACTNO">처리번호</th>
                                             <th data-name="RACTDATE_">처리일</th>
-                                            <th data-name="RACTTYPE_">처리유형</th>
                                             <th data-name="OWNER_">담당자</th>
                                             <th data-name="RACTDESC" data-breakpoints="xs sm md">처리내용</th>
                                         </tr>

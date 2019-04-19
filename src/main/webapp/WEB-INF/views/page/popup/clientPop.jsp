@@ -30,22 +30,7 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <tr>
-                                <th>거래처명</th>
-                                <td>
-                                    <div class="input-group" style="width:230px;">
-                                        <input class="form-control form-control-sm searchparam" name="cliname" id="cliname" type="text" />
-                                        <button type="button" id="search" class="btn btn-primary">검색</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <table class="footable table table-stripped" data-sorting="true">
+                    <table class="footable table table-striped" data-sorting="true">
                         <thead>
                         <tr>
                             <th data-visible="false" data-name="CLINO">고객번호</th>

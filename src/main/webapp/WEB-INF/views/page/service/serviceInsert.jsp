@@ -398,8 +398,8 @@
                                                     <tr>
                                                         <th>방문주소</th>
                                                         <td colspan="9">
-                                                            <div style="display: inline-block"><input type="text" id="visitaddr1" name="visitaddr1" class="form-control form-control-sm"></div>
-                                                            <div style="display: inline-block"><input type="text" id="visitaddr2" name="visitaddr2" class="form-control form-control-sm"></div>
+                                                            <div style="display: inline-block"><input type="text" id="visitaddr1" name="visitaddr1" class="form-control form-control-sm" readonly></div>
+                                                            <div style="display: inline-block"><input type="text" id="visitaddr2" name="visitaddr2" class="form-control form-control-sm" readonly></div>
                                                             <div style="display: inline-block"><input type="text" id="visitaddr3"  name="visitaddr3" class="form-control form-control-sm"></div>
                                                             <div style="display: inline-block">
                                                                 <button class="btn btn-white btn-sm daumzip"id="visitaddr" type="submit">주소 검색</button>

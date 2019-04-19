@@ -94,10 +94,13 @@ function ractFormatter(value, options, rowData) {
 }
 
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
-    var url = window.location.pathname;
-    if(url =='/popservicecust'){
-        parentCustname($(obj.target.parentElement));
+    if($(obj.target.parentElement.parentElement).is('tbody')){
+        var url = window.location.pathname;
+        if(url =='/popservicecust'){
+            parentCustname($(obj.target.parentElement));
+        }
     }
+
 });
 // 고객 팝업 클릭
 function parentCustname(tr){

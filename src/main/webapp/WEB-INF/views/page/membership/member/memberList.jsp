@@ -149,10 +149,10 @@
                         <div class="ibox-content">
                             <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                             <a href="/company/user/input" class="btn btn-default pull-right">추가</a>
-                            <table class="footable table table-stripped"  data-paging="true">
+                            <table class="footable table table-striped" >
                                 <thead>
                                 <tr>
-                                    <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">고객번호</th>
+                                    <th data-visible="false" data-name="NO">고객번호</th>
                                     <th data-visible="false" data-name="URL">URL</th>
                                     <th data-name="USERNAME" data-formatter="formatter">사용자명</th>
                                     <th data-name="USERID" data-breakpoints="xs sm">사용자ID</th>
@@ -161,6 +161,7 @@
                                     <th data-name="USERDUTY" data-breakpoints="xs sm">직책</th>
                                     <th data-name="FREGDATE_" data-breakpoints="xs sm">입사일자</th>
                                     <th data-name="CHKAUTH_" data-breakpoints="xs sm">사용자권한</th>
+                                    <th data-name="REGDATE" data-breakpoints="xs sm" data-sorted="true" data-direction="DESC">등록일자</th>
                                 </tr>
                                 </thead>
                                 <tbody>

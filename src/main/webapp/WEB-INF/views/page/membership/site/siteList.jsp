@@ -117,7 +117,7 @@
                             <table class="footable table table-striped">
                                 <thead>
                                     <tr>
-                                        <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">서비스번호</th>
+                                        <th data-visible="false" data-name="NO">사이트번호</th>
                                         <th data-visible="false" data-name="URL">URL</th>
                                         <th data-name="SITENAME" data-formatter="formatter">회원사명</th>
                                         <th data-name="PRSDNAME" data-breakpoints="xs sm">대표자명</th>
@@ -125,7 +125,7 @@
                                         <th data-name="MOBILE_" data-breakpoints="xs sm">핸드폰번호</th>
                                         <th data-name="BSTYPE" data-breakpoints="xs sm">종목</th>
                                         <th data-name="SITESIZE_" data-breakpoints="xs sm">기업규모</th>
-                                        <th data-name="FREGDATE_" data-breakpoints="xs sm">가입일</th>
+                                        <th data-name="FREGDATE_" data-breakpoints="xs sm" data-sorted="true" data-direction="DESC" >가입일</th>
                                         <th data-name="BUYCNT">라이센스구매갯수</th>
                                         <th data-name="ISDELETE_">서비스상태</th>
                                     </tr>

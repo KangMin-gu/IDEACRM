@@ -1,7 +1,6 @@
 var globalUrl;
 // footable 검색 및 ready상태일때 사용할 수 있게 변경
 function footableSearchList(url) {
-    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     if(page == undefined){
@@ -24,6 +23,9 @@ function footableSearchList(url) {
                 "container" : ".pagination",
                 "position":"center",
                 "size":page
+            },
+            "sorting": {
+                "enabled": true
             },
             "rows": response
         });
@@ -55,6 +57,9 @@ function tabFootableSearchList(id,url) {
                 "container" : pagination,
                 "size":page
             },
+            "sorting": {
+                "enabled": true
+            },
             "rows": response
         });
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
@@ -63,17 +68,19 @@ function tabFootableSearchList(id,url) {
     });
 };
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
-    if(globalUrl =='/popuser'){
-        popParentNameClick($(obj.target.parentElement));
-    }
-    else if(globalUrl == '/popcust'){
-        popParentNameClick($(obj.target.parentElement));
-    }
-    else if(globalUrl == '/popaccount'){
-        popParentNameClick($(obj.target.parentElement));
-    }
-    else if(globalUrl == '/voc/custsearch'){
-        popVocCustNameClick($(obj.target.parentElement));
+    if($(obj.target.parentElement.parentElement).is('tbody')){
+        if(globalUrl =='/popuser'){
+            popParentNameClick($(obj.target.parentElement));
+        }
+        else if(globalUrl == '/popcust'){
+            popParentNameClick($(obj.target.parentElement));
+        }
+        else if(globalUrl == '/popaccount'){
+            popParentNameClick($(obj.target.parentElement));
+        }
+        else if(globalUrl == '/voc/custsearch'){
+            popVocCustNameClick($(obj.target.parentElement));
+        }
     }
 });
 

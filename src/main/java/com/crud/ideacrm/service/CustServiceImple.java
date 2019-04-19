@@ -38,7 +38,7 @@ public class CustServiceImple implements CustService{
         return codecUtil.decodeList(custList);
     }
 
-    //고객 상세 
+    //고객  상세
     @Override
     public Map<String,Object> custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
 

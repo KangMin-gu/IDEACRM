@@ -5,6 +5,34 @@
     <insert id="pwdChangeMail" parameterType="hashMap" statementType="CALLABLE">
        {call userPwdChangeMAil(#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{touserno, mode=IN, jdbcType=INTEGER, javaType=int},#{fromuserno, mode=IN, jdbcType=INTEGER, javaType=int},#{pwd, mode=IN, jdbcType=VARCHAR, javaType=string})}
     </insert>
+
+    <insert id="mailsend" parameterType="emailDto" statementType="CALLABLE">
+        {call CustmailSend(#{toemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{subject, mode=IN, jdbcType=VARCHAR, javaType=string},#{content, mode=IN, jdbcType=VARCHAR, javaType=string},#{formatnum, mode=IN, jdbcType=INTEGER, javaType=int},#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{userno, mode=IN, jdbcType=INTEGER, javaType=int},#{custno, mode=IN, jdbcType=VARCHAR, javaType=string},#{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string})}
+    </insert>
+
+    <select id="allTarget" parameterType="hashMap" resultType="hashmap">
+        SELECT  EMAILLOGID,
+        FROMEMAIL,
+         TOEMAIL,
+         SUBJECT,
+         CONTENT,
+         FILESEARCHKEY,
+         RLTDATE
+    FROM sys980010
+    WHERE RLTCODE = 0 AND now() >= RLTDATE LIMIT 100;
+    </select>
+
+    <update id="sendstate" parameterType="emailDto">
+        UPDATE sys980010 SET RLTCODE = #{rltcode}, EDTDATE = NOW() WHERE EMAILLOGID = #{emaillogid}
+    </update>
+
+    <select id="files" parameterType="String" resultType="hashMap">
+        SELECT FILESEARCHKEY, SAVEFILENAME, PATH, ORGFILENAME, FILEID FROM sys990030 WHERE FILESEARCHKEY = #{filesearchkey}
+    </select>
+
+    <insert id="shareViewMail" parameterType="insideNoticeDto" statementType="CALLABLE">
+        {call shareViewInsideMail(#{touserno, jdbcType=INTEGER, javaType=int}, #{fromuserno, jdbcType=INTEGER, javaType=int}, #{linkurl, mode=IN, jdbcType=VARCHAR, javaType=string}, #{title, mode=IN, jdbcType=VARCHAR, javaType=string}, #{content, mode=IN, jdbcType=VARCHAR, javaType=string}, #{siteid, mode=IN, jdbcType=INTEGER, javaType=int}, #{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string}) }
+    </insert>
 <!--
     <select id="pwdChangeMail" parameterType="hashMap" resultType="hashmap" statementType="CALLABLE">
        {call userPwdChangeMAil(#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{touserno, mode=IN, jdbcType=INTEGER, javaType=int},#{fromuserno, mode=IN, jdbcType=INTEGER, javaType=int},#{pwd, mode=IN, jdbcType=VARCHAR, javaType=string})}

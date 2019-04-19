@@ -19,4 +19,5 @@ public interface CustDao {
     public int custDenyUpdate(CustDenyDto custDenyDto);
     public int custDelete(CustDto custDto);
     public int custDenyDelete(CustDto custDto);
+    public List<Map<String,Object>> custMailList(Map<String,Object> searchPrm);
 }

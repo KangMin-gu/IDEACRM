@@ -19,12 +19,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
 <style>
-    th{
-        background-color: #f5f6f7;
-    }
-    .denny{
-        background-color: #f3f1f0;
-    }
+
 </style>
 <body>
 
@@ -336,7 +331,7 @@
                                         <div class="tab-content">
                                             <div role="tabpanel" id="tab-1" class="tab-pane active" url="/service" >
                                                 <div class="panel-body">
-                                                    <table class="tabfootable table table-stripped">
+                                                    <table class="tabfootable table table-stripped"  data-sorting="true">
                                                         <thead>
                                                         <tr>
                                                             <th data-visible="false" data-name="SERVICENO">서비스번호</th>
@@ -354,8 +349,8 @@
                                                         <tbody>  </tbody>
                                                         <tfoot>
                                                         <tr>
-                                                            <td colspan="10" style="text-align:right;">
-                                                                <ul class="pagination pull-right"></ul>
+                                                            <td colspan="10" style="text-align:left;">
+                                                                <ul class="pagination pull-left"></ul>
                                                             </td>
                                                         </tr>
                                                         </tfoot>
@@ -474,16 +469,17 @@
                                             </div>
                                             </c:if>
 
-                                            <div role="tabpanel" id="tab-4" class="tab-pane" url="/cust/tab/mail/${custDetail.CUSTNO}">
+                                            <div role="tabpanel" id="tab-5" class="tab-pane" url="/cust/tab/mail">
                                                 <div class="panel-body">
-                                                    <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
+                                                    <table class="tabfootable table table-stripped">
                                                         <thead>
                                                         <tr>
-                                                            <th>Rendering engine</th>
-                                                            <th>Browser</th>
-                                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                                            <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
+                                                            <th data-visible="false" data-name="EMAILLOGID">서비스번호</th>
+                                                            <th data-name="SUBJECT">제목</th>
+                                                            <th data-name="USERNAME">발신인</th>
+                                                            <th data-name="FROMEMAIL">발신메일주소</th>
+                                                            <th data-name="CAMPNAME">캠페인명</th>
+                                                            <th data-name="REGDATE">발송시간</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -498,7 +494,7 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div role="tabpanel" id="tab-4" class="tab-pane">
+                                            <div role="tabpanel" id="tab-6" class="tab-pane">
                                                 <div class="panel-body">
                                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                                     <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
@@ -532,7 +528,7 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div role="tabpanel" id="tab-4" class="tab-pane">
+                                            <div role="tabpanel" id="tab-7" class="tab-pane">
                                                 <div class="panel-body">
                                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                                     <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>

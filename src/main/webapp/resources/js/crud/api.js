@@ -30,7 +30,6 @@ function footableSearchList(url) {
 }
 
 function tabFootableSearchList(id,url) {
-    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     if(page == undefined){
@@ -77,9 +76,11 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
 // footable이 실행되고 나서 검색창의 지저분한 button 삭제
 $(".footable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
+    $('.footable-pagination-wrapper > .label-default').hide();
 });
 $(".tabfootable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
+    $('.footable-pagination-wrapper > .label-default').hide();
 });
 
 

@@ -107,7 +107,7 @@ public class CustController {//
     @RequestMapping(value = "/cust/tab/mail", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> authGetCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        List<Map<String,Object>> mailList = custService.custList(request);
+        List<Map<String,Object>> mailList = custService.getCustMailList(request);
         return mailList;
     }
 

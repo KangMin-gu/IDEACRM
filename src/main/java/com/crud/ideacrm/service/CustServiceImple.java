@@ -22,12 +22,13 @@ public class CustServiceImple implements CustService{
     private CustDao custDao;
     @Autowired
     private CodecUtil codecUtil;
+    @Autowired
+    private ParameterUtil prmUtil;
 
     //고객 리스트
     @Override
     public List<Map<String, Object>> custList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        ParameterUtil parameterUtil = new ParameterUtil();
-        Map<String,Object> param = parameterUtil.searchParam(request);
+        Map<String,Object> param = prmUtil.searchParam(request);
         List<Map<String,Object>> custList = custDao.custList(param);
 
         for(int i=0;i<custList.size();i++){ //pk값 암호화
@@ -38,7 +39,7 @@ public class CustServiceImple implements CustService{
         return codecUtil.decodeList(custList);
     }
 
-    //고객 상세 
+    //고객  상세
     @Override
     public Map<String,Object> custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
 
@@ -152,10 +153,16 @@ public class CustServiceImple implements CustService{
     }
 
     @Override
-    public List<Map<String, Object>> GetCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+    public List<Map<String, Object>> getCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
 
-
-        return null;
+        Map param = prmUtil.searchParam(request);
+        if( param.get("custno") != null ){
+            String custno = (String)param.get("custno");
+            custno = codecUtil.decodePkNo(custno);
+            param.put("custno",custno);
+        }
+        List<Map<String, Object>> mailList = custDao.custMailList(param);
+        return mailList;
     }
 
 }

@@ -208,7 +208,7 @@
                                 <tfoot>
                                 <tr>
                                     <td>
-                                        <div class="footable-pagination-wrapper" style="text-align:right;">
+                                        <div class="footable-pagination-wrapper" style="text-align:center;">
                                             <ul class="pagination"></ul>
                                         </div>
                                     </td>

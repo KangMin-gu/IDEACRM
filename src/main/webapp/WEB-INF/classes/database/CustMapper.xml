@@ -369,4 +369,15 @@
 		UPDATE cu100080 SET ISDELETE = 1 , EDITDATE = NOW() , EDITUSER = #{edituser}
 		WHERE CUSTNO = #{custno}
 	</update>
+	<!-- 고객 상세 메일 리스트  -->
+	<select id="custMailList" parameterType="hashMap" resultType="hashMap">
+		SELECT
+		A.EMAILLOGID, A.CSTNAME, A.USERNAME, A.FROMEMAIL, A.TOEMAIL, A.SUBJECT, A.REGDATE, A.CUSTNO
+		, B.CAMPNAME
+		FROM SYS980010 A
+		LEFT OUTER JOIN CP400010 B ON A.CAMPNO = B.CAMPNO
+		WHERE
+			SITEID = #{siteid}
+			AND CUSTNO = #{custno}
+	</select>
 </mapper>

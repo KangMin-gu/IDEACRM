@@ -146,33 +146,37 @@ public class SiteServiceImple implements SiteService{
         ChargeDto chargeType = sendDao.chareType(siteId);
 
         // 발송 금액
-        int smsTotal = chargeType.getSmscharge() * cntSms;
-        int mmsTotal = chargeType.getMmscharge() * cntMms;
-        int lmsTotal = chargeType.getLmscharge()* cntLms;
-        int kakaoTotal = chargeType.getKakaocharge() * cntKakao;
-        int emailTotal = chargeType.getEmailcharge() * cntEmail;
+        if(chargeType != null){
+            int smsTotal = chargeType.getSmscharge() * cntSms;
+            int mmsTotal = chargeType.getMmscharge() * cntMms;
+            int lmsTotal = chargeType.getLmscharge()* cntLms;
+            int kakaoTotal = chargeType.getKakaocharge() * cntKakao;
+            int emailTotal = chargeType.getEmailcharge() * cntEmail;
 
-        int mergeMoney = smsTotal + mmsTotal + lmsTotal + kakaoTotal + emailTotal;
+            int mergeMoney = smsTotal + mmsTotal + lmsTotal + kakaoTotal + emailTotal;
 
-        // 발송 횟수
-        total.put("smsCnt",cntSms);
-        total.put("mmsCnt",cntMms);
-        total.put("lmsCnt",cntLms);
-        total.put("kakaoCnt",cntKakao);
-        total.put("emailCnt",cntEmail);
+            // 발송 횟수
+            total.put("smsCnt",cntSms);
+            total.put("mmsCnt",cntMms);
+            total.put("lmsCnt",cntLms);
+            total.put("kakaoCnt",cntKakao);
+            total.put("emailCnt",cntEmail);
 
-        // 발송 금액
-        total.put("smsTotal",smsTotal);
-        total.put("mmsTotal",mmsTotal);
-        total.put("lmsTotal",lmsTotal);
-        total.put("kakaoTotal",kakaoTotal);
-        total.put("emailTotal",emailTotal);
+            // 발송 금액
+            total.put("smsTotal",smsTotal);
+            total.put("mmsTotal",mmsTotal);
+            total.put("lmsTotal",lmsTotal);
+            total.put("kakaoTotal",kakaoTotal);
+            total.put("emailTotal",emailTotal);
 
-        // 발송 총금액
-        total.put("mergeMoney",mergeMoney);
+            // 발송 총금액
+            total.put("mergeMoney",mergeMoney);
 
-        // 발송 단가
-        total.put("chargeType",chargeType);
+            // 발송 단가
+            total.put("chargeType",chargeType);
+
+
+        }
 
         return total;
     }

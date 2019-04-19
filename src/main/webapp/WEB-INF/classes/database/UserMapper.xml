@@ -18,7 +18,6 @@
 		WHERE A.SITEID = #{siteid}
 		AND A.ISDELETE = 0
 		AND IFNULL(A.MASTERYN,0) != 1
-		AND A.USERNO != '77'
 		<if test="username != null">
 			AND A.USERNAME LIKE CONCAT('%',#{username},'%')
 		</if>

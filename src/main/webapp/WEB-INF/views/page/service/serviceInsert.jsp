@@ -51,7 +51,7 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/service/input" method="POST">
+            <form:form action="/service/input" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-12">
                         <button type="submit" class="btn btn-default pull-left">저장</button>
@@ -89,15 +89,7 @@
                                             <tr>
                                                 <th>고객명</th>
                                                 <td>
-                                                    <!--
-                                                    <div style="display: inline-block">
-                                                        <input type="text" class="form-control form-control-sm" style="width:230px;">
-                                                    </div>
-                                                    <div style="display: inline-block">
-                                                            <a><i class="fa fa-search fa-lg"></i></a>
-                                                    </div>
-                                                    -->
-                                                    <div class="input-group cust" id="custno_">
+                                                    <div class="input-group cust" id="custno_" style="width:180px;">
                                                         <input type="text" class="form-control name" autocomplete="off" name="custno_">
                                                         <input type="hidden" class="" name="custno" id="custno">
                                                         <span class="input-group-addon">
@@ -106,11 +98,17 @@
                                                     </div>
                                                 </td>
                                                 <th>자택전화</th>
-                                                <td id="hometel"></td>
+                                                <td>
+                                                    <div id="hometel" style="width: 180px;"></div>
+                                                </td>
                                                 <th>휴대전화</th>
-                                                <td id="mobile"></td>
+                                                <td>
+                                                    <div id="mobile" style="width: 180px;"></div>
+                                                </td>
                                                 <th>이메일</th>
-                                                <td id="email"></td>
+                                                <td>
+                                                    <div id="email" style="width: 180px;"></div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>고객 주소</th>
@@ -295,16 +293,19 @@
                                                     </tr>
                                                     <tr>
                                                         <th>첨부파일</th>
-                                                        <td>
-                                                            <div class="fileinput fileinput-new"
-                                                                 data-provides="fileinput">
-                                                                <span class="btn btn-outline-secondary btn-file">
-                                                                    <span class="fileinput-new">파일선택</span>
-                                                                    <span class="fileinput-exists">변경</span>
-                                                                    <input type="file" name="...">
-                                                                </span>
-                                                                <span class="fileinput-filename"></span>
-                                                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                                        <td colspan="9">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-10">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <span class="btn btn-outline-secondary btn-file">
+                                                                            <span class="fileinput-new">파일선택</span>
+                                                                            <span class="fileinput-exists">변경</span>
+                                                                            <input id="files" type="file" class="fileChk" name="servicefile" multiple>
+                                                                        </span>
+                                                                        <span id="filesChk" class="fileinput-filename"></span>
+                                                                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -445,7 +446,7 @@
                                                         </td>
                                                         <th>처리담당자</th>
                                                         <td>
-                                                            <div class="input-group owner" id="ractowner_">
+                                                            <div class="input-group owner" id="ractowner_" style="width:180px;">
                                                                 <input type="text" class="form-control"  autocomplete="off" name="ractowner_" value="${sessionScope.USERNAME}">
                                                                 <input type="hidden" name="ractowner" id="ractowner" value="${sessionScope.USERNO}">
                                                                 <span class="input-group-addon">

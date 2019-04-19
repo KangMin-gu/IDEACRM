@@ -1,6 +1,7 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.dto.ServiceDeliveryDto;
+import com.crud.ideacrm.service.CodeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,15 +9,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class DeliveryController {
 
-    @RequestMapping(value = "/service/delivery", method = RequestMethod.GET)
-    public ModelAndView deliveryList(HttpServletRequest request){
+    @Autowired
+    private CodeService codeService;
+
+    private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
+
+    @RequestMapping(value="/service/delivery",method=RequestMethod.GET)
+    public ModelAndView authServiceDelivery(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/service/delivery/deliveryList");
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
+        mView.setViewName("page/service/serviceList");
         return mView;
     }
 }

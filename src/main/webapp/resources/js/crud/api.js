@@ -18,6 +18,7 @@ function footableSearchList(url) {
             "paging": {
                 "enabled": true,
                 "container" : ".pagination",
+                "position":"center",
                 "size":page
             },
             "rows": response

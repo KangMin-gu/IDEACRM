@@ -1,5 +1,9 @@
 package com.crud.ideacrm.crud.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
 public class MailDto {
 
     private int emaillogid;
@@ -10,17 +14,21 @@ public class MailDto {
     private String toemail;
     private String subject;
     private String content;
-    private int filesearchkey;
+    private String filesearchkey;
     private String rltdate;
     private int clickyn;
     private int linkyn;
     private int reserv;
     private int emailtype;
     private int rltcode;
+    private int formatnum;
+    private String custno;
+    private int userno;
+    private List<MultipartFile> file; //Spring 에서 파일 업로드 처리하기 위해
 
     public MailDto(){}
 
-    public MailDto(int emaillogid, int siteid, String cstname, String username, String fromemail, String toemail, String subject, String content, int filesearchkey, String rltdate, int clickyn, int linkyn, int reserv, int emailtype, int rltcode) {
+    public MailDto(int emaillogid, int siteid, String cstname, String username, String fromemail, String toemail, String subject, String content, String filesearchkey, String rltdate, int clickyn, int linkyn, int reserv, int emailtype, int rltcode, int formatnum, String custno, int userno, List<MultipartFile> file) {
         this.emaillogid = emaillogid;
         this.siteid = siteid;
         this.cstname = cstname;
@@ -36,6 +44,10 @@ public class MailDto {
         this.reserv = reserv;
         this.emailtype = emailtype;
         this.rltcode = rltcode;
+        this.formatnum = formatnum;
+        this.custno = custno;
+        this.userno = userno;
+        this.file = file;
     }
 
     public int getEmaillogid() {
@@ -102,11 +114,11 @@ public class MailDto {
         this.content = content;
     }
 
-    public int getFilesearchkey() {
+    public String getFilesearchkey() {
         return filesearchkey;
     }
 
-    public void setFilesearchkey(int filesearchkey) {
+    public void setFilesearchkey(String filesearchkey) {
         this.filesearchkey = filesearchkey;
     }
 
@@ -156,5 +168,37 @@ public class MailDto {
 
     public void setRltcode(int rltcode) {
         this.rltcode = rltcode;
+    }
+
+    public int getFormatnum() {
+        return formatnum;
+    }
+
+    public void setFormatnum(int formatnum) {
+        this.formatnum = formatnum;
+    }
+
+    public String getCustno() {
+        return custno;
+    }
+
+    public void setCustno(String custno) {
+        this.custno = custno;
+    }
+
+    public int getUserno() {
+        return userno;
+    }
+
+    public void setUserno(int userno) {
+        this.userno = userno;
+    }
+
+    public List<MultipartFile> getFile() {
+        return file;
+    }
+
+    public void setFile(List<MultipartFile> file) {
+        this.file = file;
     }
 }

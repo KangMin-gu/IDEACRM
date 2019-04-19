@@ -5,13 +5,9 @@ import com.crud.ideacrm.crud.dto.MailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,11 +15,10 @@ import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
+import javax.mail.internet.*;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.activation.FileDataSource;
+import javax.activation.DataHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -37,7 +32,7 @@ public class MailScheduler {
 
 
     //@Scheduled(cron="*/30 * * * * *")
-    //@Scheduled(cron="*/10 * * * * *")//삭제 후 윗코드 주석 제거 요망
+    @Scheduled(cron="*/10 * * * * *")//삭제 후 윗코드 주석 제거 요망
     public void sendmail() throws Exception {
         boolean isValid = false;
 
@@ -53,7 +48,9 @@ public class MailScheduler {
         //int hour = cal.get(Calendar.HOUR_OF_DAY);
         MailDto emailDto = new MailDto();
         emailDto.setRltdate(today);
-        List<Map<String, Object>> list = mailDao.allTarget(emailDto);//미발송 메일 100건 리스트 긁어오기
+        Map<String,Object> mailVal = new HashMap<>();
+        mailVal.put("today",today);
+        List<Map<String, Object>> list = mailDao.allTarget(mailVal);//미발송 메일 100건 리스트 긁어오기
 
         for(int i=0; i<list.size(); i++){
             String fromEmail = list.get(i).get("FROMEMAIL").toString(); //보낸이
@@ -62,24 +59,15 @@ public class MailScheduler {
             String content =  list.get(i).get("CONTENT").toString(); //내용
             String ccEmail =  (String) list.get(i).get("CCEMAIL"); //참조
             String bccEmail =  (String) list.get(i).get("BCCEMAIL"); //숨은참조
-            int emailLogId = Integer.parseInt(list.get(i).get("EMAILLOGID").toString()); //이메일로그pk
+            int emailLogId = Integer.parseInt(list.get(i).get("EMAILLOGID").toString()); //이메일로그
+            String fileSearchKey = (String)list.get(i).get("FILESEARCHKEY");
             String sendDate = list.get(i).get("RLTDATE").toString();
-            //String sendDate =  list.get(i).get("SENDDATETIME").toString(); //보낸날짜
-            //int time = Integer.parseInt(list.get(i).get("TIME").toString()); //시간
-            //String date = formatTime.format(sendDate);
-            //String time = formatTime.format(sendDate);
-            //String date = formatDate.format(sendDate);
-			/*
-			if(today.equals(date) &&  ){
-				send(subject,fromEmail,content,toEmail,ccEmail,bccEmail);
-				isValid = true;
-				emailDto.setEmaillogid(emailLogId);
-				UpdateState(isValid, emailDto);
-			}
-			*/
+            emailDto.setEmaillogid(emailLogId);
+
+
             int compare = sendDate.compareTo(today);
             if(compare == -1) {
-                send(subject,fromEmail,content,toEmail,ccEmail,bccEmail);
+                send(subject,fromEmail,content,toEmail,ccEmail,bccEmail, fileSearchKey);
                 isValid = true;
                 emailDto.setEmaillogid(emailLogId);
                 UpdateState(isValid, emailDto);
@@ -87,7 +75,7 @@ public class MailScheduler {
         }
     }
 
-    private void send(String subject, String fromemail, String content, String toemail, String ccemail, String bccemail)
+    private void send(String subject, String fromemail, String content, String toemail, String ccemail, String bccemail, String fileSearchKey)
             throws Exception {
         InternetAddress[] toAddr = null;
         InternetAddress[] cCAddr = null;
@@ -112,12 +100,44 @@ public class MailScheduler {
         Session session = Session.getDefaultInstance(properties, authenticator);
         Message message = new MimeMessage(session);
 
+        if(fileSearchKey != null){
+            Multipart mp = new MimeMultipart();
+            MimeBodyPart contentMimeBody = new MimeBodyPart();
+            ((MimeMessage) message).setSubject(subject, "UTF-8");
+            contentMimeBody.setContent(content,"text/html; charset=UTF-8");
+            contentMimeBody.setHeader("Content-Transfer-Encoding", "base64");
+            mp.addBodyPart(contentMimeBody);
+            //첨부파일
+            MimeBodyPart attachFileMimeBody = new MimeBodyPart();
 
-        ((MimeMessage) message).setSubject(subject, "UTF-8");
-        message.setFrom(new InternetAddress(fromemail));
-        ((MimeMessage) message).setContent(content, "text/html; charset=UTF-8");
+            List<Map<String, Object>> files = mailDao.files(fileSearchKey);
 
+            for(int i = 0; i<files.size(); i++){
 
+                String orgFileName =  files.get(i).get("ORGFILENAME").toString();
+                String path =  files.get(i).get("PATH").toString();
+
+                File attachFile = new File(path);
+                //첨부파일 이름 설정
+                attachFileMimeBody.setFileName(MimeUtility.encodeText(orgFileName,"UTF-8","B"));
+
+                //첨부파일 데이터 설정
+                FileDataSource fileDataSource = new FileDataSource(attachFile);
+                DataHandler dataHandler = new DataHandler(fileDataSource);
+
+                attachFileMimeBody.setDataHandler(dataHandler);
+                attachFileMimeBody.setDescription("UTF-8");
+
+                //최종적으로 설정한 값을 message에 추가
+                mp.addBodyPart(attachFileMimeBody);
+                message.setContent(mp);
+            }
+
+        }else{
+            ((MimeMessage) message).setSubject(subject, "UTF-8");
+            message.setFrom(new InternetAddress(fromemail));
+            ((MimeMessage) message).setContent(content, "text/html; charset=UTF-8");
+        }
 
         if (toemail != null) {
             toList.add(toemail);

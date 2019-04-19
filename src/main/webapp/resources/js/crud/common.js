@@ -3,11 +3,13 @@ $('.cust').click(function(e){
             openNewWindow('고객','/popcust',e.currentTarget.id,650,700);
         }
 });
+
 $('.owner').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
         openNewWindow('사용자','/popuser',e.currentTarget.id,650,700);
     }
 });
+
 $('.client').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
         openNewWindow('사용자','/popaccount',e.currentTarget.id,650,700);
@@ -22,13 +24,16 @@ $('#reset').click(function(e){
 });
 
 $('.smsBtn').click(function(){
-    window.open("/popsms", "고객상세정보","width=450px, height=600px");
+    window.open("/popsms", "문자발송","width=450px, height=600px");
 });
 $('.emailBtn').click(function(){
-    window.open("/popemail", "고객상세정보","width=1200px, height=900px");
+    window.open("/popemail", "메일발송","width=1200px, height=900px");
+});
+$('.insideNoticeBtn').click(function(){
+    window.open("/popbox", "내부통지","width=1200px, height=900px");
 });
 $('.kakaoBtn').click(function(){
-    window.open("/popkakao", "고객상세정보","width=450px, height=600px");
+    window.open("/popkakao", "카카오발송","width=450px, height=600px");
 });
 $('.excel').click(function(e){
     var url = $('#excelUrl').val();//엑셀 페이지에 url이 담긴 히든값 셋팅 필요
@@ -261,3 +266,18 @@ function today(){
 
     return today;
 }
+// 고객 팝업 클릭
+function parentCustname(tr){
+    var parentid = $('#parentid').val();
+    opener.$('[name="'+parentid+'"]').next().val(tr.children().get(0).textContent);
+    opener.$('[name="'+parentid+'"]').val(tr.children().get(1).textContent).trigger('keyup');
+    if(parentid != "relcustname"){//관련 고객에서의 호출이 아니라면 아래행 실행
+        popCustClick(tr.children().get(0).textContent);
+    }
+
+    setTimeout(function(){
+        window.close();
+    },300);
+}
+
+

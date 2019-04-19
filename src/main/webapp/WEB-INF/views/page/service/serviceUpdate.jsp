@@ -408,7 +408,7 @@
                                                         </td>
                                                         <th>처리담당자</th>
                                                         <td>
-                                                            <div class="input-group owner" id="ractowner_" >
+                                                            <div class="input-group owner" id="ractowner_" style="width:180px;" >
                                                                 <input type="text" class="form-control ract" autocomplete="off" name="ractowner_" value="${serviceInfo.OWNER_}">
                                                                 <input type="hidden" name="ractowner ract" id="ractowner" value="${serviceInfo.OWNER}">
                                                                 <span class="input-group-addon">

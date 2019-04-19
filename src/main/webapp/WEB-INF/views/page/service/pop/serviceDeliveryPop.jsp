@@ -63,7 +63,10 @@
                                 <tr>
                                     <th>이관일자</th>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm date searchparam" name="conveydate" id="conveydate" style="width:200px;">
+                                        <div class="input-group" style="width:230px;">
+                                            <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
+                                            <input type="text" class="form-control form-control-sm date searchparam" name="conveydate" id="conveydate">
+                                        </div>
                                     </td>
                                     <th>이관사유</th>
                                     <td>

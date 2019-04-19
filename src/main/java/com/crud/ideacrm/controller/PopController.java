@@ -147,5 +147,9 @@ public class PopController {
         return "page/popup/selfClose";
     }
 
+    @RequestMapping(value="/popservicecust",method=RequestMethod.GET)
+    public String authServiceCustPop(HttpServletRequest request){
+        return "page/service/pop/custPop";
+    }
 
 }

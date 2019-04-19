@@ -1,16 +1,9 @@
-$(document).ready(function() {
-    var url = window.location.pathname;
-    if(url != '/service'){
-        url = '/service?servicestep=5&servicestep=6';
-    }
 
-    $('#search').click(function(e){
-        var bool = dateRangeError();
-        if(bool){
-            footableSearchList(url);
-        }
-    });
-    footableSearchList(url);
+
+$('.servicecust').click(function(e){
+    if( e.target.classList.contains('dataCancle') == false ){
+        openNewWindow('고객','/popservicecust',e.currentTarget.id,650,700);
+    }
 });
 
 $('#servicecode1').change(function(){
@@ -99,3 +92,24 @@ function ractPop(ractNo){
 function ractFormatter(value, options, rowData) {
     return "<a href=javascript:ractPop("+rowData.RACTNO +")>"+ value + "</a>";
 }
+
+$(".footable").on("click.ft.row",function(obj,e,ft,row){
+    var url = window.location.pathname;
+    if(url =='/popservicecust'){
+        parentCustname($(obj.target.parentElement));
+    }
+});
+// 고객 팝업 클릭
+function parentCustname(tr){
+    var parentid = $('#parentid').val();
+    opener.$('[name="'+parentid+'"]').next().val(tr.children().get(0).textContent);
+    opener.$('[name="'+parentid+'"]').val(tr.children().get(1).textContent).trigger('keyup');
+    if(parentid != "relcustname"){//관련 고객에서의 호출이 아니라면 아래행 실행
+        popCustClick(tr.children().get(0).textContent);
+    }
+
+    setTimeout(function(){
+        window.close();
+    },300);
+}
+

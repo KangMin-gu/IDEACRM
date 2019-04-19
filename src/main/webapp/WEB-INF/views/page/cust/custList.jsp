@@ -186,7 +186,7 @@
                                     <button class="btn btn-default pull-right" style="margin-left: 5px;" onclick="custMultyDelete();">삭제</button>
                                 </div>
                                 <div class="pull-right"  style="display: inline-block;">
-                                    <button type="button" class="btn btn-default" id="test"><i class="fa fa-file-excel-o"></i></button>
+                                    <a class="btn btn-default" href="/custexcel"><i class="fa fa-file-excel-o"></i></a>
                                 </div>
                             </div>
                             <form class="deleteForm" action="/cust/del" method="post">

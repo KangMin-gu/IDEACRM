@@ -142,7 +142,7 @@ public class PopController {
     }
 
     @RequestMapping(value="/popbox",method=RequestMethod.POST)
-    public String authInsideNoticePopSend(HttpServletResponse response, HttpServletRequest request, @ModelAttribute InsideNoticeDto insDto){
+    public String authInsideNoticePopSend(HttpServletResponse response, HttpServletRequest request, @ModelAttribute InsideNoticeDto insDto) throws UnsupportedEncodingException, GeneralSecurityException {
         sendService.sendInsideNotice(response, request, insDto);
         return "page/popup/selfClose";
     }

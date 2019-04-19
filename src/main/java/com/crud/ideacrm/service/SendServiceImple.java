@@ -33,6 +33,8 @@ public class SendServiceImple implements SendService {
     private CodecUtil codecUtil;
     @Autowired
     private InsideNoticeDao insnd;
+    @Autowired
+    private LoginDao loginDao;
 
     @Override
     public void sendSms(HttpServletRequest request) {
@@ -63,6 +65,8 @@ public class SendServiceImple implements SendService {
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         mailDto.setSiteid(siteId);
         mailDto.setUserno(userNo);
+        Map<String, Object> userInfo = loginDao.userInfo(userNo);
+        String formemail = codecUtil.decodePkNo(userInfo.get("EMAIL").toString());
 
         //파일업로드
         List<MultipartFile> mFile = mailDto.getFile();
@@ -74,23 +78,32 @@ public class SendServiceImple implements SendService {
         //dto에 인코딩 되어들어온 custno를 복호화 후 전달
         String deCustNo = codecUtil.decodePkNo(mailDto.getCustno());
         mailDto.setCustno(deCustNo);
-
+        mailDto.setFromemail(formemail);
         mailDao.emailSend(mailDto);
 
     }
 
     @Override
-    public void sendInsideNotice(HttpServletResponse response, HttpServletRequest request, InsideNoticeDto insDto) {
+    public void sendInsideNotice(HttpServletResponse response, HttpServletRequest request, InsideNoticeDto insDto) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         insDto.setSiteid(siteId);
         insDto.setFromuserno(userNo);
+        MailDto mailDto = new MailDto();
+        mailDto.setUserno(userNo);
+        //발송인정보
+        Map<String, Object> userInfo = loginDao.userInfo(userNo);
+        mailDto.setFromemail(userInfo.get("EMAIL").toString());
+        mailDto.setSubject(insDto.getTitle());
+        mailDto.setContent(insDto.getContent());
+
 
         //파일업로드
         List<MultipartFile> mFile = insDto.getFile();
         if(mFile  != null && mFile.size() > 0 && mFile.isEmpty() == false){
             String fileSearchKey = uplaod.multiUpload(response, request, mFile);
             insDto.setFilesearchkey(fileSearchKey);
+            mailDto.setFilesearchkey(fileSearchKey);
         }
 
         //통지등록
@@ -101,10 +114,16 @@ public class SendServiceImple implements SendService {
         for(String a : toUserList) {
             int toUserNo = Integer.parseInt(a);
             insDto.setTouserno(toUserNo);
+
             //수신인 통지발송
             insnd.to(insDto);
 
-            mailDao.shareViewInsideNotice(insDto);
+            //수신인 이메일취득
+            Map<String, Object> touserInfo = loginDao.userInfo(toUserNo);
+            String cytoemail = touserInfo.get("EMAIL").toString();
+            String detoemail = codecUtil.decodePkNo(cytoemail);
+            mailDto.setToemail(detoemail);
+            mailDao.shareViewInsideNotice(mailDto);
         }
 
 

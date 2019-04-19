@@ -13,7 +13,7 @@ public interface MailDao {
     public List<Map<String, Object>> files(String fileSearchKey);
     public void PwdChangeMailProcedure(Map<String, Object> userVal);
     public void emailSend(MailDto mailDto);
-    public void shareViewInsideNotice(InsideNoticeDto insDto);
+    public void shareViewInsideNotice(MailDto mailDto);
 
 
     public void mailClick(MailDto emailDto);

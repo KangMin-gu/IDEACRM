@@ -52,7 +52,7 @@ public class PopController {
         return userList;
     }
 
-    // 고객팝업
+    //고객팝업
     @RequestMapping(value="/popcust",method=RequestMethod.GET)
     public ModelAndView authPopCust(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();

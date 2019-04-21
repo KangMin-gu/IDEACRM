@@ -251,7 +251,7 @@
                                     <div class="tabs-container">
                                         <ul class="nav nav-tabs detail" role="tablist">
                                             <li><a class="nav-link active" data-toggle="tab" href="#tab-1">사용자</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-2">라이센스</a></li>
+                                            <li><a class="nav-link license" data-toggle="tab" href="#tab-2">라이센스</a></li>
                                             <li><a class="nav-link totalCnt" data-toggle="tab" href="#tab-3">IDEACRM 발송수</a></li>
                                         </ul>
                                         <div class="tab-content">
@@ -286,28 +286,68 @@
                                             </div>
                                             <div role="tabpanel" id="tab-2" class="tab-pane">
                                                 <div class="panel-body">
-                                                    <a href="${pageContext.request.contextPath}/license/${siteInfo.SITEID}" class="btn btn-w-m btn-xs pull-right btn-primary" style="margin-bottom: 10px;">라이센스관리</a>
-                                                    <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Rendering engine</th>
-                                                            <th>Browser</th>
-                                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                                            <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr>
-                                                            <td colspan="5">
-                                                                <ul class="pagination float-right"></ul>
-                                                            </td>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
+                                                    <a href="" class="btn btn-w-m btn-xs pull-right btn-primary" style="margin-bottom: 10px;">라이센스관리</a>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered" style="white-space:nowrap;">
+                                                            <colgroup>
+                                                                <col width="5%">
+                                                                <col width="5%">
+                                                                <col width="5%">
+                                                                <col width="5%">
+                                                                <col width="5%">
+                                                            </colgroup>
+                                                            <tbody>
+                                                            <tr>
+                                                                <th>모듈명</th>
+                                                                <th>상태</th>
+                                                                <th>수량</th>
+                                                                <th>현재사용량</th>
+                                                                <th>반영날짜</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><span name="licenseno" id="custlicenseno" value="1">고객관리</span></th>
+                                                                <td><span name="isdelete" id="custisdelete"></span></td>
+                                                                <td><span name="licensecnt" id="custlicensecnt"></span></td>
+                                                                <td><span name="usecnt" id="custusecnt"></span></td>
+                                                                <td><span name="edtdate" id="custedtdate"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><span name="licenseno" id="accountcenseno" value="2">영업관리</span></th>
+                                                                <td><span name="isdelete" id="accountisdelete"></span></td>
+                                                                <td><span name="licensecnt" id="accountlicensecnt"></span></td>
+                                                                <td><span name="usecnt" id="accountusecnt"></span></td>
+                                                                <td><span name="edtdate" id="accountedtdate"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><span name="licenseno" id="servicelicenseno" value="3">서비스관리</span></th>
+                                                                <td><span name="isdelete" id="serviceisdelete"></span></td>
+                                                                <td><span name="licensecnt" id="servicelicensecnt"></span></td>
+                                                                <td><span name="usecnt" id="serviceusecnt"></span></td>
+                                                                <td><span name="edtdate" id="serviceedtdate"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><span name="licenseno" id="campaignlicenseno" value="4">캠페인</span></th>
+                                                                <td><span name="isdelete" id="campaignisdelete"></span></td>
+                                                                <td><span name="licensecnt" id ="campaignlicensecnt"></span></td>
+                                                                <td><span name="usecnt" id="campaignusecnt"></span></td>
+                                                                <td><span name="edtdate" id="campaignedtdate"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><span name="licenseno" id="voclicenseno" value="5">콜센터</span></th>
+                                                                <td><span name="isdelete" id="vocisdelete"></span></td>
+                                                                <td><span name="licensecnt" id="voclicensecnt"></span></td>
+                                                                <td><span name="usecnt" id="ctiusecnt"></span></td>
+                                                                <td><span name="edtdate" id="ctiedtdate"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>라이센스활성수</th>
+                                                                <td colspan="2"><span id="totallicensecnt"></span></td>
+                                                                <th>총유저수</th>
+                                                                <td colspan="2"><span id="totalusercnt"></span></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -325,7 +365,8 @@
                                                             </colgroup>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td><span id="daterange"></span></td>                                                                    <th>SMS</th>
+                                                                    <td><span id="daterange"></span></td>
+                                                                    <th>SMS</th>
                                                                     <th>MMS</th>
                                                                     <th>LMS</th>
                                                                     <th>KAKAO</th>
@@ -418,10 +459,10 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/site.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/license.js"></script>
 <script>
     $(document).ready(function() {
         map('map','addr','sitename');
-        debugger;
         var todayto = today();
         var todayfr = todayto.substring(0,8) +'01';
 
@@ -430,7 +471,10 @@
         $('#todayto').val(todayto);
         $('#todayfr').val(todayfr);
 
-
+        $('.license').click(function(e){
+            var siteid = $('#siteid').val();
+            licenseDetail(siteid);
+        });
     });
 </script>
 </body>

@@ -3,7 +3,7 @@
 <mapper namespace="license">
 
     <select id="siteLicenseList" parameterType="String" resultType="map">
-        SELECT A.LICENSENO,A.BUYCNT,A.SITEID,A.ISDELETE
+        SELECT A.LICENSENO,A.BUYCNT,A.SITEID,A.ISDELETE,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_
          ,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
          ,DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE
          ,(SELECT SUM(BUYCNT) FROM ME810010 WHERE SITEID = #{siteid}) AS TOTALCNT

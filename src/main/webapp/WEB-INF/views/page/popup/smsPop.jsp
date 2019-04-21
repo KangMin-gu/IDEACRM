@@ -59,7 +59,6 @@
             <input type="hidden" name="lengthtype" id="lengthtype"/>
             <input type="hidden" name="custno" id="custno"/>
             <input type="hidden" name="mobile" id="mobile"/>
-
             </form:form>
         </div>
     </div>
@@ -136,11 +135,17 @@
         smsToLms('senddesc');
     });
     $('#senddesc').keyup(function(e){
-        smsToLms(this);
+        var lengthtype = $('#lengthtype').val();
         var str = $(this).val();
         var textLength = getTextLength(str);
+        var textSize = textLength;
         textLength = textLength +'/ 80';
         $('#bytelength').text(textLength);
+        if(textSize > 80){
+            if(lengthtype != 1){
+                smsToLms('senddesc');
+            }
+        }
     });
 </script>
 </body>

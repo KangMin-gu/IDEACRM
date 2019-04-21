@@ -46,7 +46,7 @@
 
         <div class="wrapper wrapper-content">
             <div class="row animated fadeInDown">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>서비스 일정</h5>

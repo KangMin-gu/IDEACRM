@@ -1,5 +1,3 @@
-
-
 $('.servicecust').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
         openNewWindow('고객','/popservicecust',e.currentTarget.id,650,700);
@@ -13,6 +11,10 @@ $('#servicecode1').change(function(){
 // 단계에 따른 화면처리
 function serviceStep(){
     var step = $('#servicestep').val();
+    if(step == 0){
+
+
+    }
     if(step == 3){
         tinyMCE.EditorManager.editors[0].setMode('readonly');
         $('.reward').prop("disabled",true);
@@ -116,3 +118,36 @@ function parentCustname(tr){
     },300);
 }
 
+function popCustClick(id){
+    $.ajax({
+        url: "/popcust/"+id,
+        method: "GET",
+        dataType: "json",
+        cache:false,
+        success: function (data) {
+            var addr = data.HOMADDR1 + data.HOMADDR2 + data.HOMADDR3;
+            if(addr == '0'){
+                addr ='';
+            }
+            opener.$('#company').val('');
+            opener.$('#duty').val('');
+            opener.$('#custaddress').val('');
+            opener.$('#mobile').val('');
+            opener.$('#email').val('');
+
+            opener.$('#company').val(data.COMPANY);
+            opener.$('#duty').val(data.DUTY);
+            opener.$('#custaddress').val(addr);
+            opener.$('#custaddress').text(addr);
+            opener.$('#mobile').val(data.MOBILE);
+            opener.$('#mobile').text(data.MOBILE);
+            opener.$('#hometel').val(data.HOMTEL);
+            opener.$('#hometel').text(data.HOMTEL);
+            opener.$('#email').val(data.EMAIL);
+            opener.$('#email').text(data.EMAIL);
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+}

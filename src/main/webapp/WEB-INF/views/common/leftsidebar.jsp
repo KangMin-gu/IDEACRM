@@ -100,6 +100,9 @@
             <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
+                    <li><a href="${pageContext.request.contextPath}/inbox">내부통지</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/notice">공지사항</a></li>
+                    <li><a href="${pageContext.request.contextPath}/notice">IDEA 공지</a></li>
                     <li><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
                     <li><a href="${pageContext.request.contextPath}/company/user/${sessionScope.ENCUSERNO}">내정보</a></li>
                 </ul>
@@ -123,7 +126,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/common/site">회원사관리</a></li>
                     <li><a href="${pageContext.request.contextPath}/common/code">공통코드</a></li>
-                    <li><a href="${pageContext.request.contextPath}/notice">전체공지사항</a></li>
+                    <li><a href="${pageContext.request.contextPath}/notice">IDEA 공지</a></li>
                     <li><a href="${pageContext.request.contextPath}/contact">접속자</a></li>
                 </ul>
             </li>

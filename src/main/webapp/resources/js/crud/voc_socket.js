@@ -1,7 +1,7 @@
 //VOC 콜백 알람
 function voc_send_message(){
-    var sock = new SockJS("http://localhost/vocCount");
-
+    //var sock = new SockJS("http://localhost/vocCount");
+    var sock = new SockJS("/vocCount");
     sock.onopen = function(evt) {
         timerCallback();
     };

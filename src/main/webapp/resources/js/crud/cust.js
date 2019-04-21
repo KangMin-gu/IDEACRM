@@ -142,7 +142,12 @@ function iboxDrawMap(mapFieldId, addrFieldId, nameFieldId,iboxDivId){
     },300);
 }
 
-
+$('#reset').click(function(e){
+    $('.searchparam').val('');
+    if( $('#infoagree') ){
+        $('#infoagree').val(1);
+    }
+});
 
 
 

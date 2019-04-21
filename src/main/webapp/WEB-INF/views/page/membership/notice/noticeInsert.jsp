@@ -34,7 +34,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/">공지사항 목록</a>
+                        <a href="${pageContext.request.contextPath}/">목록</a>
                     </li>
                     <li class="breadcrumb-item">
                         <strong>공지사항 등록</strong>
@@ -45,13 +45,13 @@
             </div>
         </div>
 
-<form:form>
+        <form:form id="multiFile" action="/company/notice/input" enctype="multipart/form-data" method="post">
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">등록</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -60,47 +60,56 @@
             <div class="mail-box">
                 <div class="mail-body">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">제목:</label>
+                            <label class="col-sm-2 col-form-label" for="title">제목:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" value="">
+                                <input type="text" class="form-control" value="" id="title" name="title">
                             </div>
                         </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">말머리:</label>
+                        <label class="col-sm-2 col-form-label" for="tag">말머리:</label>
                         <div class="col-sm-10">
-                            <select class="form-control m-b" style="width: 100px;">
-                                <option value="Bahamas">일반</option>
-                                <option value="Bahrain">중요</option>
-                                <option value="Bangladesh">알림</option>
-                                <option value="Barbados">참고</option>
+                            <select class="form-control m-b" id="tag" name="tag" style="width: 100px;">
+                                <option value="0">전체</option>
+                                <option value="1">일반</option>
+                                <option value="2">중요</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
                 <div class="mail-text h-200">
-                    <textarea id="mytextarea"></textarea>
+                    <textarea id="content" name="content"></textarea>
                     <div class="clearfix"></div>
                 </div>
                 <br/>
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                    <span class="btn btn-outline-secondary btn-file">
-                        <span class="fileinput-new">파일선택</span>
-                        <span class="fileinput-exists">변경</span>
-                        <input type="file" name="..." multiple>
-                    </span>
-                    <span class="fileinput-filename"></span>
-                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">첨부파일</label>
+                    <div class="col-sm-10">
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <span class="btn btn-outline-secondary btn-file">
+                                                        <span class="fileinput-new">파일선택</span>
+                                                        <span class="fileinput-exists">변경</span>
+                                                        <input id="files" type="file" class="fileChk" name="file" multiple>
+                                                    </span>
+                            <span id="filesChk" class="fileinput-filename"></span>
+                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="clearfix"></div>
 
             </div>
-
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-right">취소</a>
+                </div>
+            </div>
             <br/>
 
         </div>
-</form:form>
+        </form:form>
         <div class="footer">
             <%@ include file="/WEB-INF/views/common/footer.jsp"%>
         </div>
@@ -112,12 +121,13 @@
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- Jasny -->
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
 <script>
     $(document).ready(function() {
         tinymce.init({
-            selector: '#mytextarea, #mytextarea2,#mytextarea3 ',
+            selector: '#content',
             height : 400,
             language:'ko_KR'
         });

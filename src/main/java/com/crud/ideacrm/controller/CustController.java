@@ -46,7 +46,6 @@ public class CustController {//
     @ResponseBody
     public List<Map<String, Object>> authGetCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> custList = custService.custList(request);
-        System.out.println("@@@@@@@@@@@@@@@@사이즈즈즈"+custList.size());
         return custList;
     }
 

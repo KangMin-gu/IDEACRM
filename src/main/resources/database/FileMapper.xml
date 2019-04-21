@@ -12,7 +12,7 @@
     <select id="info" parameterType="hashMap" resultType="hashMap">
         SELECT FILEID, SAVEFILENAME, FILESIZE, ORGFILENAME, DATE_FORMAT( REGDATE,'%Y-%m-%d') AS REGDATE
 		FROM sys990030
-		WHERE FILESEARCHKEY = #{FILESEARCHKEY}
+		WHERE FILESEARCHKEY = #{filesearchkey}
     </select>
 
     <select id="download" parameterType="int" resultType="uploadDto">

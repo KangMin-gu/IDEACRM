@@ -328,7 +328,9 @@ public class InsideNoticeServiceImple implements InsideNoticeService {
 
         ModelAndView mView = new ModelAndView();
         Map<String, Object> noteInfo = insnd.boxDetail(noticeId);
-        List<Map<String,Object>> fileInfo = uploadDao.fileInfo(noteInfo);
+        Map<String, Object> fileVal = new HashMap<>();
+        fileVal.put("filesearchkey", noteInfo.get("FILESEARCHKEY"));
+        List<Map<String,Object>> fileInfo = uploadDao.fileInfo(fileVal);
 
         Map<String, Object> noteVal = new HashMap<>();
         noteVal.put("siteid", siteId);

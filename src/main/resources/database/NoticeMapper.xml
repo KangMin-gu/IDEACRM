@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+	<select id="companyNoticeList" parameterType="hashMap" resultType="hashMap">
+		SELECT  CASE WHEN A.tag = 0 THEN '전체'
+                WHEN A.tag = 1 THEN '일반'
+                WHEN A.tag = 2 THEN '중요' END AS TAGNAME
+        , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
+		FROM sys990011 AS A
+		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+		WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0
+            <if test="regdatefr != null">
+                AND A.REGDATE <![CDATA[>=]]> #{regdatefr}
+            </if>
+            <if test="regdateto != null">
+                AND A.REGDATE <![CDATA[<=]]> #{regdateto}
+            </if>
+            <if test="writer != null">
+                AND B.USERNAME = #{writer}
+            </if>
+            <if test="title != null">
+                AND A.TITLE = #{title}
+            </if>
+            <if test="tag != null">
+                AND A.tag = #{tag}
+            </if>
+	</select>
+
+    <select id="companyNoticeDetail" parameterType="int" resultType="hashMap">
+		SELECT
+           CASE WHEN A.tag = 0 THEN '전체'
+            WHEN A.tag = 1 THEN '일반'
+            WHEN A.tag = 2 THEN '중요' END AS TAG
+        ,A.TITLE, A.CONTENT, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER, A.NTNUM, A.FILESEARCHKEY
+        FROM sys990011 AS A
+		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+		WHERE A.NTNUM = #{noticeid}
+    </select>
+
+    <insert id="companyNoticeInsert" parameterType="noticeDto" >
+        INSERT INTO sys990011
+        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG)
+        VALUES
+        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag})
+
+        <selectKey resultType="int" keyProperty="ntnum" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+</mapper>

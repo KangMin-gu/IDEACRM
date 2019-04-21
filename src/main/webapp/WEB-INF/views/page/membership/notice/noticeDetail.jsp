@@ -52,104 +52,59 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-left">목록</a>
+                    <c:if test="${CHKAUTH eq 20}">
+                        <a href="${pageContext.request.contextPath}/company/notice/modified/${notice.NTNUM}" class="btn btn-default pull-right" style="margin-left: 10px;">삭제</a>
+                        <a href="${pageContext.request.contextPath}/company/notice/del/${notice.NTNUM}" class="btn btn-default pull-right">수정</a>
+                    </c:if>
                 </div>
             </div>
 
             <br/>
             <div class="mail-box-header">
                 <h3>
-                    <span class="font-normal">제목: </span>Aldus PageMaker including versions of Lorem Ipsum.
+                    <span class="font-normal">제목: </span>${notice.TITLE}
                 </h3>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <h5>
-                        <span class="font-normal">말머리: </span>필수
+                        <span class="font-normal">말머리: </span>${notice.TAG}
                     </h5>
                     <h5>
                         <span class="float-right font-normal">2018-04-21</span>
-                        <span class="font-normal">글쓴이: </span>강민구
+                        <span class="font-normal">글쓴이: </span>${notice.WRITER}
                     </h5>
                 </div>
             </div>
             <div class="mail-box">
                 <div class="mail-body">
-                    <p>asdfasdfasdf</p>
+                    ${notice.CONTENT}
                 </div>
-                <div class="mail-attachment">
-                    <p>
-                        <span><i class="fa fa-paperclip"></i>첨부파일</span>
-                    </p>
 
-                    <div class="attachment">
-                        <div class="file-box">
-                            <div class="file">
-                                <a href="#">
-                                    <span class="corner"></span>
+                <c:if test="${fn:length(fileInfo) > 0}">
+                    <div class="mail-attachment">
+                        <p>
+                            <span><i class="fa fa-paperclip"></i> 첨부파일 - </span>
+                            <c:forEach var="file" items="${fileInfo}">
+                                <a href="${pageContext.request.contextPath}/download/${file.FILEID}">${file.ORGFILENAME}</a>
+                                |
+                            </c:forEach>
+                        </p>
 
-                                    <div class="icon">
-                                        <i class="fa fa-file"></i>
-                                    </div>
-                                    <div class="file-name">
-                                        Document_2014.doc
-                                        <br/>
-                                        <small>Added: Jan 11, 2014</small>
-                                    </div>
-                                </a>
-                            </div>
-
+                        <div class="attachment">
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="file-box">
-                            <div class="file">
-                                <a href="#">
-                                    <span class="corner"></span>
-
-                                    <div class="image">
-                                        <img alt="image" class="img-fluid" src="img/p1.jpg">
-                                    </div>
-                                    <div class="file-name">
-                                        Italy street.jpg
-                                        <br/>
-                                        <small>Added: Jan 6, 2014</small>
-                                    </div>
-                                </a>
-
-                            </div>
-                        </div>
-                        <div class="file-box">
-                            <div class="file">
-                                <a href="#">
-                                    <span class="corner"></span>
-
-                                    <div class="image">
-                                        <img alt="image" class="img-fluid" src="img/p2.jpg">
-                                    </div>
-                                    <div class="file-name">
-                                        My feel.png
-                                        <br/>
-                                        <small>Added: Jan 7, 2014</small>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
-                </div>
+                </c:if>
                 <div class="clearfix"></div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-left">목록</a>
+                    <c:if test="${CHKAUTH eq 20}">
+                        <a href="${pageContext.request.contextPath}/company/notice/modified/${notice.NTNUM}" class="btn btn-default pull-right" style="margin-left: 5px;">삭제</a>
+                        <a href="${pageContext.request.contextPath}/company/notice/del/${notice.NTNUM}" class="btn btn-default pull-right">수정</a>
+                    </c:if>
                 </div>
             </div>
 

@@ -16,13 +16,6 @@ $('.client').click(function(e){
     }
 });
 
-$('#reset').click(function(e){
-    $('.searchparam').val('');
-    if( $('#infoagree') ){
-        $('#infoagree').val(1);
-    }
-});
-
 $('.smsBtn').click(function(){
     window.open("/popsms", "문자발송","width=450px, height=600px");
 });

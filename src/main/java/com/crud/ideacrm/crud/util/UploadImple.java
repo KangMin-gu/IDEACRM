@@ -130,6 +130,16 @@ public class UploadImple implements Uplaod {
                 //파일 유입별 경로설정
                 if(url.equals(insidenoticeUrl)){
                     realPath = request.getSession().getServletContext().getRealPath(insidenotice+years+"/"+months+"/"+siteId);
+                }else if(url.equals(noticeUrl)){
+                    realPath = request.getSession().getServletContext().getRealPath(notice+years+"/"+months+"/"+siteId);
+                }else if(url.equals(serviceUrl)){
+                    realPath = request.getSession().getServletContext().getRealPath(service+years+"/"+months+"/"+siteId);
+                }else if(url.equals(campaignUrl)){
+                    realPath = request.getSession().getServletContext().getRealPath(campaign+years+"/"+months+"/"+siteId);
+                }else if(url.equals(allnoticeUrl)){
+                    realPath = request.getSession().getServletContext().getRealPath(allnotice+years+"/"+months+"/"+siteId);
+                }else if(url.equals(vocnoticeUrl)){
+                    realPath = request.getSession().getServletContext().getRealPath(vocnotice+years+"/"+months+"/"+siteId);
                 }
 
                 String filePath = realPath+File.separator;

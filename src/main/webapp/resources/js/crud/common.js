@@ -256,7 +256,7 @@ function today(){
 }
 
 //동일 버튼 클릭 시간이 3초 미만이면 false 리턴
-//파라미터 버튼 obj 리턴타입 boolean
+//파라미터 버튼 obj  리턴타입 boolean 
 function boolTimeDiff(obj){
     var SET_TIME = 3000; //설정 타임 1초 = 1000
 

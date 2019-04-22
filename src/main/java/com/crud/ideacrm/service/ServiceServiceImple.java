@@ -125,7 +125,7 @@ public class ServiceServiceImple implements ServiceService{
         ractDto.setSiteid(siteId);
         ractDto.setEdtuser(userNo);
         /* 첨부파일 */
-        List<MultipartFile> serviceFile = serviceDto.getServicefile();
+        List<MultipartFile> serviceFile = serviceDto.getFiles();
         if(serviceFile  != null && serviceFile.size() > 0 && serviceFile.isEmpty() == false){
             String fileSearchKey = uplaod.multiUpload(response, request, serviceFile);
             serviceDto.setFilesearchkey(fileSearchKey);

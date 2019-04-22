@@ -51,7 +51,7 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/service/input" method="POST" enctype="multipart/form-data">
+            <form:form action="/service/input" method="POST" id="multiFile" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-12">
                         <button type="submit" class="btn btn-default pull-left">저장</button>
@@ -300,7 +300,7 @@
                                                                         <span class="btn btn-outline-secondary btn-file">
                                                                             <span class="fileinput-new">파일선택</span>
                                                                             <span class="fileinput-exists">변경</span>
-                                                                            <input id="files" type="file" class="fileChk" name="servicefile" multiple>
+                                                                            <input id="files" type="file" class="fileChk" name="files" multiple>
                                                                         </span>
                                                                         <span id="filesChk" class="fileinput-filename"></span>
                                                                         <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
@@ -520,6 +520,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
 
 </body>
 </html>

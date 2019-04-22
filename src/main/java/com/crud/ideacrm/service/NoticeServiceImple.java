@@ -225,6 +225,8 @@ public class NoticeServiceImple implements NoticeService{
     @Override
     public ModelAndView vocNoticeDetail(HttpServletRequest request, int noticeId) {
         Map<String, Object> notice = noticeDao.vocNoticeDetail(noticeId);
+        //클릭+1
+        noticeDao.vocNoticeReadCount(noticeId);
         ModelAndView mView = new ModelAndView();
         Map<String, Object> noteInfo = new HashMap<>();
         noteInfo.put("filesearchkey",notice.get("FILESEARCHKEY"));
@@ -301,5 +303,14 @@ public class NoticeServiceImple implements NoticeService{
         noticeDto.setNtnum(noticeId);
 
         noticeDao.vocNoticeDel(noticeDto);
+    }
+
+    //로그인 공지사항
+    @Override
+    public ModelAndView loginNotice(){
+        List<Map<String, Object>> notice = noticeDao.loginNotice();
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("notice", notice);
+        return mView;
     }
 }

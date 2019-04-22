@@ -22,16 +22,14 @@ public class NoticeController {
     @Autowired
     private CodeService codeService;
 
-    private final int SITENOTICE_USINGMENU = 5;
-    private final int ALLNOTICE_USINGMENU = 6;
-    private final int VOCNOTICE_USINGMENU = 7;
+    private final int NOTICE = 5;
 
 
     @RequestMapping(value = "/company/notice", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView authsiteNoticeList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.addAllObjects(codeService.getCommonCode(SITENOTICE_USINGMENU));
+        mView.addAllObjects(codeService.getCommonCode(NOTICE));
         mView.setViewName("page/membership/notice/noticeList");
         return mView;
     }
@@ -53,7 +51,7 @@ public class NoticeController {
     @RequestMapping(value = "/company/notice/input", method = RequestMethod.GET)
     public ModelAndView authsiteNoticeInsertForm(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.addAllObjects(codeService.getCommonCode(SITENOTICE_USINGMENU));
+        mView.addAllObjects(codeService.getCommonCode(NOTICE));
         mView.setViewName("page/membership/notice/noticeInsert");
         return mView;
     }
@@ -67,7 +65,7 @@ public class NoticeController {
     @RequestMapping(value = "/company/notice/modified/{noticeId}", method = RequestMethod.GET)
     public ModelAndView authsiteNoticeUpdateForm(HttpServletRequest request, @PathVariable int noticeId){
         ModelAndView mView = noticeService.siteNoticeUpdateForm(request, noticeId);
-        mView.addAllObjects(codeService.getCommonCode(SITENOTICE_USINGMENU));
+        mView.addAllObjects(codeService.getCommonCode(NOTICE));
         mView.setViewName("page/membership/notice/noticeUpdate");
         return mView;
     }
@@ -89,7 +87,7 @@ public class NoticeController {
     @ResponseBody
     public ModelAndView authNoticeList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.addAllObjects(codeService.getCommonCode(ALLNOTICE_USINGMENU));
+        mView.addAllObjects(codeService.getCommonCode(NOTICE));
         mView.setViewName("page/membership/allNotice/noticeList");
         return mView;
     }
@@ -125,7 +123,7 @@ public class NoticeController {
     @RequestMapping(value = "/notice/modified/{noticeId}", method = RequestMethod.GET)
     public ModelAndView authNoticeUpdateForm(HttpServletRequest request, @PathVariable int noticeId){
         ModelAndView mView = noticeService.noticeUpdateForm(request, noticeId);
-        mView.addAllObjects(codeService.getCommonCode(SITENOTICE_USINGMENU));
+        mView.addAllObjects(codeService.getCommonCode(NOTICE));
         mView.setViewName("page/membership/allNotice/noticeUpdate");
         return mView;
     }
@@ -147,7 +145,7 @@ public class NoticeController {
     @ResponseBody
     public ModelAndView authVocNoticeList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.addAllObjects(codeService.getCommonCode(VOCNOTICE_USINGMENU));
+        mView.addAllObjects(codeService.getCommonCode(NOTICE));
         mView.setViewName("page/membership/vocNotice/noticeList");
         return mView;
     }
@@ -182,7 +180,7 @@ public class NoticeController {
     @RequestMapping(value = "/voc/notice/modified/{noticeId}", method = RequestMethod.GET)
     public ModelAndView authVocNoticeUpdateForm(HttpServletRequest request, @PathVariable int noticeId){
         ModelAndView mView = noticeService.vocNoticeUpdateForm(request, noticeId);
-        mView.addAllObjects(codeService.getCommonCode(SITENOTICE_USINGMENU));
+        mView.addAllObjects(codeService.getCommonCode(NOTICE));
         mView.setViewName("page/membership/vocNotice/noticeUpdate");
         return mView;
     }

@@ -124,7 +124,7 @@
                                     </select>
                                 </div>
                                 <div class="pull-right" style="display: inline-block;">
-                                    <c:if test="${CHKAUTH eq 20}">
+                                    <c:if test="${CHKAUTH eq 20 || CHKAUTH eq 30}">
                                         <a class="btn btn-default pull-right" style="margin-left: 5px;" href="/voc/notice/input">등록</a>
                                     </c:if>
                                 </div>

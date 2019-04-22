@@ -91,6 +91,11 @@ public class NoticeDaoImple implements NoticeDao {
     }
 
     @Override
+    public void vocNoticeReadCount(int noticeId) {
+        session.update("notice.vocReadCount", noticeId);
+    }
+
+    @Override
     public int vocNoticeInsert(NoticeDto noticeDto) {
         session.insert("notice.vocNoticeInsert", noticeDto);
         int noticeId = noticeDto.getNtnum();
@@ -107,5 +112,11 @@ public class NoticeDaoImple implements NoticeDao {
     @Override
     public void vocNoticeDel(NoticeDto noticeDto) {
         session.update("notice.vocNoticeDel", noticeDto);
+    }
+
+    @Override
+    public List<Map<String, Object>> loginNotice() {
+        List<Map<String, Object>> notice = session.selectList("notice.loginNotice");
+        return notice;
     }
 }

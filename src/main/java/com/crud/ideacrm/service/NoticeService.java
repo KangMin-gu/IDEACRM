@@ -29,4 +29,5 @@ public interface NoticeService {
     public ModelAndView vocNoticeUpdateForm(HttpServletRequest request, int noticeId);
     public int vocNoticeUpdate(HttpServletResponse response, HttpServletRequest request, NoticeDto noticeDto);
     public void vocNoticeDel(HttpServletRequest request, int noticeId);
+    public ModelAndView loginNotice();
 }

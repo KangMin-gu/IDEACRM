@@ -59,19 +59,21 @@
                 <div class="col-xs-12">
                     <table class="table">
                         <colgroup>
-                            <col style="width: 200px;">
-                            <col style="width: 100px;">
+                            <col style="width: 25%;">
+                            <col style="width: 15%;">
+                            <col style="width: 60%;">
                         </colgroup>
                         <tbody>
-                        <c:forEach var="crudNotice" items="${crudNotice }">
+                        <c:forEach var="crudNotice" items="${notice }">
                             <tr>
+                                    <td>${crudNotice.TAGNAME }</td>
                                 <c:choose>
-                                    <c:when test="${fn:length(crudNotice.SUBJECT) > 14}">
+                                    <c:when test="${fn:length(crudNotice.TITLE) > 14}">
                                         <c:if test="${crudNotice.REGDATE } "></c:if>
-                                        <td><a href="#" style="text-decoration:none ; color:#000000;"><c:out value="${fn:substring(crudNotice.SUBJECT,0,20)}"/>....</a></td>
+                                        <td><a href="/notice/${crudNotice.NTNUM}" style="text-decoration:none ; color:#000000;"><c:out value="${fn:substring(crudNotice.TITLE,0,20)}"/>....</a></td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td><a href="#" style="text-decoration:none ; color:#000000;"><c:out value="${crudNotice.SUBJECT}"/></a></td>
+                                        <td><a href="/notice/${crudNotice.NTNUM}" style="text-decoration:none ; color:#000000;"><c:out value="${crudNotice.TITLE}"/></a></td>
                                     </c:otherwise>
                                 </c:choose>
                                 <td>${crudNotice.REGDATE }</td>

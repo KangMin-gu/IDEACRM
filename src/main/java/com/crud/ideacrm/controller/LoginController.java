@@ -2,6 +2,7 @@ package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.dto.UserDto;
 import com.crud.ideacrm.service.LoginService;
+import com.crud.ideacrm.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +21,9 @@ public class LoginController {
     @Autowired
     private LoginService login;
 
+    @Autowired
+    private NoticeService noticeService;
+
     //로그인폼요청
     @RequestMapping(value="/login", method=RequestMethod.GET)
     public ModelAndView loginForm(HttpServletRequest request) {
@@ -30,7 +34,7 @@ public class LoginController {
             url=request.getContextPath()+"/";
         }
 
-        ModelAndView mView = new ModelAndView();
+        ModelAndView mView = noticeService.loginNotice();
         mView.addObject("url", url);
         mView.setViewName("page/membership/login");
         return mView;

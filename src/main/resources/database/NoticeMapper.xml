@@ -153,6 +153,10 @@
 		WHERE A.NTNUM = #{noticeid}
     </select>
 
+    <update id="vocReadCount" parameterType="int">
+        UPDATE sys990012 SET CTR = CTR + 1 WHERE NTNUM = #{noticeid}
+    </update>
+
     <insert id="vocNoticeInsert" parameterType="noticeDto" >
         INSERT INTO sys990012
         (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG)
@@ -172,4 +176,14 @@
     <update id="vocNoticeDel" parameterType="noticeDto">
         UPDATE sys990012 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum}
     </update>
+
+    <select id="loginNotice" resultType="hashMap">
+        SELECT  CASE WHEN A.tag = 0 THEN '전체'
+        WHEN A.tag = 1 THEN '일반'
+        WHEN A.tag = 2 THEN '중요' END AS TAGNAME
+        , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
+        FROM sys990010 AS A
+        LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+        WHERE A.ISDELETE = 0 ORDER BY ntnum desc limit 5;
+    </select>
 </mapper>

@@ -158,7 +158,7 @@
                                                     </c:forEach>
                                                 </select>
                                             </td>
-                                            <td><span name="usecnt" id="ctiusecnt"></span></td>
+                                            <td><span name="usecnt" id="ctiusecnt" value="12345"></span></td>
                                             <td><span name="edtdate" id="ctiedtdate"></span></td>
                                         </tr>
                                         <tr>
@@ -201,7 +201,7 @@
 <script>
 $(document).ready(function() {
     var siteid = $('#siteid').val();
-    licenseDetail(siteid);
+    licenseInsert(siteid);
 });
 </script>
 </body>

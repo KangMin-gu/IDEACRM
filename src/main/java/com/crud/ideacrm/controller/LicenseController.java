@@ -40,7 +40,5 @@ public class LicenseController {
 
         return 0;
     }
-
-
 }
 

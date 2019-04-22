@@ -11,7 +11,7 @@
 		,A.MOBILE1,A.MOBILE2,A.MOBILE3
 		,CASE WHEN DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
 		ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
-		, CONCAT(A.MOBILE1, A.MOBILE2, A.MOBILE3) AS MOBILE
+		,A.MOBILE
 		,(SELECT COUNT(*) FROM CTI510010 WHERE CALLSTATUS = 1 AND CALLUSER = A.USERNO) AS CTICOUNT
 		,'/company/user/' AS URL
 		FROM me800010 A
@@ -104,14 +104,14 @@
 		,MOBILE1,MOBILE2,MOBILE3,TELNO1,TELNO2,TELNO3
 		,USERDUTY,CTIID,CTIPASS,CTITELNO,PWDCHANGEDATE
 		,ISDELETE,REGDATE,REGUSER,EDTDATE,EDTUSER
-		,CHKROLE,MASTERYN
+		,CHKROLE,MASTERYN,MOBILE
 		)VALUES(
 		#{siteid},#{userid},#{username},#{userpassword},#{userdesc}
 		,#{email},#{deptid},#{chkauth},now(),'ko'
 		,#{mobile1},#{mobile2},#{mobile3},#{telno1},#{telno2},#{telno3}
 		,#{userduty},#{ctiid},#{ctipass},#{ctitelno},now()
 		,0,now(),#{reguser},now(),#{edtuser}
-		,#{chkrole},0)
+		,#{chkrole},0,#{mobile})
 	</insert>
 
 	<update id="userUpdate" parameterType="userDto">
@@ -142,6 +142,7 @@
 		,CTITELNO = #{ctitelno}
 		,EDTDATE = NOW()
 		,EDTUSER = #{edtuser}
+		,MOBILE = #{mobile}
 		WHERE USERNO = #{userno}
 	</update>
 </mapper>

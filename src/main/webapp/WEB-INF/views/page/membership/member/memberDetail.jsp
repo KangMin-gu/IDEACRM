@@ -102,13 +102,13 @@
                                                     <p>전화번호 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>${userInfo.TELNO1} ${userInfo.TELNO2} ${userInfo.TELNO3}</p>
+                                                    <p>${userInfo.MOBILE1} ${userInfo.MOBILE2} ${userInfo.MOBILE3}</p>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <p>휴대전화 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>${userInfo.MOBILE1} ${userInfo.MOBILE2} ${userInfo.MOBILE3}</p>
+                                                    <p>${userInfo.TELNO1} ${userInfo.TELNO2} ${userInfo.TELNO3}</p>
                                                 </div>
                                             </div>
                                             <div class="row">

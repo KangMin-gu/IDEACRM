@@ -31,11 +31,12 @@ public class SiteServiceImple implements SiteService{
     private CodecUtil codecUtil;
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private ParameterUtil parameterUtil;
 
     @Override
     public List<Map<String, Object>> siteList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
 
-        ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> param = parameterUtil.searchParam(request);
 
         List<Map<String,Object>> siteList = siteDao.siteList(param);
@@ -48,7 +49,6 @@ public class SiteServiceImple implements SiteService{
         }
 
         return codecUtil.decodeList(siteList);
-        //return siteList;
     }
 
     @Override
@@ -69,11 +69,28 @@ public class SiteServiceImple implements SiteService{
 
     @Override
     public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
-/*
-        ParameterUtil parameterUtil = new ParameterUtil();
-        String bsno = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
-        siteDto.setBsno(bsno);
-*/
+
+        if(siteDto.getBsno1() != null && siteDto.getBsno2() != null && siteDto.getBsno3() != null){
+            String bsNo = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
+            siteDto.setBsno(bsNo);
+        }
+        if(siteDto.getIncno1() != null && siteDto.getIncno2() != null){
+            String incNo = parameterUtil.columnUnion(siteDto.getIncno1(),siteDto.getIncno2());
+            siteDto.setIncno(incNo);
+        }
+        if(siteDto.getMobile1() != null && siteDto.getMobile2() != null && siteDto.getMobile3() != null){
+            String mobile = parameterUtil.columnUnion(siteDto.getMobile1(),siteDto.getMobile2(),siteDto.getMobile3());
+            siteDto.setMobile(mobile);
+        }
+        if(siteDto.getFaxtel1() != null && siteDto.getFaxtel2() != null && siteDto.getFaxtel3() != null){
+            String faxtel = parameterUtil.columnUnion(siteDto.getFaxtel1(),siteDto.getFaxtel2(),siteDto.getFaxtel3());
+            siteDto.setFaxtel(faxtel);
+        }
+        if(siteDto.getTelno1() != null && siteDto.getTelno2() != null && siteDto.getTelno3() != null){
+            String telno = parameterUtil.columnUnion(siteDto.getTelno1(),siteDto.getTelno2(),siteDto.getTelno3());
+            siteDto.setTelno(telno);
+        }
+
         siteDto.setEncodingSiteDto();
         String siteId = siteDao.siteInsert(siteDto);
 
@@ -96,6 +113,27 @@ public class SiteServiceImple implements SiteService{
 
     @Override
     public void siteUpdate(HttpServletRequest request, String siteId, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        if(siteDto.getBsno1() != null && siteDto.getBsno2() != null && siteDto.getBsno3() != null){
+            String bsNo = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
+            siteDto.setBsno(bsNo);
+        }
+        if(siteDto.getIncno1() != null && siteDto.getIncno2() != null){
+            String incNo = parameterUtil.columnUnion(siteDto.getIncno1(),siteDto.getIncno2());
+            siteDto.setIncno(incNo);
+        }
+        if(siteDto.getMobile1() != null && siteDto.getMobile2() != null && siteDto.getMobile3() != null){
+            String mobile = parameterUtil.columnUnion(siteDto.getMobile1(),siteDto.getMobile2(),siteDto.getMobile3());
+            siteDto.setMobile(mobile);
+        }
+        if(siteDto.getFaxtel1() != null && siteDto.getFaxtel2() != null && siteDto.getFaxtel3() != null){
+            String faxtel = parameterUtil.columnUnion(siteDto.getFaxtel1(),siteDto.getFaxtel2(),siteDto.getFaxtel3());
+            siteDto.setFaxtel(faxtel);
+        }
+        if(siteDto.getTelno1() != null && siteDto.getTelno2() != null && siteDto.getTelno3() != null){
+            String telno = parameterUtil.columnUnion(siteDto.getTelno1(),siteDto.getTelno2(),siteDto.getTelno3());
+            siteDto.setTelno(telno);
+        }
+
         String deSiteId = codecUtil.decodePkNo(siteId);
         siteDto.setSiteid(deSiteId);
         ctiDto.setSiteid(deSiteId);

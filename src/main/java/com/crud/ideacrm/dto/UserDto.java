@@ -37,6 +37,7 @@ public class UserDto {
     private int edtuser; //수정자
     private String code;
     private int masteryn;
+    private String mobile;
 
 
 
@@ -53,7 +54,7 @@ public class UserDto {
         if(this.email != null && this.email != ""){ this.email = commonUtil.encoding(this.email);}
     }
 
-    public UserDto(String userno, int siteid, String userid, String username, String userpassword, String userdesc, String email, int deptid, int chkauth, String enterdate, String userlang, String mobile1, String mobile2, String mobile3, String telno1, String telno2, String telno3, String userduty, int chkrole, String ctiid, String ctipass, String ctitelno, String pwdchangedate, int isdelete, String regdate, int reguser, String edtdate, int edtuser, String code, int masteryn) {
+    public UserDto(String userno, int siteid, String userid, String username, String userpassword, String userdesc, String email, int deptid, int chkauth, String enterdate, String userlang, String mobile1, String mobile2, String mobile3, String telno1, String telno2, String telno3, String userduty, int chkrole, String ctiid, String ctipass, String ctitelno, String pwdchangedate, int isdelete, String regdate, int reguser, String edtdate, int edtuser, String code, int masteryn, String mobile) {
         this.userno = userno;
         this.siteid = siteid;
         this.userid = userid;
@@ -84,6 +85,7 @@ public class UserDto {
         this.edtuser = edtuser;
         this.code = code;
         this.masteryn = masteryn;
+        this.mobile = mobile;
     }
 
     public String getUserno() {
@@ -324,5 +326,13 @@ public class UserDto {
 
     public void setMasteryn(int masteryn) {
         this.masteryn = masteryn;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

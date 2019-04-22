@@ -12,8 +12,6 @@ import java.util.Map;
 
 @Component
 public class ParameterUtil {
-    @Autowired
-    private CodecUtil codecUtil;
 
     public Map<String, Object> searchParam(HttpServletRequest request) {
 
@@ -51,12 +49,17 @@ public class ParameterUtil {
         return search;
     }
 
-    public String columnUnion(String column1,String column2, String column3) throws UnsupportedEncodingException, GeneralSecurityException {
-        String columnUnion = "";
-        if(column3.equals("")){
-            columnUnion = column1 + "-" + column2;
-        }else{
-            columnUnion = column1 + "-" + column2 + "-" + column3;
+    public String columnUnion(String... column) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        CodecUtil codecUtil = new CodecUtil();
+        int columnLength = column.length;
+        String columnUnion ="";
+        for (int i = 0; i < columnLength; i++){
+            if(i == columnLength-1){
+                columnUnion = columnUnion + column[i];
+            }else{
+                columnUnion = columnUnion + column[i] + '-';
+            }
         }
         columnUnion = codecUtil.encoding(columnUnion);
         return columnUnion;

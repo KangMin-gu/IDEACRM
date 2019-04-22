@@ -24,10 +24,11 @@ public class UserServiceImple implements UserService {
     private CodecUtil codecUtil;
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private ParameterUtil parameterUtil;
 // 사용자 List
     @Override
     public List<Map<String, Object>> userList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        ParameterUtil parameterUtil = new ParameterUtil();
 
         Map<String,Object> param = parameterUtil.searchParam(request);
 
@@ -38,8 +39,8 @@ public class UserServiceImple implements UserService {
             String enUserNo = codecUtil.encodePkNo(deUserNo);
             userList.get(i).put("NO",enUserNo);
         }
-        return codecUtil.decodeList(userList);
-        //return userList;
+        //return codecUtil.decodeList(userList);
+        return userList;
         }
 
     @Override
@@ -68,6 +69,8 @@ public class UserServiceImple implements UserService {
         userDto.setReguser(userNo);
         userDto.setEdtuser(userNo);
         String enCodePass = encoder.encode(userDto.getUserpassword());
+        String mobile = parameterUtil.columnUnion(userDto.getMobile1(),userDto.getMobile2(),userDto.getMobile3());
+        userDto.setMobile(mobile);
         userDto.setEncodingUserDto();
         userDto.setUserpassword(enCodePass);
         String insertUserNo = userDao.userInsert(userDto);
@@ -99,6 +102,10 @@ public class UserServiceImple implements UserService {
     public void userUpdate(HttpServletRequest request, String userNo, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
 
         userNo = codecUtil.decodePkNo(userNo);
+
+        String mobile = parameterUtil.columnUnion(userDto.getMobile1(),userDto.getMobile2(),userDto.getMobile3());
+        userDto.setMobile(mobile);
+
         userDto.setEncodingUserDto();
         userDto.setUserno(userNo);
         if(userDto.getUserpassword() != null){

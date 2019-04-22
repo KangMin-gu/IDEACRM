@@ -46,7 +46,6 @@
             </div>
         </div>
 
-
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
@@ -93,19 +92,19 @@
                                         <th>회원사명</th>
                                         <td><span id="sitename">${siteInfo.SITENAME}</span></td>
                                         <th>사업자번호</th>
-                                        <td>${siteInfo.BSNO1}${siteInfo.BSNO2}${siteInfo.BSNO3}</td>
+                                        <td>${siteInfo.BSNO}</td>
                                         <th>법인번호</th>
-                                        <td>${siteInfo.INCNO1}${siteInfo.INCNO2}</td>
+                                        <td>${siteInfo.INCNO}</td>
                                         <th>대표자명</th>
                                         <td>${siteInfo.PRSDNAME}</td>
                                     </tr>
                                     <tr>
                                         <th>전화번호</th>
-                                        <td>${siteInfo.TELNO1}${siteInfo.TELNO2}${siteInfo.TELNO3}</td>
+                                        <td>${siteInfo.TELNO}</td>
                                         <th>팩스번호</th>
-                                        <td>${siteInfo.FAXTEL1}${siteInfo.FAXTEL2}${siteInfo.FAXTEL3}</td>
+                                        <td>${siteInfo.FAXTEL}</td>
                                         <th>휴대전화</th>
-                                        <td>${siteInfo.MOBILE1}${siteInfo.MOBILE2}${siteInfo.MOBILE3}</td>
+                                        <td>${siteInfo.MOBILE}</td>
                                         <th>이메일</th>
                                         <td>${siteInfo.EMAIL}</td>
                                     </tr>
@@ -286,7 +285,7 @@
                                             </div>
                                             <div role="tabpanel" id="tab-2" class="tab-pane">
                                                 <div class="panel-body">
-                                                    <a href="" class="btn btn-w-m btn-xs pull-right btn-primary" style="margin-bottom: 10px;">라이센스관리</a>
+                                                    <a href="${pageContext.request.contextPath}/license/${siteInfo.SITEID}" class="btn btn-w-m btn-xs pull-right btn-primary" style="margin-bottom: 10px;">라이센스관리</a>
                                                     <div class="table-responsive">
                                                         <table class="table table-bordered" style="white-space:nowrap;">
                                                             <colgroup>

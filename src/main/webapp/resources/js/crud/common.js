@@ -255,3 +255,27 @@ function today(){
     return today;
 }
 
+//동일 버튼 클릭 시간이 3초 미만이면 false 리턴
+//파라미터 버튼 obj 리턴타입 boolean
+function boolTimeDiff(obj){
+    var SET_TIME = 3000; //설정 타임 1초 = 1000
+
+    if( !obj.attr("runtime") == true ){//this가 '' 또는 null 또는 undefind 라면
+        obj.attr("runtime",new Date()); // runtime 셋팅
+        return true;
+    }else{
+        var newTime = new Date(); //현재시간
+        var oldTime = new Date(obj.attr('runtime')); //runtime에 있는 String형태의 값을 Date 포멧으로 변환
+        var timeDiff =  newTime.getTime() - oldTime.getTime(); // 현재시간 - 메뉴 클릭 시간  (단위 : 밀리세컨드)
+        // console.log(timeDiff);
+        if(timeDiff > SET_TIME ){
+            //   console.log('3초 지남');
+            obj.attr("runtime",new Date());
+            return true;
+        }else{
+            // console.log('#초 안지남');
+            obj.attr("runtime",new Date());
+            return false;
+        }
+    }
+}

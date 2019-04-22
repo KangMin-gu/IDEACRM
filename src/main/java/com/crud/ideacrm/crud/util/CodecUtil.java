@@ -53,12 +53,15 @@ public class CodecUtil {
         String[] homtelArr = new String[3];
         String[] homaddrArr = new String[3];
 
+        String tmpStr;
         int length = FIELD_NAME_ARR.length;
         //int mapSize = map.size();
         for(int i=0; i < length ; i++){
+
             String keyNm = FIELD_NAME_ARR[i];
             if(map.get( keyNm ) != null && !map.get( keyNm ).equals("") ){//FIELD_NAME_ARR에 정의된 값이 있다면 복호화
-                String tmpStr = (String)map.get(keyNm);
+
+                tmpStr = (String)map.get(keyNm);
                 tmpStr = decoding(tmpStr);
                 map.put(keyNm, tmpStr );//복호화한 값으로 변경
 
@@ -130,7 +133,7 @@ public class CodecUtil {
         for(int i=0;i<phoneArr.length;i++){
             if(phoneArr[i] == null) phoneArr[i]="";//배열값이 null이면 ""로변환
         }
-        String phone = phoneArr[0]+"-"+phoneArr[1]+"-"+phoneArr[2];
+        String phone = phoneArr[0]+""+phoneArr[1]+""+phoneArr[2];
         //전화번호가 길이가 비정상이라면 '-'문자열 제거
         if( phone.length() < 10 ) {
             phone = phone.replace("-","");

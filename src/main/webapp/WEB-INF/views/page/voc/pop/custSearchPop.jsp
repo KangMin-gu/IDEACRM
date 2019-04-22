@@ -32,7 +32,7 @@
                <div class="col-lg-12">
                    <button class="btn btn-default pull-right" onclick="makeCustAddBtn();">추가</button>
                    <div id="filter-form-container"></div>
-                   <table class="footable table table-striped">
+                   <table class="searchCust footable table table-striped">
                        <thead>
                        <tr>
                            <th data-visible="false" data-name="CUSTNO">고객번호</th>
@@ -79,6 +79,7 @@
     $(document).ready(function() {
         footableSearchList('/voc/custsearch');
     });
+
 
 </script>
 </body>

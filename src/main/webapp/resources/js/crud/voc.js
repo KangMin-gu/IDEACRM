@@ -1,3 +1,13 @@
+var _obj;
+//voc 고객 검색 팝업 이벤트
+//필터링 창에 인입번호 바인딩 후 엔터키 입력
+$(".searchCust").on("ready.ft.table",function(obj,e,ft,row){
+    debugger;
+    var enter = jQuery.Event( "keypress", { keyCode: 13 } );//enter key 입력 이벤트
+    $('.footable-filtering-search').find('input[type=text]').val(opener.$('#searchNumber').val());//호출 창의 인입번호 입력값 바인딩 후 엔터
+    $('.footable-filtering-search').find('input[type=text]').trigger(enter);
+});
+
 $('.voc').find('.nav-link').click(function(e){
     // click 탭의 href의 값을 가지고 온다.
     var href = e.target.attributes.href.value;
@@ -44,7 +54,6 @@ function vocFootableSearchList(id,url) {
 
 
 $('#searchNumber').keydown(function(key){
-
     if(key.keyCode == 13){ //엔터키 입력시 이벤트 실행
         custSearch(key.target);
     }
@@ -404,22 +413,6 @@ function blackCustCssChange(bool){//블랙 유저면 true   아니면 false
     }
 }
 
-$('#vocServiceTabBtn').click(function(){
-    var custno = $('#custno').val();
-    if( !custno == false )
-        tabFootableSearchList('vocSvTab', '/voc/tab/sv');
-});
-$('#vocBlackTabBtn').click(function(){
-    var custno = $('#custno').val();
-    if( !custno == false )
-        tabFootableSearchList('vocBlackTab','/voc/tab/black');
-});
-
-$('#vocCallbackHistTabBtn').click(function(){
-    var custno = $('#custno').val();
-    if( !custno == false )
-        tabFootableSearchList('vocCallbackHistTab','/voc/tab/callbackhist');
-});
 
 function callbackHistFormatter(value, options, rowData){
    if( !rowData.REQNO == false ){
@@ -907,3 +900,24 @@ function productB() {
         }
     });
 }
+
+
+// vocDetail화면의 Tab클릭 이벤트
+$('.vocTabDetail').find('.nav-link').click(function(e){
+    debugger;
+    var obj = $(this);
+    var bool = boolTimeDiff(obj);//동일 버튼 클릭 시간이 3초 미만이면 false 리턴
+    if(bool == false){ return; }
+
+    var custno = $('#custno').val();
+    if( !custno == false ){
+        // click 탭의 href의 값을 가지고 온다.
+        var href = e.target.attributes.href.value;
+        // href의 tabpanel에 footable에 사용할 url을 가지고 온다.
+        var url = $(href).attr('url');
+        if(url != undefined){
+            tabFootableSearchList(href,url);
+        }
+    }
+});
+

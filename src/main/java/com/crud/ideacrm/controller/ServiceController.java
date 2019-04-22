@@ -35,7 +35,7 @@ public class ServiceController {
     private UploadDao uploadDao;
 
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
-    //화면 호출
+    //화면  호출
     @RequestMapping(value = "/service", method = RequestMethod.GET)
     public ModelAndView authService(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();

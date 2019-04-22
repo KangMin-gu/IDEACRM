@@ -52,10 +52,10 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-left">목록</a>
-                    <c:if test="${CHKAUTH eq 20}">
-                        <a href="${pageContext.request.contextPath}/company/notice/del/${notice.NTNUM}" class="btn btn-default pull-right" style="margin-left: 5px;">삭제</a>
-                        <a href="${pageContext.request.contextPath}/company/notice/modified/${notice.NTNUM}" class="btn btn-default pull-right">수정</a>
+                    <a href="${pageContext.request.contextPath}/notice" class="btn btn-default pull-left">목록</a>
+                    <c:if test="${CHKAUTH eq 30}">
+                        <a href="${pageContext.request.contextPath}/notice/del/${notice.NTNUM}" class="btn btn-default pull-right" style="margin-left: 5px;">삭제</a>
+                        <a href="${pageContext.request.contextPath}/notice/modified/${notice.NTNUM}" class="btn btn-default pull-right">수정</a>
                     </c:if>
                 </div>
             </div>
@@ -100,10 +100,10 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-left">목록</a>
-                    <c:if test="${CHKAUTH eq 20}">
-                        <a href="${pageContext.request.contextPath}/company/notice/del/${notice.NTNUM}" class="btn btn-default pull-right" style="margin-left: 5px;">삭제</a>
-                        <a href="${pageContext.request.contextPath}/company/notice/modified/${notice.NTNUM}" class="btn btn-default pull-right">수정</a>
+                    <a href="${pageContext.request.contextPath}/notice" class="btn btn-default pull-left">목록</a>
+                    <c:if test="${CHKAUTH eq 30}">
+                        <a href="${pageContext.request.contextPath}/notice/del/${notice.NTNUM}" class="btn btn-default pull-right" style="margin-left: 5px;">삭제</a>
+                        <a href="${pageContext.request.contextPath}/notice/modified/${notice.NTNUM}" class="btn btn-default pull-right">수정</a>
                     </c:if>
                 </div>
             </div>

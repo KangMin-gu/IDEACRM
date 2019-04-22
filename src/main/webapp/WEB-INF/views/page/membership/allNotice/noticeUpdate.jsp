@@ -45,13 +45,13 @@
             </div>
         </div>
 
-        <form:form id="multiFile" action="/company/notice/input" enctype="multipart/form-data" method="post">
+        <form:form id="multiFile" action="/notice/modified/${noticeInfo.NTNUM}" enctype="multipart/form-data" method="post">
         <div class="wrapper wrapper-content animated fadeInRight">
-
+            <input type="hidden" value="${noticeInfo.NTNUM}" id="ntnum" name="ntnum">
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">등록</button>
-                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-right">취소</a>
+                    <a href="${pageContext.request.contextPath}/notice/${noticeInfo.NTNUM}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -62,7 +62,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label" for="title">제목:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" value="" id="title" name="title">
+                                <input type="text" class="form-control" value="${noticeInfo.TITLE}" id="title" name="title" >
                             </div>
                         </div>
                     <div class="form-group row">
@@ -70,7 +70,7 @@
                         <div class="col-sm-10">
                             <select class="form-control m-b" id="tag" name="tag" style="width: 100px;">
                                 <c:forEach var="tag" items="${TAG}">
-                                    <option value="${tag.codeval}">${tag.codename}</option>
+                                    <option value="${tag.codeval}" ${noticeInfo.TAG eq tag.codeval ? "selected" :"" } >${tag.codename}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -78,19 +78,26 @@
                 </div>
 
                 <div class="mail-text h-200">
-                    <textarea id="content" name="content"></textarea>
+                    <textarea id="content" name="content">${noticeInfo.CONTENT}</textarea>
                     <div class="clearfix"></div>
                 </div>
                 <br/>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">첨부파일</label>
+                    <label class="col-sm-2 col-form-label">기존파일</label>
+                    <c:forEach var="file" items="${fileInfo}">
+                        <span>${file.ORGFILENAME}</span>
+                        |
+                    </c:forEach>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">수정파일</label>
                     <div class="col-sm-10">
                         <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <span class="btn btn-outline-secondary btn-file">
-                                                        <span class="fileinput-new">파일선택</span>
-                                                        <span class="fileinput-exists">변경</span>
-                                                        <input id="files" type="file" class="fileChk" name="file" multiple>
-                                                    </span>
+                             <span class="btn btn-outline-secondary btn-file">
+                                 <span class="fileinput-new">파일선택</span>
+                                 <span class="fileinput-exists">변경</span>
+                                 <input id="files" type="file" class="fileChk" name="file" multiple>
+                             </span>
                             <span id="filesChk" class="fileinput-filename"></span>
                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                         </div>
@@ -103,7 +110,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">등록</button>
-                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-right">취소</a>
+                    <a href="${pageContext.request.contextPath}/notice/${noticeInfo.NTNUM}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
             <br/>

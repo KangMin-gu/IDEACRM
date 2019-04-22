@@ -49,4 +49,127 @@
         </selectKey>
     </insert>
 
+    <update id="companyNoticeUpdate" parameterType="noticeDto">
+    UPDATE sys990011  SET TITLE = #{title}, CONTENT = #{content}, EDTUSER = #{edtuser}, EDTDATE = now(), FILESEARCHKEY = #{filesearchkey}, TAG=#{tag}
+    WHERE NTNUM = #{ntnum}
+    </update>
+
+    <update id="companyNoticeDel" parameterType="noticeDto">
+        UPDATE sys990011 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum}
+    </update>
+
+
+    <!--전체공지사항-->
+    <select id="noticeList" parameterType="hashMap" resultType="hashMap">
+        SELECT  CASE WHEN A.tag = 0 THEN '전체'
+        WHEN A.tag = 1 THEN '일반'
+        WHEN A.tag = 2 THEN '중요' END AS TAGNAME
+        , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
+        FROM sys990010 AS A
+        LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+        WHERE A.ISDELETE = 0
+        <if test="regdatefr != null">
+            AND A.REGDATE <![CDATA[>=]]> #{regdatefr}
+        </if>
+        <if test="regdateto != null">
+            AND A.REGDATE <![CDATA[<=]]> #{regdateto}
+        </if>
+        <if test="writer != null">
+            AND B.USERNAME = #{writer}
+        </if>
+        <if test="title != null">
+            AND A.TITLE = #{title}
+        </if>
+        <if test="tag != null">
+            AND A.tag = #{tag}
+        </if>
+    </select>
+
+    <select id="noticeDetail" parameterType="int" resultType="hashMap">
+		SELECT
+           CASE WHEN A.tag = 0 THEN '전체'
+            WHEN A.tag = 1 THEN '일반'
+            WHEN A.tag = 2 THEN '중요' END AS TAG
+        ,A.TITLE, A.CONTENT, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER, A.NTNUM, A.FILESEARCHKEY
+        FROM sys990010 AS A
+		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+		WHERE A.NTNUM = #{noticeid}
+    </select>
+
+    <insert id="noticeInsert" parameterType="noticeDto" >
+        INSERT INTO sys990010
+        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG)
+        VALUES
+        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag})
+
+        <selectKey resultType="int" keyProperty="ntnum" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="noticeUpdate" parameterType="noticeDto">
+    UPDATE sys990010  SET TITLE = #{title}, CONTENT = #{content}, EDTUSER = #{edtuser}, EDTDATE = now(), FILESEARCHKEY = #{filesearchkey}, TAG=#{tag}
+    WHERE NTNUM = #{ntnum}
+    </update>
+
+    <update id="noticeDel" parameterType="noticeDto">
+        UPDATE sys990010 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum}
+    </update>
+
+    <!--voc 공지사항-->
+    <select id="vocNoticeList" parameterType="hashMap" resultType="hashMap">
+        SELECT  CASE WHEN A.tag = 0 THEN '전체'
+        WHEN A.tag = 1 THEN '일반'
+        WHEN A.tag = 2 THEN '중요' END AS TAGNAME
+        , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
+        FROM sys990012 AS A
+        LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+        WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0
+        <if test="regdatefr != null">
+            AND A.REGDATE <![CDATA[>=]]> #{regdatefr}
+        </if>
+        <if test="regdateto != null">
+            AND A.REGDATE <![CDATA[<=]]> #{regdateto}
+        </if>
+        <if test="writer != null">
+            AND B.USERNAME = #{writer}
+        </if>
+        <if test="title != null">
+            AND A.TITLE = #{title}
+        </if>
+        <if test="tag != null">
+            AND A.tag = #{tag}
+        </if>
+    </select>
+
+    <select id="vocNoticeDetail" parameterType="int" resultType="hashMap">
+		SELECT
+           CASE WHEN A.tag = 0 THEN '전체'
+            WHEN A.tag = 1 THEN '일반'
+            WHEN A.tag = 2 THEN '중요' END AS TAG
+        ,A.TITLE, A.CONTENT, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER, A.NTNUM, A.FILESEARCHKEY
+        FROM sys990012 AS A
+		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+		WHERE A.NTNUM = #{noticeid}
+    </select>
+
+    <insert id="vocNoticeInsert" parameterType="noticeDto" >
+        INSERT INTO sys990012
+        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG)
+        VALUES
+        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag})
+
+        <selectKey resultType="int" keyProperty="ntnum" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="vocNoticeUpdate" parameterType="noticeDto">
+    UPDATE sys990012  SET TITLE = #{title}, CONTENT = #{content}, EDTUSER = #{edtuser}, EDTDATE = now(), FILESEARCHKEY = #{filesearchkey}, TAG=#{tag}
+    WHERE NTNUM = #{ntnum}
+    </update>
+
+    <update id="vocNoticeDel" parameterType="noticeDto">
+        UPDATE sys990012 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum}
+    </update>
 </mapper>

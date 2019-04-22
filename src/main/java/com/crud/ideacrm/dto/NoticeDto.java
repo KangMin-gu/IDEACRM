@@ -18,10 +18,11 @@ public class NoticeDto {
     private int siteid;
     private int tag;
     private List<MultipartFile> file; //Spring 에서 파일 업로드 처리하기 위해
+    private int ctr;
 
     public NoticeDto(){}
 
-    public NoticeDto(int ntnum, String title, String content, int reguser, String regdate, int edtuser, String edtdate, int isdelete, String filesearchkey, int siteid, int tag, List<MultipartFile> file) {
+    public NoticeDto(int ntnum, String title, String content, int reguser, String regdate, int edtuser, String edtdate, int isdelete, String filesearchkey, int siteid, int tag, List<MultipartFile> file, int ctr) {
         this.ntnum = ntnum;
         this.title = title;
         this.content = content;
@@ -34,6 +35,7 @@ public class NoticeDto {
         this.siteid = siteid;
         this.tag = tag;
         this.file = file;
+        this.ctr = ctr;
     }
 
     public int getNtnum() {
@@ -130,5 +132,13 @@ public class NoticeDto {
 
     public void setFile(List<MultipartFile> file) {
         this.file = file;
+    }
+
+    public int getCtr() {
+        return ctr;
+    }
+
+    public void setCtr(int ctr) {
+        this.ctr = ctr;
     }
 }

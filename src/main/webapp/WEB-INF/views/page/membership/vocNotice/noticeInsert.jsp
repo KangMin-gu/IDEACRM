@@ -45,13 +45,13 @@
             </div>
         </div>
 
-        <form:form id="multiFile" action="/company/notice/input" enctype="multipart/form-data" method="post">
+        <form:form id="multiFile" action="/voc/notice/input" enctype="multipart/form-data" method="post">
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">등록</button>
-                    <a href="${pageContext.request.contextPath}/company/notice" class="btn btn-default pull-right">취소</a>
+                    <a href="${pageContext.request.contextPath}/voc/notice" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -69,9 +69,9 @@
                         <label class="col-sm-2 col-form-label" for="tag">말머리:</label>
                         <div class="col-sm-10">
                             <select class="form-control m-b" id="tag" name="tag" style="width: 100px;">
-                                <c:forEach var="tag" items="${TAG}">
-                                    <option value="${tag.codeval}">${tag.codename}</option>
-                                </c:forEach>
+                                <option value="0">전체</option>
+                                <option value="1">일반</option>
+                                <option value="2">중요</option>
                             </select>
                         </div>
                     </div>

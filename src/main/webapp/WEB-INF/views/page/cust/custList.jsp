@@ -192,18 +192,18 @@
                             <form class="deleteForm" action="/cust/del" method="post">
                             <table class="footable table table-striped">
                                 <thead>
-                                <tr>
-                                    <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
-                                    <th data-name="CUSTNAME" data-formatter="custListFormatter" data-filterable="true">고객명</th>
-                                    <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
-                                    <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
-                                    <th data-name="MOBILE" data-breakpoints="xs sm" data-filterable="true">휴대폰</th>
-                                    <th data-name="EMAIL" data-breakpoints="xs sm" data-filtering="false">이메일</th>
-                                    <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
-                                    <th data-name="CUSTGUBUN" data-breakpoints="xs sm">회원구분</th>
-                                    <th data-name="CUSTGRADE" data-breakpoints="xs sm">고객등급</th>
-                                    <th data-name="REGDATE" data-breakpoints="xs sm" data-sorted="true" data-direction="DESC">등록일</th>
-                                </tr>
+                                    <tr>
+                                        <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
+                                        <th data-name="CUSTNAME" data-formatter="custListFormatter" data-filterable="true">고객명</th>
+                                        <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
+                                        <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
+                                        <th data-name="MOBILE" data-breakpoints="xs sm" data-filterable="true">휴대폰</th>
+                                        <th data-name="EMAIL" data-breakpoints="xs sm" data-filtering="false">이메일</th>
+                                        <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
+                                        <th data-name="CUSTGUBUN" data-breakpoints="xs sm">회원구분</th>
+                                        <th data-name="CUSTGRADE" data-breakpoints="xs sm">고객등급</th>
+                                        <th data-name="REGDATE" data-breakpoints="xs sm" data-sorted="true" data-direction="DESC">등록일</th>
+                                    </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>

@@ -30,7 +30,7 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>공지사항</h2>
+                <h2>IDEA 공지사항</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
@@ -124,16 +124,17 @@
                                     </select>
                                 </div>
                                 <div class="pull-right" style="display: inline-block;">
-                                    <a class="btn btn-default pull-right" style="margin-left: 5px;" href="/company/notice/input">등록</a>
+                                    <c:if test="${CHKAUTH eq 30}">
+                                        <a class="btn btn-default pull-right" style="margin-left: 5px;" href="/notice/input">등록</a>
+                                    </c:if>
                                 </div>
                             </div>
-                            <form class="deleteForm" action="/cust/del" method="post">
                                 <table class="footable table table-striped">
                                     <thead>
                                         <tr>
-                                            <th data-name="NTNUM" data-visible="false" data-filterable="true">
+                                            <th data-name="NTNUM" data-visible="false">
                                             <th data-name="TAGNAME" data-filterable="true">말머리</th>
-                                            <th data-name="TITLE" data-formatter="siteNoticeListFormatter" data-filterable="true">제목</th>
+                                            <th data-name="TITLE" data-formatter="noticeListFormatter" data-filterable="true">제목</th>
                                             <th data-name="WRITER" data-filterable="true">글쓴이</th>
                                             <th data-name="REGDATE" data-filterable="true" data-direction="DESC">날짜</th>
                                         </tr>
@@ -148,7 +149,6 @@
                                     </tr>
                                     </tfoot>
                                 </table>
-                            </form>
                         </div>
                     </div>
                 </div>

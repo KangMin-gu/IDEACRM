@@ -82,7 +82,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/voc/dashboard">콜센터</a></li>
                     <li><a href="${pageContext.request.contextPath}/voc/satisfied">고객만족도 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/voc/satisfied">콜센터공지</a></li>
+                    <li><a href="${pageContext.request.contextPath}/voc/notice">콜센터공지</a></li>
                 </ul>
             </li>
 

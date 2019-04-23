@@ -1,11 +1,11 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.CustService;
-import com.crud.ideacrm.service.ServiceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,26 +19,23 @@ import java.security.GeneralSecurityException;
 import java.util.*;
 
 @Controller
-public class CustController {//
+public class CustController {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private CodeService codeService;
     @Autowired
     private CustService custService;
-    @Autowired
-    private ServiceService serviceService;
 
     private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1 .
 
     //고객 리스트 기본 화면.testd
     @RequestMapping(value = "/cust", method = RequestMethod.GET)
     public ModelAndView authCustList(HttpServletRequest request){
-
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
         mView.setViewName("page/cust/custList");
-
         return mView;
     }
     //고객 리스트 - fooTable에 모델 객체 반환

@@ -20,6 +20,9 @@ public interface VocService {
     public int vocCallBackUpdate(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
     public void vocRecInsert(HttpServletRequest request);
     public void vocCallBackInsert(HttpServletRequest request);
-    public Map<String, Object> svcVocPopServiceSelect(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException;
-
+    public Map<String, Object> vocPopServiceSelect(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException;
+    public void vocEndCall(HttpServletRequest request);
+    public Map<String, Object> vocOwnerList(HttpServletRequest request,int asOwner);
+    public List<Map<String,Object>> vocCalOwnerList (HttpServletRequest request,int asOwner);
+    public Map<String,Object> vocCalList(HttpServletRequest request);
 }

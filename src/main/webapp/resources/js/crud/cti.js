@@ -488,7 +488,7 @@ function func_login(id, password, extension) {
 		return;
 	}
 	goWebSocketSendMsg("on^login^"+ id + "^" + password + "^" + extension);
-	
+
 }
 
 //강제로그인
@@ -509,7 +509,7 @@ function func_forceLogin(id, password, extension){
 		return;
 	}
 	goWebSocketSendMsg("on^forceLogin^"+ id + "^" + password + "^" + extension);
-	intervalFuncOn();
+
 }
 
 //로그아웃
@@ -535,7 +535,7 @@ function func_answer(){
 	goWebSocketSendMsg("on^answer");
 	/*2019-02-08 신동우 코드 추가
 	해당번호 고객목록 조회 팝업 실행*/
-	custSearch('#searchNumber');
+	custSearch($('#searchNumber'));
 }
 
 //전화끊기
@@ -711,7 +711,7 @@ function ctiEvent(msg){
 		document.getElementById("obTryCnt").innerHTML = "0";
 		document.getElementById("obConnectCnt").innerHTML = "0";
 		document.getElementById("cti_waitting_cnt").innerHTML = "0";
-		
+
 	}else if(tmpData[0] == "02"){// 비밀번호변경 응답
 		if(tmpData[4] == "1"){
 			alert("비밀번호가 변경되었습니다.");
@@ -852,7 +852,7 @@ function ctiEvent(msg){
 			,"obTryCnt":tmpData[13],"obConnectCnt":tmpData[14],"avgCall":tmpData[24],"avgWait":tmpData[25],"sumCall":tmpData[27],"ResponseRate":parseFloat(tmpData[10]/tmpData[9] * 100).toFixed(2) + '%'};
 			
 			$.ajax({
-				url: "/vc/endcall",
+				url: "/voc/endcall",
 				method: "POST",
 				dataType: "json",
 				data: jsonPrm,
@@ -1014,7 +1014,7 @@ function setBtnStatus(btnId,booleanBtnState){//버튼 id, true or false 를 받�
 }
 function sessMaintain(){//세션유지용
  	$.ajax({
-       		url: "/vc/sess",
+       		url: "/voc/sess",
         	method: "GET",
         	dataType: "json",
         	cache: false,

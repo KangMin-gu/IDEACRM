@@ -4,6 +4,8 @@ import com.crud.ideacrm.crud.dto.MailDto;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dto.InsideNoticeDto;
 import com.crud.ideacrm.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import java.util.Map;
 
 @Controller
 public class PopController {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     @Autowired
     private UserService userService;
     @Autowired
@@ -52,7 +55,7 @@ public class PopController {
         return userList;
     }
 
-    // 고객팝업
+    //고객팝업
     @RequestMapping(value="/popcust",method=RequestMethod.GET)
     public ModelAndView authPopCust(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();

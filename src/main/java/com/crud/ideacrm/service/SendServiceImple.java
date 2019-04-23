@@ -1,5 +1,6 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.dao.MailDao;
 import com.crud.ideacrm.crud.dto.MailDto;
 import com.crud.ideacrm.crud.util.*;
@@ -8,6 +9,8 @@ import com.crud.ideacrm.dao.InsideNoticeDao;
 import com.crud.ideacrm.dao.LoginDao;
 import com.crud.ideacrm.dao.SendDao;
 import com.crud.ideacrm.dto.InsideNoticeDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +25,7 @@ import java.util.Map;
 
 @Service
 public class SendServiceImple implements SendService {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private SendDao sendDao;

@@ -43,6 +43,11 @@ public class SiteDaoImple implements SiteDao {
     }
 
     @Override
+    public Map<String, Object> siteCtiUser(Map<String, Object> param) {
+        return session.selectOne("site.siteCtiUser",param);
+    }
+
+    @Override
     public String siteInsert(SiteDto siteDto) {
         session.insert("site.siteInsert",siteDto);
         String siteId = siteDto.getSiteid();

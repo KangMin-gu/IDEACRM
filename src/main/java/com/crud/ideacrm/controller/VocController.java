@@ -1,21 +1,17 @@
 package com.crud.ideacrm.controller;
 
 
-import com.crud.ideacrm.dto.BlackCustDto;
-import com.crud.ideacrm.dto.CustDenyDto;
-import com.crud.ideacrm.dto.CustDto;
-import com.crud.ideacrm.dto.ProductDto;
-import com.crud.ideacrm.service.CodeService;
-import com.crud.ideacrm.service.CustService;
-import com.crud.ideacrm.service.ProductService;
-import com.crud.ideacrm.service.VocService;
-import com.crud.ideacrm.service.ServiceService;
+import com.crud.ideacrm.dto.*;
+import com.crud.ideacrm.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -23,6 +19,7 @@ import java.util.Map;
 
 @Controller
 public class VocController {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private CustService custService;
@@ -34,6 +31,8 @@ public class VocController {
     private VocService vocService;
     @Autowired
     private ServiceService serviceService;
+    @Autowired
+    private SiteService siteService;
 
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
@@ -52,6 +51,7 @@ public class VocController {
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         List<ProductDto> productB = productService.getProductB(request);
+        mView.addAllObjects(siteService.ctiDetail(request));
         mView.addObject("productB",productB);
         mView.setViewName("page/voc/vocIndex");
         return mView;
@@ -64,7 +64,7 @@ public class VocController {
         return mView;
     }
 
-    @RequestMapping(value = "/voc/custsearch", method = RequestMethod.GET)
+    @RequestMapping(value = "/voc/pop/custsearch", method = RequestMethod.GET)
     public ModelAndView vocCustSearchPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
 
@@ -73,7 +73,7 @@ public class VocController {
         mView.setViewName("page/voc/pop/custSearchPop");
         return mView;
     }
-    @RequestMapping(value="/voc/custsearch", method=RequestMethod.POST)
+    @RequestMapping(value="/voc/pop/custsearch", method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> vocCustSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> custSearchList = custService.custList(request);
@@ -218,8 +218,53 @@ public class VocController {
     @RequestMapping(value="/voc/pop/service/{custNo}", method=RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> authvocPopServiceSelect(HttpServletRequest request,@PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
-        Map<String,Object> serviceMap = vocService.svcVocPopServiceSelect(request,custNo);
+        Map<String,Object> serviceMap = vocService.vocPopServiceSelect(request,custNo);
         return serviceMap;
+    }
+
+    //VOC - 세션유지를 위해 설정 시간마다 이 메서드가 호출된다
+    @RequestMapping(value="/voc/sess",method=RequestMethod.GET)
+    @ResponseBody
+    public int authvocSessionMaintain(HttpServletRequest request) {
+        return 0;
+    }
+
+    //voc 전화끊으면 DB에 일평균 데이터 저장
+    @RequestMapping(value="/voc/endcall",method=RequestMethod.POST)
+    @ResponseBody
+    public int authEndCall(HttpServletRequest request) {
+        vocService.vocEndCall(request);
+        return 0;
+    }
+
+    // voc 서비스 추가
+    @RequestMapping(value="/voc/service/input",method=RequestMethod.POST)
+    @ResponseBody
+    public String vocServiceInsertSet(HttpServletRequest request, HttpServletResponse response, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        String serviceNo = serviceService.serviceInsertUpdate(request, response,serviceDto,rewardDto,ractDto);
+        return "{\"SERVICENO\":\""+serviceNo+"\"}";
+    }
+
+    @RequestMapping(value="/voc/as/cal", method=RequestMethod.GET)
+    public ModelAndView authvocCalList(HttpServletRequest request) {
+        ModelAndView mView = new ModelAndView();
+        mView.addAllObjects(vocService.vocCalList(request));
+        mView.setViewName("page/voc/calendar/vocCalMain");
+        return mView;
+    }
+
+    @RequestMapping(value="/voc/as/cal/{asOwner}", method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> authVocOwnerCalList(HttpServletRequest request,@PathVariable int asOwner) {
+        Map<String,Object> ownerCalList = vocService.vocOwnerList(request,asOwner);
+        return ownerCalList;
+    }
+
+    @RequestMapping(value="/voc/productB", method=RequestMethod.GET)
+    @ResponseBody
+    public List<ProductDto> authVocProudctB(HttpServletRequest request){
+        List<ProductDto> productB = productService.getProductB(request);
+        return productB;
     }
 
 }

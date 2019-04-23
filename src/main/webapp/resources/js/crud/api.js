@@ -78,7 +78,7 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
         else if(globalUrl == '/popaccount'){
             popParentNameClick($(obj.target.parentElement));
         }
-        else if(globalUrl == '/voc/custsearch'){
+        else if(globalUrl == '/voc/pop/custsearch'){
             popVocCustNameClick($(obj.target.parentElement));
         }
     }

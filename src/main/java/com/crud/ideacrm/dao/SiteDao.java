@@ -13,6 +13,7 @@ public interface SiteDao {
     public Map<String,Object> siteDetail(String siteId);
     public Map<String,Object> siteCtiDetail(String siteId);
     public List<Map<String,Object>> siteKkoDetail(String siteId);
+    public Map<String,Object> siteCtiUser(Map<String,Object> param);
 
     public String siteInsert(SiteDto siteDto);
     public void ctiInsert(CtiDto ctiDto);

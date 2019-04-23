@@ -32,7 +32,7 @@
                <div class="col-lg-12">
                    <button class="btn btn-default pull-right" onclick="makeCustAddBtn();">추가</button>
                    <div id="filter-form-container"></div>
-                   <table class="footable table table-striped">
+                   <table class="searchCust footable table table-striped">
                        <thead>
                        <tr>
                            <th data-visible="false" data-name="CUSTNO">고객번호</th>
@@ -74,12 +74,13 @@
 <!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
+
 <script>
     $(document).ready(function() {
-        footableSearchList('/voc/custsearch');
+        footableSearchList('/voc/pop/custsearch');
     });
-
 </script>
 </body>
 </html>

@@ -1,10 +1,13 @@
 package com.crud.ideacrm.service;
 
 
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.CodeDao;
 import com.crud.ideacrm.dto.CodeDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ import java.util.Map;
 
 @Service
 public class CodeServiceImple implements CodeService {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     @Autowired
     private CodeDao codeDao;
     @Autowired

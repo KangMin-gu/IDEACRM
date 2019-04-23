@@ -1,6 +1,7 @@
 package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.crud.dto.UploadDto;
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.crud.util.Uplaod;
@@ -10,6 +11,8 @@ import com.crud.ideacrm.dto.ChargeDto;
 import com.crud.ideacrm.dto.CtiDto;
 import com.crud.ideacrm.dto.KakaoDto;
 import com.crud.ideacrm.dto.SiteDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,12 +23,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Service
 public class SiteServiceImple implements SiteService{
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private SiteDao siteDao;
@@ -71,6 +74,21 @@ public class SiteServiceImple implements SiteService{
         mView.addObject("ctiInfo",siteCtiDetail);
         mView.addObject("kkoInfo",siteKkoDetail);
         return mView;
+    }
+
+    //cti웹소켓 통신 바인딩용
+    @Override
+    public Map<String, Object> ctiDetail(HttpServletRequest request) {
+        String siteId = request.getSession().getAttribute("SITEID").toString();
+        int userNo = (int)request.getSession().getAttribute("USERNO");
+        Map<String,Object> param = new HashMap<String,Object>();
+        param.put("siteid",siteId);
+        param.put("userno",userNo);
+
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("ctiInfo",siteDao.siteCtiDetail(siteId));
+        resultMap.put("ctiUserInfo",siteDao.siteCtiUser(param));
+        return resultMap;
     }
 
     @Override

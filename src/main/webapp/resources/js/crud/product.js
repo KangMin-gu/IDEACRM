@@ -44,8 +44,7 @@ function productPlus(length) {
             $('.product:last').append('<button class="minus btn btn-primary d-inline-block btn-sm mr-2">삭제</button>');
         }
     } else {
-        opener.$('.product:last').clone(true).insertAfter(
-            '.select-area .select-box:last');
+        opener.$('.product:last').clone(true).insertAfter('.product:last');
         opener.$('.product:last').find('#product' + length + 1).attr('name',
             'product' + countP + 1).attr('id', 'product' + countP + 1);
         opener.$('.product:last').find('#product' + length + 2).attr('name',

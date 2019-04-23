@@ -1,3 +1,38 @@
+
+// 타이머
+function startInterval() {
+    second = 1;
+    min = 00;
+    vocTimer = setInterval(function() {
+        // 0초면 초기화 후 이동되는 사이트
+        if (second == 60) {
+            second = 00;
+            min = parseInt(min) + 1;
+        }
+        if (second < 10) {
+            second = "0" + second;
+        }
+        var time = min + " : " + second;
+        $('#timer').text(time);
+        second = parseInt(second) + 1;// 카운트 증가
+    }, 1000);
+}
+
+function stopInterval() {
+    if (vocTimer != '') {
+        clearInterval(vocTimer);
+    }
+}
+
+
+//voc 고객 검색 팝업 이벤트
+//필터링 창에 인입번호 바인딩 후 엔터키 입력
+$(".searchCust").on("ready.ft.table",function(obj,e,ft,row){
+    var enter = jQuery.Event( "keypress", { keyCode: 13 } );//enter key 입력 이벤트
+    $('.footable-filtering-search').find('input[type=text]').val(opener.$('#searchNumber').val());//호출 창의 인입번호 입력값 바인딩 후 엔터
+    $('.footable-filtering-search').find('input[type=text]').trigger(enter);
+});
+
 $('.voc').find('.nav-link').click(function(e){
     // click 탭의 href의 값을 가지고 온다.
     var href = e.target.attributes.href.value;
@@ -44,7 +79,6 @@ function vocFootableSearchList(id,url) {
 
 
 $('#searchNumber').keydown(function(key){
-
     if(key.keyCode == 13){ //엔터키 입력시 이벤트 실행
         custSearch(key.target);
     }
@@ -56,11 +90,10 @@ $('#servicecode1').change(function(){
 
 //voc고객팝업창
 function custSearch(obj){
-    debugger;
     var param = {
         "mobile" : $(obj).val()};
     $.ajax({
-        url: "/voc/custsearch",
+        url: "/voc/pop/custsearch",
         method: "POST",
         dataType: "json",
         data : param,
@@ -70,7 +103,7 @@ function custSearch(obj){
             if(length == 1){
                 custInfoBinding(data[0]);
             }else {
-                openNewWindow('고객검색','/voc/custsearch','',1000,680);
+                openNewWindow('고객검색','/voc/pop/custsearch','',1000,680);
             }
         },
         error: function (request, status, error) {
@@ -81,7 +114,6 @@ function custSearch(obj){
 
 // voc 고객 인풋 필드 데이터 바인딩
 function custInfoBinding(data) {
-debugger;
         opener.$('#custname').val(data.CUSTNAME);
         opener.$('#custno').val(data.CUSTNO);
         opener.$('#custgubun').val(data.CUSTGUBUN);
@@ -156,16 +188,15 @@ function popVocCustNameClick(tr){
         dataType: "json",
         cache: false,
         success: function (data) {
-            debugger;
-            vocCustFieldReset();
-            custFormActivation('update');
-            custInfoBinding(data);
-            vocGetServiceInfo('/voc/pop/service/'+custno);
-            //블랙이면 인풋창 css변경
+            vocCustFieldReset();// 필드값 초기화
+            custFormActivation('update');// 파라미터에 따라 insert/ update 버튼을 생성
+            custInfoBinding(data);//데이터 바인딩
+            vocGetServiceInfo('/voc/pop/service/'+custno);//최근 1건의 서비스 데이터 바인딩
+            //블랙등록 고객이면 인풋창 css변경
             var blackCnt = data.BLACKCNT;
             if(blackCnt > 0){
-                blackCustCssChange(true);
-                blackSpanActivation('update');
+                blackCustCssChange(true);//인풋창 css변경
+                blackSpanActivation('update');//블랙 버튼 변경
             }
             else {
                 blackCustCssChange(false);
@@ -201,8 +232,8 @@ function custFormActivation(statusStr, fromStr) {
 
 //voc 고객 추가 버튼 생성 이벤트
 function makeCustAddBtn(){
-    vocCustFieldReset();
-    custFormActivation('insert');
+    vocCustFieldReset();//필드초기화
+    custFormActivation('insert');//insert 버튼생성
     window.close();
 }
 //voc 고객 필드 초기화
@@ -278,7 +309,7 @@ function goCustInsert(){
 function vocCustRequiredFieldCheck(){
     var mobile = $('#mobile1').val() + $('#mobile2').val() + $('#mobile3').val();
     var custname = $('#custname').val();
-    if(mobile == ''){
+    if(mobile.length < 9 ){
         return false;
     }else {
         if(custname == ''){  $('#custname').val(mobile); }
@@ -340,7 +371,6 @@ function addBlackPop(){
 
 //블랙해제
 function cancleBlack(){
-    debugger;
     var blackCnt = $('#blackcnt').val();
     if(blackCnt < 1){
         return;
@@ -354,7 +384,7 @@ function cancleBlack(){
             data:{"custno":custno},
             cache: false,
             success: function (data) {
-                debugger;
+
                 blackCustCssChange(false);
                 blackSpanActivation('insert');
                 alert("해제 되었습니다.");
@@ -368,7 +398,6 @@ function cancleBlack(){
 
 //팝업 - 블랙 추가 실행
 function blackSubmit(url) {
-    debugger;
     var jsonPrm = getDataToJson('blackCustInput');
     $.ajax({
         url: url,
@@ -377,7 +406,7 @@ function blackSubmit(url) {
         data: jsonPrm,
         cache: false,
         success : function(response) {
-            debugger;
+
             alert('등록 되었습니다.');
             blackCustCssChange(true);
             blackSpanActivation('update');
@@ -404,22 +433,6 @@ function blackCustCssChange(bool){//블랙 유저면 true   아니면 false
     }
 }
 
-$('#vocServiceTabBtn').click(function(){
-    var custno = $('#custno').val();
-    if( !custno == false )
-        tabFootableSearchList('vocSvTab', '/voc/tab/sv');
-});
-$('#vocBlackTabBtn').click(function(){
-    var custno = $('#custno').val();
-    if( !custno == false )
-        tabFootableSearchList('vocBlackTab','/voc/tab/black');
-});
-
-$('#vocCallbackHistTabBtn').click(function(){
-    var custno = $('#custno').val();
-    if( !custno == false )
-        tabFootableSearchList('vocCallbackHistTab','/voc/tab/callbackhist');
-});
 
 function callbackHistFormatter(value, options, rowData){
    if( !rowData.REQNO == false ){
@@ -486,7 +499,7 @@ function callBackMatching(callbackno){//매칭 버튼 클릭시 현재 바인딩
 }
 
 function callBackConfirm(callbackno,callstatus){//콜백 목록 처리
-debugger;
+    //swal에서 사용할 메시지 셋팅
     var typeText;
     var titleText;
     var callcount = $('#callcount'+callbackno).val();
@@ -510,7 +523,7 @@ debugger;
         type: typeText,
         confirmButtonText: "완 료",
         closeOnConfirm: false
-    }, function () {
+    }, function () {//컨펌버튼 클릭 실행 함수
         var custno = $('#callbackcustno'+callbackno).val();
        // var memo = $('#vocmemo'+callbackno).val();
         var trunk = $('#trunk'+callbackno).val();
@@ -535,7 +548,6 @@ debugger;
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             }
         });
-
         swal.close();
     });
 }
@@ -562,7 +574,6 @@ function vocGetServiceInfo(urlServ) {
 
 function serviceInfoBinding(data) {
 
-
     opener.$('input:radio[name="servicetype"]').each(
         function(index) {
             if (this.value == data.SERVICETYPE) {
@@ -570,15 +581,13 @@ function serviceInfoBinding(data) {
             }
         });
     opener.$('#servicecode1').val(data.SERVICECODE1);
-    opener.$('#servicecode2').append('<option value='+data.SERVICECODE2+'>'+data.SERVICECODE2+'</option>');
+    opener.$('#servicecode2').append('<option value='+data.SERVICECODE2+'>'+data.SERVICECODE2_+'</option>');
     opener.$('#servicecode2').val(data.SERVICECODE2);
     opener.$('#servicename').val(data.SERVICENAME);
-    opener.$('#servicedesc').val(data.SERVICEDESC);
+    opener.$('#servicedesc').text(data.SERVICEDESC);
     opener.tinymce.activeEditor.setMode('readonly');
     opener.tinymce.activeEditor.setContent(data.SERVICEDESC);
-    //opener.oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
 
-    //opener.oEditors.getById["servicedesc"].exec("PASTE_HTML", [data.SERVICEDESC]); //내용밀어넣기
     opener.$('#memo').val(data.MEMO);
     if (data.SERVICETYPE == 1) {
 
@@ -596,8 +605,8 @@ function serviceInfoBinding(data) {
         } else if (data.SERVICESTEP == 6 || data.SERVICESTEP == 7) {
             opener.$('#nextowner').val(data.convey.NEXTOWNER);
             opener.$('#nextowner_').val(data.convey.NEXTOWNER_);
-            opener.$('#conveyreason').val(data.convey.CONVEYREASON);
-            opener.$('#conveydesc').val(data.convey.CONVEYDESC);
+            opener.$('[name="conveyreason"]').val(data.convey.CONVEYREASON);
+            opener.$('[name="conveydesc"]').val(data.convey.CONVEYDESC);
         }
     } else if (data.SERVICETYPE == 2) {
         opener.$('#visitdate').val(data.reward.VISITDATE);
@@ -609,7 +618,7 @@ function serviceInfoBinding(data) {
     }
 
     opener.$('.voc').attr('disabled', true);
-    opener.$('.voc').iCheck('disable');
+    opener.$('.i-checks').iCheck('disable');
     opener.$('.plus').hide();
 
     opener.$('tbody .plus').attr('disabled', true);
@@ -631,20 +640,25 @@ function serviceInfoBinding(data) {
     });
 }
 
-$('#save').click(
+$('#vocSave').click(
     function(e) {
+        debugger;
         var reqno = $('#reqno').val();
-
-        if(reqno == ""){
+        var custno = $('#custno').val();
+        //reqno 테스트후 반드시삭제
+        reqno = '2019042217453002112807042622864';
+        if(!reqno){
             alert("고객과의 전화를 끊어주세요");
+        }else if(!custno){
+            alert("고객이 선택되지 않았습니다.");
         }else{
             var servicetype = $('.servicetype .checked input').val();
             var servicename = $("#servicename").val();
             var servicedesc = tinymce.activeEditor.getContent();
             var vocstep = $('.check:checked').val();
             var nextowner = $('#nextowner').val();
-            var conveyreason = $('#conveyreason').val();
-            var conveydesc = $('#conveydesc').val();
+            var conveyreason = $('[name="conveyreason"]:eq(0)').val();
+            var conveydesc = $('[name="conveydesc"]:eq(0)').val();
             var reservphone = $('#reservphone').val();
             var reservdate = $('#reservdate').val();
             var reservtimeto = $('#reservtimeto').val();
@@ -660,7 +674,9 @@ $('#save').click(
             var visitaddr1 = $('#visitaddr1').val();
             var visitaddr2 = $('#visitaddr2').val();
             var visitaddr3 = $('#visitaddr3').val();
-
+            var visitapm = $('#visitapm').val();
+            var visithour = $('#visithour').val();
+            var visitminute = $('#visitminute').val();
 
             var param = {
                 "custno" : custno,
@@ -685,12 +701,16 @@ $('#save').click(
                 "visitaddr1" : visitaddr1,
                 "visitaddr2" : visitaddr2,
                 "visitaddr3" : visitaddr3,
-                "reqno" : reqno
+                "reqno" : reqno,
+                "visitapm" : visitapm,
+                "visithour" : visithour,
+                "visitminute" : visitminute
             };
 
-            var productNum = $('.plus:last').prev().attr('id').substring(7, 8);
+            // var productNum = $('.plus:last').prev().attr('id').substring(7, 8);
+            var productNum = $('.plus:last').parent().prev().find('.form-control').attr('id').substring(7, 8);
 
-            for (i = 1; i <= productNum; i++) {
+            for (var i = 1; i <= productNum; i++) {
                 var products = $('[id*="product' + i + '1"]').attr('id');
                 var products2 = $('[id*="product' + i + '2"]').attr('id');
                 var products3 = $('[id*="product' + i + '3"]').attr('id');
@@ -700,8 +720,9 @@ $('#save').click(
                 param[products3] = $('[id*="product' + i + '3"]').val();
             }
 
+
             $.ajax({
-                url : "/service/input",
+                url : "/voc/service/input",
                 method : "POST",
                 dataType : "json",
                 data : param,
@@ -710,10 +731,11 @@ $('#save').click(
                     if (data != 0) {
                         alert("저장되었습니다.");
                         // 데이터 전부 초기화
+                        /*
                         $('.form-control').val('').keyup();
                         tinymce.activeEditor.setContent('');
                         $('#create').show();
-                        $('#save').hide();
+                        $('#vocSave').hide();
                         $('[id*=product]').attr('disabled',true);
                         $('#servicename').attr('disabled',true);
                         $('#memo').attr('disabled',true);
@@ -721,7 +743,8 @@ $('#save').click(
                         $('.voc').iCheck('disable');
                         $('#servicetype').iCheck('check');
                         $('#custname').css({"background-color":"#ffffff"});
-                        //oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
+                        */
+                        vocServiceFieldReset();
                     }
                 },
                 error : function(request, status, error) {
@@ -740,111 +763,11 @@ $('.asowner').click(function(e) {
         e.preventDefault();
         alert("고객이 선택되지 않았습니다. 고객을 선택해주세요");
     } else {
-        openNewWindow('AS기사', '/vc/voc/cal', e.currentTarget.id, 1200, 800);
+        openNewWindow('AS기사', '/voc/as/cal', e.currentTarget.id, 1200, 800);
     }
 
 });
 
-$('#save').click(
-    function(e) {
-        var reqno = $('#reqno').val();
-
-        if(reqno == ""){
-            alert("고객과의 전화를 끊어주세요");
-        }else{
-            var servicetype = $('.servicetype .checked input').val();
-            var servicename = $("#servicename").val();
-            var servicedesc = tinymce.activeEditor.getContent();
-            var vocstep = $('.check:checked').val();
-            var nextowner = $('#nextowner').val();
-            var conveyreason = $('#conveyreason').val();
-            var conveydesc = $('#conveydesc').val();
-            var reservphone = $('#reservphone').val();
-            var reservdate = $('#reservdate').val();
-            var reservtimeto = $('#reservtimeto').val();
-            var reservtimefrom = $('#reservtimefrom').val();
-            var nextadminowner = $('#nextadminowner').val();
-            var servicecode1 = $('#servicecode1').val();
-            var servicecode2 = $('#servicecode2').val();
-            var memo = $('#memo').val();
-            var custno = $('#custno').val();
-            var asowner = $('#asowner').val();
-            var visitdate = $('#visitdate').val();
-            var visittime = $('#visittime').val();
-            var visitaddr1 = $('#visitaddr1').val();
-            var visitaddr2 = $('#visitaddr2').val();
-            var visitaddr3 = $('#visitaddr3').val();
-
-
-            var param = {
-                "custno" : custno,
-                "servicetype" : servicetype,
-                "servicename" : servicename,
-                "servicedesc" : servicedesc,
-                "vocstep" : vocstep,
-                "nextowner" : nextowner,
-                "conveyreason" : conveyreason,
-                "conveydesc" : conveydesc,
-                "reservphone" : reservphone,
-                "reservdate" : reservdate,
-                "reservtimeto" : reservtimeto,
-                "reservtimefrom" : reservtimefrom,
-                "nextadminowner" : nextadminowner,
-                "memo" : memo,
-                "servicecode1" : servicecode1,
-                "servicecode2" : servicecode2,
-                "asowner" : asowner,
-                "visitdate" : visitdate,
-                "visittime" : visittime,
-                "visitaddr1" : visitaddr1,
-                "visitaddr2" : visitaddr2,
-                "visitaddr3" : visitaddr3,
-                "reqno" : reqno
-            };
-
-            var productNum = $('.plus:last').prev().attr('id').substring(7, 8);
-
-            for (i = 1; i <= productNum; i++) {
-                var products = $('[id*="product' + i + '1"]').attr('id');
-                var products2 = $('[id*="product' + i + '2"]').attr('id');
-                var products3 = $('[id*="product' + i + '3"]').attr('id');
-
-                param[products] = $('[id*="product' + i + '1"]').val();
-                param[products2] = $('[id*="product' + i + '2"]').val();
-                param[products3] = $('[id*="product' + i + '3"]').val();
-            }
-
-            $.ajax({
-                url : "/vc/voc/post",
-                method : "POST",
-                dataType : "json",
-                data : param,
-                cache : false,
-                success : function(data) {
-                    if (data != 0) {
-                        alert("저장되었습니다.");
-                        // 데이터 전부 초기화
-                        $('.form-control').val('').keyup();
-                        tinymce.activeEditor.setContent('');
-                        $('#create').show();
-                        $('#save').hide();
-                        $('[id*=product]').attr('disabled',true);
-                        $('#servicename').attr('disabled',true);
-                        $('#memo').attr('disabled',true);
-                        tinymce.activeEditor.setMode('readonly');
-                        $('.voc').iCheck('disable');
-                        $('#servicetype').iCheck('check');
-                        $('#custname').css({"background-color":"#ffffff"});
-                        //oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
-                    }
-                },
-                error : function(request, status, error) {
-                    alert("code:" + request.status + "\n" + "message:"
-                        + request.responseText + "\n" + "error:" + error);
-                }
-            });
-        }
-    });
 
 $('.i-checks').on('ifChecked', function(event) {
     var value = event.target.value;
@@ -885,9 +808,14 @@ $('.i-checks').on('ifChecked', function(event) {
     }
 });
 
+$('#addrsame').on('ifUnchecked', function (event) {
+    $('#visitaddr1').val('');
+    $('#visitaddr2').val('');
+    $('#visitaddr3').val('');
+});
 
 function productB() {
-    var urlServ = "/vc/productB";
+    var urlServ = "/voc/productB";
     $.ajax({
         url : urlServ,
         method : "GET",
@@ -907,3 +835,201 @@ function productB() {
         }
     });
 }
+
+
+// vocDetail화면의 Tab클릭 이벤트
+$('.vocTabDetail').find('.nav-link').click(function(e){
+    var obj = $(this);
+    var bool = boolTimeDiff(obj);//동일 버튼 클릭 시간이 3초 미만이면 false 리턴
+    if(bool == false){ return; }
+
+    var custno = $('#custno').val();
+    if( !custno == false ){
+        // click 탭의 href의 값을 가지고 온다.
+        var href = e.target.attributes.href.value;
+        // href의 tabpanel에 footable에 사용할 url을 가지고 온다.
+        var url = $(href).attr('url');
+        if(url != undefined){
+            tabFootableSearchList(href,url);
+        }
+    }
+});
+
+
+// 캘린더 시작
+if ($('#calendar').length > 0) {
+    var schList = $('#schList').val();// hidden value에 담겨있는 스케쥴 리스트를
+    // 받아온다.(json String)
+    /*
+     * initialize the calendar
+     * -----------------------------------------------------------------
+     */
+    var url = window.location.pathname;
+
+    $('#external-events div.external-event').each(function() {
+
+        // store data so the calendar knows to render an event upon drop
+        $(this).data('event', {
+            title : $.trim($(this).text()), // use the element's text as the
+                                            // event title
+            stick : true
+            // maintain when user navigates (see docs on the renderEvent method)
+        });
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+            zIndex : 1111999,
+            revert : true, // will cause the event to go back to its
+            revertDuration : 0
+            // original position after the drag
+        });
+
+    });
+
+    $('#calendar').fullCalendar(
+        {
+
+            header : {// 캘린더 프레임 헤더설정
+                left : 'prev,next today',// 저번달, 다음달, 오늘로이동
+                center : 'title',
+                right : 'month,agendaWeek,agendaDay' // 월,주,일별 보기
+            },
+
+            editable : true, // false - 일정 수정 안됨.
+
+            droppable : true, // false - 드래그 박스의 일정 캘린더로 이동이 안됨.
+
+            drop : function(event, a, b) { // 드래그 박스의 일정 캘린더로 드랍시 발생
+                var name = $(b.helper).text().trim();
+                var val1 = $(b.helper).children().val();
+                var date = formatDate(event._d);
+                var flag = confirm(name + " 기사님에게 배정하시겠습니까?");
+                if (flag) {
+                    opener.$('[name="asowner_"]').val(name);
+                    opener.$('[name="asowner"]').val(val1);
+                    opener.$('#visitdate').val(date);
+                    alert("배정되었습니다.");
+                    self.close();
+                } else {
+                    alert("취소되었습니다.");
+                }
+
+            },
+
+            // 한글화
+            monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월",
+                "9월", "10월", "11월", "12월" ],
+            monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
+                "8월", "9월", "10월", "11월", "12월" ],
+            dayNames : [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
+            dayNamesShort : [ "일", "월", "화", "수", "목", "금", "토" ],
+            buttonText : {
+                today : "오늘",
+                month : "월별",
+                week : "주별",
+                day : "일별",
+            },
+            timeFormat : "HH:mm",
+
+            eventRender : function(event, element) {
+                if (event.end == null) {
+                    event.end = event.start;
+                    event.end._i = event.start._i;
+                }
+
+                element.popover({
+                    placement : 'top',
+                    animation : true,
+                    delay : 100,
+                    content : '<b>서비스명</b>:' + event.title
+                        + "<b>서비스 일자</b>:" + event.start._i,
+                    trigger : 'hover',
+                    html : true
+                });
+            },
+
+            eventClick : function(event, element, func) {// 캘린더 이벤트 클릭시
+                // window.location.href = campUrl+"/"+id;
+                openNewWindow("AS기사 접수내용", "/vc/voc/owner/" + event.id
+                    + "?visitdate=" + event.start._i, "", 600, 700);
+            },
+            eventSources : [ {
+                events : JSON.parse(schList)
+                // json String객체를 json객체로 변환해준다 -> 스케쥴 리스트 달력에 표시됨
+            } ]
+        });// 캘린더의끝
+
+}
+
+function formatDate(date) {
+    var time = new Date(date);
+    var year = time.getFullYear();
+    var month = time.getMonth() +1;
+    if(month < 10){
+        month = '0'+month;
+    }
+    var day = time.getDate();
+    return year+'-'+month+'-' + day;
+}
+
+
+$('#create').click(function() {
+
+    $('.i-checks input').iCheck('uncheck');
+    $('.i-checks input').iCheck('enable');
+    $('.vocSvInput').val('');
+    $('.vocSvInput').attr('disabled',false);
+    tinymce.activeEditor.setMode('design');
+    tinymce.activeEditor.setContent('');
+    $('#visitapm').val('0');
+
+    $('[name="vocstep"]:first').iCheck('check');
+    $('[name="servicetype"]:first').iCheck('check');
+    $('.product').not(':first').remove();
+    $('.product:first select').empty();
+    $('.product:first select').append('<option label="선택" value=""></option>');
+    $('tbody .plus').attr('disabled', false);
+    var productLength = $('.plus').length;
+    if(productLength == 0){
+        $('.product').append('<button class="plus btn btn-default d-inline-block btn-sm mr-2">추가</button>');
+    }
+    productB();
+
+    $('#vocSave').show();
+    $('#create').hide();
+});
+
+function vocServiceFieldReset(){
+    $('.convey').hide();
+    $('.adminconvey').hide();
+    $('.reservation').hide();
+    $('.as').hide();
+    $('#vocSave').hide();
+
+    $('.vocSvInput').val('');
+    $('.vocSvInput').attr('disabled', true);
+    $('.i-checks input').iCheck('uncheck');
+    $('.i-checks input').iCheck('disable');
+
+    tinymce.activeEditor.setMode('design');
+    tinymce.activeEditor.setContent('');
+
+    $('#visitapm').val('0');
+
+
+    $('.product').not(':first').remove();
+    $('.product:first select').empty();
+    $('.product:first select').append('<option label="선택" value=""></option>');
+    $('tbody .plus').attr('disabled', false);
+    var productLength = $('.plus').length;
+    if(productLength == 0){
+        $('.product').append('<button class="plus btn btn-default d-inline-block btn-sm mr-2">추가</button>');
+    }
+    productB();
+
+    $('#create').show();
+}
+
+$('#vocReset').click(function(){
+    vocServiceFieldReset();
+});

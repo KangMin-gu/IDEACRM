@@ -14,12 +14,12 @@
 	<appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Threshold" value="DEBUG" />
 		<param name="File" value="/usr/crmlog" />
-		<param name="Append" value="true" /> 
-		<!-- param name="MaxFileSize" value="100MB"/ --> 
-		<!-- param name="MaxBackupIndex" value="2"></param --> 
-		<param name="DatePattern" value="'.'yyyy-MM-dd" /> 
-		<layout class="org.apache.log4j.PatternLayout"> 
-			<param name="ConversionPattern" value="%d %5p [%C{1}] %m %n" /> 
+		<param name="Append" value="true" />
+		<!-- param name="MaxFileSize" value="100MB"/ -->
+		<!-- param name="MaxBackupIndex" value="2"></param -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %5p [%C{1}] %m %n" />
 		</layout>
 	</appender>
 
@@ -28,27 +28,27 @@
 	<logger name="com.crud.ideacrm">
 		<level value="DEBUG" />
 	</logger>
-	<logger name="jdbc" > 
+	<logger name="jdbc" >
 		<level value="DEBUG" />
 	</logger>
-	<logger name="org.apache.ibatis"> 
+	<logger name="org.apache.ibatis">
 		<level value="DEBUG" />
 	</logger>
-	<logger name="java.sql"> 
+	<logger name="java.sql">
 		<level value="DEBUG" />
 	</logger>
-	<logger name="jdbc.sqlonly" > 
+	<logger name="jdbc.sqlonly" >
 		<level value="DEBUG" />
 	</logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="DEBUG" />
 	</logger>
-	
+
 	<logger name="org.springframework.beans">
 		<level value="DEBUG" />
 	</logger>
-	
+
 	<logger name="org.springframework.context">
 		<level value="DEBUG" />
 	</logger>
@@ -56,11 +56,11 @@
 	<logger name="org.springframework.web">
 		<level value="DEBUG" />
 	</logger>
-	
+
 	<logger name="org.springframework.beans">
 		<level value="DEBUG" />
 	</logger>
-	
+
 	<logger name="org.springframework.context">
 		<level value="DEBUG" />
 	</logger>

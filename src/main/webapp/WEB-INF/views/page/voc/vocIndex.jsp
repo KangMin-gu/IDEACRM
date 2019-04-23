@@ -15,10 +15,12 @@
     <link href="${pageContext.request.contextPath}/resources/css/crud/voc.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/sweetalert/sweetalert.css" rel="stylesheet"><!-- Sweet Alert -->
+
 </head>
 <body>
 
@@ -35,12 +37,12 @@
                         <input type="button" value="웹소켓접속" onclick="webSocketGo();">
                         <input type="button" value="웹소켓끊기" onclick="func_logout();goWebSocketDisconnect();">
                         <br/>
-                        아이디 : <input type="text" name="cti_login_id" id="cti_login_id" value="crud01">
-                        비밀번호 : <input type="text" name="cti_login_pwd" id="cti_login_pwd" value="0000">
-                        전화번호 : <input type="text" name="cti_login_ext" id="cti_login_ext" value="07042622864">
+                        아이디 : <input type="text" name="cti_login_id" id="cti_login_id" value="${ctiUserInfo.CTIID}">
+                        비밀번호 : <input type="text" name="cti_login_pwd" id="cti_login_pwd" value="${ctiUserInfo.CTIPASS}">
+                        전화번호 : <input type="text" name="cti_login_ext" id="cti_login_ext" value="${ctiUserInfo.CTITELNO}">
                         <input type="hidden" name="checkGroupValue" id="checkGroupValue" value="N">
                         <input type="hidden" name="checkGroupValue2" id="checkGroupValue2" value="N">
-                        <span id="outCallNum">07042622883</span>
+                        <span id="outCallNum">${ctiInfo.TELNO}</span>
                         <input type="hidden" id="ctitelno" name="ctitelno" value="${ctiInfo.TELNO}" class="searchparam"/>
                         <input type="checkbox" class="check" id="did" onclick="javascript:didCheck();">
                         <div>
@@ -50,7 +52,7 @@
                         </div>
                         <input type="hidden" id="userno" value="${sessionScope.USERNO }">
                         <input type="hidden" id="chkauth" value="${sessionScope.CHKAUTH }" />
-                        <input type="hidden" id="trunk" value="07042622883" /><!-- 동적으로변경 -->
+                        <input type="hidden" id="trunk" value="${ctiInfo.TELNO}" /><!-- 동적으로변경 -->
                         <input type="hidden" id="reqno" name="reqno" value="" /><!-- 서비스랑 연결할 REQNO -->
                     </div>
                     <ul class="top-btn">
@@ -154,7 +156,7 @@
                                             <th>휴대전화</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control form-control-sm vocCustInput" name="mobile1" id="mobile1" style="width: 70px; height: 30px;">
+                                                    <select class="form-control form-control-sm vocCustInput" name="mobile1" id="mobile1" style="width: 70px;height: 30px;padding-top: 2.5px;">
                                                         <option value="">선택</option>
                                                         <c:forEach var="mobile" items="${MOBILE}">
                                                             <option value="${mobile.codeval}">${mobile.codename}</option>
@@ -171,7 +173,7 @@
                                             <th>자택전화</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control form-control-sm vocCustInput" name="homtel1" id="homtel1" style="width: 70px; height: 30px;">
+                                                    <select class="form-control form-control-sm vocCustInput" name="homtel1" id="homtel1" style="width: 70px;height: 30px;padding-top: 2.5px;">
                                                         <option value="">선택</option>
                                                         <c:forEach var="phone" items="${PHONE}">
                                                             <option value="${phone.codeval}">${phone.codename}</option>
@@ -501,7 +503,7 @@
                                         <td>
                                             <div class="i-checks servicetype">
                                                 <c:forEach var="serviceType" items="${SERVICETYPE}">
-                                                    <label><input type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                    <label><input class="vocSvInput" type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
                                                 </c:forEach>
                                             </div>
                                         </td>
@@ -510,7 +512,7 @@
                                         <th>접수유형</th>
                                         <td>
                                             <div style="display: inline-block;">
-                                                <select class="form-control form-control-sm" name="servicecode1" id="servicecode1">
+                                                <select class="form-control form-control-sm vocSvInput" name="servicecode1" id="servicecode1">
                                                     <option value="">선택</option>
                                                     <c:forEach var="serviceCode1" items="${SERVICECODE1}">
                                                         <option label="${serviceCode1.codename}" value="${serviceCode1.codeval}"></option>
@@ -518,7 +520,7 @@
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <select class="form-control form-control-sm" name="servicecode2" id="servicecode2" upper="servicecode1">
+                                                <select class="form-control form-control-sm vocSvInput" name="servicecode2" id="servicecode2" upper="servicecode1">
                                                     <option value="">선택</option>
                                                 </select>
                                             </div>
@@ -529,7 +531,7 @@
                                         <td>
                                             <div class="product">
                                                 <div style="display: inline-block">
-                                                    <select id="product11" name="product11" class="form-control" style="width: 150px";>
+                                                    <select id="product11" name="product11" class="form-control vocSvInput" style="width: 150px";>
                                                         <option value="">선택</option>
                                                         <c:forEach var="productB" items="${productB }">
                                                             <option label="${productB.prdname }" value="${productB.prdno }"/>
@@ -537,13 +539,13 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control " name="product12" id="product12" style="width: 250px;">
+                                                    <select class="form-control vocSvInput" name="product12" id="product12" style="width: 250px;">
                                                         <option value="">선택</option>
 
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control " name="product13" id="product13" style="width: 300px;">
+                                                    <select class="form-control vocSvInput" name="product13" id="product13" style="width: 300px;">
                                                         <option value="">선택</option>
                                                     </select>
                                                 </div>
@@ -556,13 +558,13 @@
                                     <tr>
                                         <th>접수내용</th>
                                         <td>
-                                            <textarea name="servicename" id="servicename" class="form-control" style="resize: none;" rows="2"></textarea>
+                                            <textarea name="servicename" id="servicename" class="form-control vocSvInput" style="resize: none;" rows="2"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>상담 템플릿</th>
                                         <td>
-                                            <select class="form-control form-control-sm" name="" id="" style="height: 30px; width: 100px;">
+                                            <select class="form-control form-control-sm vocSvInput" name="" id="" style="height: 30px; width: 100px;">
                                                 <option value="">02</option>
                                                 <option value="">031</option>
                                                 <option value="">017</option>
@@ -573,29 +575,173 @@
                                     <tr>
                                         <th>상담내용</th>
                                         <td>
-                                            <textarea class="tinymce" id="servicedesc" name="servicedesc"></textarea>
+                                            <textarea class="tinymce vocSvInput" id="servicedesc" name="servicedesc"></textarea>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="as">
+                                        <th>방문일시</th>
+                                        <td>
+                                            <div class="input-group" data-autoclose="true">
+                            			<span class="input-group-addon">
+                                    		<span class="fa fa-calendar"></span>
+                                		</span>
+                                                <input type="text" class="form-control voc vocSvInput"  readOnly="true" name="visitdate" id="visitdate" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="as">
+                                        <th>방문 기사</th>
+                                        <td>
+                                            <div class="input-group asowner" id="asowner_">
+                                                <input type="text" class="form-control voc vocSvInput" autocomplete="off" name="asowner_" value="">
+                                                <input type="hidden" name="asowner" class="voc vocSvInput" id="asowner" value="">
+                                                <span class="input-group-addon">
+                                        	<a><i class="fa fa-search"></i></a>
+                                        </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="as">
+                                        <th>방문지 주소</th>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr1" name="visitaddr1" readonly></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr2" name="visitaddr2" readonly></div>
+                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr3" name="visitaddr3"></div>
+                                                    <div class="col-md-2"><button class="btn btn-white btn-sm daumzip" type="button" id="visitaddr">주소 검색</button></div>
+                                                </div>
+                                                <div class="row" style="margin-top: 10px;margin-left: 0px;">
+                                                    <input type="checkbox" class="i-checks vocSvInput" value="1" id="addrsame" name="addrsame">
+                                                    &nbsp;<label>고객주소와 동일</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="result">
                                         <th>상담결과</th>
                                         <td>
-                                            <div class="i-checks">
+                                            <div class="i-checks voc">
                                                 <label>
-                                                    <input class="check" type="radio" id="vocstep3" name="vocstep" value="3" > <i></i> 처리
+                                                    <input class="check vocSvInput" type="radio" id="vocstep3" name="vocstep" value="3" > <i></i> 처리
                                                 </label>
                                                 <label>
-                                                    <input class="check" type="radio" id="vocstep5" name="vocstep" value="5" > <i></i> 담당자이관
+                                                    <input class="check vocSvInput" type="radio" id="vocstep5" name="vocstep" value="5" > <i></i> 담당자이관
                                                 </label>
                                                 <label>
-                                                    <input class="check" type="radio" id="vocstep6" name="vocstep" value="6" > <i></i> 상급자이관
+                                                    <input class="check vocSvInput" type="radio" id="vocstep6" name="vocstep" value="6" > <i></i> 상급자이관
                                                 </label>
                                             </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="convey">
+                                        <th>이관 담당자 </th>
+                                        <td>
+                                            <div class="input-group owner" id="nextowner_">
+                                                <input type="text" class="form-control voc vocSvInput" autocomplete="off" name="nextowner_" value="">
+                                                <input type="hidden" name="nextowner voc vocSvInput" id="nextowner" value="">
+                                                <span class="input-group-addon">
+                                        	    <a><i class="fa fa-search"></i></a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="convey">
+                                        <th>이관 사유</th>
+                                        <td>
+                                            <select class="form-control voc vocSvInput" name="conveyreason">
+                                                <option label="선택" value=""/>
+                                                <c:forEach var="conveyReason" items="${CONVEYREASON }">
+                                                    <option label="${conveyReason.codename }" value="${conveyReason.codeval }"/>
+                                                </c:forEach>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="convey">
+                                        <th>비고</th>
+                                        <td>
+                                            <textarea class="form-control voc vocSvInput" name="conveydesc" cols="80" rows="3"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr class="adminconvey">
+                                        <th>상급 담당자 </th>
+                                        <td>
+                                            <div class="input-group adminowner" id="nextadminowner_">
+                                                <input type="text" class="form-control voc vocSvInput" autocomplete="off" name="nextadminowner_" value="">
+                                                <input type="hidden" name="nextadminowner voc vocSvInput" id="nextadminowner" value="">
+                                                <span class="input-group-addon">
+                                        	<a><i class="fa fa-search"></i></a>
+                                        </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="adminconvey">
+                                        <th>이관 사유</th>
+                                        <td>
+                                            <select class="form-control voc vocSvInput" name="conveyreason">
+                                                <option label="선택" value=""/>
+                                                <c:forEach var="conveyReason" items="${CONVEYREASON }">
+                                                    <option label="${conveyReason.codename }" value="${conveyReason.codeval }"/>
+                                                </c:forEach>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="adminconvey">
+                                        <th>비고</th>
+                                        <td>
+                                            <textarea disabled class="form-control voc vocSvInput" name="conveydesc" cols="80" rows="3"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr class="reservation">
+                                        <th>예약 전화번호
+                                        <td>
+                                            <input type="text" class="form-control voc vocSvInput" autocomplete="off" id="reservphone" name="reservphone" value="">
+                                        </td>
+                                    </tr>
+                                    <tr class="reservation">
+                                        <th>예약 일시
+                                        <td>
+                                            <div class="input-group date" data-autoclose="true">
+                            			<span class="input-group-addon">
+                                    		<span class="fa fa-calendar"></span>
+                                		</span>
+                                                <input type="text"  class="form-control date voc vocSvInput" name="reservdate" id="reservdate" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="reservation"><!--테스트필요 -->
+                                        <th>예약 시간
+                                        <td>
+                                            <div style="display: inline-block">
+                                                <select class="form-control voc vocSvInput" name="visitapm" id="visitapm" style="width:80px;">
+                                                    <option value="0">선택</option>
+                                                    <c:forEach var="apm" items="${APM}">
+                                                        <option value="${apm.codeval}">${apm.codename}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div style="display: inline-block">
+                                                <select class="form-control voc vocSvInput" name="visithour" id="visithour" style="width:70px;">
+                                                    <c:forEach var="hour" items="${HOUR}">
+                                                        <option value="${hour.codeval}">${hour.codename}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <span style="display: inline-block">시</span>
+                                            <div style="display: inline-block">
+                                                <select class="form-control voc vocSvInput" name="visitminute" id="visitminute" style="width:70px;">
+                                                    <c:forEach var="minute" items="${MINUTE}">
+                                                        <option value="${minute.codeval}">${minute.codename}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <span style="display: inline-block">분</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>메모</th>
                                         <td>
-                                            <textarea name="memo" id="memo" class="form-control" style="resize: none;" rows="4"></textarea>
+                                            <textarea name="memo" id="memo" class="form-control vocSvInput" style="resize: none;" rows="4"></textarea>
                                         </td>
                                     </tr>
                                 </table>
@@ -607,8 +753,10 @@
                                     <button type="button" id="smsTemp" class="btn btn-default pull-left" style="margin-right: 9px;">SMS발송</button>
                                     <button type="button" id="kakaoTemp" class="btn btn-default pull-left">KAKAO발송</button>
 
+                                    <button id="create" class="btn btn-default pull-right" style="margin-left: 9px;">추가</button>
+                                    <button type="button" class="btn btn-primary pull-right" id="save" style="margin-left: 9px;">저장</button>
                                     <button type="button" class="btn btn-default pull-right" style="margin-left: 9px;" id="reset">초기화</button>
-                                    <button type="button" class="btn btn-primary pull-right" id="save" >저장</button>
+
                                 </div>
                             </div>
                         </div>
@@ -670,16 +818,27 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- daumAPI -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/sweetalert/custom-sweetalert.min.js"></script><!-- Sweet alert -->
+<script src="${pageContext.request.contextPath}/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/vocRec.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/plugins/sweetalert/custom-sweetalert.min.js"></script><!-- Sweet alert -->
 <script>
     $(document).ready(function(){
         $('.ctibtn').hide();
+        $('.convey').hide();
+        $('.adminconvey').hide();
+        $('.reservation').hide();
+        $('.as').hide();
+        $('#save').hide();
+        $('.product .minus:first').remove();
+        $('.product .plus:first').attr('disabled',true);
+        var url = window.location.pathname;
+        vocContents("0",url);
+        tinymceEditor();
     });
 </script>
 

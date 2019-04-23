@@ -73,9 +73,17 @@ public class SiteServiceImple implements SiteService{
 
     //cti웹소켓 통신 바인딩용
     @Override
-    public Map<String, Object> siteDetail(HttpServletRequest request) {
+    public Map<String, Object> ctiDetail(HttpServletRequest request) {
         String siteId = request.getSession().getAttribute("SITEID").toString();
-        return siteDao.siteCtiDetail(siteId);
+        int userNo = (int)request.getSession().getAttribute("USERNO");
+        Map<String,Object> param = new HashMap<String,Object>();
+        param.put("siteid",siteId);
+        param.put("userno",userNo);
+
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("ctiInfo",siteDao.siteCtiDetail(siteId));
+        resultMap.put("ctiUserInfo",siteDao.siteCtiUser(param));
+        return resultMap;
     }
 
     @Override

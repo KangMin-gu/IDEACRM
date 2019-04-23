@@ -51,7 +51,7 @@ public class VocController {
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         List<ProductDto> productB = productService.getProductB(request);
-        mView.addObject("ctiInfo",siteService.siteDetail(request));
+        mView.addAllObjects(siteService.ctiDetail(request));
         mView.addObject("productB",productB);
         mView.setViewName("page/voc/vocIndex");
         return mView;
@@ -64,7 +64,7 @@ public class VocController {
         return mView;
     }
 
-    @RequestMapping(value = "/voc/custsearch", method = RequestMethod.GET)
+    @RequestMapping(value = "/voc/pop/custsearch", method = RequestMethod.GET)
     public ModelAndView vocCustSearchPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
 
@@ -73,7 +73,7 @@ public class VocController {
         mView.setViewName("page/voc/pop/custSearchPop");
         return mView;
     }
-    @RequestMapping(value="/voc/custsearch", method=RequestMethod.POST)
+    @RequestMapping(value="/voc/pop/custsearch", method=RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> vocCustSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> custSearchList = custService.custList(request);
@@ -243,6 +243,28 @@ public class VocController {
     public String vocServiceInsertSet(HttpServletRequest request, HttpServletResponse response, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
         String serviceNo = serviceService.serviceInsertUpdate(request, response,serviceDto,rewardDto,ractDto);
         return "{\"SERVICENO\":\""+serviceNo+"\"}";
+    }
+
+    @RequestMapping(value="/voc/as/cal", method=RequestMethod.GET)
+    public ModelAndView authvocCalList(HttpServletRequest request) {
+        ModelAndView mView = new ModelAndView();
+        mView.addAllObjects(vocService.vocCalList(request));
+        mView.setViewName("page/voc/calendar/vocCalMain");
+        return mView;
+    }
+
+    @RequestMapping(value="/voc/as/cal/{asOwner}", method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> authVocOwnerCalList(HttpServletRequest request,@PathVariable int asOwner) {
+        Map<String,Object> ownerCalList = vocService.vocOwnerList(request,asOwner);
+        return ownerCalList;
+    }
+
+    @RequestMapping(value="/voc/productB", method=RequestMethod.GET)
+    @ResponseBody
+    public List<ProductDto> authVocProudctB(HttpServletRequest request){
+        List<ProductDto> productB = productService.getProductB(request);
+        return productB;
     }
 
 }

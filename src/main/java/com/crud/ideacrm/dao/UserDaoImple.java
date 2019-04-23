@@ -42,4 +42,10 @@ public class UserDaoImple implements UserDao {
     public void userUpdate(UserDto userDto) {
         session.update("user.userUpdate",userDto);
     }
+
+    @Override
+    public List<Map<String,Object>> userAsOwner(int siteId){
+        List<Map<String,Object>> asOwner = session.selectList("user.userAsOwner",siteId);
+        return asOwner;
+    }
 }

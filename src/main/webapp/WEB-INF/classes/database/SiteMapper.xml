@@ -69,6 +69,13 @@
 		WHERE SITEID = #{siteid}
 	</select>
 
+	<select id="siteCtiUser" parameterType="map" resultType="map">
+		SELECT CTIID, CTIPASS, CTITELNO
+		FROM me800010
+		WHERE SITEID = #{siteid}
+			AND USERNO = #{userno}
+	</select>
+
 	<select id="siteKko" parameterType="String" resultType="map">
 		SELECT * FROM MA900012
 		WHERE SITEID = #{siteid}

@@ -144,4 +144,13 @@
 		,EDTUSER = #{edtuser}
 		WHERE USERNO = #{userno}
 	</update>
+
+	<select id="userAsOwner" parameterType="int" resultType="hashMap">
+		SELECT
+		USERNO AS id
+		,USERNAME AS title
+		FROM me800010
+		WHERE SITEID = #{value}
+			AND ISDELETE = 0
+	</select>
 </mapper>

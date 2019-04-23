@@ -93,7 +93,7 @@ function custSearch(obj){
     var param = {
         "mobile" : $(obj).val()};
     $.ajax({
-        url: "/voc/custsearch",
+        url: "/voc/pop/custsearch",
         method: "POST",
         dataType: "json",
         data : param,
@@ -103,7 +103,7 @@ function custSearch(obj){
             if(length == 1){
                 custInfoBinding(data[0]);
             }else {
-                openNewWindow('고객검색','/voc/custsearch','',1000,680);
+                openNewWindow('고객검색','/voc/pop/custsearch','',1000,680);
             }
         },
         error: function (request, status, error) {
@@ -181,6 +181,7 @@ function vocCustDetail(){
 // voc 고객 팝업 tr 클릭
 // 상세정보를 가져와서 필드에 바인딩한다.
 function popVocCustNameClick(tr){
+    debugger;
     var custno = tr.children().get(0).textContent;
     $.ajax({
         url: "/voc/cust/"+custno,
@@ -608,8 +609,8 @@ debugger;
         } else if (data.SERVICESTEP == 6 || data.SERVICESTEP == 7) {
             opener.$('#nextowner').val(data.convey.NEXTOWNER);
             opener.$('#nextowner_').val(data.convey.NEXTOWNER_);
-            opener.$('#conveyreason').val(data.convey.CONVEYREASON);
-            opener.$('#conveydesc').val(data.convey.CONVEYDESC);
+            opener.$('[name="conveyreason"]').val(data.convey.CONVEYREASON);
+            opener.$('[name="conveydesc"]').val(data.convey.CONVEYDESC);
         }
     } else if (data.SERVICETYPE == 2) {
         opener.$('#visitdate').val(data.reward.VISITDATE);
@@ -657,8 +658,8 @@ $('#save').click(
             var servicedesc = tinymce.activeEditor.getContent();
             var vocstep = $('.check:checked').val();
             var nextowner = $('#nextowner').val();
-            var conveyreason = $('#conveyreason').val();
-            var conveydesc = $('#conveydesc').val();
+            var conveyreason = $('[name="conveyreason"]:eq(0)').val();
+            var conveydesc = ('[name="conveydesc"]:eq(0)').val();
             var reservphone = $('#reservphone').val();
             var reservdate = $('#reservdate').val();
             var reservtimeto = $('#reservtimeto').val();
@@ -674,7 +675,6 @@ $('#save').click(
             var visitaddr1 = $('#visitaddr1').val();
             var visitaddr2 = $('#visitaddr2').val();
             var visitaddr3 = $('#visitaddr3').val();
-l
 
             var param = {
                 "custno" : custno,
@@ -702,7 +702,8 @@ l
                 "reqno" : reqno
             };
 
-            var productNum = $('.plus:last').prev().attr('id').substring(7, 8);
+            // var productNum = $('.plus:last').prev().attr('id').substring(7, 8);
+            var productNum = $('.plus:last').parent().prev().find('.form-control').attr('id');
 
             for (var i = 1; i <= productNum; i++) {
                 var products = $('[id*="product' + i + '1"]').attr('id');
@@ -756,13 +757,14 @@ $('.asowner').click(function(e) {
         e.preventDefault();
         alert("고객이 선택되지 않았습니다. 고객을 선택해주세요");
     } else {
-        openNewWindow('AS기사', '/vc/voc/cal', e.currentTarget.id, 1200, 800);
+        openNewWindow('AS기사', '/voc/as/cal', e.currentTarget.id, 1200, 800);
     }
 
 });
 
 
 $('.i-checks').on('ifChecked', function(event) {
+    debugger;
     var value = event.target.value;
     var name = event.target.name;
     if (name == 'vocstep') {
@@ -801,9 +803,14 @@ $('.i-checks').on('ifChecked', function(event) {
     }
 });
 
+$('#addrsame').on('ifUnchecked', function (event) {
+    $('#visitaddr1').val('');
+    $('#visitaddr2').val('');
+    $('#visitaddr3').val('');
+});
 
 function productB() {
-    var urlServ = "/vc/productB";
+    var urlServ = "/voc/productB";
     $.ajax({
         url : urlServ,
         method : "GET",
@@ -843,3 +850,175 @@ $('.vocTabDetail').find('.nav-link').click(function(e){
     }
 });
 
+
+// 캘린더 시작
+if ($('#calendar').length > 0) {
+    var schList = $('#schList').val();// hidden value에 담겨있는 스케쥴 리스트를
+    // 받아온다.(json String)
+    /*
+     * initialize the calendar
+     * -----------------------------------------------------------------
+     */
+    var url = window.location.pathname;
+
+    $('#external-events div.external-event').each(function() {
+
+        // store data so the calendar knows to render an event upon drop
+        $(this).data('event', {
+            title : $.trim($(this).text()), // use the element's text as the
+                                            // event title
+            stick : true
+            // maintain when user navigates (see docs on the renderEvent method)
+        });
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+            zIndex : 1111999,
+            revert : true, // will cause the event to go back to its
+            revertDuration : 0
+            // original position after the drag
+        });
+
+    });
+
+    $('#calendar').fullCalendar(
+        {
+
+            header : {// 캘린더 프레임 헤더설정
+                left : 'prev,next today',// 저번달, 다음달, 오늘로이동
+                center : 'title',
+                right : 'month,agendaWeek,agendaDay' // 월,주,일별 보기
+            },
+
+            editable : true, // false - 일정 수정 안됨.
+
+            droppable : true, // false - 드래그 박스의 일정 캘린더로 이동이 안됨.
+
+            drop : function(event, a, b) { // 드래그 박스의 일정 캘린더로 드랍시 발생
+                var name = $(b.helper).text().trim();
+                var val1 = $(b.helper).children().val();
+                var date = formatDate(event._d);
+                var flag = confirm(name + " 기사님에게 배정하시겠습니까?");
+                if (flag) {
+                    opener.$('[name="asowner_"]').val(name);
+                    opener.$('[name="asowner"]').val(val1);
+                    opener.$('#visitdate').val(date);
+                    alert("배정되었습니다.");
+                    self.close();
+                } else {
+                    alert("취소되었습니다.");
+                }
+
+            },
+
+            // 한글화
+            monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월",
+                "9월", "10월", "11월", "12월" ],
+            monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
+                "8월", "9월", "10월", "11월", "12월" ],
+            dayNames : [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
+            dayNamesShort : [ "일", "월", "화", "수", "목", "금", "토" ],
+            buttonText : {
+                today : "오늘",
+                month : "월별",
+                week : "주별",
+                day : "일별",
+            },
+            timeFormat : "HH:mm",
+
+            eventRender : function(event, element) {
+                if (event.end == null) {
+                    event.end = event.start;
+                    event.end._i = event.start._i;
+                }
+
+                element.popover({
+                    placement : 'top',
+                    animation : true,
+                    delay : 100,
+                    content : '<b>서비스명</b>:' + event.title
+                        + "<b>서비스 일자</b>:" + event.start._i,
+                    trigger : 'hover',
+                    html : true
+                });
+            },
+
+            eventClick : function(event, element, func) {// 캘린더 이벤트 클릭시
+                // window.location.href = campUrl+"/"+id;
+                openNewWindow("AS기사 접수내용", "/vc/voc/owner/" + event.id
+                    + "?visitdate=" + event.start._i, "", 600, 700);
+            },
+            eventSources : [ {
+                events : JSON.parse(schList)
+                // json String객체를 json객체로 변환해준다 -> 스케쥴 리스트 달력에 표시됨
+            } ]
+        });// 캘린더의끝
+
+}
+
+function formatDate(date) {
+    var time = new Date(date);
+    var year = time.getFullYear();
+    var month = time.getMonth() +1;
+    if(month < 10){
+        month = '0'+month;
+    }
+    var day = time.getDate();
+    return year+'-'+month+'-' + day;
+}
+
+
+$('#create').click(function() {
+    $('.voc').attr('disabled', false);
+    $('.voc').iCheck('enable');
+    $('.voc').val('');
+    //oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
+    tinymce.activeEditor.setMode('design');
+    tinymce.activeEditor.setContent('');
+    $('.i-checks').iCheck('uncheck');
+    $('[name="vocstep"]:first').iCheck('check');
+    $('[name="servicetype"]:first').iCheck('check');
+    $('#create').hide();
+    $('#save').show();
+    $('.product').not(':first').remove();
+    $('.product:first select').empty();
+    $('.product:first select').append('<option label="선택" value=""></option>');
+    $('tbody .plus').attr('disabled', false);
+    var productLength = $('.plus').length;
+    if(productLength == 0){
+        $('.product').append('<button class="plus btn btn-primary d-inline-block btn-sm mr-2">추가</button>');
+    }
+    productB();
+
+});
+
+function vocServiceFieldReset(){
+    $('.convey').hide();
+    $('.adminconvey').hide();
+    $('.reservation').hide();
+    $('.as').hide();
+    $('#save').hide();
+
+    $('.vocSvInput').attr('disabled', true);
+    $('.vocSvInput .i-checks').iCheck('disable');
+    $('.vocSvInput .i-checks').iCheck('uncheck');
+    $('.vocSvInput').val('');
+    //oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
+    tinymce.activeEditor.setMode('design');
+    tinymce.activeEditor.setContent('');
+
+    $('#create').show();
+    $('.product').not(':first').remove();
+    $('.product:first select').empty();
+    $('.product:first select').append('<option label="선택" value=""></option>');
+    $('tbody .plus').attr('disabled', false);
+    var productLength = $('.plus').length;
+    if(productLength == 0){
+        $('.product').append('<button class="plus btn btn-primary d-inline-block btn-sm mr-2">추가</button>');
+    }
+    productB();
+}
+
+$('#reset').click(function(){
+    vocServiceFieldReset();
+});

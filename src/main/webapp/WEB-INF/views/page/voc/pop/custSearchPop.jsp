@@ -79,7 +79,7 @@
 
 <script>
     $(document).ready(function() {
-        footableSearchList('/voc/custsearch');
+        footableSearchList('/voc/pop/custsearch');
     });
 </script>
 </body>

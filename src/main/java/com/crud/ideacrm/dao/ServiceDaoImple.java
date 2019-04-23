@@ -118,4 +118,16 @@ public class ServiceDaoImple implements ServiceDao {
         List<Map<String,Object>> serviceCalList = session.selectList("service.serviceCalList",rewardDto);
         return serviceCalList;
     }
+
+    @Override
+    public List<Map<String, Object>> svCalRewardOwner(RewardDto rewardDto) {
+        List<Map<String,Object>> svCalRewardOwner = session.selectList("service.calRewardOwner",rewardDto);
+        return svCalRewardOwner;
+    }
+
+    @Override
+    public List<Map<String,Object>> calRewardOwnerList(Map<String,Object> param){
+        List<Map<String,Object>> svCalRewardOwnerList = session.selectList("service.calRewardOwnerList",param);
+        return svCalRewardOwnerList;
+    }
 }

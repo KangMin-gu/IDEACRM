@@ -4,8 +4,11 @@ import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ServiceDao;
+import com.crud.ideacrm.dao.UserDao;
 import com.crud.ideacrm.dao.VocDao;
 import com.crud.ideacrm.dto.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class VocServiceImple implements VocService {
     private ParameterUtil parameterUtil;
     @Autowired
     private ServiceDao svDao;
+    @Autowired
+    private UserDao userDao;
+
 
     //고객 수정 실행
     @Override
@@ -202,5 +208,67 @@ public class VocServiceImple implements VocService {
         vocDao.endCall(param);
     }
 
+    @Override
+    public Map<String, Object> vocOwnerList(HttpServletRequest request,int asOwner) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        Map<String,Object> ownerCalList = new HashMap();
+        RewardDto rewardDto = new RewardDto();
+        rewardDto.setSiteid(siteId);
+        rewardDto.setOwner(asOwner);
+        List<Map<String,Object>> rewardOwnerList = svDao.svCalRewardOwner(rewardDto);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = "";
+        try {
+            jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rewardOwnerList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        ownerCalList.put("schList",jsonStr);//캘린더 스케쥴
+        ownerCalList.put("svSchList",rewardOwnerList);//캘린더 틀 목록.
+        return ownerCalList;
+    }
+
+    @Override
+    public List<Map<String,Object>> vocCalOwnerList (HttpServletRequest request,int asOwner) {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        param.put("owner",asOwner);
+        List<Map<String,Object>> calOwner = svDao.calRewardOwnerList(param);
+        return calOwner;
+    }
+
+    @Override
+    public Map<String,Object> vocCalList(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        RewardDto rewardDto = new RewardDto();
+        Map<String,Object> search = parameterUtil.searchParam(request);
+        if(request.getParameter("asowner") != null) {
+            int as = Integer.parseInt(request.getParameter("asowner").toString());
+            rewardDto.setOwner(as);
+        }
+        rewardDto.setSiteid(siteId);
+
+        List<Map<String,Object>> rewardOwnerList = svDao.svCalRewardOwner(rewardDto);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = "";
+        try {
+            jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rewardOwnerList);
+        } catch (JsonProcessingException e) {
+
+            e.printStackTrace();
+        }
+
+        List<Map<String,Object>> owner = userDao.userList(search);
+        List<Map<String,Object>> asOwner = userDao.userAsOwner(siteId);
+
+        resultMap.put("schList",jsonStr);//캘린더 스케쥴
+        resultMap.put("svSchList",rewardOwnerList);//캘린더 틀 목록.
+        resultMap.put("asOwner",asOwner);
+        resultMap.put("search",search);
+        resultMap.put("owner",owner);
+
+        return resultMap;
+    }
 
 }

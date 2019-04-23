@@ -415,4 +415,42 @@
 		AND A.ISDELETE = 0
 	</select>
 
+	<!-- 접수 타입이 A/S이면서 현상파악 단계가 접수 상태인 서비스 접수 건 -->
+	<select id="calRewardOwner" parameterType="rewardDto" resultType="hashMap">
+		SELECT id,CONCAT(USERNAME,'-',CNT,'건') AS title ,start,end,REWARDDESC from(
+		SELECT
+		A.OWNER as id
+		, (SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS USERNAME
+		, C.CNT
+		,DATE_FORMAT(A.VISITDATE,'%Y-%m-%d') AS 'start'
+		,DATE_FORMAT(A.VISITDATE,'%Y-%m-%d') AS 'end'
+		,A.REWARDDESC AS rewarddesc
+		FROM sv300030 A
+		LEFT OUTER JOIN sv300010 B ON B.SERVICENO = A.SERVICENO
+		INNER JOIN (SELECT SERVICENO,COUNT(*) AS CNT FROM sv300030 GROUP BY VISITDATE) C ON C.SERVICENO = A.SERVICENO
+		WHERE A.SITEID = 1
+		AND B.SERVICESTEP = 2
+		AND B.SERVICETYPE = 2
+		<if test="owner != 0">
+			AND A.OWNER = #{owner}
+		</if>
+		) X
+	</select>
+
+	<select id="calRewardOwnerList" parameterType="hashMap" resultType="hashMap">
+		SELECT A.OWNER
+		, (SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS USERNAME
+		, DATE_FORMAT(A.VISITDATE,'%Y-%m-%d') AS VISITDATE_
+		, C.CUSTNAME
+		, CONCAT(A.VISITADDR1,A.VISITADDR2,A.VISITADDR3) AS ADDR_
+		, FN_GETCODE('SERVICESTEP',B.SERVICESTEP,#{siteid}) AS SERVICESTEP_
+		, CONCAT(C.MOBILE1,C.MOBILE2,C.MOBILE3) AS MOBILE_
+		FROM SV300030 A
+		LEFT OUTER JOIN SV300010 B ON B.SERVICENO = A.SERVICENO
+		INNER JOIN CU100010 C ON C.CUSTNO = B.CUSTNO
+		WHERE A.SITEID = #{siteid}
+		AND A.OWNER = #{owner}
+		AND DATE_FORMAT(A.VISITDATE,'%Y-%m-%d') = #{visitdate}
+	</select>
+
 </mapper>

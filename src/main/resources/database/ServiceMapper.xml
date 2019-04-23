@@ -184,7 +184,6 @@
 		,#{servicecode1},#{servicecode2},#{servicechannel},#{isdelete},#{memo}
 		,#{complete},#{reqno}
 		)
-
 	</insert>
 	<!-- 현상파악 Insert -->
 	<insert id="rewardInsert" parameterType="rewardDto">

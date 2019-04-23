@@ -72,7 +72,7 @@
                                             </div>
                                             <label class="col-sm-2 col-form-label">ID</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="userid" id="userid" value="${userInfo.USERID}" class="form-control form-control-sm">
+                                                    ${userInfo.USERID}
                                             </div>
                                         </div>
                                         <c:choose>

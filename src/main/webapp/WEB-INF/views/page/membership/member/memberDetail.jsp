@@ -53,7 +53,7 @@
                     <form:form action="/company/user/del/${userInfo.USERNO}" method="POST">
                         <a href="/company/user" class="btn btn-default pull-left">목록</a>
                         <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                        <button type="submit" class="btn btn-default pull-right">삭제</button>
+                        <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>
                         <a href="/company/user/modified/${userInfo.USERNO}" class="btn btn-default pull-right">수정</a>
                     </form:form>
                 </div>
@@ -181,13 +181,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
 
-            <br/>
             <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
             <div class="row">
                 <div class="col-lg-12">
@@ -222,17 +220,7 @@
                 </div>
             </div>
             </c:if>
-            <br/>
-            <div class="row">
-                <div class="col-lg-12">
-                    <form:form action="/company/user/del/${userInfo.USERNO}" method="POST">
-                        <a href="/company/user" class="btn btn-default pull-left">목록</a>
-                        <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                        <button type="submit" class="btn btn-default pull-right">삭제</button>
-                        <a href="/company/user/modified/${userInfo.USERNO}" class="btn btn-default pull-right">수정</a>
-                    </form:form>
-                </div>
-            </div>
+
             <br/>
 
         </div>

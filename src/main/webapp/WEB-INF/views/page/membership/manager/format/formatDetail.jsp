@@ -19,12 +19,6 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
 <style>
-    th{
-        background-color: #f5f6f7;
-    }
-    .denny{
-        background-color: #f3f1f0;
-    }
 </style>
 <body>
 
@@ -42,7 +36,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/">서식 목록</a>
+                        <a href="${pageContext.request.contextPath}/company/format">서식 목록</a>
                     </li>
                     <li class="breadcrumb-item">
                         <strong>서식 정보</strong>
@@ -58,9 +52,11 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <form:form action="/company/format/del/${formatInfo.FORMATNO}" method="post">
+                        <a href="/company/format" class="btn btn-default pull-left">목록</a>
+                        <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>
+                        <a href="/company/format/modified/${formatInfo.FORMATNO}" type="button" class="btn btn-default pull-right">수정</a>
+                    </form:form>
                 </div>
             </div>
 
@@ -69,7 +65,7 @@
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>회원사 정보</h5>
+                            <h5>서식 정보</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </div>
@@ -90,15 +86,24 @@
                                     <tbody>
                                         <tr>
                                             <th>서식명</th>
-                                            <td></td>
+                                            <td>${formatInfo.FORMATNAME}</td>
                                             <th>사용메뉴</th>
-                                            <td></td>
+                                            <td>${formatInfo.USEMENU_}</td>
                                             <th>발송매체</th>
-                                            <td></td>
+                                            <td>${formatInfo.SENDTYPE_}</td>
                                         </tr>
+                                        <c:if test="${sessionScope.MASTERYN eq 1}">
+                                            <tr>
+                                                <th>카카오서비스번호</th>
+                                                <td>${formatInfo.KKOSERVICENO}</td>
+                                                <th>카카오템플릿번호</th>
+                                                <td>${formatInfo.KKOTEMPLETENO}</td>
+                                            </tr>
+                                        </c:if>
                                         <tr>
                                             <th>서식</th>
                                             <td colspan="5">
+                                                ${formatInfo.FORMATDESC}
 
                                             </td>
                                         </tr>
@@ -108,16 +113,6 @@
 
                         </div>
                     </div>
-                </div>
-            </div>
-
-
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
                 </div>
             </div>
 
@@ -134,12 +129,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
-<!-- iCheck -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
-<!-- daum map -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
+
 <script>
 </script>
 </body>

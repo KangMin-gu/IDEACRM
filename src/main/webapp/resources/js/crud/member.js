@@ -34,8 +34,7 @@ function id_check(){
                 if(data == 0){
                     text = '사용 가능한 ID 입니다.';
                     alert(text);
-                    bool = true;
-                    return bool;
+                    $('#command').submit();
                 }else{
                     text = '이미 존재하고 있는 ID 이거나 입력되지 않았습니다.';
                     alert(text);

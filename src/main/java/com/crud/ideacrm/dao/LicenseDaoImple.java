@@ -15,9 +15,9 @@ public class LicenseDaoImple implements LicenseDao{
     @Autowired
     private SqlSession session;
     @Override
-    public List<Map<String, Object>> siteLicenseList(String siteId) {
-        List<Map<String,Object>> siteLicenseList = session.selectList("license.siteLicenseList",siteId);
-        return siteLicenseList;
+    public List<Map<String, Object>> licenseList(String siteId) {
+        List<Map<String,Object>> licenseList = session.selectList("license.licenseList",siteId);
+        return licenseList;
     }
 
     @Override
@@ -51,5 +51,11 @@ public class LicenseDaoImple implements LicenseDao{
     @Override
     public void menuInsert(Map<String, Object> param) {
         session.insert("license.menuInsert",param);
+    }
+
+    @Override
+    public List<Map<String, Object>> siteLicenseList(int siteId) {
+        List<Map<String,Object>> siteLicenseList = session.selectList("license.siteLicenseList",siteId);
+        return siteLicenseList;
     }
 }

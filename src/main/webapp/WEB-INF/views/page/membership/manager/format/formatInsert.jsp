@@ -18,14 +18,6 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
-<style>
-    th{
-        background-color: #f5f6f7;
-    }
-    .denny{
-        background-color: #f3f1f0;
-    }
-</style>
 <body>
 
 <div id="wrapper">
@@ -42,7 +34,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/">서식 등록</a>
+                        <a href="${pageContext.request.contextPath}/company/format">서식 목록</a>
                     </li>
                     <li class="breadcrumb-item">
                         <strong>서식 등록</strong>
@@ -55,12 +47,12 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-<form:form>
+            <form:form action="/company/format/input" method="POST">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
+                    <a href="/company/format" class="btn btn-default pull-left">목록</a>
+<!--                        <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>-->
+                    <button type="submit" class="btn btn-default pull-right">저장</button>
                 </div>
             </div>
 
@@ -89,57 +81,52 @@
                                     <tr>
                                         <th>서식명</th>
                                         <td>
-                                            <input type="text" class="form-control form-control-sm">
+                                            <input type="text" class="form-control name" name="formatname" id="formatname">
                                         </td>
                                         <th>사용메뉴</th>
                                         <td>
-                                            <select class="form-control m-b" style="width: 100px;height: 30px;">
-                                                <option value="Bahamas">일반</option>
-                                                <option value="Bahrain">중요</option>
-                                                <option value="Bangladesh">알림</option>
-                                                <option value="Barbados">참고</option>
-                                                <option value="Barbados">점검</option>
-                                                <option value="Barbados">업데이트</option>
+                                            <select class="form-control m-b" name="usemenu" id="usemenu" style="width: 100px;">
+                                                <option value="0">선택</option>
+                                                <c:forEach var="license" items="${license}">
+                                                    <option value="${license.LICENSENO}">${license.LICENSENAME}</option>
+                                                </c:forEach>
                                             </select>
                                         </td>
                                         <th>발송매체</th>
                                         <td>
-                                            <select class="form-control m-b" style="width: 100px;height: 30px;">
-                                                <option value="Bahamas">일반</option>
-                                                <option value="Bahrain">중요</option>
-                                                <option value="Bangladesh">알림</option>
-                                                <option value="Barbados">참고</option>
-                                                <option value="Barbados">점검</option>
-                                                <option value="Barbados">업데이트</option>
+                                            <select class="form-control m-b" name="sendtype" id="sendtype" style="width: 100px;">
+                                                <option value="0">선택</option>
+                                                <c:forEach var="formType" items="${FORMTYPE}">
+                                                    <option value="${formType.codeval}">${formType.codename}</option>
+                                                </c:forEach>
                                             </select>
                                         </td>
                                     </tr>
+                                    <c:if test="${sessionScope.MASTERYN eq 1}">
+                                    <tr class="kko">
+                                        <th>카카오 서비스번호</th>
+                                        <td>
+                                            <input type="text" class="form-control kko" name="kkoserviceno" id="kkoserviceno">
+                                        </td>
+                                        <th>카카오 템플릿번호</th>
+                                        <td>
+                                            <input type="text" class="form-control kko" name="kkotempleteno" id="kkotempleteno">
+                                        </td>
+                                    </tr>
+                                    </c:if>
                                     <tr>
                                         <th>서식</th>
                                         <td colspan="5">
-                                            <textarea id="mytextarea"></textarea>
+                                            <textarea class="tinymce name" name="formatdesc" id="formatdesc"></textarea>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">목록</button>
-                    <button type="button" class="btn btn-default pull-right">삭제</button>
-                    <button type="button" class="btn btn-default pull-right">수정</button>
-                </div>
-            </div>
-
-            <br/>
             </form:form>
         </div>
 
@@ -152,15 +139,23 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/format.js"></script>
+
 <script>
-    $(document).ready(function() {
-        tinymce.init({
-            selector: '#mytextarea, #mytextarea2,#mytextarea3 ',
-            height : 400,
-            language:'ko_KR'
-        });
+    var check = "${sessionScope.MASTERYN}";
+    $('.kko').hide();
+    $('#sendtype').change(function(e){
+        if(e.target.value == 3){
+            KKOCHECK(check);
+        }
     });
 </script>
 </body>

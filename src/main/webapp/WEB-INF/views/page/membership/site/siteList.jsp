@@ -112,8 +112,18 @@
                         </div>
 
                         <div class="ibox-content">
-                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                            <a href="/common/site/input" class="btn btn-default pull-right">추가</a>
+                            <div>
+                                <div style="display: inline-block;">
+                                    <select class="form-control" id="paging" style="width:80px;margin-left: 10px;">
+                                        <c:forEach var="paging" items="${PAGING}">
+                                            <option vale="${paging.codeval}">${paging.codename}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="pull-right" style="display: inline-block;">
+                                    <a href="/common/site/input" class="btn btn-default pull-right">추가</a>
+                                </div>
+                            </div>
                             <table class="footable table table-striped">
                                 <thead>
                                     <tr>
@@ -133,18 +143,13 @@
                                 <tbody>
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <td>
-                                            <select class="form-control" id="paging" style="width:80px">
-                                                <c:forEach var="paging" items="${PAGING}">
-                                                    <option vale="${paging.codeval}">${paging.codename}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </td>
-                                        <td colspan="4">
-                                            <ul class="pagination pull-right"></ul>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        <div class="footable-pagination-wrapper">
+                                            <ul class="pagination"></ul>
+                                        </div>
+                                    </td>
+                                </tr>
                                 </tfoot>
                             </table>
 

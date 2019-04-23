@@ -22,11 +22,11 @@ public class LicenseServiceImple implements LicenseService {
     private CodecUtil codecUtil;
 
     @Override
-    public List<Map<String, Object>> siteLicenseList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+    public List<Map<String, Object>> licenseList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         String siteId = request.getSession().getAttribute("ENCSITEID").toString();
         siteId = codecUtil.decodePkNo(siteId);
-        List<Map<String,Object>> siteLicenseList = licenseDao.siteLicenseList(siteId);
-        return siteLicenseList;
+        List<Map<String,Object>> licenseList = licenseDao.licenseList(siteId);
+        return licenseList;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class LicenseServiceImple implements LicenseService {
     @Override
     public List<Map<String, Object>> siteLicenseDetail(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
         siteId = codecUtil.decodePkNo(siteId);
-        List<Map<String,Object>> siteLicenseDetail = licenseDao.siteLicenseList(siteId);
+        List<Map<String,Object>> siteLicenseDetail = licenseDao.licenseList(siteId);
         return siteLicenseDetail;
     }
 
@@ -107,5 +107,12 @@ public class LicenseServiceImple implements LicenseService {
                 licenseDao.menuInsert(param);
             }
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> siteLicenseList(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        List<Map<String,Object>> siteLicenseList = licenseDao.siteLicenseList(siteId);
+        return siteLicenseList;
     }
 }

@@ -207,12 +207,12 @@
 
 <script>
     $(document).ready(function() {
-        /*
+
         $('.submit').click(function(e){
             e.preventDefault();
             id_check();
         });
-        */
+
     });
 </script>
 </body>

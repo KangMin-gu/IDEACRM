@@ -32,10 +32,9 @@ public class UserServiceImple implements UserService {
     public List<Map<String, Object>> userList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
 
         Map<String,Object> param = parameterUtil.searchParam(request);
-
+        String deUserNo = "";
         List<Map<String,Object>> userList = userDao.userList(param);
         for(int i=0;i<userList.size();i++){ //pk값 암호화
-            String deUserNo = "";
             deUserNo = userList.get(i).get("NO").toString();
             String enUserNo = codecUtil.encodePkNo(deUserNo);
             userList.get(i).put("NO",enUserNo);
@@ -98,7 +97,6 @@ public class UserServiceImple implements UserService {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         userNo = codecUtil.decodePkNo(userNo);
         UserDto userDto = new UserDto();
-        userDto.setSiteid(siteId);
         userDto.setUserno(userNo);
 
         Map<String,Object> userInfo = userDao.userDetail(userDto);

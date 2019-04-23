@@ -55,7 +55,7 @@
                         <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${sessionScope.CHKAUTH eq '30'}">
                                 <a href="/common/site" class="btn btn-default pull-left">목록</a>
-                                <button type="submit" class="btn btn-default pull-right">삭제</button>
+                                <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px;">삭제</button>
                             </c:if>
                             <a href="/common/site/modified/${siteInfo.SITEID}" class="btn btn-default pull-right">수정</a>
                         </c:if>

@@ -16,12 +16,6 @@
     <link href="${pageContext.request.contextPath}/resources/css/jasny-bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
-    th{
-        background-color: #f5f6f7;
-    }
-    .denny{
-        background-color: #f3f1f0;
-    }
 </style>
 <body>
 

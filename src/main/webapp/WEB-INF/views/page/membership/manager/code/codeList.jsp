@@ -108,6 +108,15 @@
                             <h5>코드 목록</h5>
                         </div>
                         <div class="ibox-content">
+                            <div>
+                                <div style="display: inline-block;">
+                                    <select class="form-control" id="paging" style="width:80px;margin-left: 10px;">
+                                        <c:forEach var="paging" items="${PAGING}">
+                                            <option vale="${paging.codeval}">${paging.codename}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
                             <table class="footable table table-striped head"  data-paging="true">
                                 <thead>
                                 <tr>
@@ -127,14 +136,9 @@
                                 <tfoot>
                                 <tr>
                                     <td>
-                                        <select class="form-control" id="paging" style="width:80px">
-                                            <c:forEach var="paging" items="${PAGING}">
-                                                <option vale="${paging.codeval}">${paging.codename}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </td>
-                                    <td colspan="1">
-                                        <ul class="pagination pull-right"></ul>
+                                        <div class="footable-pagination-wrapper">
+                                            <ul class="pagination"></ul>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tfoot>
@@ -187,12 +191,10 @@
                                                 </td>
                                                 <th>상위그룹코드</th>
                                                 <td>
-                                                    <input type="text" class="form-control" name="viewuppercodegrp_" id="viewuppercodegrp_">
+                                                    <input type="text" class="form-control" name="viewuppercodegrp_" id="viewuppercodegrp_" style="width:200px;">
                                                     <input type="hidden" class="form-control" name="viewuppercodegrp_" id="viewuppercodegrp">
                                                 </td>
-                                                <td>
                                                     <input type="hidden" id="codeno" name="codeno" value=""/>
-                                                </td>
                                                 <th>사용메뉴</th>
                                                 <td>
                                                     <select class="form-control" name="viewusingmenu" id="viewusingmenu" style="width:150px;">

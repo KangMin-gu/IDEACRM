@@ -27,21 +27,10 @@
 		<if test="userid != null">
 			AND A.USERID LIKE CONCAT('%',#{userid},'%')
 		</if>
-		<if test="isdelete != null">
-			AND A.ISDELETE = #{isdelete}
+		<if test="userduty != null">
+			AND A.USERDUTY LIKE CONCAT('%',#{userduty},'%')
 		</if>
-		<if test="strdate != null">
-			AND DATE_FORMAT(REGDATE,'%Y-%m-%d') <![CDATA[>=]]> #{strdate}
-		</if>
-		<if test="enddate != null">
-			AND DATE_FORMAT(REGDATE,'%Y-%m-%d') <![CDATA[<=]]> #{enddate}
-		</if>
-		<if test="role != null">
-			AND ROLE = #{role}
-		</if>
-		<if test="userNo != null">
-			AND USERNO = #{userNo}
-		</if>
+
 		ORDER BY A.USERNO DESC
 	</select>
 
@@ -58,8 +47,7 @@
 			,(SELECT SITENAME FROM ma900010 B WHERE B.SITEID = A.SITEID) AS SITENAME
 			,A.MOBILE,A.TELNO
 			FROM me800010 A
-			WHERE A.SITEID = #{siteid}
-			AND A.USERNO = #{userno}
+			WHERE A.USERNO = #{userno}
 	</select>
 
 	<select id="userCtiDetail" parameterType="userCtiDto" resultType="map">

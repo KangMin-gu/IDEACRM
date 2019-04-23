@@ -82,6 +82,7 @@ public class LoginServiceImple implements LoginService{
                 request.getSession().setAttribute("CHKAUTH", urInfo.get("CHKAUTH")); //사용자 권한
                 request.getSession().setAttribute("SITELOGO", urInfo.get("IMGPATH")); //회사 로고
                 request.getSession().setAttribute("MSGTELNO", urInfo.get("MSGTELNO")); //회사 메세지발신번호
+                request.getSession().setAttribute("MASTERYN", urInfo.get("MASTERYN")); //Master 사용자 여부
                 request.getSession().setAttribute("ENCUSERNO",encUserNo); // 암호화된 userNo
                 request.getSession().setAttribute("ENCSITEID",encSiteId); // 암호화된 siteId
                 request.getSession().setAttribute("SIDESTATES","1");

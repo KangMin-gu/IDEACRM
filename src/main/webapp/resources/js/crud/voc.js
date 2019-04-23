@@ -957,7 +957,7 @@ if ($('#calendar').length > 0) {
                 events : JSON.parse(schList)
                 // json String객체를 json객체로 변환해준다 -> 스케쥴 리스트 달력에 표시됨
             } ]
-        });// 캘린더의끝
+        });//캘린더의끝
 
 }
 

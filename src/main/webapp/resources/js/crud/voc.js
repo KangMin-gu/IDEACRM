@@ -181,7 +181,6 @@ function vocCustDetail(){
 // voc 고객 팝업 tr 클릭
 // 상세정보를 가져와서 필드에 바인딩한다.
 function popVocCustNameClick(tr){
-    debugger;
     var custno = tr.children().get(0).textContent;
     $.ajax({
         url: "/voc/cust/"+custno,
@@ -385,7 +384,7 @@ function cancleBlack(){
             data:{"custno":custno},
             cache: false,
             success: function (data) {
-                debugger;
+
                 blackCustCssChange(false);
                 blackSpanActivation('insert');
                 alert("해제 되었습니다.");
@@ -407,7 +406,7 @@ function blackSubmit(url) {
         data: jsonPrm,
         cache: false,
         success : function(response) {
-            debugger;
+
             alert('등록 되었습니다.');
             blackCustCssChange(true);
             blackSpanActivation('update');
@@ -575,7 +574,6 @@ function vocGetServiceInfo(urlServ) {
 
 function serviceInfoBinding(data) {
 
-debugger;
     opener.$('input:radio[name="servicetype"]').each(
         function(index) {
             if (this.value == data.SERVICETYPE) {
@@ -585,13 +583,11 @@ debugger;
     opener.$('#servicecode1').val(data.SERVICECODE1);
     opener.$('#servicecode2').append('<option value='+data.SERVICECODE2+'>'+data.SERVICECODE2_+'</option>');
     opener.$('#servicecode2').val(data.SERVICECODE2);
-    opener.$('#servicename').text(data.SERVICENAME);
+    opener.$('#servicename').val(data.SERVICENAME);
     opener.$('#servicedesc').text(data.SERVICEDESC);
     opener.tinymce.activeEditor.setMode('readonly');
     opener.tinymce.activeEditor.setContent(data.SERVICEDESC);
-    //opener.oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
 
-    //opener.oEditors.getById["servicedesc"].exec("PASTE_HTML", [data.SERVICEDESC]); //내용밀어넣기
     opener.$('#memo').val(data.MEMO);
     if (data.SERVICETYPE == 1) {
 
@@ -622,7 +618,7 @@ debugger;
     }
 
     opener.$('.voc').attr('disabled', true);
-    opener.$('.voc').iCheck('disable');
+    opener.$('.i-checks').iCheck('disable');
     opener.$('.plus').hide();
 
     opener.$('tbody .plus').attr('disabled', true);
@@ -644,22 +640,25 @@ debugger;
     });
 }
 
-$('#save').click(
+$('#vocSave').click(
     function(e) {
         debugger;
         var reqno = $('#reqno').val();
+        var custno = $('#custno').val();
         //reqno 테스트후 반드시삭제
         reqno = '2019042217453002112807042622864';
-        if(reqno == ""){
+        if(!reqno){
             alert("고객과의 전화를 끊어주세요");
+        }else if(!custno){
+            alert("고객이 선택되지 않았습니다.");
         }else{
             var servicetype = $('.servicetype .checked input').val();
-            var servicename = $("#servicename").text();
+            var servicename = $("#servicename").val();
             var servicedesc = tinymce.activeEditor.getContent();
             var vocstep = $('.check:checked').val();
             var nextowner = $('#nextowner').val();
             var conveyreason = $('[name="conveyreason"]:eq(0)').val();
-            var conveydesc = ('[name="conveydesc"]:eq(0)').val();
+            var conveydesc = $('[name="conveydesc"]:eq(0)').val();
             var reservphone = $('#reservphone').val();
             var reservdate = $('#reservdate').val();
             var reservtimeto = $('#reservtimeto').val();
@@ -675,6 +674,9 @@ $('#save').click(
             var visitaddr1 = $('#visitaddr1').val();
             var visitaddr2 = $('#visitaddr2').val();
             var visitaddr3 = $('#visitaddr3').val();
+            var visitapm = $('#visitapm').val();
+            var visithour = $('#visithour').val();
+            var visitminute = $('#visitminute').val();
 
             var param = {
                 "custno" : custno,
@@ -699,11 +701,14 @@ $('#save').click(
                 "visitaddr1" : visitaddr1,
                 "visitaddr2" : visitaddr2,
                 "visitaddr3" : visitaddr3,
-                "reqno" : reqno
+                "reqno" : reqno,
+                "visitapm" : visitapm,
+                "visithour" : visithour,
+                "visitminute" : visitminute
             };
 
             // var productNum = $('.plus:last').prev().attr('id').substring(7, 8);
-            var productNum = $('.plus:last').parent().prev().find('.form-control').attr('id');
+            var productNum = $('.plus:last').parent().prev().find('.form-control').attr('id').substring(7, 8);
 
             for (var i = 1; i <= productNum; i++) {
                 var products = $('[id*="product' + i + '1"]').attr('id');
@@ -723,14 +728,14 @@ $('#save').click(
                 data : param,
                 cache : false,
                 success : function(data) {
-                    debugger;
                     if (data != 0) {
                         alert("저장되었습니다.");
                         // 데이터 전부 초기화
+                        /*
                         $('.form-control').val('').keyup();
                         tinymce.activeEditor.setContent('');
                         $('#create').show();
-                        $('#save').hide();
+                        $('#vocSave').hide();
                         $('[id*=product]').attr('disabled',true);
                         $('#servicename').attr('disabled',true);
                         $('#memo').attr('disabled',true);
@@ -738,7 +743,8 @@ $('#save').click(
                         $('.voc').iCheck('disable');
                         $('#servicetype').iCheck('check');
                         $('#custname').css({"background-color":"#ffffff"});
-                        //oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
+                        */
+                        vocServiceFieldReset();
                     }
                 },
                 error : function(request, status, error) {
@@ -764,7 +770,6 @@ $('.asowner').click(function(e) {
 
 
 $('.i-checks').on('ifChecked', function(event) {
-    debugger;
     var value = event.target.value;
     var name = event.target.name;
     if (name == 'vocstep') {
@@ -969,27 +974,29 @@ function formatDate(date) {
 
 
 $('#create').click(function() {
-    $('.voc').attr('disabled', false);
-    $('.voc').iCheck('enable');
-    $('.voc').val('');
-    //oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
+
+    $('.i-checks input').iCheck('uncheck');
+    $('.i-checks input').iCheck('enable');
+    $('.vocSvInput').val('');
+    $('.vocSvInput').attr('disabled',false);
     tinymce.activeEditor.setMode('design');
     tinymce.activeEditor.setContent('');
-    $('.i-checks').iCheck('uncheck');
+    $('#visitapm').val('0');
+
     $('[name="vocstep"]:first').iCheck('check');
     $('[name="servicetype"]:first').iCheck('check');
-    $('#create').hide();
-    $('#save').show();
     $('.product').not(':first').remove();
     $('.product:first select').empty();
     $('.product:first select').append('<option label="선택" value=""></option>');
     $('tbody .plus').attr('disabled', false);
     var productLength = $('.plus').length;
     if(productLength == 0){
-        $('.product').append('<button class="plus btn btn-primary d-inline-block btn-sm mr-2">추가</button>');
+        $('.product').append('<button class="plus btn btn-default d-inline-block btn-sm mr-2">추가</button>');
     }
     productB();
 
+    $('#vocSave').show();
+    $('#create').hide();
 });
 
 function vocServiceFieldReset(){
@@ -997,28 +1004,32 @@ function vocServiceFieldReset(){
     $('.adminconvey').hide();
     $('.reservation').hide();
     $('.as').hide();
-    $('#save').hide();
+    $('#vocSave').hide();
 
-    $('.vocSvInput').attr('disabled', true);
-    $('.vocSvInput .i-checks').iCheck('disable');
-    $('.vocSvInput .i-checks').iCheck('uncheck');
     $('.vocSvInput').val('');
-    //oEditors.getById["servicedesc"].exec("SET_IR", [""]); //내용초기화
+    $('.vocSvInput').attr('disabled', true);
+    $('.i-checks input').iCheck('uncheck');
+    $('.i-checks input').iCheck('disable');
+
     tinymce.activeEditor.setMode('design');
     tinymce.activeEditor.setContent('');
 
-    $('#create').show();
+    $('#visitapm').val('0');
+
+
     $('.product').not(':first').remove();
     $('.product:first select').empty();
     $('.product:first select').append('<option label="선택" value=""></option>');
     $('tbody .plus').attr('disabled', false);
     var productLength = $('.plus').length;
     if(productLength == 0){
-        $('.product').append('<button class="plus btn btn-primary d-inline-block btn-sm mr-2">추가</button>');
+        $('.product').append('<button class="plus btn btn-default d-inline-block btn-sm mr-2">추가</button>');
     }
     productB();
+
+    $('#create').show();
 }
 
-$('#reset').click(function(){
+$('#vocReset').click(function(){
     vocServiceFieldReset();
 });

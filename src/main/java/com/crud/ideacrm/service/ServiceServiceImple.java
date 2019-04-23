@@ -32,6 +32,8 @@ public class ServiceServiceImple implements ServiceService{
     private CodecUtil codecUtil;
     @Autowired
     private Uplaod uplaod;
+    @Autowired
+    private ParameterUtil parameterUtil;
 
     @Override
     public List<Map<String,Object>> serviceList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -118,7 +120,6 @@ public class ServiceServiceImple implements ServiceService{
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
-        ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> search = parameterUtil.searchParam(request);
 
         serviceDto.setSiteid(siteId);

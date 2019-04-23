@@ -503,7 +503,7 @@
                                         <td>
                                             <div class="i-checks servicetype">
                                                 <c:forEach var="serviceType" items="${SERVICETYPE}">
-                                                    <label><input class="vocSvInput" type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                    <label><input class="i-checks" type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
                                                 </c:forEach>
                                             </div>
                                         </td>
@@ -531,7 +531,7 @@
                                         <td>
                                             <div class="product">
                                                 <div style="display: inline-block">
-                                                    <select id="product11" name="product11" class="form-control vocSvInput" style="width: 150px";>
+                                                    <select id="product11" name="product11" class="form-control" style="width: 150px";>
                                                         <option value="">선택</option>
                                                         <c:forEach var="productB" items="${productB }">
                                                             <option label="${productB.prdname }" value="${productB.prdno }"/>
@@ -565,7 +565,7 @@
                                         <th>상담 템플릿</th>
                                         <td>
                                             <select class="form-control form-control-sm vocSvInput" name="" id="" style="height: 30px; width: 100px;">
-                                                <option value="">02</option>
+                                                <option value="">선택</option>
                                                 <option value="">031</option>
                                                 <option value="">017</option>
                                                 <option value="">018</option>
@@ -612,24 +612,24 @@
                                                     <div class="col-md-2"><button class="btn btn-white btn-sm daumzip" type="button" id="visitaddr">주소 검색</button></div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;margin-left: 0px;">
-                                                    <input type="checkbox" class="i-checks vocSvInput" value="1" id="addrsame" name="addrsame">
+                                                    <input type="checkbox" class="i-checks" value="1" id="addrsame" name="addrsame">
                                                     &nbsp;<label>고객주소와 동일</label>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr class="result">
-                                        <th>상담결과</th>
+                                        <th><marquee><font color="red">상담결과</font></marquee></th>
                                         <td>
                                             <div class="i-checks voc">
                                                 <label>
-                                                    <input class="check vocSvInput" type="radio" id="vocstep3" name="vocstep" value="3" > <i></i> 처리
+                                                    <input class="check i-checks" type="radio" id="vocstep3" name="vocstep" value="3" > <i></i> 처리
                                                 </label>
                                                 <label>
-                                                    <input class="check vocSvInput" type="radio" id="vocstep5" name="vocstep" value="5" > <i></i> 담당자이관
+                                                    <input class="check i-checks" type="radio" id="vocstep5" name="vocstep" value="5" > <i></i> 담당자이관
                                                 </label>
                                                 <label>
-                                                    <input class="check vocSvInput" type="radio" id="vocstep6" name="vocstep" value="6" > <i></i> 상급자이관
+                                                    <input class="check i-checks" type="radio" id="vocstep6" name="vocstep" value="6" > <i></i> 상급자이관
                                                 </label>
                                             </div>
                                         </td>
@@ -713,7 +713,7 @@
                                         <th>예약 시간
                                         <td>
                                             <div style="display: inline-block">
-                                                <select class="form-control voc vocSvInput" name="visitapm" id="visitapm" style="width:80px;">
+                                                <select class="form-control" name="visitapm" id="visitapm" style="width:80px;">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="apm" items="${APM}">
                                                         <option value="${apm.codeval}">${apm.codename}</option>
@@ -721,17 +721,19 @@
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <select class="form-control voc vocSvInput" name="visithour" id="visithour" style="width:70px;">
+                                                <select class="form-control vocSvInput" name="visithour" id="visithour" style="width:70px;">
+                                                    <option value="">선택</option>
                                                     <c:forEach var="hour" items="${HOUR}">
-                                                        <option value="${hour.codeval}">${hour.codename}</option>
+                                                    <option value="${hour.codeval}">${hour.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                             <span style="display: inline-block">시</span>
                                             <div style="display: inline-block">
-                                                <select class="form-control voc vocSvInput" name="visitminute" id="visitminute" style="width:70px;">
+                                                <select class="form-control vocSvInput" name="visitminute" id="visitminute" style="width:70px;">
+                                                    <option value="">선택</option>
                                                     <c:forEach var="minute" items="${MINUTE}">
-                                                        <option value="${minute.codeval}">${minute.codename}</option>
+                                                    <option value="${minute.codeval}">${minute.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -754,8 +756,8 @@
                                     <button type="button" id="kakaoTemp" class="btn btn-default pull-left">KAKAO발송</button>
 
                                     <button id="create" class="btn btn-default pull-right" style="margin-left: 9px;">추가</button>
-                                    <button type="button" class="btn btn-primary pull-right" id="save" style="margin-left: 9px;">저장</button>
-                                    <button type="button" class="btn btn-default pull-right" style="margin-left: 9px;" id="reset">초기화</button>
+                                    <button type="button" class="btn btn-primary pull-right" id="vocSave" style="margin-left: 9px;">저장</button>
+                                    <button type="button" class="btn btn-default pull-right" style="margin-left: 9px;" id="vocReset">초기화</button>
 
                                 </div>
                             </div>
@@ -813,7 +815,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
+<scripvoct src="${pageContext.request.contextPath}/resources/js/footable.min.js"></scripvoct>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- daumAPI -->
@@ -829,16 +831,7 @@
 <script>
     $(document).ready(function(){
         $('.ctibtn').hide();
-        $('.convey').hide();
-        $('.adminconvey').hide();
-        $('.reservation').hide();
-        $('.as').hide();
-        $('#save').hide();
-        $('.product .minus:first').remove();
-        $('.product .plus:first').attr('disabled',true);
-        var url = window.location.pathname;
-        vocContents("0",url);
-        tinymceEditor();
+        vocServiceFieldReset();
     });
 </script>
 

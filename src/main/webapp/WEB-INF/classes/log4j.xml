@@ -12,8 +12,8 @@
 
 	<!-- //날짜별 로그 파일 생성 하기 -->
 	<appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="Threshold" value="DEBUG" /> 
-		<param name="File" value="/usr/crmlog" /> 
+		<param name="Threshold" value="DEBUG" />
+		<param name="File" value="/usr/crmlog" />
 		<param name="Append" value="true" /> 
 		<!-- param name="MaxFileSize" value="100MB"/ --> 
 		<!-- param name="MaxBackupIndex" value="2"></param --> 
@@ -29,16 +29,16 @@
 		<level value="DEBUG" />
 	</logger>
 	<logger name="jdbc" > 
-		<level value="DEBUG" /> 
+		<level value="DEBUG" />
 	</logger>
 	<logger name="org.apache.ibatis"> 
-		<level value="DEBUG" /> 
+		<level value="DEBUG" />
 	</logger>
 	<logger name="java.sql"> 
-		<level value="DEBUG" /> 
+		<level value="DEBUG" />
 	</logger>
 	<logger name="jdbc.sqlonly" > 
-		<level value="DEBUG" /> 
+		<level value="DEBUG" />
 	</logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

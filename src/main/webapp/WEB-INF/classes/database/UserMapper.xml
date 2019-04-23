@@ -146,13 +146,6 @@
 		WHERE USERNO = #{userno}
 	</update>
 
-	<select id="idCheck" parameterType="userDto" resultType="int">
-		SELECT Count(A.USERNO) AS CNT
-	    FROM me800010 AS A
-		WHERE USERID = #{userid}
-		AND SITEID = #{siteid}
-	</select>
-
 	<select id="userAsOwner" parameterType="int" resultType="hashMap">
 		SELECT
 		USERNO AS id
@@ -160,5 +153,12 @@
 		FROM me800010
 		WHERE SITEID = #{value}
 			AND ISDELETE = 0
+	</select>
+
+	<select id="idCheck" parameterType="userDto" resultType="int">
+		SELECT Count(A.USERNO) AS CNT
+	    FROM me800010 AS A
+		WHERE USERID = #{userid}
+		AND SITEID = #{siteid}
 	</select>
 </mapper>

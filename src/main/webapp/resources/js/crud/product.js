@@ -19,7 +19,7 @@ $(document).on('click','.minus',function(e) {
     var selectId = $(e.target).parent().find('select:last').attr('id');
     var lastId = $('.product:last select:last').attr('id');
     if(selectId == lastId){
-        $(e.target).parent().prev().find('select:last').parent().after('<div style="display: inline-block"><button type="button" class="btn btn-default plus">추가</button></div>');
+        $(e.target).parent().prev().find('select:last').parent().after('<div style="display: inline-block"><button type="button" style="margin-bottom: 5px;margin-left: 5px;" class="btn btn-default plus">추가</button></div>');
     }
 
     //$(e.target).parent().prev().find('select:last').after('<button class="plus btn btn-primary d-inline-block btn-sm mr-2">추가</button>');
@@ -41,7 +41,7 @@ function productPlus(length) {
         $('.product:last').prev().find('.plus').remove();
         // 첫번째 인경우에는 삭제버튼만 있으면 되기 떄문
         if (length == 1) {
-            $('.product:last').append('<button class="minus btn btn-primary d-inline-block btn-sm mr-2">삭제</button>');
+            $('.product:last').append('<button style="margin-bottom: 5px;" class="minus btn btn-default mr-2">삭제</button>');
         }
     } else {
         opener.$('.product:last').clone(true).insertAfter(
@@ -62,25 +62,31 @@ $('[name*=product]').change(function(){
 
 // 상위 코드 받아서 하위코드 매핑하기
 function upperProduct(product){
+    debugger;
     var productNo = $(product).val();
-    var url = "/product/upper/"+productNo;
-    var nextId = 'product'+ parseInt(parseInt(product.id.substring(7))+1);
-    $.ajax({
-        url: url,
-        method: "GET",
-        dataType: "json",
-        cache: false,
-        success: function (data) {
-            var text = "";
-            $('#'+nextId).find('option').remove();
-            $('#'+nextId).append('<option label="선택" value="0"/>');
-            for(i=0;i<data.length;i++){
-                text = '<option label="'+data[i].prdname+'" value="'+data[i].prdno+'"/>';
-                $('#'+nextId).append(text);
+    var nextId = 'product' + parseInt(parseInt(product.id.substring(7)) + 1);
+    if(productNo == ""){
+        $('#'+nextId).children().remove();
+    }else {
+        var url = "/product/upper/" + productNo;
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                var text = "";
+                $('#' + nextId).find('option').remove();
+                $('#' + nextId).append('<option label="선택" value="0"/>');
+                for (i = 0; i < data.length; i++) {
+                    text = '<option label="' + data[i].prdname + '" value="' + data[i].prdno + '"/>';
+                    $('#' + nextId).append(text);
+                }
+            },
+            error: function (request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             }
-        },
-        error: function (request, status, error) {
-            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-        }
-    });
+        });
+    }
 }

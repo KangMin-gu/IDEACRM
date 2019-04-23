@@ -274,7 +274,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div style="display: inline-block">
-                                                                    <button type="button" class="btn btn-default plus">추가</button>
+                                                                    <button type="button" style="margin-bottom: 5px;" class="btn btn-default plus">추가</button>
                                                                 </div>
                                                             </div>
                                                         </td>

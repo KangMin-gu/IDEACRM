@@ -2,6 +2,7 @@ package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.dao.LicenseDao;
+import com.crud.ideacrm.dto.UseLicenseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,23 @@ public class LicenseServiceImple implements LicenseService {
         siteId = codecUtil.decodePkNo(siteId);
         List<Map<String,Object>> siteLicenseDetail = licenseDao.siteLicenseList(siteId);
         return siteLicenseDetail;
+    }
+
+    @Override
+    public void useLicenseInsert(HttpServletRequest request, UseLicenseDto useLicenseDto, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        siteId = codecUtil.decodePkNo(siteId);
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        List<UseLicenseDto> useLicenseDtoList = useLicenseDto.getUseLicenseDtoList();
+        int listSize = useLicenseDtoList.size();
+        useLicenseDto.setSiteid(siteId);
+        useLicenseDto.setReguser(userNo);
+        useLicenseDto.setEdtuser(userNo);
+        for(int i = 0; i < listSize; i++ ){
+            useLicenseDto.setLicensecnt(useLicenseDtoList.get(i).getLicensecnt());
+            useLicenseDto.setLicenseno(useLicenseDtoList.get(i).getLicenseno());
+            useLicenseDto.setIsdelete(useLicenseDtoList.get(i).getIsdelete());
+
+            licenseDao.siteLicenseInsert(useLicenseDto);
+        }
     }
 }

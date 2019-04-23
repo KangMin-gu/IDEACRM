@@ -472,7 +472,7 @@
 
         $('.license').click(function(e){
             var siteid = $('#siteid').val();
-            licenseDetail(siteid);
+            licenseDetailPage(siteid);
         });
     });
 </script>

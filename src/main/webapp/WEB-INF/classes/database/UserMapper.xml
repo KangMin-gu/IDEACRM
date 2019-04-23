@@ -47,29 +47,16 @@
 
 	<select id="userDetail" parameterType="userDto" resultType="map">
 		SELECT
-			A.USERNO
-			,A.USERNAME
-			,A.USERID
-			,A.EMAIL
-			,A.USERDUTY
-			,CHKROLE
-			,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_
-			,ISDELETE
-			,FN_GETCODE('CHKAUTH_',A.CHKAUTH,1) AS CHKAUTH_
-			,CHKAUTH
+			A.USERNO,A.USERNAME,A.USERID,A.EMAIL,A.USERDUTY
+			,CHKROLE,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_,ISDELETE
+			,FN_GETCODE('CHKAUTH_',A.CHKAUTH,1) AS CHKAUTH_,CHKAUTH
 			,CASE WHEN DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
 					ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
-			,A.MOBILE1
-			,A.MOBILE2
-			,A.MOBILE3
-			,A.TELNO1
-			,A.TELNO2
-			,A.TELNO3
-			,A.USERDESC
-			,A.CTIID
-			,A.CTITELNO
-			,A.CTIPASS
+			,A.MOBILE1,A.MOBILE2,A.MOBILE3
+			,A.TELNO1,A.TELNO2,A.TELNO3
+			,A.USERDESC,A.CTIID,A.CTITELNO,A.CTIPASS
 			,(SELECT SITENAME FROM ma900010 B WHERE B.SITEID = A.SITEID) AS SITENAME
+			,A.MOBILE,A.TELNO
 			FROM me800010 A
 			WHERE A.SITEID = #{siteid}
 			AND A.USERNO = #{userno}
@@ -104,14 +91,14 @@
 		,MOBILE1,MOBILE2,MOBILE3,TELNO1,TELNO2,TELNO3
 		,USERDUTY,CTIID,CTIPASS,CTITELNO,PWDCHANGEDATE
 		,ISDELETE,REGDATE,REGUSER,EDTDATE,EDTUSER
-		,CHKROLE,MASTERYN,MOBILE
+		,CHKROLE,MASTERYN,MOBILE,TELNO
 		)VALUES(
 		#{siteid},#{userid},#{username},#{userpassword},#{userdesc}
 		,#{email},#{deptid},#{chkauth},now(),'ko'
 		,#{mobile1},#{mobile2},#{mobile3},#{telno1},#{telno2},#{telno3}
 		,#{userduty},#{ctiid},#{ctipass},#{ctitelno},now()
 		,0,now(),#{reguser},now(),#{edtuser}
-		,#{chkrole},0,#{mobile})
+		,#{chkrole},0,#{mobile},#{telno})
 	</insert>
 
 	<update id="userUpdate" parameterType="userDto">
@@ -143,6 +130,15 @@
 		,EDTDATE = NOW()
 		,EDTUSER = #{edtuser}
 		,MOBILE = #{mobile}
+		,TELNO = #{telno}
 		WHERE USERNO = #{userno}
+		AND SITEID = #{siteid}
 	</update>
+
+	<select id="idCheck" parameterType="userDto" resultType="int">
+		SELECT Count(A.USERNO) AS CNT
+	    FROM me800010 AS A
+		WHERE USERID = #{userid}
+		AND SITEID = #{siteid}
+	</select>
 </mapper>

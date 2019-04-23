@@ -26,7 +26,7 @@ public class UserServiceImple implements UserService {
     private PasswordEncoder encoder;
     @Autowired
     private ParameterUtil parameterUtil;
-// 사용자 List
+// 사용자 관리 List
     @Override
     public List<Map<String, Object>> userList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
 
@@ -39,10 +39,9 @@ public class UserServiceImple implements UserService {
             String enUserNo = codecUtil.encodePkNo(deUserNo);
             userList.get(i).put("NO",enUserNo);
         }
-        //return codecUtil.decodeList(userList);
-        return userList;
+        return codecUtil.decodeList(userList);
         }
-
+// 회원사에 속한 사용자 List
     @Override
     public List<Map<String, Object>> userTabList(String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
 
@@ -56,15 +55,22 @@ public class UserServiceImple implements UserService {
             userList.get(i).put("NO",enUserNo);
         }
         return codecUtil.decodeList(userList);
-        //return userList;
     }
-
+// 사용자 Insert
     @Override
     public String userInsert(HttpServletRequest request, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
 
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
+        if(userDto.getMobile1() != null && userDto.getMobile2() != null && userDto.getMobile3() != null){
+            String mobile = parameterUtil.columnUnion(userDto.getMobile1(),userDto.getMobile2(),userDto.getMobile3());
+            userDto.setMobile(mobile);
+        }
+        if(userDto.getTelno1() != null && userDto.getTelno2() != null && userDto.getTelno3() != null){
+            String telNo = parameterUtil.columnUnion(userDto.getTelno1(),userDto.getTelno2(),userDto.getTelno3());
+            userDto.setTelno(telNo);
+        }
         userDto.setSiteid(siteId);
         userDto.setReguser(userNo);
         userDto.setEdtuser(userNo);

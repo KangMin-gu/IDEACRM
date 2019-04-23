@@ -35,10 +35,14 @@ public class LicenseController {
     }
 
     @RequestMapping(value="/company/license/input/{siteId}",method=RequestMethod.POST)
-    @ResponseBody
-    public int licenseInsert(HttpServletRequest request, @ModelAttribute UseLicenseDto useLicenseDto){
+    public ModelAndView licenseInsert(HttpServletRequest request, @ModelAttribute UseLicenseDto useLicenseDto,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
 
-        return 0;
+        ModelAndView mView = new ModelAndView();
+        licenseService.useLicenseInsert(request,useLicenseDto,siteId);
+        mView.addObject("siteid",siteId);
+        mView.setViewName("redirect:/license/"+siteId);
+
+        return mView;
     }
 }
 

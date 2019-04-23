@@ -8,4 +8,6 @@ import java.util.Map;
 
 public interface MemberService {
     public void userPwdReset(HttpServletRequest request);
+
+    public int memberIdCheck(HttpServletRequest request, String userId);
 }

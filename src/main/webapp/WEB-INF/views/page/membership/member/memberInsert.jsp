@@ -47,7 +47,7 @@
             <form:form action="/company/user/input" method="POST">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <button type="submit" class="btn btn-default pull-left submit">등록</button>
                     <a href="/company/user" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
@@ -162,10 +162,11 @@
                     </div>
                 </div>
             </div>
+                <input type="hidden" name="idcheck" id="idcheck"/>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <button type="submit" class="btn btn-default pull-left submit">등록</button>
                     <a href="/company/user" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
@@ -185,9 +186,14 @@
 <!-- validate -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/memeber.js"></script>
 
 <script>
     $(document).ready(function() {
+        $('.submit').click(function(e){
+            e.preventDefault();
+            id_check();
+        });
     });
 </script>
 </body>

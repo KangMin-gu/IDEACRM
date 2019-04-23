@@ -6,7 +6,7 @@
         SELECT A.LICENSENO,A.BUYCNT,A.SITEID,A.ISDELETE,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_
          ,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
          ,DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE
-         ,(SELECT SUM(BUYCNT) FROM ME810010 WHERE SITEID = #{siteid}) AS TOTALCNT
+         ,(SELECT SUM(BUYCNT) FROM ME810010 WHERE SITEID = #{siteid} AND ISDELETE = 0) AS TOTALCNT
          ,X.USECNT
          FROM ME810010 A,(select licenseno, count(licenseno) as USECNT
 								 from (select A.LICENSENO, B.USERNO
@@ -19,11 +19,18 @@
 								 group by licenseno) X
 	WHERE X.LICENSENO = A.LICENSENO
     AND SITEID = #{siteid}
+
     </select>
 
     <select id="allList" resultType="licenseDto">
         SELECT * FROM ma900020
     </select>
+
+    <insert id="siteInsert" parameterType="useLicenseDto">
+        INSERT INTO ME810010	(SITEID,LICENSENO,BUYCNT,REGDATE,REGUSER,EDTDATE,EDTUSER,ISDELETE)
+							VALUES(#{siteid},#{licenseno},#{licensecnt},NOW(),#{reguser},NOW(),#{edtuser},#{isdelete})
+			ON DUPLICATE KEY UPDATE BUYCNT = #{licensecnt},EDTDATE = NOW(),EDTUSER = #{edtuser},ISDELETE = #{isdelete}
+    </insert>
 
 
 </mapper>

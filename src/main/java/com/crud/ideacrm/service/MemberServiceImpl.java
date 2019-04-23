@@ -78,4 +78,16 @@ public class MemberServiceImpl implements MemberService {
         memberDao.memeberChangePwd(userDto);
 
     }
+
+    @Override
+    public int memberIdCheck(HttpServletRequest request, String userId) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
+        UserDto userDto = new UserDto();
+        userDto.setSiteid(siteId);
+        userDto.setUserid(userId);
+        int cnt = memberDao.memberIdCheck(userDto);
+
+        return cnt;
+    }
 }

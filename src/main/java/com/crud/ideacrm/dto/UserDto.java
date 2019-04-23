@@ -38,6 +38,7 @@ public class UserDto {
     private String code;
     private int masteryn;
     private String mobile;
+    private String telno;
 
 
 
@@ -54,7 +55,7 @@ public class UserDto {
         if(this.email != null && this.email != ""){ this.email = commonUtil.encoding(this.email);}
     }
 
-    public UserDto(String userno, int siteid, String userid, String username, String userpassword, String userdesc, String email, int deptid, int chkauth, String enterdate, String userlang, String mobile1, String mobile2, String mobile3, String telno1, String telno2, String telno3, String userduty, int chkrole, String ctiid, String ctipass, String ctitelno, String pwdchangedate, int isdelete, String regdate, int reguser, String edtdate, int edtuser, String code, int masteryn, String mobile) {
+    public UserDto(String userno, int siteid, String userid, String username, String userpassword, String userdesc, String email, int deptid, int chkauth, String enterdate, String userlang, String mobile1, String mobile2, String mobile3, String telno1, String telno2, String telno3, String userduty, int chkrole, String ctiid, String ctipass, String ctitelno, String pwdchangedate, int isdelete, String regdate, int reguser, String edtdate, int edtuser, String code, int masteryn, String mobile, String telno) {
         this.userno = userno;
         this.siteid = siteid;
         this.userid = userid;
@@ -86,6 +87,7 @@ public class UserDto {
         this.code = code;
         this.masteryn = masteryn;
         this.mobile = mobile;
+        this.telno = telno;
     }
 
     public String getUserno() {
@@ -334,5 +336,13 @@ public class UserDto {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getTelno() {
+        return telno;
+    }
+
+    public void setTelno(String telno) {
+        this.telno = telno;
     }
 }

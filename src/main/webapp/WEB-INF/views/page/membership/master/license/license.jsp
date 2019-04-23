@@ -34,11 +34,11 @@
 
         <div class="wrapper wrapper-content animated fadeInRight">
 
-        <form:form action="">
+        <form:form action="/company/license/input/${siteid}" method="POST">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">적용</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <button type="submit" class="btn btn-default pull-left">적용</button>
+                    <a href="/common/site/${siteid}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -68,15 +68,15 @@
                                             <th>반영날짜</th>
                                         </tr>
                                         <tr>
-                                            <th><span name="licenseno" id="custlicenseno" value="1">고객관리</span></th>
+                                            <th><span name="useLicenseDtoList[0].licenseno" id="custlicenseno" value="1">고객관리</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="isdelete" id="custisdelete" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[0].isdelete" id="custisdelete" style="height: 35px;">
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="licensecnt" id="custlicensecnt" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[0].licensecnt" id="custlicensecnt" style="height: 35px;">
                                                     <c:forEach begin="0" end="50" step="1" varStatus="status">
                                                         <option value="${status.count}">${status.count}</option>
                                                     </c:forEach>
@@ -84,17 +84,18 @@
                                             </td>
                                             <td><span name="usecnt" id="custusecnt"></span></td>
                                             <td><span name="edtdate" id="custedtdate"></span></td>
+                                            <input type="hidden" name="useLicenseDtoList[0].licenseno" value="1"/>
                                         </tr>
                                         <tr>
-                                            <th><span name="licenseno" id="accountcenseno" value="2">영업관리</span></th>
+                                            <th><span name="useLicenseDtoList[1].licenseno" id="accountcenseno" value="2">영업관리</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="isdelete" id="accountisdelete" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[1].isdelete" id="accountisdelete" style="height: 35px;">
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="licensecnt" id="accountlicensecnt" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[1].licensecnt" id="accountlicensecnt" style="height: 35px;">
                                                     <option value="0">0</option>
                                                     <c:forEach begin="0" end="50" step="1" varStatus="status">
                                                         <option value="${status.count}">${status.count}</option>
@@ -103,17 +104,18 @@
                                             </td>
                                             <td><span name="usecnt" id="accountusecnt"></span></td>
                                             <td><span name="edtdate" id="accountedtdate"></span></td>
+                                            <input type="hidden" name="useLicenseDtoList[1].licenseno" value="2"/>
                                         </tr>
                                         <tr>
-                                            <th><span name="licenseno" id="servicelicenseno" value="3">서비스관리</span></th>
+                                            <th><span name="useLicenseDtoList[2].licenseno" id="servicelicenseno" value="3">서비스관리</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="isdelete" id="serviceisdelete" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[2].isdelete" id="serviceisdelete" style="height: 35px;">
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="licensecnt" id="servicelicensecnt" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[2].licensecnt" id="servicelicensecnt" style="height: 35px;">
                                                     <option value="0">0</option>
                                                     <c:forEach begin="0" end="50" step="1" varStatus="status">
                                                         <option value="${status.count}">${status.count}</option>
@@ -122,17 +124,18 @@
                                             </td>
                                             <td><span name="usecnt" id="serviceusecnt"></span></td>
                                             <td><span name="edtdate" id="serviceedtdate"></span></td>
+                                            <input type="hidden" name="useLicenseDtoList[2].licenseno" value="3"/>
                                         </tr>
                                         <tr>
-                                            <th><span name="licenseno" id="campaignlicenseno" value="4">캠페인</span></th>
+                                            <th><span name="useLicenseDtoList[3].licenseno" id="campaignlicenseno" value="4">캠페인</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="isdelete" id="campaignisdelete" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[3].isdelete" id="campaignisdelete" style="height: 35px;">
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="licensecnt" id="campaignlicensecnt" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[3].licensecnt" id="campaignlicensecnt" style="height: 35px;">
                                                     <option value="0">0</option>
                                                     <c:forEach begin="0" end="50" step="1" varStatus="status">
                                                         <option value="${status.count}">${status.count}</option>
@@ -141,25 +144,27 @@
                                             </td>
                                             <td><span name="usecnt" id="campaignusecnt"></span></td>
                                             <td><span name="edtdate" id="campaignedtdate"></span></td>
+                                            <input type="hidden" name="useLicenseDtoList[3].licenseno" value="4"/>
                                         </tr>
                                         <tr>
-                                            <th><span name="licenseno" id="voclicenseno" value="5">콜센터</span></th>
+                                            <th><span name="useLicenseDtoList[4].licenseno" id="voclicenseno" value="5">콜센터</span></th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="isdelete" id="vocisdelete" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[4].isdelete" id="vocisdelete" style="height: 35px;">
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="licensecnt" id="voclicensecnt" style="height: 35px;">
+                                                <select class="form-control form-control-sm" name="useLicenseDtoList[4].licensecnt" id="voclicensecnt" style="height: 35px;">
                                                     <option value="0">0</option>
                                                     <c:forEach begin="0" end="50" step="1" varStatus="status">
                                                         <option value="${status.count}">${status.count}</option>
                                                     </c:forEach>
                                                 </select>
                                             </td>
-                                            <td><span name="usecnt" id="ctiusecnt" value="12345"></span></td>
+                                            <td><span name="usecnt" id="ctiusecnt" value=""></span></td>
                                             <td><span name="edtdate" id="ctiedtdate"></span></td>
+                                            <input type="hidden" name="useLicenseDtoList[4].licenseno" value="5"/>
                                         </tr>
                                         <tr>
                                             <th>라이센스활성수</th>
@@ -177,8 +182,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-default pull-left">적용</button>
-                    <button type="button" class="btn btn-default pull-right">취소</button>
+                    <button type="submit" class="btn btn-default pull-left">적용</button>
+                    <a href="/common/site/${siteid}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
         </form:form>
@@ -201,7 +206,7 @@
 <script>
 $(document).ready(function() {
     var siteid = $('#siteid').val();
-    licenseInsert(siteid);
+    licenseInsertPage(siteid);
 });
 </script>
 </body>

@@ -10,7 +10,10 @@ function vocNoticeListFormatter(value, options, rowData){
     if(value){  return "<a href='/voc/notice/"+ rowData.NTNUM + "'>" + value + "</a>";  }
     return "";
 }
-
+function popNoticeListFormatter(value, options, rowData){
+    if(value){  return "<a href='/pop/notice/"+ rowData.NTNUM + "'>" + value + "</a>";  }
+    return "";
+}
 $('#reset').click(function(e){
     $('.searchparam').val('');
 });

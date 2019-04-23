@@ -47,45 +47,47 @@
             <small>Chrome, IE 11이상의 버전에 최적화 되어 있습니다.</small>
         </form:form>
         <br/>
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-xs-4">공지사항</div>
-                <div class="col-xs-4">
-                    <a class="btn btn-primary btn-xs" href="">전체</a>
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table">
-                        <colgroup>
-                            <col style="width: 25%;">
-                            <col style="width: 15%;">
-                            <col style="width: 60%;">
-                        </colgroup>
-                        <tbody>
-                        <c:forEach var="crudNotice" items="${notice }">
-                            <tr>
-                                    <td>${crudNotice.TAGNAME }</td>
-                                <c:choose>
-                                    <c:when test="${fn:length(crudNotice.TITLE) > 14}">
-                                        <c:if test="${crudNotice.REGDATE } "></c:if>
-                                        <td><a href="/notice/${crudNotice.NTNUM}" style="text-decoration:none ; color:#000000;"><c:out value="${fn:substring(crudNotice.TITLE,0,20)}"/>....</a></td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td><a href="/notice/${crudNotice.NTNUM}" style="text-decoration:none ; color:#000000;"><c:out value="${crudNotice.TITLE}"/></a></td>
-                                    </c:otherwise>
-                                </c:choose>
-                                <td>${crudNotice.REGDATE }</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-auto">
+            <table class="table" style="width: 540px;">
+                <colgroup>
+                    <col width="20%">
+                    <col width="60%">
+                    <col width="20%">
+                </colgroup>
+                <thead>
+                <th>
+                <td colspan="1" style="text-align:center;"><strong>공지사항</strong></td>
+                <td style="text-align:left;"><button id="allNoticeBtn" class="btn btn-primary btn-xs">전체</button></td>
+                </th>
+                </thead>
+                <tbody>
+                <c:forEach var="crudNotice" items="${notice }">
+                    <tr>
+                        <td>${crudNotice.TAGNAME }</td>
+                        <c:choose>
+                            <c:when test="${fn:length(crudNotice.TITLE) > 14}">
+                                <c:if test="${crudNotice.REGDATE } "></c:if>
+                                <td><a href="/notice/${crudNotice.NTNUM}" style="text-decoration:none ; color:#000000;"><c:out value="${fn:substring(crudNotice.TITLE,0,30)}"/>....</a></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><a href="/notice/${crudNotice.NTNUM}" style="text-decoration:none ; color:#000000;"><c:out value="${crudNotice.TITLE}"/></a></td>
+                            </c:otherwise>
+                        </c:choose>
+                        <td>${crudNotice.REGDATE }</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>
+
 <p class="text-muted text-center"><small>고객센터 : 02-336-7800 주소: 서울특별시 마포구 독막로 10 성지빌딩 5층 509호</small></p>
 <p class="text-muted text-center"> <small>Copyright CRUD XaaS SYSTEM &copy; 2018</small> </p>
 

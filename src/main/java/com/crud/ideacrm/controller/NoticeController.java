@@ -26,7 +26,6 @@ public class NoticeController {
 
 
     @RequestMapping(value = "/company/notice", method = RequestMethod.GET)
-    @ResponseBody
     public ModelAndView authsiteNoticeList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects(codeService.getCommonCode(NOTICE));
@@ -84,7 +83,6 @@ public class NoticeController {
 
     //All NOTICE
     @RequestMapping(value = "/notice", method = RequestMethod.GET)
-    @ResponseBody
     public ModelAndView authNoticeList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects(codeService.getCommonCode(NOTICE));
@@ -142,7 +140,6 @@ public class NoticeController {
 
     //VOCNOTICE
     @RequestMapping(value = "/voc/notice", method = RequestMethod.GET)
-    @ResponseBody
     public ModelAndView authVocNoticeList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects(codeService.getCommonCode(NOTICE));

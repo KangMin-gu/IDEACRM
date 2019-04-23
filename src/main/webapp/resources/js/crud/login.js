@@ -22,3 +22,8 @@ $("#loginChk").on("submit", function(){
         delete localStorage.idId;
     }
 });
+
+$('#allNoticeBtn').click(function(){
+    window.open("/pop/notice", "공지사항","width=1200px, height=650px");
+});
+

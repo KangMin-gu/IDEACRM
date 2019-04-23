@@ -1,19 +1,21 @@
 package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.dto.UserDto;
+import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.LoginService;
 import com.crud.ideacrm.service.NoticeService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -23,6 +25,11 @@ public class LoginController {
 
     @Autowired
     private NoticeService noticeService;
+
+    @Autowired
+    private CodeService codeService;
+
+    private final int NOTICE = 5;
 
     //로그인폼요청
     @RequestMapping(value="/login", method=RequestMethod.GET)
@@ -52,4 +59,28 @@ public class LoginController {
         request.getSession().invalidate();
         return "redirect:/";
     }
+
+    //전체공지사항 팝업
+    @RequestMapping(value = "/pop/notice", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> popAllNoticeData(HttpServletRequest request){
+        List<Map<String,Object>> noticeList = noticeService.noticeList(request);
+        return noticeList;
+    }
+
+    @RequestMapping(value = "/pop/notice", method = RequestMethod.GET)
+    public ModelAndView popAllNotice(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.addAllObjects(codeService.getCommonCode(NOTICE));
+        mView.setViewName("page/popup/noticePop");
+        return mView;
+    }
+
+    @RequestMapping(value = "/pop/notice/{noticeId}", method = RequestMethod.GET)
+    public ModelAndView popAllnoticeDetail(HttpServletRequest request, @PathVariable int noticeId){
+        ModelAndView mView = noticeService.noticeDetail(request, noticeId);
+        mView.setViewName("page/popup/noticeDetailPop");
+        return mView;
+    }
+
 }

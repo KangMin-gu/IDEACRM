@@ -53,7 +53,7 @@ public class MailScheduler {
         mailVal.put("today",today);
         List<Map<String, Object>> list = mailDao.allTarget(mailVal);//미발송 메일 100건 리스트 긁어오기
 
-        System.out.println(list.size());
+        System.out.println("test"+list.size());
 
         for(int i=0; i<list.size(); i++){
             String fromEmail = list.get(i).get("FROMEMAIL").toString(); //보낸이

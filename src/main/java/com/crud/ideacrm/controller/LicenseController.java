@@ -2,6 +2,8 @@ package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.dto.UseLicenseDto;
 import com.crud.ideacrm.service.LicenseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.Map;
 
 @Controller
 public class LicenseController {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private LicenseService licenseService;

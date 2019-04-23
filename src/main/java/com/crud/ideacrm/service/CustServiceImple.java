@@ -1,11 +1,14 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.CustDao;
 import com.crud.ideacrm.dto.CustDenyDto;
 import com.crud.ideacrm.dto.CustDto;
 import com.crud.ideacrm.dto.EnCustDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ import java.util.Map;
 
 @Service
 public class CustServiceImple implements CustService{
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private CustDao custDao;

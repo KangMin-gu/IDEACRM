@@ -1,8 +1,11 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.dao.MailDao;
 import com.crud.ideacrm.dao.MemberDao;
 import com.crud.ideacrm.dto.UserDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.util.Random;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private MemberDao memberDao;

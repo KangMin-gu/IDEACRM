@@ -126,5 +126,11 @@ public class VocDaoImple implements VocDao {
         session.insert("voc.conveyInsert",serviceDeliveryDto);
     }
 
+    // VOC 전화 끊으면 일평균 데이터 바로바로 저장
+    @Override
+    public void endCall(Map<String,Object> param) {
+        session.insert("voc.endCall",param);
+    }
+
 
 }

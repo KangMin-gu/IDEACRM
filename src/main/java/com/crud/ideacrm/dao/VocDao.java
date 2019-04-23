@@ -26,5 +26,5 @@ public interface VocDao {
     public void svStepUpdate(ServiceDto serviceDto);
     public void svReservInsert(Map<String,Object> param);// voc 상담예약
     public void conveyInsert(ServiceDeliveryDto serviceDeliveryDto); // 이관 추가
-
+    public void endCall(Map<String,Object> param);
 }

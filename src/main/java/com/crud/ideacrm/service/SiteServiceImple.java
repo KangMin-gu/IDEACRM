@@ -1,5 +1,6 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.SendDao;
@@ -8,6 +9,8 @@ import com.crud.ideacrm.dto.ChargeDto;
 import com.crud.ideacrm.dto.CtiDto;
 import com.crud.ideacrm.dto.KakaoDto;
 import com.crud.ideacrm.dto.SiteDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 @Service
 public class SiteServiceImple implements SiteService{
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private SiteDao siteDao;
@@ -65,6 +69,13 @@ public class SiteServiceImple implements SiteService{
         mView.addObject("ctiInfo",siteCtiDetail);
         mView.addObject("kkoInfo",siteKkoDetail);
         return mView;
+    }
+
+    //cti웹소켓 통신 바인딩용
+    @Override
+    public Map<String, Object> siteDetail(HttpServletRequest request) {
+        String siteId = request.getSession().getAttribute("SITEID").toString();
+        return siteDao.siteCtiDetail(siteId);
     }
 
     @Override

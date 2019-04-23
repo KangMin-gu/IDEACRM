@@ -29,9 +29,9 @@
             <div class="ibox">
                 <div class="ibox-content clearfix">
                     <div class="cti" style="display:none">
-                        서버아이피: <input type="text" name="cti_server_ip" id="cti_server_ip" value="127.0.0.1">
-                        웹소켓아이피: <input type="text" name="cti_server_socket_ip" id="cti_server_socket_ip" value="203.239.159.133">
-                        서버포트: <input type="text" name="cti_server_port" id="cti_server_port" value="7070">
+                        서버아이피: <input type="text" name="cti_server_ip" id="cti_server_ip" value="${ctiInfo.IP}">
+                        웹소켓아이피: <input type="text" name="cti_server_socket_ip" id="cti_server_socket_ip" value="${ctiInfo.SOCKETIP}">
+                        서버포트: <input type="text" name="cti_server_port" id="cti_server_port" value="${ctiInfo.PORT}">
                         <input type="button" value="웹소켓접속" onclick="webSocketGo();">
                         <input type="button" value="웹소켓끊기" onclick="func_logout();goWebSocketDisconnect();">
                         <br/>
@@ -41,7 +41,7 @@
                         <input type="hidden" name="checkGroupValue" id="checkGroupValue" value="N">
                         <input type="hidden" name="checkGroupValue2" id="checkGroupValue2" value="N">
                         <span id="outCallNum">07042622883</span>
-                        <input type="hidden" id="ctitelno" name="ctitelno" value="07042622883" class="searchparam"/>
+                        <input type="hidden" id="ctitelno" name="ctitelno" value="${ctiInfo.TELNO}" class="searchparam"/>
                         <input type="checkbox" class="check" id="did" onclick="javascript:didCheck();">
                         <div>
                             <textarea id="messages" cols="150" rows="10"></textarea>
@@ -304,7 +304,7 @@
                                 <div class="tab-content">
                                     <div role="tabpanel" id="vocSvTab" class="tab-pane active" url="/voc/tab/sv">
                                         <div class="panel-body">
-                                            <table class="tabfootable table table-stripped" data-paging="true" data-sorting="true">
+                                            <table class="tabfootable table table-striped" data-paging="true" data-sorting="true">
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="SERVICENO">서비스번호</th>
@@ -331,7 +331,7 @@
                                     </div>
                                     <div role="tabpanel" id="vocBlackTab" class="tab-pane" url="/voc/tab/black">
                                         <div class="panel-body">
-                                            <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
+                                            <table class="tabfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="BCUSTNO">서비스번호</th>
@@ -357,7 +357,7 @@
                                     <div role="tabpanel" id="vocCallbackHistTab" class="tab-pane" url="/voc/tab/callbackhist">
                                         <div class="panel-body">
 
-                                            <table class="tabfootable table table-stripped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
+                                            <table class="tabfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="CALLBACKHISTNO"></th>
@@ -389,7 +389,7 @@
                                     <div role="tabpanel" id="tab-4" class="tab-pane">
                                         <div class="panel-body">
 
-                                            <table class="footable4 table table-stripped" data-page-size="8" data-filter=#filter>
+                                            <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
                                                     <th>Rendering engine</th>
@@ -452,7 +452,7 @@
                                     <div role="tabpanel" id="callbackBottomTab" class="tab-pane active" url="/voc/tab/callback">
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <table class="tabfootable table table-stripped" style="white-space:nowrap;">
+                                                <table class="tabfootable table table-striped" style="white-space:nowrap;">
                                                     <thead>
                                                     <tr>
                                                         <th data-visible="false" data-name="TRUNK"></th>
@@ -499,9 +499,9 @@
                                     <tr>
                                         <th>접수구분</th>
                                         <td>
-                                            <div class="i-checks">
+                                            <div class="i-checks servicetype">
                                                 <c:forEach var="serviceType" items="${SERVICETYPE}">
-                                                    <label><input type="radio" class="" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                    <label><input type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
                                                 </c:forEach>
                                             </div>
                                         </td>
@@ -556,7 +556,7 @@
                                     <tr>
                                         <th>접수내용</th>
                                         <td>
-                                            <textarea name="servicename" id="servicenmae" class="form-control" style="resize: none;" rows="2"></textarea>
+                                            <textarea name="servicename" id="servicename" class="form-control" style="resize: none;" rows="2"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
@@ -581,13 +581,13 @@
                                         <td>
                                             <div class="i-checks">
                                                 <label>
-                                                    <input class="check" type="radio" id="vocstep3" name="vocstep3" value="3" > <i></i> 처리
+                                                    <input class="check" type="radio" id="vocstep3" name="vocstep" value="3" > <i></i> 처리
                                                 </label>
                                                 <label>
-                                                    <input class="check" type="radio" id="vocstep5" name="vocstep5" value="5" > <i></i> 담당자이관
+                                                    <input class="check" type="radio" id="vocstep5" name="vocstep" value="5" > <i></i> 담당자이관
                                                 </label>
                                                 <label>
-                                                    <input class="check" type="radio" id="vocstep6" name="vocstep6" value="6" > <i></i> 상급자이관
+                                                    <input class="check" type="radio" id="vocstep6" name="vocstep" value="6" > <i></i> 상급자이관
                                                 </label>
                                             </div>
                                         </td>
@@ -673,9 +673,8 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/vocRec.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/sweetalert/custom-sweetalert.min.js"></script><!-- Sweet alert -->
 <script>

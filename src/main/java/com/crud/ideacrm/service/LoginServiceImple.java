@@ -1,11 +1,14 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.dto.ContactInfoDto;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ContactInfo;
 import com.crud.ideacrm.crud.util.LoginManager;
 import com.crud.ideacrm.dao.LoginDao;
 import com.crud.ideacrm.dto.UserDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,7 @@ import java.util.Map;
 
 @Service
 public class LoginServiceImple implements LoginService{
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     //TEST
     @Autowired
     private LoginDao login;

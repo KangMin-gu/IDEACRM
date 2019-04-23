@@ -1,5 +1,8 @@
 package com.crud.ideacrm.crud.util;
 
+import com.crud.ideacrm.controller.MainController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -9,6 +12,7 @@ import java.util.Map;
 
 @Component
 public class CodecUtil {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     /**
      * String 파라미터가 들어오면 암호화 된 문자를 return 한다.

@@ -1,10 +1,13 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dao.VocDao;
 import com.crud.ideacrm.dto.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ import java.util.Map;
 
 @Service
 public class VocServiceImple implements VocService {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private CodecUtil codecUtil;
@@ -156,7 +160,7 @@ public class VocServiceImple implements VocService {
     }
 
     @Override
-    public Map<String, Object> svcVocPopServiceSelect(HttpServletRequest request,String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public Map<String, Object> vocPopServiceSelect(HttpServletRequest request,String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
 
         Map<String,Object> searchPrm = parameterUtil.searchParam(request);
         searchPrm.put("custno", custNo);//복호화필요
@@ -189,6 +193,14 @@ public class VocServiceImple implements VocService {
         return serviceMap;
     }
 
+    // VOC 전화 종료하면 일평균 데이터 수집
+    @Override
+    public void vocEndCall(HttpServletRequest request) {
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        param.put("userno",userNo);
+        vocDao.endCall(param);
+    }
 
 
 }

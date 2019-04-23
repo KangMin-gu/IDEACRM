@@ -1,5 +1,8 @@
 package com.crud.ideacrm.crud.util;
 
+import com.crud.ideacrm.controller.MainController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +15,7 @@ import java.util.Map;
 
 @Component
 public class ParameterUtil {
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     @Autowired
     private CodecUtil codecUtil;
 

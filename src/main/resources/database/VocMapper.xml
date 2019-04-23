@@ -259,11 +259,23 @@
 		)
 	</insert>
 
-	<!-- 최근 한건의 상담 접수 -->
+	<!-- 최근 한건의 상담 접수
 	<select id="topList" parameterType="hashMap" resultType="hashMap">
 		SELECT SERVICENO,SERVICETYPE,SERVICESTEP,SERVICEDESC,MEMO,SERVICENAME
 				,SERVICECODE1
 				, FN_GETCODEUPPER('SERVICECODE2',SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',SERVICECODE1,#{siteid})) AS SERVICECODE2
+		 FROM sv300010
+		WHERE SITEID = #{siteid}
+		AND CUSTNO = #{custno}
+		order by SERVICENO DESC
+		LIMIT 1
+	</select> -->
+	<!-- 최근 한건의 상담 접수-->
+	<select id="topList" parameterType="hashMap" resultType="hashMap">
+		SELECT SERVICENO,SERVICETYPE,SERVICESTEP,SERVICEDESC,MEMO,SERVICENAME
+				,SERVICECODE1
+				,SERVICECODE2
+				, FN_GETCODEUPPER('SERVICECODE2',SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',SERVICECODE1,#{siteid})) AS SERVICECODE2_
 		 FROM sv300010
 		WHERE SITEID = #{siteid}
 		AND CUSTNO = #{custno}
@@ -441,6 +453,39 @@
 			SET SERVICESTEP = 5
 			WHERE SERVICENO = #{serviceno}
 			AND SITEID = #{siteid};
+	</insert>
+
+	<insert id="endCall" parameterType="hashMap">
+		INSERT INTO CTI510040
+		(
+			USERNO,
+			SITEID,
+			TRANSFERTRYCNT,
+			TRANSFERCONNECTCNT,
+			IBTRYCNT,
+			IBCONNECTCNT,
+			OBTRYCNT,
+			OBCONNECTCNT,
+			AVGCALL,
+			AVGWAIT,
+			SUMCALL,
+			RESPONSERATE,
+			REGDATE
+		)VALUES(
+			#{userno},
+			#{siteid},
+			#{transferTryCnt},
+			#{transferConnectCnt},
+			#{ibTryCnt},
+			#{ibConnectCnt},
+			#{obTryCnt},
+			#{obConnectCnt},
+			#{avgCall},
+			#{avgWait},
+			#{sumCall},
+			#{ResponseRate},
+			CURRENT_TIMESTAMP()
+		)
 	</insert>
 
 </mapper>

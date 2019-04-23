@@ -1,5 +1,6 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.dao.UploadDao;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
@@ -8,6 +9,8 @@ import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dto.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +24,7 @@ import java.util.*;
 
 @Service
 public class ServiceServiceImple implements ServiceService{
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private ServiceDao serviceDao;

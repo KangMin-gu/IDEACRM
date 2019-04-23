@@ -52,9 +52,11 @@ $('#ins').click(function () {
         url:"/insnotread",
         type:'GET',
         success:function(data){
+            console.log(data);
+            var a = "";
             $('#insNotRead li').remove();
             for(var i =0; i<data.length; i++){
-                html = "<li><div class='dropdown-messages-box'><a style='color:black;' href='/inbox'><strong>"+data[i].TITLE+"</strong></a><br>"+"<small class='text-muted'>"+data[i].SENDER + "&nbsp;/&nbsp;" + data[i].SENDDATE +"</small></div></div></li><li class='dropdown-divider'></li>";
+                html = "<li><div class='dropdown-messages-box'><a style='color:black;' href='/inbox/view/"+data[i].NOTICEID+"'"+"><strong>"+data[i].TITLE+"</strong></a><br>"+"<small class='text-muted'>"+data[i].SENDER + "&nbsp;/&nbsp;" + data[i].SENDDATE +"</small></div></div></li><li class='dropdown-divider'></li>";
                 $('#insNotRead').append(html);
             }
             html2 = "<li>" +

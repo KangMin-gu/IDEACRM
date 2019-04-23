@@ -8,18 +8,13 @@
          ,DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE
          ,(SELECT SUM(BUYCNT) FROM ME810010 WHERE SITEID = #{siteid} AND ISDELETE = 0) AS TOTALCNT
          ,X.USECNT
-         FROM ME810010 A,(select licenseno, count(licenseno) as USECNT
-								 from (select A.LICENSENO, B.USERNO
-											 from ma900030 A
-											  LEFT OUTER JOIN me810011 B ON B.MENUNO = A.MENUNO
-											  WHERE B.ISDELETE = 0
-											  AND SITEID = #{siteid}
-											  AND RIGHT(MENUVAL, 4) != '0000'
-											  group by A.licenseno, B.userno) X
-								 group by licenseno) X
+         FROM ME810010 A,(SELECT SITEID, COUNT(LICENSENO) AS USECNT, LICENSENO
+															FROM ME810020
+															WHERE SITEID = #{siteid}
+															AND ISDELETE = 0
+															GROUP BY SITEID, LICENSENO) X
 	WHERE X.LICENSENO = A.LICENSENO
-    AND SITEID = #{siteid}
-
+    AND A.SITEID = #{siteid}
     </select>
 
     <select id="allList" resultType="licenseDto">
@@ -45,7 +40,7 @@ FROM (SELECT A.LICENSENO, A.LICENSENAME, B.BUYCNT, IFNULL(C.CNT, 0) AS USECNT, C
 															WHERE SITEID = #{siteid}
 															AND ISDELETE = 0
 															GROUP BY SITEID, LICENSENO) C ON C.LICENSENO = A.LICENSENO
-			where B.siteid = #{s  123iteid}) X
+			where B.siteid = #{siteid}) X
 	WHERE X.TOTAL != 0;
     </select>
 

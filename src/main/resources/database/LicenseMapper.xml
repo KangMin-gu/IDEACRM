@@ -8,18 +8,13 @@
          ,DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE
          ,(SELECT SUM(BUYCNT) FROM ME810010 WHERE SITEID = #{siteid} AND ISDELETE = 0) AS TOTALCNT
          ,X.USECNT
-         FROM ME810010 A,(select licenseno, count(licenseno) as USECNT
-								 from (select A.LICENSENO, B.USERNO
-											 from ma900030 A
-											  LEFT OUTER JOIN me810011 B ON B.MENUNO = A.MENUNO
-											  WHERE B.ISDELETE = 0
-											  AND SITEID = #{siteid}
-											  AND RIGHT(MENUVAL, 4) != '0000'
-											  group by A.licenseno, B.userno) X
-								 group by licenseno) X
+         FROM ME810010 A,(SELECT SITEID, COUNT(LICENSENO) AS USECNT, LICENSENO
+															FROM ME810020
+															WHERE SITEID = #{siteid}
+															AND ISDELETE = 0
+															GROUP BY SITEID, LICENSENO) X
 	WHERE X.LICENSENO = A.LICENSENO
-    AND SITEID = #{siteid}
-
+    AND A.SITEID = #{siteid}
     </select>
 
     <select id="allList" resultType="licenseDto">
@@ -32,7 +27,7 @@
 			ON DUPLICATE KEY UPDATE BUYCNT = #{licensecnt},EDTDATE = NOW(),EDTUSER = #{edtuser},ISDELETE = #{isdelete}
     </insert>
     <select id="userLicenseList" parameterType="custDto" resultType="map">
-      SELECT * FROM ME810020 WHERE SITEID = #{siteid} and USERNO = #{userno} AND ISDELETE = 0
+      SELECT A.LICENSENO,(SELECT LICENSENAME FROM MA900020 WHERE LICENSENO = A.LICENSENO) AS LICENSENAME FROM ME810020 A WHERE A.SITEID = #{siteid} and A.USERNO = #{userno} AND A.ISDELETE = 0
     </select>
 
     <select id="useSiteLicenseList" parameterType="int" resultType="map">
@@ -43,10 +38,24 @@ FROM (SELECT A.LICENSENO, A.LICENSENAME, B.BUYCNT, IFNULL(C.CNT, 0) AS USECNT, C
 						 LEFT OUTER JOIN (SELECT SITEID, COUNT(LICENSENO) AS CNT, LICENSENO
 															FROM ME810020
 															WHERE SITEID = #{siteid}
+															AND ISDELETE = 0
 															GROUP BY SITEID, LICENSENO) C ON C.LICENSENO = A.LICENSENO
 			where B.siteid = #{siteid}) X
 	WHERE X.TOTAL != 0;
     </select>
+
+    <update id="menuReset" parameterType="map">
+      UPDATE ME810020
+      SET ISDELETE = 1
+      WHERE SITEID = #{siteid}
+      AND USERNO = #{userno}
+    </update>
+
+    <insert id="menuInsert" parameterType="map">
+        INSERT INTO me810020   (SITEID,USERNO,LICENSENO,REGDATE,REGUSER,EDTDATE,EDTUSER,ISDELETE)
+							VALUES(#{siteid},#{userno},#{licenseno},NOW(),#{sessionuserno},NOW(),#{sessionuserno},0)
+         ON DUPLICATE KEY UPDATE ISDELETE = 0 ;
+    </insert>
 
 
 </mapper>

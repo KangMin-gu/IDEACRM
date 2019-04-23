@@ -169,7 +169,7 @@
                                         <tr>
                                             <th>라이센스활성수</th>
                                             <td colspan="2"><span id="totallicensecnt"></span></td>
-                                            <th>총유저수</th>
+                                            <th>총사용량</th>
                                             <td colspan="2"><span id="totalusercnt"></span></td>
                                         </tr>
                                     <input type="hidden" name="siteid" id="siteid" value="${siteid}"/>

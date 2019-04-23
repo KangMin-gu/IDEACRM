@@ -619,7 +619,7 @@
                                         </td>
                                     </tr>
                                     <tr class="result">
-                                        <th><marquee><font color="red">상담결과</font></marquee></th>
+                                        <th>상담결과</th>
                                         <td>
                                             <div class="i-checks voc">
                                                 <label>

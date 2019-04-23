@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -269,6 +270,85 @@ public class VocServiceImple implements VocService {
         resultMap.put("owner",owner);
 
         return resultMap;
+    }
+
+    @Override
+    public List<Map<String,Object>> vocPopCallBackList(HttpServletRequest request){
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        List<Map<String,Object>> callBackList = vocDao.vocPopCallBackList(param);
+        return callBackList;
+    }
+
+    @Override
+    public List<Map<String,Object>> vocCallBackUserList(HttpServletRequest request){
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        List<Map<String,Object>> callBackUserList = userDao.userList(param);
+        return callBackUserList;
+    }
+
+    @Override
+    public int vocCallBackPassDiv(HttpServletRequest request) {
+
+        Map<String,Object> param = parameterUtil.searchParam(request);
+
+        String[] callBackArray = param.get("callBackNo").toString().split(",");
+        List<String> callBack = new ArrayList<String>();
+
+        for(int i=0;i<callBackArray.length;i++) {
+            callBack.add(callBackArray[i]);
+        }
+        param.put("callBackNo", callBack);
+
+        int cnt = vocDao.vocCallBackPassDiv(param);
+
+        return cnt;
+    }
+
+    @Override
+    public int vocCallBackAutoDiv(HttpServletRequest request) {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+
+        int userCnt = vocDao.vocCallUserCnt(param);
+
+        int callBackCnt = vocDao.vocCallBackTotalRow(param);
+
+        int totalCnt = (callBackCnt/userCnt);
+        if(totalCnt == 0) {
+            totalCnt ++;
+        }
+        param.put("totalCnt", totalCnt);
+
+        int cnt = 0;
+
+        List<Map<String,Object>> userList = userDao.userList(param);
+
+        int userListSize = userList.size();
+        int userNo = 0;
+        String userName ="";
+        int callBackListSize = 0;
+        int callBackNo = 0;
+        List<Map<String,Object>> callBackList = new ArrayList<Map<String,Object>>();
+
+        for(int i=0;i<userListSize;i++) {
+            userNo = Integer.parseInt(userList.get(i).get("USERNO").toString());
+            userName = userList.get(i).get("USERNAME").toString();
+            callBackList = vocDao.vocPopCallBackList(param);
+            callBackListSize = callBackList.size();
+
+            for(int j=0;j<callBackListSize;j++) {
+                callBackNo = Integer.parseInt(callBackList.get(j).get("CALLBACKNO").toString());
+
+                param.put("userNo", userNo);
+                param.put("callBackNo", callBackNo);
+
+                vocDao.vocCallBackDiv(param);
+                cnt++;
+            }
+        }
+        if(callBackCnt > cnt) {
+            vocCallBackAutoDiv(request);
+        }
+        return cnt;
     }
 
 }

@@ -488,4 +488,69 @@
 		)
 	</insert>
 
+	<!--분배할 콜백리스트 -->
+	<select id="popCallBackList" parameterType="hashMap" resultType="hashMap">
+		SELECT
+		A.CALLBACKNO
+		,A.CALLER
+		,A.TRUNK
+		,A.CALLBACK
+		,DATE_FORMAT(A.RECEIVEDATE,'%Y-%m-%d') AS RECEIVEDATE_
+		,A.CALLCOUNT
+		,(SELECT USERNAME FROM ME800010 WHERE SITEID = 1 AND USERNO = A.CALLUSER) AS CALLUSER_
+
+		FROM CTI510010 A
+		WHERE
+			TRUNK = (SELECT CTITELNO FROM MA900010 WHERE SITEID = #{siteid})
+			AND (CALLUSER IS NULL
+			OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
+			AND CALLSTATUS IN (0,3)
+	</select>
+
+	<!-- 콜백분배 -->
+	<update id="callBackPassDiv" parameterType="hashMap">
+		UPDATE CTI510010
+		SET CALLUSER = #{userNo}
+		,CALLSTATUS = 1
+		WHERE CALLBACKNO IN
+		<foreach collection="callBackNo" item="type" index="index" open="(" separator="," close=")">
+			#{type}
+		</foreach>
+	</update>
+
+	<select id="vocCallUserCnt" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) AS CNT FROM ME800010
+		WHERE SITEID = #{siteid}
+		<!--  AND ROLE = #{role} -->
+		<if test="userNo != null">
+			AND USERNO =  #{userNo}
+		</if>
+	</select>
+
+	<select id="vocCallBackTotalRow" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM CTI510010
+		WHERE
+		TRUNK = (SELECT CTITELNO FROM MA900010 WHERE SITEID = #{siteid})
+		AND (CALLUSER IS NULL
+		OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
+		AND CALLSTATUS IN (0,3)
+		<if test="callBack != null">
+			AND CALLBACK LIKE CONCAT('%',#{callBack},'%')
+		</if>
+	</select>
+
+	<update id="vocCallBackDiv" parameterType="hashMap">
+	UPDATE CTI510010
+	SET
+	CALLSTATUS = #{callstatus}
+	,CALLCOUNT = IFNULL(CALLCOUNT,0) +1
+	,CALLUSER = #{userno}
+	,CALLDATE = now()
+
+	WHERE
+		CALLBACKNO = #{callbackno}
+		AND TRUNK = #{trunk}
+	</update>
+
+
 </mapper>

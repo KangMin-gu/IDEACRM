@@ -25,4 +25,8 @@ public interface VocService {
     public Map<String, Object> vocOwnerList(HttpServletRequest request,int asOwner);
     public List<Map<String,Object>> vocCalOwnerList (HttpServletRequest request,int asOwner);
     public Map<String,Object> vocCalList(HttpServletRequest request);
+    public List<Map<String,Object>> vocPopCallBackList(HttpServletRequest request);
+    public List<Map<String,Object>> vocCallBackUserList(HttpServletRequest request);
+    public int vocCallBackPassDiv(HttpServletRequest request);
+    public int vocCallBackAutoDiv(HttpServletRequest request);
 }

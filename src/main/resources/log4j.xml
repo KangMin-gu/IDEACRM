@@ -12,7 +12,7 @@
 
 	<!-- //날짜별 로그 파일 생성 하기 -->
 	<appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="Threshold" value="ERROR" />
+		<param name="Threshold" value="DEBUG" />
 		<param name="File" value="/usr/crmlog" />
 		<param name="Append" value="true" />
 		<!-- param name="MaxFileSize" value="100MB"/ -->
@@ -26,53 +26,53 @@
 
 	<!-- Application Loggers -->
 	<logger name="com.crud.ideacrm">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 	<logger name="jdbc" >
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 	<logger name="org.apache.ibatis">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 	<logger name="java.sql">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 	<logger name="jdbc.sqlonly" >
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.beans">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.context">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.beans">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.context">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="ERROR" />
+		<priority value="DEBUG" />
 		<appender-ref ref="console" />
 		<appender-ref ref="dailyRollingFile" />
 	</root>

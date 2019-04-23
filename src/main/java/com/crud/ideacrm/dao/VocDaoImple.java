@@ -132,5 +132,33 @@ public class VocDaoImple implements VocDao {
         session.insert("voc.endCall",param);
     }
 
+    @Override
+    public List<Map<String,Object>> vocPopCallBackList(Map<String,Object> param) {
+        List<Map<String,Object>> callBackList = session.selectList("voc.popCallBackList",param);
+        return callBackList;
+    }
+
+    @Override
+    public int vocCallBackPassDiv(Map<String,Object> param) {
+        int cnt = session.update("voc.callBackPassDiv",param);
+        return cnt;
+    }
+
+    @Override
+    public int vocCallUserCnt(Map<String,Object> param) {
+        int cnt = session.selectOne("voc.vocCallUserCnt",param);
+        return cnt;
+    }
+
+    @Override
+    public int vocCallBackTotalRow(Map<String, Object> param) {
+        int cnt = session.selectOne("voc.vocCallBackTotalRow",param);
+        return cnt;
+    }
+
+    @Override
+    public void vocCallBackDiv(Map<String,Object> param) {
+        session.update("voc.vocCallBackDiv",param);
+    }
 
 }

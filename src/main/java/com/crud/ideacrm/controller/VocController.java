@@ -267,4 +267,40 @@ public class VocController {
         return productB;
     }
 
+    //콜백분배 팝업
+    @RequestMapping(value="/voc/pop/callback", method=RequestMethod.GET)
+    public String authVocCallBackDiv(HttpServletRequest request) {
+        return "voc/pop/callbackDiv";
+    }
+    //분배할 콜백리스트
+    @RequestMapping(value="/voc/pop/callback", method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authVocCallBackList(HttpServletRequest request){
+        List<Map<String,Object>> callBackList = vocService.vocPopCallBackList(request);
+        return callBackList;
+    }
+
+    //콜백 분배받을 유저 리스트
+    @RequestMapping(value="/voc/pop/callback/user", method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authVocCallBackUserList(HttpServletRequest request){
+        List<Map<String,Object>> callBackUserList = vocService.vocCallBackUserList(request);
+        return callBackUserList;
+    }
+
+    //콜백수동분배   todo.메소드타입설정. 유저넘버 어디서 얻어오는지 확인 필요
+    @RequestMapping(value="/voc/pop/callBack/pass",method=RequestMethod.GET)
+    @ResponseBody
+    public int authVocCallPassDiv(HttpServletRequest request) {
+        int cnt = vocService.vocCallBackPassDiv(request);
+        return cnt;
+    }
+    //콜백자동분배   todo.메소드타입설정. 유저넘버 어디서 얻어오는지 확인 필요
+    @RequestMapping(value="voc/pop/callBack/auto",method=RequestMethod.GET)
+    @ResponseBody
+    public int authVocCallAtouDiv(HttpServletRequest request) {
+        int cnt = vocService.vocCallBackAutoDiv(request);
+        return cnt;
+    }
+
 }

@@ -95,11 +95,17 @@
                                                 <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" minlength="3" maxlength="3" class="form-control form-control-sm" value="${siteInfo.BSNO1}" style="width:80px;"></div>
                                                 <div style="display: inline-block"><input type="text" name="bsno2" id="bsno2" minlength="2" maxlength="2" class="form-control form-control-sm" value="${siteInfo.BSNO2}" style="width:80px;"></div>
                                                 <div style="display: inline-block"><input type="text" name="bsno3" id="bsno3" minlength="5" maxlength="5" class="form-control form-control-sm" value="${siteInfo.BSNO3}" style="width:80px;"></div>
+                                                <div>
+                                                    <label class="error" for="bsno1"></label><label class="error" for="bsno2"></label><label class="error" for="bsno3"></label>
+                                                </div>
                                             </td>
                                             <th>법인번호</th>
                                             <td>
                                                 <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm" value="${siteInfo.INCNO1}" style="width:123px;"></div>
                                                 <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm" value="${siteInfo.INCNO2}" style="width:123px;"></div>
+                                                <div>
+                                                    <label class="error" for="incno1"></label><label class="error" for="incno2"></label>
+                                                </div>
                                             </td>
                                             <th>대표자명</th>
                                             <td><input type="text" class="form-control form-control-sm" name="prsdname" id="prsdname" value="${siteInfo.PRSDNAME}" style="width:230px;"></td>
@@ -122,8 +128,11 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="telno2" id="telno2" class="form-control form-control-sm testconnect" value="${siteInfo.TELNO2}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="telno3" id="telno3" class="form-control form-control-sm testconnect" value="${siteInfo.TELNO3}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="telno2" id="telno2" minlength="3" maxlength="4" class="form-control form-control-sm testconnect" value="${siteInfo.TELNO2}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="telno3" id="telno3" minlength="3" maxlength="4" class="form-control form-control-sm testconnect" value="${siteInfo.TELNO3}" style="width:80px;"></div>
+                                                <div>
+                                                    <label class="error" for="telno1"></label><label class="error" for="telno2"></label><label class="error" for="telno3"></label>
+                                                </div>
                                             </td>
                                             <th>팩스번호</th>
                                             <td>
@@ -142,8 +151,11 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="faxtel2" id="faxtel2" class="form-control form-control-sm req-phone" value="${siteInfo.FAXTEL2}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="faxtel3" id="faxtel3" class="form-control form-control-sm req-phone" value="${siteInfo.FAXTEL3}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="faxtel2" id="faxtel2" minlength="3" maxlength="4" class="form-control form-control-sm req-phone" value="${siteInfo.FAXTEL2}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="faxtel3" id="faxtel3" minlength="3" maxlength="4" class="form-control form-control-sm req-phone" value="${siteInfo.FAXTEL3}" style="width:80px;"></div>
+                                                <div>
+                                                    <label class="error" for="faxtel1"></label><label class="error" for="faxtel2"></label><label class="error" for="faxtel3"></label>
+                                                </div>
                                             </td>
                                             <th>휴대전화</th>
                                             <td>
@@ -162,8 +174,11 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                                <div style="display: inline-block"><input type="text" name="mobile2" id="mobile2" class="form-control form-control-sm req-phone" value="${siteInfo.MOBILE2}" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" class="form-control form-control-sm req-phone" value="${siteInfo.MOBILE3}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="mobile2" id="mobile2" minlength="3" maxlength="4" class="form-control form-control-sm req-phone" value="${siteInfo.MOBILE2}" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="mobile3" id="mobile3" minlength="3" maxlength="4" class="form-control form-control-sm req-phone" value="${siteInfo.MOBILE3}" style="width:80px;"></div>
+                                                <div>
+                                                    <label class="error" for="mobile1"></label><label class="error" for="mobile2"></label><label class="error" for="mobile3"></label>
+                                                </div>
                                             </td>
                                             <th>이메일</th>
                                             <td><input type="text" class="form-control form-control-sm" name="email" id="email" value="${siteInfo.EMAIL}" style="width:230px;"></td>
@@ -195,8 +210,8 @@
                                         <tr>
                                             <th rowspan="3">주소 및 위치</th>
                                             <td colspan="8">
-                                                <div style="display: inline-block"><input type="text" name="addr1" id="addr1" class="form-control form-control-sm" value="${siteInfo.ADDR1}"></div>
-                                                <div style="display: inline-block"><input type="text" name="addr2" id="addr2" class="form-control form-control-sm" value="${siteInfo.ADDR2}"></div>
+                                                <div style="display: inline-block"><input type="text" name="addr1" id="addr1" readonly class="form-control form-control-sm" value="${siteInfo.ADDR1}"></div>
+                                                <div style="display: inline-block"><input type="text" name="addr2" id="addr2" readonly class="form-control form-control-sm" value="${siteInfo.ADDR2}"></div>
                                                 <div style="display: inline-block"><input type="text" name="addr3" id="addr3" class="form-control form-control-sm" value="${siteInfo.ADDR3}"></div>
                                                 <div style="display: inline-block"><button class="btn btn-white btn-sm daumzip" type="submit">주소 검색</button></div>
                                             </td>

@@ -93,8 +93,11 @@
                                                         <input type="text" class="form-control name" autocomplete="off" name="custno_">
                                                         <input type="hidden" class="" name="custno" id="custno">
                                                         <span class="input-group-addon">
-                                                        <a><i class="fa fa-search"></i></a>
-                                                    </span>
+                                                            <a><i class="fa fa-search"></i></a>
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <label class="error" for="custno_"></label>
                                                     </div>
                                                 </td>
                                                 <th>자택전화</th>
@@ -153,6 +156,9 @@
                                                         <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
                                                         <input class="form-control form-control-sm date name" autocomplete="off" name="receptiondate" id="receptiondate" type="text"/>
                                                     </div>
+                                                    <div>
+                                                        <label class="error" for="receptiondate"></label>
+                                                    </div>
                                                 </td>
                                                 <th>접수자</th>
                                                 <td>
@@ -173,6 +179,7 @@
                                                                 <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
                                                         </c:forEach>
                                                     </div>
+
                                                 </td>
                                                 <th>유형</th>
                                                 <td>

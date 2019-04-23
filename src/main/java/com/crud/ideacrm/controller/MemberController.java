@@ -25,7 +25,6 @@ public class MemberController {
     public int authUserIdCheck(HttpServletRequest request,@PathVariable String userId){
 
         int cnt = memberService.memberIdCheck(request,userId);
-
         return cnt;
     }
 

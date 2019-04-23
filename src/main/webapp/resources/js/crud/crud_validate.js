@@ -104,11 +104,20 @@ validator = $("#command").validate({
 
 function inputValidate(){
     var size = $('.input-tab-link').length;
-    for(var i=0;i<size;i++) {
-        $('.input-tab-link:eq('+i+')').trigger('click');
-        if( $('#command').valid() == false){ return; }
+    var object = $('#command');
+    if(object.length == 0){
+        object = $('#multiFile');
     }
-    $('#command').submit();
+
+    if(size != 0){
+        for(var i=0;i<size;i++) {
+            $('.input-tab-link:eq('+i+')').trigger('click');
+            if( object.valid() == false){ return; }
+        }
+    }else{
+        object.valid();
+    }
+    object.submit();
 }
 
 $('.save').click(function(e){

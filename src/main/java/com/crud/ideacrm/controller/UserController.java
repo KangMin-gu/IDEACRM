@@ -27,7 +27,7 @@ public class UserController {
 
     //고객사 회원목록
     @RequestMapping(value = "/company/user", method = RequestMethod.GET)
-    public ModelAndView companyUser(HttpServletRequest request){
+    public ModelAndView authCompanyUser(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
 
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
@@ -38,7 +38,7 @@ public class UserController {
 
     @RequestMapping(value="/company/user",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> companyUserList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+    public List<Map<String,Object>> authCompanyUserList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> companyUserList = userService.userList(request);
 
         return companyUserList;
@@ -46,7 +46,7 @@ public class UserController {
 
     //회원가입폼호출
     @RequestMapping(value = "/company/user/input", method = RequestMethod.GET)
-    public ModelAndView sign(HttpServletRequest request){
+    public ModelAndView authSign(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
             mView.addAllObjects( codeService.getCommonCode(USINGMENU));
             mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
@@ -56,7 +56,7 @@ public class UserController {
 
     // 회원가입
     @RequestMapping(value="/company/user/input",method=RequestMethod.POST)
-    public ModelAndView companyUserInsertSet(HttpServletRequest request, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authCompanyUserInsertSet(HttpServletRequest request, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         String userNo = userService.userInsert(request,userDto);
         mView.setViewName("redirect:/company/user/"+userNo);
@@ -67,7 +67,7 @@ public class UserController {
 
     //회원상세정보
     @RequestMapping(value = "/company/user/{userNo}", method = RequestMethod.GET)
-    public ModelAndView userDetail(HttpServletRequest request, @PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authUserDetail(HttpServletRequest request, @PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
             mView.addObject("userInfo",userService.userDetail(request,userNo));
             mView.setViewName("page/membership/member/memberDetail");
@@ -75,7 +75,7 @@ public class UserController {
     }
     // 회원 수정화면
     @RequestMapping(value="/company/user/modified/{userNo}",method=RequestMethod.GET)
-    public ModelAndView userUpdate(HttpServletRequest request,@PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authUserUpdate(HttpServletRequest request,@PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
             mView.addObject("userInfo",userService.userDetail(request,userNo));
             mView.addAllObjects( codeService.getCommonCode(USINGMENU));
@@ -86,7 +86,7 @@ public class UserController {
 
     // 회원 수정
     @RequestMapping(value="/company/user/modified/{userNo}",method=RequestMethod.POST)
-    public ModelAndView userUpdateSet(HttpServletRequest request, @PathVariable String userNo, @ModelAttribute UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authUserUpdateSet(HttpServletRequest request, @PathVariable String userNo, @ModelAttribute UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
 
         userService.userUpdate(request,userNo,userDto);
@@ -94,6 +94,5 @@ public class UserController {
         mView.setViewName("redirect:/company/user/"+userNo);
         return mView;
     }
-
 
 }

@@ -56,11 +56,11 @@
                                         <col width="5%">
                                         <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                     </colgroup>
                                     <tbody>
                                        <tr>
@@ -82,6 +82,7 @@
                                            <th>서비스상태</th>
                                            <td>
                                                <select class="form-control searchparam" name="isdelete" id="isdelete" style="width:100px;">
+                                                   <option value="">선택</option>
                                                    <c:forEach var="isDelete" items="${ISDELETE}">
                                                        <option label="${isDelete.codename}" value="${isDelete.codeval}"></option>
                                                    </c:forEach>
@@ -132,10 +133,11 @@
                                         <th data-name="SITENAME" data-formatter="formatter">회원사명</th>
                                         <th data-name="PRSDNAME" data-breakpoints="xs sm">대표자명</th>
                                         <th data-name="BSNO" data-breakpoints="xs sm">사업자번호</th>
-                                        <th data-name="MOBILE_" data-breakpoints="xs sm">핸드폰번호</th>
+                                        <th data-name="MOBILE" data-breakpoints="xs sm">핸드폰번호</th>
                                         <th data-name="BSTYPE" data-breakpoints="xs sm">종목</th>
                                         <th data-name="SITESIZE_" data-breakpoints="xs sm">기업규모</th>
-                                        <th data-name="FREGDATE_" data-breakpoints="xs sm" data-sorted="true" data-direction="DESC" >가입일</th>
+                                        <th data-name="FREGDATE_" data-breakpoints="xs sm">가입일</th>
+                                        <th data-visible="false" data-name="REGDATE" data-sorted="true" data-direction="DESC" >등록일</th>
                                         <th data-name="BUYCNT">라이센스구매갯수</th>
                                         <th data-name="ISDELETE_">서비스상태</th>
                                     </tr>

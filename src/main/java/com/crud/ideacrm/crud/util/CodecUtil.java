@@ -69,7 +69,7 @@ public class CodecUtil {
                 tmpStr = (String)map.get(keyNm);
                 tmpStr = decoding(tmpStr);
                 map.put(keyNm, tmpStr );//복호화한 값으로 변경
-
+/*
                 if ( keyNm.contains("MOBILE") ){// MOBILE1,2,3 필드
                     mobileArr = sortFieldArr(keyNm,tmpStr,mobileArr);//배열에 정리
                 }else if ( keyNm.contains("HOMTEL") ){//HOMTEL 필드
@@ -77,14 +77,17 @@ public class CodecUtil {
                 }else if( keyNm.contains("HOMADDR" )){
                     homaddrArr = sortFieldArr(keyNm,tmpStr,homaddrArr);
                 }
+                */
             }
         }
+        /*
         String mobile = parsingPhoneNo(mobileArr);//010-123-123 형식으로 셋팅 자리수가 비정상이라면 '-' 제거
         String phone = parsingPhoneNo(homtelArr);
         String homaddr = parsingAddr(homaddrArr);
         map.put("MOBILE",mobile);
         map.put("HOMTEL",phone);
         map.put("HOMADDR",homaddr);
+        */
         return map;
     }
 

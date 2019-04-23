@@ -54,11 +54,11 @@
                                         <col width="5%">
                                         <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                     </colgroup>
                                     <tbody>
                                     <tr>

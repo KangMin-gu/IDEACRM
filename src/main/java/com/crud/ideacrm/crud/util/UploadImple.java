@@ -48,16 +48,26 @@ public class UploadImple implements Uplaod {
         private String campaignUrl;
         @Value( "#{props['crud.service.url']}")
         private String serviceUrl;
+        @Value( "#{props['crud.service.url2']}")
+        private String serviceUrl2;
         @Value( "#{props['crud.notice.url']}")
         private String noticeUrl;
+        @Value( "#{props['crud.notice.url2']}")
+        private String noticeUrl2;
         @Value( "#{props['crud.allnotice.url']}")
         private String allnoticeUrl;
+        @Value( "#{props['crud.allnotice.url2']}")
+        private String allnoticeUrl2;
         @Value( "#{props['crud.vocnotice.url']}")
         private String vocnoticeUrl;
+        @Value( "#{props['crud.vocnotice.url2']}")
+        private String vocnoticeUrl2;
         @Value( "#{props['crud.insidenotice.url']}")
         private String insidenoticeUrl;
         @Value( "#{props['crud.logo.url']}")
         private String logoUrl;
+        @Value( "#{props['crud.logo.url2']}")
+        private String logoUrl2;
 
 
         @Override
@@ -86,15 +96,15 @@ public class UploadImple implements Uplaod {
                 String orgFileName = mFile.get(i).getOriginalFilename();
                 //확장자검사
                 String[] arrWhiteList = whiteList.split(",");
-                String extention = orgFileName.substring(orgFileName.lastIndexOf(".")+1,orgFileName.length());
-                for(String chker : arrWhiteList) {
+                String extention = orgFileName.substring(orgFileName.lastIndexOf(".") + 1, orgFileName.length());
+                for (String chker : arrWhiteList) {
                     //확장자를 비교해서 있으면 true로 떨굼
-                    if(chker.equals(extention)) {
+                    if (chker.equals(extention)) {
                         whiteListFlag = true;
                     }
                 }
 
-                if(!whiteListFlag){
+                if (!whiteListFlag) {
 
                     buf.append("<script>alert('허용하지 않는 확장자 입니다.');");
                     buf.append("window.location.replace('");
@@ -115,7 +125,7 @@ public class UploadImple implements Uplaod {
                 long fileSize = mFile.get(i).getSize();
                 sizeFlag = uploadutil.whiteSizeFlag(fileSize);
 
-                if(!sizeFlag){
+                if (!sizeFlag) {
 
                     buf.append("<script>alert('파일용량이 제한용량보다 큽니다.');");
                     buf.append("window.location.replace('");
@@ -133,18 +143,31 @@ public class UploadImple implements Uplaod {
 
                 }
 
+                String vocNoticeTarget = "/voc/notice/modified";
+                String serviceTarget = "/service/modified";
+                String allnoticeTarget = "/notice/modified";
+                String noticeTarget = "/company/notice/modified";
+
                 //파일 유입별 경로설정
-                if(url.equals(insidenoticeUrl)){
-                    realPath = request.getSession().getServletContext().getRealPath(insidenotice+years+"/"+months+"/"+siteId);
-                }else if(url.equals(noticeUrl)){
-                    realPath = request.getSession().getServletContext().getRealPath(notice+years+"/"+months+"/"+siteId);
-                }else if(url.equals(serviceUrl)){
-                    realPath = request.getSession().getServletContext().getRealPath(service+years+"/"+months+"/"+siteId);
-                }else if(url.equals(campaignUrl)){
-                    realPath = request.getSession().getServletContext().getRealPath(campaign+years+"/"+months+"/"+siteId);
-                }else if(url.equals(allnoticeUrl)){
-                    realPath = request.getSession().getServletContext().getRealPath(allnotice+years+"/"+months+"/"+siteId);
+                if (url.equals(insidenoticeUrl)) {
+                    realPath = request.getSession().getServletContext().getRealPath(insidenotice + years + "/" + months + "/" + siteId);
+                } else if (url.equals(noticeUrl)) {
+                    realPath = request.getSession().getServletContext().getRealPath(notice + years + "/" + months + "/" + siteId);
+                } else if (url.contains(noticeTarget)) {
+                    realPath = request.getSession().getServletContext().getRealPath(notice + years + "/" + months + "/" + siteId);
+                } else if (url.equals(serviceUrl)) {
+                    realPath = request.getSession().getServletContext().getRealPath(service + years + "/" + months + "/" + siteId);
+                } else if (url.contains(serviceTarget)) {
+                    realPath = request.getSession().getServletContext().getRealPath(service + years + "/" + months + "/" + siteId);
+                } else if (url.equals(campaignUrl)) {
+                    realPath = request.getSession().getServletContext().getRealPath(campaign + years + "/" + months + "/" + siteId);
+                } else if (url.equals(allnoticeUrl)) {
+                    realPath = request.getSession().getServletContext().getRealPath(allnotice + years + "/" + months + "/" + siteId);
+                } else if(url.contains(allnoticeTarget)){
+                    realPath = request.getSession().getServletContext().getRealPath(allnotice + years + "/" + months + "/" + siteId);
                 }else if(url.equals(vocnoticeUrl)){
+                    realPath = request.getSession().getServletContext().getRealPath(vocnotice+years+"/"+months+"/"+siteId);
+                }else if(url.contains(vocNoticeTarget)){
                     realPath = request.getSession().getServletContext().getRealPath(vocnotice+years+"/"+months+"/"+siteId);
                 }
 
@@ -252,8 +275,15 @@ public class UploadImple implements Uplaod {
 
             }
 
-            //파일 유입별 경로설정
-            realPath = request.getSession().getServletContext().getRealPath(logo+years+"/"+months+"/"+siteId);
+
+            String target ="/common/site/modified";
+
+                //파일 유입별 경로설정
+            if(url.equals(logoUrl)) {
+                realPath = request.getSession().getServletContext().getRealPath(logo+years+"/"+months+"/"+siteId);
+            }else if(url.contains(target)){
+                realPath = request.getSession().getServletContext().getRealPath(logo+years+"/"+months+"/"+siteId);
+            }
 
             String filePath = realPath+File.separator;
             String saveFileName = fileSearchKey+"_"+userNo+"_"+orgFileName;

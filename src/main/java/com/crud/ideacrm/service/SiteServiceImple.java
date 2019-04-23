@@ -8,8 +8,7 @@ import com.crud.ideacrm.crud.util.Uplaod;
 import com.crud.ideacrm.dao.SendDao;
 import com.crud.ideacrm.dao.SiteDao;
 import com.crud.ideacrm.dto.ChargeDto;
-import com.crud.ideacrm.dto.CtiDto;
-import com.crud.ideacrm.dto.KakaoDto;
+import com.crud.ideacrm.dto.SiteCtiDto;
 import com.crud.ideacrm.dto.SiteDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +38,13 @@ public class SiteServiceImple implements SiteService{
     @Autowired
     private PasswordEncoder encoder;
     @Autowired
+    private ParameterUtil parameterUtil;
+    @Autowired
     private Uplaod uplaod;
 
     @Override
     public List<Map<String, Object>> siteList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
 
-        ParameterUtil parameterUtil = new ParameterUtil();
         Map<String,Object> param = parameterUtil.searchParam(request);
 
         List<Map<String,Object>> siteList = siteDao.siteList(param);
@@ -57,7 +57,6 @@ public class SiteServiceImple implements SiteService{
         }
 
         return codecUtil.decodeList(siteList);
-        //return siteList;
     }
 
     @Override
@@ -92,12 +91,29 @@ public class SiteServiceImple implements SiteService{
     }
 
     @Override
-    public String siteInsert(HttpServletResponse response,HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
-/*
-        ParameterUtil parameterUtil = new ParameterUtil();
-        String bsno = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
-        siteDto.setBsno(bsno);
-*/
+    public String siteInsert(HttpServletResponse response,HttpServletRequest request, SiteDto siteDto, SiteCtiDto siteCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        if(siteDto.getBsno1() != null && siteDto.getBsno2() != null && siteDto.getBsno3() != null){
+            String bsNo = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
+            siteDto.setBsno(bsNo);
+        }
+        if(siteDto.getIncno1() != null && siteDto.getIncno2() != null){
+            String incNo = parameterUtil.columnUnion(siteDto.getIncno1(),siteDto.getIncno2());
+            siteDto.setIncno(incNo);
+        }
+        if(siteDto.getMobile1() != null && siteDto.getMobile2() != null && siteDto.getMobile3() != null){
+            String mobile = parameterUtil.columnUnion(siteDto.getMobile1(),siteDto.getMobile2(),siteDto.getMobile3());
+            siteDto.setMobile(mobile);
+        }
+        if(siteDto.getFaxtel1() != null && siteDto.getFaxtel2() != null && siteDto.getFaxtel3() != null){
+            String faxtel = parameterUtil.columnUnion(siteDto.getFaxtel1(),siteDto.getFaxtel2(),siteDto.getFaxtel3());
+            siteDto.setFaxtel(faxtel);
+        }
+        if(siteDto.getTelno1() != null && siteDto.getTelno2() != null && siteDto.getTelno3() != null){
+            String telno = parameterUtil.columnUnion(siteDto.getTelno1(),siteDto.getTelno2(),siteDto.getTelno3());
+            siteDto.setTelno(telno);
+        }
+
         siteDto.setEncodingSiteDto();
         String siteId = siteDao.siteInsert(siteDto);
 
@@ -114,11 +130,11 @@ public class SiteServiceImple implements SiteService{
         siteDao.siteUserInsert(siteDto);
 
         if(siteId != null){
-            ctiDto.setSiteid(siteId);
-            String ctiIp = ctiDto.getIp();
+            siteCtiDto.setSiteid(siteId);
+            String ctiIp = siteCtiDto.getIp();
             if(!ctiIp.equals("") ){
-                ctiDto.setEncodingCtiDto();
-                siteDao.ctiInsert(ctiDto);
+                siteCtiDto.setEncodingCtiDto();
+                siteDao.ctiInsert(siteCtiDto);
             }
         }
         siteId = codecUtil.encodePkNo(siteId);
@@ -126,10 +142,35 @@ public class SiteServiceImple implements SiteService{
     }
 
     @Override
-    public void siteUpdate(HttpServletResponse response, HttpServletRequest request, String siteId, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public void siteUpdate(HttpServletResponse response,HttpServletRequest request, String siteId, SiteDto siteDto, SiteCtiDto siteCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        if(siteDto.getBsno1() != null && siteDto.getBsno2() != null && siteDto.getBsno3() != null){
+            String bsNo = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
+            siteDto.setBsno(bsNo);
+        }
+        if(siteDto.getIncno1() != null && siteDto.getIncno2() != null){
+            String incNo = parameterUtil.columnUnion(siteDto.getIncno1(),siteDto.getIncno2());
+            siteDto.setIncno(incNo);
+        }
+        if(siteDto.getMobile1() != null && siteDto.getMobile2() != null && siteDto.getMobile3() != null){
+            String mobile = parameterUtil.columnUnion(siteDto.getMobile1(),siteDto.getMobile2(),siteDto.getMobile3());
+            siteDto.setMobile(mobile);
+        }
+        if(siteDto.getFaxtel1() != null && siteDto.getFaxtel2() != null && siteDto.getFaxtel3() != null){
+            String faxtel = parameterUtil.columnUnion(siteDto.getFaxtel1(),siteDto.getFaxtel2(),siteDto.getFaxtel3());
+            siteDto.setFaxtel(faxtel);
+        }
+        if(siteDto.getTelno1() != null && siteDto.getTelno2() != null && siteDto.getTelno3() != null){
+            String telno = parameterUtil.columnUnion(siteDto.getTelno1(),siteDto.getTelno2(),siteDto.getTelno3());
+            siteDto.setTelno(telno);
+        }
+
         String deSiteId = codecUtil.decodePkNo(siteId);
         siteDto.setSiteid(deSiteId);
-        ctiDto.setSiteid(deSiteId);
+        siteDto.setEdtuser(userNo);
+        siteCtiDto.setSiteid(deSiteId);
+        siteCtiDto.setEdtuser(userNo);
 
         siteDto.setEncodingSiteDto();
         //파일업로드
@@ -143,13 +184,15 @@ public class SiteServiceImple implements SiteService{
         Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deSiteId);
 
         if(siteCtiDetail == null){
-            ctiDto.setEncodingCtiDto();
-            siteDao.ctiInsert(ctiDto);
+            if(!siteCtiDto.getIp().equals("")){
+                siteCtiDto.setEncodingCtiDto();
+                siteDao.ctiInsert(siteCtiDto);
+            }
         }else{
             String ctiIp = siteCtiDetail.get("IP").toString();
-            if(!ctiIp.equals(ctiDto.getIp())){
-                ctiDto.setEncodingCtiDto();
-                siteDao.ctiUpdate(ctiDto);
+            if(!ctiIp.equals(siteCtiDto.getIp())){
+                siteCtiDto.setEncodingCtiDto();
+                siteDao.ctiUpdate(siteCtiDto);
             }
         }
     }

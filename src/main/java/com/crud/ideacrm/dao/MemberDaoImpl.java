@@ -24,4 +24,10 @@ public class MemberDaoImpl implements MemberDao {
     public void memeberChangePwd(UserDto userDto) {
         Session.update("user.pwdChange", userDto);
     }
+
+    @Override
+    public int memberIdCheck(UserDto userDto) {
+        int cnt = Session.selectOne("user.idCheck",userDto);
+        return cnt;
+    }
 }

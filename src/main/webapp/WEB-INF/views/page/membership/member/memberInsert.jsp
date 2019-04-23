@@ -47,7 +47,7 @@
             <form:form action="/company/user/input" method="POST">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <button type="submit" class="btn btn-default pull-left submit">등록</button>
                     <a href="/company/user" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
@@ -68,21 +68,21 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">사용자명</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="username" id="username" class="form-control form-control-sm">
+                                                <input type="text" name="username" id="username" autocomplete="off" class="form-control form-control-sm">
                                             </div>
                                             <label class="col-sm-2 col-form-label">ID</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="userid" id="userid" class="form-control form-control-sm">
+                                                <input type="text" name="userid" id="userid" autocomplete="off" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">비밀번호</label>
                                             <div class="col-sm-4">
-                                                <input type="password" name="userpassword" id="userpassword" class="form-control form-control-sm password">
+                                                <input type="password" name="userpassword" id="userpassword" autocomplete="off" class="form-control form-control-sm password">
                                             </div>
                                             <label class="col-sm-2 col-form-label">비밀번호확인</label>
                                             <div class="col-sm-4">
-                                                <input type="password" class="form-control form-control-sm confirmpassword">
+                                                <input type="password" autocomplete="off" class="form-control form-control-sm confirmpassword">
                                             </div>
                                         </div>
                                         <div class="form-group  row">
@@ -96,8 +96,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" autocomplete="off" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" autocomplete="off" class="form-control form-control-sm"></div>
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">전화번호</label>
@@ -110,15 +110,15 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" name="telno2" id="telno2" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" name="telno3" id="telno3" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" name="telno2" id="telno2" autocomplete="off" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" name="telno3" id="telno3" autocomplete="off" class="form-control form-control-sm"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">이메일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="email" id="email" class="form-control form-control-sm">
+                                                <input type="text" name="email" id="email" autocomplete="off" class="form-control form-control-sm">
                                             </div>
                                             <label class="col-sm-2 col-form-label">관리자여부</label>
                                             <div class="col-sm-4">
@@ -132,27 +132,13 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">직책</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="userduty" id="userduty" class="form-control form-control-sm">
-                                            </div>
-                                            <label class="col-sm-2 col-form-label">CTI전화번호</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="ctitelno" id="ctitelno"  class="form-control form-control-sm">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">CTIID</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="ctiid" id="ctiid" class="form-control form-control-sm">
-                                            </div>
-                                            <label class="col-sm-2 col-form-label">CTIPW</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="ctipass" id="ctipass" class="form-control form-control-sm">
+                                                <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">메모</label>
                                             <div class="col-sm-10">
-                                                <textarea name="userdesc" id=" userdesc" class="form-control" style="resize: none;" rows="4"></textarea>
+                                                <textarea name="userdesc" id=" userdesc" autocomplete="off" class="form-control" style="resize: none;" rows="4"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -162,10 +148,42 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>CTI 정보입력</h5>
+                        </div>
+                        <div class="ibox-content" >
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group  row">
+                                            <label class="col-sm-1 col-form-label">CTI번호</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="ctitelno" id="ctitelno" autocomplete="off" class="form-control form-control-sm">
+                                            </div>
+                                            <label class="col-sm-1 col-form-label">CTIID</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="ctiid" id="ctiid" autocomplete="off" class="form-control form-control-sm">
+                                            </div>
+                                            <label class="col-sm-1 col-form-label">CTIPW</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="ctipw" id="ctipw" autocomplete="off" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <input type="hidden" name="idcheck" id="idcheck"/>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <button type="submit" class="btn btn-default pull-left submit">등록</button>
                     <a href="/company/user" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
@@ -185,9 +203,16 @@
 <!-- validate -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/member.js"></script>
 
 <script>
     $(document).ready(function() {
+
+        $('.submit').click(function(e){
+            e.preventDefault();
+            id_check();
+        });
+
     });
 </script>
 </body>

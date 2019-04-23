@@ -4,21 +4,32 @@ $('.cust').click(function(e){
         }
 });
 
+// 사용자 팝업
 $('.owner').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
         openNewWindow('사용자','/popuser',e.currentTarget.id,650,700);
     }
 });
 
+//거래처 팝업
 $('.client').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
         openNewWindow('사용자','/popaccount',e.currentTarget.id,650,700);
     }
 });
+// 초기화 버튼클릭(List)
+$('#reset').click(function(e){
+    $('.searchparam').val('');
+    if( $('#infoagree') ){
+        $('#infoagree').val(1);
+    }
+});
 
+// sms 모양 클릭
 $('.smsBtn').click(function(){
     window.open("/popsms", "문자발송","width=450px, height=600px");
 });
+// 이메일 모양 클릭
 $('.emailBtn').click(function(){
     window.open("/popemail", "메일발송","width=1200px, height=900px");
 });
@@ -36,7 +47,6 @@ $('.excel').click(function(e){
 
 var newWindow = null;
 // 부모 window 가 실행
-
 function openNewWindow(name,url,target,x,y){
     // specs -> 팝업창의 설정들을 정의해 둔 부분
     var specs= "scrollbars=yes,menubar=no,status=no,toolbar=no,Width="+x+",Height="+y;
@@ -50,7 +60,7 @@ function openNewWindow(name,url,target,x,y){
     }
 }
 
-// 거래처 팝업 클릭
+// 팝업에서 tr 값 클릭 이벤트
 function popParentNameClick(tr){
     var parentid = $('#parentid').val();
     opener.$('[name="'+parentid+'"]').next().val(tr.children().get(0).textContent);
@@ -59,42 +69,6 @@ function popParentNameClick(tr){
         window.close();
     },300);
 }
-
-function popCustClick(id){
-    $.ajax({
-        url: "/popcust/"+id,
-        method: "GET",
-        dataType: "json",
-        cache:false,
-        success: function (data) {
-            var addr = data.HOMADDR1 + data.HOMADDR2 + data.HOMADDR3;
-            if(addr == '0'){
-                addr ='';
-            }
-            opener.$('#company').val('');
-            opener.$('#duty').val('');
-            opener.$('#custaddress').val('');
-            opener.$('#mobile').val('');
-            opener.$('#email').val('');
-
-            opener.$('#company').val(data.COMPANY);
-            opener.$('#duty').val(data.DUTY);
-            opener.$('#custaddress').val(addr);
-            opener.$('#custaddress').text(addr);
-            opener.$('#mobile').val(data.MOBILE);
-            opener.$('#mobile').text(data.MOBILE);
-            opener.$('#hometel').val(data.HOMTEL);
-            opener.$('#hometel').text(data.HOMTEL);
-            opener.$('#email').val(data.EMAIL);
-            opener.$('#email').text(data.EMAIL);
-        },
-        error: function (request, status, error) {
-            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-        }
-    });
-}
-
-
 
 // 검색조건들 footable에서 사용하기 위해서 json형태로 변환
 function searchDataToJson() {
@@ -165,12 +139,12 @@ function getTextLength(str) {
     return len;
 }
 function smsToLms(obj){
-    var str =  $(obj).val();
+    var str =  $('#'+obj).val();
     var textLength = getTextLength(str);
     if(textLength > 80){
         var bool = confirm("80바이트이상 작성하여서 LMS로 자동 전환합니다.");
         if(bool){
-            $(obj).val(str);
+            $('#'+obj).val(str);
             $('#lengthtype').val(1);
             alert("Lms로 전환되어 저장됩니다.");
             return true;
@@ -197,7 +171,10 @@ function smsToLms(obj){
                 if(strLength>limit){
                     $('#lengthtype').val(0);
                     alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
-                    $(obj).val(strTitle);
+                    $('#'+obj).val(strTitle);
+                    var textLength = getTextLength(strTitle);
+                    textLength = textLength +'/ 80';
+                    $('#bytelength').text(textLength);
                     return false;
                 }else{
                     strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.

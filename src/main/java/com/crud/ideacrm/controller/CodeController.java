@@ -40,7 +40,7 @@ public class CodeController {
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
-        mView.addObject("siteLicense",licenseService.siteLicenseList(request));
+        mView.addObject("siteLicense",licenseService.licenseList(request));
         mView.addObject("allLicense",licenseService.allLicenseList());
         mView.setViewName("page/membership/manager/code/codeList");
         return mView;
@@ -50,7 +50,7 @@ public class CodeController {
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
-        mView.addObject("siteLicense",licenseService.siteLicenseList(request));
+        mView.addObject("siteLicense",licenseService.licenseList(request));
         mView.addObject("allLicense",licenseService.allLicenseList());
         mView.setViewName("page/membership/manager/code/codeList");
         return mView;

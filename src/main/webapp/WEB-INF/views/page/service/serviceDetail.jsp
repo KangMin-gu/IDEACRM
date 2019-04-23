@@ -56,7 +56,7 @@
                         <a href="/service" class="btn btn-default pull-left">목록</a>
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
-                            <a href="#" class="btn btn-default emailBtn" style="margin-left:10px;"><i class="fa fa-envelope fa-lg"></i></a>
+                            <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:10px;"><i class="fa fa-envelope fa-lg"></i></a>
                             <button type="submit" class="btn btn-default pull-right" style="margin-left:5px;">삭제</button>
                             <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right" style="margin-left:5px;">수정</a>
                             <button type="button" class="btn btn-default pull-right servicenext">이관</button>

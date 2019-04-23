@@ -51,10 +51,10 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/service/input" method="POST" enctype="multipart/form-data">
+            <form:form action="/service/input" method="POST" id="multiFile" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-12">
-                        <button type="submit" class="btn btn-default pull-left">저장</button>
+                        <button type="submit" class="btn btn-default pull-left save">저장</button>
                         <a href="/service" class="btn btn-default pull-right">취소</a>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                                                 <td>
                                                     <div class="input-group" style="width:230px;">
                                                         <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                        <input class="form-control form-control-sm date " autocomplete="off" name="receptiondate" id="receptiondate" type="text"/>
+                                                        <input class="form-control form-control-sm date name" autocomplete="off" name="receptiondate" id="receptiondate" type="text"/>
                                                     </div>
                                                 </td>
                                                 <th>접수자</th>
@@ -274,7 +274,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div style="display: inline-block">
-                                                                    <button type="button" class="btn btn-default plus">추가</button>
+                                                                    <button type="button" style="margin-bottom: 5px;" class="btn btn-default plus">추가</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -282,13 +282,13 @@
                                                     <tr>
                                                         <th>접수내용</th>
                                                         <td colspan="7">
-                                                            <textarea name="servicename" id="servicename" class="form-control " style="resize: none;" rows="1"></textarea>
+                                                            <textarea name="servicename" id="servicename" class="form-control name" style="resize: none;" rows="1"></textarea>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th>상담내용</th>
                                                         <td colspan="7">
-                                                            <textarea class="tinymce " name="servicedesc" id="servicedesc"></textarea>
+                                                            <textarea class="tinymce name" name="servicedesc" id="servicedesc"></textarea>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -300,7 +300,7 @@
                                                                         <span class="btn btn-outline-secondary btn-file">
                                                                             <span class="fileinput-new">파일선택</span>
                                                                             <span class="fileinput-exists">변경</span>
-                                                                            <input id="files" type="file" class="fileChk" name="servicefile" multiple>
+                                                                            <input id="files" type="file" class="fileChk" name="files" multiple>
                                                                         </span>
                                                                         <span id="filesChk" class="fileinput-filename"></span>
                                                                         <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
@@ -520,6 +520,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
 
 </body>
 </html>

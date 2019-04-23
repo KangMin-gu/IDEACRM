@@ -12,11 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/dualListbox/bootstrap-duallistbox.min.css" rel="stylesheet">
 </head>
 <style>
 </style>
@@ -55,7 +53,7 @@
                     <form:form action="/company/user/del/${userInfo.USERNO}" method="POST">
                         <a href="/company/user" class="btn btn-default pull-left">목록</a>
                         <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                        <button type="submit" class="btn btn-default pull-right">삭제</button>
+                        <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>
                         <a href="/company/user/modified/${userInfo.USERNO}" class="btn btn-default pull-right">수정</a>
                     </form:form>
                 </div>
@@ -102,13 +100,13 @@
                                                     <p>전화번호 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>${userInfo.TELNO1} ${userInfo.TELNO2} ${userInfo.TELNO3}</p>
+                                                    <p>${userInfo.MOBILE1} ${userInfo.MOBILE2} ${userInfo.MOBILE3}</p>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <p>휴대전화 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p>${userInfo.MOBILE1} ${userInfo.MOBILE2} ${userInfo.MOBILE3}</p>
+                                                    <p>${userInfo.TELNO1} ${userInfo.TELNO2} ${userInfo.TELNO3}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -132,26 +130,6 @@
                                                 <div class="col-sm-4">
                                                     <p>${userInfo.USERDUTY}</p>
                                                 </div>
-                                                <div class="col-sm-2">
-                                                    <p>CTI전화번호 : </p>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <p>${userInfo.CTITELNO}</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-2">
-                                                    <p>CTIID : </p>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <p>${userInfo.CTIID}</p>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <p>CTIPW : </p>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <p>${userInfo.CTIPASS}</p>
-                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-2">
@@ -172,14 +150,76 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form:form action="/company/user/del/${userInfo.USERNO}" method="POST">
-                        <a href="/company/user" class="btn btn-default pull-left">목록</a>
-                        <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                        <button type="submit" class="btn btn-default pull-right">삭제</button>
-                        <a href="/company/user/modified/${userInfo.USERNO}" class="btn btn-default pull-right">수정</a>
-                    </form:form>
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>CTI 정보</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <p>CTI전화번호 : </p>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <p>${ctiUserInfo.CTITELNO}</p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p>CTIID : </p>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p>${ctiUserInfo.CTIID}</p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p>CTIPW : </p>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p>${ctiUserInfo.CTIPW}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="tabs-container">
+                                <ul class="nav nav-tabs detail" role="tablist">
+                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">라이센스 부여</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" id="tab-1" class="tab-pane active">
+                                        <div class="panel-body">
+                                            <form:form action="/company/user/license/${userInfo.USERNO}" method="POST">
+                                            <button type="submit" id="licenseinsert" class="btn btn-w-m btn-xs pull-right btn-primary" style="margin-bottom: 10px;">라이센스부여</button>
+                                            <div>
+                                                <select class="form-control dual_select" name="licenseno" id="licenseno" multiple="" style="display: none;">
+                                                    <c:forEach var="siteLicense" items="${siteLicense}">
+                                                        <option value="${siteLicense.LICENSENO }">${siteLicense.LICENSENAME }</option>
+                                                    </c:forEach>
+                                                    <c:forEach var="userLicense" items="${userLicense }">
+                                                            <option value="${userLicense.LICENSENO }" selected>${userLicense.LICENSENAME }</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            </form:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </c:if>
 
             <br/>
 
@@ -194,14 +234,35 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
-<!-- iCheck -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
-<!-- daum map -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/member.js"></script>
 <script>
     $(document).ready(function() {
+
+        $('.dual_select').bootstrapDualListbox({
+            selectorMinimalHeight: 160
+        });
+
+//$(".bootstrap-duallistbox-container").find("*").prop("disabled",true);
+
+        var unselected = $('#licenseno option:not(:selected)')
+        var selected = $('#licenseno option:selected');
+        var this_value="";
+        var selected_value="";
+
+//위에 jstl로 2중 foreach를 사용해서 이중포문 안쓰려고 헀는데 selected된 값과 selected되지 않은 값이 동시에 만들어져서
+// selected가 아닌 값을 지우면 동시에 사라지는 현상이 생겨서 어쩔수없이 다시 2중 each문을 사용해서 selected 값과 selected가 아닌 값을 비교해서 selected가 아닌 값을 remove
+        $.each(selected,function(index){
+            selected_value = $(this).val();
+            $.each(unselected,function(index){
+                this_value = $(this).val();
+                if(selected_value == this_value){
+                    $(this).remove();
+                }
+            });
+        });
+// bootstrapDaulListbox의 제공기능중 하나로 option 값을 지웠을때 새로고침을 해주는 역할
+        $('.dual_select').bootstrapDualListbox('refresh',true);
 
     });
 </script>

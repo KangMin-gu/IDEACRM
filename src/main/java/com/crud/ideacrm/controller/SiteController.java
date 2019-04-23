@@ -1,7 +1,6 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.dto.CtiDto;
-import com.crud.ideacrm.dto.KakaoDto;
+import com.crud.ideacrm.dto.SiteCtiDto;
 import com.crud.ideacrm.dto.SiteDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.SiteService;
@@ -36,7 +35,7 @@ public class SiteController {
 
     //회원사목록
     @RequestMapping(value="/common/site", method= RequestMethod.GET)
-    public ModelAndView siteList(HttpServletRequest request){
+    public ModelAndView authSiteList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU) );
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request) );
@@ -47,14 +46,14 @@ public class SiteController {
     //회원사 목록(footable)
     @RequestMapping(value="/common/site",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> siteiList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+    public List<Map<String,Object>> authSiteiList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> siteList = siteService.siteList(request);
         return siteList;
     }
 
     //master 회원사 상세정보
     @RequestMapping(value="/common/site/{siteId}", method= RequestMethod.GET)
-    public ModelAndView siteDetail(HttpServletRequest request, @PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authSiteDetail(HttpServletRequest request, @PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
 
         ModelAndView mView = siteService.siteDetail(request,siteId);
         mView.setViewName("page/membership/site/siteDetail");
@@ -73,10 +72,10 @@ public class SiteController {
 
     // master 회원사 추가
     @RequestMapping(value = "/common/site/input", method = RequestMethod.POST)
-    public ModelAndView authSiteInsertSet(HttpServletResponse response,HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authSiteInsertSet(HttpServletResponse response,HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute SiteCtiDto siteCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
 
-        String siteId = siteService.siteInsert(response, request,siteDto,ctiDto);
+        String siteId = siteService.siteInsert(response, request,siteDto,siteCtiDto);
         mView.setViewName("redirect:/common/site/"+siteId);
         return mView;
     }
@@ -93,9 +92,9 @@ public class SiteController {
 
     //master 회원사 수정
     @RequestMapping(value="/common/site/modified/{siteId}",method=RequestMethod.POST)
-    public ModelAndView authSiteUpdateSet(HttpServletResponse response, HttpServletRequest request, @PathVariable String siteId, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authSiteUpdateSet(HttpServletResponse response, HttpServletRequest request, @PathVariable String siteId, @ModelAttribute SiteDto siteDto, @ModelAttribute SiteCtiDto siteCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
-        siteService.siteUpdate(response, request,siteId,siteDto,ctiDto);
+        siteService.siteUpdate(response, request,siteId,siteDto,siteCtiDto);
         mView.setViewName("redirect:/common/site/"+siteId);
         return mView;
     }
@@ -110,14 +109,14 @@ public class SiteController {
 
     @RequestMapping(value="/common/site/tab/user/{siteId}",method=RequestMethod.POST)
     @ResponseBody
-    public List<Map<String,Object>> siteTabUserList(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+    public List<Map<String,Object>> authSiteTabUserList(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> tabUserList = userService.userTabList(siteId);
         return tabUserList;
     }
 
     @RequestMapping(value="/common/site/totalMoney/{siteId}",method=RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> totalMoney(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+    public Map<String,Object> authTotalMoney(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,Object> totalMoney = siteService.totalMoney(request,siteId);
         return totalMoney;
     }

@@ -23,6 +23,14 @@ public class MemberController {
         memberService.userPwdReset(request);
     }
 
+    @RequestMapping(value="/user/idcheck/{userId}",method=RequestMethod.GET)
+    @ResponseBody
+    public int authUserIdCheck(HttpServletRequest request,@PathVariable String userId){
+
+        int cnt = memberService.memberIdCheck(request,userId);
+        return cnt;
+    }
+
 
 
 

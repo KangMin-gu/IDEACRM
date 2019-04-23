@@ -5,7 +5,7 @@ import com.crud.ideacrm.crud.util.CodecUtil;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
-public class CtiDto {
+public class SiteCtiDto {
     private String siteid;
     private String ip;
     private String socketip;
@@ -16,14 +16,14 @@ public class CtiDto {
     private int edtuser;
     private String edtdate;
 
-    public CtiDto(){};
+    public SiteCtiDto(){};
 
     public void setEncodingCtiDto() throws UnsupportedEncodingException, GeneralSecurityException {
         CodecUtil commonUtil = new CodecUtil();
         if(this.telno != null && this.telno != ""){ this.telno = commonUtil.encoding(this.telno);}
     }
 
-    public CtiDto(String siteid, String ip, String socketip, String port, String telno, int reguser, String regdate, int edtuser, String edtdate) {
+    public SiteCtiDto(String siteid, String ip, String socketip, String port, String telno, int reguser, String regdate, int edtuser, String edtdate) {
         this.siteid = siteid;
         this.ip = ip;
         this.socketip = socketip;

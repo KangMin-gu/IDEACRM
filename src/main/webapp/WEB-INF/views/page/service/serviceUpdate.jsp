@@ -54,7 +54,7 @@
             <form:form action="/service/modified/${serviceInfo.SERVICENO}" method="POST">
                 <div class="row">
                     <div class="col-lg-12">
-                        <button type="submit" class="btn btn-default pull-left save">저장</button>
+                        <button type="submit" class="btn btn-default pull-left save">수정</button>
                         <a href="/service/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">취소</a>
                     </div>
                 </div>
@@ -446,15 +446,15 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left save">저장</button>
+                    <button type="submit" class="btn btn-default pull-left save">수정</button>
                     <a href="/service/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
                 <br/>
 
-                <input type="hidden" class="" name="serviceno" id="serviceno" value="${serviceInfo.SERVICENO}"/>
-                <input type="hidden" class="" name="servicestep" id="servicestep" value="${serviceInfo.SERVICESTEP}"/>
+                <input type="hidden" name="serviceno" id="serviceno" value="${serviceInfo.SERVICENO}"/>
+                <input type="hidden" name="servicestep" id="servicestep" value="${serviceInfo.SERVICESTEP}"/>
 
                 <c:choose>
                     <c:when test="${rewardInfo.REWARDNO eq null}">

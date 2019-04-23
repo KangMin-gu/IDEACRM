@@ -2,27 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="license">
 
-    <select id="siteLicenseList" parameterType="String" resultType="map">
-        SELECT A.LICENSENO,A.BUYCNT,A.SITEID,A.ISDELETE
+    <!-- 회원사 라이센스 사용량 확인 -->
+    <select id="licenseList" parameterType="String" resultType="map">
+        SELECT A.LICENSENO,A.BUYCNT,A.SITEID,A.ISDELETE,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_
          ,DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE
          ,DATE_FORMAT(A.EDTDATE,'%Y-%m-%d') AS EDTDATE
-         ,(SELECT SUM(BUYCNT) FROM ME810010 WHERE SITEID = #{siteid}) AS TOTALCNT
+         ,(SELECT SUM(BUYCNT) FROM ME810010 WHERE SITEID = #{siteid} AND ISDELETE = 0) AS TOTALCNT
          ,X.USECNT
-         FROM ME810010 A,(select licenseno, count(licenseno) as USECNT
-								 from (select A.LICENSENO, B.USERNO
-											 from ma900030 A
-											  LEFT OUTER JOIN me810011 B ON B.MENUNO = A.MENUNO
-											  WHERE B.ISDELETE = 0
-											  AND SITEID = #{siteid}
-											  AND RIGHT(MENUVAL, 4) != '0000'
-											  group by A.licenseno, B.userno) X
-								 group by licenseno) X
+         FROM ME810010 A,(SELECT SITEID, COUNT(LICENSENO) AS USECNT, LICENSENO
+															FROM ME810020
+															WHERE SITEID = #{siteid}
+															AND ISDELETE = 0
+															GROUP BY SITEID, LICENSENO) X
 	WHERE X.LICENSENO = A.LICENSENO
-    AND SITEID = #{siteid}
+    AND A.SITEID = #{siteid}
     </select>
 
+    <!-- 현재 있는 모든 라이센스 -->
     <select id="allList" resultType="licenseDto">
         SELECT * FROM ma900020
+    </select>
+
+    <!-- 회원사에게 라이센스 부여 -->
+    <insert id="siteInsert" parameterType="useLicenseDto">
+        INSERT INTO ME810010	(SITEID,LICENSENO,BUYCNT,REGDATE,REGUSER,EDTDATE,EDTUSER,ISDELETE)
+							VALUES(#{siteid},#{licenseno},#{licensecnt},NOW(),#{reguser},NOW(),#{edtuser},#{isdelete})
+			ON DUPLICATE KEY UPDATE BUYCNT = #{licensecnt},EDTDATE = NOW(),EDTUSER = #{edtuser},ISDELETE = #{isdelete}
+    </insert>
+    <!-- 회원사의 사용자가 가지고 있는 라이센스 -->
+    <select id="userLicenseList" parameterType="custDto" resultType="map">
+      SELECT A.LICENSENO,(SELECT LICENSENAME FROM MA900020 WHERE LICENSENO = A.LICENSENO) AS LICENSENAME FROM ME810020 A WHERE A.SITEID = #{siteid} and A.USERNO = #{userno} AND A.ISDELETE = 0
+    </select>
+
+    <!-- 회원사의 보유 라이센스와 사용자의 보유 라이센스의 차이로 잔여 라이센스 계산 -->
+    <select id="useSiteLicenseList" parameterType="int" resultType="map">
+        SELECT LICENSENO,LICENSENAME,BUYCNT,USECNT,TOTAL
+FROM (SELECT A.LICENSENO, A.LICENSENAME, B.BUYCNT, IFNULL(C.CNT, 0) AS USECNT, CASE WHEN IFNULL(C.CNT,0) >= B.BUYCNT THEN 0 ELSE 1 END AS TOTAL
+			FROM ma900020 A
+						 LEFT OUTER JOIN ME810010 B ON B.LICENSENO = A.LICENSENO
+						 LEFT OUTER JOIN (SELECT SITEID, COUNT(LICENSENO) AS CNT, LICENSENO
+															FROM ME810020
+															WHERE SITEID = #{siteid}
+															AND ISDELETE = 0
+															GROUP BY SITEID, LICENSENO) C ON C.LICENSENO = A.LICENSENO
+			where B.siteid = #{siteid}) X
+	WHERE X.TOTAL != 0;
+    </select>
+    <!-- 사용자의 라이센스 정보 초기화 -->
+    <update id="menuReset" parameterType="map">
+      UPDATE ME810020
+      SET ISDELETE = 1
+      WHERE SITEID = #{siteid}
+      AND USERNO = #{userno}
+    </update>
+    <!-- 사용자에게 라이센스 부여 -->
+    <insert id="menuInsert" parameterType="map">
+        INSERT INTO me810020   (SITEID,USERNO,LICENSENO,REGDATE,REGUSER,EDTDATE,EDTUSER,ISDELETE)
+							VALUES(#{siteid},#{userno},#{licenseno},NOW(),#{sessionuserno},NOW(),#{sessionuserno},0)
+         ON DUPLICATE KEY UPDATE ISDELETE = 0 ;
+    </insert>
+
+    <select id="siteLicenseList" parameterType="int" resultType="map">
+        SELECT A.LICENSENO,(SELECT SUBSTRING_INDEX(LICENSENAME,'라이센스', 1) FROM MA900020 WHERE LICENSENO = A.LICENSENO) AS LICENSENAME FROM ME810010 A
+        WHERE A.SITEID = #{siteid}
     </select>
 
 

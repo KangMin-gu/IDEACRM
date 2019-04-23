@@ -28,16 +28,12 @@ public class ServiceDto {
     private int isdelete;
     private String memo;
     private int complete;
-    private List<MultipartFile> servicefile; //Spring 에서 파일 업로드 처리하기 위해
+    private List<MultipartFile> files; //Spring 에서 파일 업로드 처리하기 위해
     private String reqno;
 
     public ServiceDto() {}
 
-    public ServiceDto(String serviceno, String servicename, String servicedesc, int serviceowner, String receptiondate,
-                      String custno, int clino, int servicestep, int owner, int siteid, int servicetype, int servicecode1,
-                      int servicecode2, int servicechannel, String filesearchkey, String regdate, int reguser, String edtdate,
-                      int edtuser, int isdelete, String memo, int complete, List<MultipartFile> servicefile, String reqno) {
-        super();
+    public ServiceDto(String serviceno, String servicename, String servicedesc, int serviceowner, String receptiondate, String custno, int clino, int servicestep, int owner, int siteid, int servicetype, int servicecode1, int servicecode2, int servicechannel, String filesearchkey, String regdate, int reguser, String edtdate, int edtuser, int isdelete, String memo, int complete, List<MultipartFile> files, String reqno) {
         this.serviceno = serviceno;
         this.servicename = servicename;
         this.servicedesc = servicedesc;
@@ -60,7 +56,7 @@ public class ServiceDto {
         this.isdelete = isdelete;
         this.memo = memo;
         this.complete = complete;
-        this.servicefile = servicefile;
+        this.files = files;
         this.reqno = reqno;
     }
 
@@ -240,12 +236,12 @@ public class ServiceDto {
         this.complete = complete;
     }
 
-    public List<MultipartFile> getServicefile() {
-        return servicefile;
+    public List<MultipartFile> getFiles() {
+        return files;
     }
 
-    public void setServicefile(List<MultipartFile> servicefile) {
-        this.servicefile = servicefile;
+    public void setFiles(List<MultipartFile> files) {
+        this.files = files;
     }
 
     public String getReqno() {
@@ -255,6 +251,4 @@ public class ServiceDto {
     public void setReqno(String reqno) {
         this.reqno = reqno;
     }
-
-
 }

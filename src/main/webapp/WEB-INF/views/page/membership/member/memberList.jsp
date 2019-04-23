@@ -70,65 +70,24 @@
                                         </colgroup>
                                         <tbody>
                                         <tr>
-                                            <th>등록일</th>
+                                            <th>이름</th>
                                             <td>
                                                 <div class="input-group" style="width:230px;">
-                                                    <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
-                                                    <input class="form-control form-control-sm" type="text" id="daterange"  />
+                                                    <input class="form-control form-control-sm searchparam" type="text" id="username" name="username"  />
                                                 </div>
                                             </td>
                                             <th>ID</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>이름</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>활성상태</th>
-                                            <td>
-                                                <select class="form-control" style="width:100px;">
-                                                    <option value="Bahamas">활성</option>
-                                                    <option value="Bahrain">비활성</option>
-                                                </select>
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="userid" name="userid">
                                             </td>
                                             <th>직책</th>
                                             <td>
-                                                <select class="form-control" style="width:100px;">
-                                                    <option value="Bahamas">010</option>
-                                                    <option value="Bahrain">011</option>
-                                                    <option value="Bangladesh">017</option>
-                                                    <option value="Barbados">018</option>
-                                                    <option value="Belarus">019</option>
-                                                </select>
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="userduty" name="userduty">
                                             </td>
+
                                             <td>
                                                 <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>전화번호</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>휴대전화</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>이메일</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>CTI번호</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <th>활성상태</th>
-                                            <td>
-                                                <input class="form-control form-control-sm" type="text" style="width: 150px;">
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-w-m btn-default">초기화</button>
+                                                <button type="button" id="reset" class="btn btn-w-m btn-default">초기화</button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -147,8 +106,18 @@
                         </div>
 
                         <div class="ibox-content">
-                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                            <a href="/company/user/input" class="btn btn-default pull-right">추가</a>
+                            <div>
+                                <div style="display: inline-block;">
+                                    <select class="form-control" id="paging" style="width:80px;margin-left: 10px;">
+                                        <c:forEach var="paging" items="${PAGING}">
+                                            <option vale="${paging.codeval}">${paging.codename}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="pull-right" style="display: inline-block;">
+                                    <a href="/company/user/input" class="btn btn-default pull-right">추가</a>
+                                </div>
+                            </div>
                             <table class="footable table table-striped" >
                                 <thead>
                                 <tr>
@@ -169,14 +138,9 @@
                                 <tfoot>
                                 <tr>
                                     <td>
-                                        <select class="form-control" id="paging" style="width:80px">
-                                            <c:forEach var="paging" items="${PAGING}">
-                                                <option vale="${paging.codeval}">${paging.codename}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </td>
-                                    <td colspan="4">
-                                        <ul class="pagination pull-right"></ul>
+                                        <div class="footable-pagination-wrapper">
+                                            <ul class="pagination"></ul>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tfoot>
@@ -209,12 +173,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            var bool = dateRangeError();
-            if(bool){
-                footableSearchList('/company/user');
-            }
+            footableSearchList('/company/user')
         });
-        footableSearchList('/company/user');
+        footableSearchList('/company/user')
     });
 </script>
 </body>

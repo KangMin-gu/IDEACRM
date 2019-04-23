@@ -12,11 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
 <body>
 
@@ -36,8 +33,11 @@
                     <li class="breadcrumb-item active">
                         <a href="${pageContext.request.contextPath}/company/format">서식 목록</a>
                     </li>
+                    <li class="breadcrumb-item active">
+                        <a href="${pageContext.request.contextPath}/company/format/${formatInfo.FORMATNO}">서식 정보</a>
+                    </li>
                     <li class="breadcrumb-item">
-                        <strong>서식 등록</strong>
+                        <strong>서식 정보 수정</strong>
                     </li>
                 </ol>
             </div>
@@ -51,7 +51,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <a href="/company/format" class="btn btn-default pull-left">목록</a>
-<!--                        <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>-->
                     <button type="submit" class="btn btn-default pull-right">저장</button>
                 </div>
             </div>
@@ -81,14 +80,21 @@
                                     <tr>
                                         <th>서식명</th>
                                         <td>
-                                            <input type="text" class="form-control name" name="formatname" id="formatname">
+                                            <input type="text" class="form-control form-control name" name="formatname" id="formatname" value="${formatInfo.FORMATNAME}">
                                         </td>
                                         <th>사용메뉴</th>
                                         <td>
                                             <select class="form-control m-b" name="usemenu" id="usemenu" style="width: 100px;">
                                                 <option value="0">선택</option>
                                                 <c:forEach var="license" items="${license}">
-                                                    <option value="${license.LICENSENO}">${license.LICENSENAME}</option>
+                                                    <c:choose>
+                                                        <c:when test="${formatInfo.SENDTYPE eq license.LICENSENO}">
+                                                            <option selected label="${license.LICENSENAME }" value="${license.LICENSENO }"/>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option label="${license.LICENSENAME }" value="${license.LICENSENO }"/>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:forEach>
                                             </select>
                                         </td>
@@ -97,7 +103,14 @@
                                             <select class="form-control m-b" name="sendtype" id="sendtype" style="width: 100px;">
                                                 <option value="0">선택</option>
                                                 <c:forEach var="formType" items="${FORMTYPE}">
-                                                    <option value="${formType.codeval}">${formType.codename}</option>
+                                                    <c:choose>
+                                                        <c:when test="${formatInfo.SENDTYPE eq formType.codeval}">
+                                                            <option selected label="${formType.codename }" value="${formType.codeval }"/>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="${formType.codeval}">${formType.codename}</option>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:forEach>
                                             </select>
                                         </td>
@@ -106,18 +119,18 @@
                                     <tr class="kko">
                                         <th>카카오 서비스번호</th>
                                         <td>
-                                            <input type="text" class="form-control kko" name="kkoserviceno" id="kkoserviceno">
+                                            <input type="text" class="form-control " name="kkoserviceno" id="kkoserviceno" value="${formatInfo.KKOSERVICENO}">
                                         </td>
                                         <th>카카오 템플릿번호</th>
                                         <td>
-                                            <input type="text" class="form-control kko" name="kkotempleteno" id="kkotempleteno">
+                                            <input type="text" class="form-control" name="kkotempleteno" id="kkotempleteno" value="${formatInfo.KKOTEMPLETENO}">
                                         </td>
                                     </tr>
                                     </c:if>
                                     <tr>
                                         <th>서식</th>
                                         <td colspan="5">
-                                            <textarea class="tinymce name" name="formatdesc" id="formatdesc"></textarea>
+                                            <textarea class="tinymce name" name="formatdesc" id="formatdesc">${formatInfo.FORMATDESC}</textarea>
                                         </td>
                                     </tr>
                                     </tbody>

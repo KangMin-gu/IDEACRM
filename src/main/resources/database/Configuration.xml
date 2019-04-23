@@ -20,14 +20,17 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.crud.ideacrm.dto.CustDenyDto" alias="custDenyDto" />
 		<typeAlias type="com.crud.ideacrm.dto.SiteDto" alias="siteDto" />
 		<typeAlias type="com.crud.ideacrm.dto.KakaoDto" alias="kakaoDto" />
-		<typeAlias type="com.crud.ideacrm.dto.CtiDto" alias="ctiDto" />
+		<typeAlias type="com.crud.ideacrm.dto.SiteCtiDto" alias="siteCtiDto" />
 		<typeAlias type="com.crud.ideacrm.dto.BlackCustDto" alias="blackCustDto" />
 		<typeAlias type="com.crud.ideacrm.dto.InsideNoticeDto" alias="insideNoticeDto" />
 		<typeAlias type="com.crud.ideacrm.dto.UserDto" alias="userDto" />
+		<typeAlias type="com.crud.ideacrm.dto.UserCtiDto" alias="userCtiDto" />
 		<typeAlias type="com.crud.ideacrm.dto.LicenseDto" alias="licenseDto" />
 		<typeAlias type="com.crud.ideacrm.dto.ServiceDeliveryDto" alias="serviceDeliveryDto"/>
 		<typeAlias type="com.crud.ideacrm.dto.ChargeDto" alias="chargeDto"/>
 		<typeAlias type="com.crud.ideacrm.dto.NoticeDto" alias="noticeDto"/>
+		<typeAlias type="com.crud.ideacrm.dto.UseLicenseDto" alias="useLicenseDto"/>
+		<typeAlias type="com.crud.ideacrm.dto.FormatDto" alias="formatDto"/>
 	</typeAliases>
 
 	<mappers>
@@ -46,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="database/SiteMapper.xml"/>
 		<mapper resource="database/FileMapper.xml"/>
 		<mapper resource="database/LicenseMapper.xml"/>
+		<mapper resource="database/FormatMapper.xml"/>
 		<mapper resource="database/NoticeMapper.xml"/>
 	</mappers>
 	

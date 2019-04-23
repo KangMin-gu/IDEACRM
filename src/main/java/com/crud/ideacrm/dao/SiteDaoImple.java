@@ -1,6 +1,6 @@
 package com.crud.ideacrm.dao;
 
-import com.crud.ideacrm.dto.CtiDto;
+import com.crud.ideacrm.dto.SiteCtiDto;
 import com.crud.ideacrm.dto.KakaoDto;
 import com.crud.ideacrm.dto.SiteDto;
 import org.apache.ibatis.session.SqlSession;
@@ -55,8 +55,8 @@ public class SiteDaoImple implements SiteDao {
     }
 
     @Override
-    public void ctiInsert(CtiDto ctiDto) {
-        session.insert("site.ctiInsert",ctiDto);
+    public void ctiInsert(SiteCtiDto siteCtiDto) {
+        session.insert("site.ctiInsert",siteCtiDto);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class SiteDaoImple implements SiteDao {
     }
 
     @Override
-    public void ctiUpdate(CtiDto ctiDto) {
-        session.update("site.ctiUpdate",ctiDto);
+    public void ctiUpdate(SiteCtiDto siteCtiDto) {
+        session.update("site.ctiUpdate",siteCtiDto);
     }
 }

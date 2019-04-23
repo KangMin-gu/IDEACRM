@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="format">
+
+	<select id="formatList" parameterType="map" resultType="map">
+		SELECT
+		A.FORMATNO AS NO
+		,A.FORMATNAME
+		,A.FORMATDESC
+		,A.SENDTYPE
+		,A.SITEID
+		,'/company/format/' AS URL
+		 ,(SELECT SUBSTRING_INDEX(LICENSENAME,'라이센스', 1) FROM MA900020 WHERE LICENSENO = A.USEMENU) AS USEMENU_
+		 ,FN_GETCODE('FORMTYPE',A.SENDTYPE,#{siteid}) AS SENDTYPE_
+		 FROM SYS990050 A
+		WHERE SITEID = #{siteid}
+		AND ISDELETE = 0
+        <if test="formatname != null">
+            AND A.FORMATNAME like CONCAT('%',#{formatname},'%')
+        </if>
+        <if test="sendtype != null">
+            AND A.SENDTYPE = #{sendtype}
+        </if>
+        <if test="usemenu != null">
+            AND A.USEMENU = #{usemenu}
+        </if>
+	</select>
+
+    <insert id="formatInsert" parameterType="formatDto">
+        <selectKey keyProperty="formatno"  resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO SYS990050
+        (
+        FORMATNAME,FORMATDESC,SENDTYPE,USEMENU,SITEID,ISDELETE
+        ,KKOSERVICENO,KKOTEMPLETENO,REGDATE,REGUSER,EDTDATE,EDTUSER
+        )VALUES(
+        #{formatname},#{formatdesc},#{sendtype},#{usemenu},#{siteid},0
+        ,#{kkoserviceno},#{kkotempleteno},now(),#{reguser},now(),#{edtuser}
+        )
+    </insert>
+
+    <select id="formatDetail" parameterType="formatDto" resultType="map">
+        SELECT A.*
+        ,FN_GETCODE('FORMTYPE',A.SENDTYPE,#{siteid}) AS SENDTYPE_
+        ,(SELECT SUBSTRING_INDEX(LICENSENAME,'라이센스', 1) FROM MA900020 WHERE LICENSENO = A.USEMENU) AS USEMENU_
+        FROM SYS990050 A
+        WHERE A.SITEID = #{siteid}
+        AND A.FORMATNO = #{formatno}
+    </select>
+
+    <update id="formatUpdate" parameterType="formatDto">
+        UPDATE SYS990050
+        SET FORMATNAME = #{formatname}
+        ,FORMATDESC = #{formatdesc}
+        ,SENDTYPE = #{sendtype}
+        ,USEMENU = #{usemenu}
+        ,KKOSERVICENO = #{kkoserviceno}
+        ,KKOTEMPLETENO = #{kkotempleteno}
+        ,EDTDATE = now()
+        ,EDTUSER = #{edtuser}
+        WHERE SITEID = #{siteid}
+        AND FORMATNO = #{formatno}
+
+    </update>
+
+    <update id="formatDelete" parameterType="formatDto">
+        UPDATE SYS990050
+        SET ISDELETE = 1
+        WHERE SITEID = #{siteid}
+        AND FORMATNO = #{formatno}
+    </update>
+
+</mapper>

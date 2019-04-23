@@ -49,6 +49,10 @@ public class SiteDto {
     private int owner; // 담당자
     private String bsno;
     private MultipartFile file;
+    private String incno;
+    private String telno;
+    private String mobile;
+    private String faxtel;
 
     public SiteDto(){};
 
@@ -74,7 +78,7 @@ public class SiteDto {
         if(this.email != null && this.email != ""){ this.email = commonUtil.encoding(this.email); }
     }
 
-    public SiteDto(String siteid, String sitename, String bsno1, String bsno2, String bsno3, String incno1, String incno2, String addr1, String addr2, String addr3, String fregdate, String expirdate, String telno1, String telno2, String telno3, String faxtel1, String faxtel2, String faxtel3, String mobile1, String mobile2, String mobile3, String email, String sitememo, String sitelogo, String bscond, String cotype, String bstype, String regdate, int reguser, String edtdate, int edtuser, String callname, String sitesize, String prsdname, String adminid, String adminpassword, int isdelete, int owner, String bsno, MultipartFile file) {
+    public SiteDto(String siteid, String sitename, String bsno1, String bsno2, String bsno3, String incno1, String incno2, String addr1, String addr2, String addr3, String fregdate, String expirdate, String telno1, String telno2, String telno3, String faxtel1, String faxtel2, String faxtel3, String mobile1, String mobile2, String mobile3, String email, String sitememo, String sitelogo, String bscond, String cotype, String bstype, String regdate, int reguser, String edtdate, int edtuser, String callname, String sitesize, String prsdname, String adminid, String adminpassword, int isdelete, int owner, String bsno, MultipartFile file, String incno, String telno, String mobile, String faxtel) {
         this.siteid = siteid;
         this.sitename = sitename;
         this.bsno1 = bsno1;
@@ -115,6 +119,10 @@ public class SiteDto {
         this.owner = owner;
         this.bsno = bsno;
         this.file = file;
+        this.incno = incno;
+        this.telno = telno;
+        this.mobile = mobile;
+        this.faxtel = faxtel;
     }
 
     public String getSiteid() {
@@ -429,7 +437,43 @@ public class SiteDto {
         this.bsno = bsno;
     }
 
-    public MultipartFile getFile(){return file;}
+    public MultipartFile getFile() {
+        return file;
+    }
 
-    public void setFile(MultipartFile file){this.file = file;}
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    public String getIncno() {
+        return incno;
+    }
+
+    public void setIncno(String incno) {
+        this.incno = incno;
+    }
+
+    public String getTelno() {
+        return telno;
+    }
+
+    public void setTelno(String telno) {
+        this.telno = telno;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getFaxtel() {
+        return faxtel;
+    }
+
+    public void setFaxtel(String faxtel) {
+        this.faxtel = faxtel;
+    }
 }

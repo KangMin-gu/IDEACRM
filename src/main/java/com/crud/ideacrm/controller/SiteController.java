@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -69,10 +70,10 @@ public class SiteController {
 
     // master 회원사 추가
     @RequestMapping(value = "/common/site/input", method = RequestMethod.POST)
-    public ModelAndView authSiteInsertSet(HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authSiteInsertSet(HttpServletResponse response,HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
 
-        String siteId = siteService.siteInsert(request,siteDto,ctiDto);
+        String siteId = siteService.siteInsert(response, request,siteDto,ctiDto);
         mView.setViewName("redirect:/common/site/"+siteId);
         return mView;
     }
@@ -89,9 +90,9 @@ public class SiteController {
 
     //master 회원사 수정
     @RequestMapping(value="/common/site/modified/{siteId}",method=RequestMethod.POST)
-    public ModelAndView authSiteUpdateSet(HttpServletRequest request,@PathVariable String siteId,@ModelAttribute SiteDto siteDto,@ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authSiteUpdateSet(HttpServletResponse response, HttpServletRequest request, @PathVariable String siteId, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
-        siteService.siteUpdate(request,siteId,siteDto,ctiDto);
+        siteService.siteUpdate(response, request,siteId,siteDto,ctiDto);
         mView.setViewName("redirect:/common/site/"+siteId);
         return mView;
     }

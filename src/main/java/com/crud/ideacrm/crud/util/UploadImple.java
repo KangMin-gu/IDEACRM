@@ -27,6 +27,8 @@ public class UploadImple implements Uplaod {
         //crud.properties
         @Value( "#{props['crud.fileupload.whitelist']}")
         private String whiteList;
+        @Value("#{props['crud.singleupload.whitelist']}")
+        private String singWhiteList;
         @Value( "#{props['crud.campaign.path']}")
         private String campaign;
         @Value( "#{props['crud.service.path']}")
@@ -39,6 +41,8 @@ public class UploadImple implements Uplaod {
         private String vocnotice;
         @Value( "#{props['crud.insidenotice.path']}")
         private String insidenotice;
+        @Value( "#{props['crud.logo.path']}")
+        private String logo;
 
         @Value( "#{props['crud.campaign.url']}")
         private String campaignUrl;
@@ -52,6 +56,8 @@ public class UploadImple implements Uplaod {
         private String vocnoticeUrl;
         @Value( "#{props['crud.insidenotice.url']}")
         private String insidenoticeUrl;
+        @Value( "#{props['crud.logo.url']}")
+        private String logoUrl;
 
 
         @Override
@@ -170,6 +176,114 @@ public class UploadImple implements Uplaod {
 
             return fileSearchKey;
         }
+
+
+    //로고전용
+    @Override
+    public UploadDto singleUpload(HttpServletResponse response, HttpServletRequest request, MultipartFile singleFile) {
+        UploadUtil uploadutil = new UploadUtil();
+        String fileSearchKey = uploadutil.fileSearchKey(request);
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        String url = request.getRequestURI();
+        String referer = request.getHeader("Referer");
+        Calendar calendar = Calendar.getInstance();
+        String years = String.valueOf(calendar.get(Calendar.YEAR));
+        String months = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+        StringBuffer buf = new StringBuffer();
+        UploadDto fileInfo = new UploadDto();
+        String realPath = null;
+
+        MultipartFile sFile = singleFile;
+
+
+
+        boolean whiteListFlag = false;
+        boolean sizeFlag = false;
+        //파일이름 가져오기
+        String orgFileName = sFile.getOriginalFilename();
+        //확장자검사
+        String[] arrWhiteList = singWhiteList.split(",");
+        String extention = orgFileName.substring(orgFileName.lastIndexOf(".")+1,orgFileName.length());
+        for(String chker : arrWhiteList) {
+            //확장자를 비교해서 있으면 true로 떨굼
+            if (chker.equals(extention)) {
+                whiteListFlag = true;
+            }
+        }
+
+
+            if(!whiteListFlag){
+
+                buf.append("<script>alert('허용하지 않는 확장자 입니다.');");
+                buf.append("window.location.replace('");
+                buf.append(referer);
+                buf.append("');</script>");
+                response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out;
+                try {
+                    out = response.getWriter();
+                    out.println(buf);
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            long fileSize = sFile.getSize();
+            sizeFlag = uploadutil.whiteSizeFlag(fileSize);
+
+            if(!sizeFlag){
+
+                buf.append("<script>alert('파일용량이 제한용량보다 큽니다.');");
+                buf.append("window.location.replace('");
+                buf.append(referer);
+                buf.append("');</script>");
+                response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out;
+                try {
+                    out = response.getWriter();
+                    out.println(buf);
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            //파일 유입별 경로설정
+            realPath = request.getSession().getServletContext().getRealPath(logo+years+"/"+months+"/"+siteId);
+
+            String filePath = realPath+File.separator;
+            String saveFileName = fileSearchKey+"_"+userNo+"_"+orgFileName;
+            String path = filePath + saveFileName;
+            String imgPath = logo+years+"/"+months+"/"+fileSearchKey+"_"+orgFileName;
+
+            File file=new File(filePath);
+            if(!file.exists()){
+                file.mkdirs();
+            }
+            try{
+                sFile.transferTo(new File(filePath+saveFileName));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            fileInfo.setFilesize(fileSize);
+            fileInfo.setSavefilename(saveFileName);
+            fileInfo.setOrgfilename(orgFileName);
+            fileInfo.setPath(path);
+            fileInfo.setUserno(userNo);
+            fileInfo.setSiteid(siteId);
+            fileInfo.setFilesearchkey(fileSearchKey);
+            fileInfo.setImgpath(imgPath);
+
+            uploadDao.upload(fileInfo);
+
+
+        return fileInfo;
+    }
 
     @Override
     public ModelAndView download(int fileId) {

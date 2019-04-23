@@ -55,7 +55,7 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/common/site/modified/${siteInfo.SITEID}" method="POST" enctype="multipart/form-data">
+            <form:form id="logoFile" action="/common/site/modified/${siteInfo.SITEID}" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">수정</button>
@@ -252,7 +252,17 @@
                                         <th>비밀번호</th>
                                         <td><button type="button" class="btn btn-w-m btn-xs btn-primary">초기화</button></td>
                                         <th>회원사로고</th>
-                                        <td>${siteInfo.SITELOGO}</td>
+                                        <td>
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <span class="btn btn-outline-secondary btn-file">
+                                                        <span class="fileinput-new">파일선택</span>
+                                                        <span class="fileinput-exists">변경</span>
+                                                        <input id="files" type="file" class="logoChk" name="file" multiple>
+                                                    </span>
+                                                <span id="logoChk" class="fileinput-filename"></span>
+                                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>회원사 메모</th>
@@ -383,6 +393,7 @@
 <!-- 공용js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
 <script>
     $(document).ready(function() {
 

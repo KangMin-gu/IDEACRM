@@ -11,7 +11,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <a href="${pageContext.request.contextPath}/">
-                        <img alt="image" class="rounded" src="${pageContext.request.contextPath}/${SITELOGO }"/>
+                        <img alt="image" class="rounded" src="${SITELOGO }"/>
                     </a>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="block m-t-xs font-bold">${SITENAME }</span>

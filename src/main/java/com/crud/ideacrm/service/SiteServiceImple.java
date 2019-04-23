@@ -1,7 +1,9 @@
 package com.crud.ideacrm.service;
 
+import com.crud.ideacrm.crud.dto.UploadDto;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.crud.util.Uplaod;
 import com.crud.ideacrm.dao.SendDao;
 import com.crud.ideacrm.dao.SiteDao;
 import com.crud.ideacrm.dto.ChargeDto;
@@ -11,9 +13,11 @@ import com.crud.ideacrm.dto.SiteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -31,6 +35,8 @@ public class SiteServiceImple implements SiteService{
     private CodecUtil codecUtil;
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private Uplaod uplaod;
 
     @Override
     public List<Map<String, Object>> siteList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -68,7 +74,7 @@ public class SiteServiceImple implements SiteService{
     }
 
     @Override
-    public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public String siteInsert(HttpServletResponse response,HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
 /*
         ParameterUtil parameterUtil = new ParameterUtil();
         String bsno = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
@@ -79,6 +85,13 @@ public class SiteServiceImple implements SiteService{
 
         String EncodePass = encoder.encode(siteDto.getAdminpassword());
         siteDto.setAdminpassword(EncodePass);
+
+        //파일업로드
+        MultipartFile sFile = siteDto.getFile();
+        if(sFile  != null  && sFile.isEmpty() == false){
+            UploadDto uploadDto = uplaod.singleUpload(response, request, sFile);
+            siteDto.setSitelogo(uploadDto.getImgpath());
+        }
 
         siteDao.siteUserInsert(siteDto);
 
@@ -95,12 +108,18 @@ public class SiteServiceImple implements SiteService{
     }
 
     @Override
-    public void siteUpdate(HttpServletRequest request, String siteId, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public void siteUpdate(HttpServletResponse response, HttpServletRequest request, String siteId, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         String deSiteId = codecUtil.decodePkNo(siteId);
         siteDto.setSiteid(deSiteId);
         ctiDto.setSiteid(deSiteId);
 
         siteDto.setEncodingSiteDto();
+        //파일업로드
+        MultipartFile sFile = siteDto.getFile();
+        if(sFile  != null  && sFile.isEmpty() == false){
+            UploadDto uploadDto = uplaod.singleUpload(response, request, sFile);
+            siteDto.setSitelogo(uploadDto.getImgpath());
+        }
         siteDao.siteUpdate(siteDto);
 
         Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deSiteId);

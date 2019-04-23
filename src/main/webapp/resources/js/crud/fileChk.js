@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 
 //회원사 로고 체크
-$('input[id=logoChk]').change(function(){
+$('input[class=logoChk]').change(function(){
     if($(this).val() != ""){
 
         var ext = $(this).val().split(".").pop().toLowerCase();
@@ -73,6 +73,16 @@ $('input[class=fileChk]').change(function(){
 
 //파일폼 전송시 file null 체크
 $('#multiFile').submit(function(){
+    var fileChk = $('#files').val();
+
+    if(fileChk == ""){
+        $('#files').attr('disabled','true');
+    }
+
+});
+
+//파일폼 전송시 file null 체크
+$('#logoFile').submit(function(){
     var fileChk = $('#files').val();
 
     if(fileChk == ""){

@@ -11,5 +11,6 @@ import java.util.Map;
 
 public interface Uplaod {
     public String multiUpload(HttpServletResponse response, HttpServletRequest request, List<MultipartFile> multiFile);
+    public UploadDto singleUpload(HttpServletResponse response, HttpServletRequest request, MultipartFile singleFile);
     public ModelAndView download(int fileId);
 }

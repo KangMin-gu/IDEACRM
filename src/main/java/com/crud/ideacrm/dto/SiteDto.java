@@ -1,6 +1,7 @@
 package com.crud.ideacrm.dto;
 
 import com.crud.ideacrm.crud.util.CodecUtil;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -47,6 +48,7 @@ public class SiteDto {
     private int isdelete; //서비스상태
     private int owner; // 담당자
     private String bsno;
+    private MultipartFile file;
 
     public SiteDto(){};
 
@@ -72,7 +74,7 @@ public class SiteDto {
         if(this.email != null && this.email != ""){ this.email = commonUtil.encoding(this.email); }
     }
 
-    public SiteDto(String siteid, String sitename, String bsno1, String bsno2, String bsno3, String incno1, String incno2, String addr1, String addr2, String addr3, String fregdate, String expirdate, String telno1, String telno2, String telno3, String faxtel1, String faxtel2, String faxtel3, String mobile1, String mobile2, String mobile3, String email, String sitememo, String sitelogo, String bscond, String cotype, String bstype, String regdate, int reguser, String edtdate, int edtuser, String callname, String sitesize, String prsdname, String adminid, String adminpassword, int isdelete, int owner, String bsno) {
+    public SiteDto(String siteid, String sitename, String bsno1, String bsno2, String bsno3, String incno1, String incno2, String addr1, String addr2, String addr3, String fregdate, String expirdate, String telno1, String telno2, String telno3, String faxtel1, String faxtel2, String faxtel3, String mobile1, String mobile2, String mobile3, String email, String sitememo, String sitelogo, String bscond, String cotype, String bstype, String regdate, int reguser, String edtdate, int edtuser, String callname, String sitesize, String prsdname, String adminid, String adminpassword, int isdelete, int owner, String bsno, MultipartFile file) {
         this.siteid = siteid;
         this.sitename = sitename;
         this.bsno1 = bsno1;
@@ -112,6 +114,7 @@ public class SiteDto {
         this.isdelete = isdelete;
         this.owner = owner;
         this.bsno = bsno;
+        this.file = file;
     }
 
     public String getSiteid() {
@@ -425,4 +428,8 @@ public class SiteDto {
     public void setBsno(String bsno) {
         this.bsno = bsno;
     }
+
+    public MultipartFile getFile(){return file;}
+
+    public void setFile(MultipartFile file){this.file = file;}
 }

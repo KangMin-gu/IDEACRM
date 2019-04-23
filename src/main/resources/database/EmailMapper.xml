@@ -10,16 +10,9 @@
         {call CustmailSend(#{toemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{fromemail, mode=IN, jdbcType=VARCHAR, javaType=string},#{subject, mode=IN, jdbcType=VARCHAR, javaType=string},#{content, mode=IN, jdbcType=VARCHAR, javaType=string},#{formatnum, mode=IN, jdbcType=INTEGER, javaType=int},#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{userno, mode=IN, jdbcType=INTEGER, javaType=int},#{custno, mode=IN, jdbcType=VARCHAR, javaType=string},#{filesearchkey, mode=IN, jdbcType=VARCHAR, javaType=string})}
     </insert>
 
-    <select id="allTarget" parameterType="hashMap" resultType="hashmap">
-        SELECT  EMAILLOGID,
-        FROMEMAIL,
-         TOEMAIL,
-         SUBJECT,
-         CONTENT,
-         FILESEARCHKEY,
-         RLTDATE
-    FROM sys980010
-    WHERE RLTCODE = 0 AND now() >= RLTDATE LIMIT 100;
+    <select id="allTarget" parameterType="hashMap" resultType="hashMap">
+        SELECT  EMAILLOGID, FROMEMAIL, TOEMAIL, SUBJECT, CONTENT, FILESEARCHKEY, RLTDATE FROM sys980010
+        WHERE RLTCODE = 0 AND now() >= RLTDATE LIMIT 100;
     </select>
 
     <update id="sendstate" parameterType="emailDto">

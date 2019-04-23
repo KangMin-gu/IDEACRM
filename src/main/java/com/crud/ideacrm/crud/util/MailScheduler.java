@@ -33,7 +33,7 @@ public class MailScheduler {
 
     //@Scheduled(cron="*/30 * * * * *")
     //@Scheduled(cron="0 0/5 * * * ?")//삭제 후 윗코드 주석 제거 요망
-    //@Scheduled(cron="*/30 * * * * *")
+    @Scheduled(cron="*/10 * * * * *")
     public void sendmail() throws Exception {
         boolean isValid = false;
 

@@ -173,25 +173,43 @@
                                             <div class="col-sm-4">
                                                 <input type="text" name="userduty" id="userduty" value="${userInfo.USERDUTY}" class="form-control form-control-sm">
                                             </div>
-                                            <label class="col-sm-2 col-form-label">CTI전화번호</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="ctitelno" id="ctitelno" value="${userInfo.CTITELNO}" class="form-control form-control-sm">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">CTIID</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="ctiid" id="ctiid" value="${userInfo.CTIID}" class="form-control form-control-sm">
-                                            </div>
-                                            <label class="col-sm-2 col-form-label">CTIPW</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="ctipass" id="ctipass" value="${userInfo.CTIPASS}" class="form-control form-control-sm">
-                                            </div>
                                         </div>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">메모</label>
                                             <div class="col-sm-10">
                                                 <textarea name="userdesc" id=" userdesc" class="form-control" value="${uesrInfo.USERDESC}" style="resize: none;" rows="4">${uesrInfo.USERDESC}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>사용자 등록</h5>
+                        </div>
+                        <div class="ibox-content" >
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group  row">
+                                            <label class="col-sm-1 col-form-label">CTI번호</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="ctitelno" id="ctitelno" value="${ctiUserInfo.CTITELNO}" class="form-control form-control-sm">
+                                            </div>
+                                            <label class="col-sm-1 col-form-label">CTIID</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="ctiid" id="ctiid" value="${ctiUserInfo.CTIID}" class="form-control form-control-sm">
+                                            </div>
+                                            <label class="col-sm-1 col-form-label">CTIPW</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="ctipw" id="ctipw" value="${ctiUserInfo.CTIPW}" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                     </div>

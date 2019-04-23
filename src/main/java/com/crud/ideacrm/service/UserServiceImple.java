@@ -4,6 +4,7 @@ package com.crud.ideacrm.service;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.UserDao;
+import com.crud.ideacrm.dto.UserCtiDto;
 import com.crud.ideacrm.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,7 +59,7 @@ public class UserServiceImple implements UserService {
     }
 // 사용자 Insert
     @Override
-    public String userInsert(HttpServletRequest request, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public String userInsert(HttpServletRequest request, UserDto userDto, UserCtiDto userCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
 
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
@@ -80,6 +81,11 @@ public class UserServiceImple implements UserService {
         userDto.setEncodingUserDto();
         userDto.setUserpassword(enCodePass);
         String insertUserNo = userDao.userInsert(userDto);
+
+        if(userCtiDto.getCtitelno() != null && !userCtiDto.getCtitelno().equals("")){
+            userCtiDto.setUserno(insertUserNo);
+            userDao.userCtiInsert(userCtiDto);
+        }
 
         insertUserNo = codecUtil.encodePkNo(insertUserNo);
 
@@ -103,9 +109,24 @@ public class UserServiceImple implements UserService {
 
         return userInfo;
     }
+
+    @Override
+    public Map<String, Object> userCtiDetail(HttpServletRequest request, String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        userNo = codecUtil.decodePkNo(userNo);
+
+        UserCtiDto userCtiDto = new UserCtiDto();
+        userCtiDto.setUserno(userNo);
+
+        Map<String,Object> userCtiDetail = userDao.userCtiDetail(userCtiDto);
+
+        return userCtiDetail;
+    }
+
     //사용자 업데이트
     @Override
-    public void userUpdate(HttpServletRequest request, String userNo, UserDto userDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public void userUpdate(HttpServletRequest request, String userNo, UserDto userDto,UserCtiDto userCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        int sessionUserNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
         userNo = codecUtil.decodePkNo(userNo);
 
@@ -118,6 +139,13 @@ public class UserServiceImple implements UserService {
             String enCodePass = encoder.encode(userDto.getUserpassword());
             userDto.setUserpassword(enCodePass);
         }
+        userDto.setEdtuser(sessionUserNo);
         userDao.userUpdate(userDto);
+
+        if(userCtiDto.getCtitelno() != null && !userCtiDto.getCtitelno().equals("")){
+            userCtiDto.setUserno(userNo);
+            userCtiDto.setEdtuser(sessionUserNo);
+            userDao.userCtiUpdate(userCtiDto);
+        }
     }
 }

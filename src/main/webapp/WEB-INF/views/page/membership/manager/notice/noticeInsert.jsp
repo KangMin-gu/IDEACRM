@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="mail-text h-200">
-                    <textarea id="mytextarea"></textarea>
+                    <textarea class="tinymce" id="mytextarea"></textarea>
                     <div class="clearfix"></div>
                 </div>
                 <br/>
@@ -112,15 +112,15 @@
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- Jasny -->
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+
 <script>
     $(document).ready(function() {
-        tinymce.init({
-            selector: '#mytextarea, #mytextarea2,#mytextarea3 ',
-            height : 400,
-            language:'ko_KR'
-        });
+
     });
 </script>
 </body>

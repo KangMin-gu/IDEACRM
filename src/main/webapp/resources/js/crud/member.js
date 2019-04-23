@@ -52,3 +52,10 @@ function id_check(){
         });
     }
 }
+
+$('#licenseinsert').click(function(e){
+    e.stopPropagation();
+    alert("메뉴부여가 되었습니다.");
+    return true;
+
+});

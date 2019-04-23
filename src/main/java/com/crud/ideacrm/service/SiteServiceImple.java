@@ -5,8 +5,7 @@ import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.SendDao;
 import com.crud.ideacrm.dao.SiteDao;
 import com.crud.ideacrm.dto.ChargeDto;
-import com.crud.ideacrm.dto.CtiDto;
-import com.crud.ideacrm.dto.KakaoDto;
+import com.crud.ideacrm.dto.SiteCtiDto;
 import com.crud.ideacrm.dto.SiteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +66,7 @@ public class SiteServiceImple implements SiteService{
     }
 
     @Override
-    public String siteInsert(HttpServletRequest request, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public String siteInsert(HttpServletRequest request, SiteDto siteDto, SiteCtiDto siteCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
 
         if(siteDto.getBsno1() != null && siteDto.getBsno2() != null && siteDto.getBsno3() != null){
             String bsNo = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
@@ -100,11 +98,11 @@ public class SiteServiceImple implements SiteService{
         siteDao.siteUserInsert(siteDto);
 
         if(siteId != null){
-            ctiDto.setSiteid(siteId);
-            String ctiIp = ctiDto.getIp();
+            siteCtiDto.setSiteid(siteId);
+            String ctiIp = siteCtiDto.getIp();
             if(!ctiIp.equals("") ){
-                ctiDto.setEncodingCtiDto();
-                siteDao.ctiInsert(ctiDto);
+                siteCtiDto.setEncodingCtiDto();
+                siteDao.ctiInsert(siteCtiDto);
             }
         }
         siteId = codecUtil.encodePkNo(siteId);
@@ -112,7 +110,9 @@ public class SiteServiceImple implements SiteService{
     }
 
     @Override
-    public void siteUpdate(HttpServletRequest request, String siteId, SiteDto siteDto, CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public void siteUpdate(HttpServletRequest request, String siteId, SiteDto siteDto, SiteCtiDto siteCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
         if(siteDto.getBsno1() != null && siteDto.getBsno2() != null && siteDto.getBsno3() != null){
             String bsNo = parameterUtil.columnUnion(siteDto.getBsno1(),siteDto.getBsno2(),siteDto.getBsno3());
             siteDto.setBsno(bsNo);
@@ -136,7 +136,9 @@ public class SiteServiceImple implements SiteService{
 
         String deSiteId = codecUtil.decodePkNo(siteId);
         siteDto.setSiteid(deSiteId);
-        ctiDto.setSiteid(deSiteId);
+        siteDto.setEdtuser(userNo);
+        siteCtiDto.setSiteid(deSiteId);
+        siteCtiDto.setEdtuser(userNo);
 
         siteDto.setEncodingSiteDto();
         siteDao.siteUpdate(siteDto);
@@ -144,13 +146,15 @@ public class SiteServiceImple implements SiteService{
         Map<String,Object> siteCtiDetail = siteDao.siteCtiDetail(deSiteId);
 
         if(siteCtiDetail == null){
-            ctiDto.setEncodingCtiDto();
-            siteDao.ctiInsert(ctiDto);
+            if(!siteCtiDto.getIp().equals("")){
+                siteCtiDto.setEncodingCtiDto();
+                siteDao.ctiInsert(siteCtiDto);
+            }
         }else{
             String ctiIp = siteCtiDetail.get("IP").toString();
-            if(!ctiIp.equals(ctiDto.getIp())){
-                ctiDto.setEncodingCtiDto();
-                siteDao.ctiUpdate(ctiDto);
+            if(!ctiIp.equals(siteCtiDto.getIp())){
+                siteCtiDto.setEncodingCtiDto();
+                siteDao.ctiUpdate(siteCtiDto);
             }
         }
     }

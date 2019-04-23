@@ -1,7 +1,6 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.dto.CtiDto;
-import com.crud.ideacrm.dto.KakaoDto;
+import com.crud.ideacrm.dto.SiteCtiDto;
 import com.crud.ideacrm.dto.SiteDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.SiteService;
@@ -69,7 +68,7 @@ public class SiteController {
 
     // master 회원사 추가
     @RequestMapping(value = "/common/site/input", method = RequestMethod.POST)
-    public ModelAndView authSiteInsertSet(HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authSiteInsertSet(HttpServletRequest request, @ModelAttribute SiteDto siteDto, @ModelAttribute SiteCtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
 
         String siteId = siteService.siteInsert(request,siteDto,ctiDto);
@@ -89,7 +88,7 @@ public class SiteController {
 
     //master 회원사 수정
     @RequestMapping(value="/common/site/modified/{siteId}",method=RequestMethod.POST)
-    public ModelAndView authSiteUpdateSet(HttpServletRequest request,@PathVariable String siteId,@ModelAttribute SiteDto siteDto,@ModelAttribute CtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+    public ModelAndView authSiteUpdateSet(HttpServletRequest request,@PathVariable String siteId,@ModelAttribute SiteDto siteDto,@ModelAttribute SiteCtiDto ctiDto) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         siteService.siteUpdate(request,siteId,siteDto,ctiDto);
         mView.setViewName("redirect:/common/site/"+siteId);

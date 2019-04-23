@@ -97,7 +97,7 @@
 
 	</insert>
 
-	<insert id="ctiInsert" parameterType="ctiDto">
+	<insert id="ctiInsert" parameterType="siteCtiDto">
 		INSERT INTO MA900011
 		(
 		SITEID,IP,SOCKETIP,PORT,TELNO
@@ -148,6 +148,17 @@
 		,MOBILE = #{mobile}
 		WHERE SITEID = #{siteid}
 
+	</update>
+
+	<update id="ctiUpdate" parameterType="siteCtiDto">
+		UPDATE MA900011
+		SET IP = #{ip}
+		,SOCKETIP = #{socketip}
+		,PORT = #{port}
+		,TELNO = #{telno}
+		,EDTUSER = #{edtuser}
+		,EDTDATE = now()
+		WHERE SITEID = #{siteid}
 	</update>
 	<insert id="kakaoInsert" parameterType="kakaoDto">
 		INSERT INTO MA900012

@@ -31,6 +31,22 @@
 							VALUES(#{siteid},#{licenseno},#{licensecnt},NOW(),#{reguser},NOW(),#{edtuser},#{isdelete})
 			ON DUPLICATE KEY UPDATE BUYCNT = #{licensecnt},EDTDATE = NOW(),EDTUSER = #{edtuser},ISDELETE = #{isdelete}
     </insert>
+    <select id="userLicenseList" parameterType="custDto" resultType="map">
+      SELECT * FROM ME810020 WHERE SITEID = #{siteid} and USERNO = #{userno} AND ISDELETE = 0
+    </select>
+
+    <select id="useSiteLicenseList" parameterType="int" resultType="map">
+        SELECT LICENSENO,LICENSENAME,BUYCNT,USECNT,TOTAL
+FROM (SELECT A.LICENSENO, A.LICENSENAME, B.BUYCNT, IFNULL(C.CNT, 0) AS USECNT, CASE WHEN IFNULL(C.CNT,0) >= B.BUYCNT THEN 0 ELSE 1 END AS TOTAL
+			FROM ma900020 A
+						 LEFT OUTER JOIN ME810010 B ON B.LICENSENO = A.LICENSENO
+						 LEFT OUTER JOIN (SELECT SITEID, COUNT(LICENSENO) AS CNT, LICENSENO
+															FROM ME810020
+															WHERE SITEID = #{siteid}
+															GROUP BY SITEID, LICENSENO) C ON C.LICENSENO = A.LICENSENO
+			where B.siteid = #{siteid}) X
+	WHERE X.TOTAL != 0;
+    </select>
 
 
 </mapper>

@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="mail-text h-200">
-                            <textarea id="content" name="content">
+                            <textarea class="tinymce" id="content" name="content">
                                 <c:if test="${not empty noteInfo.CONTENT}">
                                     <br/>
                                     ------------Original Message------------<br/>
@@ -120,18 +120,16 @@
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- Jasny -->
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qiomflc75y0odisulm50wv2jdwxsbp5opxqrombuvtzoqm4p"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
+
 <script src="${pageContext.request.contextPath}/resources/js/chosen.jquery.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
     $(document).ready(function() {
-        tinymce.init({
-            selector: '#content',
-            height : 400,
-            language:'ko_KR'
-        });
-
         $('.chosen-select').chosen(
             {
                 width:"100%",

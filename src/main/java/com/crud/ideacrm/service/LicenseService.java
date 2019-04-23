@@ -15,4 +15,10 @@ public interface LicenseService {
     public List<Map<String,Object>> siteLicenseDetail(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
 
     public void useLicenseInsert(HttpServletRequest request, UseLicenseDto useLicenseDto, String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public List<Map<String,Object>> userLicenseList(HttpServletRequest request, String userNo) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public List<Map<String,Object>> useSiteLicenseList(HttpServletRequest request);
+
+    public void userMenuInsert(HttpServletRequest request,String userNo) throws UnsupportedEncodingException, GeneralSecurityException;
 }

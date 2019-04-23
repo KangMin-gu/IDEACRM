@@ -3,12 +3,14 @@ package com.crud.ideacrm.service;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.dao.LicenseDao;
 import com.crud.ideacrm.dto.UseLicenseDto;
+import com.crud.ideacrm.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +57,55 @@ public class LicenseServiceImple implements LicenseService {
             useLicenseDto.setIsdelete(useLicenseDtoList.get(i).getIsdelete());
 
             licenseDao.siteLicenseInsert(useLicenseDto);
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> userLicenseList(HttpServletRequest request, String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        userNo = codecUtil.decodePkNo(userNo);
+
+        UserDto userDto = new UserDto();
+        userDto.setUserno(userNo);
+        userDto.setSiteid(siteId);
+
+        List<Map<String,Object>> userLicenseList = licenseDao.userLicenseList(userDto);
+
+        return userLicenseList;
+    }
+
+    @Override
+    public List<Map<String, Object>> useSiteLicenseList(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
+        List<Map<String,Object>> useSiteLicenseList = licenseDao.useSiteLicenseList(siteId);
+
+
+        return useSiteLicenseList;
+    }
+
+    @Override
+    public void userMenuInsert(HttpServletRequest request,String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int sessionUserNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        userNo = codecUtil.decodePkNo(userNo);
+
+        Map<String,Object> param = new HashMap<>();
+        param.put("siteid",siteId);
+        param.put("userno",userNo);
+        param.put("sessionuserno",sessionUserNo);
+
+        String license[] = request.getParameterValues("licenseno");
+
+
+        licenseDao.menuReset(param);
+        if(license == null){
+        }else{
+            int licenseSize = license.length;
+            for(int i=0;i < licenseSize; i ++){
+                param.put("licenseno",Integer.parseInt(license[i]));
+                licenseDao.menuInsert(param);
+            }
         }
     }
 }

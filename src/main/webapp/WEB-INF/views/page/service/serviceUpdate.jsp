@@ -453,8 +453,8 @@
 
                 <br/>
 
-                <input type="hidden" class="" name="serviceno" id="serviceno" value="${serviceInfo.SERVICENO}"/>
-                <input type="hidden" class="" name="servicestep" id="servicestep" value="${serviceInfo.SERVICESTEP}"/>
+                <input type="hidden" name="serviceno" id="serviceno" value="${serviceInfo.SERVICENO}"/>
+                <input type="hidden" name="servicestep" id="servicestep" value="${serviceInfo.SERVICESTEP}"/>
 
                 <c:choose>
                     <c:when test="${rewardInfo.REWARDNO eq null}">

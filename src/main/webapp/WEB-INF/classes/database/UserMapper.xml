@@ -62,6 +62,11 @@
 			AND A.USERNO = #{userno}
 	</select>
 
+	<select id="userCtiDetail" parameterType="userCtiDto" resultType="map">
+		SELECT * FROM ME800012
+		WHERE USERNO = #{userno}
+	</select>
+
 
 	<select id="userInfo" parameterType="int" resultType="hashMap">
 		SELECT A.USERID, A.USERPASSWORD, A.USERNAME, A.USERNO, A.SITEID, B.SITENAME,  A.EMAIL, B.CALLNAME, A.USERLANG, A.CHKAUTH, B.SITELOGO, B.SITENAME,B.MSGTELNO
@@ -101,6 +106,16 @@
 		,#{chkrole},0,#{mobile},#{telno})
 	</insert>
 
+	<insert id="userCtiInsert" parameterType="userCtiDto">
+		INSERT INTO ME800012
+		(USERNO,CTITELNO,CTIID,CTIPW
+		,REGUSER,REGDATE,EDTUSER,EDTDATE
+		)VALUES(
+		#{userno},#{ctitelno},#{ctiid},#{ctipw}
+		,#{reguser},now(),#{edtuser},now()
+		)
+	</insert>
+
 	<update id="userUpdate" parameterType="userDto">
 		UPDATE me800010
 		SET
@@ -133,6 +148,14 @@
 		,TELNO = #{telno}
 		WHERE USERNO = #{userno}
 		AND SITEID = #{siteid}
+	</update>
+
+	<update id="userCtiUpdate" parameterType="userCtiDto">
+		UPDATE ME800012
+		SET CTITELNO = #{ctitelno}
+		,CTIID = #{ctiid}
+		,CTIPW = #{ctipw}
+		WHERE USERNO = #{userno}
 	</update>
 
 	<select id="idCheck" parameterType="userDto" resultType="int">

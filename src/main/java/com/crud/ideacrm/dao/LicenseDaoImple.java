@@ -1,6 +1,7 @@
 package com.crud.ideacrm.dao;
 
 import com.crud.ideacrm.dto.UseLicenseDto;
+import com.crud.ideacrm.dto.UserDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,5 +29,27 @@ public class LicenseDaoImple implements LicenseDao{
     @Override
     public void siteLicenseInsert(UseLicenseDto useLicenseDto) {
         session.insert("license.siteInsert",useLicenseDto);
+    }
+
+    @Override
+    public List<Map<String, Object>> userLicenseList(UserDto userDto) {
+        List<Map<String,Object>> userLicenseList = session.selectList("license.userLicenseList",userDto);
+        return userLicenseList;
+    }
+
+    @Override
+    public List<Map<String, Object>> useSiteLicenseList(int siteId) {
+        List<Map<String,Object>> useSiteLicenseList = session.selectList("license.useSiteLicenseList",siteId);
+        return useSiteLicenseList;
+    }
+
+    @Override
+    public void menuReset(Map<String, Object> param) {
+        session.update("license.menuReset",param);
+    }
+
+    @Override
+    public void menuInsert(Map<String, Object> param) {
+        session.insert("license.menuInsert",param);
     }
 }

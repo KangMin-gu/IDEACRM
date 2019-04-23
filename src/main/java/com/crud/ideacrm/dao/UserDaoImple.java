@@ -1,5 +1,6 @@
 package com.crud.ideacrm.dao;
 
+import com.crud.ideacrm.dto.UserCtiDto;
 import com.crud.ideacrm.dto.UserDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,29 @@ public class UserDaoImple implements UserDao {
     }
 
     @Override
+    public void userCtiInsert(UserCtiDto userCtiDto) {
+        session.insert("user.userCtiInsert",userCtiDto);
+    }
+
+    @Override
     public Map<String, Object> userDetail(UserDto userDto) {
         Map<String,Object> userDetail = session.selectOne("user.userDetail",userDto);
         return userDetail;
     }
 
     @Override
+    public Map<String, Object> userCtiDetail(UserCtiDto userCtiDto) {
+        Map<String,Object> userCtiDetail = session.selectOne("user.userCtiDetail",userCtiDto);
+        return userCtiDetail;
+    }
+
+    @Override
     public void userUpdate(UserDto userDto) {
         session.update("user.userUpdate",userDto);
+    }
+
+    @Override
+    public void userCtiUpdate(UserCtiDto userCtiDto) {
+        session.update("user.userCtiUpdate",userCtiDto);
     }
 }

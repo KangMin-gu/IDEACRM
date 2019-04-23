@@ -1,6 +1,6 @@
 package com.crud.ideacrm.dao;
 
-import com.crud.ideacrm.dto.CtiDto;
+import com.crud.ideacrm.dto.SiteCtiDto;
 import com.crud.ideacrm.dto.KakaoDto;
 import com.crud.ideacrm.dto.SiteDto;
 
@@ -15,7 +15,7 @@ public interface SiteDao {
     public List<Map<String,Object>> siteKkoDetail(String siteId);
 
     public String siteInsert(SiteDto siteDto);
-    public void ctiInsert(CtiDto ctiDto);
+    public void ctiInsert(SiteCtiDto siteCtiDto);
     public void kakaoInsert(KakaoDto kakaoDto);
 
     public void siteUserInsert(SiteDto siteDto);
@@ -24,5 +24,5 @@ public interface SiteDao {
 
     public void siteDelete(String siteId);
 
-    public void ctiUpdate(CtiDto ctiDto);
+    public void ctiUpdate(SiteCtiDto siteCtiDto);
 }

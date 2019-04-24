@@ -59,7 +59,7 @@
 			AND A.SERVICEOWNER = #{serviceowner}
 		</if>
 		<if test="serviceowner_ != null">
-			AND IFNULL( (SELECT USERNAME FROM me800010 WHERE USERNO = A.SERVICENAME) ,'') LIKE CONCAT('%' , #{serviceowner_} , '%')
+			AND IFNULL( (SELECT USERNAME FROM me800010 WHERE USERNO = A.SERVICEOWNER) ,'') LIKE CONCAT('%' , #{serviceowner_} , '%')
 		</if>
 		<if test="owner != null">
 			AND A.OWNER = #{owner}

@@ -26,4 +26,6 @@ public interface SiteDao {
     public void siteDelete(String siteId);
 
     public void ctiUpdate(SiteCtiDto siteCtiDto);
+
+    public int siteMasterPassword(Map<String,Object> param);
 }

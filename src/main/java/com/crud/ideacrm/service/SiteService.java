@@ -26,4 +26,6 @@ public interface SiteService {
 
     public Map<String, Object> totalMoney(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
 
+    public int siteMasterPasswordReset(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException;
+
 }

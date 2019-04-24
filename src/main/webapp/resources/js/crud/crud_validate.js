@@ -9,6 +9,25 @@ $.validator.addMethod("url", function(value,element) {
     return this.optional(element) || /^[^((http(s?))\:\/\/)]([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/.test(value);
 },"URL을 올바로 입력해 주세요.(http://, https:// 문구 제외)");
 
+$.validator.addMethod( "notEqualTo", function( value, element, param ) {
+    return this.optional( element ) || !$.validator.methods.equalTo.call( this, value, element, param );
+}, "Please enter a different value, values must not be the same." );
+
+jQuery.validator.addMethod("testphone",
+    function(value, element, param) {
+        var boolean = true;
+        for (i = 0; i < $(param).length; i++) {
+            if ("" == $.trim($(param).eq(i).val())) {
+                boolean = false;
+            }
+        }
+        return this.optional(element) || boolean;
+    },
+    "전화번호 3자리를 모두 입력해주세요"
+);
+
+$.
+
 $.validator.addMethod(
     "testconnect",
     function (value, element) {
@@ -30,6 +49,10 @@ $.validator.addClassRules("url",{required:false, url: true});
 $.validator.addClassRules("name",{required: true, minlength: 2, maxlength:20});
 $.validator.addClassRules("password",{required: true, minlength: 8});
 $.validator.addClassRules("confirmpassword",{required: true, minlength: 8, equalTo: ".password"});
+$.validator.addClassRules("testphone",{minlength: 3, maxlength:4,testphone:".testphone" });
+
+
+//$.validator.addClassRules("notequal",{required: true, notEqualTo:"대상"});
 
 
 //한글 메시지 변경
@@ -83,6 +106,9 @@ validator = $("#command").validate({
         agree: "required",
         url:{
             url: true
+        },
+        nextowner:{
+            required:true
         }
 
     },
@@ -104,10 +130,7 @@ validator = $("#command").validate({
 
 function inputValidate(){
     var size = $('.input-tab-link').length;
-    var object = $('#command');
-    if(object.length == 0){
-        object = $('#multiFile');
-    }
+    var object = $('form');
 
     if(size != 0){
         for(var i=0;i<size;i++) {

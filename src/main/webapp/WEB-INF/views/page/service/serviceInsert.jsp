@@ -529,5 +529,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
 
+<script>
+</script>
 </body>
 </html>

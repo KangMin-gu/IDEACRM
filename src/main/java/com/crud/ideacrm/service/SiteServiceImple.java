@@ -260,4 +260,19 @@ public class SiteServiceImple implements SiteService{
 
         return total;
     }
+
+    @Override
+    public int siteMasterPasswordReset(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        siteId = codecUtil.decodePkNo(siteId);
+        String password = encoder.encode("crudsystem1008!");
+
+        Map<String,Object> param = new HashMap<>();
+        param.put("siteid",siteId);
+        param.put("password",password);
+
+        int cnt = siteDao.siteMasterPassword(param);
+
+
+        return cnt;
+    }
 }

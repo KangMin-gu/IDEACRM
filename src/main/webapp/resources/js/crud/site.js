@@ -93,3 +93,21 @@ $('.totalCnt').click(function(e){
     });
 
 });
+
+
+function masterPasswordReset(siteid){
+    var param = {"siteid":siteid}
+    $.ajax({
+        url: "/common/site/password/"+siteid,
+        method: "POST",
+        dataType: "json",
+        data:param,
+        cache: false,
+        success: function (data) {
+            alert("비밀번호가 초기화 되었습니다.");
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+}

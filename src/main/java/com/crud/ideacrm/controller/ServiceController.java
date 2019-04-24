@@ -65,6 +65,21 @@ public class ServiceController {
 
         return mView;
     }
+    @RequestMapping(value="/service/delivery/{serviceNo}",method=RequestMethod.GET)
+    public ModelAndView authServiceDeliveryDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+
+        mView.addObject("fileInfo",uploadDao.fileInfo(serviceService.serviceDetail(request,serviceNo)));
+        mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
+        mView.addObject("rewardInfo",serviceService.rewardDetail(request,serviceNo));
+        mView.addObject("ractInfo",serviceService.ractDetail(request,serviceNo));
+        mView.addObject("product",serviceService.productDetail(request,serviceNo));
+
+        mView.setViewName("page/service/serviceDetail");
+
+        return mView;
+    }
+
     // 서비스 수정 화면
     @RequestMapping(value="/service/modified/{serviceNo}",method=RequestMethod.GET)
     public ModelAndView authServiceUpdate(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {

@@ -130,4 +130,5 @@ public class ServiceDaoImple implements ServiceDao {
         List<Map<String,Object>> svCalRewardOwnerList = session.selectList("service.calRewardOwnerList",param);
         return svCalRewardOwnerList;
     }
+
 }

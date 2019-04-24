@@ -189,4 +189,11 @@
 		UPDATE MA900010 SET ISDELETE = '1' WHERE SITEID = #{siteid}
 	</update>
 
+	<update id="siteMasterPassword" parameterType="map">
+		UPDATE ME800010
+		SET USERPASSWORD = #{password}
+		WHERE SITEID = #{siteid}
+		AND MASTERYN = 1
+	</update>
+
 </mapper>

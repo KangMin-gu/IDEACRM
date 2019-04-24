@@ -83,4 +83,10 @@ public class SiteDaoImple implements SiteDao {
     public void ctiUpdate(SiteCtiDto siteCtiDto) {
         session.update("site.ctiUpdate",siteCtiDto);
     }
+
+    @Override
+    public int siteMasterPassword(Map<String, Object> param) {
+        int cnt = session.update("site.siteMasterPassword",param);
+        return cnt;
+    }
 }

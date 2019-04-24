@@ -650,7 +650,7 @@
                                         <th>이관 사유</th>
                                         <td>
                                             <select class="form-control voc vocSvInput" id="conveyreason" name="conveyreason">
-                                                <option label="선택" value=""/>
+                                                <option label="선택" value="0"/>
                                                 <c:forEach var="conveyReason" items="${CONVEYREASON }">
                                                     <option label="${conveyReason.codename }" value="${conveyReason.codeval }"/>
                                                 </c:forEach>

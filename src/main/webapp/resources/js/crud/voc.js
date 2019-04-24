@@ -693,7 +693,9 @@ $('#vocSave').click(
             var servicedesc = tinymce.activeEditor.getContent();
             var vocstep = $('.check:checked').val();
             var nextowner = $('#nextowner').val();
-            var conveyreason = $('#conveyreason').val();
+            if(!$('#conveyreason').val() == false ){
+                var conveyreason = $('#conveyreason').val();
+            }
             var conveydesc = $('[name="conveydesc"]:eq(0)').val();
             var reservphone = $('#reservphone').val();
             var reservdate = $('#reservdate').val();

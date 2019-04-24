@@ -99,7 +99,7 @@
                                         <i class="fa fa-bars" style=""></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="">분배</a></li>
+                                        <li><a href="" id="callDivide">분배</a></li>
                                         <li><a href="">운영관리</a></li>
                                         <li><a href="">콜통계</a></li>
                                         <li><a href="">콜이력</a></li>

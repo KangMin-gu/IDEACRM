@@ -3,6 +3,7 @@ package com.crud.ideacrm.service;
 import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.crud.util.Uplaod;
 import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dao.UserDao;
 import com.crud.ideacrm.dao.VocDao;
@@ -13,14 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class VocServiceImple implements VocService {
@@ -36,6 +36,10 @@ public class VocServiceImple implements VocService {
     private ServiceDao svDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private Uplaod uplaod;
+    @Autowired
+    private ServiceDao serviceDao;
 
 
     //고객 수정 실행
@@ -190,7 +194,9 @@ public class VocServiceImple implements VocService {
                     serviceMap.put("convey", vocDao.svTopConvey(searchPrm));
                 }
             }else if(serviceType == 2) {
-                serviceMap.put("reward", vocDao.svTopReward(searchPrm));
+                Map rewardMap = vocDao.svTopReward(searchPrm);
+                rewardMap = codecUtil.decodeMap(rewardMap);
+                serviceMap.put("reward", rewardMap);
             }
             serviceMap.put("product", vocDao.svProductRead(searchPrm));
 
@@ -349,6 +355,116 @@ public class VocServiceImple implements VocService {
             vocCallBackAutoDiv(request);
         }
         return cnt;
+    }
+
+    @Override
+    public String vocInsert(HttpServletRequest request, HttpServletResponse response, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto, ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        Map<String,Object> search = parameterUtil.searchParam(request);
+
+        serviceDto.setSiteid(siteId);
+        serviceDto.setEdtuser(userNo);
+        serviceDto.setReguser(userNo);
+        rewardDto.setSiteid(siteId);
+        rewardDto.setEdtuser(userNo);
+        ractDto.setSiteid(siteId);
+        ractDto.setEdtuser(userNo);
+        /* 첨부파일 */
+        List<MultipartFile> serviceFile = serviceDto.getFiles();
+        if(serviceFile  != null && serviceFile.size() > 0 && serviceFile.isEmpty() == false){
+            String fileSearchKey = uplaod.multiUpload(response, request, serviceFile);
+            serviceDto.setFilesearchkey(fileSearchKey);
+        }
+
+        String custNo = codecUtil.decodePkNo(serviceDto.getCustno());
+        serviceDto.setCustno(custNo);
+
+        serviceDto.setIsdelete(0);
+        String serviceNo = serviceDao.serviceInsert(serviceDto);
+        String visitDate = rewardDto.getVisitdate();
+
+        int rewardNo = rewardDto.getRewardno();
+
+        // 방문 일정이 잡히면 현상파악을 Insert 하게됨.
+        if(visitDate != null) {
+            if(visitDate.length() > 0) {
+                if(rewardNo != 0) {
+                    rewardDto.setServiceno(serviceNo);
+                    rewardDto.setEncodingRewardDto();
+                    serviceDao.rewardUpdate(rewardDto);
+                }else {
+                    rewardDto.setEncodingRewardDto();
+                    rewardDto.setServiceno(serviceNo);
+                    rewardDto.setReguser(userNo);
+                    serviceDao.rewardInsert(rewardDto);
+                    serviceDto.setServicestep(2);
+                    serviceDao.serviceStepUpdate(serviceDto);
+                }
+            }
+        }
+
+        String ractDate = ractDto.getRactdate();
+        int ractNo = ractDto.getRactno();
+
+        if(ractDate == null || ractDate.equals("")) {
+        }else{
+            if(ractNo != 0) {
+                ractDto.setServiceno(serviceNo);
+                serviceDao.ractUpdate(ractDto);
+            }else{
+                ractDto.setServiceno(serviceNo);
+                ractDto.setReguser(userNo);
+                serviceDao.ractInsert(ractDto);
+                serviceDto.setServicestep(3);
+                serviceDao.serviceStepUpdate(serviceDto);
+            }
+        }
+
+        int svStep = serviceDto.getServicestep();
+        if(svStep == 5 || svStep == 6){
+            serviceDeliveryDto.setServiceno(serviceNo);
+            serviceDeliveryDto.setPrevowner(userNo);//voc에서 입력과 동시에 이관하기때문에 이전담당자는 로그인 회원
+            serviceDeliveryDto.setReguser(userNo);
+            serviceDeliveryDto.setEdtuser(userNo);
+            serviceDeliveryDto.setSiteid(siteId);
+            vocDao.conveyInsert(serviceDeliveryDto);
+        }
+
+        int cnt = 0;
+        Map<String,Object> map = new HashMap();
+        TreeMap<String,Object> treeMap = new TreeMap<String,Object>(search);
+
+        String key;
+        String value;
+
+        Iterator<String> keyiterator = treeMap.keySet().iterator();
+        map.put("siteid", siteId);
+        map.put("reguser", userNo);
+        map.put("edtuser", userNo);
+        map.put("serviceno", serviceNo);
+        while(keyiterator.hasNext()) {
+            key = keyiterator.next().toString();
+            if(search.get(key) != null) {
+                value = search.get(key).toString();
+                if(key.contains("product")) {
+                    cnt ++;
+                    if(cnt == 1) {
+                        map.put("productb", value);
+                    }else if(cnt ==2) {
+                        map.put("productm", value);
+                    }else if(cnt ==3) {
+                        map.put("products", value);
+                        cnt = 0;
+                        serviceDao.serviceProductInsert(map);
+                    }
+                }
+            }
+        }
+        serviceNo = codecUtil.encodePkNo(serviceNo);
+        return serviceNo;
+
     }
 
 }

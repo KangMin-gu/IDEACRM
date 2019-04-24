@@ -501,9 +501,9 @@
                                     <tr>
                                         <th>접수구분</th>
                                         <td>
-                                            <div class="i-checks servicetype">
+                                            <div class="i-checks servicetype voc">
                                                 <c:forEach var="serviceType" items="${SERVICETYPE}">
-                                                    <label><input class="i-checks" type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                    <label><input class="i-checks " type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
                                                 </c:forEach>
                                             </div>
                                         </td>
@@ -512,7 +512,7 @@
                                         <th>접수유형</th>
                                         <td>
                                             <div style="display: inline-block;">
-                                                <select class="form-control form-control-sm vocSvInput" name="servicecode1" id="servicecode1">
+                                                <select class="form-control form-control-sm vocSvInput voc" name="servicecode1" id="servicecode1">
                                                     <option value="">선택</option>
                                                     <c:forEach var="serviceCode1" items="${SERVICECODE1}">
                                                         <option label="${serviceCode1.codename}" value="${serviceCode1.codeval}"></option>
@@ -520,7 +520,7 @@
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <select class="form-control form-control-sm vocSvInput" name="servicecode2" id="servicecode2" upper="servicecode1">
+                                                <select class="form-control form-control-sm vocSvInput voc" name="servicecode2" id="servicecode2" upper="servicecode1">
                                                     <option value="">선택</option>
                                                 </select>
                                             </div>
@@ -531,7 +531,7 @@
                                         <td>
                                             <div class="product">
                                                 <div style="display: inline-block">
-                                                    <select id="product11" name="product11" class="form-control" style="width: 150px";>
+                                                    <select id="product11" name="product11" class="form-control voc" style="width: 150px";>
                                                         <option value="">선택</option>
                                                         <c:forEach var="productB" items="${productB }">
                                                             <option label="${productB.prdname }" value="${productB.prdno }"/>
@@ -539,18 +539,18 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control vocSvInput" name="product12" id="product12" style="width: 250px;">
+                                                    <select class="form-control vocSvInput voc" name="product12" id="product12" style="width: 250px;">
                                                         <option value="">선택</option>
 
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control vocSvInput" name="product13" id="product13" style="width: 300px;">
+                                                    <select class="form-control vocSvInput voc" name="product13" id="product13" style="width: 300px;">
                                                         <option value="">선택</option>
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <button type="button" class="btn btn-default plus">추가</button>
+                                                    <button type="button" class="btn btn-default voc plus" disabled="disabled">추가</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -558,13 +558,13 @@
                                     <tr>
                                         <th>접수내용</th>
                                         <td>
-                                            <textarea name="servicename" id="servicename" class="form-control vocSvInput" style="resize: none;" rows="2"></textarea>
+                                            <textarea name="servicename" id="servicename" class="form-control vocSvInput voc" style="resize: none;" rows="2"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>상담 템플릿</th>
                                         <td>
-                                            <select class="form-control form-control-sm vocSvInput" name="" id="" style="height: 30px; width: 100px;">
+                                            <select class="form-control form-control-sm vocSvInput voc" name="" id="" style="height: 30px; width: 100px;">
                                                 <option value="">선택</option>
                                                 <option value="">031</option>
                                                 <option value="">017</option>
@@ -575,16 +575,16 @@
                                     <tr>
                                         <th>상담내용</th>
                                         <td>
-                                            <textarea class="tinymce vocSvInput" id="servicedesc" name="servicedesc"></textarea>
+                                            <textarea class="tinymce vocSvInput voc" id="servicedesc" name="servicedesc"></textarea>
                                         </td>
                                     </tr>
                                     <tr class="as">
                                         <th>방문일시</th>
                                         <td>
-                                            <div class="input-group" data-autoclose="true">
-                            			<span class="input-group-addon">
-                                    		<span class="fa fa-calendar"></span>
-                                		</span>
+                                            <div class="input-group voc" data-autoclose="true">
+                                                <span class="input-group-addon voc">
+                                                    <span class="fa fa-calendar"></span>
+                                                </span>
                                                 <input type="text" class="form-control voc vocSvInput"  readOnly="true" name="visitdate" id="visitdate" value="">
                                             </div>
                                         </td>
@@ -609,10 +609,10 @@
                                                     <div class="col-md-2"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr1" name="visitaddr1" readonly></div>
                                                     <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr2" name="visitaddr2" readonly></div>
                                                     <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr3" name="visitaddr3"></div>
-                                                    <div class="col-md-2"><button class="btn btn-white btn-sm daumzip" type="button" id="visitaddr">주소 검색</button></div>
+                                                    <div class="col-md-2"><button class="btn btn-white btn-sm daumzip voc" type="button" id="visitaddr">주소 검색</button></div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;margin-left: 0px;">
-                                                    <input type="checkbox" class="i-checks" value="1" id="addrsame" name="addrsame">
+                                                    <input type="checkbox" class="i-checks voc" value="1" id="addrsame" name="addrsame">
                                                     &nbsp;<label>고객주소와 동일</label>
                                                 </div>
                                             </div>
@@ -637,7 +637,7 @@
                                     <tr class="convey">
                                         <th>이관 담당자 </th>
                                         <td>
-                                            <div class="input-group owner" id="nextowner_">
+                                            <div class="input-group vocowner voc" id="nextowner_">
                                                 <input type="text" class="form-control voc vocSvInput" autocomplete="off" name="nextowner_" value="">
                                                 <input type="hidden" name="nextowner voc vocSvInput" id="nextowner" value="">
                                                 <span class="input-group-addon">
@@ -649,7 +649,7 @@
                                     <tr class="convey">
                                         <th>이관 사유</th>
                                         <td>
-                                            <select class="form-control voc vocSvInput" name="conveyreason">
+                                            <select class="form-control voc vocSvInput" id="conveyreason" name="conveyreason">
                                                 <option label="선택" value=""/>
                                                 <c:forEach var="conveyReason" items="${CONVEYREASON }">
                                                     <option label="${conveyReason.codename }" value="${conveyReason.codeval }"/>
@@ -663,10 +663,10 @@
                                             <textarea class="form-control voc vocSvInput" name="conveydesc" cols="80" rows="3"></textarea>
                                         </td>
                                     </tr>
-                                    <tr class="adminconvey">
+                                    <!--<tr class="adminconvey">
                                         <th>상급 담당자 </th>
                                         <td>
-                                            <div class="input-group adminowner" id="nextadminowner_">
+                                            <div class="input-group adminowner vocowner" id="nextadminowner_">
                                                 <input type="text" class="form-control voc vocSvInput" autocomplete="off" name="nextadminowner_" value="">
                                                 <input type="hidden" name="nextadminowner voc vocSvInput" id="nextadminowner" value="">
                                                 <span class="input-group-addon">
@@ -692,6 +692,7 @@
                                             <textarea disabled class="form-control voc vocSvInput" name="conveydesc" cols="80" rows="3"></textarea>
                                         </td>
                                     </tr>
+                                    -->
                                     <tr class="reservation">
                                         <th>예약 전화번호
                                         <td>
@@ -713,7 +714,7 @@
                                         <th>예약 시간
                                         <td>
                                             <div style="display: inline-block">
-                                                <select class="form-control" name="visitapm" id="visitapm" style="width:80px;">
+                                                <select class="form-control voc" name="visitapm" id="visitapm" style="width:80px;">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="apm" items="${APM}">
                                                         <option value="${apm.codeval}">${apm.codename}</option>
@@ -721,7 +722,7 @@
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <select class="form-control vocSvInput" name="visithour" id="visithour" style="width:70px;">
+                                                <select class="form-control voc vocSvInput" name="visithour" id="visithour" style="width:70px;">
                                                     <option value="">선택</option>
                                                     <c:forEach var="hour" items="${HOUR}">
                                                     <option value="${hour.codeval}">${hour.codename}</option>
@@ -730,7 +731,7 @@
                                             </div>
                                             <span style="display: inline-block">시</span>
                                             <div style="display: inline-block">
-                                                <select class="form-control vocSvInput" name="visitminute" id="visitminute" style="width:70px;">
+                                                <select class="form-control voc vocSvInput" name="visitminute" id="visitminute" style="width:70px;">
                                                     <option value="">선택</option>
                                                     <c:forEach var="minute" items="${MINUTE}">
                                                     <option value="${minute.codeval}">${minute.codename}</option>
@@ -743,7 +744,7 @@
                                     <tr>
                                         <th>메모</th>
                                         <td>
-                                            <textarea name="memo" id="memo" class="form-control vocSvInput" style="resize: none;" rows="4"></textarea>
+                                            <textarea name="memo" id="memo" class="form-control voc vocSvInput" style="resize: none;" rows="4"></textarea>
                                         </td>
                                     </tr>
                                 </table>

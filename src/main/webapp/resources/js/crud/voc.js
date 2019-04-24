@@ -1,3 +1,29 @@
+// 사용자 팝업
+$('.vocowner').click(function(e){
+    if( $('.vocowner').attr('disabled') != 'disabled' ){
+        openNewWindow('사용자','/popuser',e.currentTarget.id,650,700);
+    }
+});
+
+$('.asowner').click(function(e) {
+    var custName = $('#custname').val();
+    if (custName == "") {
+        e.preventDefault();
+        alert("고객이 선택되지 않았습니다. 고객을 선택해주세요");
+    } else {
+        openNewWindow('AS기사', '/voc/as/cal', e.currentTarget.id, 1200, 800);
+    }
+
+});
+
+$('#vocReset').click(function(){
+    vocServiceFieldReset();
+});
+
+$('.vocowner').click(function(e){
+
+});
+
 
 // 타이머
 function startInterval() {
@@ -191,7 +217,6 @@ function popVocCustNameClick(tr){
             vocCustFieldReset();// 필드값 초기화
             custFormActivation('update');// 파라미터에 따라 insert/ update 버튼을 생성
             custInfoBinding(data);//데이터 바인딩
-            vocServiceFieldReset();//서비스초기화
             vocGetServiceInfo('/voc/pop/service/'+custno);//최근 1건의 서비스 데이터 바인딩
             //블랙등록 고객이면 인풋창 css변경
             var blackCnt = data.BLACKCNT;
@@ -564,7 +589,13 @@ function vocGetServiceInfo(urlServ) {
         cache : false,
         async : false,
         success : function(data) {
-            serviceInfoBinding(data);// 바인딩
+            debugger;
+            if(!data.SERVICENO){//레코드가 0건이면 초기화
+                vocServiceFieldReset();
+            }else{
+                vocServiceFieldReset();
+                serviceInfoBinding(data);//레코드가 있다면 바인딩
+            }
         },
         error : function(request, status, error) {
             alert("code:" + request.status + "\n" + "message:"
@@ -574,7 +605,7 @@ function vocGetServiceInfo(urlServ) {
 }
 
 function serviceInfoBinding(data) {
-
+debugger;
     opener.$('input:radio[name="servicetype"]').each(
         function(index) {
             if (this.value == data.SERVICETYPE) {
@@ -598,18 +629,22 @@ function serviceInfoBinding(data) {
                     opener.$('input:radio[name="vocstep"]:eq('+ index + ')').iCheck('check');
                 }
             });
-        if (data.SERVICESTEP == 5) {
-            opener.$('#reservphone').val(data.reserv.MOBILENO);
-            opener.$('#reservdate').val(formatDate(data.reserv.RESERVDATE));
-            opener.$('#reservtimeto').val(data.reserv.RESERVTIMETO);
-            opener.$('#reservtimefrom').val(data.reserv.RESERVTIMEFROM);
-        } else if (data.SERVICESTEP == 6 || data.SERVICESTEP == 7) {
+        if (data.SERVICESTEP == 5 && !data.convey == false ) {//convey 객체에 값이 있다면 아래행 실행
             opener.$('#nextowner').val(data.convey.NEXTOWNER);
-            opener.$('#nextowner_').val(data.convey.NEXTOWNER_);
-            opener.$('[name="conveyreason"]').val(data.convey.CONVEYREASON);
+            opener.$('[name="nextowner_"]').val(data.convey.NEXTOWNER_);
+            opener.$('#conveyreason').val(data.convey.CONVEYREASON);
+            opener.$('[name="conveydesc"]').val(data.convey.CONVEYDESC);
+            // opener.$('#reservphone').val(data.reserv.MOBILENO);
+            // opener.$('#reservdate').val(formatDate(data.reserv.RESERVDATE));
+            // opener.$('#reservtimeto').val(data.reserv.RESERVTIMETO);
+            // opener.$('#reservtimefrom').val(data.reserv.RESERVTIMEFROM);
+        } else if (data.SERVICESTEP == 6 || data.SERVICESTEP == 7 && !data.convey == false) {
+            opener.$('#nextadminowner').val(data.convey.NEXTOWNER);
+            opener.$('#nextadminowner_').val(data.convey.NEXTOWNER_);
+            opener.$('#conveyreason').val(data.convey.CONVEYREASON);
             opener.$('[name="conveydesc"]').val(data.convey.CONVEYDESC);
         }
-    } else if (data.SERVICETYPE == 2) {
+    } else if (data.SERVICETYPE == 2 && !data.reward == false) {
         opener.$('#visitdate').val(data.reward.VISITDATE);
         opener.$('#visitaddr1').val(data.reward.VISITADDR1);
         opener.$('#visitaddr2').val(data.reward.VISITADDR2);
@@ -658,7 +693,7 @@ $('#vocSave').click(
             var servicedesc = tinymce.activeEditor.getContent();
             var vocstep = $('.check:checked').val();
             var nextowner = $('#nextowner').val();
-            var conveyreason = $('[name="conveyreason"]:eq(0)').val();
+            var conveyreason = $('#conveyreason').val();
             var conveydesc = $('[name="conveydesc"]:eq(0)').val();
             var reservphone = $('#reservphone').val();
             var reservdate = $('#reservdate').val();
@@ -684,7 +719,8 @@ $('#vocSave').click(
                 "servicetype" : servicetype,
                 "servicename" : servicename,
                 "servicedesc" : servicedesc,
-                "vocstep" : vocstep,
+                //"vocstep" : vocstep,
+                "servicestep" : vocstep,
                 "nextowner" : nextowner,
                 "conveyreason" : conveyreason,
                 "conveydesc" : conveydesc,
@@ -709,7 +745,8 @@ $('#vocSave').click(
             };
 
             // var productNum = $('.plus:last').prev().attr('id').substring(7, 8);
-            var productNum = $('.plus:last').parent().prev().find('.form-control').attr('id').substring(7, 8);
+            //var productNum = $('.plus:last').parent().prev().find('.form-control').attr('id').substring(7, 8);
+            var productNum = $('.product').length;
 
             for (var i = 1; i <= productNum; i++) {
                 var products = $('[id*="product' + i + '1"]').attr('id');
@@ -758,34 +795,25 @@ $('#vocSave').click(
 
 
 
-$('.asowner').click(function(e) {
-    var custName = $('#custname').val();
-    if (custName == "") {
-        e.preventDefault();
-        alert("고객이 선택되지 않았습니다. 고객을 선택해주세요");
-    } else {
-        openNewWindow('AS기사', '/voc/as/cal', e.currentTarget.id, 1200, 800);
-    }
-
-});
-
 
 $('.i-checks').on('ifChecked', function(event) {
+    debugger;
     var value = event.target.value;
     var name = event.target.name;
     if (name == 'vocstep') {
-        if (value == 6) {
+
+        if (value == 6) {//상급자이관
             $('.convey').show();
-            $('.adminconvey').hide();
+            //$('.adminconvey').show();
             $('.reservation').hide();
         } else if (value == 7) {
             $('.convey').hide();
             $('.adminconvey').show();
             $('.reservation').hide();
-        } else if (value == 5) {
-            $('.convey').hide();
+        } else if (value == 5) {//담당자이관
+            $('.convey').show();
             $('.adminconvey').hide();
-            $('.reservation').show();
+            $('.reservation').hide();
         } else {
             $('.convey').hide();
             $('.adminconvey').hide();
@@ -801,7 +829,11 @@ $('.i-checks').on('ifChecked', function(event) {
             $('.reservation').hide();
             $('.result').hide();
             $('.as').show();
+        }else{
+            $('.result').show();
+            $('.as').hide();
         }
+
     } else if (name == "addrsame") {
         $('#visitaddr1').val($('#homaddr1').val());
         $('#visitaddr2').val($('#homaddr2').val());
@@ -823,12 +855,20 @@ function productB() {
         dataType : "json",
         cache : false,
         success : function(data) {
-
-            for (i = 0; i < data.length; i++) {
-                $('.product select:first').append(
-                    '<option label="' + data[i].prdname + '" value="'
-                    + data[i].prdno + '"/>');
+            if(window.location.pathname == '/voc'){
+                for (i = 0; i < data.length; i++) {
+                    $('.product select:first').append(
+                        '<option label="' + data[i].prdname + '" value="'
+                        + data[i].prdno + '"/>');
+                }
+            }else{
+                for (i = 0; i < data.length; i++) {
+                    opener.$('.product select:first').append(
+                        '<option label="' + data[i].prdname + '" value="'
+                        + data[i].prdno + '"/>');
+                }
             }
+
         },
         error : function(request, status, error) {
             alert("code:" + request.status + "\n" + "message:"
@@ -975,11 +1015,11 @@ function formatDate(date) {
 
 
 $('#create').click(function() {
-
+debugger;
     $('.i-checks input').iCheck('uncheck');
     $('.i-checks input').iCheck('enable');
     $('.vocSvInput').val('');
-    $('.vocSvInput').attr('disabled',false);
+    $('.voc').attr('disabled',false);
     tinymce.activeEditor.setMode('design');
     tinymce.activeEditor.setContent('');
     $('#visitapm').val('0');
@@ -989,48 +1029,78 @@ $('#create').click(function() {
     $('.product').not(':first').remove();
     $('.product:first select').empty();
     $('.product:first select').append('<option label="선택" value=""></option>');
-    $('tbody .plus').attr('disabled', false);
+    //$('tbody .plus').attr('disabled', false);
     var productLength = $('.plus').length;
-    if(productLength == 0){
+    if(!productLength){
         $('.product').append('<button class="plus btn btn-default d-inline-block btn-sm mr-2">추가</button>');
     }
     productB();
 
-    $('#vocSave').show();
     $('#create').hide();
+    $('.plus').show();
+    $('#vocSave').show();
 });
 
 function vocServiceFieldReset(){
-    $('.convey').hide();
-    $('.adminconvey').hide();
-    $('.reservation').hide();
-    $('.as').hide();
-    $('#vocSave').hide();
+    if(window.location.pathname == '/voc'){
+        $('.convey').hide();
+        $('.adminconvey').hide();
+        $('.reservation').hide();
+        $('.as').hide();
+        $('#vocSave').hide();
 
-    $('.vocSvInput').val('');
-    $('.vocSvInput').attr('disabled', true);
-    $('.i-checks input').iCheck('uncheck');
-    $('.i-checks input').iCheck('disable');
+        $('.vocSvInput').val('');
+        $('.voc').attr('disabled',true);
+        $('.i-checks input').iCheck('uncheck');
+        $('.i-checks input').iCheck('disable');
 
-    tinymce.activeEditor.setMode('design');
-    tinymce.activeEditor.setContent('');
+        tinymce.activeEditor.setContent('');
+        tinymce.activeEditor.setMode('readonly');
 
-    $('#visitapm').val('0');
+        $('#visitapm').val('0');
+        $('#nextowner').val('0');
+        $('#conveyreason').val('0');
 
+        $('.product').not(':first').remove();
+        $('.product:first select').empty();
+        $('.product:first select').append('<option label="선택" value=""></option>');
+        var productLength = $('.plus').length;
+        if(!productLength){
+            $('.product').append('<button class="plus voc btn btn-default d-inline-block btn-sm mr-2" disabled="disabled">추가</button>');
+        }
+        productB();
 
-    $('.product').not(':first').remove();
-    $('.product:first select').empty();
-    $('.product:first select').append('<option label="선택" value=""></option>');
-    $('tbody .plus').attr('disabled', false);
-    var productLength = $('.plus').length;
-    if(productLength == 0){
-        $('.product').append('<button class="plus btn btn-default d-inline-block btn-sm mr-2">추가</button>');
+        $('#vocSave').hide();
+        $('#create').show();
+    }else{
+        opener.$('.convey').hide();
+        opener.$('.adminconvey').hide();
+        opener.$('.reservation').hide();
+        opener.$('.as').hide();
+        opener.$('#vocSave').hide();
+
+        opener.$('.vocSvInput').val('');
+        opener.$('.voc').attr('disabled',true);
+        opener.$('.i-checks input').iCheck('uncheck');
+        opener.$('.i-checks input').iCheck('disable');
+
+        opener.tinymce.activeEditor.setContent('');
+        opener.tinymce.activeEditor.setMode('readonly');
+
+        opener.$('#visitapm').val('0');
+        opener.$('#nextowner').val('0');
+        opener.$('#conveyreason').val('0');
+
+        opener.$('.product').not(':first').remove();
+        opener.$('.product:first select').empty();
+        opener.$('.product:first select').append('<option label="선택" value=""></option>');
+        var productLength = opener.$('.plus').length;
+        if(!productLength){
+            opener.$('.product').append('<button class="plus voc btn btn-default d-inline-block btn-sm mr-2" disabled="disabled">추가</button>');
+        }
+        productB();
+        opener.$('#vocSave').hide();
+        opener.$('#create').show();
     }
-    productB();
-
-    $('#create').show();
 }
 
-$('#vocReset').click(function(){
-    vocServiceFieldReset();
-});

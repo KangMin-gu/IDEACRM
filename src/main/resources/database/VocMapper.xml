@@ -259,18 +259,6 @@
 		)
 	</insert>
 
-	<!-- 최근 한건의 상담 접수
-	<select id="topList" parameterType="hashMap" resultType="hashMap">
-		SELECT SERVICENO,SERVICETYPE,SERVICESTEP,SERVICEDESC,MEMO,SERVICENAME
-				,SERVICECODE1
-				, FN_GETCODEUPPER('SERVICECODE2',SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',SERVICECODE1,#{siteid})) AS SERVICECODE2
-		 FROM sv300010
-		WHERE SITEID = #{siteid}
-		AND CUSTNO = #{custno}
-		order by SERVICENO DESC
-		LIMIT 1
-	</select> -->
-	<!-- 최근 한건의 상담 접수-->
 	<select id="topList" parameterType="hashMap" resultType="hashMap">
 		SELECT SERVICENO,SERVICETYPE,SERVICESTEP,SERVICEDESC,MEMO,SERVICENAME
 				,SERVICECODE1
@@ -303,7 +291,8 @@
 	<!--  최근 한건의 현상파악 -->
 	<select id="topReward" parameterType="hashMap" resultType="hashMap">
 		SELECT DATE_FORMAT(A.VISITDATE,'%Y-%m-%d') AS VISITDATE,A.VISITADDR1,A.VISITADDR2,A.VISITADDR3,A.OWNER
-				,(SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS OWNER_ FROM sv300030 A
+				,(SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS OWNER_
+		FROM sv300030 A
 		WHERE A.SITEID = #{siteid}
 		AND A.SERVICENO = #{serviceno}
 		ORDER BY A.REWARDNO DESC
@@ -440,19 +429,14 @@
 			,NOW()
 			,#{edtuser}
 			,#{siteid}
-			);
+			)
 
 			UPDATE sv300010
 			SET OWNER = #{nextowner}
 				,EDTDATE = NOW()
 				,EDTUSER = #{edtuser}
 			WHERE SERVICENO = #{serviceno}
-			AND SITEID = #{siteid};
-
-			UPDATE sv300010
-			SET SERVICESTEP = 5
-			WHERE SERVICENO = #{serviceno}
-			AND SITEID = #{siteid};
+			AND SITEID = #{siteid}
 	</insert>
 
 	<insert id="endCall" parameterType="hashMap">

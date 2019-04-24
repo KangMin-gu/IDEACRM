@@ -240,8 +240,10 @@ public class VocController {
     // voc 서비스 추가
     @RequestMapping(value="/voc/service/input",method=RequestMethod.POST)
     @ResponseBody
-    public String vocServiceInsertSet(HttpServletRequest request, HttpServletResponse response, @ModelAttribute ServiceDto serviceDto, @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
-        String serviceNo = serviceService.serviceInsertUpdate(request, response,serviceDto,rewardDto,ractDto);
+    public String vocServiceInsertSet(HttpServletRequest request, HttpServletResponse response, @ModelAttribute ServiceDto serviceDto
+                                        , @ModelAttribute RewardDto rewardDto, @ModelAttribute RactDto ractDto
+                                        , @ModelAttribute ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        String serviceNo = vocService.vocInsert(request, response,serviceDto,rewardDto,ractDto,serviceDeliveryDto);
         return "{\"SERVICENO\":\""+serviceNo+"\"}";
     }
 

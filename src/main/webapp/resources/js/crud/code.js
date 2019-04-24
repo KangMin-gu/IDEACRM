@@ -42,7 +42,7 @@ var QueryString = '/company/code';
 
 $('#cancel').click(function (e) {
     var codeNo = $('#codeno').val();
-    if(codeNo == undefined){
+    if(codeNo == ""){
         btnFirst();
     }else{
         $.ajax({
@@ -51,7 +51,6 @@ $('#cancel').click(function (e) {
             dataType: "json",
             cache: false,
             success: function (data) {
-
                 $('.body #viewcodegrp').val(data.CODEGRP);
                 $('.body #viewcodename').val(data.CODENAME);
                 $('.body #viewcodeval').val(data.CODEVAL);
@@ -134,32 +133,33 @@ $('#save').click(function(e){
 
 });
 $(".footable").on("click.ft.row",function(obj,e,ft,row) {
-    debugger;
     var pathUrl = window.location.pathname;
-    if(pathUrl =='/popuppercode'){
-        popParentNameClick($(obj.target.parentElement));
-    }else{
-        var id = $(obj.target.parentElement).children().eq(0).text();
-        if(id.length > 5 && id.indexOf(" ")<0) {
-            $('#codeno').val(id);
-            btnRead();
-            $.ajax({
-                url: QueryString + "/" + id,
-                method: "GET",
-                dataType: "json",
-                cache: false,
-                success: function (data) {
+    if($(obj.target.parentElement.parentElement).is('tbody')) {
+        if (pathUrl == '/popuppercode') {
+            popParentNameClick($(obj.target.parentElement));
+        } else {
+            var id = $(obj.target.parentElement).children().eq(0).text();
+            if (id.length > 5 && id.indexOf(" ") < 0) {
+                $('#codeno').val(id);
+                btnRead();
+                $.ajax({
+                    url: QueryString + "/" + id,
+                    method: "GET",
+                    dataType: "json",
+                    cache: false,
+                    success: function (data) {
 
-                    $('.body #viewcodegrp').val(data.CODEGRP);
-                    $('.body #viewcodename').val(data.CODENAME);
-                    $('.body #viewcodeval').val(data.CODEVAL);
-                    $('.body #viewuppercodegrp').val(data.UPPERCODEGRP);
-                    $('.body #viewuppercodegrp_').val(data.UPPERCODEGRP_);
-                },
-                error: function (request, status, error) {
-                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            });
+                        $('.body #viewcodegrp').val(data.CODEGRP);
+                        $('.body #viewcodename').val(data.CODENAME);
+                        $('.body #viewcodeval').val(data.CODEVAL);
+                        $('.body #viewuppercodegrp').val(data.UPPERCODEGRP);
+                        $('.body #viewuppercodegrp_').val(data.UPPERCODEGRP_);
+                    },
+                    error: function (request, status, error) {
+                        alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                    }
+                });
+            }
         }
     }
 });

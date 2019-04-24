@@ -45,8 +45,8 @@ function licenseInsertPage(siteId){
                     if (data[i].LICENSENO ==$('input[name="useLicenseDtoList['+j+'].licenseno"]').val()){
                         $('[name="useLicenseDtoList['+j+'].isdelete"]').val(data[i].ISDELETE).prop('selected',true);
                         $('[name="useLicenseDtoList['+j+'].licensecnt"]').val(data[i].BUYCNT).prop('selected',true);
-                        $('input[name="useLicenseDtoList['+j+'].licenseno"]').parent().parent().find('[name="edtdate"]').text(data[i].EDTDATE);
-                        $('input[name="useLicenseDtoList['+j+'].licenseno"]').parent().parent().find('[name="usecnt"]').text(data[i].USECNT);
+                        $('input[name="useLicenseDtoList['+j+'].licenseno"]').parent().find('[name="edtdate"]').text(data[i].EDTDATE);
+                        $('input[name="useLicenseDtoList['+j+'].licenseno"]').parent().find('[name="usecnt"]').text(data[i].USECNT);
                         totalUseCnt = totalUseCnt + data[i].USECNT;
                     }
                 }

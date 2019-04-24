@@ -68,7 +68,7 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">사용자명</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="username" id="username" value="${userInfo.USERNAME}" class="form-control form-control-sm">
+                                                <input type="text" name="username" id="username" value="${userInfo.USERNAME}" class="form-control form-control-sm name">
                                             </div>
                                             <label class="col-sm-2 col-form-label">ID</label>
                                             <div class="col-sm-4">
@@ -120,8 +120,11 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" value="${userInfo.MOBILE2}" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" value="${userInfo.MOBILE3}" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" minlength="3" maxlength="4" value="${userInfo.MOBILE2}" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" minlength="3" maxlength="4" value="${userInfo.MOBILE3}" class="form-control form-control-sm"></div>
+                                                    <div>
+                                                        <label class="error" for="mobile1"></label><label class="error" for="mobile2"></label><label class="error" for="mobile3"></label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <label class="col-sm-2 col-form-label">전화번호</label>
@@ -142,8 +145,11 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" name="telno2" id="telno2" value="${userInfo.TELNO2}" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" name="telno3" id="telno3" value="${userInfo.TELNO3}" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" name="telno2" id="telno2" minlength="3" maxlength="4" value="${userInfo.TELNO2}" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" name="telno3" id="telno3" minlength="3" maxlength="4" value="${userInfo.TELNO3}" class="form-control form-control-sm"></div>
+                                                    <div>
+                                                        <label class="error" for="telno1"></label><label class="error" for="telno2"></label><label class="error" for="telno3"></label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

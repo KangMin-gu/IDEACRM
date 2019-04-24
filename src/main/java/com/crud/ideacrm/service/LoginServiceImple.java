@@ -5,6 +5,7 @@ import com.crud.ideacrm.crud.dto.ContactInfoDto;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ContactInfo;
 import com.crud.ideacrm.crud.util.LoginManager;
+import com.crud.ideacrm.dao.LicenseDao;
 import com.crud.ideacrm.dao.LoginDao;
 import com.crud.ideacrm.dto.UserDto;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -36,14 +38,22 @@ public class LoginServiceImple implements LoginService{
     @Autowired
     private CodecUtil codecUtil;
 
+    @Autowired
+    private LicenseDao licenseDao;
+
     @Override
     public ModelAndView login(HttpServletResponse response, HttpServletRequest request, UserDto urDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        String licenseVal="";
         LoginManager loginManager = LoginManager.getInstance();
         String location=request.getRequestURI();
         String url = request.getParameter("url");
         ModelAndView mView = new ModelAndView();
         StringBuffer buf = new StringBuffer();
         Map<String, Object> urInfo = login.getData(urDto.getUserid());
+        urDto.setSiteid(Integer.parseInt(urInfo.get("SITEID").toString()));
+        urDto.setUserno(urInfo.get("USERNO").toString());
+
+        List<Map<String,Object>> licenseInfo = licenseDao.userLicenseList(urDto);
         if(urInfo != null) {
             String userId = urInfo.get("USERID").toString();
             String pwd = urDto.getUserpassword();
@@ -90,6 +100,21 @@ public class LoginServiceImple implements LoginService{
                 request.getSession().setAttribute("ENCUSERNO",encUserNo); // 암호화된 userNo
                 request.getSession().setAttribute("ENCSITEID",encSiteId); // 암호화된 siteId
                 request.getSession().setAttribute("SIDESTATES","1");
+
+                for(int i=0; i<licenseInfo.size(); i++) {
+                     licenseVal = licenseInfo.get(i).get("LICENSENO").toString();
+                    if(licenseVal.equals("1")){
+                        request.getSession().setAttribute("cust", licenseVal);
+                    }else if(licenseVal.equals("2")){
+                        request.getSession().setAttribute("account", licenseVal);
+                    }else if(licenseVal.equals("3")){
+                        request.getSession().setAttribute("service", licenseVal);
+                    }else if(licenseVal.equals("4")){
+                        request.getSession().setAttribute("campaign", licenseVal);
+                    }else if(licenseVal.equals("5")){
+                        request.getSession().setAttribute("voc", licenseVal);
+                    }
+                }
 
                 ContactInfo ci = new ContactInfo();
                 ContactInfoDto ciDto = ci.agentInfo(request);

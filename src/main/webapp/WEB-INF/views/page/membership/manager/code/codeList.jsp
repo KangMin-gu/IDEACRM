@@ -54,11 +54,11 @@
                                         <col width="5%">
                                         <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                         <col width="5%">
-                                        <col width="20%%">
+                                        <col width="20%">
                                     </colgroup>
                                     <tbody>
                                     <tr>
@@ -80,7 +80,7 @@
                                                 <option label="선택" value=""></option>
                                                 <c:forEach var="allLicense" items="${allLicense}">
                                                     <c:forEach var="siteLicense" items="${siteLicense}">
-                                                        <c:if test="${allLicense.licenseno eq siteLicense.licenseno}">
+                                                        <c:if test="${allLicense.licenseno eq siteLicense.LICENSENO}">
                                                             <option label="${allLicense.licensename}" value="${allLicense.licenseno}"></option>
                                                         </c:if>
                                                     </c:forEach>
@@ -155,12 +155,12 @@
                             <h5>코드 등록</h5>
                         </div>
                         <div class="ibox-content body">
-                            <button type="button" class="btn btn-primary pull-right" id="delete" style="margin-bottom: 10px;  margin-left: 7px">삭제</button>
-                            <button type="button" class="btn btn-primary pull-right" id="cancel" style="margin-bottom: 10px;  margin-left: 7px">취소</button>
-                            <button type="button" class="btn btn-primary pull-right" id="update" style="margin-bottom: 10px;  margin-left: 7px">수정</button>
-                            <button type="button" class="btn btn-primary pull-right" id="save" style="margin-bottom: 10px;  margin-left: 7px">저장</button>
-                            <button type="button" class="btn btn-primary pull-right" id="create" style="margin-bottom: 10px;  margin-left: 7px">추가</button>
-                            <button type="button" class="btn btn-primary pull-right" id="bodyreset" style="margin-bottom: 10px; margin-left: 7px">초기화</button>
+                            <button type="button" class="btn btn-default pull-right" id="delete" style="margin-bottom: 10px;  margin-left: 7px">삭제</button>
+                            <button type="button" class="btn btn-default pull-right" id="cancel" style="margin-bottom: 10px;  margin-left: 7px">취소</button>
+                            <button type="button" class="btn btn-default pull-right" id="update" style="margin-bottom: 10px;  margin-left: 7px">수정</button>
+                            <button type="button" class="btn btn-default pull-right" id="save" style="margin-bottom: 10px;  margin-left: 7px">저장</button>
+                            <button type="button" class="btn btn-default pull-right" id="create" style="margin-bottom: 10px;  margin-left: 7px">추가</button>
+                            <button type="button" class="btn btn-default pull-right" id="bodyreset" style="margin-bottom: 10px; margin-left: 7px">초기화</button>
                                 <div class="table-responsive">
                                     <table class="table table-bordered" style="white-space:nowrap;">
                                         <colgroup>
@@ -201,7 +201,7 @@
                                                         <option label="선택" value="0"></option>
                                                         <c:forEach var="allLicense" items="${allLicense}">
                                                             <c:forEach var="siteLicense" items="${siteLicense}">
-                                                                <c:if test="${allLicense.licenseno eq siteLicense.licenseno}">
+                                                                <c:if test="${allLicense.licenseno eq siteLicense.LICENSENO}">
                                                                     <option label="${allLicense.licensename}" value="${allLicense.licenseno}"></option>
                                                                 </c:if>
                                                             </c:forEach>

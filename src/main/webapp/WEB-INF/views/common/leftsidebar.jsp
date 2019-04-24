@@ -34,13 +34,15 @@
                 <a href="${pageContext.request.contextPath}/"><i class="fa fa-th-large"></i> <span class="nav-label">메인</span></a>
             </li>
 
+            <c:if test="${sessionScope.cust eq '1' or sessionScope.CHKAUTH eq 30}">
             <li>
                 <a href="#"><i class="fa fa-users"></i> <span class="nav-label">고객관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="/cust">고객 관리</a></li>
                 </ul>
             </li>
-
+            </c:if>
+            <c:if test="${sessionScope.account eq '2' or sessionScope.CHKAUTH eq 30}">
             <li>
                 <a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">영업관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -49,7 +51,8 @@
                     <li><a href="${pageContext.request.contextPath}/sales/calendar">영업 일정</a></li>
                 </ul>
             </li>
-
+            </c:if>
+            <c:if test="${sessionScope.service eq '3' or sessionScope.CHKAUTH eq 30}">
             <li>
                 <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">서비스관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -58,7 +61,8 @@
                     <li><a href="${pageContext.request.contextPath}/service/calendar">서비스 일정</a></li>
                 </ul>
             </li>
-
+            </c:if>
+            <c:if test="${sessionScope.campaign eq '4' or sessionScope.CHKAUTH eq 30}">
             <li>
                 <a href="#"><i class="fa fa-envelope-o"></i> <span class="nav-label">캠페인</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -76,7 +80,8 @@
                     <li><a href="${pageContext.request.contextPath}/campaing/calendar">캠페인 일정</a></li>
                 </ul>
             </li>
-
+            </c:if>
+            <c:if test="${sessionScope.voc eq '5' or sessionScope.CHKAUTH eq 30}">
             <li>
                 <a href="#"><i class="fa fa-phone"></i> <span class="nav-label">콜센터</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -85,6 +90,7 @@
                     <li><a href="${pageContext.request.contextPath}/voc/notice">콜센터공지</a></li>
                 </ul>
             </li>
+            </c:if>
 
             <li>
                 <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">리포트</span><span class="fa arrow"></span></a>

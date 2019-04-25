@@ -288,7 +288,7 @@ public class UploadImple implements Uplaod {
             String filePath = realPath+File.separator;
             String saveFileName = fileSearchKey+"_"+userNo+"_"+orgFileName;
             String path = filePath + saveFileName;
-            String imgPath = logo+years+"/"+months+"/"+fileSearchKey+"_"+orgFileName;
+            String imgPath = logo+years+"/"+months+"/"+siteId+"/"+fileSearchKey+"_"+orgFileName;
 
             File file=new File(filePath);
             if(!file.exists()){

@@ -33,7 +33,7 @@ public class MailScheduler {
 
     //@Scheduled(cron="*/30 * * * * *")
     //@Scheduled(cron="0 0/5 * * * ?")//삭제 후 윗코드 주석 제거 요망
-    @Scheduled(cron="*/30 * * * * *")
+    @Scheduled(cron="*/10 * * * * *")
     public void sendmail() throws Exception {
         boolean isValid = false;
 
@@ -84,7 +84,7 @@ public class MailScheduler {
 
         // smtp 연결설정 192.168.0.32 / 182.231.77.200 / 192.168.219.102 //125.129.242.156
         Properties properties = new Properties();
-        properties.setProperty("mail.smtp.host", "211.233.81.190");
+        properties.setProperty("mail.smtp.host", "211.233.81.188");
         properties.setProperty("mail.smtp.port", "25");
         properties.setProperty("mail.transport.protocol", "smtp");
         properties.setProperty("mail.debug", "true");
@@ -102,6 +102,7 @@ public class MailScheduler {
             Multipart mp = new MimeMultipart();
             MimeBodyPart contentMimeBody = new MimeBodyPart();
             ((MimeMessage) message).setSubject(subject, "UTF-8");
+            message.setFrom(new InternetAddress(fromemail));
             contentMimeBody.setContent(content,"text/html; charset=UTF-8");
             contentMimeBody.setHeader("Content-Transfer-Encoding", "base64");
             mp.addBodyPart(contentMimeBody);

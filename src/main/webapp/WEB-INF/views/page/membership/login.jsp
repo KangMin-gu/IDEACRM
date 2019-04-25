@@ -72,10 +72,10 @@
                         <c:choose>
                             <c:when test="${fn:length(crudNotice.TITLE) > 14}">
                                 <c:if test="${crudNotice.REGDATE } "></c:if>
-                                <td><a href="/notice/${crudNotice.NTNUM}" style="text-decoration:none ; color:#000000;"><c:out value="${fn:substring(crudNotice.TITLE,0,30)}"/>....</a></td>
+                                <td><a href="#" onclick="noticeInfo(${crudNotice.NTNUM})" style="text-decoration:none ; color:#000000;"><c:out value="${fn:substring(crudNotice.TITLE,0,30)}"/>....</a></td>
                             </c:when>
                             <c:otherwise>
-                                <td><a href="/notice/${crudNotice.NTNUM}" style="text-decoration:none ; color:#000000;"><c:out value="${crudNotice.TITLE}"/></a></td>
+                                <td><a href="#" onclick="noticeInfo(${crudNotice.NTNUM})" style="text-decoration:none ; color:#000000;"><c:out value="${crudNotice.TITLE}"/></a></td>
                             </c:otherwise>
                         </c:choose>
                         <td>${crudNotice.REGDATE }</td>

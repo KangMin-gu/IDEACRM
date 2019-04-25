@@ -29,8 +29,8 @@
                 <li>
                     <a href="mailbox.html" class="dropdown-item">
                         <div>
-                            <i class="fa fa-envelope fa-fw"></i> You have 16 messages
-                            <span class="float-right text-muted small">4 minutes ago</span>
+                            <i class="fa fa-envelope fa-fw"></i> (주)크루드시스템 공지사항
+                            <span class="float-right text-muted small"><span class="label label-warning">12</span></span>
                         </div>
                     </a>
                 </li>
@@ -38,8 +38,8 @@
                 <li>
                     <a href="profile.html" class="dropdown-item">
                         <div>
-                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                            <span class="float-right text-muted small">12 minutes ago</span>
+                            <i class="fa fa-twitter fa-fw"></i> 콜센터 공지사항
+                            <span class="float-right text-muted small"><span class="label label-warning">12</span></span>
                         </div>
                     </a>
                 </li>
@@ -47,8 +47,8 @@
                 <li>
                     <a href="grid_options.html" class="dropdown-item">
                         <div>
-                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                            <span class="float-right text-muted small">4 minutes ago</span>
+                            <i class="fa fa-upload fa-fw"></i> 시스템 공지사항
+                            <span class="float-right text-muted small"><span class="label label-warning">12</span></span>
                         </div>
                     </a>
                 </li>

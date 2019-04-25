@@ -27,3 +27,7 @@ $('#allNoticeBtn').click(function(){
     window.open("/pop/notice", "공지사항","width=1200px, height=650px");
 });
 
+noticeInfo = function(ntNum){
+    window.open("/pop/notice/"+ntNum, "공지사항","width=1200px, height=650px");
+}
+

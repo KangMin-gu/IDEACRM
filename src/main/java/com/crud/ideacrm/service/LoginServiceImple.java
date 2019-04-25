@@ -69,6 +69,8 @@ public class LoginServiceImple implements LoginService{
                         loginManager.setSession(request.getSession(),urInfo.get("USERID").toString()); // 로그인정보 로그인매니저등록
                     }else {
                         loginManager.removeSession(userId);
+                        loginManager.setSession(request.getSession(),urInfo.get("USERID").toString()); // 로그인정보 로그인매니저등록
+                        /*
                         buf.append("<script>alert('이전 사용자를 로그아웃 합니다. 재 로그인 해주세요.'); location.href='");
                         buf.append(location);
                         buf.append("';</script>");
@@ -80,7 +82,7 @@ public class LoginServiceImple implements LoginService{
                             out.flush();
                         } catch (IOException e) {
                             e.printStackTrace();
-                        }
+                        }*/
                     }
                 }
             }
@@ -178,6 +180,7 @@ public class LoginServiceImple implements LoginService{
                 e.printStackTrace();
             }
         }
+        System.out.println("세션유지시간"+request.getSession().getMaxInactiveInterval());
         return mView;
     }
 

@@ -176,7 +176,7 @@
                         <div class="ibox-content">
                             <div>
                                 <div style="display: inline-block;">
-                                    <select class="form-control" id="paging" style="width:80px">
+                                    <select class="form-control" id="paging" style="margin-left:10px; width:80px">
                                         <c:forEach var="paging" items="${PAGING}">
                                             <option vale="${paging.codeval}">${paging.codename}</option>
                                         </c:forEach>

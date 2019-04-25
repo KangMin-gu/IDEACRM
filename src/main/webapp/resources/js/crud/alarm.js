@@ -75,3 +75,9 @@ $('#ins').click(function () {
     });
 
 })
+
+//미사용 1시간후 로그아웃
+setTimeout(function(){
+    alert("1시간동안 사용을 하지 않아 로그아웃되었습니다. 다시 로그인하시기 바랍니다.");
+    document.location.href="/logout";
+    }, 6000000);

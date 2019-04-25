@@ -97,7 +97,7 @@
                                         <th>접수유형</th>
                                         <td colspan="1">
                                             <div style="display: inline-block">
-                                                <select class="form-control " name="servicecode1" id="servicecode1" style="width: 100px;">
+                                                <select class="form-control searchparam" name="servicecode1" id="servicecode1" style="width: 100px;">
                                                     <option value="">선택</option>
                                                     <c:forEach var="serviceCode1" items="${SERVICECODE1}">
                                                         <option value="${serviceCode1.codeval}">${serviceCode1.codename}</option>
@@ -105,7 +105,7 @@
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <select class="form-control " name="servicecode2" id="servicecode2" upper ="servicecode1" style="width: 100px;">
+                                                <select class="form-control searchparam" name="servicecode2" id="servicecode2" upper ="servicecode1" style="width: 100px;">
                                                     <option value="">선택</option>
                                                 </select>
                                             </div>
@@ -154,7 +154,7 @@
                                         </td>
                                         <th>처리상태</th>
                                         <td>
-                                            <select class="form-control searchparam" name="servicestep" id="servicestep" style="width: 100px;">
+                                            <select class="form-control searchparam" name="servicestep" id="servicestep" style="width: 203px;">
                                                 <option value="">선택</option>
                                                 <c:forEach var="serviceStep" items="${SERVICESTEP}">
                                                     <option value="${serviceStep.codeval}">${serviceStep.codename}</option>

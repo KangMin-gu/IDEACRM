@@ -95,8 +95,6 @@
                                                         <span class="input-group-addon">
                                                             <a><i class="fa fa-search"></i></a>
                                                         </span>
-                                                    </div>
-                                                    <div>
                                                         <label class="error" for="custno_"></label>
                                                     </div>
                                                 </td>
@@ -395,7 +393,7 @@
                                                         <th>지연원인</th>
                                                         <td>
                                                             <select class="form-control" style="width:180px;" name="causecode" id="causecode">
-                                                                <option value="0">선택</option>
+                                                                <option value="0">지연없음</option>
                                                                 <c:forEach var="causeCode" items="${CAUSECODE}">
                                                                     <option value="${causeCode.codeval}">${causeCode.codename}</option>
                                                                 </c:forEach>
@@ -419,7 +417,7 @@
                                                             <textarea class="tinymce" id="rewarddesc"  name="rewarddesc"></textarea>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr class="delay" style="display: none">
                                                         <th>지연사유</th>
                                                         <td colspan="9">
                                                             <textarea name="delaydesc" id="delaydesc" class="form-control" style="resize: none;" rows="4"></textarea>
@@ -530,6 +528,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
 
 <script>
+
 </script>
 </body>
 </html>

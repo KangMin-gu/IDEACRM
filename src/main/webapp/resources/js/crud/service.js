@@ -175,6 +175,12 @@ $('#conveydate').change(function(e){
     dateCheck(date1,e);
 });
 
+$('#causecode').change(function(e){
+    if($(e.target).val() != 0){
+        $('.delay').show();
+    }
+});
+
 function dateCheck(date1,date2){
     if(date2.timeStamp - timestamp > 1600) {
         timestamp = date2.timeStamp;

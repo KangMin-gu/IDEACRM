@@ -30,6 +30,9 @@ public class ServiceExcel {
     @Autowired
     private ServiceDao serviceDao;
 
+    @Autowired
+    private ParameterUtil parameterUtil;
+
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceExcel.class);
 
@@ -37,11 +40,14 @@ public class ServiceExcel {
     @RequestMapping(value = "/serviceexcel", method = RequestMethod.GET)
     public void serviceExcel(HttpServletRequest request, HttpServletResponse response) {
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
-        ParameterUtil parameterUtil = new ParameterUtil();
         UploadUtil uploadUtil = new UploadUtil();
-        
+        String serviceStep1 = "";
+        String excelName="";
         Map<String, Object> searchVal = parameterUtil.searchParam(request);
         List<Map<String, Object>> serviceList = serviceDao.serviceList(searchVal);
+        if(searchVal.get("servicestep1") != null){
+            serviceStep1 = searchVal.get("servicestep1").toString();
+        }
 
         //SXSSF 방식 엑셀 생성 
         SXSSFWorkbook wb = new SXSSFWorkbook();
@@ -64,9 +70,16 @@ public class ServiceExcel {
         //Sheet sh = wb.createSheet("First sheet");
 
         cell = row.createCell(0);
-        cell.setCellValue("서비스목록");
+        if(serviceStep1.equals("")){
+            cell.setCellValue("서비스 목록");
+            excelName = "_서비스 목록";
+        }else{
+            cell.setCellValue("서비스 이관 목록");
+            excelName = "_서비스 이관 목록";
+        }
+
         cell.setCellStyle(columnColor);
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 8));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 7));
 
 
         row = sheet.createRow(1);
@@ -163,8 +176,9 @@ public class ServiceExcel {
             //여기서부터 다운로드 
             response.setHeader("Set-Cookie", "fileDownload=true; path=/");
             String fileDate = uploadUtil.fileSearchKey(request);
-            String excelfileName = fileDate+"_서비스목록.xlsx";
-            response.setHeader("Content-Disposition", String.format("attachment; filename=\""+excelfileName+"\""));
+
+            String excelfileName = fileDate+excelName;
+            response.setHeader("Content-Disposition", "attachment;filename="+new String(excelfileName.getBytes("euc-kr"),"8859_1")+".xlsx");
             wb.write(response.getOutputStream());
 
         } catch (Exception e) {

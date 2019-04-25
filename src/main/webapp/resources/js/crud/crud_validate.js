@@ -26,7 +26,6 @@ jQuery.validator.addMethod("testphone",
     "전화번호 3자리를 모두 입력해주세요"
 );
 
-$.
 
 $.validator.addMethod(
     "testconnect",

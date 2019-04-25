@@ -53,8 +53,6 @@ public class MailScheduler {
         mailVal.put("today",today);
         List<Map<String, Object>> list = mailDao.allTarget(mailVal);//미발송 메일 100건 리스트 긁어오기
 
-        System.out.println("test"+list.size());
-
         for(int i=0; i<list.size(); i++){
             String fromEmail = list.get(i).get("FROMEMAIL").toString(); //보낸이
             String toEmail =  list.get(i).get("TOEMAIL").toString(); //받는이
@@ -64,19 +62,14 @@ public class MailScheduler {
             String bccEmail =  (String) list.get(i).get("BCCEMAIL"); //숨은참조
             int emailLogId = Integer.parseInt(list.get(i).get("EMAILLOGID").toString()); //이메일로그
             String fileSearchKey = (String)list.get(i).get("FILESEARCHKEY");
-            String sendDate = list.get(i).get("RLTDATE").toString();
+            //String sendDate = list.get(i).get("RLTDATE").toString();
             emailDto.setEmaillogid(emailLogId);
 
-            System.out.println("fromEmail:" + fromEmail +"toEmail:"+toEmail+"subject:"+subject+"content:"+content);
-            System.out.println("ccEmail:" + ccEmail +"bccEmail:"+bccEmail+"semailLogId:"+emailLogId+"fileSearchKey:"+fileSearchKey+"sendDate:"+sendDate);
+            send(subject,fromEmail,content,toEmail,ccEmail,bccEmail,fileSearchKey);
+            isValid = true;
+            emailDto.setEmaillogid(emailLogId);
+            UpdateState(isValid, emailDto);
 
-            int compare = sendDate.compareTo(today);
-            if(compare == -1) {
-                send(subject,fromEmail,content,toEmail,ccEmail,bccEmail, fileSearchKey);
-                isValid = true;
-                emailDto.setEmaillogid(emailLogId);
-                UpdateState(isValid, emailDto);
-            }
         }
     }
 

@@ -166,9 +166,9 @@ public class UploadImple implements Uplaod {
                 } else if(url.contains(allnoticeTarget)){
                     realPath = request.getSession().getServletContext().getRealPath(allnotice + years + "/" + months + "/" + siteId);
                 }else if(url.equals(vocnoticeUrl)){
-                    realPath = request.getSession().getServletContext().getRealPath(vocnotice+years+"/"+months+"/"+siteId);
+                    realPath = request.getSession().getServletContext().getRealPath(vocnotice + years+"/"+months+"/"+siteId);
                 }else if(url.contains(vocNoticeTarget)){
-                    realPath = request.getSession().getServletContext().getRealPath(vocnotice+years+"/"+months+"/"+siteId);
+                    realPath = request.getSession().getServletContext().getRealPath(vocnotice + years+"/"+months+"/"+siteId);
                 }
 
                 String filePath = realPath+File.separator;
@@ -288,7 +288,7 @@ public class UploadImple implements Uplaod {
             String filePath = realPath+File.separator;
             String saveFileName = fileSearchKey+"_"+userNo+"_"+orgFileName;
             String path = filePath + saveFileName;
-            String imgPath = logo+years+"/"+months+"/"+siteId+"/"+fileSearchKey+"_"+orgFileName;
+            String imgPath = logo+years+"/"+months+"/"+siteId+"/"+saveFileName;
 
             File file=new File(filePath);
             if(!file.exists()){

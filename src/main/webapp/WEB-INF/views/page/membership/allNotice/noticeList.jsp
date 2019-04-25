@@ -36,7 +36,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>공지 목록</strong>
+                        <strong>IDEA 공지사항</strong>
                     </li>
                 </ol>
             </div>

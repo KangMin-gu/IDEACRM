@@ -36,7 +36,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/">공지사항 목록</a>
+                        <a href="${pageContext.request.contextPath}/">IDEA 공지사항</a>
                     </li>
                     <li class="breadcrumb-item">
                         <strong>공지사항 상세</strong>

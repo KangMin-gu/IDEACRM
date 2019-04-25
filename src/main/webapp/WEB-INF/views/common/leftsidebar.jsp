@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
@@ -34,8 +36,10 @@
                 <a href="${pageContext.request.contextPath}/"><i class="fa fa-th-large"></i> <span class="nav-label">메인</span></a>
             </li>
 
+            <c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
+
             <c:if test="${sessionScope.cust eq '1' or sessionScope.CHKAUTH eq 30}">
-            <li>
+            <li <c:if test="${fn:contains(pageScope.urls, 'cust')}"> class="active"</c:if>>
                 <a href="#"><i class="fa fa-users"></i> <span class="nav-label">고객관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="/cust">고객 관리</a></li>
@@ -43,7 +47,7 @@
             </li>
             </c:if>
             <c:if test="${sessionScope.account eq '2' or sessionScope.CHKAUTH eq 30}">
-            <li>
+            <li <c:if test="${fn:contains(pageScope.urls, 'sales')}"> class="active"</c:if>>
                 <a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">영업관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/sales">영업 관리</a></li>
@@ -53,7 +57,7 @@
             </li>
             </c:if>
             <c:if test="${sessionScope.service eq '3' or sessionScope.CHKAUTH eq 30}">
-            <li>
+            <li <c:if test="${fn:contains(pageScope.urls, 'service')}"> class="active"</c:if> >
                 <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">서비스관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/service">서비스 접수</a></li>
@@ -82,7 +86,7 @@
             </li>
             </c:if>
             <c:if test="${sessionScope.voc eq '5' or sessionScope.CHKAUTH eq 30}">
-            <li>
+            <li <c:if test="${fn:contains(pageScope.urls, 'voc')}"> class="active"</c:if>>
                 <a href="#"><i class="fa fa-phone"></i> <span class="nav-label">콜센터</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/voc/dashboard">콜센터</a></li>
@@ -103,7 +107,7 @@
                 </ul>
             </li>
 
-            <li>
+            <li <c:if test="${fn:contains(pageScope.urls, 'myinfo')}"> class="active"</c:if> >
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/inbox">내부통지</a></li>
@@ -114,7 +118,7 @@
                 </ul>
             </li>
             <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
-            <li>
+            <li <c:if test="${fn:contains(pageScope.urls, 'manager')}"> class="active"</c:if>>
                 <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
@@ -127,7 +131,7 @@
             </c:if>
 
             <c:if test="${sessionScope.CHKAUTH eq '30'}">
-            <li>
+            <li <c:if test="${fn:contains(pageScope.urls, 'master')}"> class="active"</c:if>>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">CRUD</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/common/site">회원사관리</a></li>

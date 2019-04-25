@@ -67,6 +67,8 @@ public class MailScheduler {
             String sendDate = list.get(i).get("RLTDATE").toString();
             emailDto.setEmaillogid(emailLogId);
 
+            System.out.println("fromEmail:" + fromEmail +"toEmail:"+toEmail+"subject:"+subject+"content:"+content);
+            System.out.println("ccEmail:" + ccEmail +"bccEmail:"+bccEmail+"semailLogId:"+emailLogId+"fileSearchKey:"+fileSearchKey+"sendDate:"+sendDate);
 
             int compare = sendDate.compareTo(today);
             if(compare == -1) {

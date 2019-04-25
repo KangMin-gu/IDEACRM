@@ -74,7 +74,7 @@ $('#ins').click(function () {
         }
     });
 
-})
+});
 
 //미사용 1시간후 로그아웃
 setTimeout(function(){

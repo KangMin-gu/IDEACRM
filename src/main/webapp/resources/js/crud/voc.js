@@ -883,7 +883,7 @@ function productB() {
 }
 
 
-// vocDetail화면의 Tab클릭 이벤트
+//vocDetail화면의 Tab클릭 이벤트
 $('.vocTabDetail').find('.nav-link').click(function(e){
     var obj = $(this);
     var bool = boolTimeDiff(obj);//동일 버튼 클릭 시간이 3초 미만이면 false 리턴

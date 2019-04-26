@@ -24,7 +24,6 @@
 </head>
 <body>
 
-
 <div id="wrapper" class="gray-bg">
     <div id="page-wrapper">
         <div class="ibox-top">
@@ -90,20 +89,28 @@
                                     <i class="fa fa-bell"></i>
                                     <span class="li-text">3</span>
                                 </li>
-                                <li class="ctibtn">
+                               <li class="ctibtn">
                                     <i class="fa fa-envelope"></i>
-                                    <span class="li-text">3</span>
+                                    <span class="li-text isnVal"></span>
                                 </li>
+                                <!--<li class="dropdown">
+                                    <a id="ins" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                        <i class="fa fa-envelope"></i>  <span class="label label-warning isnVal"></span>
+                                    </a>
+                                    <ul id="insNotRead" class="dropdown-menu dropdown-messages"></ul>
+                                </li>-->
                                 <li class="dropdown ctibtn">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;">
                                         <i class="fa fa-bars" style=""></i>
                                     </a>
+                                    <c:if test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
                                     <ul class="dropdown-menu">
-                                        <li><a href="" id="callDivide">분배</a></li>
-                                        <li><a href="">운영관리</a></li>
-                                        <li><a href="">콜통계</a></li>
-                                        <li><a href="">콜이력</a></li>
+                                        <li><a href="#" id="callDivide">분배</a></li>
+                                        <li><a href="#">운영관리</a></li>
+                                        <li><a href="#">콜통계</a></li>
+                                        <li><a href="#">콜이력</a></li>
                                     </ul>
+                                    </c:if>
                                 </li>
                                 <li>
                                     <span id="vocLogInSpan"><i class="fa fa-power-off" style="color:#d11507 ;" id="vocLogInBtn" onclick="vocLoginGo();"></i></span>
@@ -143,7 +150,7 @@
                                             <td class="p-xxs">
                                                 <input class="form-control form-control-sm" type="search" id="searchNumber" style="height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                             </td>
-                                            <th>고객명</th>
+                                            <th>고객명 </th>
                                             <td>
                                                 <div class="input-group" style="width:230px;">
                                                     <input class="form-control form-control-sm vocCustInput" id="custname" name="custname" type="text"/>
@@ -156,7 +163,7 @@
                                             <th>휴대전화</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control form-control-sm vocCustInput" name="mobile1" id="mobile1" style="width: 70px;height: 30px;padding-top: 2.5px;">
+                                                    <select class="form-control form-control-sm vocCustInput" name="mobile1" id="mobile1" style="width: 80px;height: 30px;padding-top: 2.5px;">
                                                         <option value="">선택</option>
                                                         <c:forEach var="mobile" items="${MOBILE}">
                                                             <option value="${mobile.codeval}">${mobile.codename}</option>
@@ -173,7 +180,7 @@
                                             <th>자택전화</th>
                                             <td>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control form-control-sm vocCustInput" name="homtel1" id="homtel1" style="width: 70px;height: 30px;padding-top: 2.5px;">
+                                                    <select class="form-control form-control-sm vocCustInput" name="homtel1" id="homtel1" style="width: 80px;height: 30px;padding-top: 2.5px;">
                                                         <option value="">선택</option>
                                                         <c:forEach var="phone" items="${PHONE}">
                                                             <option value="${phone.codeval}">${phone.codename}</option>
@@ -191,7 +198,7 @@
                                         <tr>
                                             <th>고객구분</th>
                                             <td>
-                                                <select class="form-control form-control-sm vocCustInput" name="custgubun" id="custgubun" style="height: 30px;">
+                                               <select class="form-control form-control-sm vocCustInput" name="custgubun" id="custgubun" >
                                                     <option value="0">선택</option>
                                                     <c:forEach var="custgubun" items="${CUSTGUBUN}">
                                                         <option value="${custgubun.codeval}">${custgubun.codename}</option>
@@ -217,7 +224,7 @@
                                             </td>
                                             <th>등급</th>
                                             <td>
-                                                <select class="form-control form-control-sm vocCustInput" name="custgrade" id="custgrade" style="height: 30px;">
+                                                <select class="form-control form-control-sm vocCustInput" name="custgrade" id="custgrade">
                                                     <option value="0">선택</option>
                                                     <c:forEach var="custgrade" items="${CUSTGRADE}">
                                                         <option value="${custgrade.codeval}">${custgrade.codename}</option>
@@ -294,7 +301,7 @@
                         <div class="ibox-content bot-cont">
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs vocTabDetail" role="tablist">
-                                    <li><a class="nav-link active" data-toggle="tab" href="#vocSvTab">서비스</a></li>
+                                    <li><a class="nav-link active" data-toggle="tab" href="#vocSvTab" name="vocSvTabBtn">서비스</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#vocBlackTab">강성이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#vocCallbackHistTab">콜백이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-4">SMS</a></li>
@@ -310,10 +317,12 @@
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="SERVICENO">서비스번호</th>
+                                                    <!--<th data-visible="false" data-name="SERVICENAME_">서비스명</th>
+                                                    <th data-formatter="vocSvTabFormatter">서비스명</th>-->
                                                     <th data-name="SERVICENAME_">서비스명</th>
                                                     <th data-name="SERVICETYPE_">접수유형</th>
                                                     <th data-name="CUSTNAME_">고객명</th>
-                                                    <th data-name="RECEPTIONDATE_">접수일</th>
+                                                    <th data-name="RECEPTIONDATE_" data-sorted="true" data-direction="DESC">접수일</th>
                                                     <th data-name="SERVICEOWNER_">접수자</th>
                                                     <th data-name="OWNER_">담당자</th>
                                                     <th data-name="SERVICESTEP_">처리상태</th>
@@ -336,8 +345,8 @@
                                             <table class="tabfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
                                                 <thead>
                                                 <tr>
-                                                    <th data-visible="false" data-name="BCUSTNO">서비스번호</th>
-                                                    <th data-name="REGDATE_">접수일시</th>
+                                                    <th data-visible="false" data-name="BCUSTNO">블랙번호</th>
+                                                    <th data-name="REGDATE_" data-sorted="true" data-direction="DESC">접수일시</th>
                                                     <th data-name="BLACKTYPE_">유형</th>
                                                     <th data-name="MEMO_">접수사유</th>
                                                     <th data-name="USERNAME">접수자</th>
@@ -367,7 +376,7 @@
                                                     <th data-visible="false" data-name="RECEXT"></th>
                                                     <th data-visible="false" data-name="RECFILENAME"></th>
                                                     <th data-visible="false" data-name="REQNO"></th>
-                                                    <th data-name="REGDATE_">통화일시</th>
+                                                    <th data-name="REGDATE_" data-sorted="true" data-direction="DESC">통화일시</th>
                                                     <th data-name="CALLBACK">콜백번호</th>
                                                     <th data-name="CALLER">발신자번호</th>
                                                     <th data-name="USERNAME">상담원</th>
@@ -448,7 +457,7 @@
                         <div class="ibox-content bot-cont">
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs detail" role="tablist">
-                                    <li><a class="nav-link active" data-toggle="tab" href="#callbackBottomTab">콜백 목록</a></li>
+                                    <li><a class="nav-link active" data-toggle="tab" href="#callbackBottomTab" name="callbackBottomTab">콜백 목록</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" id="callbackBottomTab" class="tab-pane active" url="/voc/tab/callback">
@@ -461,7 +470,7 @@
                                                         <th data-visible="false" data-name="CALLCOUNT"></th>
                                                         <th data-visible="false" data-name="CALLBACKNO"></th>
                                                         <th data-visible="false" data-formatter="callBackHiddenFormatter"></th>
-                                                        <th data-name="RECEIVEDATE_">접수일시</th>
+                                                        <th data-name="RECEIVEDATE_" data-sorted="true" data-direction="ASC">접수일시</th>
                                                         <th data-name="CALLBACK">콜백번호</th>
                                                         <th data-name="CALLER">발신번호</th>
                                                         <th data-formatter="callBtnFormatter">통화</th>
@@ -539,13 +548,13 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control vocSvInput voc" name="product12" id="product12" style="width: 250px;">
+                                                    <select class="form-control vocSvInput voc" name="product12" id="product12" style="width: 200px;">
                                                         <option value="">선택</option>
 
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <select class="form-control vocSvInput voc" name="product13" id="product13" style="width: 300px;">
+                                                    <select class="form-control vocSvInput voc" name="product13" id="product13" style="width: 200px;">
                                                         <option value="">선택</option>
                                                     </select>
                                                 </div>
@@ -564,7 +573,7 @@
                                     <tr>
                                         <th>상담 템플릿</th>
                                         <td>
-                                            <select class="form-control form-control-sm vocSvInput voc" name="" id="" style="height: 30px; width: 100px;">
+                                            <select class="form-control form-control-sm vocSvInput voc" name="" id="" style=" width: 100px;">
                                                 <option value="">선택</option>
                                                 <option value="">031</option>
                                                 <option value="">017</option>
@@ -752,9 +761,9 @@
                             <br/>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <button type="button" id="emailTemp" class="btn btn-default pull-left" style="margin-right: 9px;">EMAIL발송</button>
-                                    <button type="button" id="smsTemp" class="btn btn-default pull-left" style="margin-right: 9px;">SMS발송</button>
-                                    <button type="button" id="kakaoTemp" class="btn btn-default pull-left">KAKAO발송</button>
+                                    <button type="button" class="btn btn-default pull-left vocEmailBtn" style="margin-right: 9px;">EMAIL발송</button>
+                                    <button type="button" class="btn btn-default pull-left vocSmsBtn" style="margin-right: 9px;">SMS발송</button>
+                                    <button type="button" class="btn btn-default pull-left vocKakaoBtn">KAKAO발송</button>
 
                                     <button id="create" class="btn btn-default pull-right" style="margin-left: 9px;">추가</button>
                                     <button type="button" class="btn btn-primary pull-right" id="vocSave" style="margin-left: 9px;">저장</button>
@@ -783,9 +792,9 @@
                         <li class="call-tit">누적통화시간</li>
                         <li class="yellow"><strong><span id="sumCall">0</span></strong></li>
                         <li class="call-tit">CB</li>
-                        <li><strong><span id="callbackCnt"></span>0</strong></li>
+                        <li><strong><span id="callbackCnt"></span></strong></li>
                         <li class="call-tit">CB완료</li>
-                        <li><strong><span id="successCallback">0</span></strong></li>
+                        <li><strong><span id="successCallback"></span></strong></li>
                         <li class="call-tit">미처리</li>
                         <li><strong>0</strong></li>
                         <li class="call-tit">통화분배시도</li>
@@ -816,7 +825,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 <!-- FooTable -->
-<scripvoct src="${pageContext.request.contextPath}/resources/js/footable.min.js"></scripvoct>
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- daumAPI -->
@@ -832,19 +841,24 @@
 <script>
     $(document).ready(function(){
         $('.ctibtn').hide();
+        $('[name="callbackBottomTab"]').trigger('click');
         vocServiceFieldReset();
+        voc_send_message();
     });
 </script>
 
 <script>
-    $('#smsTemp').click(function(){
-        window.open("/voc/sms", "고객상세정보","width=400px, height=600px");
+    $('.vocEmailBtn').click(function(){
+        if( !$('#custno').val() == false )
+            window.open("/voc/pop/email", "고객상세정보", "width=1200px, height=900px");
     });
-    $('#emailTemp').click(function(){
-        window.open("/voc/email", "고객상세정보","width=1200px, height=900px");
+    $('.vocSmsBtn').click(function(){
+        if( !$('#custno').val() == false )
+            window.open("/voc/pop/sms", "고객상세정보","width=400px, height=600px");
     });
-    $('#kakaoTemp').click(function(){
-        window.open("/voc/kakao", "고객상세정보","width=400px, height=600px");
+    $('#vocKakaoBtn').click(function(){
+        if( !$('#custno').val() == false )
+            window.open("/voc/pop/kakao", "고객상세정보", "width=400px, height=600px");
     });
 </script>
 </body>

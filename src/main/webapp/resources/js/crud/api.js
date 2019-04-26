@@ -36,6 +36,7 @@ function footableSearchList(url) {
 }
 
 function tabFootableSearchList(id,url) {
+    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     if(page == undefined){
@@ -68,6 +69,7 @@ function tabFootableSearchList(id,url) {
     });
 };
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
+
     if($(obj.target.parentElement.parentElement).is('tbody')){
         if(globalUrl =='/popuser'){
             popParentNameClick($(obj.target.parentElement));

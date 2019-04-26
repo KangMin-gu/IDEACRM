@@ -862,6 +862,7 @@ function ctiEvent(msg){
 			});
 		}
 	}else if(tmpData[0] == "58") {
+		debugger;
 		var fileName = tmpData[8];
 		var fileNameArray = fileName.split('-');
 		$('#reqno').val(fileNameArray[0]+fileNameArray[1]);

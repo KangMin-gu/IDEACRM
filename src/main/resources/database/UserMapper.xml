@@ -161,4 +161,6 @@
 		WHERE USERID = #{userid}
 		AND SITEID = #{siteid}
 	</select>
+
+
 </mapper>

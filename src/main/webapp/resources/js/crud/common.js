@@ -6,6 +6,7 @@ $('.cust').click(function(e){
 
 // 사용자 팝업
 $('.owner').click(function(e){
+    debugger;
     if( e.target.classList.contains('dataCancle') == false ){
         openNewWindow('사용자','/popuser',e.currentTarget.id,650,700);
     }
@@ -14,7 +15,7 @@ $('.owner').click(function(e){
 //거래처 팝업
 $('.client').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
-        openNewWindow('사용자','/popaccount',e.currentTarget.id,650,700);
+        openNewWindow('거래처','/popaccount',e.currentTarget.id,650,700);
     }
 });
 // 초기화 버튼클릭(List)
@@ -62,6 +63,7 @@ function openNewWindow(name,url,target,x,y){
 
 // 팝업에서 tr 값 클릭 이벤트
 function popParentNameClick(tr){
+    debugger;
     var parentid = $('#parentid').val();
     opener.$('[name="'+parentid+'"]').next().val(tr.children().get(0).textContent);
     opener.$('[name="'+parentid+'"]').val(tr.children().get(1).textContent).trigger('keyup');

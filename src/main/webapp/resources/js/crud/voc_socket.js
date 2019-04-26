@@ -7,7 +7,6 @@ function voc_send_message(){
     };
 
     sock.onmessage = function(evt) {
-        var alarmJson = evt.data;
         var jData = JSON.parse(evt.data);
 
         var admincallbackcnt = jData.payload.ADMINCALLBACKCNT;//관리자 할당 해야 할 콜백 수

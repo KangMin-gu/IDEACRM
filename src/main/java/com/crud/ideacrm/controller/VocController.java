@@ -114,24 +114,24 @@ public class VocController {
         return "{\"CUSTNO\":\""+custNo+"\"}";
     }
 
-    @RequestMapping(value = "/voc/sms", method = RequestMethod.GET)
+    @RequestMapping(value = "/voc/pop/sms", method = RequestMethod.GET)
     public ModelAndView vocSmsPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/popup/smsPop");
+        mView.setViewName("page/popup/vocSmsPop");
         return mView;
     }
 
-    @RequestMapping(value = "/voc/kakao", method = RequestMethod.GET)
+    @RequestMapping(value = "/voc/pop/kakao", method = RequestMethod.GET)
     public ModelAndView vocKakaoPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/popup/kakaoPop");
+        mView.setViewName("page/popup/vocKakaoPop");
         return mView;
     }
 
-    @RequestMapping(value = "/voc/email", method = RequestMethod.GET)
+    @RequestMapping(value = "/voc/pop/email", method = RequestMethod.GET)
     public ModelAndView vocEmailPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/voc/pop/emailPop");
+        mView.setViewName("page/voc/pop/vocEmailPop");
         return mView;
     }
 
@@ -203,6 +203,7 @@ public class VocController {
     //VOC 녹취정보 저장
     @RequestMapping(value="/voc/rec", method=RequestMethod.POST)
     public void authVocRecInsert(HttpServletRequest request) {
+        System.out.println("rec controller");
         vocService.vocRecInsert(request);
     }
 
@@ -270,35 +271,36 @@ public class VocController {
     }
 
     //콜백분배 팝업
-    @RequestMapping(value="/voc/pop/callback", method=RequestMethod.GET)
+    @RequestMapping(value="/voc/pop/calldiv", method=RequestMethod.GET)
     public String authVocCallBackDiv(HttpServletRequest request) {
-        return "voc/pop/callbackDiv";
+        return "page/voc/pop/callbackDiv";
     }
+
     //분배할 콜백리스트
-    @RequestMapping(value="/voc/pop/callback", method=RequestMethod.POST)
+    @RequestMapping(value="/voc/pop/calldiv/call", method=RequestMethod.GET)
     @ResponseBody
-    public List<Map<String,Object>> authVocCallBackList(HttpServletRequest request){
-        List<Map<String,Object>> callBackList = vocService.vocPopCallBackList(request);
+    public Map<String,Object> authVocCallBackList(HttpServletRequest request){
+        Map<String,Object> callBackList = vocService.vocPopCallBackList(request);
         return callBackList;
     }
 
     //콜백 분배받을 유저 리스트
-    @RequestMapping(value="/voc/pop/callback/user", method=RequestMethod.POST)
+    @RequestMapping(value="/voc/pop/calldiv/user", method=RequestMethod.GET)
     @ResponseBody
-    public List<Map<String,Object>> authVocCallBackUserList(HttpServletRequest request){
-        List<Map<String,Object>> callBackUserList = vocService.vocCallBackUserList(request);
+    public Map<String,Object> authVocCallBackUserList(HttpServletRequest request){
+        Map<String,Object> callBackUserList = vocService.vocCallBackUserList(request);
         return callBackUserList;
     }
 
-    //콜백수동분배   todo.메소드타입설정. 유저넘버 어디서 얻어오는지 확인 필요
-    @RequestMapping(value="/voc/pop/callBack/pass",method=RequestMethod.GET)
+    //콜백수동분배
+    @RequestMapping(value="/voc/pop/calldiv/pass",method=RequestMethod.GET)
     @ResponseBody
     public int authVocCallPassDiv(HttpServletRequest request) {
         int cnt = vocService.vocCallBackPassDiv(request);
         return cnt;
     }
-    //콜백자동분배   todo.메소드타입설정. 유저넘버 어디서 얻어오는지 확인 필요
-    @RequestMapping(value="voc/pop/callBack/auto",method=RequestMethod.GET)
+    //콜백자동분배
+    @RequestMapping(value="/voc/pop/calldiv/auto",method=RequestMethod.GET)
     @ResponseBody
     public int authVocCallAtouDiv(HttpServletRequest request) {
         int cnt = vocService.vocCallBackAutoDiv(request);

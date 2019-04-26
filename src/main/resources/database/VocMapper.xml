@@ -213,7 +213,7 @@
 	</insert>
 
 	<!-- 녹취 추가 -->
-	<insert id="recInsert" parameterType="hashMap">
+	<insert id="vocRecInsert" parameterType="hashMap">
 	INSERT INTO CTI510030
 	(
 	REQNO
@@ -222,7 +222,7 @@
 	,RECFILENAME
 	)VALUES(
 	#{reqno}
-	,#{recdate}
+	,#{recdatefr}
 	,#{recext}
 	,#{recfilename}
 	)
@@ -430,13 +430,6 @@
 			,#{edtuser}
 			,#{siteid}
 			)
-
-			UPDATE sv300010
-			SET OWNER = #{nextowner}
-				,EDTDATE = NOW()
-				,EDTUSER = #{edtuser}
-			WHERE SERVICENO = #{serviceno}
-			AND SITEID = #{siteid}
 	</insert>
 
 	<insert id="endCall" parameterType="hashMap">
@@ -473,22 +466,36 @@
 	</insert>
 
 	<!--분배할 콜백리스트 -->
-	<select id="popCallBackList" parameterType="hashMap" resultType="hashMap">
-		SELECT
-		A.CALLBACKNO
-		,A.CALLER
-		,A.TRUNK
-		,A.CALLBACK
-		,DATE_FORMAT(A.RECEIVEDATE,'%Y-%m-%d') AS RECEIVEDATE_
-		,A.CALLCOUNT
-		,(SELECT USERNAME FROM ME800010 WHERE SITEID = 1 AND USERNO = A.CALLUSER) AS CALLUSER_
+	<select id="vocPopCallBackList" parameterType="hashMap" resultType="hashMap">
+        SELECT * FROM (
+            SELECT *,@RNUM:=@RNUM + 1 AS ROWNUM FROM (
+                SELECT
+                A.CALLBACKNO
+                ,A.CALLER
+                ,A.TRUNK
+                ,A.CALLBACK
+                ,DATE_FORMAT(A.RECEIVEDATE,'%Y-%m-%d') AS RECEIVEDATE_
+                ,A.CALLCOUNT
+                ,(SELECT USERNAME FROM ME800010 WHERE SITEID = 1 AND USERNO = A.CALLUSER) AS CALLUSER_
 
-		FROM CTI510010 A
-		WHERE
-			TRUNK = (SELECT CTITELNO FROM MA900010 WHERE SITEID = #{siteid})
-			AND (CALLUSER IS NULL
-			OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
-			AND CALLSTATUS IN (0,3)
+                FROM CTI510010 A
+                INNER JOIN (SELECT @RNUM := 0) R
+                WHERE TRUNK = (SELECT TELNO FROM MA900011 WHERE SITEID = #{siteid})
+                AND (CALLUSER IS NULL
+                OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
+                AND CALLSTATUS IN (0,3)
+                <if test="callBack != null">
+                    AND CALLBACK LIKE CONCAT('%',#{callBack},'%')
+                </if>
+                ORDER BY CALLBACKNO ASC
+                ) X
+          ) XX
+        <if test="endRowNum != null">
+        WHERE XX.ROWNUM Between #{startRowNum} and #{endRowNum}
+        </if>
+        <if test="totalCnt != null">
+            limit ${totalCnt}
+        </if>
 	</select>
 
 	<!-- 콜백분배 -->
@@ -514,7 +521,7 @@
 	<select id="vocCallBackTotalRow" parameterType="hashMap" resultType="int">
 		SELECT COUNT(*) FROM CTI510010
 		WHERE
-		TRUNK = (SELECT CTITELNO FROM MA900010 WHERE SITEID = #{siteid})
+		TRUNK = (SELECT TELNO FROM MA900011 WHERE SITEID = #{siteid})
 		AND (CALLUSER IS NULL
 		OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
 		AND CALLSTATUS IN (0,3)
@@ -525,16 +532,102 @@
 
 	<update id="vocCallBackDiv" parameterType="hashMap">
 	UPDATE CTI510010
-	SET
-	CALLSTATUS = #{callstatus}
-	,CALLCOUNT = IFNULL(CALLCOUNT,0) +1
-	,CALLUSER = #{userno}
-	,CALLDATE = now()
-
-	WHERE
-		CALLBACKNO = #{callbackno}
-		AND TRUNK = #{trunk}
+		SET CALLUSER = #{userNo}
+		, CALLSTATUS = 1
+		WHERE CALLBACKNO = #{callBackNo}
 	</update>
 
+    <select id="vocUserTotalRows" parameterType="hashMap" resultType="int">
+        SELECT count(*)
+        FROM me800010
+        WHERE SITEID = #{siteid}
+        AND ISDELETE = 0
+		AND IFNULL(CTIID,'') != ''
+		AND IFNULL(MASTERYN,0) != 1
+        <if test="username != null">
+            AND USERNAME LIKE CONCAT('%',#{username},'%')
+        </if>
+        <if test="mobile != null">
+            AND MOBILE LIKE CONCAT('%',#{mobile},'%')
+        </if>
+        <if test="userid != null">
+            AND USERID LIKE CONCAT('%',#{userid},'%')
+        </if>
+        <if test="isdelete != null">
+            AND ISDELETE = #{isdelete}
+        </if>
+        <if test="strdate != null">
+            AND REGDATE <![CDATA[>=]]>#{strdate}
+        </if>
+        <if test="enddate != null">
+            AND REGDATE <![CDATA[<=]]>#{enddate}
+        </if>
+        <if test="userNo != null">
+            AND USERNO = #{userNo}
+        </if>
+    </select>
 
+    <select id="vocUserList" parameterType="hashMap" resultType="hashMap">
+        SELECT * FROM (
+            SELECT *,@RNUM:=@RNUM + 1 AS ROWNUM FROM (
+            SELECT A.USERNO,A.USERNAME,A.USERID,A.EMAIL,A.USERDUTY
+            ,CASE WHEN A.ISDELETE = 0 THEN '사용'
+            WHEN A.ISDELETE = 1 THEN '미사용' END AS ISDELETE_
+            ,CASE WHEN DATE_FORMAT(A.REGDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
+            ELSE DATE_FORMAT(A.REGDATE,'%Y-%m-%d') END AS REGDATE
+            ,A.MOBILE1,A.MOBILE2,A.MOBILE3
+            ,CASE WHEN DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
+            ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
+            , CONCAT(A.MOBILE1, A.MOBILE2, A.MOBILE3) AS MOBILE
+            ,(SELECT COUNT(*) FROM CTI510010 WHERE CALLSTATUS = 1 AND CALLUSER = A.USERNO) AS CTICOUNT
+            FROM me800010 A
+            INNER JOIN (SELECT @RNUM := 0) R
+            WHERE A.SITEID = #{siteid}
+              AND A.ISDELETE = 0
+              AND IFNULL(A.CTIID,'') != ''
+              AND IFNULL(A.MASTERYN,0) != 1
+                <if test="username != null">
+                AND A.USERNAME LIKE CONCAT('%',#{username},'%')
+                </if>
+                <if test="mobile != null">
+                AND A.MOBILE LIKE CONCAT('%',#{mobile},'%')
+                </if>
+                <if test="userid != null">
+                AND A.USERID LIKE CONCAT('%',#{userid},'%')
+                </if>
+                <if test="isdelete != null">
+                AND A.ISDELETE = #{isdelete}
+                </if>
+                <if test="strdate != null">
+                AND DATE_FORMAT(REGDATE,'%Y-%m-%d') <![CDATA[>=]]> #{strdate}
+                </if>
+                <if test="enddate != null">
+                AND DATE_FORMAT(REGDATE,'%Y-%m-%d') <![CDATA[<=]]> #{enddate}
+                </if>
+                <if test="role != null">
+                AND ROLE = #{role}
+               </if>
+                <if test="userNo != null">
+                AND USERNO = #{userNo}
+                </if>
+
+              ORDER BY A.USERNO DESC
+            ) X
+        ) XX
+        <if test="endRowNum != null">
+        WHERE XX.ROWNUM Between #{startRowNum} and #{endRowNum}
+        </if>
+
+    </select>
+
+	<!-- voc 웹소켓. 사용자에게 할당된 콜백, 사용자가 처리한 콜백 수 리턴 -->
+	<select id="vocAlarm" parameterType="hashMap" resultType="hashMap">
+		SELECT
+		(SELECT COUNT(*) FROM CTI510010  WHERE IFNULL(CALLCOUNT,0) <![CDATA[<]]> 4 AND TRUNK = #{trunk} AND CALLUSER = #{userno} AND CALLSTATUS = 1 ) AS CALLBACKCNT
+		,(SELECT COUNT(*) FROM CTI510020 WHERE CALLSTATUS = 2 AND REGUSER = #{userno} AND TRUNK = #{trunk} AND SUBSTR(REGDATE,1,10) = SUBSTR(NOW(),1,10) ) AS SUCCESSCALLBACK
+		<if test="chkauth = 20">
+			,(SELECT COUNT(*) FROM CTI510010  WHERE IFNULL(CALLCOUNT,0) <![CDATA[<]]> 4 AND TRUNK = #{trunk} AND CALLSTATUS IN (0,3) ) AS ADMINCALLBACKCNT
+		</if>
+		FROM DUAL
+	</select>
 </mapper>

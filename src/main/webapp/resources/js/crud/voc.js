@@ -7,21 +7,22 @@ $('.vocowner').click(function(e){
 
 $('.asowner').click(function(e) {
     var custName = $('#custname').val();
-    if (custName == "") {
+    if (!custName) {
         e.preventDefault();
         alert("고객이 선택되지 않았습니다. 고객을 선택해주세요");
-    } else {
+    }else if( $('.asowner').attr('disabled') == 'disabled' ){
+        e.preventDefault();
+    }else {
         openNewWindow('AS기사', '/voc/as/cal', e.currentTarget.id, 1200, 800);
     }
-
 });
 
 $('#vocReset').click(function(){
     vocServiceFieldReset();
 });
 
-$('.vocowner').click(function(e){
-
+$('#callDivide').click(function(e){
+    openNewWindow('콜백분배', '/voc/pop/calldiv', e.currentTarget.id, 800, 700);
 });
 
 
@@ -72,9 +73,7 @@ $('.voc').find('.nav-link').click(function(e){
 function vocFootableSearchList(id,url) {
     var param = searchDataToJson();
     var page = $('#paging').val();
-    if(page == undefined){
-        page = 5;
-    }
+    if(page == undefined){  page = 5; }
     if( window.location.pathname == '/voc' && id != '#callbackBottomTab' ){
         if( !$('#custno').val() ) return;//voc에서는 custno가 없다면 아래행 실행 x
     }
@@ -203,6 +202,10 @@ function vocCustDetail(){
     openNewWindow('voc','/voc/custdetail/'+custNo,'voc',1200,700);
 }
 
+//voc 서비스 상세보기 팝업
+function vocServiceDetail(serviceno){
+    openNewWindow('service','/service/'+serviceno,'voc',1200,700);
+}
 
 // voc 고객 팝업 tr 클릭
 // 상세정보를 가져와서 필드에 바인딩한다.
@@ -217,6 +220,7 @@ function popVocCustNameClick(tr){
             vocCustFieldReset();// 필드값 초기화
             custFormActivation('update');// 파라미터에 따라 insert/ update 버튼을 생성
             custInfoBinding(data);//데이터 바인딩
+
             vocGetServiceInfo('/voc/pop/service/'+custno);//최근 1건의 서비스 데이터 바인딩
             //블랙등록 고객이면 인풋창 css변경
             var blackCnt = data.BLACKCNT;
@@ -229,6 +233,7 @@ function popVocCustNameClick(tr){
                 blackSpanActivation('insert');
             }
             setTimeout(function(){
+                opener.$('[name="vocSvTabBtn"]').trigger("click");//서비스 탭 클릭
                 window.close();
             },300);
         },
@@ -488,6 +493,11 @@ function callBackHiddenFormatter(value, options, rowData){
     return htmlStr;
 }
 
+function vocSvTabFormatter(value, options, rowData){
+    var htmlStr = '<a onclick="vocServiceDetail(' + rowData.SERVICENO + ');">rowData.SERVICENAME_</a>';
+    return htmlStr;
+}
+
 function callConfirm(phoneNo){//콜백 목록 전화걸기전 확인 alert
 
     $('#blindCall').val(phoneNo);
@@ -551,13 +561,11 @@ function callBackConfirm(callbackno,callstatus){//콜백 목록 처리
         closeOnConfirm: false
     }, function () {//컨펌버튼 클릭 실행 함수
         var custno = $('#callbackcustno'+callbackno).val();
-       // var memo = $('#vocmemo'+callbackno).val();
         var trunk = $('#trunk'+callbackno).val();
         var reqno = $('#reqno').val();
         if(callstatus == 3 && callcount > 2){//callcount가 3이상일때 불통 버튼 클릭 시 status = 4 미해결
             callstatus = 4;
         }
-
         var jsonPrm = {"callbackno":callbackno, "custno":custno, "callstatus":callstatus , "trunk":trunk, "reqno":reqno };
         var urlStr = '/voc/callback/modified/'+callbackno;
 
@@ -568,7 +576,7 @@ function callBackConfirm(callbackno,callstatus){//콜백 목록 처리
             data:jsonPrm,
             cache: false,
             success: function (data) {
-                $("#callbackBottomTabBtn").trigger("click");
+                $('[name="callbackBottomTab"]').trigger("click");
             },
             error: function (request, status, error) {
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -589,7 +597,6 @@ function vocGetServiceInfo(urlServ) {
         cache : false,
         async : false,
         success : function(data) {
-            debugger;
             if(!data.SERVICENO){//레코드가 0건이면 초기화
                 vocServiceFieldReset();
             }else{
@@ -605,7 +612,6 @@ function vocGetServiceInfo(urlServ) {
 }
 
 function serviceInfoBinding(data) {
-debugger;
     opener.$('input:radio[name="servicetype"]').each(
         function(index) {
             if (this.value == data.SERVICETYPE) {
@@ -678,11 +684,9 @@ debugger;
 
 $('#vocSave').click(
     function(e) {
-        debugger;
         var reqno = $('#reqno').val();
         var custno = $('#custno').val();
-        //reqno 테스트후 반드시삭제
-        reqno = '2019042217453002112807042622864';
+        //reqno = '2019042217453002112807042622864'; 테스트용샘플값
         if(!reqno){
             alert("고객과의 전화를 끊어주세요");
         }else if(!custno){
@@ -799,7 +803,6 @@ $('#vocSave').click(
 
 
 $('.i-checks').on('ifChecked', function(event) {
-    debugger;
     var value = event.target.value;
     var name = event.target.name;
     if (name == 'vocstep') {
@@ -1017,7 +1020,6 @@ function formatDate(date) {
 
 
 $('#create').click(function() {
-debugger;
     $('.i-checks input').iCheck('uncheck');
     $('.i-checks input').iCheck('enable');
     $('.vocSvInput').val('');
@@ -1105,4 +1107,6 @@ function vocServiceFieldReset(){
         opener.$('#create').show();
     }
 }
+
+
 

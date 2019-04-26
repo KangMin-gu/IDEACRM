@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -119,8 +120,11 @@ public class ServiceServiceImple implements ServiceService{
     public String serviceInsertUpdate(HttpServletRequest request, HttpServletResponse response, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
-
         Map<String,Object> search = parameterUtil.searchParam(request);
+
+        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
+        Date currentTime = new Date ();
+        String receptiondate = mSimpleDateFormat.format ( currentTime );
 
         serviceDto.setSiteid(siteId);
         serviceDto.setEdtuser(userNo);

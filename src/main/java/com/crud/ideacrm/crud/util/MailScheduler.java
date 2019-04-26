@@ -10,19 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.*;
-import javax.servlet.http.HttpServletRequest;
 import javax.activation.FileDataSource;
 import javax.activation.DataHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class MailScheduler {
@@ -89,7 +84,8 @@ public class MailScheduler {
 
         // smtp 연결설정 192.168.0.32 / 182.231.77.200 / 192.168.219.102 //125.129.242.156
         Properties properties = new Properties();
-        properties.setProperty("mail.smtp.host", "211.233.81.188");
+        //properties.setProperty("mail.smtp.host", "211.233.81.188");
+        properties.setProperty("mail.smtp.host", "125.129.242.156");
         properties.setProperty("mail.smtp.port", "25");
         properties.setProperty("mail.transport.protocol", "smtp");
         properties.setProperty("mail.debug", "true");

@@ -37,8 +37,8 @@
 	<select id="userDetail" parameterType="userDto" resultType="map">
 		SELECT
 			A.USERNO,A.USERNAME,A.USERID,A.EMAIL,A.USERDUTY
-			,CHKROLE,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_,ISDELETE
-			,FN_GETCODE('CHKAUTH_',A.CHKAUTH,1) AS CHKAUTH_,CHKAUTH
+			,CHKROLE,FN_GETCODE('ISDELETE',A.ISDELETE,1) AS ISDELETE_,A.ISDELETE
+			,FN_GETCODE('CHKAUTH_',A.CHKAUTH,1) AS CHKAUTH_,A.CHKAUTH,A.USERDESC
 			,CASE WHEN DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') = '1900-01-01' THEN ''
 					ELSE DATE_FORMAT(A.ENTERDATE,'%Y-%m-%d') END AS ENTERDATE
 			,A.MOBILE1,A.MOBILE2,A.MOBILE3
@@ -115,6 +115,7 @@
 		,TELNO2 = #{telno2}
 		,TELNO3 = #{telno3}
 		,EMAIL = #{email}
+		,USERDESC = #{userdesc}
 		<if test="userpassword != null">
 			,USERPASSWORD = #{userpassword}
 		</if>
@@ -136,6 +137,16 @@
 		,TELNO = #{telno}
 		WHERE USERNO = #{userno}
 		AND SITEID = #{siteid}
+	</update>
+
+	<update id="userDelete" parameterType="userDto">
+		UPDATE ME800010
+		SET ISDELETE = 1
+		,EDTDATE = now()
+		,EDTUSER = #{edtuser}
+		WHERE USERNO = #{userno}
+		AND SITEID = #{siteid}
+
 	</update>
 
 	<update id="userCtiUpdate" parameterType="userCtiDto">
@@ -160,5 +171,10 @@
 	    FROM me800010 AS A
 		WHERE USERID = #{userid}
 		AND SITEID = #{siteid}
+		AND ISDELETE = 0
+	</select>
+
+	<select id="userEmail" parameterType="String" resultType="String">
+		SELECT EMAIL FROM ME800010 WHERE USERNO = #{value}
 	</select>
 </mapper>

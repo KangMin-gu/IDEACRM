@@ -33,8 +33,14 @@
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/company/user">사용자 목록</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/company/user/${userInfo.USERNO}">사용자 정보</a>
+                    </li>
                     <li class="breadcrumb-item active">
-                        <strong>사용자 등록</strong>
+                        <strong>사용자 정보 수정</strong>
                     </li>
                 </ol>
             </div>
@@ -47,7 +53,7 @@
             <form:form action="/company/user/modified/${userInfo.USERNO}" method="POST">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
                     <a href="/company/user/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
@@ -158,18 +164,13 @@
                                             <div class="col-sm-4">
                                                 <input type="text" name="email" id="email" value="${userInfo.EMAIL}" class="form-control form-control-sm">
                                             </div>
+                                    <c:choose>
+                                        <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
                                             <label class="col-sm-2 col-form-label">관리자여부</label>
                                             <div class="col-sm-4">
                                                 <select class="form-control" name="chkauth" id="chkauth" style="width:130px;">
                                                     <c:forEach var="chkAuth_" items="${CHKAUTH_}">
-                                                        <c:choose>
-                                                            <c:when test="${userInfo.CHKAUTH_ eq chkAuth_.codeval}">
-                                                                <option selected label="${chkAuth_.codename }" value="${chkAuth_.codeval }"/>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <option label="${chkAuth_.codename }" value="${chkAuth_.codeval }"/>
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                        <option label="${chkAuth_.codename}" value="${chkAuth_.codeval}"></option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -177,9 +178,19 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">직책</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="userduty" id="userduty" value="${userInfo.USERDUTY}" class="form-control form-control-sm">
+                                                <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm" value="${userInfo.USERDUTY}">
                                             </div>
                                         </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <label class="col-sm-2 col-form-label">직책</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm" value="${userInfo.USERDUTY}">
+                                        </div>
+                                    </div>
+                                        </c:otherwise>
+
+                                    </c:choose>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">메모</label>
                                             <div class="col-sm-10">
@@ -228,7 +239,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">등록</button>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
                     <a href="/company/user/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>

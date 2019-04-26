@@ -3,7 +3,7 @@
 <mapper namespace="email">
 
     <insert id="pwdChangeMail" parameterType="hashMap" statementType="CALLABLE">
-       {call userPwdChangeMAil(#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{touserno, mode=IN, jdbcType=INTEGER, javaType=int},#{fromuserno, mode=IN, jdbcType=INTEGER, javaType=int},#{pwd, mode=IN, jdbcType=VARCHAR, javaType=string})}
+       {call userPwdChangeMAil(#{siteid, mode=IN, jdbcType=INTEGER, javaType=int},#{touserno, mode=IN, jdbcType=VARCHAR, javaType=string},#{fromuserno, mode=IN, jdbcType=INTEGER, javaType=int},#{pwd, mode=IN, jdbcType=VARCHAR, javaType=string},#{toemail, mode=IN, jdbcType=VARCHAR, javaType=String},#{fromemail, mode=IN, jdbcType=VARCHAR, javaType=String})}
     </insert>
 
     <insert id="mailsend" parameterType="emailDto" statementType="CALLABLE">

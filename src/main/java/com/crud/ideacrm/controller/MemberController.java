@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 
 @Controller
 public class MemberController {
@@ -19,7 +21,7 @@ public class MemberController {
 
     @RequestMapping(value = "/user/pwdreset", method = RequestMethod.GET)
     @ResponseBody
-    public void authuserPwdReset(HttpServletRequest request){
+    public void authuserPwdReset(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         memberService.userPwdReset(request);
     }
 
@@ -27,11 +29,16 @@ public class MemberController {
     @ResponseBody
     public int authUserIdCheck(HttpServletRequest request,@PathVariable String userId){
 
-        int cnt = memberService.memberIdCheck(request,userId);
-        return cnt;
+        //int cnt = memberService.memberIdCheck(request,userId);
+        return 0;
     }
 
+    @RequestMapping(value="/user/idcheck",method=RequestMethod.GET)
+    @ResponseBody
+    public int authUserIdCheckV(HttpServletRequest request){
 
-
+        int cnt = memberService.memberIdCheck(request);
+        return cnt;
+    }
 
 }

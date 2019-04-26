@@ -1,6 +1,10 @@
 
+$('.passreset').click(function(e){
+    pwdReset();
+});
+
 function pwdReset(){
-    var userNo = $('#userNo').val();
+    var userNo = $('#userno').val();
     $.ajax({
         url: "/user/pwdreset?userNo="+userNo,
         method: "GET",
@@ -15,35 +19,35 @@ function pwdReset(){
 }
 
 
-function id_check(){
+function id_check(e){
     var idcheck = $('#userid').val();
     var text ="";
-    var bool;
     if(idcheck.length < 5){
         text = 'ID는 5글자 이상 입력되어야 합니다.';
         alert(text);
         $('#userid').addClass('error');
         $('#userid').focus();
     }else{
+
         $.ajax({
-            url:"/user/idcheck/"+idcheck ,
+            url:"/user/idcheck?userid="+idcheck ,
             method: "GET",
             dataType: "json",
             cache: false,
             success:function(data){
                 if(data == 0){
-                    text = '사용 가능한 ID 입니다.';
-                    alert(text);
                     $('#command').submit();
                 }else{
-                    text = '이미 존재하고 있는 ID 이거나 입력되지 않았습니다.';
+                    $('#userid').focus();
+                    text = '이미 존재하고 있는 ID입니다.';
                     alert(text);
                     $('#userid').addClass('error');
-                    $('#userid').focus();
-                    bool = false
-                    return bool;
+                    $('#userid').next().text(text);
+                    $('#userid').next().show();
+                    $('#userid').next().addClass('error');
+
+                    return false;
                 }
-                return bool;
             },
             error:function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

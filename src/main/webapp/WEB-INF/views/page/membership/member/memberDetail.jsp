@@ -52,7 +52,7 @@
                 <div class="col-lg-12">
                     <form:form action="/company/user/del/${userInfo.USERNO}" method="POST">
                         <a href="/company/user" class="btn btn-default pull-left">목록</a>
-                        <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
+                        <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                         <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>
                         <a href="/company/user/modified/${userInfo.USERNO}" class="btn btn-default pull-right">수정</a>
                     </form:form>
@@ -70,6 +70,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <input type="hidden" name="userno" id="userno" value="${userInfo.USERNO}">
                                             <div class="row">
                                                 <div class="col-sm-2">
                                                     <p>사용자명 : </p>
@@ -91,7 +92,7 @@
                                                     <p>비밀번호 : </p>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <button type="button" class="btn btn-w-m btn-xs btn-primary">초기화</button>
+                                                    <button type="button" class="btn btn-w-m btn-xs btn-primary passreset">초기화</button>
                                                 </div>
                                             </div>
                                         </c:if>
@@ -116,6 +117,8 @@
                                                 <div class="col-sm-4">
                                                     <p>${userInfo.EMAIL}</p>
                                                 </div>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
                                                 <div class="col-sm-2">
                                                     <p>관리자여부 : </p>
                                                 </div>
@@ -123,14 +126,27 @@
                                                     <p>${userInfo.CHKAUTH_}</p>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-2">
-                                                    <p>직책 : </p>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <p>직책 : </p>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>${userInfo.USERDUTY}</p>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <p>${userInfo.USERDUTY}</p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                    <div class="col-sm-2">
+                                                        <p>직책 : </p>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <p>${userInfo.USERDUTY}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </c:otherwise>
+                                    </c:choose>
+
+
                                             <div class="row">
                                                 <div class="col-sm-2">
                                                     <p>메모 : </p>
@@ -142,7 +158,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                         </div>
                     </div>
                 </div>
@@ -235,6 +250,7 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/member.js"></script>
 <script>
     $(document).ready(function() {
@@ -263,7 +279,6 @@
         });
 // bootstrapDaulListbox의 제공기능중 하나로 option 값을 지웠을때 새로고침을 해주는 역할
         $('.dual_select').bootstrapDualListbox('refresh',true);
-
     });
 </script>
 </body>

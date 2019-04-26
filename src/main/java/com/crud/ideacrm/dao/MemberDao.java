@@ -10,4 +10,8 @@ public interface MemberDao {
     public void memeberChangePwd(UserDto userDto);
 
     public int memberIdCheck(UserDto userDto);
+
+    public String memberEmail(String userId);
+
+
 }

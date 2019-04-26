@@ -1,3 +1,10 @@
+// 하단의 탭중 첫번째 값을 클릭
+if($('.detail').length > 0){
+    setTimeout(function(){
+        $('.detail > li:first >a').click();
+    },500);
+}
+
 $('.cust').click(function(e){
     if( e.target.classList.contains('dataCancle') == false ){
             openNewWindow('고객','/popcust',e.currentTarget.id,650,700);

@@ -83,17 +83,17 @@
                                             <td><input type="text" class="form-control form-control-sm name" name="sitename" id="sitename" style="width:248px;"></td>
                                             <th>사업자번호</th>
                                             <td>
-                                                <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" minlength="3" maxlength="3" class="form-control form-control-sm" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="bsno2" id="bsno2" minlength="2" maxlength="2" class="form-control form-control-sm" style="width:80px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="bsno3" id="bsno3" minlength="5" maxlength="5" class="form-control form-control-sm" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno1" id="bsno1" minlength="3" maxlength="3" class="form-control form-control-sm bsno" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno2" id="bsno2" minlength="2" maxlength="2" class="form-control form-control-sm bsno" style="width:80px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="bsno3" id="bsno3" minlength="5" maxlength="5" class="form-control form-control-sm bsno" style="width:80px;"></div>
                                                 <div>
                                                     <label class="error" for="bsno1"></label><label class="error" for="bsno2"></label><label class="error" for="bsno3"></label>
                                                 </div>
                                             </td>
                                             <th>법인번호</th>
                                             <td>
-                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm" style="width:123px;"></div>
-                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm" style="width:123px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno1" id="incno1" minlength="6" maxlength="6" class="form-control form-control-sm incno" style="width:123px;"></div>
+                                                <div style="display: inline-block"><input type="text" name="incno2" id="incno2" minlength="7" maxlength="7" class="form-control form-control-sm incno" style="width:123px;"></div>
                                                 <div>
                                                     <label class="error" for="incno1"></label><label class="error" for="incno2"></label>
                                                 </div>

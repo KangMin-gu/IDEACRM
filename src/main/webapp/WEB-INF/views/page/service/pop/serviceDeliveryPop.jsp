@@ -82,12 +82,13 @@
                                     <th>이관담당자</th>
                                     <td>
                                         <div class="input-group owner" id="nextowner_" style="width:250px">
-                                            <input type="text" class="form-control name" autocomplete="off" name="nextowner_" value="">
-                                            <input type="hidden" class="searchparam" name="nextowner" id="nextowner" value="">
+                                            <input type="text" class="form-control" autocomplete="off" name="nextowner_" value="">
+                                            <input type="hidden" class="searchparam usercheck" name="nextowner" id="nextowner" value="">
                                             <span class="input-group-addon">
                                                 <a><i class="fa fa-search"></i></a>
                                             </span>
                                         </div>
+                                        <label for="nextowner" class="error"></label>
                                     </td>
                                 </tr>
                                 <tr>

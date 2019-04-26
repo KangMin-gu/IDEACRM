@@ -58,7 +58,7 @@
             <form:form id="logoFile" action="/common/site/modified/${siteInfo.SITEID}" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">수정</button>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
                     <a href="/common/site/${siteInfo.SITEID}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
@@ -382,11 +382,11 @@
                 </div>
             </div>
 
-
+            <br/>
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">등록</button>
-                    <a href="/common/site" class="btn btn-default pull-right">취소</a>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
+                    <a href="/common/site/${siteInfo.SITEID}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 

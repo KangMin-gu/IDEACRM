@@ -19,6 +19,8 @@ public interface UserDao {
 
     public void userUpdate(UserDto userDto);
 
+    public void userDelete(UserDto userDto);
+
     public List<Map<String,Object>> userAsOwner(int siteId);
     public void userCtiUpdate(UserCtiDto userCtiDto);
 

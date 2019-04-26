@@ -56,6 +56,11 @@ public class UserDaoImple implements UserDao {
     }
 
     @Override
+    public void userDelete(UserDto userDto) {
+        session.update("user.userDelete",userDto);
+    }
+
+    @Override
     public void userCtiUpdate(UserCtiDto userCtiDto) {
         session.update("user.userCtiUpdate",userCtiDto);
     }

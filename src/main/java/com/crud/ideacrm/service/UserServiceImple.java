@@ -113,6 +113,20 @@ public class UserServiceImple implements UserService {
     }
 
     @Override
+    public void userDelete(HttpServletRequest request, String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        userNo = codecUtil.decodePkNo(userNo);
+        int sessionUserNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
+        UserDto userDto = new UserDto();
+        userDto.setUserno(userNo);
+        userDto.setEdtuser(sessionUserNo);
+        userDto.setSiteid(siteId);
+
+        userDao.userDelete(userDto);
+    }
+
+    @Override
     public Map<String, Object> userCtiDetail(HttpServletRequest request, String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
         userNo = codecUtil.decodePkNo(userNo);
 
@@ -127,13 +141,14 @@ public class UserServiceImple implements UserService {
     //사용자 업데이트
     @Override
     public void userUpdate(HttpServletRequest request, String userNo, UserDto userDto,UserCtiDto userCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
-
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int sessionUserNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
         userNo = codecUtil.decodePkNo(userNo);
 
         String mobile = parameterUtil.columnUnion(userDto.getMobile1(),userDto.getMobile2(),userDto.getMobile3());
         userDto.setMobile(mobile);
+        userDto.setSiteid(siteId);
 
         userDto.setEncodingUserDto();
         userDto.setUserno(userNo);

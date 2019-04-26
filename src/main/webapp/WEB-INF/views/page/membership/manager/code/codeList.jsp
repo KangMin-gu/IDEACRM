@@ -120,7 +120,7 @@
                             <table class="footable table table-striped head"  data-paging="true">
                                 <thead>
                                 <tr>
-                                    <th data-visible="false" data-sorted="true" data-direction="DESC" data-name="NO">서비스번호</th>
+                                    <th data-visible="false" data-name="NO">서비스번호</th>
                                     <th data-visible="false" data-name="URL">URL</th>
                                     <th data-name="CODEGRP">코드그룹명</th>
                                     <th data-name="CODENAME" data-breakpoints="xs sm">코드명</th>
@@ -128,6 +128,7 @@
                                     <th data-name="CODEVAL" data-breakpoints="xs sm">코드값</th>
                                     <th data-name="USINGMENU" data-breakpoints="xs sm">사용메뉴</th>
                                     <th data-name="REGDATE" data-breakpoints="xs sm">등록일시</th>
+                                    <th data-visible="false" data-name="EDTDATE" data-sorted="true" data-direction="DESC" >등록일시</th>
                                 </tr>
                                 </thead>
                                 <tbody>

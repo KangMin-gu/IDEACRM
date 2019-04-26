@@ -30,4 +30,10 @@ public class MemberDaoImpl implements MemberDao {
         int cnt = Session.selectOne("user.idCheck",userDto);
         return cnt;
     }
+
+    @Override
+    public String memberEmail(String userId) {
+        String email = Session.selectOne("user.userEmail",userId);
+        return email;
+    }
 }

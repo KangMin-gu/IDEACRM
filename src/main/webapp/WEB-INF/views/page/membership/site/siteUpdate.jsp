@@ -58,7 +58,7 @@
             <form:form id="logoFile" action="/common/site/modified/${siteInfo.SITEID}" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">수정</button>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
                     <a href="/common/site/${siteInfo.SITEID}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
@@ -265,7 +265,11 @@
                                         <th>계정</th>
                                         <td>${siteInfo.ADMINID}</td>
                                         <th>비밀번호</th>
-                                        <td><button type="button" class="btn btn-w-m btn-xs btn-primary">초기화</button></td>
+                                        <td>
+                                            <c:if test="${sessionScope.CHKAUTH eq '30'}">
+                                                <button type="button" id="passwordreset" class="btn btn-w-m btn-xs btn-primary ">초기화</button>
+                                            </c:if>
+                                        </td>
                                         <th>회원사로고</th>
                                         <td>
                                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -333,6 +337,7 @@
                                                     <input type="text" name="telno" id="telno" class="form-control form-control-sm" value="${ctiInfo.TELNO}" style="width:200px;">
                                                 </td>
                                             </tr>
+                                            <input type="hidden" name="siteid" id="siteid" value="${siteInfo.SITEID}"/>
                                             </tbody>
                                         </table>
                                     </div>
@@ -377,11 +382,11 @@
                 </div>
             </div>
 
-
+            <br/>
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left">등록</button>
-                    <a href="/common/site" class="btn btn-default pull-right">취소</a>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
+                    <a href="/common/site/${siteInfo.SITEID}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -409,9 +414,14 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/site.js"></script>
 <script>
     $(document).ready(function() {
 
+        $('#passwordreset').click(function(e){
+            var siteid = $('#siteid').val();
+            masterPasswordReset(siteid);
+        });
     });
 </script>
 </body>

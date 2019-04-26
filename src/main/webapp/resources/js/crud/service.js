@@ -11,10 +11,7 @@ $('#servicecode1').change(function(){
 // 단계에 따른 화면처리
 function serviceStep(){
     var step = $('#servicestep').val();
-    if(step == 0){
 
-
-    }
     if(step == 3){
         tinyMCE.EditorManager.editors[0].setMode('readonly');
         $('.reward').prop("disabled",true);
@@ -44,31 +41,33 @@ $('.servicenext').click(function(e){
 
 // 이관 팝업에서 저장버튼 눌렀을때 동작
 $('#conveySave').click(function(e){
-    var	url= "/service/delivery";
-    /*
-    var serviceno = $('#serviceno').val();
-    var conveydate= $("#conveydate").val();
-    var conveyreason = $("#conveyreason").val();
-    var nextowner = $("#nextowner").val();
-    var conveydesc = $('#conveydesc').val();
-    var param = {"serviceno":serviceno,"conveydate":conveydate,"conveyreason":conveyreason,"nextowner":nextowner,"conveydesc":conveydesc};
-    */
-    param = searchDataToJson();
-    $.ajax({
-        url: url,
-        method: "POST",
-        dataType: "json",
-        data:param,
-        success: function () {
-            alert('이관되엇습니다');
-            opener.location.reload();
-            self.close();
-            window.opener.location.reload();
-        },
-        error: function (request, status, error) {
-            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-        }
-    });
+
+    var bool = $('form').valid();
+
+    var date1 = $('#receptiondate');
+    dateCheck(date1,e);
+
+
+
+    if(bool){
+        var	url= "/service/delivery";
+        param = searchDataToJson();
+        $.ajax({
+            url: url,
+            method: "POST",
+            dataType: "json",
+            data:param,
+            success: function () {
+                alert('이관되었습니다');
+                opener.location.reload();
+                self.close();
+                window.opener.location.reload();
+            },
+            error: function (request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    }
 
 });
 
@@ -150,4 +149,55 @@ function popCustClick(id){
             alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
         }
     });
+};
+
+
+// footable에서 click했을때 view화면으로 가기 위한 처리
+function serviceformatter(value, options, rowData) {
+    var pathUrl = window.location.pathname+"/";
+    return "<a href='" + pathUrl+rowData.NO + "'>" + value + "</a>"
+}
+
+
+
+var timestamp = 0;
+$('#ractdate').change(function(e){
+        var date1 = $('#receptiondate');
+        dateCheck(date1,e);
+});
+$('#visitdate').change(function(e){
+    var date1 = $('#receptiondate');
+    dateCheck(date1,e);
+});
+
+$('#conveydate').change(function(e){
+    var date1 = $('#receptiondate');
+    dateCheck(date1,e);
+});
+
+$('#causecode').change(function(e){
+    if($(e.target).val() != 0){
+        $('.delay').show();
+    }
+});
+
+function dateCheck(date1,date2){
+    if(date2.timeStamp - timestamp > 1600) {
+        timestamp = date2.timeStamp;
+        date2 = $(date2.target)
+        var date1name = date1.parent().parent().prev().text();
+        if(date1name ==""){
+            date1name = date1.parent().prev().text();
+        }
+        var date2name = date2.parent().parent().prev().text();
+        if(date1.val() > date2.val()){
+            alert(date2name+'의 날자가 '+date1name+' 보다 작을 수 없습니다.');
+            date2.focus();
+            date2.addClass('error');
+            return false;
+        }else{
+            date2.removeClass('error');
+            return true;
+        }
+    }
 }

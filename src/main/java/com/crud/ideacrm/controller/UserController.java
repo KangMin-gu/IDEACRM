@@ -106,6 +106,14 @@ public class UserController {
         return mView;
     }
 
+    @RequestMapping(value="/company/user/del/{userNo}",method=RequestMethod.POST)
+    public String authUserDelete(HttpServletRequest request, @PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        userService.userDelete(request,userNo);
+
+        return "redirect:/company/user";
+    }
+
     @RequestMapping(value="/company/user/license/{userNo}",method=RequestMethod.POST)
     public ModelAndView authUserLicenseInsert(HttpServletResponse response,HttpServletRequest request, @PathVariable String userNo) throws GeneralSecurityException, UnsupportedEncodingException {
         ModelAndView mView = new ModelAndView();

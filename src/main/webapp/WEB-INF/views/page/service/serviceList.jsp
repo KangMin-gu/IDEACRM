@@ -30,14 +30,25 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
+                <c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
                 <h2>서비스 관리</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
-                    <li class="breadcrumb-item active">
-                        <strong>서비스 목록</strong>
-                    </li>
+                    <c:choose>
+                        <c:when test="${fn:substring(urls, 0, 17) eq '/service/delivery' }">
+                            <li class="breadcrumb-item active">
+                                <strong>서비스 이관 목록</strong>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="breadcrumb-item active">
+                                <strong>서비스 목록</strong>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
                 </ol>
             </div>
             <div class="col-lg-2">
@@ -86,7 +97,7 @@
                                         <th>접수유형</th>
                                         <td colspan="1">
                                             <div style="display: inline-block">
-                                                <select class="form-control " name="servicecode1" id="servicecode1" style="width: 100px;">
+                                                <select class="form-control searchparam" name="servicecode1" id="servicecode1" style="width: 100px;">
                                                     <option value="">선택</option>
                                                     <c:forEach var="serviceCode1" items="${SERVICECODE1}">
                                                         <option value="${serviceCode1.codeval}">${serviceCode1.codename}</option>
@@ -94,19 +105,34 @@
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <select class="form-control " name="servicecode2" id="servicecode2" upper ="servicecode1" style="width: 100px;">
+                                                <select class="form-control searchparam" name="servicecode2" id="servicecode2" upper ="servicecode1" style="width: 100px;">
                                                     <option value="">선택</option>
                                                 </select>
                                             </div>
                                         </td>
-                                        <th>접수자</th>
-                                        <td class="input-group owner" id="serviceowner_" style="width: 150px;">
-                                            <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text">
-                                            <input type="hidden" class="searchparam" name="serviceowner" id="serviceowner" value="${search.serviceowner }">
-                                            <span class="input-group-addon">
-                                                <a><i class="fa fa-search"></i></a>
-                                            </span>
-                                        </td>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
+                                                <th>접수자</th>
+                                                <td class="input-group" id="serviceowner_" style="width: 150px;">
+                                                    <input class="form-control form-control-sm searchparam" name="serviceowner_" type="text">
+                                                    <input type="hidden" class="searchparam" name="serviceowner" id="serviceowner" value="${search.serviceowner }">
+                                                    <span class="input-group-addon owner" id="serviceowner_">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <th>접수자</th>
+                                                <td class="input-group" id="serviceowner_" style="width: 150px;">
+                                                    <input class="form-control form-control-sm searchparam" disabled name="serviceowner_" type="text" value="">
+                                                    <input type="hidden" class="searchparam" name="serviceowner" id="serviceowner" value="">
+                                                    <span class="input-group-addon">
+                                                        <a><i class="fa fa-search"></i></a>
+                                                    </span>
+                                                </td>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                         <td>
                                             <button type="button" id="search" class="btn btn-w-m btn-primary">검색</button>
                                         </td>
@@ -128,23 +154,40 @@
                                         </td>
                                         <th>처리상태</th>
                                         <td>
-                                            <select class="form-control searchparam" name="servicestep" id="servicestep" style="width: 100px;">
+                                            <select class="form-control searchparam" name="servicestep" id="servicestep" style="width: 203px;">
                                                 <option value="">선택</option>
                                                 <c:forEach var="serviceStep" items="${SERVICESTEP}">
                                                     <option value="${serviceStep.codeval}">${serviceStep.codename}</option>
                                                 </c:forEach>
                                             </select>
                                         </td>
-                                        <th>담당자</th>
-                                        <td>
-                                            <div class="input-group" style="width: 150px;">
-                                                <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="">
-                                                <input type="hidden" class="searchparam" name="owner" id="owner" value="">
-                                                <span class="input-group-addon owner" id="owner_">
+                                        <c:choose>
+                                            <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
+                                                <th>담당자</th>
+                                                <td>
+                                                    <div class="input-group" style="width: 150px;">
+                                                        <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="">
+                                                        <input type="hidden" class="searchparam" name="owner" id="owner" value="">
+                                                        <span class="input-group-addon owner" id="owner_">
                                                     <a><i class="fa fa-search"></i></a>
                                                 </span>
-                                            </div>
-                                        </td>
+                                                    </div>
+                                                </td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <th>담당자</th>
+                                                <td>
+                                                    <div class="input-group" style="width: 150px;">
+                                                        <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
+                                                        <input type="hidden" class="searchparam" name="owner" id="owner" value="${sessionScope.USERNO}">
+                                                        <span class="input-group-addon">
+                                                    <a><i class="fa fa-search"></i></a>
+                                                </span>
+                                                    </div>
+                                                </td>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                         <td>
                                             <button type="button" id="reset" class="btn btn-w-m btn-default">초기화</button>
                                         </td>
@@ -177,7 +220,7 @@
                                 <div class="pull-right"  style="display: inline-block;">
                                     <c:choose>
                                         <c:when test="${fn:substring(urls, 0, 17)  eq '/service/delivery' }">
-                                            <a href="/serviceexcel?servicestep=5&servicestep=6" class="btn btn-default"><i class="fa fa-file-excel-o"></i></a>
+                                            <a href="/serviceexcel?servicestep1=5,6" class="btn btn-default"><i class="fa fa-file-excel-o"></i></a>
                                         </c:when>
                                         <c:otherwise>
                                             <a href="/serviceexcel" class="btn btn-default "><i class="fa fa-file-excel-o"></i></a>
@@ -190,7 +233,7 @@
                                 <tr>
                                     <th data-visible="false" data-name="NO">서비스번호</th>
                                     <th data-visible="false" data-name="URL">URL</th>
-                                    <th data-name="SERVICENAME_" data-formatter="formatter">서비스명</th>
+                                    <th data-name="SERVICENAME_" data-formatter="serviceformatter">서비스명</th>
                                     <th data-name="SERVICETYPE_" data-breakpoints="xs sm">접수구분</th>
                                     <th data-name="SERVICECODE_" data-breakpoints="xs sm">접수유형</th>
                                     <th data-name="CUSTNAME_" data-breakpoints="xs sm">고객명</th>
@@ -240,7 +283,7 @@
     $(document).ready(function() {
         var url = window.location.pathname;
         if(url != '/service'){
-            url = '/service?servicestep=5&servicestep=6';
+            url = '/service?servicestep1=5,6';
         }
 
         $('#search').click(function(e){

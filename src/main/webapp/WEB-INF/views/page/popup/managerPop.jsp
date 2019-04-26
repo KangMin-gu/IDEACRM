@@ -30,25 +30,7 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <tr>
-                                <th>사용자명</th>
-                                <td>
-                                    <div class="input-group" style="width:230px;">
-                                        <input class="form-control form-control-sm searchparam" name="username" id="username" type="text" />
-                                        <button type="button" id="search" class="btn btn-primary">검색</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </div>
-                        <div class="col-lg-3">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <table class="table footable table-stripped" data-sorting="true">
+                    <table class="table footable table-striped" data-sorting="true">
                         <thead>
                         <tr>
                             <th data-visible="false" data-name="USERNO">사용자번호</th>

@@ -30,14 +30,24 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
+                <c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
                 <h2>서비스 관리</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
-                    <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/service">서비스 목록</a>
-                    </li>
+                    <c:choose>
+                        <c:when test="${fn:substring(urls, 0, 17) eq '/service/delivery' }">
+                            <li class="breadcrumb-item">
+                                <a href="${pageContext.request.contextPath}/service/delivery">서비스 이관 목록</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="breadcrumb-item">
+                                <a href="${pageContext.request.contextPath}/service">서비스 목록</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
                     <li class="breadcrumb-item active">
                         <strong>서비스 정보</strong>
                     </li>
@@ -47,13 +57,19 @@
             </div>
         </div>
 
-
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
                 <div class="col-lg-12">
                     <form:form action="/service/del/${serviceInfo.SERVICENO}" method="POST">
-                        <a href="/service" class="btn btn-default pull-left">목록</a>
+                        <c:choose>
+                            <c:when test="${fn:substring(urls, 0, 17) eq '/service/delivery' }">
+                                <a href="/service/delivery" class="btn btn-default pull-left">목록</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/service" class="btn btn-default pull-left">목록</a>
+                            </c:otherwise>
+                        </c:choose>
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
                             <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:10px;"><i class="fa fa-envelope fa-lg"></i></a>
@@ -395,12 +411,19 @@
             <div class="row">
                 <div class="col-lg-12">
                     <form:form action="/service/del/${serviceInfo.SERVICENO}" method="POST">
-                        <a href="/service" class="btn btn-default pull-left">목록</a>
+                        <c:choose>
+                            <c:when test="${fn:substring(urls, 0, 17) eq '/service/delivery' }">
+                                <a href="/service/delivery" class="btn btn-default pull-left">목록</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/service" class="btn btn-default pull-left">목록</a>
+                            </c:otherwise>
+                        </c:choose>
                         <c:if test="${sessionScope.USERNO eq serviceInfo.OWNER or sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
                             <c:if test="${serviceInfo.SERVICESTEP eq 1 or serviceInfo.SERVICESTEP eq 2 or serviceInfo.SERVICESTEP eq 3 or serviceInfo.SERVICESTEP eq 4 or serviceInfo.SERVICESTEP eq 5 or serviceInfo.SERVICESTEP eq 6}">
-                                <a href="#" class="btn btn-default emailBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                                <button type="submit" class="btn btn-default pull-right">삭제</button>
-                                <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right">수정</a>
+                                <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:10px;"><i class="fa fa-envelope fa-lg"></i></a>
+                                <button type="submit" class="btn btn-default pull-right" style="margin-left:5px;">삭제</button>
+                                <a href="/service/modified/${serviceInfo.SERVICENO}" class="btn btn-default pull-right" style="margin-left:5px;">수정</a>
                                 <button type="button" class="btn btn-default pull-right servicenext">이관</button>
                             </c:if>
                         </c:if>

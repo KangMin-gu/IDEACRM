@@ -100,4 +100,12 @@ public class FormatController {
         return mView;
     }
 
+    @RequestMapping(value="/company/format/del/{formatNo}",method=RequestMethod.POST)
+    public String authFormatDelete(HttpServletRequest request,@PathVariable String formatNo) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        formatService.formatDelete(request,formatNo);
+
+        return "redirect:/company/format";
+    }
+
 }

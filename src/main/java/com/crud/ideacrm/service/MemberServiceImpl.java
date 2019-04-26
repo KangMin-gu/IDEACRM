@@ -2,7 +2,9 @@ package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.dao.MailDao;
+import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.dao.MemberDao;
+import com.crud.ideacrm.dao.UserDao;
 import com.crud.ideacrm.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -28,9 +32,16 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MailDao mailDao;
 
+    @Autowired
+    private CodecUtil codecUtil;
+
+    @Autowired
+    private UserDao userDao;
+
     @Override
-    public void userPwdReset(HttpServletRequest request) {
-        int userNo = Integer.parseInt(request.getParameter("userNo"));
+    public void userPwdReset(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        String userNo = request.getParameter("userNo");
+        userNo = codecUtil.decodePkNo(userNo);
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int edtUserNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
@@ -60,12 +71,16 @@ public class MemberServiceImpl implements MemberService {
         String pwd = resetPwd.toString();
         //비밀번호 변경
         userDto.setUserpassword(pwd);
+        String toemail = memberDao.memberEmail(userNo);
+        String fromemail = memberDao.memberEmail(Integer.toString(edtUserNo));
 
         //비밀번호 변경 이메일 로직 프로시저 생성 발송 예정
         Map<String, Object> userVal = new HashMap<>();
         userVal.put("siteid",siteId);
         userVal.put("touserno",userNo);
         userVal.put("fromuserno",edtUserNo);
+        userVal.put("toemail",codecUtil.decodePkNo(toemail));
+        userVal.put("fromemail",codecUtil.decodePkNo(fromemail));
         userVal.put("pwd",pwd);
         mailDao.PwdChangeMailProcedure(userVal);
 
@@ -75,17 +90,30 @@ public class MemberServiceImpl implements MemberService {
         //수정 유저
         userDto.setEdtuser(edtUserNo);
         //변경대상자
-        userDto.setUserno(Integer.toString(userNo));
+        userDto.setUserno(userNo);
         userDto.setSiteid(siteId);
 
         //유저 비밀번호 업데이트
         memberDao.memeberChangePwd(userDto);
 
     }
-
+/*
     @Override
     public int memberIdCheck(HttpServletRequest request, String userId) {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
+        UserDto userDto = new UserDto();
+        userDto.setSiteid(siteId);
+        userDto.setUserid(userId);
+        int cnt = memberDao.memberIdCheck(userDto);
+
+        return cnt;
+    }
+    */
+    @Override
+    public int memberIdCheck(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        String userId = request.getParameter("userid").toString();
 
         UserDto userDto = new UserDto();
         userDto.setSiteid(siteId);

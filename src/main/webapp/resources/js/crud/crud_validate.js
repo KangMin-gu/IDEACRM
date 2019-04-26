@@ -9,8 +9,51 @@ $.validator.addMethod("url", function(value,element) {
     return this.optional(element) || /^[^((http(s?))\:\/\/)]([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/.test(value);
 },"URL을 올바로 입력해 주세요.(http://, https:// 문구 제외)");
 
-$.validator.addMethod("test", function(value,element) {
-    return this.optional(element) || t },"abcdefg");
+$.validator.addMethod( "notEqualTo", function( value, element, param ) {
+    return this.optional( element ) || !$.validator.methods.equalTo.call( this, value, element, param );
+}, "동일한 담당자에게 이관할 수 없습니다." );
+
+jQuery.validator.addMethod("testphone",
+    function(value, element, param) {
+        var boolean = true;
+        for (i = 0; i < $(param).length; i++) {
+            if ("" == $.trim($(param).eq(i).val())) {
+                boolean = false;
+            }
+        }
+        return this.optional(element) || boolean;
+    },
+    "전화번호 3자리를 모두 입력해주세요"
+);
+
+jQuery.validator.addMethod("bsno",
+    function(value, element, param) {
+        var boolean = true;
+        for (i = 0; i < $(param).length; i++) {
+            if ("" == $.trim($(param).eq(i).val())) {
+                boolean = false;
+            }
+        }
+        return this.optional(element) || boolean;
+    },
+    "사업자등록번호 3자리를 모두 입력해주세요"
+);
+
+jQuery.validator.addMethod("incno",
+    function(value, element, param) {
+        var boolean = true;
+        for (i = 0; i < $(param).length; i++) {
+            if ("" == $.trim($(param).eq(i).val())) {
+                boolean = false;
+            }
+        }
+        return this.optional(element) || boolean;
+    },
+    "법인번호 2자리를 모두 입력해주세요"
+);
+
+
+
 
 $.validator.addMethod(
     "testconnect",
@@ -33,12 +76,19 @@ $.validator.addClassRules("url",{required:false, url: true});
 $.validator.addClassRules("name",{required: true, minlength: 2, maxlength:20});
 $.validator.addClassRules("password",{required: true, minlength: 8});
 $.validator.addClassRules("confirmpassword",{required: true, minlength: 8, equalTo: ".password"});
+$.validator.addClassRules("testphone",{minlength: 3, maxlength:4,testphone:".testphone" });
+$.validator.addClassRules("incno",{incno:".incno"});
+$.validator.addClassRules("bsno",{bsno:".bsno"});
+$.validator.addClassRules("usercheck",{required:true,notEqualTo:"#prevowner"});
+
+
+//$.validator.addClassRules("notequal",{required: true, notEqualTo:"대상"});
 
 
 //한글 메시지 변경
 jQuery.extend(jQuery.validator.messages, {
     required: "반드시 입력해야 합니다.",
-    remote: "수정 바랍니다.",
+   // remote: "수정 바랍니다.",
     email: "이메일 주소를 올바로 입력하세요.",
     url: "URL을 올바로 입력해 주세요.(http://, https:// 문구 제외)",
     date: "날짜가 잘못 입력됐습니다.",
@@ -58,6 +108,7 @@ jQuery.extend(jQuery.validator.messages, {
 
 
 validator = $("#command").validate({
+    ignore: ".ignore",
      invalidHandler:function(event, validator){//실패시 실행 메서드
         alert('입력값을 확인해 주세요');
      },
@@ -86,7 +137,30 @@ validator = $("#command").validate({
         agree: "required",
         url:{
             url: true
+        },
+        nextowner:{
+            required:true
         }
+        /* ID 중복체크
+        userid: {
+            minlength:5,
+            remote: {
+                url: "/user/idcheck",
+                method: "get",
+                cache:false,
+                complete: function (data) {
+                    if(data.responseText == 0){
+                        $('#userid').addClass('valid').removeClass('error').next().text('사용가능한 ID 입니다.');
+                        $('#userid').next().show();
+                    }else{
+                        $('#userid').removeClass('valid').addClass('error').next().text('중복된 ID 입니다..');
+                        $('#userid').next().show();
+                    }
+                },
+
+            }
+        }
+        */
     },
     messages: {
         name: "이름을 입력해 주세요",
@@ -106,10 +180,7 @@ validator = $("#command").validate({
 
 function inputValidate(){
     var size = $('.input-tab-link').length;
-    var object = $('#command');
-    if(object.length == 0){
-        object = $('#multiFile');
-    }
+    var object = $('form');
 
     if(size != 0){
         for(var i=0;i<size;i++) {
@@ -126,5 +197,3 @@ $('.save').click(function(e){
     e.preventDefault();
     inputValidate();
 });
-
-

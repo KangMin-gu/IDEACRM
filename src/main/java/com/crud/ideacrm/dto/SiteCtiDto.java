@@ -18,11 +18,6 @@ public class SiteCtiDto {
 
     public SiteCtiDto(){};
 
-    public void setEncodingCtiDto() throws UnsupportedEncodingException, GeneralSecurityException {
-        CodecUtil commonUtil = new CodecUtil();
-        if(this.telno != null && this.telno != ""){ this.telno = commonUtil.encoding(this.telno);}
-    }
-
     public SiteCtiDto(String siteid, String ip, String socketip, String port, String telno, int reguser, String regdate, int edtuser, String edtdate) {
         this.siteid = siteid;
         this.ip = ip;

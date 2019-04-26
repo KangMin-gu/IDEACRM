@@ -84,7 +84,7 @@ public class MailScheduler {
 
         // smtp 연결설정 192.168.0.32 / 182.231.77.200 / 192.168.219.102 //125.129.242.156 //211.233.81.188
         Properties properties = new Properties();
-        properties.setProperty("mail.smtp.host", "125.129.242.156");
+        properties.setProperty("mail.smtp.host", "211.233.81.188");
         properties.setProperty("mail.smtp.port", "25");
         properties.setProperty("mail.transport.protocol", "smtp");
         properties.setProperty("mail.debug", "true");

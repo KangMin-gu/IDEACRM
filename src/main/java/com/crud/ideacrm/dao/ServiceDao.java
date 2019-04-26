@@ -46,4 +46,5 @@ public interface ServiceDao {
     public List<Map<String, Object>> svCalRewardOwner(RewardDto rewardDto);
 
     public List<Map<String,Object>> calRewardOwnerList(Map<String,Object> param);
+
 }

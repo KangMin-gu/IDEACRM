@@ -173,7 +173,7 @@
                                         <th>계정</th>
                                         <td>${siteInfo.ADMINID}</td>
                                         <th>비밀번호</th>
-                                        <td><button type="button" class="btn btn-w-m btn-xs btn-primary">초기화</button></td>
+                                        <td></td>
                                         <th>회원사로고</th>
                                         <td>${siteInfo.SITELOGO}</td>
                                     </tr>

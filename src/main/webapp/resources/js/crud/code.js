@@ -44,6 +44,12 @@ $('#cancel').click(function (e) {
     var codeNo = $('#codeno').val();
     if(codeNo == ""){
         btnFirst();
+        $('.body #viewcodegrp').val("");
+        $('.body #viewcodename').val("");
+        $('.body #viewcodeval').val("");
+        $('.body #viewusingmenu').val(0);
+        $('.body #viewuppercodegrp').val("");
+        $('.body #codeno').val("");
     }else{
         $.ajax({
             url: QueryString+"/"+codeNo,

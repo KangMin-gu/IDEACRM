@@ -43,7 +43,11 @@ public class ParameterUtil {
                     search.put(name + "to", value.substring(idx + 3));
                 } else {
                     // ~표가 없는경우
-                    search.put(name + "fr", value);
+                    if(value.equals("")){
+                        value = null;
+                    }else{
+                        search.put(name + "fr", value);
+                    }
                 }
             } else {
                 if (value == "") {

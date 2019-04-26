@@ -84,7 +84,7 @@ public class SiteServiceImple implements SiteService{
         param.put("siteid",siteId);
         param.put("userno",userNo);
 
-        Map<String,Object> resultMap = new HashMap<String,Object>();
+        Map<String,Object> resultMap = new HashMap<>();
         resultMap.put("ctiInfo",siteDao.siteCtiDetail(siteId));
         resultMap.put("ctiUserInfo",siteDao.siteCtiUser(param));
         return resultMap;
@@ -133,7 +133,6 @@ public class SiteServiceImple implements SiteService{
             siteCtiDto.setSiteid(siteId);
             String ctiIp = siteCtiDto.getIp();
             if(!ctiIp.equals("") ){
-                siteCtiDto.setEncodingCtiDto();
                 siteDao.ctiInsert(siteCtiDto);
             }
         }
@@ -185,13 +184,11 @@ public class SiteServiceImple implements SiteService{
 
         if(siteCtiDetail == null){
             if(!siteCtiDto.getIp().equals("")){
-                siteCtiDto.setEncodingCtiDto();
                 siteDao.ctiInsert(siteCtiDto);
             }
         }else{
             String ctiIp = siteCtiDetail.get("IP").toString();
             if(!ctiIp.equals(siteCtiDto.getIp())){
-                siteCtiDto.setEncodingCtiDto();
                 siteDao.ctiUpdate(siteCtiDto);
             }
         }
@@ -254,10 +251,22 @@ public class SiteServiceImple implements SiteService{
 
             // 발송 단가
             total.put("chargeType",chargeType);
-
-
         }
-
         return total;
+    }
+
+    @Override
+    public int siteMasterPasswordReset(HttpServletRequest request, String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        siteId = codecUtil.decodePkNo(siteId);
+        String password = encoder.encode("crudsystem1008!");
+
+        Map<String,Object> param = new HashMap<>();
+        param.put("siteid",siteId);
+        param.put("password",password);
+
+        int cnt = siteDao.siteMasterPassword(param);
+
+
+        return cnt;
     }
 }

@@ -32,6 +32,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-content body">
+                        <form:form>
                         <button type="button" class="btn btn-primary pull-right" id="conveySave" style="margin-bottom: 10px;  margin-left: 7px">저장</button>
                         <div class="table-responsive">
                             <table class="table table-bordered" style="white-space:nowrap;">
@@ -53,11 +54,12 @@
                                     <th>접수일자</th>
                                     <td>
                                         ${serviceInfo.RECEPTIONDATE_}
+                                        <input type="hidden" name="receptiondate" id="receptiondate" value="${serviceInfo.RECEPTIONDATE_}"/>
                                     </td>
                                     <th>현담당자</th>
                                     <td>
                                         ${serviceInfo.OWNER_ }
-                                        <input type="hidden" class="form-control searchparam" name="prevowner" id="prevowner" value="${serviceInfo.OWNER}" />
+                                        <input type="hidden" class="form-control searchparam deliveryowner" name="prevowner" id="prevowner" value="${serviceInfo.OWNER}" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -71,7 +73,7 @@
                                     <th>이관사유</th>
                                     <td>
                                         <select class="form-control searchparam" name="conveyreason" id="conveyreason">
-                                            <option label="선택" value=""/>
+                                            <option label="선택" value="0"/>
                                             <c:forEach var="conveyReason" items="${CONVEYREASON }">
                                                 <option label="${conveyReason.codename }" value="${conveyReason.codeval }"/>
                                             </c:forEach>
@@ -81,11 +83,12 @@
                                     <td>
                                         <div class="input-group owner" id="nextowner_" style="width:250px">
                                             <input type="text" class="form-control" autocomplete="off" name="nextowner_" value="">
-                                            <input type="hidden" class="searchparam" name="nextowner" id="nextowner" value="0">
+                                            <input type="hidden" class="searchparam usercheck" name="nextowner" id="nextowner" value="">
                                             <span class="input-group-addon">
                                                 <a><i class="fa fa-search"></i></a>
                                             </span>
                                         </div>
+                                        <label for="nextowner" class="error"></label>
                                     </td>
                                 </tr>
                                 <tr>
@@ -98,6 +101,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        </form:form>
                     </div>
                 </div>
             </div>
@@ -109,8 +113,11 @@
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
-    <!-- datePicker -->
-    <script src="${pageContext.request.contextPath}/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- datePicker -->
+<script src="${pageContext.request.contextPath}/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- validate -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
 <!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>

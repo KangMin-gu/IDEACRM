@@ -177,6 +177,4 @@
 	<select id="userEmail" parameterType="String" resultType="String">
 		SELECT EMAIL FROM ME800010 WHERE USERNO = #{value}
 	</select>
-
-
 </mapper>

@@ -120,4 +120,12 @@ public class SiteController {
         Map<String,Object> totalMoney = siteService.totalMoney(request,siteId);
         return totalMoney;
     }
+
+    @RequestMapping(value="/common/site/password/{siteId}",method=RequestMethod.POST)
+    @ResponseBody
+    public int authSiteMasterPasswordReset(HttpServletRequest request, @PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        int cnt = siteService.siteMasterPasswordReset(request,siteId);
+
+        return cnt;
+    }
 }

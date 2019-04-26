@@ -73,6 +73,7 @@
                                             <label class="col-sm-2 col-form-label">ID</label>
                                             <div class="col-sm-4">
                                                 <input type="text" name="userid" id="userid" autocomplete="off" class="form-control form-control-sm">
+                                                <label for="userid"></label>
                                             </div>
                                         </div>
                                         <div class="form-group  row">
@@ -84,6 +85,7 @@
                                             <div class="col-sm-4">
                                                 <input type="password" autocomplete="off" class="form-control form-control-sm confirmpassword">
                                             </div>
+
                                         </div>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">휴대번호</label>
@@ -96,8 +98,8 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" minlength="3" maxlength="4" autocomplete="off" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" minlength="3" maxlength="4" autocomplete="off" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" autocomplete="off" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" autocomplete="off" class="form-control form-control-sm"></div>
                                                     <div>
                                                         <label class="error" for="mobile1"></label><label class="error" for="mobile2"></label><label class="error" for="mobile3"></label>
                                                     </div>
@@ -126,6 +128,8 @@
                                             <div class="col-sm-4">
                                                 <input type="text" name="email" id="email" autocomplete="off" class="form-control form-control-sm">
                                             </div>
+                                <c:choose>
+                                    <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
                                             <label class="col-sm-2 col-form-label">관리자여부</label>
                                             <div class="col-sm-4">
                                                 <select class="form-control" name="chkauth" id="chkauth" style="width:130px;">
@@ -141,6 +145,15 @@
                                                 <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm">
                                             </div>
                                         </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <label class="col-sm-2 col-form-label">직책</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                    </c:otherwise>
+                                </c:choose>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">메모</label>
                                             <div class="col-sm-10">
@@ -216,7 +229,7 @@
 
         $('.submit').click(function(e){
             e.preventDefault();
-            id_check();
+            id_check(e);
         });
 
     });

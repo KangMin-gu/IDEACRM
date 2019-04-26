@@ -226,7 +226,6 @@
                                         <th>서비스상태</th>
                                         <td>
                                             <select class="form-control" style="width:230px;">
-                                                <option value="0" label="선택"></option>
                                                 <c:forEach var="isDelete" items="${ISDELETE}">
                                                     <option value="${isDelete.codeval}" label="${isDelete.codename}"></option>
                                                 </c:forEach>

@@ -630,4 +630,8 @@
 		</if>
 		FROM DUAL
 	</select>
+
+	<update id="callbackAutoDiv" parameterType="hashMap">
+		{call SP_CTI_ASSING_CALL(#{siteid, mode=IN,jdbcType=INTEGER,javaType=int},#{callstatus, mode=IN, jdbcType=INTEGER, javaType=int})}
+	</update>
 </mapper>

@@ -316,10 +316,9 @@
                                             <table class="tabfootable table table-striped" data-paging="true" data-sorting="true">
                                                 <thead>
                                                 <tr>
-                                                    <th data-visible="false" data-name="SERVICENO">서비스번호</th>
-                                                    <!--<th data-visible="false" data-name="SERVICENAME_">서비스명</th>
-                                                    <th data-formatter="vocSvTabFormatter">서비스명</th>-->
-                                                    <th data-name="SERVICENAME_">서비스명</th>
+                                                    <th data-visible="false" data-name="NO">서비스번호</th>
+                                                    <th data-name="SERVICENAME_" data-formatter="vocSvTabFormatter">서비스명</th>
+                                                    <!--<th data-name="SERVICENAME_">서비스명</th>-->
                                                     <th data-name="SERVICETYPE_">접수유형</th>
                                                     <th data-name="CUSTNAME_">고객명</th>
                                                     <th data-name="RECEPTIONDATE_" data-sorted="true" data-direction="DESC">접수일</th>
@@ -841,24 +840,11 @@
 <script>
     $(document).ready(function(){
         $('.ctibtn').hide();
-        $('[name="callbackBottomTab"]').trigger('click');
         vocServiceFieldReset();
         voc_send_message();
-    });
-</script>
-
-<script>
-    $('.vocEmailBtn').click(function(){
-        if( !$('#custno').val() == false )
-            window.open("/voc/pop/email", "고객상세정보", "width=1200px, height=900px");
-    });
-    $('.vocSmsBtn').click(function(){
-        if( !$('#custno').val() == false )
-            window.open("/voc/pop/sms", "고객상세정보","width=400px, height=600px");
-    });
-    $('#vocKakaoBtn').click(function(){
-        if( !$('#custno').val() == false )
-            window.open("/voc/pop/kakao", "고객상세정보", "width=400px, height=600px");
+        setTimeout(function(){
+            $('[name="callbackBottomTab"]').trigger('click');
+        },700);
     });
 </script>
 </body>

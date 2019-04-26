@@ -346,10 +346,12 @@ public class VocServiceImple implements VocService {
     }
 
     @Override
-    public int vocCallBackAutoDiv(HttpServletRequest request) {
-
+    public void vocCallBackAutoDiv(HttpServletRequest request) {
         Map<String,Object> param = parameterUtil.searchParam(request);
-
+        int callStatus = -1; // 차후 기능 확장 시 사용 (상태값에 따른 제어)
+        param.put("callstatus",callStatus);
+        vocDao.callbackAutoDiv(param);
+/*
         int userCnt = vocDao.vocCallUserCnt(param);
 
         int callBackCnt = vocDao.vocCallBackTotalRow(param);
@@ -391,6 +393,8 @@ public class VocServiceImple implements VocService {
             vocCallBackAutoDiv(request);
         }
         return cnt;
+
+       */
     }
 
     @Override

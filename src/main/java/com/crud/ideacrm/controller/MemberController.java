@@ -29,7 +29,7 @@ public class MemberController {
     @ResponseBody
     public int authUserIdCheck(HttpServletRequest request,@PathVariable String userId){
 
-        // /int cnt = memberService.memberIdCheck(request,userId);
+        // int cnt = memberService.memberIdCheck(request,userId);
         return 0;
     }
 

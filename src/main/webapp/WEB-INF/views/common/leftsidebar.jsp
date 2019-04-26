@@ -13,6 +13,16 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <a href="${pageContext.request.contextPath}/">
+                        <c:choose>
+                            <c:when test="${empty SITELOGO}">
+                                <img alt="image" class="rounded" src="${pageContext.request.contextPath}/img/crud.png"/>
+                            </c:when>
+                            <c:when test="${!empty SITELOGO}">
+                                <img alt="image" class="rounded" src="${SITELOGO }"/>
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
                         <img alt="image" class="rounded" src="${SITELOGO }"/>
                     </a>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">

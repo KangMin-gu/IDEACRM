@@ -63,7 +63,7 @@ public class VocDaoImple implements VocDao {
 
     @Override
     public void vocRecInsert(Map<String, Object> prmMap) {
-            session.insert("voc.vocrecInsert",prmMap);
+            session.insert("voc.vocRecInsert",prmMap);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class VocDaoImple implements VocDao {
 
     @Override
     public List<Map<String,Object>> vocPopCallBackList(Map<String,Object> param) {
-        List<Map<String,Object>> callBackList = session.selectList("voc.popCallBackList",param);
+        List<Map<String,Object>> callBackList = session.selectList("voc.vocPopCallBackList",param);
         return callBackList;
     }
 
@@ -159,6 +159,24 @@ public class VocDaoImple implements VocDao {
     @Override
     public void vocCallBackDiv(Map<String,Object> param) {
         session.update("voc.vocCallBackDiv",param);
+    }
+
+    // 사용자 통합 수
+    @Override
+    public int vocUserTotalRows(Map<String, Object> search) {
+        return session.selectOne("voc.vocUserTotalRows",search);
+    }
+
+    @Override
+    public List<Map<String, Object>> vocUserList(Map<String, Object> search) {
+        return session.selectList("voc.vocUserList",search);
+    }
+
+    //VOC 콜백 카운터 (전광판)
+    @Override
+    public Map<String, Object> vocAlarm(Map<String, Object> param) {
+        Map<String,Object> vocAlarm = session.selectOne("voc.vocAlarm",param);
+        return vocAlarm;
     }
 
 }

@@ -71,7 +71,7 @@ public class SendServiceImple implements SendService {
         mailDto.setUserno(userNo);
 
         Map<String, Object> userInfo = loginDao.userInfo(userNo);
-        String formemail = codecUtil.decodePkNo(userInfo.get("EMAIL").toString());
+        String fromemail = codecUtil.decodePkNo(userInfo.get("EMAIL").toString());
 
         //파일업로드
         List<MultipartFile> mFile = mailDto.getFile();
@@ -83,7 +83,7 @@ public class SendServiceImple implements SendService {
         //dto에 인코딩 되어들어온 custno를 복호화 후 전달
         String deCustNo = codecUtil.decodePkNo(mailDto.getCustno());
         mailDto.setCustno(deCustNo);
-        mailDto.setFromemail(formemail);
+        mailDto.setFromemail(fromemail);
         mailDao.emailSend(mailDto);
 
     }

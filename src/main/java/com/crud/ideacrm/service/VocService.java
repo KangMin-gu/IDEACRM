@@ -1,10 +1,9 @@
 package com.crud.ideacrm.service;
 
-import com.crud.ideacrm.dto.BlackCustDto;
-import com.crud.ideacrm.dto.CustDenyDto;
-import com.crud.ideacrm.dto.CustDto;
+import com.crud.ideacrm.dto.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -25,8 +24,9 @@ public interface VocService {
     public Map<String, Object> vocOwnerList(HttpServletRequest request,int asOwner);
     public List<Map<String,Object>> vocCalOwnerList (HttpServletRequest request,int asOwner);
     public Map<String,Object> vocCalList(HttpServletRequest request);
-    public List<Map<String,Object>> vocPopCallBackList(HttpServletRequest request);
-    public List<Map<String,Object>> vocCallBackUserList(HttpServletRequest request);
+    public Map<String,Object> vocPopCallBackList(HttpServletRequest request);
+    public Map<String,Object> vocCallBackUserList(HttpServletRequest request);
     public int vocCallBackPassDiv(HttpServletRequest request);
     public int vocCallBackAutoDiv(HttpServletRequest request);
+    public String vocInsert(HttpServletRequest request, HttpServletResponse response, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto, ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException;
 }

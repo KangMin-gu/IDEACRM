@@ -9,6 +9,9 @@ $.validator.addMethod("url", function(value,element) {
     return this.optional(element) || /^[^((http(s?))\:\/\/)]([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/.test(value);
 },"URL을 올바로 입력해 주세요.(http://, https:// 문구 제외)");
 
+$.validator.addMethod("test", function(value,element) {
+    return this.optional(element) || t },"abcdefg");
+
 $.validator.addMethod(
     "testconnect",
     function (value, element) {
@@ -84,7 +87,6 @@ validator = $("#command").validate({
         url:{
             url: true
         }
-
     },
     messages: {
         name: "이름을 입력해 주세요",
@@ -124,3 +126,5 @@ $('.save').click(function(e){
     e.preventDefault();
     inputValidate();
 });
+
+

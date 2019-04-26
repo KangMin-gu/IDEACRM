@@ -65,4 +65,6 @@ public class UserDaoImple implements UserDao {
         List<Map<String,Object>> asOwner = session.selectList("user.userAsOwner",siteId);
         return asOwner;
     }
+
+
 }

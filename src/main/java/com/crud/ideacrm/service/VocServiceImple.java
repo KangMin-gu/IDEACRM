@@ -2,7 +2,9 @@ package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
+import com.crud.ideacrm.crud.util.PagingUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
+import com.crud.ideacrm.crud.util.Uplaod;
 import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dao.UserDao;
 import com.crud.ideacrm.dao.VocDao;
@@ -13,14 +15,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class VocServiceImple implements VocService {
@@ -36,7 +38,12 @@ public class VocServiceImple implements VocService {
     private ServiceDao svDao;
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private Uplaod uplaod;
+    @Autowired
+    private ServiceDao serviceDao;
+    @Autowired
+    private PagingUtil pageUtil;
 
     //고객 수정 실행
     @Override
@@ -190,7 +197,9 @@ public class VocServiceImple implements VocService {
                     serviceMap.put("convey", vocDao.svTopConvey(searchPrm));
                 }
             }else if(serviceType == 2) {
-                serviceMap.put("reward", vocDao.svTopReward(searchPrm));
+                Map rewardMap = vocDao.svTopReward(searchPrm);
+                rewardMap = codecUtil.decodeMap(rewardMap);
+                serviceMap.put("reward", rewardMap);
             }
             serviceMap.put("product", vocDao.svProductRead(searchPrm));
 
@@ -273,17 +282,49 @@ public class VocServiceImple implements VocService {
     }
 
     @Override
-    public List<Map<String,Object>> vocPopCallBackList(HttpServletRequest request){
+    public Map<String,Object> vocPopCallBackList(HttpServletRequest request){
         Map<String,Object> param = parameterUtil.searchParam(request);
+        int PAGE_ROW_COUNT = 10;
+        int PAGE_DISPLAY_COUNT = 5;
+
+        int totalRows = vocDao.vocCallBackTotalRow(param);
+
+        Map<String, Integer> page = pageUtil.paging(request, totalRows, PAGE_ROW_COUNT, PAGE_DISPLAY_COUNT);
+        int startRowNum = page.get("startRowNum");
+        int endRowNum = page.get("endRowNum");
+
+        param.put("startRowNum", startRowNum);
+        param.put("endRowNum", endRowNum);
         List<Map<String,Object>> callBackList = vocDao.vocPopCallBackList(param);
-        return callBackList;
+
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("callBack", callBackList);
+        resultMap.put("page", page);
+        resultMap.put("totalRows",totalRows);
+        return resultMap;
     }
 
     @Override
-    public List<Map<String,Object>> vocCallBackUserList(HttpServletRequest request){
+    public Map<String,Object> vocCallBackUserList(HttpServletRequest request){
         Map<String,Object> param = parameterUtil.searchParam(request);
-        List<Map<String,Object>> callBackUserList = userDao.userList(param);
-        return callBackUserList;
+        int PAGE_ROW_COUNT = 10;
+        int PAGE_DISPLAY_COUNT = 5;
+
+        int totalRows = vocDao.vocUserTotalRows(param);
+
+        Map<String, Integer> page = pageUtil.paging(request, totalRows, PAGE_ROW_COUNT, PAGE_DISPLAY_COUNT);
+        int startRowNum = page.get("startRowNum");
+        int endRowNum = page.get("endRowNum");
+
+        param.put("startRowNum", startRowNum);
+        param.put("endRowNum", endRowNum);
+        List<Map<String,Object>> callBackUserList = vocDao.vocUserList(param);
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("callBackUser", callBackUserList);
+        result.put("page", page);
+        result.put("totalRows",totalRows);
+        return result;
     }
 
     @Override
@@ -306,6 +347,7 @@ public class VocServiceImple implements VocService {
 
     @Override
     public int vocCallBackAutoDiv(HttpServletRequest request) {
+
         Map<String,Object> param = parameterUtil.searchParam(request);
 
         int userCnt = vocDao.vocCallUserCnt(param);
@@ -320,7 +362,7 @@ public class VocServiceImple implements VocService {
 
         int cnt = 0;
 
-        List<Map<String,Object>> userList = userDao.userList(param);
+        List<Map<String,Object>> userList = vocDao.vocUserList(param);
 
         int userListSize = userList.size();
         int userNo = 0;
@@ -349,6 +391,123 @@ public class VocServiceImple implements VocService {
             vocCallBackAutoDiv(request);
         }
         return cnt;
+    }
+
+    @Override
+    public String vocInsert(HttpServletRequest request, HttpServletResponse response, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto, ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        Map<String,Object> search = parameterUtil.searchParam(request);
+
+
+        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
+        Date currentTime = new Date ();
+        String receptiondate = mSimpleDateFormat.format ( currentTime );//현재시간
+
+        if(serviceDto.getOwner() == 0 ){ serviceDto.setOwner(userNo); }
+        if(serviceDto.getServiceowner() == 0 ){ serviceDto.setServiceowner(userNo); }
+        if(serviceDeliveryDto.getNextowner() != 0 ) { serviceDto.setOwner( serviceDeliveryDto.getNextowner() ); }
+        serviceDto.setSiteid(siteId);
+        serviceDto.setEdtuser(userNo);
+        serviceDto.setReguser(userNo);
+        serviceDto.setReceptiondate(receptiondate);
+
+        rewardDto.setSiteid(siteId);
+        rewardDto.setEdtuser(userNo);
+        ractDto.setSiteid(siteId);
+        ractDto.setEdtuser(userNo);
+        /* 첨부파일 */
+        List<MultipartFile> serviceFile = serviceDto.getFiles();
+        if(serviceFile  != null && serviceFile.size() > 0 && serviceFile.isEmpty() == false){
+            String fileSearchKey = uplaod.multiUpload(response, request, serviceFile);
+            serviceDto.setFilesearchkey(fileSearchKey);
+        }
+
+        String custNo = codecUtil.decodePkNo(serviceDto.getCustno());
+        serviceDto.setCustno(custNo);
+
+        serviceDto.setIsdelete(0);
+        String serviceNo = serviceDao.serviceInsert(serviceDto);
+        String visitDate = rewardDto.getVisitdate();
+
+        int rewardNo = rewardDto.getRewardno();
+
+        // 방문 일정이 잡히면 현상파악을 Insert 하게됨.
+        if(visitDate != null) {
+            if(visitDate.length() > 0) {
+                rewardDto.setEncodingRewardDto();
+                rewardDto.setServiceno(serviceNo);
+                if(search.get("asowner") != null){
+                   rewardDto.setOwner( Integer.parseInt((String)search.get("asowner")) );
+                }
+                rewardDto.setReguser(userNo);
+                serviceDao.rewardInsert(rewardDto);
+                serviceDto.setServicestep(2);
+                serviceDao.serviceStepUpdate(serviceDto);
+            }
+        }
+
+        String ractDate = ractDto.getRactdate();
+        int ractNo = ractDto.getRactno();
+
+        if(ractDate == null || ractDate.equals("")) {
+        }else{
+            if(ractNo != 0) {
+                ractDto.setServiceno(serviceNo);
+                serviceDao.ractUpdate(ractDto);
+            }else{
+                ractDto.setServiceno(serviceNo);
+                ractDto.setReguser(userNo);
+                serviceDao.ractInsert(ractDto);
+                serviceDto.setServicestep(3);
+                serviceDao.serviceStepUpdate(serviceDto);
+            }
+        }
+
+        int svStep = serviceDto.getServicestep();
+        if(svStep == 5 || svStep == 6){
+            serviceDeliveryDto.setServiceno(serviceNo);
+            serviceDeliveryDto.setPrevowner(userNo);//voc에서 입력과 동시에 이관하기때문에 이전담당자는 로그인 회원
+            serviceDeliveryDto.setReguser(userNo);
+            serviceDeliveryDto.setEdtuser(userNo);
+            serviceDeliveryDto.setSiteid(siteId);
+            vocDao.conveyInsert(serviceDeliveryDto);
+        }
+
+        int cnt = 0;
+        Map<String,Object> map = new HashMap();
+        TreeMap<String,Object> treeMap = new TreeMap<String,Object>(search);
+
+        String key;
+        String value;
+
+        Iterator<String> keyiterator = treeMap.keySet().iterator();
+        map.put("siteid", siteId);
+        map.put("reguser", userNo);
+        map.put("edtuser", userNo);
+        map.put("serviceno", serviceNo);
+        while(keyiterator.hasNext()) {
+            key = keyiterator.next().toString();
+            if(search.get(key) != null) {
+                value = search.get(key).toString();
+                if(key.contains("product")) {
+                    cnt ++;
+                    if(cnt == 1) {
+                        map.put("productb", value);
+                    }else if(cnt ==2) {
+                        map.put("productm", value);
+                    }else if(cnt ==3) {
+                        map.put("products", value);
+                        cnt = 0;
+                        serviceDao.serviceProductInsert(map);
+                    }
+                }
+            }
+        }
+        serviceNo = codecUtil.encodePkNo(serviceNo);
+        return serviceNo;
+
     }
 
 }

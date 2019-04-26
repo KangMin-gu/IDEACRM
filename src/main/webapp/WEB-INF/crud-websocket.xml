@@ -27,16 +27,17 @@
 		</websocket:handshake-interceptors>
 		<websocket:sockjs />
 	</websocket:handlers>
-	<!--
+
 	<websocket:handlers>
-		<websocket:mapping handler="VocHandler" path="/vocCount" />
+		<websocket:mapping handler="vocHandler" path="/vocCount" />
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 		<websocket:sockjs />
 	</websocket:handlers>
-	 -->
+
 
   	<bean id="AramHandler" class="com.crud.ideacrm.crud.util.AlarmHandler"/>
+	<bean id="vocHandler" class="com.crud.ideacrm.crud.util.VocHandler"/>
 
 </beans>

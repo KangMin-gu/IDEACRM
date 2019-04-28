@@ -36,7 +36,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>IDEA 공지사항</strong>
+                        <strong>공지사항</strong>
                     </li>
                 </ol>
             </div>
@@ -129,7 +129,7 @@
                                     </c:if>
                                 </div>
                             </div>
-                                <table class="footable table table-striped">
+                                <table class="footable table table-striped notice">
                                     <thead>
                                         <tr>
                                             <th data-name="NTNUM" data-visible="false">
@@ -176,10 +176,10 @@
     $(document).ready(function() {
         var url = window.location.pathname;
         var bool = dateRangeError();
-        if(bool)  footableSearchList(url);
+        if(bool)  footableSearchList(url, $('.notice'));
 
         $('#noticeListSearch').click(function(e){
-            footableSearchList(url);
+            footableSearchList(url, $('.notice'));
         });
     });
 </script>

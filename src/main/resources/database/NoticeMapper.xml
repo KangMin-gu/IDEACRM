@@ -3,17 +3,18 @@
 <mapper namespace="notice">
 
 	<select id="companyNoticeList" parameterType="hashMap" resultType="hashMap">
-		SELECT  CASE WHEN A.tag = 0 THEN '전체'
-                WHEN A.tag = 1 THEN '일반'
-                WHEN A.tag = 2 THEN '중요' END AS TAGNAME
+		SELECT * FROM (
+        SELECT CASE WHEN A.tag = 0 THEN '전체'
+        WHEN A.tag = 1 THEN '일반'
+        WHEN A.tag = 2 THEN '중요' END AS TAGNAME
         , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
-		FROM sys990011 AS A
-		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
-		WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0
-            <if test="regdatefr != null">
-                AND A.REGDATE <![CDATA[>=]]> #{regdatefr}
+        FROM sys990010 AS A
+        LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+        WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0 AND A.MEDIATYPE = 1
+            <if test="regdatefr != null">AND A.REGDATE <![CDATA[>=]]> #{regdatefr}
             </if>
-            <if test="regdateto != null">
+            <if test="
+        regdateto != null">
                 AND A.REGDATE <![CDATA[<=]]> #{regdateto}
             </if>
             <if test="writer != null">
@@ -25,6 +26,7 @@
             <if test="tag != null">
                 AND A.tag = #{tag}
             </if>
+            ) AS C ORDER BY C.NTNUM DESC
 	</select>
 
     <select id="companyNoticeDetail" parameterType="int" resultType="hashMap">
@@ -33,16 +35,16 @@
             WHEN A.tag = 1 THEN '일반'
             WHEN A.tag = 2 THEN '중요' END AS TAG
         ,A.TITLE, A.CONTENT, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER, A.NTNUM, A.FILESEARCHKEY
-        FROM sys990011 AS A
+        FROM sys990010 AS A
 		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
-		WHERE A.NTNUM = #{noticeid}
+		WHERE A.NTNUM = #{noticeid} AND A.MEDIATYPE = 1
     </select>
 
     <insert id="companyNoticeInsert" parameterType="noticeDto" >
-        INSERT INTO sys990011
-        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG)
+        INSERT INTO sys990010
+        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG, MEDIATYPE)
         VALUES
-        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag})
+        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag}, 1)
 
         <selectKey resultType="int" keyProperty="ntnum" order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -50,24 +52,25 @@
     </insert>
 
     <update id="companyNoticeUpdate" parameterType="noticeDto">
-    UPDATE sys990011  SET TITLE = #{title}, CONTENT = #{content}, EDTUSER = #{edtuser}, EDTDATE = now(), FILESEARCHKEY = #{filesearchkey}, TAG=#{tag}
-    WHERE NTNUM = #{ntnum}
+    UPDATE sys990010  SET TITLE = #{title}, CONTENT = #{content}, EDTUSER = #{edtuser}, EDTDATE = now(), FILESEARCHKEY = #{filesearchkey}, TAG=#{tag}
+    WHERE NTNUM = #{ntnum} AND MEDIATYPE = 1
     </update>
 
     <update id="companyNoticeDel" parameterType="noticeDto">
-        UPDATE sys990011 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum}
+        UPDATE sys990010 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum} AND MEDIATYPE = 1
     </update>
 
 
     <!--전체공지사항-->
     <select id="noticeList" parameterType="hashMap" resultType="hashMap">
-        SELECT  CASE WHEN A.tag = 0 THEN '전체'
+        SELECT * FROM (
+        SELECT CASE WHEN A.tag = 0 THEN '전체'
         WHEN A.tag = 1 THEN '일반'
         WHEN A.tag = 2 THEN '중요' END AS TAGNAME
         , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
         FROM sys990010 AS A
         LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
-        WHERE A.ISDELETE = 0
+        WHERE A.ISDELETE = 0 AND A.MEDIATYPE = 0
         <if test="regdatefr != null">
             AND A.REGDATE <![CDATA[>=]]> #{regdatefr}
         </if>
@@ -83,6 +86,7 @@
         <if test="tag != null">
             AND A.tag = #{tag}
         </if>
+        ) AS C ORDER BY C.NTNUM DESC
     </select>
 
     <select id="noticeDetail" parameterType="int" resultType="hashMap">
@@ -93,14 +97,14 @@
         ,A.TITLE, A.CONTENT, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER, A.NTNUM, A.FILESEARCHKEY
         FROM sys990010 AS A
 		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
-		WHERE A.NTNUM = #{noticeid}
+		WHERE A.NTNUM = #{noticeid} AND A.MEDIATYPE = 0
     </select>
 
     <insert id="noticeInsert" parameterType="noticeDto" >
         INSERT INTO sys990010
-        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG)
+        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG, MEDIATYPE)
         VALUES
-        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag})
+        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag}, 0)
 
         <selectKey resultType="int" keyProperty="ntnum" order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -109,22 +113,23 @@
 
     <update id="noticeUpdate" parameterType="noticeDto">
     UPDATE sys990010  SET TITLE = #{title}, CONTENT = #{content}, EDTUSER = #{edtuser}, EDTDATE = now(), FILESEARCHKEY = #{filesearchkey}, TAG=#{tag}
-    WHERE NTNUM = #{ntnum}
+    WHERE NTNUM = #{ntnum} AND MEDIATYPE = 0
     </update>
 
     <update id="noticeDel" parameterType="noticeDto">
-        UPDATE sys990010 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum}
+        UPDATE sys990010 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum} AND MEDIATYPE = 0
     </update>
 
     <!--voc 공지사항-->
     <select id="vocNoticeList" parameterType="hashMap" resultType="hashMap">
-        SELECT  CASE WHEN A.tag = 0 THEN '전체'
+        SELECT * FROM (
+        SELECT CASE WHEN A.tag = 0 THEN '전체'
         WHEN A.tag = 1 THEN '일반'
         WHEN A.tag = 2 THEN '중요' END AS TAGNAME
         , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
-        FROM sys990012 AS A
+        FROM sys990010 AS A
         LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
-        WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0
+        WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0 AND A.MEDIATYPE = 2
         <if test="regdatefr != null">
             AND A.REGDATE <![CDATA[>=]]> #{regdatefr}
         </if>
@@ -140,6 +145,7 @@
         <if test="tag != null">
             AND A.tag = #{tag}
         </if>
+        ) AS C ORDER BY C.NTNUM DESC
     </select>
 
     <select id="vocNoticeDetail" parameterType="int" resultType="hashMap">
@@ -148,20 +154,20 @@
             WHEN A.tag = 1 THEN '일반'
             WHEN A.tag = 2 THEN '중요' END AS TAG
         ,A.TITLE, A.CONTENT, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER, A.NTNUM, A.FILESEARCHKEY
-        FROM sys990012 AS A
+        FROM sys990010 AS A
 		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
-		WHERE A.NTNUM = #{noticeid}
+		WHERE A.NTNUM = #{noticeid} AND A.MEDIATYPE = 2
     </select>
 
     <update id="vocReadCount" parameterType="int">
-        UPDATE sys990012 SET CTR = CTR + 1 WHERE NTNUM = #{noticeid}
+        UPDATE sys990010 SET CTR = CTR + 1 WHERE NTNUM = #{noticeid}
     </update>
 
     <insert id="vocNoticeInsert" parameterType="noticeDto" >
-        INSERT INTO sys990012
-        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG)
+        INSERT INTO sys990010
+        (TITLE, CONTENT, REGUSER, REGDATE, EDTUSER, EDTDATE, FILESEARCHKEY, SITEID, TAG, MEDIATYPE)
         VALUES
-        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag})
+        (#{title}, #{content}, #{reguser}, NOW(), #{edtuser}, NOW(), #{filesearchkey}, #{siteid}, #{tag}, 2)
 
         <selectKey resultType="int" keyProperty="ntnum" order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -169,12 +175,12 @@
     </insert>
 
     <update id="vocNoticeUpdate" parameterType="noticeDto">
-    UPDATE sys990012  SET TITLE = #{title}, CONTENT = #{content}, EDTUSER = #{edtuser}, EDTDATE = now(), FILESEARCHKEY = #{filesearchkey}, TAG=#{tag}
-    WHERE NTNUM = #{ntnum}
+    UPDATE sys990010  SET TITLE = #{title}, CONTENT = #{content}, EDTUSER = #{edtuser}, EDTDATE = now(), FILESEARCHKEY = #{filesearchkey}, TAG=#{tag}
+    WHERE NTNUM = #{ntnum} AND A.MEDIATYPE = 2
     </update>
 
     <update id="vocNoticeDel" parameterType="noticeDto">
-        UPDATE sys990012 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum}
+        UPDATE sys990010 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE NTNUM = #{ntnum} AND MEDIATYPE = 2
     </update>
 
     <select id="loginNotice" resultType="hashMap">
@@ -184,6 +190,26 @@
         , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
         FROM sys990010 AS A
         LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
-        WHERE A.ISDELETE = 0 ORDER BY ntnum desc limit 5;
+        WHERE A.ISDELETE = 0 AND A.MEDIATYPE = 0 ORDER BY NTNUM desc limit 5;
+    </select>
+
+    <select id="indexSiteNotice" resultType="hashMap" parameterType="noticeDto">
+        SELECT  CASE WHEN A.tag = 0 THEN '전체'
+        WHEN A.tag = 1 THEN '일반'
+        WHEN A.tag = 2 THEN '중요' END AS TAGNAME
+        , A.NTNUM ,A.TITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, B.USERNAME AS WRITER
+		FROM sys990010 AS A
+		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+		WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0 AND A.MEDIATYPE = 1 ORDER BY NTNUM DESC LIMIT 5
+    </select>
+
+    <select id="indexVocNotice" resultType="hashMap" parameterType="noticeDto">
+        SELECT  CASE WHEN A.tag = 0 THEN '전체'
+        WHEN A.tag = 1 THEN '일반'
+        WHEN A.tag = 2 THEN '중요' END AS VOCTAGNAME
+        , A.NTNUM AS VOCNTNUM,A.TITLE AS VOCTITLE, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS VOCREGDATE, B.USERNAME AS VOCWRITER
+		FROM sys990010 AS A
+		LEFT OUTER JOIN me800010 AS B ON B.USERNO = A.REGUSER
+		WHERE A.SITEID = #{siteid} AND A.ISDELETE = 0 AND A.MEDIATYPE = 2 ORDER BY VOCNTNUM DESC LIMIT 5
     </select>
 </mapper>

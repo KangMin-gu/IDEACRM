@@ -19,10 +19,11 @@ public class NoticeDto {
     private int tag;
     private List<MultipartFile> file; //Spring 에서 파일 업로드 처리하기 위해
     private int ctr;
+    private int mediatype;
 
     public NoticeDto(){}
 
-    public NoticeDto(int ntnum, String title, String content, int reguser, String regdate, int edtuser, String edtdate, int isdelete, String filesearchkey, int siteid, int tag, List<MultipartFile> file, int ctr) {
+    public NoticeDto(int ntnum, String title, String content, int reguser, String regdate, int edtuser, String edtdate, int isdelete, String filesearchkey, int siteid, int tag, List<MultipartFile> file, int ctr, int mediatype) {
         this.ntnum = ntnum;
         this.title = title;
         this.content = content;
@@ -36,6 +37,7 @@ public class NoticeDto {
         this.tag = tag;
         this.file = file;
         this.ctr = ctr;
+        this.mediatype = mediatype;
     }
 
     public int getNtnum() {
@@ -140,5 +142,13 @@ public class NoticeDto {
 
     public void setCtr(int ctr) {
         this.ctr = ctr;
+    }
+
+    public int getMediatype() {
+        return mediatype;
+    }
+
+    public void setMediatype(int mediatype) {
+        this.mediatype = mediatype;
     }
 }

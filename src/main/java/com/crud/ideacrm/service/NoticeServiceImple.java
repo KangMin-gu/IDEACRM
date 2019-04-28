@@ -313,4 +313,22 @@ public class NoticeServiceImple implements NoticeService{
         mView.addObject("notice", notice);
         return mView;
     }
+
+    @Override
+    public List<Map<String,Object>> indexSiteNotice(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        NoticeDto noticeDto = new NoticeDto();
+        noticeDto.setSiteid(siteId);
+        List<Map<String,Object>> noticeList = noticeDao.indexSiteNotice(noticeDto);
+        return noticeList;
+    }
+
+    @Override
+    public List<Map<String, Object>> indexVocNotice(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        NoticeDto noticeDto = new NoticeDto();
+        noticeDto.setSiteid(siteId);
+        List<Map<String,Object>> noticeList = noticeDao.indexVocNotice(noticeDto);
+        return noticeList;
+    }
 }

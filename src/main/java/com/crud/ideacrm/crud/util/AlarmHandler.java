@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,14 +42,19 @@ public class AlarmHandler extends TextWebSocketHandler {
         String ntCountKey = message.getPayload();
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> maps = mapper.readValue(ntCountKey, new TypeReference<Map<String, Object>>() {});
+
         int userNo =  Integer.parseInt((String) maps.get("userNo"));
-        ////Map<String, Object> userAram = userDao.userAram(userNo);
+        int siteId = Integer.parseInt((String) maps.get("siteId"));
+
+        Map<String,Object> alarmVal = new HashMap<>();
+        alarmVal.put("userno", userNo);
+        alarmVal.put("siteid", siteId);
 
         WebSocketMessage<Map<String, Object>> alarmInfo = new WebSocketMessage<Map<String, Object>>() {
 
             @Override
             public Map<String, Object> getPayload() {
-                Map<String, Object> alarmInfo = urDao.userAram(userNo);
+                Map<String, Object> alarmInfo = urDao.userAram(alarmVal);
 
                 return alarmInfo;
             }

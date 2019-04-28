@@ -10,8 +10,7 @@ public interface UserDao {
 
 
     public List<Map<String,Object>> userList(Map<String,Object> param);
-    public Map<String, Object> userAram(int userNo);
-
+    public Map<String, Object> userAram(Map<String,Object> alarmVal);
     public String userInsert(UserDto userDto);
     public void userCtiInsert(UserCtiDto userCtiDto);
 

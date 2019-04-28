@@ -99,7 +99,7 @@
                             </select>
                         </div>
                     </div>
-                        <table class="footable table table-striped">
+                        <table class="footable table table-striped popNotice">
                             <thead>
                             <tr>
                                 <th data-name="NTNUM" data-visible="false" data-filterable="true">
@@ -140,10 +140,10 @@
     $(document).ready(function() {
         var url = window.location.pathname;
         var bool = dateRangeError();
-        if(bool)  footableSearchList(url);
+        if(bool)  footableSearchList(url, $('.popNotice'));
 
         $('#noticeListSearch').click(function(e){
-            footableSearchList(url);
+            footableSearchList(url, $('.popNotice'));
         });
     });
 </script>

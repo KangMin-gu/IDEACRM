@@ -50,11 +50,12 @@ public class LoginServiceImple implements LoginService{
         ModelAndView mView = new ModelAndView();
         StringBuffer buf = new StringBuffer();
         Map<String, Object> urInfo = login.getData(urDto.getUserid());
-        urDto.setSiteid(Integer.parseInt(urInfo.get("SITEID").toString()));
-        urDto.setUserno(urInfo.get("USERNO").toString());
 
-        List<Map<String,Object>> licenseInfo = licenseDao.userLicenseList(urDto);
         if(urInfo != null) {
+            urDto.setSiteid(Integer.parseInt(urInfo.get("SITEID").toString()));
+            urDto.setUserno(urInfo.get("USERNO").toString());
+            List<Map<String,Object>> licenseInfo = licenseDao.userLicenseList(urDto);
+
             String userId = urInfo.get("USERID").toString();
             String pwd = urDto.getUserpassword();
             // 암호화된 userNo
@@ -101,7 +102,6 @@ public class LoginServiceImple implements LoginService{
                 request.getSession().setAttribute("MASTERYN", urInfo.get("MASTERYN")); //Master 사용자 여부
                 request.getSession().setAttribute("ENCUSERNO",encUserNo); // 암호화된 userNo
                 request.getSession().setAttribute("ENCSITEID",encSiteId); // 암호화된 siteId
-                request.getSession().setAttribute("SIDESTATES","1");
 
                 for(int i=0; i<licenseInfo.size(); i++) {
                      licenseVal = licenseInfo.get(i).get("LICENSENO").toString();

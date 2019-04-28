@@ -30,4 +30,6 @@ public interface NoticeService {
     public int vocNoticeUpdate(HttpServletResponse response, HttpServletRequest request, NoticeDto noticeDto);
     public void vocNoticeDel(HttpServletRequest request, int noticeId);
     public ModelAndView loginNotice();
+    public List<Map<String,Object>> indexSiteNotice(HttpServletRequest request);
+    public List<Map<String,Object>> indexVocNotice(HttpServletRequest request);
 }

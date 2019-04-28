@@ -119,4 +119,16 @@ public class NoticeDaoImple implements NoticeDao {
         List<Map<String, Object>> notice = session.selectList("notice.loginNotice");
         return notice;
     }
+
+    @Override
+    public List<Map<String, Object>> indexSiteNotice(NoticeDto noticeDto) {
+        List<Map<String, Object>> noticeList = session.selectList("notice.indexSiteNotice",noticeDto);
+        return noticeList;
+    }
+
+    @Override
+    public List<Map<String, Object>> indexVocNotice(NoticeDto noticeDto) {
+        List<Map<String, Object>> noticeList = session.selectList("notice.indexVocNotice",noticeDto);
+        return noticeList;
+    }
 }

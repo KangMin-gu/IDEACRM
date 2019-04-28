@@ -178,7 +178,7 @@
                                                 <th>담당자</th>
                                                 <td>
                                                     <div class="input-group" style="width: 150px;">
-                                                        <input type="text" class="form-control searchparam" autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
+                                                        <input type="text" class="form-control searchparam" disabled autocomplete="off" name="owner_" value="${sessionScope.USERNAME}">
                                                         <input type="hidden" class="searchparam" name="owner" id="owner" value="${sessionScope.USERNO}">
                                                         <span class="input-group-addon">
                                                     <a><i class="fa fa-search"></i></a>

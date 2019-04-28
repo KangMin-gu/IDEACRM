@@ -80,7 +80,7 @@ $.validator.addClassRules("testphone",{minlength: 3, maxlength:4,testphone:".tes
 $.validator.addClassRules("incno",{incno:".incno"});
 $.validator.addClassRules("bsno",{bsno:".bsno"});
 $.validator.addClassRules("usercheck",{required:true,notEqualTo:"#prevowner"});
-
+$.validator.addClassRules("adminemail",{email:true,required:true});
 
 //$.validator.addClassRules("notequal",{required: true, notEqualTo:"대상"});
 

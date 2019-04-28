@@ -26,5 +26,7 @@ public interface ServiceService {
 
     public ModelAndView serviceCalList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
 
+    public void serviceComplete(HttpServletRequest request,String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException;
+
 
 }

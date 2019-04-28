@@ -187,6 +187,15 @@ public class ServiceController {
         return mView;
     }
 
+    @RequestMapping(value="/service/complete/{serviceNo}",method=RequestMethod.GET)
+    @ResponseBody
+    public int authSvComplete(HttpServletRequest request,@PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+
+        serviceService.serviceComplete(request,serviceNo);
+
+        return 0;
+    }
+
 
 }
 

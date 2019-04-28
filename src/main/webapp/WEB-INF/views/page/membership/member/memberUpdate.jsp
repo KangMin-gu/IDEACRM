@@ -162,7 +162,7 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">이메일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="email" id="email" value="${userInfo.EMAIL}" class="form-control form-control-sm">
+                                                <input type="text" name="email" id="email" value="${userInfo.EMAIL}" class="form-control form-control-sm adminemail">
                                             </div>
                                     <c:choose>
                                         <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">

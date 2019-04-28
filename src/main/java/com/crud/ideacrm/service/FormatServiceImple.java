@@ -82,11 +82,14 @@ public class FormatServiceImple implements FormatService {
 
     @Override
     public void formatDelete(HttpServletRequest request, String formatNo) throws UnsupportedEncodingException, GeneralSecurityException {
+
         formatNo = codecUtil.decodePkNo(formatNo);
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+
 
         FormatDto formatDto = new FormatDto();
         formatDto.setFormatno(formatNo);
-
+        formatDto.setSiteid(siteId);
         formatDao.formatDelete(formatDto);
     }
 }

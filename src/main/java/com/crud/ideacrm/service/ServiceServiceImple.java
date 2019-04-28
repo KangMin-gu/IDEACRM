@@ -339,7 +339,25 @@ public class ServiceServiceImple implements ServiceService{
         return mView;
     }
 
+    @Override
+    public void serviceComplete(HttpServletRequest request, String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
 
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+        serviceNo = codecUtil.decodePkNo(serviceNo);
+        ServiceDto serviceDto = new ServiceDto();
+        serviceDto.setSiteid(siteId);
+        serviceDto.setServiceno(serviceNo);
+        serviceDto.setEdtuser(userNo);
+        serviceDto.setServicestep(7);
+
+        serviceDao.serviceStepUpdate(serviceDto);
+
+        // 문자발송
+
+
+        // 메일발송
+    }
 
 
 }

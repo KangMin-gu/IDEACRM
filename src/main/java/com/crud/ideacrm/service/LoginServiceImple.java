@@ -121,6 +121,10 @@ public class LoginServiceImple implements LoginService{
                 ContactInfo ci = new ContactInfo();
                 ContactInfoDto ciDto = ci.agentInfo(request);
                 //고객접속정보 바인딩
+                ciDto.setUserno(Integer.parseInt(urInfo.get("USERNO").toString()));
+                ciDto.setSiteid(Integer.parseInt(urInfo.get("SITEID").toString()));
+                ciDto.setSessionid(request.getSession().getId());
+                login.contactInfo(ciDto);
 
                 if(url != null) {
                     buf.append("<script>location.href='");
@@ -180,7 +184,7 @@ public class LoginServiceImple implements LoginService{
                 e.printStackTrace();
             }
         }
-        System.out.println("세션유지시간"+request.getSession().getMaxInactiveInterval());
+
         return mView;
     }
 

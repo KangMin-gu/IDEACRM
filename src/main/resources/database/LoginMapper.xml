@@ -17,4 +17,11 @@
 		LEFT JOIN crud_saas.sys990030 AS C ON C.FILESEARCHKEY = B.sitelogo
 		WHERE USERNO = #{userno}
 	</select>
+
+	<insert id="contactInfo" parameterType="ciDto">
+		INSERT INTO me800011
+		(USERNO, USERIP, USEROS, USERDEVICE, USERBROWSER, REGDATE, SITEID, SESSIONID)
+		VALUES
+		(#{userno}, #{ip}, #{os}, #{device}, #{browser}, now(), #{siteid}, #{sessionid});
+	</insert>
 </mapper>

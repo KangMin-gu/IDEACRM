@@ -8,8 +8,6 @@ import com.crud.ideacrm.service.NoticeService;
 import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngineException;
-import org.rosuda.REngine.Rserve.RConnection;
-import org.rosuda.REngine.Rserve.RserveException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,4 +106,9 @@ public class LoginController {
         return mView;
     }
 
+    @RequestMapping(value = "/mail/check", method = RequestMethod.GET)
+    @ResponseBody
+    public void rs(HttpServletRequest request) {
+      System.out.println("들어왔습니다~!212121212");
+    }
 }

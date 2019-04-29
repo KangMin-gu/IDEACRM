@@ -24,6 +24,9 @@ ${a}
     <li> ${list }</li>
 
 </c:forEach>
+<img src="${pageContext.request.contextPath}/mail/check" width="0" height="0" border="0"/>
+<script>
 
+</script>
 </body>
 </html>

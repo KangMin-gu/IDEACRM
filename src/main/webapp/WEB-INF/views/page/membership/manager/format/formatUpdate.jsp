@@ -130,7 +130,7 @@
                                     <tr>
                                         <th>서식</th>
                                         <td colspan="5">
-                                            <textarea class="tinymce name" name="formatdesc" id="formatdesc">${formatInfo.FORMATDESC}</textarea>
+                                            <textarea class="tinymce" name="formatdesc" id="formatdesc">${formatInfo.FORMATDESC}</textarea>
                                         </td>
                                     </tr>
                                     </tbody>

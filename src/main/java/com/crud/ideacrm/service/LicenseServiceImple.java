@@ -57,8 +57,12 @@ public class LicenseServiceImple implements LicenseService {
         for(int i = 0; i < listSize; i++ ){
             useLicenseDto.setLicensecnt(useLicenseDtoList.get(i).getLicensecnt());
             useLicenseDto.setLicenseno(useLicenseDtoList.get(i).getLicenseno());
-            useLicenseDto.setIsdelete(useLicenseDtoList.get(i).getIsdelete());
 
+            if(useLicenseDtoList.get(i).getIsdelete().equals("")){
+                useLicenseDto.setIsdelete("1");
+            }else{
+                useLicenseDto.setIsdelete(useLicenseDtoList.get(i).getIsdelete());
+            }
             licenseDao.siteLicenseInsert(useLicenseDto);
         }
     }

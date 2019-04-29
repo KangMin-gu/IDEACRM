@@ -8,6 +8,27 @@ $('#servicecode1').change(function(){
     upperCode('servicecode1');
 });
 
+$('#complete').click(function(e){
+    var serviceNo = $('#serviceno').val();
+    var	url= "/service/complete/"+serviceNo;
+    var check = confirm("완료하시겠습니까??");
+    if(check){
+        $.ajax({
+            url: url,
+            method: "GET",
+            dataType: "json",
+            success: function () {
+                alert('완료되었습니다.');
+                window.location.reload();
+            },
+            error: function (request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    }
+});
+
+
 // 단계에 따른 화면처리
 function serviceStep(){
     var step = $('#servicestep').val();

@@ -6,7 +6,7 @@ public class UseLicenseDto {
 
     private String siteid;
     private int licenseno;
-    private int isdelete;
+    private String isdelete;
     private int licensecnt;
     private int reguser;
     private String regdate;
@@ -17,7 +17,7 @@ public class UseLicenseDto {
 
     public UseLicenseDto(){};
 
-    public UseLicenseDto(String siteid, int licenseno, int isdelete, int licensecnt, int reguser, String regdate, int edtuser, String edtdate, List<UseLicenseDto> useLicenseDtoList) {
+    public UseLicenseDto(String siteid, int licenseno, String isdelete, int licensecnt, int reguser, String regdate, int edtuser, String edtdate, List<UseLicenseDto> useLicenseDtoList) {
         this.siteid = siteid;
         this.licenseno = licenseno;
         this.isdelete = isdelete;
@@ -45,11 +45,11 @@ public class UseLicenseDto {
         this.licenseno = licenseno;
     }
 
-    public int getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(int isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 

@@ -184,4 +184,10 @@ public class VocDaoImple implements VocDao {
         session.update("voc.callbackAutoDiv",param);
     }
 
+    @Override
+    public List<Map<String, Object>> custEmailList(Map<String, Object> param) {
+        List<Map<String, Object>> emailList = session.selectList("voc.custEmailList",param);
+        return emailList;
+    }
+
 }

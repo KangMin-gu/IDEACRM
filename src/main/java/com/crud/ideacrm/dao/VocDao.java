@@ -36,4 +36,5 @@ public interface VocDao {
     public List<Map<String, Object>> vocUserList(Map<String, Object> search);//voc 콜분배 유저 리스트
     public Map<String, Object> vocAlarm(Map<String, Object> param);
     public void callbackAutoDiv(Map<String,Object> param);
+    public List<Map<String, Object>> custEmailList(Map<String,Object> param);
 }

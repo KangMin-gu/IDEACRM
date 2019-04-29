@@ -307,4 +307,11 @@ public class VocController {
         return 0;
     }
 
+    @RequestMapping(value="/voc/email/{custno}",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authVocCustEmailList(HttpServletRequest request,@PathVariable String custno){
+        List<Map<String,Object>> emailList = vocService.custEmailList(request);
+        return emailList;
+    }
+
 }

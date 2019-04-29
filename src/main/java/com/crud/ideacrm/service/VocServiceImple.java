@@ -514,4 +514,11 @@ public class VocServiceImple implements VocService {
 
     }
 
+    @Override
+    public List<Map<String, Object>> custEmailList(HttpServletRequest request) {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        List<Map<String, Object>> emailList = vocDao.custEmailList(param);
+        return emailList;
+    }
+
 }

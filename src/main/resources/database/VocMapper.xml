@@ -634,4 +634,14 @@
 	<update id="callbackAutoDiv" parameterType="hashMap">
 		{call SP_CTI_ASSING_CALL(#{siteid, mode=IN,jdbcType=INTEGER,javaType=int},#{callstatus, mode=IN, jdbcType=INTEGER, javaType=int})}
 	</update>
+
+	<select id="custEmailList" parameterType="hashMap" resultType="hashMap">
+	SELECT
+	EMAILLOGID, CUSTNO, USERNAME
+	, FROMEMAIL, TOEMAIL, SUBJECT, CLICKYN
+	FROM SYS980010
+	WHERE
+		SITEID = #{siteid}
+		AND CUSTNO = #{custno}
+	</select>
 </mapper>

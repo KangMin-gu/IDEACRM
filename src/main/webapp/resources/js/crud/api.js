@@ -1,5 +1,5 @@
 var globalUrl;
-/// footable 검색 및 ready상태일때 사용할 수 있게 변경
+// footable 검색 및 ready상태일때 사용할 수 있게 변경
 function footableSearchList(url, selector) {
     var param = searchDataToJson();
     var page = $('#paging').val();

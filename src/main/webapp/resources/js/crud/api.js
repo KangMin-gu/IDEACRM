@@ -1,6 +1,6 @@
 var globalUrl;
 // footable 검색 및 ready상태일때 사용할 수 있게 변경
-function footableSearchList(url) {
+function footableSearchList(url, selector) {
     var param = searchDataToJson();
     var page = $('#paging').val();
     if(page == undefined){
@@ -8,7 +8,7 @@ function footableSearchList(url) {
     }
     globalUrl = url;
     $.post(globalUrl, param, function (response) {
-        $('.footable').footable({
+        selector.footable({
             "toggleSelector": ".footable-toggle",
             "empty": "",
             "filtering": {
@@ -29,9 +29,7 @@ function footableSearchList(url) {
             },
             "rows": response
         });
-        // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
-        $('.footable-pagination-wrapper:eq(0)').remove();
-        $('.footable-empty').remove();
+
     });
 }
 

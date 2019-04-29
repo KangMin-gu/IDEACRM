@@ -22,33 +22,33 @@
 
 <!--공지알람-->
         <li class="dropdown">
-            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+            <a id="noticeAlarm" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                <i class="fa fa-bell"></i>  <span class="label label-primary noticeCounts"></span>
             </a>
             <ul class="dropdown-menu dropdown-alerts">
                 <li>
-                    <a href="mailbox.html" class="dropdown-item">
+                    <a href="/company/notice" class="dropdown-item">
                         <div>
-                            <i class="fa fa-envelope fa-fw"></i> (주)크루드시스템 공지사항
-                            <span class="float-right text-muted small"><span class="label label-warning">12</span></span>
+                            <i class="fa fa-building fa-fw"></i> ${SITENAME} 공지사항
+                            <span class="float-right text-muted small"><span id="siteNoticeCount" class="label label-warning"></span></span>
                         </div>
                     </a>
                 </li>
                 <li class="dropdown-divider"></li>
                 <li>
-                    <a href="profile.html" class="dropdown-item">
+                    <a href="/voc/notice" class="dropdown-item">
                         <div>
-                            <i class="fa fa-twitter fa-fw"></i> 콜센터 공지사항
-                            <span class="float-right text-muted small"><span class="label label-warning">12</span></span>
+                            <i class="fa fa-phone fa-fw"></i> 콜센터 공지사항
+                            <span class="float-right text-muted small"><span id="vocNoticeCount" class="label label-warning"></span></span>
                         </div>
                     </a>
                 </li>
                 <li class="dropdown-divider"></li>
                 <li>
-                    <a href="grid_options.html" class="dropdown-item">
+                    <a href="/notice" class="dropdown-item">
                         <div>
-                            <i class="fa fa-upload fa-fw"></i> 시스템 공지사항
-                            <span class="float-right text-muted small"><span class="label label-warning">12</span></span>
+                            <i class="fa fa-certificate fa-fw"></i> 시스템 공지사항
+                            <span class="float-right text-muted small"><span id="noticeCount" class="label label-warning"></span></span>
                         </div>
                     </a>
                 </li>

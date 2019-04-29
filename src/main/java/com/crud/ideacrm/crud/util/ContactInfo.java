@@ -86,17 +86,10 @@ public class ContactInfo {
 
         if(agent.indexOf("nt 6.0") != -1) os = "Windows Vista/Server 2008";
         else if(agent.indexOf("nt 5.2") != -1) os = "Windows Server 2003";
-        else if(agent.indexOf("nt 5.1") != -1) os = "Windows XP";
-        else if(agent.indexOf("nt 5.0") != -1) os = "Windows 2000";
         else if(agent.indexOf("nt 6.1") != -1) os = "Windows 7";
         else if(agent.indexOf("nt 6.2") != -1) os = "Windows 8";
         else if(agent.indexOf("nt 6.3") != -1) os = "Windows 8.1";
         else if(agent.indexOf("nt 10.0") != -1) os = "Windows 10";
-        else if(agent.indexOf("nt") != -1) os = "Windows NT";
-        else if(agent.indexOf("9x 4.90") != -1) os = "Windows Me";
-        else if(agent.indexOf("98") != -1) os = "Windows 98";
-        else if(agent.indexOf("95") != -1) os = "Windows 95";
-        else if(agent.indexOf("win16") != -1) os = "Windows 3.x";
         else if(agent.indexOf("windows") != -1) os = "Windows";
         else if(agent.indexOf("linux") != -1) os = "Linux";
         else if(agent.indexOf("macintosh") != -1) os = "Macintosh";
@@ -104,7 +97,7 @@ public class ContactInfo {
         else if(agent.indexOf("iphone") != -1) os ="Iphone";
         else os = "";
 
-        ciDto.setDevice(os);
+        ciDto.setOs(os);
 
         return ciDto;
     }

@@ -189,7 +189,19 @@
                                 </div>
                             </div>
                             <form class="deleteForm" action="/cust/del" method="post">
-                            <table class="footable table table-striped">
+                            <table class="footable table table-striped custList">
+                                <colgroup>
+                                    <col width="2%">
+                                    <col width="10%">
+                                    <col width="5%">
+                                    <col width="10%">
+                                    <col width="5%">
+                                    <col width="10%">
+                                    <col width="5%">
+                                    <col width="10%">
+                                    <col width="5%">
+                                    <col width="10%">
+                                </colgroup>
                                 <thead>
                                     <tr>
                                         <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
@@ -244,10 +256,10 @@
 <script>
     $(document).ready(function() {
         var bool = dateRangeError();
-        if(bool)  footableSearchList('/cust');
+        if(bool)  footableSearchList('/cust', $('.custList'));
     });
     $('#custListSearch').click(function(e){
-        footableSearchList('/cust');
+        footableSearchList('/cust', $('.custList'));
     });
 
 </script>

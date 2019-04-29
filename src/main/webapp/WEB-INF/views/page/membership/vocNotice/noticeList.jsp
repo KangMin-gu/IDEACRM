@@ -136,7 +136,7 @@
                                         <th data-name="TAGNAME" data-filterable="true">말머리</th>
                                         <th data-name="TITLE" data-formatter="noticeListFormatter" data-filterable="true">제목</th>
                                         <th data-name="WRITER" data-filterable="true">글쓴이</th>
-                                        <th data-name="REGDATE" data-filterable="true" data-direction="DESC">날짜</th>
+                                        <th data-name="REGDATE" data-filterable="true">날짜</th>
                                     </tr>
                                     </thead>
                                     <tfoot>

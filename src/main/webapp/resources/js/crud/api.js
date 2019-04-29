@@ -10,22 +10,14 @@ function footableSearchList(url, selector) {
     $.post(globalUrl, param, function (response) {
         selector.footable({
             "toggleSelector": ".footable-toggle",
-            "empty": "",
             "filtering": {
                 "enabled": true,
                 "placeholder": "통합검색",
-                // "delay": 500,
-                "min":1,
-                "dropdownTitle": "Search in:"
+                "min":1
             },
             "paging": {
                 "enabled": true,
-                "container" : ".pagination",
-                "position":"center",
                 "size":page
-            },
-            "sorting": {
-                "enabled": true
             },
             "rows": response
         });

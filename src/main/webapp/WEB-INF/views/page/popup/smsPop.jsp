@@ -13,7 +13,7 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <!-- orris -->
@@ -66,32 +66,20 @@
 
 
             <div class="tabs-container">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">자주쓰는 멘트</a></li>
+                <ul class="nav nav-tabs detail" role="tablist">
+                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">SMS/LMS 서식</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" id="tab-1" class="tab-pane active">
+                    <div role="tabpanel" id="tab-1" class="tab-pane active" url="/smsformat">
                         <div class="panel-body">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <table class="tabfootable table table-stripped" data-sorting="true">
                                 <thead>
                                 <tr>
-                                    <th>템플릿명</th>
-                                    <th data-hide="phone,tablet">내용</th>
+                                    <th data-name="FORMATNAME" data-formatter="smsFormat" data-filterable="true">서식명</th>
+                                    <th data-name="FORMATDESC" data-breakpoints="xs sm" data-filterable="true">내용</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Opera for Wii</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Presto</td>
-                                    <td>Nokia N800</td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>KHTML</td>
-                                    <td>Konqureror 3.3</td>
-                                </tr>
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -111,15 +99,15 @@
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/pop.js"></script>
 <script>
     $(document).ready(function() {
-        $('.footable').footable();
-
         var custName = opener.$('#custname').text();
         var mobile = opener.$('#mobile').text();
         var custNo = opener.$('#custno').val();

@@ -49,12 +49,13 @@ public class CustController {
     //고객상세
     @RequestMapping(value = "/cust/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
-
         ModelAndView mView = new ModelAndView();
         mView.addObject("custDetail",custService.custDetail(request,custno));
         mView.setViewName("page/cust/custDetail");
         return mView;
     }
+
+
     //고객수정
     @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustUpdateForm(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {

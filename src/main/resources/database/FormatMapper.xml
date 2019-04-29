@@ -72,4 +72,13 @@
         AND FORMATNO = #{formatno}
     </update>
 
+    <select id="smsFormat" parameterType="int" resultType="hashMap">
+        SELECT FORMATNO, FORMATNAME, FORMATDESC FROM sys990050 WHERE SITEID=#{siteid} AND SENDTYPE = 2 AND ISDELETE = 0 ORDER BY FORMATNO DESC
+    </select>
+    <select id="emailFormat" parameterType="int" resultType="hashMap">
+        SELECT FORMATNO, FORMATNAME, FORMATDESC FROM sys990050 WHERE SITEID=#{siteid} AND SENDTYPE = 1 AND ISDELETE = 0 ORDER BY FORMATNO DESC
+    </select>
+    <select id="formatdesc" parameterType="int" resultType="hashMap">
+        SELECT FORMATDESC FROM sys990050 WHERE FORMATNO = #{formatnum}
+    </select>
 </mapper>

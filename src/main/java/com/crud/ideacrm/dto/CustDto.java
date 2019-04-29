@@ -54,10 +54,17 @@ public class CustDto implements Serializable {
     private int	clino;	//고객사번호
     private int	clicustno;	//클라이언트고객번호
     private String	relcustno;	//고객관계번호
+    private String mobile;
+    private String homtel;
+    private String wrktel;
+    private String wrkfax;
 
 
-    public CustDto(){}
-    public CustDto(String custno, int siteid, String custname, String deptname, String duty, String mobile1, String mobile2, String mobile3, String email, int sex, int custgubun, int custgrade, int infoagree, String birth, int married, String weddingday, int solar, String job, String hobby, int ismember, String homtel1, String homtel2, String homtel3, String homaddr1, String homaddr2, String homaddr3, String wrkaddr1, String wrkaddr2, String wrkaddr3, String wrktel1, String wrktel2, String wrktel3, String wrkurl, int owner, String memo, String regdate, int reguser, String editdate, int edituser, int isdelete, String wrkfax1, String wrkfax2, String wrkfax3, int mailto, int actgrade, int clino, int clicustno, String relcustno) {
+    public CustDto(){
+    }
+
+
+    public CustDto(String custno, int siteid, String custname, String deptname, String duty, String mobile1, String mobile2, String mobile3, String email, int sex, int custgubun, int custgrade, int infoagree, String birth, int married, String weddingday, int solar, String job, String hobby, int ismember, String homtel1, String homtel2, String homtel3, String homaddr1, String homaddr2, String homaddr3, String wrkaddr1, String wrkaddr2, String wrkaddr3, String wrktel1, String wrktel2, String wrktel3, String wrkurl, int owner, String memo, String regdate, int reguser, String editdate, int edituser, int isdelete, String wrkfax1, String wrkfax2, String wrkfax3, int mailto, int actgrade, int clino, int clicustno, String relcustno, String mobile, String homtel, String wrktel, String wrkfax) {
         this.custno = custno;
         this.siteid = siteid;
         this.custname = custname;
@@ -106,9 +113,11 @@ public class CustDto implements Serializable {
         this.clino = clino;
         this.clicustno = clicustno;
         this.relcustno = relcustno;
+        this.mobile = mobile;
+        this.homtel = homtel;
+        this.wrktel = wrktel;
+        this.wrkfax = wrkfax;
     }
-
-
 
     public String getCustno() {
         return custno;
@@ -492,5 +501,37 @@ public class CustDto implements Serializable {
 
     public void setRelcustno(String relcustno) {
         this.relcustno = relcustno;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getHomtel() {
+        return homtel;
+    }
+
+    public void setHomtel(String homtel) {
+        this.homtel = homtel;
+    }
+
+    public String getWrktel() {
+        return wrktel;
+    }
+
+    public void setWrktel(String wrktel) {
+        this.wrktel = wrktel;
+    }
+
+    public String getWrkfax() {
+        return wrkfax;
+    }
+
+    public void setWrkfax(String wrkfax) {
+        this.wrkfax = wrkfax;
     }
 }

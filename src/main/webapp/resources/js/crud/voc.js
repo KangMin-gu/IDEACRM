@@ -151,56 +151,56 @@ function custSearch(obj){
 
 // voc 고객 인풋 필드 데이터 바인딩
 function custInfoBinding(data) {
-        opener.$('#custname').val(data.CUSTNAME);
-        opener.$('#custno').val(data.CUSTNO);
-        opener.$('#custgubun').val(data.CUSTGUBUN);
-        opener.$('#mobile1').val(data.MOBILE1);
-        opener.$('#mobile2').val(data.MOBILE2);
-        opener.$('#mobile3').val(data.MOBILE3);
-        opener.$('#homtel1').val(data.HOMTEL1);
-        opener.$('#homtel2').val(data.HOMTEL2);
-        opener.$('#homtel3').val(data.HOMTEL3);
-        opener.$('[name="relcustname"]').val(data.RELCUSTNAME);
-        if (data.RELCUSTNO != null && data.RELCUSTNO != '') {
-            opener.$('#relcustno').val(data.RELCUSTNO);
-        }
-        opener.$('#email').val(data.EMAIL);
-        opener.$('#custgrade').val(data.CUSTGRADE);
-        opener.$('#homaddr1').val(data.HOMADDR1);
-        opener.$('#homaddr2').val(data.HOMADDR2);
-        opener.$('#homaddr3').val(data.HOMADDR3);
-        opener.$('#blackcnt').val(data.BLACKCNT);
+    opener.$('#custname').val(data.CUSTNAME);
+    opener.$('#custno').val(data.CUSTNO);
+    opener.$('#custgubun').val(data.CUSTGUBUN);
+    opener.$('#mobile1').val(data.MOBILE1);
+    opener.$('#mobile2').val(data.MOBILE2);
+    opener.$('#mobile3').val(data.MOBILE3);
+    opener.$('#homtel1').val(data.HOMTEL1);
+    opener.$('#homtel2').val(data.HOMTEL2);
+    opener.$('#homtel3').val(data.HOMTEL3);
+    opener.$('[name="relcustname"]').val(data.RELCUSTNAME);
+    if (data.RELCUSTNO != null && data.RELCUSTNO != '') {
+        opener.$('#relcustno').val(data.RELCUSTNO);
+    }
+    opener.$('#email').val(data.EMAIL);
+    opener.$('#custgrade').val(data.CUSTGRADE);
+    opener.$('#homaddr1').val(data.HOMADDR1);
+    opener.$('#homaddr2').val(data.HOMADDR2);
+    opener.$('#homaddr3').val(data.HOMADDR3);
+    opener.$('#blackcnt').val(data.BLACKCNT);
 
-        //체크박스 제어
-        if(data.DENYMAILNOMAL == 1){ //mail일반
-            opener.$('#denymailnomal').iCheck('check');
-        }else
-            opener.$('#denymailnomal').iCheck('uncheck');
+    //체크박스 제어
+    if(data.DENYMAILNOMAL == 1){ //mail일반
+        opener.$('#denymailnomal').iCheck('check');
+    }else
+        opener.$('#denymailnomal').iCheck('uncheck');
 
-        if(data.DENYMAILSURVEY == 1){ //mail해피콜
-            opener.$('#denymailsurvey').iCheck('check');
-        }else
-            opener.$('#denymailsurvey').iCheck('uncheck');
+    if(data.DENYMAILSURVEY == 1){ //mail해피콜
+        opener.$('#denymailsurvey').iCheck('check');
+    }else
+        opener.$('#denymailsurvey').iCheck('uncheck');
 
-        if(data.DENYSMSNOMAL == 1){ //sms일반
-            opener.$('#denysmsnomal').iCheck('check');
-        }else
-            opener.$('#denysmsnomal').iCheck('uncheck');
+    if(data.DENYSMSNOMAL == 1){ //sms일반
+        opener.$('#denysmsnomal').iCheck('check');
+    }else
+        opener.$('#denysmsnomal').iCheck('uncheck');
 
-        if(data.DENYSMSSURVEY == 1){ //sms해피콜
-            opener.$('#denysmssurvey').iCheck('check');
-        }else
-            opener.$('#denysmssurvey').iCheck('uncheck');
+    if(data.DENYSMSSURVEY == 1){ //sms해피콜
+        opener.$('#denysmssurvey').iCheck('check');
+    }else
+        opener.$('#denysmssurvey').iCheck('uncheck');
 
-        if(data.DENYDMNOMAL == 1){ //dm일반
-            opener.$('#denydmnomal').iCheck('check');
-        }else
-            opener.$('#denydmnomal').iCheck('uncheck');
+    if(data.DENYDMNOMAL == 1){ //dm일반
+        opener.$('#denydmnomal').iCheck('check');
+    }else
+        opener.$('#denydmnomal').iCheck('uncheck');
 
-        if(data.DENYDMSURVEY == 1){ //dm해피콜
-            opener.$('#denydmsurvey').iCheck('check');
-        }else
-            opener.$('#denydmsurvey').iCheck('uncheck');
+    if(data.DENYDMSURVEY == 1){ //dm해피콜
+        opener.$('#denydmsurvey').iCheck('check');
+    }else
+        opener.$('#denydmsurvey').iCheck('uncheck');
 
 }
 
@@ -478,16 +478,16 @@ function blackCustCssChange(bool){//블랙 유저면 true   아니면 false
 
 
 function callbackHistFormatter(value, options, rowData){
-   if( !rowData.REQNO == false ){
-      return '<a onclick="goPlay('+"'"+rowData.RECDATE_+"'"+','+"'"+rowData.RECEXT+"'"+','+"'"+rowData.RECFILENAME+"'"+');"><i class="fa fa-play-circle" style="font-size:17px;"></i></a>';
+    if( !rowData.REQNO == false ){
+        return '<a onclick="goPlay('+"'"+rowData.RECDATE_+"'"+','+"'"+rowData.RECEXT+"'"+','+"'"+rowData.RECFILENAME+"'"+');"><i class="fa fa-play-circle" style="font-size:17px;"></i></a>';
     }
     return "";
 }
 
 function callBtnFormatter(value, options, rowData){
-var htmlStr = '<button class="btn btn-primary btn-sm dialingBtn"  onclick="callConfirm('+"'"+rowData.CALLBACK+"'"+');">';
-htmlStr += '<i class="fa fa-phone"></i></button>&nbsp;&nbsp;';
-htmlStr += '<button class="btn btn-danger btn-sm hangUpBtn" onclick="javascript:func_hangup();" disabled><i class="fa fa-phone"></i></button>';
+    var htmlStr = '<button class="btn btn-primary btn-sm dialingBtn"  onclick="callConfirm('+"'"+rowData.CALLBACK+"'"+');">';
+    htmlStr += '<i class="fa fa-phone"></i></button>&nbsp;&nbsp;';
+    htmlStr += '<button class="btn btn-danger btn-sm hangUpBtn" onclick="javascript:func_hangup();" disabled><i class="fa fa-phone"></i></button>';
     return htmlStr;
 }
 
@@ -1119,6 +1119,3 @@ function vocServiceFieldReset(){
         opener.$('#create').show();
     }
 }
-
-
-

@@ -52,15 +52,10 @@ public class CodecUtil {
     public Map<String, Object> decodeMap(Map<String, Object> map) throws UnsupportedEncodingException, GeneralSecurityException {
         final String[] FIELD_NAME_ARR = {"MOBILE1","MOBILE2","MOBILE3","HOMTEL1","HOMTEL2","HOMTEL3","HOMADDR1","HOMADDR2","HOMADDR3","EMAIL","BSNO1","BSNO2","BSNO3","INCNO1","INCNO2",
                                             "FAXTEL1","FAXTEL2","FAXTEL3","TELNO1","TELNO2","TELNO3","ADDR1","ADDR2","ADDR3","VISITADDR1","VISITADDR2","VISITADDR3","BSNO","INCNO","TELNO",
-                                            "FAXTEL","MOBILE"};
-        //final String[] FIELD_NAME_ARR = {"MOBILE","TEL","ADDR","EMAIL","BSNO"};
-        String[] mobileArr = new String[3];
-        String[] homtelArr = new String[3];
-        String[] homaddrArr = new String[3];
+                                            "FAXTEL","MOBILE","HOMTEL"};
 
         String tmpStr;
         int length = FIELD_NAME_ARR.length;
-        //int mapSize = map.size();
         for(int i=0; i < length ; i++){
 
             String keyNm = FIELD_NAME_ARR[i];
@@ -69,25 +64,9 @@ public class CodecUtil {
                 tmpStr = (String)map.get(keyNm);
                 tmpStr = decoding(tmpStr);
                 map.put(keyNm, tmpStr );//복호화한 값으로 변경
-/*
-                if ( keyNm.contains("MOBILE") ){// MOBILE1,2,3 필드
-                    mobileArr = sortFieldArr(keyNm,tmpStr,mobileArr);//배열에 정리
-                }else if ( keyNm.contains("HOMTEL") ){//HOMTEL 필드
-                    homtelArr = sortFieldArr(keyNm,tmpStr,homtelArr);
-                }else if( keyNm.contains("HOMADDR" )){
-                    homaddrArr = sortFieldArr(keyNm,tmpStr,homaddrArr);
-                }
-                */
             }
         }
-        /*
-        String mobile = parsingPhoneNo(mobileArr);//010-123-123 형식으로 셋팅 자리수가 비정상이라면 '-' 제거
-        String phone = parsingPhoneNo(homtelArr);
-        String homaddr = parsingAddr(homaddrArr);
-        map.put("MOBILE",mobile);
-        map.put("HOMTEL",phone);
-        map.put("HOMADDR",homaddr);
-        */
+
         return map;
     }
 

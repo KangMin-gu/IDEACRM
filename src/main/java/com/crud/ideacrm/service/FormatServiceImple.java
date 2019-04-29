@@ -92,4 +92,24 @@ public class FormatServiceImple implements FormatService {
         formatDto.setSiteid(siteId);
         formatDao.formatDelete(formatDto);
     }
+
+    @Override
+    public List<Map<String, Object>> smsFormat(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        List<Map<String, Object>> formatList = formatDao.smsFormat(siteId);
+        return formatList;
+    }
+
+    @Override
+    public List<Map<String, Object>> emailFormat(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        List<Map<String, Object>> formatList = formatDao.emailFormat(siteId);
+        return formatList;
+    }
+
+    @Override
+    public Map<String, Object> formatDesc(int formatnum) {
+        Map<String, Object> formatdesc = formatDao.formatdesc(formatnum);
+        return formatdesc;
+    }
 }

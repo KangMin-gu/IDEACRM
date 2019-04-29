@@ -27,7 +27,7 @@
     <form:form id="multiFile" action="/popbox" enctype="multipart/form-data" method="post">
     <div class="ibox">
         <div class="ibox-title">
-            <h5>Email 발송</h5>
+            <h5>내부통지 발송</h5>
         </div>
         <div class="ibox-content">
             <div class="table-responsive">

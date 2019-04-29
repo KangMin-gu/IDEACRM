@@ -42,4 +42,22 @@ public class FormatDaoImple implements FormatDao {
     public void formatDelete(FormatDto formatDto) {
         session.update("format.formatDelete",formatDto);
     }
+
+    @Override
+    public List<Map<String, Object>> smsFormat(int siteId) {
+        List<Map<String, Object>> formatList = session.selectList("format.smsFormat", siteId);
+        return formatList;
+    }
+
+    @Override
+    public List<Map<String, Object>> emailFormat(int siteId) {
+        List<Map<String, Object>> formatList = session.selectList("format.emailFormat", siteId);
+        return formatList;
+    }
+
+    @Override
+    public Map<String, Object> formatdesc(int formatNum) {
+        Map<String, Object> formatdesc = session.selectOne("format.formatdesc", formatNum);
+        return formatdesc;
+    }
 }

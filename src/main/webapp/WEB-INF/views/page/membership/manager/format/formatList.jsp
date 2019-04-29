@@ -124,7 +124,7 @@
                                     <a href="/company/format/input" class="btn btn-default pull-right" style="margin-left: 5px;">추가</a>
                                 </div>
                             </div>
-                            <table class="footable table table-striped">
+                            <table class="footable table table-striped formatList">
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-name="NO">서식번호</th>
@@ -172,10 +172,10 @@
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script>
     $(document).ready(function() {
-        footableSearchList('/company/format');
+        footableSearchList('/company/format', $('.formatList'));
 
         $('#search').click(function(e){
-            footableSearchList('/company/format');
+            footableSearchList('/company/format', $('.formatList'));
         });
     });
 </script>

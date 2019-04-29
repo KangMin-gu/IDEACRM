@@ -1,13 +1,8 @@
-var globalUrl;
+
 // footable 검색 및 ready상태일때 사용할 수 있게 변경
 function footableSearchList(url, selector) {
     var param = searchDataToJson();
-    var page = $('#paging').val();
-    if(page == undefined){
-        page = 10;
-    }
-    globalUrl = url;
-    $.post(globalUrl, param, function (response) {
+    $.post(url, param, function (response) {
         selector.footable({
             "toggleSelector": ".footable-toggle",
             "filtering": {
@@ -17,7 +12,6 @@ function footableSearchList(url, selector) {
             },
             "paging": {
                 "enabled": true,
-                "size":page
             },
             "rows": response
         });
@@ -26,7 +20,6 @@ function footableSearchList(url, selector) {
 }
 
 function tabFootableSearchList(id,url) {
-    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     if(page == undefined){
@@ -99,6 +92,7 @@ if($('.tinymce').length> 0) {
     tinymce.init({
         height : "300",
         language: 'ko_KR',
+        plugins: "paste",
         //language_url : '/resources/tinymce/langs/ko_KR.js',
         selector: '.tinymce',  // change this value according to your HTML
         toolbar: 'insertfile undo redo | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link imageupload | print preview media fullpage | forecolor backcolor emoticons',

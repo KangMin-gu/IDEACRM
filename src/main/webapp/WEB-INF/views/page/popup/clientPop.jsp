@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-<!--js includ-->
+<!--js includ -->
 <%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>

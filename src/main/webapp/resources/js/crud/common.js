@@ -213,11 +213,6 @@ function dateRangeError(){
     return boolean;
 }
 
-$('#paging').change(function(e){
-    var url = window.location.pathname;
-    footableSearchList(url);
-});
-
 function today(){
     var today = new Date();
     var dd = today.getDate();

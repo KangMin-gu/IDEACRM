@@ -170,44 +170,20 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>회원사 고객 목록</h5>
+                            <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
+                                <a class="btn btn-default" href="/custexcel"><i class="fa fa-file-excel-o"></i></a>
+                                <a class="btn btn-default" href="/cust/input">추가</a>
+                                <button class="btn btn-default"  onclick="custMultyDelete();">삭제</button>
+                            </div>
                         </div>
                         <div class="ibox-content">
-                            <div>
-                                <div style="display: inline-block;">
-                                    <select class="form-control" id="paging" style="margin-left:10px; width:80px">
-                                        <c:forEach var="paging" items="${PAGING}">
-                                            <option vale="${paging.codeval}">${paging.codename}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="pull-right" style="display: inline-block;">
-                                    <a class="btn btn-default pull-right" style="margin-left: 5px;" href="/cust/input">추가</a>
-                                    <button class="btn btn-default pull-right" style="margin-left: 5px;" onclick="custMultyDelete();">삭제</button>
-                                </div>
-                                <div class="pull-right"  style="display: inline-block;">
-                                    <a class="btn btn-default" href="/custexcel"><i class="fa fa-file-excel-o"></i></a>
-                                </div>
-                            </div>
                             <form class="deleteForm" action="/cust/del" method="post">
                             <table class="footable table table-striped custList">
-                                <colgroup>
-                                    <col width="2%">
-                                    <col width="10%">
-                                    <col width="5%">
-                                    <col width="10%">
-                                    <col width="5%">
-                                    <col width="10%">
-                                    <col width="5%">
-                                    <col width="10%">
-                                    <col width="5%">
-                                    <col width="10%">
-                                </colgroup>
                                 <thead>
                                     <tr>
                                         <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
                                         <th data-name="CUSTNAME" data-formatter="custListFormatter" data-filterable="true">고객명</th>
                                         <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
-                                        <th data-name="DEPTNAME" data-breakpoints="xs sm">부서</th>
                                         <th data-name="MOBILE" data-breakpoints="xs sm" data-filterable="true">휴대폰</th>
                                         <th data-name="EMAIL" data-breakpoints="xs sm" data-filtering="false">이메일</th>
                                         <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>

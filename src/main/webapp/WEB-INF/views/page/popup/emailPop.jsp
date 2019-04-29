@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/jasny-bootstrap.min.css" rel="stylesheet">
@@ -54,17 +55,6 @@
                                 <input id="subject" name="subject" class="form-control form-control-sm" type="text" style="height: 30px;">
                             </td>
                         </tr>
-                       <tr>
-                           <th>서식</th>
-                           <td>
-                               <select class="form-control form-control-sm" name="formatnum" id="formatnum" style="height: 30px;">
-                                   <option value="0">02</option>
-                                   <option value="2">031</option>
-                                   <option value="3">017</option>
-                                   <option value="4">018</option>
-                               </select>
-                           </td>
-                       </tr>
                         <tr>
                             <th>내용</th>
                             <td>
@@ -95,9 +85,40 @@
         <input type="hidden" name="custno" id="custno"/>
     </form:form>
 </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="tabs-container">
+        <ul class="nav nav-tabs detail" role="tablist">
+            <li><a class="nav-link active" data-toggle="tab" href="#tab-1">EMAIL 서식</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" id="tab-1" class="tab-pane active" url="/emailformat">
+                <div class="panel-body">
+                    <table class="tabfootable table table-stripped" data-sorting="true">
+                        <thead>
+                        <tr>
+                            <th data-visible="false" data-name="FORMATNO" data-filterable="false">서식명</th>
+                            <th data-name="FORMATNAME" data-formatter="emailFormat" data-filterable="true">서식명</th>
+                            <th data-name="FORMATDESC" data-breakpoints="all" data-filterable="true">내용</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <ul class="pagination float-right"></ul>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
-
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
@@ -105,7 +126,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/pop.js"></script>
 <script>
     $(document).ready(function() {
         var custName = opener.$('#custname').text();

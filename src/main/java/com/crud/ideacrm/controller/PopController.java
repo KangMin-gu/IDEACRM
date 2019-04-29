@@ -36,6 +36,8 @@ public class PopController {
     private ServiceService serviceService;
     @Autowired
     private InsideNoticeService isns;
+    @Autowired
+    private FormatService formatService;
 
     private final int USINGMENU = 0;//서비스 사용 메뉴 값은 3
     private final int SERVICEMENU = 3;
@@ -48,6 +50,7 @@ public class PopController {
         mView.setViewName("page/popup/managerPop");
         return mView;
     }
+
     @RequestMapping(value="/popuser", method= RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> authPopUserList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -99,6 +102,13 @@ public class PopController {
         return mView;
     }
 
+    @RequestMapping(value = "/smsformat", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authsmsFormat(HttpServletRequest request){
+        List<Map<String,Object>> formatList = formatService.smsFormat(request);
+        return formatList;
+    }
+
     @RequestMapping(value = "/popsms", method = RequestMethod.POST)
     public void authSmsPopSend(HttpServletRequest request){
         sendService.sendSms(request);
@@ -116,6 +126,13 @@ public class PopController {
         mView.setViewName("page/popup/emailPop");
         return mView;
     }
+    @RequestMapping(value = "/emailformat", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authEmailFormat(HttpServletRequest request){
+        List<Map<String,Object>> formatList = formatService.emailFormat(request);
+        return formatList;
+    }
+
     @RequestMapping(value = "/popemail", method = RequestMethod.POST)
     public String authEmailPopSend(HttpServletResponse response, HttpServletRequest request, @ModelAttribute MailDto mailDto) throws UnsupportedEncodingException, GeneralSecurityException {
         sendService.sendEmail(response, request, mailDto);

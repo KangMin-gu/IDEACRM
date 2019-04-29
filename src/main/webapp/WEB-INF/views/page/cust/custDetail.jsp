@@ -55,7 +55,7 @@
                 <div class="col-lg-12">
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <button type="submit" class="btn btn-default pull-right">삭제</button>
+                    <button type="submit" style="margin-left:5px;" class="btn btn-default pull-right">삭제</button>
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
@@ -319,14 +319,9 @@
                                     <div class="tabs-container">
                                         <ul class="nav nav-tabs detail" role="tablist">
                                             <li><a class="nav-link active" data-toggle="tab" href="#tab-1">서비스</a></li>
-                                            <c:if test="${sessionScope.CHKAUTH eq '30' }">
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-2">영업</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-3">접촉</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-4">캠페인</a></li>
-                                            </c:if>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-5">메일</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-6">문자</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-7">카카오</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#tab-2">메일</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#tab-3">문자</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#tab-4">카카오</a></li>
                                         </ul>
                                         <div class="tab-content">
                                             <div role="tabpanel" id="tab-1" class="tab-pane active" url="/service" >
@@ -358,118 +353,7 @@
                                                 </div>
                                             </div>
 
-                                            <c:if test="${sessionScope.CHKAUTH eq '30' }">
-                                            <div role="tabpanel" id="tab-2" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <table class="footable2 table table-striped" data-page-size="8" data-filter=#filter>
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Rendering engine</th>
-                                                            <th>Browser</th>
-                                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                                            <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX">
-                                                            <td>Trident</td>
-                                                            <td>Internet
-                                                                Explorer 4.0
-                                                            </td>
-                                                            <td>Win 95+</td>
-                                                            <td class="center">4</td>
-                                                            <td class="center">X</td>
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr>
-                                                            <td colspan="5">
-                                                                <ul class="pagination float-right"></ul>
-                                                            </td>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div role="tabpanel" id="tab-3" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <table class="footable3 table table-striped" data-page-size="8" data-filter=#filter>
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Rendering engine</th>
-                                                            <th>Browser</th>
-                                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                                            <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX">
-                                                            <td>Trident</td>
-                                                            <td>Internet
-                                                                Explorer 4.0
-                                                            </td>
-                                                            <td>Win 95+</td>
-                                                            <td class="center">4</td>
-                                                            <td class="center">X</td>
-                                                        </tr>
-                                                        <tr class="gradeC">
-                                                            <td>Trident</td>
-                                                            <td>Internet
-                                                                Explorer 5.0
-                                                            </td>
-                                                            <td>Win 95+</td>
-                                                            <td class="center">5</td>
-                                                            <td class="center">C</td>
-                                                        </tr>
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr>
-                                                            <td colspan="5">
-                                                                <ul class="pagination float-right"></ul>
-                                                            </td>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div role="tabpanel" id="tab-4" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                                    <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Rendering engine</th>
-                                                            <th>Browser</th>
-                                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                                            <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX">
-                                                            <td>Trident</td>
-                                                            <td>Internet
-                                                                Explorer 4.0
-                                                            </td>
-                                                            <td>Win 95+</td>
-                                                            <td class="center">4</td>
-                                                            <td class="center">X</td>
-                                                        </tr>
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr>
-                                                            <td colspan="5">
-                                                                <ul class="pagination float-right"></ul>
-                                                            </td>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            </c:if>
-
-                                            <div role="tabpanel" id="tab-5" class="tab-pane" url="/cust/tab/mail">
+                                            <div role="tabpanel" id="tab-2" class="tab-pane" url="/cust/tab/mail">
                                                 <div class="panel-body">
                                                     <table class="tabfootable table table-striped">
                                                         <thead>
@@ -494,7 +378,7 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div role="tabpanel" id="tab-6" class="tab-pane">
+                                            <div role="tabpanel" id="tab-3" class="tab-pane">
                                                 <div class="panel-body">
                                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                                     <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
@@ -528,7 +412,7 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div role="tabpanel" id="tab-7" class="tab-pane">
+                                            <div role="tabpanel" id="tab-4" class="tab-pane">
                                                 <div class="panel-body">
                                                     <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                                                     <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>

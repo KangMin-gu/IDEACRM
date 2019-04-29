@@ -13,4 +13,7 @@ public interface FormatDao {
     public Map<String,Object> formatDetail(FormatDto formatDto);
     public void formatUpdate(FormatDto formatDto);
     public void formatDelete(FormatDto formatDto);
+    public List<Map<String,Object>> smsFormat(int siteId);
+    public List<Map<String,Object>> emailFormat(int siteId);
+    public Map<String,Object> formatdesc(int formatNum);
 }

@@ -35,8 +35,8 @@ public class LoginController {
     @Autowired
     private CodeService codeService;
 
-    @Autowired
-    private RServeExample rser;
+//    @Autowired
+//    private RServeExample rser;
 
     private final int NOTICE = 5;
 
@@ -91,7 +91,7 @@ public class LoginController {
         mView.setViewName("page/popup/noticeDetailPop");
         return mView;
     }
-
+/*
     @RequestMapping(value = "/r", method = RequestMethod.GET)
     public ModelAndView r(HttpServletRequest request) throws REngineException, REXPMismatchException {
         ModelAndView mView = new ModelAndView();
@@ -105,7 +105,7 @@ public class LoginController {
         mView.setViewName("r");
         return mView;
     }
-
+*/
     @RequestMapping(value = "/mail/check", method = RequestMethod.GET)
     @ResponseBody
     public void rs(HttpServletRequest request) {

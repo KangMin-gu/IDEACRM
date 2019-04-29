@@ -77,20 +77,10 @@ public class CustServiceImple implements CustService{
         custDto.setEdituser(userNo);
         custDenyDto.setEdituser(userNo);
         CustDto enCustDto = new EnCustDto(custDto);
-        String deRelCustNo = enCustDto.getRelcustno();
-
-        if(deRelCustNo != null && !deRelCustNo.equals("0") && !deRelCustNo.equals("")){
-            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
-            enCustDto.setRelcustno(deRelCustNo);
-        }
-
         custDao.custInsert(enCustDto);
         String deCustNo = enCustDto.getCustno();
         custDenyDto.setCustno(deCustNo);
         custDao.custDenyInsert(custDenyDto);
-        if(enCustDto.getClino() != 0) {//clino가 존재하면 거래처-관련고객 테이블에 insert
-            custDao.mergeCliCust(enCustDto);
-        }
 
         String enCustNo = codecUtil.encodePkNo(deCustNo);
         return enCustNo;
@@ -110,12 +100,6 @@ public class CustServiceImple implements CustService{
         String deCustNo = codecUtil.decodePkNo(enCustNo);
         enCustDto.setCustno(deCustNo);
         custDenyDto.setCustno(deCustNo);
-
-        String deRelCustNo = enCustDto.getRelcustno();
-        if(deRelCustNo != null && deRelCustNo != "0" && !deRelCustNo.equals("")){
-            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
-            enCustDto.setRelcustno(deRelCustNo);
-        }
 
         custDao.custUpdate(enCustDto);//업데이트 dao호출
         //업데이트한 pk값 수신거부 dto에 설정

@@ -61,6 +61,10 @@ public class EnCustDto extends CustDto implements Serializable {
     private int	clino;	//고객사번호
     private int	clicustno;	//클라이언트고객번호
     private String	relcustno;	//고객관계번호
+    private String mobile;
+    private String homtel;
+    private String wrktel;
+    private String wrkfax;
 
     public EnCustDto(CustDto custDto) throws UnsupportedEncodingException, GeneralSecurityException {
         this.custno = custDto.getCustno();
@@ -111,6 +115,10 @@ public class EnCustDto extends CustDto implements Serializable {
         this.clino = custDto.getClino();
         this.clicustno = custDto.getClicustno();
         this.relcustno = custDto.getRelcustno();
+        this.mobile = custDto.getMobile1()+"-"+custDto.getMobile2()+"-"+custDto.getMobile3();
+        this.homtel=custDto.getHomtel1()+"-"+custDto.getHomtel2()+"-"+custDto.getHomtel3();
+        this.wrktel=custDto.getWrktel1()+"-"+custDto.getWrktel3()+"-"+custDto.getWrktel3();
+        this.wrkfax=custDto.getWrkfax1()+"-"+custDto.getWrkfax3()+"-"+custDto.getWrkfax3();
 
         setEncodingCustDto();
     }
@@ -128,6 +136,9 @@ public class EnCustDto extends CustDto implements Serializable {
         if(this.homaddr2 != null && this.homaddr2 != ""){ this.homaddr2 = commonUtil.encoding(this.homaddr2);}
         if(this.homaddr3 != null && this.homaddr3 != ""){ this.homaddr3 = commonUtil.encoding(this.homaddr3);}
         if(this.email != null && this.email != ""){ this.email = commonUtil.encoding(this.email); }
+        if(this.mobile != null && this.mobile != ""){ this.mobile = commonUtil.encoding(this.mobile);}
+        if(this.homtel != null && this.homtel != ""){ this.homtel = commonUtil.encoding(this.homtel); }
+
     }
 
     @Override
@@ -608,5 +619,45 @@ public class EnCustDto extends CustDto implements Serializable {
     @Override
     public void setRelcustno(String relcustno) {
         this.relcustno = relcustno;
+    }
+
+    @Override
+    public String getMobile() {
+        return mobile;
+    }
+
+    @Override
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    @Override
+    public String getHomtel() {
+        return homtel;
+    }
+
+    @Override
+    public void setHomtel(String homtel) {
+        this.homtel = homtel;
+    }
+
+    @Override
+    public String getWrktel() {
+        return wrktel;
+    }
+
+    @Override
+    public void setWrktel(String wrktel) {
+        this.wrktel = wrktel;
+    }
+
+    @Override
+    public String getWrkfax() {
+        return wrkfax;
+    }
+
+    @Override
+    public void setWrkfax(String wrkfax) {
+        this.wrkfax = wrkfax;
     }
 }

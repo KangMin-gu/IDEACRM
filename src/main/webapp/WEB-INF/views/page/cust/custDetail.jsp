@@ -48,7 +48,6 @@
             </div>
         </div>
 
-
         <div class="wrapper wrapper-content animated fadeInRight">
             <form:form id="command" method="POST" action="/cust/del">
             <div class="row">

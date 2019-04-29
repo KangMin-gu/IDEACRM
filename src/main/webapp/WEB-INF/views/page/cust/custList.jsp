@@ -44,8 +44,6 @@
             </div>
         </div>
 
-        ${pageScope.urls}
-
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">

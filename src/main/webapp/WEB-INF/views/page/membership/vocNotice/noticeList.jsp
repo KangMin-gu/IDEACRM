@@ -36,7 +36,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>공지 목록</strong>
+                        <strong>공지사항 목록</strong>
                     </li>
                 </ol>
             </div>
@@ -129,15 +129,15 @@
                                     </c:if>
                                 </div>
                             </div>
-                                <table class="footable table table-striped">
+                                <table class="footable table table-striped vocNotice">
                                     <thead>
-                                        <tr>
-                                            <th data-name="NTNUM" data-visible="false">
-                                            <th data-name="TAGNAME" data-filterable="true">말머리</th>
-                                            <th data-name="TITLE" data-formatter="vocNoticeListFormatter" data-filterable="true">제목</th>
-                                            <th data-name="WRITER" data-filterable="true">글쓴이</th>
-                                            <th data-name="REGDATE" data-filterable="true" data-direction="DESC">날짜</th>
-                                        </tr>
+                                    <tr>
+                                        <th data-name="NTNUM" data-visible="false">
+                                        <th data-name="TAGNAME" data-filterable="true">말머리</th>
+                                        <th data-name="TITLE" data-formatter="noticeListFormatter" data-filterable="true">제목</th>
+                                        <th data-name="WRITER" data-filterable="true">글쓴이</th>
+                                        <th data-name="REGDATE" data-filterable="true" data-direction="DESC">날짜</th>
+                                    </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
@@ -173,13 +173,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/notice.js"></script>
 <script>
-    $(document).ready(function() {
+   $(document).ready(function() {
         var url = window.location.pathname;
         var bool = dateRangeError();
-        if(bool)  footableSearchList(url);
+        if(bool)  footableSearchList(url, $('.vocNotice'));
 
         $('#noticeListSearch').click(function(e){
-            footableSearchList(url);
+            footableSearchList(url, $('.vocNotice'));
         });
     });
 </script>

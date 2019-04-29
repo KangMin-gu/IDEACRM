@@ -28,7 +28,6 @@ function id_check(e){
         $('#userid').addClass('error');
         $('#userid').focus();
     }else{
-
         $.ajax({
             url:"/user/idcheck?userid="+idcheck ,
             method: "GET",
@@ -41,10 +40,12 @@ function id_check(e){
                     $('#userid').focus();
                     text = '이미 존재하고 있는 ID입니다.';
                     alert(text);
-                    $('#userid').addClass('error');
-                    $('#userid').next().text(text);
-                    $('#userid').next().show();
-                    $('#userid').next().addClass('error');
+                    setTimeout(function () {
+                        $('#userid').addClass('error');
+                        $('#userid').next().text(text);
+                        $('#userid').next().show();
+                        $('#userid').next().addClass('error');
+                    }, 300);
 
                     return false;
                 }

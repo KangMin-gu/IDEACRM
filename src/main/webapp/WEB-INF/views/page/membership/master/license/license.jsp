@@ -71,6 +71,7 @@
                                             <th><span name="useLicenseDtoList[0].licenseno" id="custlicenseno" value="1">고객관리</span></th>
                                             <td>
                                                 <select class="form-control form-control-sm" name="useLicenseDtoList[0].isdelete" id="custisdelete" style="height: 35px;">
+                                                    <option value="">선택</option>
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
@@ -90,6 +91,7 @@
                                             <th><span name="useLicenseDtoList[1].licenseno" id="accountcenseno" value="2">영업관리</span></th>
                                             <td>
                                                 <select class="form-control form-control-sm" name="useLicenseDtoList[1].isdelete" id="accountisdelete" style="height: 35px;">
+                                                    <option value="">선택</option>
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
@@ -110,6 +112,7 @@
                                             <th><span name="useLicenseDtoList[2].licenseno" id="servicelicenseno" value="3">서비스관리</span></th>
                                             <td>
                                                 <select class="form-control form-control-sm" name="useLicenseDtoList[2].isdelete" id="serviceisdelete" style="height: 35px;">
+                                                    <option value="">선택</option>
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
@@ -130,6 +133,7 @@
                                             <th><span name="useLicenseDtoList[3].licenseno" id="campaignlicenseno" value="4">캠페인</span></th>
                                             <td>
                                                 <select class="form-control form-control-sm" name="useLicenseDtoList[3].isdelete" id="campaignisdelete" style="height: 35px;">
+                                                    <option value="">선택</option>
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>
@@ -150,6 +154,7 @@
                                             <th><span name="useLicenseDtoList[4].licenseno" id="voclicenseno" value="5">콜센터</span></th>
                                             <td>
                                                 <select class="form-control form-control-sm" name="useLicenseDtoList[4].isdelete" id="vocisdelete" style="height: 35px;">
+                                                    <option value="">선택</option>
                                                     <option value="0">활성</option>
                                                     <option value="1">비활성</option>
                                                 </select>

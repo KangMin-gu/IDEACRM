@@ -35,4 +35,5 @@ public interface VocDao {
     public int vocUserTotalRows(Map<String, Object> search);//voc 콜분배 유저 카운터
     public List<Map<String, Object>> vocUserList(Map<String, Object> search);//voc 콜분배 유저 리스트
     public Map<String, Object> vocAlarm(Map<String, Object> param);
+    public void callbackAutoDiv(Map<String,Object> param);
 }

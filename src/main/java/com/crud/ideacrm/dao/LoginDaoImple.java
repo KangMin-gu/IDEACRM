@@ -21,7 +21,7 @@ public class LoginDaoImple implements LoginDao{
 
     @Override
     public void contactInfo(ContactInfoDto ciDto){
-        
+        session.insert("login.contactInfo", ciDto);
     }
 
     @Override

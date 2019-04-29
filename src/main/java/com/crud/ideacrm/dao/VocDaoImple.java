@@ -179,4 +179,9 @@ public class VocDaoImple implements VocDao {
         return vocAlarm;
     }
 
+    @Override
+    public void callbackAutoDiv(Map<String, Object> param) {
+        session.update("voc.callbackAutoDiv",param);
+    }
+
 }

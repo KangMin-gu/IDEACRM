@@ -303,8 +303,8 @@ public class VocController {
     @RequestMapping(value="/voc/pop/calldiv/auto",method=RequestMethod.GET)
     @ResponseBody
     public int authVocCallAtouDiv(HttpServletRequest request) {
-        int cnt = vocService.vocCallBackAutoDiv(request);
-        return cnt;
+        vocService.vocCallBackAutoDiv(request);
+        return 0;
     }
 
 }

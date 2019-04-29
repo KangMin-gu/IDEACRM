@@ -41,7 +41,7 @@
                         </h2>
                     </div>
                     <div class="mail-box">
-                    <form:form id="multiFile" action="/compose" method="post" enctype="multipart/form-data">
+                    <form:form id="multiFile" action="/compose" method="post" enctype="multipart/form-data" >
                         <div class="mail-body">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="touser">받는이:</label>
@@ -107,7 +107,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="footer">
             <%@ include file="/WEB-INF/views/common/footer.jsp"%>

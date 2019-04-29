@@ -842,9 +842,9 @@
         $('.ctibtn').hide();
         vocServiceFieldReset();
         voc_send_message();
-        setTimeout(function(){
-            $('[name="callbackBottomTab"]').trigger('click');
-        },700);
+        //setTimeout(function(){
+         //   $('[name="callbackBottomTab"]').trigger('click');
+        //},1500);
     });
 </script>
 </body>

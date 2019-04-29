@@ -30,7 +30,7 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="footable table table-striped" data-sorting="true">
+                    <table class="footable table table-striped codePopList" data-sorting="true">
                         <thead>
                         <tr data-formatter="test">
                             <th data-visible="false" data-name="NO">코드번호</th>
@@ -67,9 +67,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/company/code/${sessionScope.ENCSITEID}');
+            footableSearchList('/company/code/${sessionScope.ENCSITEID}', $('.codePopList'));
         });
-        footableSearchList('/company/code/${sessionScope.ENCSITEID}');
+        footableSearchList('/company/code/${sessionScope.ENCSITEID}', $('.codePopList'));
     });
 
 </script>

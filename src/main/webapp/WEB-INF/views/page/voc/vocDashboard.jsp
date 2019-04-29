@@ -23,7 +23,7 @@
     }
 </style>
 <body>
-
+<c:set var="menuactive" value='vocdashM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -240,6 +240,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>

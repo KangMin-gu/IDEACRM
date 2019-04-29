@@ -1,5 +1,13 @@
 //사이드바 localstorage
 $(document).ready(function(){
+
+
+
+
+
+
+
+
     if(localStorage.sideState == 1){
         $('body').addClass('mini-navbar');
     }else if(localStorage.sideState == null){
@@ -15,3 +23,5 @@ $('.navbar-minimalize').click(function(){
     }
 
 });
+
+

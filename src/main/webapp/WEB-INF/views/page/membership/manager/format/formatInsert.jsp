@@ -19,7 +19,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
 <body>
-
+<c:set var="menuactive" value='formatM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -139,6 +139,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 

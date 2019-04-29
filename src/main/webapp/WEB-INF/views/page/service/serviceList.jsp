@@ -21,7 +21,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='serviceM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -228,7 +228,7 @@
                                     </c:choose>
                                 </div>
                             </div>
-                            <table class="footable table table-striped">
+                            <table class="footable table table-striped serviceList">
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-name="NO">서비스번호</th>
@@ -269,6 +269,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
@@ -289,10 +290,10 @@
         $('#search').click(function(e){
             var bool = dateRangeError();
             if(bool){
-                footableSearchList(url);
+                footableSearchList(url, $('.serviceList'));
             }
         });
-        footableSearchList(url);
+        footableSearchList(url, $('.serviceList'));
     });
 </script>
 </body>

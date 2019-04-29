@@ -22,7 +22,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='serviceCallendar'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -72,7 +72,7 @@
 
     </div>
 </div>
-
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- Mainly scripts -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/fullcalendar/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.1.1.min.js"></script>

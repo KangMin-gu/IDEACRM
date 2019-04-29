@@ -20,7 +20,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='insideNotice'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -174,6 +174,7 @@
 </div>
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>

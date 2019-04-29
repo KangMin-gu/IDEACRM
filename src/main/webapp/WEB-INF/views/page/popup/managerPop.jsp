@@ -30,7 +30,7 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="table footable table-striped" data-sorting="true">
+                    <table class="table footable table-striped managerPopList" data-sorting="true">
                         <thead>
                         <tr>
                             <th data-visible="false" data-name="USERNO">사용자번호</th>
@@ -77,9 +77,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/popuser');
+            footableSearchList('/popuser', $('.managerPopList'));
         });
-        footableSearchList('/popuser');
+        footableSearchList('/popuser', $('.managerPopList'));
     });
 
 </script>

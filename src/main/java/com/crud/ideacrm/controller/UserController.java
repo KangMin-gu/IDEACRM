@@ -83,6 +83,7 @@ public class UserController {
             mView.setViewName("page/membership/member/memberDetail");
         return mView;
     }
+
     // 회원 수정화면
     @RequestMapping(value="/company/user/modified/{userNo}",method=RequestMethod.GET)
     public ModelAndView authUserUpdate(HttpServletRequest request,@PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {

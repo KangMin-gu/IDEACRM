@@ -18,10 +18,8 @@
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 </head>
-<style>
-</style>
 <body>
-
+<c:set var="menuactive" value='cust'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -219,7 +217,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!--datarange-->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
@@ -233,11 +231,11 @@
     $(document).ready(function() {
         var bool = dateRangeError();
         if(bool)  footableSearchList('/cust', $('.custList'));
+
     });
     $('#custListSearch').click(function(e){
         footableSearchList('/cust', $('.custList'));
     });
-
 </script>
 </body>
 </html>

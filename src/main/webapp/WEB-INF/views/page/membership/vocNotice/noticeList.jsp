@@ -21,7 +21,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='vocnoticeM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -134,7 +134,7 @@
                                     <tr>
                                         <th data-name="NTNUM" data-visible="false">
                                         <th data-name="TAGNAME" data-filterable="true">말머리</th>
-                                        <th data-name="TITLE" data-formatter="noticeListFormatter" data-filterable="true">제목</th>
+                                        <th data-name="TITLE" data-formatter="vocNoticeListFormatter" data-filterable="true">제목</th>
                                         <th data-name="WRITER" data-filterable="true">글쓴이</th>
                                         <th data-name="REGDATE" data-filterable="true">날짜</th>
                                     </tr>
@@ -164,6 +164,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->

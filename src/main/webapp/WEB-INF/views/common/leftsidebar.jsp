@@ -46,10 +46,10 @@
             <c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
 
             <c:if test="${sessionScope.cust eq '1' or sessionScope.CHKAUTH eq 30}">
-            <li <c:if test="${fn:contains(pageScope.urls, 'cust')}"> class="active"</c:if>>
+            <li class="custMenu">
                 <a href="#"><i class="fa fa-users"></i> <span class="nav-label">고객관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="/cust">고객 관리</a></li>
+                    <li class="custMenu"><a href="/cust">고객 관리</a></li>
                 </ul>
             </li>
             </c:if>
@@ -64,12 +64,12 @@
             </li>
             </c:if>
             <c:if test="${sessionScope.service eq '3' or sessionScope.CHKAUTH eq 30}">
-            <li <c:if test="${fn:contains(pageScope.urls, 'service')}"> class="active"</c:if> >
+            <li class="serviceM">
                 <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">서비스관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/service">서비스 접수</a></li>
-                    <li><a href="${pageContext.request.contextPath}/service/delivery">서비스 이관</a></li>
-                    <li><a href="${pageContext.request.contextPath}/service/calendar">서비스 일정</a></li>
+                    <li class="serviceMenu"><a href="${pageContext.request.contextPath}/service">서비스 접수</a></li>
+                    <li class="servicedeliveryMenu"><a href="${pageContext.request.contextPath}/service/delivery">서비스 이관</a></li>
+                    <li class="serviceCallendarMenu"><a href="${pageContext.request.contextPath}/service/calendar">서비스 일정</a></li>
                 </ul>
             </li>
             </c:if>
@@ -93,15 +93,14 @@
             </li>
             </c:if>
             <c:if test="${sessionScope.voc eq '5' or sessionScope.CHKAUTH eq 30}">
-            <li <c:if test="${fn:contains(pageScope.urls, 'voc')}"> class="active"</c:if>>
+            <li class="vocMenu">
                 <a href="#"><i class="fa fa-phone"></i> <span class="nav-label">콜센터</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/voc/dashboard">콜센터</a></li>
-                    <li><a href="${pageContext.request.contextPath}/voc/satisfied">고객만족도 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/voc/notice">콜센터공지</a></li>
+                    <li class="vocdashMenu"><a href="${pageContext.request.contextPath}/voc/dashboard">콜센터</a></li>
+                    <li class="vocnoticeMenu"><a href="${pageContext.request.contextPath}/voc/notice">콜센터공지</a></li>
                 </ul>
             </li>
-            </c:if>
+           </c:if>
 
             <li>
                 <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">리포트</span><span class="fa arrow"></span></a>
@@ -114,25 +113,24 @@
                 </ul>
             </li>
 
-            <li <c:if test="${fn:contains(pageScope.urls, 'myinfo')}"> class="active"</c:if> >
+            <li class="myinfo" >
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/inbox">내부통지</a></li>
-                    <li><a href="${pageContext.request.contextPath}/company/notice">공지사항</a></li>
-                    <li><a href="${pageContext.request.contextPath}/notice">IDEA 공지</a></li>
-                    <li><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
-                    <li><a href="${pageContext.request.contextPath}/company/user/${sessionScope.ENCUSERNO}">내정보</a></li>
+                    <li class="insideNotice"><a href="${pageContext.request.contextPath}/inbox">내부통지</a></li>
+                    <li class="noticeMenu"><a href="${pageContext.request.contextPath}/company/notice">공지사항</a></li>
+                    <li class="allnotice"><a href="${pageContext.request.contextPath}/notice">IDEA 공지</a></li>
+                    <li class="site"><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
+                    <li class="my"><a href="${pageContext.request.contextPath}/company/user/${sessionScope.ENCUSERNO}">내정보</a></li>
                 </ul>
             </li>
             <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
-            <li <c:if test="${fn:contains(pageScope.urls, 'manager')}"> class="active"</c:if>>
+            <li class="manager">
                 <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
-                    <li><a href="${pageContext.request.contextPath}/company/user">사용자관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/company/code">코드관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/company/format">서식관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/company/notice">공지사항</a></li>
+                    <li class="siteMenu"><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
+                    <li class="userMenu"><a href="${pageContext.request.contextPath}/company/user">사용자관리</a></li>
+                    <li class="codeMenu"><a href="${pageContext.request.contextPath}/company/code">코드관리</a></li>
+                    <li class="formatMenu"><a href="${pageContext.request.contextPath}/company/format">서식관리</a></li>
                 </ul>
             </li>
             </c:if>
@@ -143,7 +141,6 @@
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/common/site">회원사관리</a></li>
                     <li><a href="${pageContext.request.contextPath}/common/code">공통코드</a></li>
-                    <li><a href="${pageContext.request.contextPath}/notice">IDEA 공지</a></li>
                     <li><a href="${pageContext.request.contextPath}/contact">접속자</a></li>
                 </ul>
             </li>

@@ -39,4 +39,14 @@
 		select * from SYS990099 WHERE SITEID = #{siteid}
 	</select>
 
+	<insert id="directSmsSendTemp" parameterType="hashMap">
+		INSERT INTO SC_TRAN_COPY (TR_SENDDATE, TR_SENDSTAT, TR_MSGTYPE, TR_PHONE, TR_CALLBACK, TR_MSG, CUSTNO, SITEID)
+		VALUES(current_timestamp(),'0','0',#{mobile},#{callback},#{senddesc},#{custno},#{siteid})
+	</insert>
+
+	<insert id="directLmsSendTemp" parameterType="hashMap">
+		INSERT INTO MMS_MSG_COPY (SUBJECT, PHONE, CALLBACK, STATUS, REQDATE, MSG, TYPE, CUSTNO, SITEID)
+		VALUES('[MMS발송]',#{mobile},#{callback},'0',current_timestamp(), #{senddesc},0, #{custno},#{siteid})
+	</insert>
+
 </mapper>

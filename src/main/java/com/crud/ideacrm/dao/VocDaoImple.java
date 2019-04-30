@@ -185,9 +185,10 @@ public class VocDaoImple implements VocDao {
     }
 
     @Override
-    public List<Map<String, Object>> custEmailList(Map<String, Object> param) {
-        List<Map<String, Object>> emailList = session.selectList("voc.custEmailList",param);
-        return emailList;
+    public List<Map<String, Object>> getVocSendForm(Map<String, Object> param) {
+        List<Map<String,Object>> sendFormlist = session.selectList("voc.getVocSendForm",param);
+        return sendFormlist;
     }
+
 
 }

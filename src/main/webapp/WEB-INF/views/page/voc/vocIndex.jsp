@@ -143,6 +143,7 @@
                                         <tr>
                                             <!--고객 관련 hidden -->
                                             <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt"/>
+
                                             <!-- 녹취 키값  -->
                                             <input type="hidden" id="nucIdx"  name="nucIdx" value="" />
 
@@ -304,21 +305,20 @@
                                     <li><a class="nav-link active" data-toggle="tab" href="#vocSvTab" name="vocSvTabBtn">서비스</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#vocBlackTab">강성이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#vocCallbackHistTab">콜백이력</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-4">SMS</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-5">MMS</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-6">LMS</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-7">KAKAO</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-8">EMAIL</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocSmsTab">SMS</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocLmsTab">MMS</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocMmsTab">LMS</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocKakaoTab">KAKAO</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocCustEmailTab">EMAIL</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" id="vocSvTab" class="tab-pane active" url="/voc/tab/sv">
                                         <div class="panel-body">
-                                            <table class="tabfootable table table-striped" data-paging="true" data-sorting="true">
+                                            <table class="vocfootable table table-striped" data-paging="true" data-sorting="true">
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="NO">서비스번호</th>
                                                     <th data-name="SERVICENAME_" data-formatter="vocSvTabFormatter">서비스명</th>
-                                                    <!--<th data-name="SERVICENAME_">서비스명</th>-->
                                                     <th data-name="SERVICETYPE_">접수유형</th>
                                                     <th data-name="CUSTNAME_">고객명</th>
                                                     <th data-name="RECEPTIONDATE_" data-sorted="true" data-direction="DESC">접수일</th>
@@ -341,7 +341,7 @@
                                     </div>
                                     <div role="tabpanel" id="vocBlackTab" class="tab-pane" url="/voc/tab/black">
                                         <div class="panel-body">
-                                            <table class="tabfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
+                                            <table class="vocfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="BCUSTNO">블랙번호</th>
@@ -367,7 +367,7 @@
                                     <div role="tabpanel" id="vocCallbackHistTab" class="tab-pane" url="/voc/tab/callbackhist">
                                         <div class="panel-body">
 
-                                            <table class="tabfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
+                                            <table class="vocfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="CALLBACKHISTNO"></th>
@@ -396,52 +396,135 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div role="tabpanel" id="tab-4" class="tab-pane">
+                                    <div role="tabpanel" id="vocSmsTab" class="tab-pane" url="/cust/tab/sms">
                                         <div class="panel-body">
 
-                                            <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
+                                            <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
-                                                    <th>Rendering engine</th>
-                                                    <th>Browser</th>
-                                                    <th data-hide="phone,tablet">Platform(s)</th>
-                                                    <th data-hide="phone,tablet">Engine version</th>
-                                                    <th data-hide="phone,tablet">CSS grade</th>
+                                                    <th data-visible="false" data-name="TR_NUM"></th>
+                                                    <th data-visible="false" data-name="TR_MSG"></th>
+                                                    <th data-name="TR_MSG_" data-sorted="true">내용</th>
+                                                    <th data-name="TR_PHONE">수신번호</th>
+                                                    <th data-name="TR_SENDDATE">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr class="gradeX">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 4.0
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">4</td>
-                                                    <td class="center">X</td>
-                                                </tr>
-                                                <tr class="gradeC">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 5.0
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">5</td>
-                                                    <td class="center">C</td>
-                                                </tr>
-                                                <tr class="gradeA">
-                                                    <td>Trident</td>
-                                                    <td>Internet
-                                                        Explorer 5.5
-                                                    </td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">5.5</td>
-                                                    <td class="center">A</td>
-                                                </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <td colspan="5">
-                                                        <ul class="pagination float-right"></ul>
+                                                    <td colspan="3" style="text-align:center">
+                                                        <ul class="pagination float-center"></ul>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" id="vocLmsTab" class="tab-pane" url="/cust/tab/lms">
+                                        <div class="panel-body">
+
+                                            <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
+                                                <thead>
+                                                <tr>
+                                                    <th data-visible="false" data-name="MSGKEY"></th>
+                                                    <th data-visible="false" data-name="SUBJECT"></th>
+                                                    <th data-visible="false" data-name="MSG"></th>
+                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
+                                                    <th data-name="MSG_">내용</th>
+                                                    <th data-name="PHONE">수신번호</th>
+                                                    <th data-name="REQDATE">발송시간</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="4" style="text-align:center">
+                                                        <ul class="pagination float-center"></ul>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" id="vocMmsTab" class="tab-pane" url="/cust/tab/mms">
+                                        <div class="panel-body">
+
+                                            <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
+                                                <thead>
+                                                <tr>
+                                                    <th data-visible="false" data-name="MSGKEY"></th>
+                                                    <th data-visible="false" data-name="SUBJECT"></th>
+                                                    <th data-visible="false" data-name="MSG"></th>
+                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
+                                                    <th data-name="MSG_">내용</th>
+                                                    <th data-name="PHONE">수신번호</th>
+                                                    <th data-name="REQDATE">발송시간</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="4" style="text-align:center">
+                                                        <ul class="pagination float-center"></ul>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" id="vocKakaoTab" class="tab-pane" url="/cust/tab/kakao">
+                                        <div class="panel-body">
+
+                                            <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
+                                                <thead>
+                                                <tr>
+                                                    <th data-visible="false" data-name="MESSAGE_SEQNO"></th>
+                                                    <th data-visible="false" data-name="SERVICE_SEQNO"></th>
+                                                    <th data-visible="false" data-name="SUBJECT"></th>
+                                                    <th data-visible="false" data-name="SEND_MESSAGE"></th>
+                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
+                                                    <th data-name="SEND_MESSAGE_">내용</th>
+                                                    <th data-name="RECEIVE_MOBILE_NO">수신번호</th>
+                                                    <th data-name="SEND_DATE">발송시간</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="4" style="text-align:center">
+                                                        <ul class="pagination float-center"></ul>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" id="vocCustEmailTab" class="tab-pane active" url="/cust/tab/email">
+                                        <div class="panel-body">
+                                            <table class="vocfootable table table-striped" data-paging="true" data-sorting="true">
+                                                <thead>
+                                                <tr>
+                                                    <th data-visible="false" data-name="NO">서비스번호</th>
+                                                    <th data-name="SUBJECT" data-formatter="vocEmailTabformatter">제목</th>
+                                                    <th data-name="RLTDATE" data-sorted="true" data-direction="DESC">발송일</th>
+                                                    <th data-name="USERNAME">발송자</th>
+                                                    <th data-name="CLICKYN_">확인여부</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="7" style="text-align:center">
+                                                        <ul class="pagination float-center"></ul>
                                                     </td>
                                                 </tr>
                                                 </tfoot>
@@ -450,19 +533,17 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="ibox-content bot-cont">
                             <div class="tabs-container">
-                                <ul class="nav nav-tabs detail" role="tablist">
+                                <ul class="nav nav-tabs vocBotTabDetail" role="tablist">
                                     <li><a class="nav-link active" data-toggle="tab" href="#callbackBottomTab" name="callbackBottomTab">콜백 목록</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" id="callbackBottomTab" class="tab-pane active" url="/voc/tab/callback">
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <table class="tabfootable table table-striped" style="white-space:nowrap;">
+                                                <table class="vocfootable table table-striped" style="white-space:nowrap;">
                                                     <thead>
                                                     <tr>
                                                         <th data-visible="false" data-name="TRUNK"></th>
@@ -473,7 +554,6 @@
                                                         <th data-name="CALLBACK">콜백번호</th>
                                                         <th data-name="CALLER">발신번호</th>
                                                         <th data-formatter="callBtnFormatter">통화</th>
-                                                        <!--<th>메모</th>-->
                                                         <th data-formatter="processBtnFormatter">처리</th>
                                                     </tr>
                                                     </thead>
@@ -842,9 +922,6 @@
         $('.ctibtn').hide();
         vocServiceFieldReset();
         voc_send_message();
-        //setTimeout(function(){
-         //   $('[name="callbackBottomTab"]').trigger('click');
-        //},1500);
     });
 </script>
 </body>

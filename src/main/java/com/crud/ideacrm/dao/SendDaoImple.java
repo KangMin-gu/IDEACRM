@@ -60,4 +60,14 @@ public class SendDaoImple implements SendDao{
         return chargeDto;
     }
 
+    @Override
+    public void directSendSmsTemp(Map<String, Object> param) {
+        session.insert("send.directSmsSendTemp",param);
+    }
+
+    @Override
+    public void directSendLmsTemp(Map<String, Object> param) {
+        session.insert("send.directLmsSendTemp",param);
+    }
+
 }

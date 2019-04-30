@@ -681,9 +681,11 @@ function ctiEvent(msg){
 			$('.ctibtn').show();
 			$('#vocLogOutSpan').show();
 			intervalFuncOn();//세션 유지 실행
+			$('[name="callbackBottomTab"]').trigger('click');
 			// voc_send_message();//콜백 카운터 실행
 	        //callGroupSelect(tmpData[6], tmpData[7], tmpData[8]);//소속그룹선택
-            checkGroupInterval = setInterval("checkGroupTimeOut('"+tmpData[6]+"', '"+tmpData[7]+"', '"+tmpData[8]+"')", 1000);
+            checkGroupInterval = setInterval("checkGroupTimeOut('"+tmpData[6]+"', '"+tmpData[7]+"', '"+tmpData[8]+"')", 500);
+
 		}else if(tmpData[4] == "2"){
 			alert("아이디가 존재하지 않습니다.");
 		}else if(tmpData[4] == "3"){

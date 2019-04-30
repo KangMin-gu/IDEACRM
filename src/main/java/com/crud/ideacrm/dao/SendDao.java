@@ -15,4 +15,6 @@ public interface SendDao {
     public int totalKakao(Map<String,Object> param);
     public int totalEmail(Map<String,Object> param);
     public ChargeDto chareType(String siteId);
+    public void directSendSmsTemp(Map<String,Object> param);
+    public void directSendLmsTemp(Map<String,Object> param);
 }

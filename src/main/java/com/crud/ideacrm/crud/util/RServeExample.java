@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RServeExample {
-
+/*
     private RConnection c = null;
 
     public RServeExample() throws RserveException {
@@ -60,5 +60,5 @@ public class RServeExample {
         RServeExample.assignJ2R();
 
     }
-
+*/
 }

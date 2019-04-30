@@ -1,13 +1,9 @@
 package com.crud.ideacrm.controller;
 
-import com.crud.ideacrm.crud.util.RServeExample;
 import com.crud.ideacrm.dto.UserDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.LoginService;
 import com.crud.ideacrm.service.NoticeService;
-import org.rosuda.REngine.REXP;
-import org.rosuda.REngine.REXPMismatchException;
-import org.rosuda.REngine.REngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +31,8 @@ public class LoginController {
     @Autowired
     private CodeService codeService;
 
-    @Autowired
-    private RServeExample rser;
+//    @Autowired
+//    private RServeExample rser;
 
     private final int NOTICE = 5;
 
@@ -92,6 +88,7 @@ public class LoginController {
         return mView;
     }
 
+    /*
     @RequestMapping(value = "/r", method = RequestMethod.GET)
     public ModelAndView r(HttpServletRequest request) throws REngineException, REXPMismatchException {
         ModelAndView mView = new ModelAndView();
@@ -105,7 +102,7 @@ public class LoginController {
         mView.setViewName("r");
         return mView;
     }
-
+*/
     @RequestMapping(value = "/mail/check", method = RequestMethod.GET)
     @ResponseBody
     public void rs(HttpServletRequest request) {

@@ -635,13 +635,24 @@
 		{call SP_CTI_ASSING_CALL(#{siteid, mode=IN,jdbcType=INTEGER,javaType=int},#{callstatus, mode=IN, jdbcType=INTEGER, javaType=int})}
 	</update>
 
-	<select id="custEmailList" parameterType="hashMap" resultType="hashMap">
+	<select id="getVocSendForm" parameterType="hashMap" resultType="hashMap">
 	SELECT
-	EMAILLOGID, CUSTNO, USERNAME
-	, FROMEMAIL, TOEMAIL, SUBJECT, CLICKYN
-	FROM SYS980010
+	FORMATNO, FORMATNAME, FORMATDESC
+	, CONCAT(SUBSTR(IFNULL(FORMATNAME,''),1,10),'...') AS FORMATNAME_
+	, CONCAT(SUBSTR(IFNULL(FORMATDESC,''),1,10),'...') AS FORMATDESC_
+	FROM SYS990050
 	WHERE
 		SITEID = #{siteid}
-		AND CUSTNO = #{custno}
+		AND ISDELETE = 0
+		AND USEMENU = #{usemenu}
+		AND SENDTYPE = #{sendtype}
+		<if test='kkoserviceno != null and kkoserviceno != ""'>
+		AND KAKAOSERVICENO = #{kakaoserviceno}
+		</if>
+		<if test='kkotempletno != null and kkotempletno != ""'>
+			AND KKOTEMPLETNO = #{kkotempletno}
+		</if>
 	</select>
+
+
 </mapper>

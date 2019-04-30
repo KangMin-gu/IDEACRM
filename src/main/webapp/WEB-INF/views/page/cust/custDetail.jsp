@@ -469,7 +469,7 @@
                                             </div>
                                             </c:if>
 
-                                            <div role="tabpanel" id="tab-5" class="tab-pane" url="/cust/tab/mail">
+                                            <div role="tabpanel" id="tab-5" class="tab-pane" url="/cust/tab/email">
                                                 <div class="panel-body">
                                                     <table class="tabfootable table table-striped">
                                                         <thead>

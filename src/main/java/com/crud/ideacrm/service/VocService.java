@@ -27,6 +27,6 @@ public interface VocService {
     public Map<String,Object> vocPopCallBackList(HttpServletRequest request);
     public Map<String,Object> vocCallBackUserList(HttpServletRequest request);
     public int vocCallBackPassDiv(HttpServletRequest request);
-    public int vocCallBackAutoDiv(HttpServletRequest request);
+    public void vocCallBackAutoDiv(HttpServletRequest request);
     public String vocInsert(HttpServletRequest request, HttpServletResponse response, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto, ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException;
 }

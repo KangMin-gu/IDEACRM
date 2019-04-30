@@ -1,9 +1,13 @@
 package com.crud.ideacrm.controller;
 
+import com.crud.ideacrm.crud.util.RServeExample;
 import com.crud.ideacrm.dto.UserDto;
 import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.LoginService;
 import com.crud.ideacrm.service.NoticeService;
+import org.rosuda.REngine.REXP;
+import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.REngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,9 @@ public class LoginController {
 
     @Autowired
     private CodeService codeService;
+
+    @Autowired
+    private RServeExample rser;
 
     private final int NOTICE = 5;
 
@@ -87,4 +92,23 @@ public class LoginController {
         return mView;
     }
 
+    @RequestMapping(value = "/r", method = RequestMethod.GET)
+    public ModelAndView r(HttpServletRequest request) throws REngineException, REXPMismatchException {
+        ModelAndView mView = new ModelAndView();
+
+        REXP a = rser.getRVersion();
+        double[] b = rser.assignJ2R();
+        String aa = a.asString();
+        mView.addObject("a", aa);
+        mView.addObject("b", b);
+
+        mView.setViewName("r");
+        return mView;
+    }
+
+    @RequestMapping(value = "/mail/check", method = RequestMethod.GET)
+    @ResponseBody
+    public void rs(HttpServletRequest request) {
+      System.out.println("들어왔습니다~!212121212");
+    }
 }

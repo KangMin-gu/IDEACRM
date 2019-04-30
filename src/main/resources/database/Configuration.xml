@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.crud.ideacrm.dto.NoticeDto" alias="noticeDto"/>
 		<typeAlias type="com.crud.ideacrm.dto.UseLicenseDto" alias="useLicenseDto"/>
 		<typeAlias type="com.crud.ideacrm.dto.FormatDto" alias="formatDto"/>
+		<typeAlias type="com.crud.ideacrm.crud.dto.ContactInfoDto" alias="ciDto"/>
 	</typeAliases>
 
 	<mappers>

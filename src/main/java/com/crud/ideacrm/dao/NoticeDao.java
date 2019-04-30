@@ -26,4 +26,6 @@ public interface NoticeDao {
     public int vocNoticeUpdate(NoticeDto noticeDto);
     public void vocNoticeDel(NoticeDto noticeDto);
     public List<Map<String, Object>> loginNotice();
+    public List<Map<String,Object>> indexSiteNotice(NoticeDto noticeDto);
+    public List<Map<String,Object>> indexVocNotice(NoticeDto noticeDto);
 }

@@ -21,15 +21,6 @@ public class InsideNoticeController {
     @Autowired
     private InsideNoticeService isns;
 
-    //알람_안읽은편지
-    @RequestMapping(value = "/insnotread", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Map<String, Object>> authAlarmNotRead(HttpServletRequest request){
-        List<Map<String, Object>> alarmNotRead = isns.alarmNotRead(request);
-        return alarmNotRead;
-    }
-
-
     //받은통지리스트
     @RequestMapping(value = "/inbox", method = RequestMethod.GET)
     public ModelAndView authinboxList(HttpServletRequest request){

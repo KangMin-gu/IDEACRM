@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Repository
@@ -21,8 +22,8 @@ public class UserDaoImple implements UserDao {
     }
 
     @Override
-    public Map<String, Object> userAram(int userNo) {
-        Map<String, Object> userAram = session.selectOne("user.userAram", userNo);
+    public Map<String, Object> userAram(Map<String,Object> alarmVal) {
+        Map<String, Object> userAram = session.selectOne("user.userAram", alarmVal);
         return userAram;
     }
 

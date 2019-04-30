@@ -63,8 +63,14 @@
 		WHERE USERNO = #{userno}
 	</select>
 
-	<select id="userAram" parameterType="int" resultType="hashMap">
-	SELECT COUNT(READCHEK) AS READCHEK FROM sys970011 WHERE USERNO = #{userno} AND ISDELETE = 0 AND READCHEK=0;
+	<select id="userAram" parameterType="hashMap" resultType="hashMap">
+	SELECT NOTICE,SITE,VOC,READCHEK FROM
+	(SELECT COUNT(CASE WHEN A.mediatype=0 THEN 1 END)  AS NOTICE FROM sys990010 A WHERE A.regdate >= CURDATE()) AS NOTICE,
+	(SELECT
+	COUNT(CASE WHEN A.mediatype=1 THEN 1 END)  AS SITE,
+	COUNT(CASE WHEN A.mediatype=2 THEN 1 END)  AS VOC
+	FROM sys990010 A WHERE A.regdate <![CDATA[>]]> date_sub(now(), interval 1 day) AND ISDELETE = 0 AND SITEID=#{siteid}) A,
+	(SELECT COUNT(readchek) AS READCHEK FROM sys970011 WHERE userno = #{userno} AND isdelete = 0 AND readchek = 0) AS READCHEK
 	</select>
 
 	<!--유저 비밀번호 업데이트-->

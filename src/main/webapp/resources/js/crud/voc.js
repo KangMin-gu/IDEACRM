@@ -25,6 +25,18 @@ $('#callDivide').click(function(e){
     openNewWindow('콜백분배', '/voc/pop/calldiv', e.currentTarget.id, 800, 700);
 });
 
+$('.vocEmailBtn').click(function(){
+    if( !$('#custno').val() == false )
+        window.open("/voc/pop/email", "고객상세정보", "width=1200px, height=900px");
+});
+$('.vocSmsBtn').click(function(){
+    if( !$('#custno').val() == false )
+        window.open("/voc/pop/sms", "고객상세정보","width=400px, height=600px");
+});
+$('#vocKakaoBtn').click(function(){
+    if( !$('#custno').val() == false )
+        window.open("/voc/pop/kakao", "고객상세정보", "width=400px, height=600px");
+});
 
 // 타이머
 function startInterval() {
@@ -494,7 +506,7 @@ function callBackHiddenFormatter(value, options, rowData){
 }
 
 function vocSvTabFormatter(value, options, rowData){
-    var htmlStr = '<a onclick="vocServiceDetail(' + rowData.SERVICENO + ');">rowData.SERVICENAME_</a>';
+    var htmlStr = '<a onclick="vocServiceDetail(' + rowData.NO + ');">' + value + '</a>';
     return htmlStr;
 }
 
@@ -883,7 +895,7 @@ function productB() {
 }
 
 
-// vocDetail화면의 Tab클릭 이벤트
+//vocDetail화면의 Tab클릭 이벤트
 $('.vocTabDetail').find('.nav-link').click(function(e){
     var obj = $(this);
     var bool = boolTimeDiff(obj);//동일 버튼 클릭 시간이 3초 미만이면 false 리턴

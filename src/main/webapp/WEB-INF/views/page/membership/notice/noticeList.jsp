@@ -36,7 +36,7 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>공지사항</strong>
+                        <strong>공지사항 목록</strong>
                     </li>
                 </ol>
             </div>
@@ -128,7 +128,7 @@
                                 </div>
                             </div>
                             <form class="deleteForm" action="/cust/del" method="post">
-                                <table class="footable table table-striped">
+                                <table class="footable table table-striped siteNotice">
                                     <thead>
                                         <tr>
                                             <th data-name="NTNUM" data-visible="false" data-filterable="true">
@@ -176,10 +176,10 @@
     $(document).ready(function() {
         var url = window.location.pathname;
         var bool = dateRangeError();
-        if(bool)  footableSearchList(url);
+        if(bool)  footableSearchList(url, $('.siteNotice'));
 
         $('#noticeListSearch').click(function(e){
-            footableSearchList(url);
+            footableSearchList(url, $('.siteNotice'));
         });
     });
 </script>

@@ -19,7 +19,7 @@
 <style>
 </style>
 <body>
-<c:set var="menuactive" value='memeberM'/>
+<c:set var="menuactive" value='managerMemberM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -52,7 +52,6 @@
                 <div class="col-lg-12">
                     <form:form action="/company/user/del/${userInfo.USERNO}" method="POST">
                         <a href="/company/user" class="btn btn-default pull-left">목록</a>
-                        <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
                         <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>
                         <a href="/company/user/modified/${userInfo.USERNO}" class="btn btn-default pull-right">수정</a>
                     </form:form>

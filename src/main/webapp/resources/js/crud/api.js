@@ -8,10 +8,17 @@ function footableSearchList(url, selector) {
             "filtering": {
                 "enabled": true,
                 "placeholder": "통합검색",
-                "min":1
+                // "delay": 500,
+                "min":1,
+                "dropdownTitle": "Search in:"
             },
             "paging": {
                 "enabled": true,
+                "container" : ".pagination",
+                "position":"center"
+            },
+            "sorting": {
+                "enabled": true
             },
             "rows": response
         });

@@ -53,7 +53,7 @@
                 </ul>
             </li>
             </c:if>
-            <c:if test="${sessionScope.account eq '2' or sessionScope.CHKAUTH eq 30}">
+    <!--        <c:if test="${sessionScope.account eq '2' or sessionScope.CHKAUTH eq 30}">
             <li <c:if test="${fn:contains(pageScope.urls, 'sales')}"> class="active"</c:if>>
                 <a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">영업관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -61,19 +61,19 @@
                     <li><a href="${pageContext.request.contextPath}/account">거래처 관리</a></li>
                     <li><a href="${pageContext.request.contextPath}/sales/calendar">영업 일정</a></li>
                 </ul>
-            </li>
+            </li>-->
             </c:if>
             <c:if test="${sessionScope.service eq '3' or sessionScope.CHKAUTH eq 30}">
             <li class="serviceM">
                 <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">서비스관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="serviceMenu"><a href="${pageContext.request.contextPath}/service">서비스 접수</a></li>
+                    <li class="serviceMenu"><a href="${pageContext.request.contextPath}/service">서비스 관리</a></li>
                     <li class="servicedeliveryMenu"><a href="${pageContext.request.contextPath}/service/delivery">서비스 이관</a></li>
                     <li class="serviceCallendarMenu"><a href="${pageContext.request.contextPath}/service/calendar">서비스 일정</a></li>
                 </ul>
             </li>
             </c:if>
-            <c:if test="${sessionScope.campaign eq '4' or sessionScope.CHKAUTH eq 30}">
+            <!--         <c:if test="${sessionScope.campaign eq '4' or sessionScope.CHKAUTH eq 30}">
             <li>
                 <a href="#"><i class="fa fa-envelope-o"></i> <span class="nav-label">캠페인</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -90,7 +90,7 @@
                     </li>
                     <li><a href="${pageContext.request.contextPath}/campaing/calendar">캠페인 일정</a></li>
                 </ul>
-            </li>
+            </li>-->
             </c:if>
             <c:if test="${sessionScope.voc eq '5' or sessionScope.CHKAUTH eq 30}">
             <li class="vocMenu">
@@ -102,7 +102,7 @@
             </li>
            </c:if>
 
-            <li>
+       <!--     <li>
                 <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">리포트</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="form_basic.html">고객</a></li>
@@ -111,23 +111,22 @@
                     <li><a href="form_basic.html">CTR</a></li>
                     <li><a href="form_basic.html">VOC</a></li>
                 </ul>
-            </li>
+            </li>-->
 
-            <li class="myinfo" >
+            <li class="myinfo">
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="insideNotice"><a href="${pageContext.request.contextPath}/inbox">내부통지</a></li>
                     <li class="noticeMenu"><a href="${pageContext.request.contextPath}/company/notice">공지사항</a></li>
                     <li class="allnotice"><a href="${pageContext.request.contextPath}/notice">IDEA 공지</a></li>
-                    <li class="site"><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
-                    <li class="my"><a href="${pageContext.request.contextPath}/company/user/${sessionScope.ENCUSERNO}">내정보</a></li>
+                    <li class="mysiteMenu"><a href="${pageContext.request.contextPath}/mysite/${sessionScope.ENCSITEID}">회사정보</a></li>
+                    <li class="myMenu"><a href="${pageContext.request.contextPath}/myinfo/${sessionScope.ENCUSERNO}">내정보</a></li>
                 </ul>
             </li>
             <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
             <li class="manager">
                 <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="siteMenu"><a href="${pageContext.request.contextPath}/common/site/${sessionScope.ENCSITEID}">회사정보</a></li>
                     <li class="userMenu"><a href="${pageContext.request.contextPath}/company/user">사용자관리</a></li>
                     <li class="codeMenu"><a href="${pageContext.request.contextPath}/company/code">코드관리</a></li>
                     <li class="formatMenu"><a href="${pageContext.request.contextPath}/company/format">서식관리</a></li>
@@ -136,7 +135,7 @@
             </c:if>
 
             <c:if test="${sessionScope.CHKAUTH eq '30'}">
-            <li <c:if test="${fn:contains(pageScope.urls, 'master')}"> class="active"</c:if>>
+            <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">CRUD</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="${pageContext.request.contextPath}/common/site">회원사관리</a></li>

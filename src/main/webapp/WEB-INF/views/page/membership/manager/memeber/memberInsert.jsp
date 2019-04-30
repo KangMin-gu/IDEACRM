@@ -19,7 +19,7 @@
 <style>
 </style>
 <body>
-<c:set var="menuactive" value='memeberM'/>
+<c:set var="menuactive" value='managerMemberM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">

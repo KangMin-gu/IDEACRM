@@ -19,7 +19,7 @@
 <style>
 </style>
 <body>
-<c:set var="menuactive" value='memeberM'/>
+<c:set var="menuactive" value='myinfoM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -34,13 +34,10 @@
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="${pageContext.request.contextPath}/company/user">사용자 목록</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="${pageContext.request.contextPath}/company/user/${userInfo.USERNO}">사용자 정보</a>
+                        <a href="${pageContext.request.contextPath}/myinfo/${userInfo.USERNO}">내 정보</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>사용자 정보 수정</strong>
+                        <strong>내 정보수정</strong>
                     </li>
                 </ol>
             </div>
@@ -50,11 +47,11 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/company/user/modified/${userInfo.USERNO}" method="POST">
+            <form:form action="/myinfo/modified/${userInfo.USERNO}" method="POST">
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">저장</button>
-                    <a href="/company/user/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
+                    <a href="/myinfo/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -240,9 +237,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default pull-left">저장</button>
-                    <a href="/company/user/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
+                    <a href="/myinfo/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
+        <br/>
             </form:form>
         </div>
 
@@ -261,9 +259,5 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
 
-<script>
-    $(document).ready(function() {
-    });
-</script>
 </body>
 </html>

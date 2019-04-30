@@ -19,7 +19,7 @@
 <style>
 </style>
 <body>
-<c:set var="menuactive" value='memeberM'/>
+<c:set var="menuactive" value='myinfoM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -28,16 +28,13 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>사용자 정보</h2>
+                <h2>내 정보</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
-                    <li class="breadcrumb-item active">
-                        <a href="${pageContext.request.contextPath}/">사용자 목록</a>
-                    </li>
                     <li class="breadcrumb-item">
-                        <strong>사용자 정보</strong>
+                        <strong>내 정보</strong>
                     </li>
                 </ol>
             </div>
@@ -50,12 +47,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form:form action="/company/user/del/${userInfo.USERNO}" method="POST">
-                        <a href="/company/user" class="btn btn-default pull-left">목록</a>
-                        <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                        <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>
-                        <a href="/company/user/modified/${userInfo.USERNO}" class="btn btn-default pull-right">수정</a>
-                    </form:form>
+                    <a href="/myinfo/modified/${userInfo.USERNO}" class="btn btn-default pull-right">수정</a>
                 </div>
             </div>
 
@@ -85,17 +77,6 @@
                                                     <p>${userInfo.USERID}</p>
                                                 </div>
                                             </div>
-                                        <!--관리자일경우 비밀번호 초기화 row 생성-->
-                                        <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
-                                            <div class="row">
-                                                <div class="col-sm-2">
-                                                    <p>비밀번호 : </p>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <button type="button" class="btn btn-w-m btn-xs btn-primary passreset">초기화</button>
-                                                </div>
-                                            </div>
-                                        </c:if>
                                             <div class="row">
                                                 <div class="col-sm-2">
                                                     <p>전화번호 : </p>
@@ -117,36 +98,34 @@
                                                 <div class="col-sm-4">
                                                     <p>${userInfo.EMAIL}</p>
                                                 </div>
-                                        <c:choose>
-                                            <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
-                                                <div class="col-sm-2">
-                                                    <p>관리자여부 : </p>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <p>${userInfo.CHKAUTH_}</p>
-                                                </div>
-                                            </div>
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <p>직책 : </p>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <p>${userInfo.USERDUTY}</p>
-                                                    </div>
-                                                </div>
-                                            </c:when>
-                                            <c:otherwise>
-                                                    <div class="col-sm-2">
-                                                        <p>직책 : </p>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <p>${userInfo.USERDUTY}</p>
-                                                    </div>
-                                                </div>
-                                            </c:otherwise>
-                                    </c:choose>
-
-
+                                                    <c:choose>
+                                                        <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
+                                                            <div class="col-sm-2">
+                                                                <p>관리자여부 : </p>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <p>${userInfo.CHKAUTH_}</p>
+                                                            </div>
+                                                        </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-2">
+                                                                    <p>직책 : </p>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <p>${userInfo.USERDUTY}</p>
+                                                                </div>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                                <div class="col-sm-2">
+                                                                    <p>직책 : </p>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <p>${userInfo.USERDUTY}</p>
+                                                                </div>
+                                                            </div>
+                                                        </c:otherwise>
+                                                     </c:choose>
                                             <div class="row">
                                                 <div class="col-sm-2">
                                                     <p>메모 : </p>
@@ -201,40 +180,6 @@
                 </div>
             </div>
 
-            <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="tabs-container">
-                                <ul class="nav nav-tabs detail" role="tablist">
-                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">라이센스 부여</a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div role="tabpanel" id="tab-1" class="tab-pane active">
-                                        <div class="panel-body">
-                                            <form:form action="/company/user/license/${userInfo.USERNO}" method="POST">
-                                            <button type="submit" id="licenseinsert" class="btn btn-w-m btn-xs pull-right btn-primary" style="margin-bottom: 10px;">라이센스부여</button>
-                                            <div>
-                                                <select class="form-control dual_select" name="licenseno" id="licenseno" multiple="" style="display: none;">
-                                                    <c:forEach var="siteLicense" items="${siteLicense}">
-                                                        <option value="${siteLicense.LICENSENO }">${siteLicense.LICENSENAME }</option>
-                                                    </c:forEach>
-                                                    <c:forEach var="userLicense" items="${userLicense }">
-                                                            <option value="${userLicense.LICENSENO }" selected>${userLicense.LICENSENAME }</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            </form:form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </c:if>
 
             <br/>
 

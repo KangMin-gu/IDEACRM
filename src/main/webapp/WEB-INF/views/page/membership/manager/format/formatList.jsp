@@ -106,24 +106,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox ">
-
                         <div class="ibox-title">
                             <h5>서식 목록</h5>
-                        </div>
-
-                        <div class="ibox-content">
-                            <div>
-                                <div style="display: inline-block;">
-                                    <select class="form-control" id="paging" style="width:80px;margin-left: 10px;">
-                                        <c:forEach var="paging" items="${PAGING}">
-                                            <option vale="${paging.codeval}">${paging.codename}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="pull-right" style="display: inline-block;">
-                                    <a href="/company/format/input" class="btn btn-default pull-right" style="margin-left: 5px;">추가</a>
-                                </div>
+                            <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
+                                <a class="btn btn-default" href="/company/format/input">추가</a>
                             </div>
+                        </div>
+                        <div class="ibox-content">
                             <table class="footable table table-striped formatList">
                                 <thead>
                                 <tr>
@@ -135,16 +124,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td>
-                                        <div class="footable-pagination-wrapper">
-                                            <ul class="pagination"></ul>
-                                        </div>
-                                    </td>
-                                </tr>
                                 </tfoot>
                             </table>
                         </div>

@@ -108,15 +108,6 @@
                             <h5>코드 목록</h5>
                         </div>
                         <div class="ibox-content">
-                            <div>
-                                <div style="display: inline-block;">
-                                    <select class="form-control" id="paging" style="width:80px;margin-left: 10px;">
-                                        <c:forEach var="paging" items="${PAGING}">
-                                            <option vale="${paging.codeval}">${paging.codename}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
                             <table class="footable table table-striped head codeList"  data-paging="true">
                                 <thead>
                                 <tr>
@@ -135,13 +126,6 @@
 
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td>
-                                        <div class="footable-pagination-wrapper">
-                                            <ul class="pagination"></ul>
-                                        </div>
-                                    </td>
-                                </tr>
                                 </tfoot>
                             </table>
                         </div>

@@ -21,7 +21,16 @@
 <style>
 </style>
 <body>
-<c:set var="menuactive" value='serviceM'/>
+<c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
+${fn:substring(urls, 0, 17)}
+<c:choose>
+    <c:when test="${fn:substring(urls, 0, 17) eq '/service/delivery' }">
+        <c:set var="menuactive" value='deliveryM'/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="menuactive" value='serviceM'/>
+    </c:otherwise>
+</c:choose>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -30,7 +39,6 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
                 <h2>서비스 관리</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">

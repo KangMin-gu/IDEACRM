@@ -21,7 +21,7 @@
 <style>
 </style>
 <body>
-<c:set var="menuactive" value='serviceM'/>
+<c:set var="menuactive" value='deliveryM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -205,7 +205,7 @@
                         <div class="ibox-title">
                             <h5>서비스 목록</h5>
                             <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
-                                <a class="btn btn-default" href="/serviceexcel"><i class="fa fa-file-excel-o"></i></a>
+                                <a class="btn btn-default" href="/serviceexcel?servicestep1=5,6"><i class="fa fa-file-excel-o"></i></a>
                                 <a class="btn btn-default" href="/service/input">추가</a>
                             </div>
                         </div>
@@ -258,6 +258,10 @@
 <script>
     $(document).ready(function() {
         var url = window.location.pathname;
+        if(url != '/service'){
+            url = '/service?servicestep1=5,6';
+        }
+
         $('#search').click(function(e){
             var bool = dateRangeError();
             if(bool){

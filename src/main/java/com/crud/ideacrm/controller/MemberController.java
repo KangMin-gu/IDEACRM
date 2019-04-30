@@ -36,7 +36,6 @@ public class MemberController {
     @RequestMapping(value="/user/idcheck",method=RequestMethod.GET)
     @ResponseBody
     public int authUserIdCheckV(HttpServletRequest request){
-
         int cnt = memberService.memberIdCheck(request);
         return cnt;
     }

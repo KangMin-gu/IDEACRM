@@ -113,20 +113,13 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>공지사항</h5>
+                            <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
+                                <c:if test="${CHKAUTH eq 20 or CHKAUTH eq 30}">
+                                    <a class="btn btn-default" href="/company/notice/input">추가</a>
+                                </c:if>
+                            </div>
                         </div>
                         <div class="ibox-content">
-                            <div style="margin-left: 8px;">
-                                <div style="display: inline-block;">
-                                    <select class="form-control" id="paging" style="width:80px">
-                                        <c:forEach var="paging" items="${PAGING}">
-                                            <option vale="${paging.codeval}">${paging.codename}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="pull-right" style="display: inline-block;">
-                                    <a class="btn btn-default pull-right" style="margin-left: 5px;" href="/company/notice/input">등록</a>
-                                </div>
-                            </div>
                             <form class="deleteForm" action="/cust/del" method="post">
                                 <table class="footable table table-striped siteNotice">
                                     <thead>
@@ -139,13 +132,6 @@
                                         </tr>
                                     </thead>
                                     <tfoot>
-                                    <tr>
-                                        <td>
-                                            <div class="footable-pagination-wrapper" style="text-align:center;">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
                                     </tfoot>
                                 </table>
                             </form>

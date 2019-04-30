@@ -26,7 +26,7 @@ public class DeliveryController {
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
-        mView.setViewName("page/service/serviceList");
+        mView.setViewName("page/service/serviceDeliveryList");
         return mView;
     }
 }

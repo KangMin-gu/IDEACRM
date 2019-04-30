@@ -48,8 +48,13 @@ public class FormatServiceImple implements FormatService {
         formatDto.setReguser(userNo);
         formatDto.setEdtuser(userNo);
 
-        String formatNo = formatDao.formatInsert(formatDto);
+        if(formatDto.getFormatdesc() != null && formatDto.getSendtype() == 2){//문자 일경우 태그 제거
+            String tmpStr = formatDto.getFormatdesc();
+            tmpStr = tmpStr.replace("<p>","").replace("</p>","");
+            formatDto.setFormatdesc(tmpStr);
+        }
 
+        String formatNo = formatDao.formatInsert(formatDto);
         formatNo = codecUtil.encodePkNo(formatNo);
 
         return formatNo;

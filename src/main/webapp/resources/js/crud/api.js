@@ -81,6 +81,7 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
         else if(globalUrl == '/voc/pop/custsearch'){
             popVocCustNameClick($(obj.target.parentElement));
         }
+
     }
 });
 
@@ -219,7 +220,6 @@ function iCheckClick(bool){
             $(item).attr('disabled',bool);
             $(item).parent().addClass('disabled');
         }
-
     });
 }
 

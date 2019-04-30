@@ -168,4 +168,17 @@ public class SendServiceImple implements SendService {
             sendDao.directSendSmsTemp(param);
         }
     }
+
+    @Override
+    public void sendKakaoTemp(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        int userNo = Integer.parseInt((String)request.getSession().getAttribute("USERNO"));
+
+        if( param.get("custno") != null && param.get("custno") != "") {
+            String custno = (String) param.get("custno");
+            String deCustNo = codecUtil.decodePkNo(custno);
+            param.put("custno", deCustNo);
+        }
+        sendDao.directSendKakaoTemp(param);
+    }
 }

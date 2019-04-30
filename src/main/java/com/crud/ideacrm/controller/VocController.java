@@ -117,8 +117,14 @@ public class VocController {
     }
 
     @RequestMapping(value = "/voc/pop/sms", method = RequestMethod.GET)
-    public String vocSmsPop(HttpServletRequest request){
-        return "page/voc/pop/vocSmsPop";
+    public ModelAndView vocSmsPop(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        int sendType = 2; // sms 서식 값
+        int useMenu = 5; // voc 메뉴 값
+        List<Map<String,Object>> formList = vocService.getVocSendForm(request, sendType, useMenu);
+        mView.addObject("formList",formList);
+        mView.setViewName("page/voc/pop/vocSmsPop");
+        return mView;
     }
 
     @RequestMapping(value = "/voc/pop/sms", method = RequestMethod.POST)
@@ -140,9 +146,17 @@ public class VocController {
     @RequestMapping(value = "/voc/pop/kakao", method = RequestMethod.GET)
     public ModelAndView vocKakaoPop(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("page/popup/vocKakaoPop");
+        mView.setViewName("page/voc/pop/vocKakaoPop");
         return mView;
     }
+
+    @RequestMapping(value = "/voc/pop/kakao/input", method = RequestMethod.POST)
+    @ResponseBody
+    public int vocKakaoPopInsert(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        sendService.sendKakaoTemp(request);
+        return 0;
+    }
+
 
     @RequestMapping(value = "/voc/pop/email", method = RequestMethod.GET)
     public ModelAndView vocEmailPop(HttpServletRequest request){

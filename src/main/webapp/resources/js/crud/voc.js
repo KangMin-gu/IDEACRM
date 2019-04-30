@@ -33,11 +33,10 @@ $('.vocSmsBtn').click(function(){
     if( !$('#custno').val() == false )
         window.open("/voc/pop/sms", "고객상세정보","width=600px, height=600px");
 });
-$('#vocKakaoBtn').click(function(){
+$('.vocKakaoBtn').click(function(){
     if( !$('#custno').val() == false )
         window.open("/voc/pop/kakao", "고객상세정보", "width=400px, height=600px");
 });
-
 // 타이머
 function startInterval() {
     second = 1;
@@ -1146,5 +1145,54 @@ function vocServiceFieldReset(){
     }
 }
 
+$('#vocSmsSendBtn').click(function(e){
+    debugger;
+    // var data = $('#command').serialise();
+    smsToLms('senddesc');
+    var mobile = opener.$('#mobile1').val()+''+opener.$('#mobile2').val()+''+opener.$('#mobile3').val();
+    var custNo = opener.$('#custno').val();
+    var senddesc = $('#senddesc').val();
+    lengthtype = $('#lengthtype').val();
+    var data = {"mobile":mobile,"custno":custNo,"senddesc":senddesc,"lengthtype":lengthtype};
+
+    $.ajax({
+        url: '/voc/pop/sms/input',
+        method: "POST",
+        dataType: "json",
+        data: data,
+        cache: false,
+        success: function (data) {
+            debugger;
+            alert('발송 하였습니다.');
+            window.close();
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+});
+
+$('#senddesc').keyup(function(e){
+    var lengthtype = $('#lengthtype').val();
+    var str = $(this).val();
+    var textLength = getTextLength(str);
+    var textSize = textLength;
+    textLength = textLength +'/ 80';
+    $('#bytelength').text(textLength);
+    if(textSize > 80){
+        if(lengthtype != 1){
+            smsToLms('senddesc');
+        }
+    }
+});
 
 
+$(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
+    debugger;
+    if($(obj.target.parentElement.parentElement).is('tbody')) {
+        if(globalUrl =='/voc/pop/email'){
+            var formatdesc = $('#formatdesc').val();
+            $('#senddesc').val(formatdesc);
+        }
+    }
+});

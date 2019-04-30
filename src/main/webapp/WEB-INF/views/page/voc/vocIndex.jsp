@@ -306,8 +306,8 @@
                                     <li><a class="nav-link" data-toggle="tab" href="#vocBlackTab">강성이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#vocCallbackHistTab">콜백이력</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#vocSmsTab">SMS</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#vocLmsTab">MMS</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#vocMmsTab">LMS</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocLmsTab">LMS</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#vocMmsTab">MMS</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#vocKakaoTab">KAKAO</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#vocCustEmailTab">EMAIL</a></li>
                                 </ul>

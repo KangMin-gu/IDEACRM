@@ -70,4 +70,9 @@ public class SendDaoImple implements SendDao{
         session.insert("send.directLmsSendTemp",param);
     }
 
+    @Override
+    public void directSendKakaoTemp(Map<String, Object> param) {
+        session.insert("send.directSendKakaoTemp",param);
+    }
+
 }

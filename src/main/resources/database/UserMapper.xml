@@ -30,7 +30,6 @@
 		<if test="userduty != null">
 			AND A.USERDUTY LIKE CONCAT('%',#{userduty},'%')
 		</if>
-
 		ORDER BY A.USERNO DESC
 	</select>
 

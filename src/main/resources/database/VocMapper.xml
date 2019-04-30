@@ -85,6 +85,7 @@
 
 	<!-- 블랙이력 조회 -->
 	<select id="blackHistoryList" parameterType="hashMap" resultType="hashMap">
+	SELECT * FROM (
 		SELECT A.BCUSTNO,A.CUSTNO,A.BLACKTYPE
 		,CASE WHEN A.BLACKTYPE = 1 THEN '욕설'
 			WHEN A.BLACKTYPE = 2 THEN '성희롱'
@@ -106,10 +107,13 @@
 		WHERE
 			A.CUSTNO = #{custno}
 			AND A.SITEID = #{siteid}
+		)X
+		ORDER BY BCUSTNO DESC
 	</select>
 
 	<!-- 콜백 히스토리 리스트 (고객) -->
 	<select id="callBackHistoryList" parameterType="hashMap" resultType="hashMap">
+	SELECT * FROM (
 		SELECT A.CALLBACKHISTNO, A.CALLBACKNO, B.CALLER, B.CALLBACK, A.REQNO
 		,B.GCODE1, B.GCODE2, B.GCODE3
 		,DATE_FORMAT(B.RECEIVEDATE,'%Y-%m-%d %H:%i') AS RECEIVEDATE_
@@ -137,11 +141,13 @@
 		WHERE
 			A.CUSTNO = #{custno}
 			AND A.SITEID = #{siteid}
+		) X
+		ORDER BY CALLBACKHISTNO DESC
 	</select>
 
 	<!-- 상담원 콜백리스트 : 할당 되었으며 아직 해결되지 않은 콜백 목록 -->
 	<select id="vocCallBackList" parameterType="hashMap" resultType="hashMap">
-
+	SELECT * FROM (
 		SELECT
 		A.CALLBACKNO, A.CALLER, A.CALLBACK, A.TRUNK, IFNULL(A.CALLCOUNT,'') AS CALLCOUNT
 		,A.GCODE1, A.GCODE2, A.GCODE3
@@ -167,7 +173,8 @@
 			AND A.TRUNK = #{ctitelno}
 			AND A.CALLUSER = #{userno}
 			AND A.CALLSTATUS = 1
-
+		) X
+		ORDER BY CALLBACKNO DESC
 	</select>
 
     <!-- 상담원 콜백처리 -->

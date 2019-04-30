@@ -17,6 +17,8 @@
 															GROUP BY SITEID, LICENSENO) X ON X.LICENSENO = A.LICENSENO
 	WHERE A.SITEID = #{siteid}
 	AND A.ISDELETE = 0
+	) XX ORDER BY LICENSENO DESC
+
     </select>
 
     <!-- 현재 있는 모든 라이센스 -->
@@ -32,13 +34,15 @@
     </insert>
     <!-- 회원사의 사용자가 가지고 있는 라이센스 -->
     <select id="userLicenseList" parameterType="custDto" resultType="map">
-      SELECT A.LICENSENO,(SELECT LICENSENAME FROM MA900020 WHERE LICENSENO = A.LICENSENO) AS LICENSENAME FROM ME810020 A WHERE A.SITEID = #{siteid} and A.USERNO = #{userno} AND A.ISDELETE = 0
+    SELECT * FROM (
+        SELECT A.LICENSENO,(SELECT LICENSENAME FROM MA900020 WHERE LICENSENO = A.LICENSENO) AS LICENSENAME FROM ME810020 A WHERE A.SITEID = #{siteid} and A.USERNO = #{userno} AND A.ISDELETE = 0
+    )X ORDER BY LICENSENO DESC
     </select>
 
     <!-- 회원사의 보유 라이센스와 사용자의 보유 라이센스의 차이로 잔여 라이센스 계산 -->
     <select id="useSiteLicenseList" parameterType="int" resultType="map">
         SELECT LICENSENO,LICENSENAME,BUYCNT,USECNT,TOTAL
-FROM (SELECT A.LICENSENO, A.LICENSENAME, B.BUYCNT, IFNULL(C.CNT, 0) AS USECNT, CASE WHEN IFNULL(C.CNT,0) >= B.BUYCNT THEN 0 ELSE 1 END AS TOTAL
+        FROM (SELECT A.LICENSENO, A.LICENSENAME, B.BUYCNT, IFNULL(C.CNT, 0) AS USECNT, CASE WHEN IFNULL(C.CNT,0) >= B.BUYCNT THEN 0 ELSE 1 END AS TOTAL
 			FROM ma900020 A
 						 LEFT OUTER JOIN ME810010 B ON B.LICENSENO = A.LICENSENO
 						 LEFT OUTER JOIN (SELECT SITEID, COUNT(LICENSENO) AS CNT, LICENSENO
@@ -48,6 +52,7 @@ FROM (SELECT A.LICENSENO, A.LICENSENAME, B.BUYCNT, IFNULL(C.CNT, 0) AS USECNT, C
 															GROUP BY SITEID, LICENSENO) C ON C.LICENSENO = A.LICENSENO
 			where B.siteid = #{siteid}) X
 	WHERE X.TOTAL != 0;
+	ORDER BY LICENSENO DESC
     </select>
     <!-- 사용자의 라이센스 정보 초기화 -->
     <update id="menuReset" parameterType="map">
@@ -65,7 +70,7 @@ FROM (SELECT A.LICENSENO, A.LICENSENAME, B.BUYCNT, IFNULL(C.CNT, 0) AS USECNT, C
 
     <select id="siteLicenseList" parameterType="int" resultType="map">
         SELECT A.LICENSENO,(SELECT SUBSTRING_INDEX(LICENSENAME,'라이센스', 1) FROM MA900020 WHERE LICENSENO = A.LICENSENO) AS LICENSENAME FROM ME810010 A
-        WHERE A.SITEID = #{siteid}
+        WHERE A.SITEID = #{siteid} ORDER BY  A.LICENSENO DESC
     </select>
 
 

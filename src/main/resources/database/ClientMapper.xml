@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="client">
 	<select id="clientList" parameterType="hashMap" resultType="hashMap">
+
+SELECT * FROM (
 	SELECT
 	A.CLINO, A.CLINAME, A.CALLNAME
 	,CONCAT(CLIADDR1,' ',CLIADDR2,' ',CLIADDR3) AS CLIADDR_
@@ -19,6 +21,8 @@
 	 	<if test="cliname != null">
 		AND A.CLINAME like CONCAT('%',#{cliname},'%')
 		</if>
+	) X
+	ORDER BY CLINO DESC
 	</select>
 
 </mapper>

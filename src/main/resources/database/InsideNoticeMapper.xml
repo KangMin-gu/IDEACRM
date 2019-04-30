@@ -34,7 +34,7 @@
 
     <!-- 받은 통지 리스트-->
     <select id="inbox" parameterType="hashMap" resultType="hashMap">
-        SELECT * FROM (
+    SELECT * FROM (
         SELECT A.NOTICEID, A.TITLE, A.CONTENT, C.USERNAME AS FROMUSERNAME, D.USERNAME AS TOUSERNAME, C.USERNO AS FROMUSERNO, D.USERNO AS TOUSERNO,
         A.IMPORTANT, A.FILESEARCHKEY, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS SENDDATE, A.REGDATE AS SENDDATETIME, A.REGDATE AS REGDATE,
         B.READCHEK
@@ -59,6 +59,8 @@
         <if test="startRowNum != null">
             WHERE result.ROWNUM BETWEEN #{startRowNum} AND #{endRowNum} ORDER BY result.NOTICEID DESC
         </if>
+    )X
+    ORDER BY NOTICEID DESC
     </select>
 
     <!--읽음으로체크-->
@@ -189,6 +191,7 @@
     <!--내부통지 쓰기 받는이 목록리스트-->
     <select id="composeUserData" parameterType="hashMap" resultType="hashMap">
         SELECT USERNO, USERNAME FROM me800010 WHERE SITEID = #{siteid}
+        ORDER BY USERNAME DESC
     </select>
 
     <insert id="send" parameterType="insideNoticeDto">

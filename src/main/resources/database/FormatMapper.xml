@@ -4,7 +4,8 @@
 <mapper namespace="format">
 
 	<select id="formatList" parameterType="map" resultType="map">
-		SELECT
+    SELECT * FROM (
+        SELECT
 		A.FORMATNO AS NO
 		,A.FORMATNAME
 		,A.FORMATDESC
@@ -25,7 +26,10 @@
         <if test="usemenu != null">
             AND A.USEMENU = #{usemenu}
         </if>
-	</select>
+     )X
+    ORDER BY no DESC
+
+    </select>
 
     <insert id="formatInsert" parameterType="formatDto">
         <selectKey keyProperty="formatno"  resultType="String" order="AFTER">

@@ -11,8 +11,11 @@
 		SELECT
 		A.SERVICENO AS NO
 		, A.SERVICENAME
-		,CASE WHEN CHAR_LENGTH(A.SERVICENAME) <![CDATA[>=]]> 20 THEN CONCAT( SUBSTRING(A.SERVICENAME,1,17) ,'...' )  ELSE IFNULL(A.SERVICENAME,'') END AS SERVICENAME_
-		, CONCAT(IF(A.SERVICECODE1=0,'',FN_GETCODE('SERVICECODE1',A.SERVICECODE1,#{siteid})),' / ',IF(A.SERVICECODE2=0,'',FN_GETCODEUPPER('SERVICECODE2',A.SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',A.SERVICECODE1,#{siteid})))) AS SERVICECODE_
+		,CASE WHEN CHAR_LENGTH(A.SERVICENAME) <![CDATA[>=]]> 20 THEN CONCAT( SUBSTRING(A.SERVICENAME,1,17) ,'...' ) ELSE
+		IFNULL(A.SERVICENAME,'') END AS SERVICENAME_
+		, CONCAT(IF(A.SERVICECODE1=0,'',FN_GETCODE('SERVICECODE1',A.SERVICECODE1,#{siteid})),' /
+		',IF(A.SERVICECODE2=0,'',FN_GETCODEUPPER('SERVICECODE2',A.SERVICECODE2,#{siteid},FN_GETCODENO('SERVICECODE1',A.SERVICECODE1,#{siteid}))))
+		AS SERVICECODE_
 		, FN_GETCODE('SERVICECHANNEL',A.SERVICECHANNEL,#{siteid}) AS SERVICECHANNEL_
 		, (SELECT CUSTNAME FROM cu100010 WHERE CUSTNO = A.CUSTNO) AS CUSTNAME_
 		, (SELECT CLINAME FROM sa200010 WHERE CLINO = A.CLINO) AS CLINAME_
@@ -59,7 +62,8 @@
 			AND A.SERVICEOWNER = #{serviceowner}
 		</if>
 		<if test="serviceowner_ != null">
-			AND IFNULL( (SELECT USERNAME FROM me800010 WHERE USERNO = A.SERVICEOWNER) ,'') LIKE CONCAT('%' , #{serviceowner_} , '%')
+			AND IFNULL( (SELECT USERNAME FROM me800010 WHERE USERNO = A.SERVICEOWNER) ,'') LIKE CONCAT('%' ,
+			#{serviceowner_} , '%')
 		</if>
 		<if test="owner != null">
 			AND A.OWNER = #{owner}
@@ -74,8 +78,8 @@
 		<if test="servicestep1 != null">
 			AND A.SERVICESTEP IN (5,6)
 		</if>
-		ORDER BY A.SERVICENO DESC
-		) X
+		)X
+		ORDER BY NO DESC
     </select>
 	<!-- 서비스 Detail -->
 	<select id="serviceDetail" parameterType="map" resultType="hashMap">
@@ -312,6 +316,7 @@
 		FROM sv300050 A
 		WHERE A.SERVICENO = #{serviceno}
 		AND A.SITEID = #{siteid}
+		ORDER BY A.CONVEYNO DESC
 	</select>
 	<insert id="serviceProductInsert" parameterType="hashMap">
 		INSERT INTO sv300060
@@ -375,6 +380,7 @@
 	</insert>
 
 	<select id="serviceCalList" parameterType="rewardDto" resultType="map">
+	SELECT * FROM (
 		SELECT
 			A.SERVICENO AS id
 			, CASE WHEN A.SERVICESTEP = 2 THEN CONCAT('[현상파악]', A.SERVICENAME)
@@ -412,6 +418,7 @@
 		WHERE A.SITEID = #{siteid}
 		AND A.SERVICESTEP NOT IN (1,4)
 		AND A.ISDELETE = 0
+	 ) X ORDER BY id DESC;
 	</select>
 
 	<!-- 접수 타입이 A/S이면서 현상파악 단계가 접수 상태인 서비스 접수 건 -->
@@ -437,6 +444,7 @@
 	</select>
 
 	<select id="calRewardOwnerList" parameterType="hashMap" resultType="hashMap">
+	 SELECT * FROM (
 		SELECT A.OWNER
 		, (SELECT USERNAME FROM me800010 WHERE USERNO = A.OWNER) AS USERNAME
 		, DATE_FORMAT(A.VISITDATE,'%Y-%m-%d') AS VISITDATE_
@@ -450,6 +458,7 @@
 		WHERE A.SITEID = #{siteid}
 		AND A.OWNER = #{owner}
 		AND DATE_FORMAT(A.VISITDATE,'%Y-%m-%d') = #{visitdate}
+	)X ORDER BY VISITDATE_ DESC
 	</select>
 
 </mapper>

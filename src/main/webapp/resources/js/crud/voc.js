@@ -605,7 +605,7 @@ function callBackConfirm(callbackno,callstatus){//콜백 목록 처리
 
 
 
-// 최근 서비스 1건 획득 후 바인딩
+// 최근 서비스 1건 획득 후  바인딩
 function vocGetServiceInfo(urlServ) {
     $.ajax({
         url : urlServ,

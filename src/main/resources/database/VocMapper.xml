@@ -220,11 +220,17 @@
 	,RECDATE
 	,RECEXT
 	,RECFILENAME
+	,TRUNK
+	,CALLER
+	,CALLTIME
 	)VALUES(
 	#{reqno}
 	,#{recdatefr}
 	,#{recext}
 	,#{recfilename}
+	,#{trunk}
+	,#{caller}
+	,#{calltime}
 	)
 	</insert>
 

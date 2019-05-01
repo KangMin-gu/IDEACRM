@@ -31,74 +31,127 @@
               <div class="col-lg-3">
                 <div class="ibox ">
                   <div class="ibox-title">
-                    <h5>고객 응답률</h5>
+                    <h5>고객 응대률</h5>
                   </div>
                   <div class="ibox-content">
-                    <h1 class="no-margins">40 886,200</h1>
-                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                    <small>Total income</small>
+                    <h1 class="no-margins">92.5%</h1>
+                    <div class="stat-percent font-bold text-success"><span style="color:green;">전일대비&nbsp; 2% </span><i style="color:green;" class="fa fa-level-up"></i></div>
+                    <small>2019-05-02 현재</small>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-3">
-                <div class="ibox ">
-                  <div class="ibox-title">
-                    <h5>상담 완료률</h5>
-                  </div>
-                  <div class="ibox-content">
-                    <h1 class="no-margins">40 886,200</h1>
-                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                    <small>Total income</small>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3">
-                <div class="ibox ">
-                  <div class="ibox-title">
-                    <h5>상담 미완률</h5>
-                  </div>
-                  <div class="ibox-content">
-                    <h1 class="no-margins">40 886,200</h1>
-                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                    <small>Total income</small>
-                  </div>
-                </div>
-              </div>
+
               <div class="col-lg-3">
                 <div class="ibox ">
                   <div class="ibox-title">
                     <h5>상담 불만률</h5>
                   </div>
                   <div class="ibox-content">
-                    <h1 class="no-margins">40 886,200</h1>
-                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                    <small>Total income</small>
+                    <h1 class="no-margins">1%</h1>
+                    <div class="stat-percent font-bold text-success"><span style="color:red;">전월대비&nbsp; 2% </span> <i style="color:red;" class="fa fa-level-down"></i></div>
+                    <small>2019-05-02 현재</small>
                   </div>
                 </div>
               </div>
+
+              <div class="col-lg-3">
+                <div class="ibox ">
+                  <div class="ibox-title">
+                    <h5>상담 완료건</h5>
+                  </div>
+                  <div class="ibox-content">
+                    <h1 class="no-margins">100 / 150</h1>
+                    <small>2019.05.01 - 현재</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="ibox ">
+                  <div class="ibox-title">
+                    <h5>상담 미완건</h5>
+                  </div>
+                  <div class="ibox-content">
+                    <h1 class="no-margins">50 / 150</h1>
+                    <small>2019.05.01 - 현재</small>
+                  </div>
+                </div>
+              </div>
+
+
             </div>
 
             <div class="row">
               <div class="col-lg-6">
                 <div class="ibox ">
                   <div class="ibox-title">
-                    <h5>상담 접수 유형</h5>
+                    <h5>상담 접수유형</h5>
+                    <div class=" pull-right">
+                      <small>기준 : 일</small>
+                    </div>
                   </div>
                   <div class="ibox-content">
-                    <div>
-                      <canvas id="barChart" height="140"></canvas>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <canvas id="receiptChart" height="140"></canvas>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class=" pull-right">
+                          <span>기간 : 2019.05.01 - 현재</span>&nbsp;<span>/</span>&nbsp;<span>총 : 150</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class=" pull-left">
+                          <h5>5월 접수유형</h5>
+                          <span> 일반 : <strong>90</strong></span>&nbsp;
+                          <span> 칭찬 : <strong>20</strong></span>&nbsp;
+                          <span> 품질 : <strong>5</strong></span>&nbsp;
+                          <span> A/S : <strong>6</strong></span>&nbsp;
+                          <span> 콜센터 : <strong>1</strong></span>&nbsp;
+                          <span> 매장 : <strong>2</strong></span>&nbsp;
+                          <span> 불만 : <strong>1</strong></span>&nbsp;
+                          <span> 관리 : <strong>5</strong></span>&nbsp;
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-lg-6">
                 <div class="ibox ">
                   <div class="ibox-title">
-                    <h5>상담 접수 제품</h5>
+                    <h5>상담 접수제품</h5>
+                    <small class="pull-right">기준 : 월</small>
                   </div>
                   <div class="ibox-content">
-                    <div>
-                      <canvas id="barChart2" height="140"></canvas>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <canvas id="productChart" height="140"></canvas>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class=" pull-right">
+                          <span>기간 : 2019.01 - 현재</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class=" pull-left">
+                          <h5>2019년 종합 판매량 </h5>
+                          <span> 폴리콜사놀 10mg(30정) : <strong>366</strong></span>&nbsp;
+                          <span> / 폴리콜사놀 5mg(30정) : <strong>185</strong></span>&nbsp;
+                          <span> / 폴리콜사놀 10mg(75정) : <strong>82</strong></span>&nbsp;
+                          <span> / 폴리콜사놀 10mg(180정) : <strong>221</strong></span>&nbsp;
+                          <span> / 폴리콜사놀 in 오메가 : <strong>125</strong></span>&nbsp;
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

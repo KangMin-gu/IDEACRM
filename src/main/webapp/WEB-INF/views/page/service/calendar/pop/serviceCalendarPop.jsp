@@ -17,18 +17,9 @@
 </head>
 <style>
 </style>
-<body>
-
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>서비스 일정 상세</h2>
-    </div>
-    <div class="col-lg-2">
-        <a class="btn btn-default pull-right" id="submitBtn" onclick="javascript:moveDetail();">서비스 상세로 이동</a>
-    </div>
-</div>
-
-
+<body class="gray-bg">
+<br/>
+<a class="btn btn-default pull-right" style="margin-right: 10px;" id="submitBtn"  onclick="javascript:moveDetail();">서비스 상세로 이동</a>
 <div class="wrapper wrapper-content animated fadeInRight">
     <br/>
     <div class="row">

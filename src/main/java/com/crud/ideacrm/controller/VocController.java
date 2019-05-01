@@ -225,14 +225,14 @@ public class VocController {
     //VOC 콜백 상태 변경 (상담원 제어)
     @RequestMapping(value="/voc/callback/modified/{callbackno}",method=RequestMethod.POST)
     @ResponseBody
-    public int authvocCallBackUpdate(HttpServletRequest request,@PathVariable int callbackno) throws UnsupportedEncodingException, GeneralSecurityException {
+    public int vocCallBackUpdate(HttpServletRequest request,@PathVariable int callbackno) throws UnsupportedEncodingException, GeneralSecurityException {
         int res = vocService.vocCallBackUpdate(request);
         return res;
     }
 
     //VOC 녹취정보 저장
     @RequestMapping(value="/voc/rec", method=RequestMethod.POST)
-    public void authVocRecInsert(HttpServletRequest request) {
+    public void VocRecInsert(HttpServletRequest request) {
         System.out.println("rec controller");
         vocService.vocRecInsert(request);
     }
@@ -248,7 +248,7 @@ public class VocController {
     //voc 고객팝업창 tr 클릭 시 해당 고객의 최근 한건의 서비스 데이터 바인딩
     @RequestMapping(value="/voc/pop/service/{custNo}", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> authvocPopServiceSelect(HttpServletRequest request,@PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
+    public Map<String,Object> vocPopServiceSelect(HttpServletRequest request,@PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,Object> serviceMap = vocService.vocPopServiceSelect(request,custNo);
         return serviceMap;
     }
@@ -256,14 +256,14 @@ public class VocController {
     //VOC - 세션유지를 위해 설정 시간마다 이 메서드가 호출된다
     @RequestMapping(value="/voc/sess",method=RequestMethod.GET)
     @ResponseBody
-    public int authvocSessionMaintain(HttpServletRequest request) {
+    public int vocSessionMaintain(HttpServletRequest request) {
         return 0;
     }
 
     //voc 전화끊으면 DB에 일평균 데이터 저장
     @RequestMapping(value="/voc/endcall",method=RequestMethod.POST)
     @ResponseBody
-    public int authEndCall(HttpServletRequest request) {
+    public int EndCall(HttpServletRequest request) {
         vocService.vocEndCall(request);
         return 0;
     }
@@ -279,7 +279,7 @@ public class VocController {
     }
 
     @RequestMapping(value="/voc/as/cal", method=RequestMethod.GET)
-    public ModelAndView authvocCalList(HttpServletRequest request) {
+    public ModelAndView vocCalList(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects(vocService.vocCalList(request));
         mView.setViewName("page/voc/calendar/vocCalMain");
@@ -288,28 +288,28 @@ public class VocController {
 
     @RequestMapping(value="/voc/as/cal/{asOwner}", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> authVocOwnerCalList(HttpServletRequest request,@PathVariable int asOwner) {
+    public Map<String,Object> VocOwnerCalList(HttpServletRequest request,@PathVariable int asOwner) {
         Map<String,Object> ownerCalList = vocService.vocOwnerList(request,asOwner);
         return ownerCalList;
     }
 
     @RequestMapping(value="/voc/productB", method=RequestMethod.GET)
     @ResponseBody
-    public List<ProductDto> authVocProudctB(HttpServletRequest request){
+    public List<ProductDto> VocProudctB(HttpServletRequest request){
         List<ProductDto> productB = productService.getProductB(request);
         return productB;
     }
 
     //콜백분배 팝업
     @RequestMapping(value="/voc/pop/calldiv", method=RequestMethod.GET)
-    public String authVocCallBackDiv(HttpServletRequest request) {
+    public String VocCallBackDiv(HttpServletRequest request) {
         return "page/voc/pop/callbackDiv";
     }
 
     //분배할 콜백리스트
     @RequestMapping(value="/voc/pop/calldiv/call", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> authVocCallBackList(HttpServletRequest request){
+    public Map<String,Object> VocCallBackList(HttpServletRequest request){
         Map<String,Object> callBackList = vocService.vocPopCallBackList(request);
         return callBackList;
     }
@@ -317,7 +317,7 @@ public class VocController {
     //콜백 분배받을 유저 리스트
     @RequestMapping(value="/voc/pop/calldiv/user", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> authVocCallBackUserList(HttpServletRequest request){
+    public Map<String,Object> VocCallBackUserList(HttpServletRequest request){
         Map<String,Object> callBackUserList = vocService.vocCallBackUserList(request);
         return callBackUserList;
     }
@@ -325,14 +325,14 @@ public class VocController {
     //콜백수동분배
     @RequestMapping(value="/voc/pop/calldiv/pass",method=RequestMethod.GET)
     @ResponseBody
-    public int authVocCallPassDiv(HttpServletRequest request) {
+    public int VocCallPassDiv(HttpServletRequest request) {
         int cnt = vocService.vocCallBackPassDiv(request);
         return cnt;
     }
     //콜백자동분배
     @RequestMapping(value="/voc/pop/calldiv/auto",method=RequestMethod.GET)
     @ResponseBody
-    public int authVocCallAtouDiv(HttpServletRequest request) {
+    public int VocCallAtouDiv(HttpServletRequest request) {
         vocService.vocCallBackAutoDiv(request);
         return 0;
     }

@@ -868,8 +868,7 @@ function ctiEvent(msg){
 		var fileName = tmpData[8];
 		var fileNameArray = fileName.split('-');
 		$('#reqno').val(fileNameArray[0]+fileNameArray[1]);
-		
-		var jsonPrm = {"reqno":fileNameArray[0]+fileNameArray[1], "recdate":tmpData[9], "recext":fileNameArray[1], "recfilename":fileName };
+		var jsonPrm = {"reqno":fileNameArray[0]+fileNameArray[1], "recdate":tmpData[9], "recext":fileNameArray[1], "recfilename":fileName, "caller" : tmpData[3], "trunk":tmpData[2], "calldate":tmpData[9], "calltime":tmpData[21] };
 		$.ajax({
        		url: "/voc/rec",
         	method: "POST",

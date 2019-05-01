@@ -14,8 +14,8 @@
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'>
+    <link href="${pageContext.request.contextPath}/resources/css/fullcalendar.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/fullcalendar.print.css" rel='stylesheet' media='print'>
     <link href="${pageContext.request.contextPath}/resources/css/animate.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 </head>
@@ -99,7 +99,7 @@
 </div>
 
 <!-- Mainly scripts -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/fullcalendar/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
@@ -113,7 +113,7 @@
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- Full Calendar -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/fullcalendar.min.js"></script>
 <script>
     $(document).ready(function() {
 

@@ -14,8 +14,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>IDEA CRM</title>
 <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'>
+<link href="${pageContext.request.contextPath}/resources/css/fullcalendar.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/fullcalendar.print.css" rel='stylesheet' media='print'>
 <!-- link includ -->
 <%@ include file="/WEB-INF/views/includ/link.jsp"%>
 
@@ -88,13 +88,13 @@
 	<!-- js includ -->
 	<%@ include file="/WEB-INF/views/includ/js.jsp"%>
 	<!-- Mainly scripts -->
-	<script src="${pageContext.request.contextPath}/resources/js/plugins/fullcalendar/moment.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 	<!-- jQuery UI  -->
 	<script src="${pageContext.request.contextPath}/resources/js/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- iCheck -->
 	<script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 	<!-- Full Calendar -->
-	<script src="${pageContext.request.contextPath}/resources/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar.min.js"></script>
 	<!-- 캘린더 이벤트 정의 -->
 	<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 

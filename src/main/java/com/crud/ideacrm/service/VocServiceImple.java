@@ -330,6 +330,8 @@ public class VocServiceImple implements VocService {
         return result;
     }
 
+
+
     @Override
     public int vocCallBackPassDiv(HttpServletRequest request) {
 
@@ -466,6 +468,7 @@ public class VocServiceImple implements VocService {
             }else{
                 ractDto.setServiceno(serviceNo);
                 ractDto.setReguser(userNo);
+                ractDto.setRactdate(receptiondate);
                 serviceDao.ractInsert(ractDto);
                 serviceDto.setServicestep(3);
                 serviceDao.serviceStepUpdate(serviceDto);
@@ -480,6 +483,14 @@ public class VocServiceImple implements VocService {
             serviceDeliveryDto.setEdtuser(userNo);
             serviceDeliveryDto.setSiteid(siteId);
             vocDao.conveyInsert(serviceDeliveryDto);
+        }else if(svStep == 3){
+            ractDto.setRactdesc(serviceDto.getServicedesc());
+            ractDto.setServiceno(serviceNo);
+            ractDto.setReguser(userNo);
+            ractDto.setRactdate(receptiondate);
+            serviceDao.ractInsert(ractDto);
+            serviceDto.setServicestep(3);
+            serviceDao.serviceStepUpdate(serviceDto);
         }
 
         int cnt = 0;

@@ -14,7 +14,7 @@ function footableSearchList(url, selector) {
             },
             "paging": {
                 "enabled": true,
-                "container" : ".pagination",
+                "container" : selector.find('.pagination'),
                 "position":"center"
             },
             "sorting": {

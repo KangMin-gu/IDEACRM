@@ -13,22 +13,14 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <!-- FooTable -->
+    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
 </head>
 <style>
 </style>
-<body>
-
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>서비스 일정 상세</h2>
-    </div>
-    <div class="col-lg-2">
-        <a class="btn btn-default pull-right" id="submitBtn" onclick="javascript:moveDetail();">서비스 상세로 이동</a>
-    </div>
-</div>
-
-
+<body class="gray-bg">
+<br/>
+<a class="btn btn-default pull-right" style="margin-right: 10px;" id="submitBtn"  onclick="javascript:moveDetail();">서비스 상세로 이동</a>
 <div class="wrapper wrapper-content animated fadeInRight">
     <br/>
     <div class="row">
@@ -277,7 +269,6 @@
                 <div class="tab-content">
                     <div role="tabpanel" id="tab-4" url="/service/tab/ract/${serviceInfo.SERVICENO}" class="tab-pane active">
                         <div class="panel-body">
-                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                             <table class="tabfootable table table-stripped">
                                 <thead>
                                 <tr>
@@ -303,7 +294,6 @@
 
                     <div role="tabpanel" id="tab-5" url="/service/tab/delivery/${serviceInfo.SERVICENO}" class="tab-pane">
                         <div class="panel-body">
-                            <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
                             <table class="tabfootable table table-stripped" data-sorting="true">
                                 <thead>
                                 <tr>
@@ -343,9 +333,11 @@
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 
 
+<!-- footable -->
+<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- common -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
-<!-- api -->
+<!-- api,service -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 

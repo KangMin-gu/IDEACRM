@@ -307,18 +307,30 @@ public class VocController {
     }
 
     //분배할 콜백리스트
-    @RequestMapping(value="/voc/pop/calldiv/call", method=RequestMethod.GET)
+    @RequestMapping(value="/voc/pop/calldiv/call", method=RequestMethod.POST)
     @ResponseBody
+    /*
     public Map<String,Object> authVocCallBackList(HttpServletRequest request){
         Map<String,Object> callBackList = vocService.vocPopCallBackList(request);
         return callBackList;
     }
+    */
+    public List<Map<String,Object>> authVocCallBackList(HttpServletRequest request){
+        List<Map<String,Object>> callBackList = vocService.vocPopCallBackList(request);
+        return callBackList;
+    }
 
     //콜백 분배받을 유저 리스트
-    @RequestMapping(value="/voc/pop/calldiv/user", method=RequestMethod.GET)
+    @RequestMapping(value="/voc/pop/calldiv/user", method=RequestMethod.POST)
     @ResponseBody
+    /*
     public Map<String,Object> authVocCallBackUserList(HttpServletRequest request){
         Map<String,Object> callBackUserList = vocService.vocCallBackUserList(request);
+        return callBackUserList;
+    }
+    */
+    public List<Map<String,Object>> authVocCallBackUserList(HttpServletRequest request){
+        List<Map<String,Object>> callBackUserList = vocService.vocCallBackUserList(request);
         return callBackUserList;
     }
 

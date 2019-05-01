@@ -258,3 +258,4 @@ function boolTimeDiff(obj){
         }
     }
 }
+

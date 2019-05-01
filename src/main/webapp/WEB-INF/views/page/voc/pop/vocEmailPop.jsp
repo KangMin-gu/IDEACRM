@@ -57,11 +57,11 @@
                         <tr>
                             <th>서식</th>
                             <td>
-                                <select class="form-control form-control-sm" name="formatnum" id="formatnum" style="height: 30px;">
-                                    <option value="0">02</option>
-                                    <option value="2">031</option>
-                                    <option value="3">017</option>
-                                    <option value="4">018</option>
+                                <select class="form-control form-control-sm" id="emailFormat" style="height: 30px;">
+                                    <option value="">선택</option>
+                                    <c:forEach var="list" items="${formList}">
+                                        <option value="${list.FORMATDESC}">${list.FORMATNAME}</option>
+                                    </c:forEach>
                                 </select>
                             </td>
                         </tr>

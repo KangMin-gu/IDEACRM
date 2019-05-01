@@ -105,10 +105,10 @@
                                     </a>
                                     <c:if test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" id="callDivide">분배</a></li>
-                                        <li><a href="#">운영관리</a></li>
+                                        <li><a href="#" id="callDivide">콜백분배</a></li>
+                                        <!--<li><a href="#">운영관리</a></li>
                                         <li><a href="#">콜통계</a></li>
-                                        <li><a href="#">콜이력</a></li>
+                                        <li><a href="#">콜이력</a></li>-->
                                     </ul>
                                     </c:if>
                                 </li>
@@ -638,7 +638,7 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <button type="button" class="btn btn-default voc plus" disabled="disabled">추가</button>
+                                                    <button type="button" class="btn btn-default voc plus" style="margin-bottom: 8px;" disabled="disabled">추가</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -692,18 +692,19 @@
                                     <tr class="as">
                                         <th>방문지 주소</th>
                                         <td>
-                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="checkbox" class="i-checks voc" value="1" id="addrsame" name="addrsame">
+                                                        &nbsp;<label>고객주소와 동일</label>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-2"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr1" name="visitaddr1" readonly></div>
                                                     <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr2" name="visitaddr2" readonly></div>
                                                     <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr3" name="visitaddr3"></div>
                                                     <div class="col-md-2"><button class="btn btn-white btn-sm daumzip voc" type="button" id="visitaddr">주소 검색</button></div>
                                                 </div>
-                                                <div class="row" style="margin-top: 10px;margin-left: 0px;">
-                                                    <input type="checkbox" class="i-checks voc" value="1" id="addrsame" name="addrsame">
-                                                    &nbsp;<label>고객주소와 동일</label>
-                                                </div>
-                                            </div>
+
                                         </td>
                                     </tr>
                                     <tr class="result">

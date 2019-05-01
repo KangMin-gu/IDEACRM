@@ -9,7 +9,7 @@ function voc_send_message(){
     sock.onmessage = function(evt) {
         var jData = JSON.parse(evt.data);
 
-        var admincallbackcnt = jData.payload.ADMINCALLBACKCNT;//관리자 할당 해야 할 콜백 수
+        var admincallbackcnt = jData.payload.ADMINCALLBACKCNT;//관리자 할당 해`````````````야 할 콜백 수
         var callbackCnt = jData.payload.CALLBACKCNT;//할당된 콜백 수
         var successCallback = jData.payload.SUCCESSCALLBACK;
         $('#callbackCnt').text(callbackCnt);

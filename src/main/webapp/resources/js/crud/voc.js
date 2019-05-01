@@ -964,7 +964,7 @@ $(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
     $('.footable-pagination-wrapper > .label-default').hide();
 
     if ( $('.vocfootable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
-        $('.vocfootable tbody tr').remove();
+        $(obj.target).children('tbody').children('tr').remove();
     }
 });
 

@@ -109,6 +109,6 @@ public class LoginController {
     @RequestMapping(value = "/mail/check", method = RequestMethod.GET)
     @ResponseBody
     public void rs(HttpServletRequest request) {
-      System.out.println("들어왔습니다~!212121212");
+      System.out.println("들어왔습니다~!2121212121");
     }
 }

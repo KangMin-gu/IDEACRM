@@ -19,7 +19,7 @@
 <body>
 <div class="wrapper wrapper-content">
     <div>
-        <div class="ibox-left col-6">
+        <div class="ibox-left col-5">
             <h2>콜백 리스트</h2>
             <div class="ibox-content row">
                 <div class="box col-12" style="padding-left: 0px;padding-right: 0px;">
@@ -33,27 +33,25 @@
                     <table class="footable table table-striped callList">
                         <thead>
                         <tr>
-                            <th data-name="NO"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/>서비스번호</th>
+                            <th data-name="CUSTNAME"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/>서비스번호</th>
                             <th data-name="CUSTNAME" data-formatter="serviceformatter">발신번호</th>
-                            <th data-name="CUSTID">사용자 ID</th>
-                            <th data-name="CUSTNO">콜백번호</th>
+                            <th data-name="CUSTNAME">사용자 ID</th>
+                            <th data-name="CUSTNAME">콜백번호</th>
                         </tr>
                         </thead>
                         <tfoot>
+                        <tr>
+                            <td colspan="4" style="text-align:center">
+                                <ul class="pagination float-center"></ul>
+                            </td>
+                        </tr>
                         </tfoot>
                     </table>
-
                 </div>
-                <!--
-                               <div class="m-auto">
-                                   <ul class="pagination" style="margin-top: 8px;">
-                                   </ul>
-                               </div>
-                               -->
             </div>
         </div>
 
-        <div class="ibox-right col-6">
+        <div class="ibox-right col-5">
             <h2>사용자 리스트</h2>
             <div class="ibox-content row">
                 <div class="box col-12" style="padding-left: 0px;padding-right: 0px;">
@@ -68,22 +66,24 @@
                     <table class="footable table table-striped userList">
                         <thead>
                         <tr>
-                            <th data-name="NO"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/>서비스번호</th>
-                            <th data-name="CUSTNAME" data-formatter="serviceformatter">사용자명</th>
-                            <th data-name="CUSTID">사용자 ID</th>
-                            <th data-name="CUSTNO">할당된 콜백수</th>
+                            <th data-name="SERVICENAME"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/>서비스번호</th>
+                            <th data-name="SERVICENAME" data-formatter="serviceformatter">사용자명</th>
+                            <th data-name="SERVICENAME">사용자 ID</th>
+                            <th data-name="SERVICENAME">할당된 콜백수</th>
                         </tr>
                         </thead>
                         <tfoot>
+                        <tr>
+                            <td colspan="4" style="text-align:center">
+                                <ul class="pagination float-center"></ul>
+                            </td>
+                        </tr>
                         </tfoot>
                     </table>
                 </div>
-                <!--
-                <div class="m-auto">
-                    <ul class="pagination" style="margin-top: 8px;">
-                    </ul>
-                </div>
-                -->
+
+
+
             </div>
 
         </div>
@@ -100,7 +100,7 @@
 <script>
     $(document).ready(function () {
         footableSearchList('/cust', $('.callList'));
-        footableSearchList('/cust', $('.userList'));
+        footableSearchList('/service', $('.userList'));
         //callBackList(1);
         //ctiUserList(1);
     });

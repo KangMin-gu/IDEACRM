@@ -22,7 +22,7 @@ $('#vocReset').click(function(){
 });
 
 $('#callDivide').click(function(e){
-    openNewWindow('콜백분배', '/voc/pop/calldiv', e.currentTarget.id, 800, 700);
+    openNewWindow('콜백분배', '/voc/pop/calldiv', e.currentTarget.id, 1400, 700);
 });
 
 $('.vocEmailBtn').click(function(){

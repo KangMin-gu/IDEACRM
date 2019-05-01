@@ -423,7 +423,8 @@
 			AND IFNULL(FILE_CNT,0) > 0
 			AND CUSTNO = #{custno}
 	</select>
-	<!-- 고객 상세 카카오 리스트 -->
+	<!-- 고객 상세 카카오 리스트
+	todo. 테스트 완료 후 _copy 라인 삭제 -->
 	<select id="custKakaoList" parameterType="hashMap" resultType="hashMap">
 		SELECT
 		MESSAGE_SEQNO, SERVICE_SEQNO, SEND_MESSAGE
@@ -434,7 +435,7 @@
 		, CONCAT(SUBSTR(IFNULL(SUBJECT,''),1,8),'...') AS SUBJECT_
 		, DATE_FORMAT(SEND_DATE,'%Y-%m-%d %H:%m:%i') AS SEND_DATE_
 		, DATE_FORMAT(SEND_RESERVE_DATE,'%Y-%m-%d %H:%m:%i') AS SEND_RESERVE_DATE_
-		FROM TSMS_AGENT_MESSAGE_LOG
+		FROM TSMS_AGENT_MESSAGE_LOG_COPY
 		WHERE
 			SITEID = #{siteid}
 			AND CUSTNO = #{custno}

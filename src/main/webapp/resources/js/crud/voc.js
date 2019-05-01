@@ -725,11 +725,19 @@ $('#vocSave').click(
     function(e) {
         var reqno = $('#reqno').val();
         var custno = $('#custno').val();
-        //reqno = '2019042217453002112807042622864'; 테스트용샘플값
+        if(!reqno){//테스트 완료후 삭제 요망.
+            reqno = '2019042217453002112807042622864'; //테스트용샘플값
+        }
         if(!reqno){
             alert("고객과의 전화를 끊어주세요");
         }else if(!custno){
             alert("고객이 선택되지 않았습니다.");
+        }else if(!servicecode1){
+            alert("접수유형이 선택되지 않았습니다.");
+            $('#servicecode1').focus();
+        }else if(!servicecode2){
+            alert("접수유형이 선택되지 않았습니다.");
+            $('#servicecode2').focus();
         }else{
             var servicetype = $('.servicetype .checked input').val();
             var servicename = $("#servicename").val();

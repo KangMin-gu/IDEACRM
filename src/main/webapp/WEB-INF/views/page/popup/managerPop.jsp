@@ -77,9 +77,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/popuser');
+            footableSearchList('/popuser',$('.footable'));
         });
-        footableSearchList('/popuser');
+        footableSearchList('/popuser',$('.footable'));
     });
 
 </script>

@@ -465,6 +465,18 @@
 		)
 	</insert>
 
+	<select id="vocCallBackTotalRow" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM CTI510010
+		WHERE
+		TRUNK = (SELECT TELNO FROM MA900011 WHERE SITEID = #{siteid})
+		AND (CALLUSER IS NULL
+		OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
+		AND CALLSTATUS IN (0,3)
+		<if test="callBack != null">
+			AND CALLBACK LIKE CONCAT('%',#{callBack},'%')
+		</if>
+	</select>
+
 	<!--분배할 콜백리스트 -->
 	<select id="vocPopCallBackList" parameterType="hashMap" resultType="hashMap">
         SELECT * FROM (
@@ -515,18 +527,6 @@
 		<!--  AND ROLE = #{role} -->
 		<if test="userNo != null">
 			AND USERNO =  #{userNo}
-		</if>
-	</select>
-
-	<select id="vocCallBackTotalRow" parameterType="hashMap" resultType="int">
-		SELECT COUNT(*) FROM CTI510010
-		WHERE
-		TRUNK = (SELECT TELNO FROM MA900011 WHERE SITEID = #{siteid})
-		AND (CALLUSER IS NULL
-		OR IFNULL(CALLCOUNT,0) <![CDATA[<=]]> 3)
-		AND CALLSTATUS IN (0,3)
-		<if test="callBack != null">
-			AND CALLBACK LIKE CONCAT('%',#{callBack},'%')
 		</if>
 	</select>
 

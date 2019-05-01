@@ -1109,7 +1109,7 @@ $('#create').click(function() {
     //$('tbody .plus').attr('disabled', false);
     var productLength = $('.plus').length;
     if(!productLength){
-        $('.product').append('<button class="plus btn btn-default d-inline-block btn-sm mr-2">추가</button>');
+        $('.product').append('<button class="plus btn btn-default">추가</button>');
     }
     productB();
 

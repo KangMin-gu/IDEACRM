@@ -1,7 +1,7 @@
 
 //제품 추가를 눌렀을때
 $(document).on('click', '.plus', function(e) {
-    debugger;
+
     var productLength = $('.product').length;
     if(productLength > 9){
         alert('제품은 9개 이상 등록할수 없습니다');
@@ -9,6 +9,10 @@ $(document).on('click', '.plus', function(e) {
     }else{
         var productId = $(e.target).parent().prev().children().attr('id');
         if(productId != undefined){
+            var productNum = productId.substring(7, 8);
+            productPlus(parseInt(productNum));
+        }else{
+            productId = $(e.target).parent().children().children().attr('id');
             var productNum = productId.substring(7, 8);
             productPlus(parseInt(productNum));
         }

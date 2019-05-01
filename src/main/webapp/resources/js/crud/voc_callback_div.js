@@ -1,25 +1,23 @@
 
-$('#icheckAll').on('ifChanged', function(event){
-   debugger;
-   console.log('kk');
 
-});
 
-//checkbox 전체 선택/해제 이벤트
-$('.icheckAll').on('ifChecked', function(event){
-    debugger;
-    $('.chksquare').iCheck('check');
-});
-$('.icheckAll').on('ifUnchecked', function(event){
-    debugger;
-    $('.chksquare').iCheck('uncheck');
-});
 $('#leftSearch').click(function(e){
     callBackList(1);
 });
 $('[name="owner_"]').keyup(function(e){
     ctiUserList(1);
 });
+
+function icheckAllAct(){ //checkbox 전체 선택/해제 이벤트
+    $('.icheckAll').on('ifChecked', function(event){
+        if(event.target.id == 'user'){ $('.callBackUser').iCheck('check'); }
+        else{ $('.callBack').iCheck('check'); }
+    });
+    $('.icheckAll').on('ifUnchecked', function(event){
+        if(event.target.id == 'user'){ $('.callBackUser').iCheck('uncheck'); }
+        else{ $('.callBack').iCheck('uncheck'); }
+    });
+}
 
 function callBackList(pageNum){
     var callBack  = $('#callback').val();
@@ -37,10 +35,15 @@ function callBackList(pageNum){
             $('.ibox-left .table-responsive tbody tr').remove();
             $('.ibox-left .pagination li').remove();
             $('.ibox-left .m-auto h4').remove();
-            var length = data.callBack.length;
+
+            var length = 0;
+            if( !data.callBack == false ){
+                length = data.callBack.length;
+            }
+
             var html ="";
             for (var i = 0; i < length; i++) {
-                html = '<tr><td><input type="checkbox" class="i-checks" name="callbackno" id="callbackno" value="'+data.callBack[i].CALLBACKNO+'"></td><td>' + data.callBack[i].RECEIVEDATE_ + '</td><td>' + data.callBack[i].CALLER + '</td><td>' + data.callBack[i].CALLBACK + '</td></tr>';
+                html = '<tr><td><input type="checkbox" class="i-checks callBack" name="callbackno" id="callbackno" value="'+data.callBack[i].CALLBACKNO+'"></td><td>' + data.callBack[i].RECEIVEDATE_ + '</td><td>' + data.callBack[i].CALLER + '</td><td>' + data.callBack[i].CALLBACK + '</td></tr>';
                 $('.ibox-left .table-responsive tbody').append(html);
             }
             var html2= "";
@@ -77,6 +80,8 @@ function callBackList(pageNum){
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
             });
+            icheckAllAct();
+
         },
         error: function (request, status, error) {
             alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -101,11 +106,15 @@ function ctiUserList(pageNum){
             $('.ibox-right .table-responsive tbody tr').remove();
             $('.ibox-right .pagination li').remove();
             $('.ibox-right .m-auto h4').remove();
-            var length = data.callBackUser.length;
+            var length = 0;
+            if( !data.callBackUser == false ){
+                length = data.callBackUser.length;
+            }
+
             var html ="";
             for (var i = 0; i < length; i++) {
 
-                html = '<tr><td><input type="checkbox" class="i-checks" name="userno" id="userno" value="'+data.callBackUser[i].USERNO+'"></td><td>' + data.callBackUser[i].USERNAME + '</td><td>' + data.callBackUser[i].USERID + '</td><td>'+data.callBackUser[i].CTICOUNT+'</td></tr>';
+                html = '<tr><td><input type="checkbox" class="i-checks callBackUser" name="userno" id="userno" value="'+data.callBackUser[i].USERNO+'"></td><td>' + data.callBackUser[i].USERNAME + '</td><td>' + data.callBackUser[i].USERID + '</td><td>'+data.callBackUser[i].CTICOUNT+'</td></tr>';
                 $('.ibox-right .table-responsive tbody').append(html);
             }
             var html2= "";
@@ -141,6 +150,7 @@ function ctiUserList(pageNum){
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
             });
+            icheckAllAct();
         },
         error: function (request, status, error) {
             alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

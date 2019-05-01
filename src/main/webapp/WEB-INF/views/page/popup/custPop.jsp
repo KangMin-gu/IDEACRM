@@ -20,6 +20,9 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
 </head>
 <style>
+    .footable > tbody > tr > td{
+        cursor:pointer;
+    }
 </style>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">

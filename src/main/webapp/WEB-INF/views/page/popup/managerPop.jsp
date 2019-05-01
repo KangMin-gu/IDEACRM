@@ -20,6 +20,9 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
 </head>
 <style>
+.footable > tbody > tr > td{
+cursor:pointer;
+}
 </style>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -43,15 +46,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td>
-                                    <select class="form-control" id="paging" style="width:80px">
-                                        <c:forEach var="paging" items="${PAGING}">
-                                            <option vale="${paging.codeval}">${paging.codename}</option>
-                                        </c:forEach>
-                                    </select>
-                                </td>
                                 <td colspan="4">
-                                    <ul class="pagination pull-right"></ul>
+                                    <ul class="pagination pull-left"></ul>
                                 </td>
                             </tr>
                         </tfoot>

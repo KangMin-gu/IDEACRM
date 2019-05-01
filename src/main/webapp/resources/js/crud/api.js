@@ -86,15 +86,23 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
 
 // footable이 실행되고 나서 검색창의 지저분한 button 삭제
 $(".footable").on("ready.ft.table",function(obj,e,ft,row){
+    $('.input-group-btn').find('button').remove();
+    $('.footable-pagination-wrapper > .label-default').hide();
+
+    if ( $('.footable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $('.footable tbody tr').remove();
+    }
     if(globalUrl.indexOf('pop') != -1){
         $('.footable tbody tr').css('cursor','pointer');
     }
-    $('.input-group-btn').find('button').remove();
-    $('.footable-pagination-wrapper > .label-default').hide();
 });
 $(".tabfootable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
     $('.footable-pagination-wrapper > .label-default').hide();
+
+    if ( $('.tabfootable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $('.tabfootable tbody tr').remove();
+    }
 });
 
 

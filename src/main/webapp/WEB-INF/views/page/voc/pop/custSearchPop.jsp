@@ -39,7 +39,7 @@
                            <th data-name="CUSTNAME" >고객명</th>
                            <th data-name="MOBILE">핸드폰</th>
                            <th data-name="PHONE">집전화</th>
-                           <th data-name="WRKTEL_">직장전화</th>
+                           <th data-name="WRKTEL">직장전화</th>
                            <th data-name="HOMADDR">주소</th>
                        </tr>
                        </thead>

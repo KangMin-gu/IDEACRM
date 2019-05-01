@@ -518,12 +518,20 @@ public class VocServiceImple implements VocService {
     }
 
     @Override
-    public List<Map<String, Object>> getVocSendForm(HttpServletRequest request, int sendType, int useMenu) {
+    public List<Map<String, Object>> getVocSendForm(HttpServletRequest request, int sendType, int useMenu) throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,Object> param = parameterUtil.searchParam(request);
         param.put("usemenu", useMenu);
         param.put("sendtype",sendType);
         List<Map<String,Object>> sendformList = vocDao.getVocSendForm(param);
 
+        int len = sendformList.size();
+        String formatno;
+        for(int i=0;i<len;i++){
+            formatno = "";
+            formatno = Integer.toString((int)sendformList.get(i).get("FORMATNO"));
+            formatno = codecUtil.encodePkNo(formatno);
+            sendformList.get(i).put("FORMATNO",formatno);
+        }
         return sendformList;
     }
 

@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/jasny-bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
@@ -21,8 +20,8 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <button type="submit" style="margin-left:5px;" class="btn btn-default pull-right">수동분배</button>
-            <button type="submit" style="margin-left:5px;" class="btn btn-default pull-right">자동분배</button>
+            <button type="button" style="margin-left:5px;" class="btn btn-default pull-right" id="passDiv">수동분배</button>
+            <button type="button" style="margin-left:5px;" class="btn btn-default pull-right" id="autoDiv">자동분배</button>
         </div>
     </div>
 
@@ -57,7 +56,7 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th></th>
+                                <th><input type="checkbox" class="i-checks icheckAll" id="call"/></th>
                                 <th>발신번호</th>
                                 <th>사용자 ID</th>
                                 <th>콜백번호</th>
@@ -92,7 +91,7 @@
                             <div class="input-group owner" id="owner_">
                                 <!-- /btn-group -->
                                 <input type="text" class="form-control reset" readonly autocomplete="off" name="owner_" value="${search.owner_ }">
-                                <input type="hidden" placeholder="사용자" class="reset" name="owner" id="owner" value="${search.owner }">
+                                <input type="hidden" class="reset" name="owner" id="owner" value="${search.owner }">
                                 <span class="input-group-btn">
                                 <button  class="btn btn-primary" style="height: 35px;">검색</button>
                         </span>
@@ -101,7 +100,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-striped ibox-right" style="white-space:nowrap;">
+                        <table class="table table-striped ibox-right cti-user-list" style="white-space:nowrap;">
                             <colgroup>
                                 <col width="5%">
                                 <col width="5%">
@@ -110,7 +109,7 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th></th>
+                                <th><input type="checkbox" class="i-checks icheckAll" id="user"/></th>
                                 <th>사용자명</th>
                                 <th>사용자 ID</th>
                                 <th>할당 콜백수</th>
@@ -138,8 +137,6 @@
 </div>
 
 <%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script> <!-- radioBox-->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>

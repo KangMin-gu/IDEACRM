@@ -75,6 +75,7 @@
                             <table class="tabfootable table table-stripped" data-sorting="true">
                                 <thead>
                                 <tr>
+                                    <th data-visible="false" data-name="FORMATNO" data-filterable="false">서식명</th>
                                     <th data-name="FORMATNAME" data-formatter="smsFormat" data-filterable="true">서식명</th>
                                     <th data-name="FORMATDESC" data-breakpoints="xs sm" data-filterable="true">내용</th>
                                 </tr>

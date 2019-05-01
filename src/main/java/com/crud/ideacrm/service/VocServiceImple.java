@@ -5,6 +5,7 @@ import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.PagingUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.crud.util.Uplaod;
+import com.crud.ideacrm.dao.CustDao;
 import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dao.UserDao;
 import com.crud.ideacrm.dao.VocDao;
@@ -44,6 +45,8 @@ public class VocServiceImple implements VocService {
     private ServiceDao serviceDao;
     @Autowired
     private PagingUtil pageUtil;
+    @Autowired
+    private CustDao custDao;
 
     //고객 수정 실행
     @Override
@@ -513,5 +516,16 @@ public class VocServiceImple implements VocService {
         return serviceNo;
 
     }
+
+    @Override
+    public List<Map<String, Object>> getVocSendForm(HttpServletRequest request, int sendType, int useMenu) {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        param.put("usemenu", useMenu);
+        param.put("sendtype",sendType);
+        List<Map<String,Object>> sendformList = vocDao.getVocSendForm(param);
+
+        return sendformList;
+    }
+
 
 }

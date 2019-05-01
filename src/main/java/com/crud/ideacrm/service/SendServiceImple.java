@@ -39,6 +39,8 @@ public class SendServiceImple implements SendService {
     private InsideNoticeDao insnd;
     @Autowired
     private LoginDao loginDao;
+    @Autowired
+    private ParameterUtil parameterUtil;
 
     @Override
     public void sendSms(HttpServletRequest request) {
@@ -138,7 +140,45 @@ public class SendServiceImple implements SendService {
             mailDto.setToemail(detoemail);
             mailDao.shareViewInsideNotice(mailDto);
         }
+    }
 
+    @Override
+    public void sendSmsTemp(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        String msgTelNo = request.getSession().getAttribute("MSGTELNO").toString();
+        if( param.get("custno") != null && param.get("custno") != ""){
+            String custno = (String)param.get("custno");
+            String deCustNo = codecUtil.decodePkNo(custno);
+            param.put("custno",deCustNo);
+        }else{
+            return;
+        }
+        int lengthType = 0;
+        param.put("callback",msgTelNo);
 
+        if(param.get("lengthtype") != null){
+            lengthType = Integer.parseInt(param.get("lengthtype").toString());
+        }else{
+            lengthType = 0;
+        }
+
+        if(lengthType == 1){
+            sendDao.directSendLmsTemp(param);
+        }else{
+            sendDao.directSendSmsTemp(param);
+        }
+    }
+
+    @Override
+    public void sendKakaoTemp(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        int userNo = Integer.parseInt((String)request.getSession().getAttribute("USERNO"));
+
+        if( param.get("custno") != null && param.get("custno") != "") {
+            String custno = (String) param.get("custno");
+            String deCustNo = codecUtil.decodePkNo(custno);
+            param.put("custno", deCustNo);
+        }
+        sendDao.directSendKakaoTemp(param);
     }
 }

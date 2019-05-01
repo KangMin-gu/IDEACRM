@@ -39,4 +39,49 @@
 		select * from SYS990099 WHERE SITEID = #{siteid}
 	</select>
 
+	<insert id="directSmsSendTemp" parameterType="hashMap">
+		INSERT INTO SC_TRAN_COPY (TR_SENDDATE, TR_SENDSTAT, TR_MSGTYPE, TR_PHONE, TR_CALLBACK, TR_MSG, CUSTNO, SITEID)
+		VALUES(current_timestamp(),'0','0',#{mobile},#{callback},#{senddesc},#{custno},#{siteid})
+	</insert>
+
+	<insert id="directLmsSendTemp" parameterType="hashMap">
+		INSERT INTO MMS_MSG_COPY (SUBJECT, PHONE, CALLBACK, STATUS, REQDATE, MSG, TYPE, CUSTNO, SITEID)
+		VALUES('[LMS발송]',#{mobile},#{callback},'0',current_timestamp(), #{senddesc},0, #{custno},#{siteid})
+	</insert>
+
+	<insert id="directMmsSendTemp" parameterType="hashMap">
+		INSERT INTO MMS_MSG_COPY (SUBJECT, PHONE, CALLBACK, STATUS, REQDATE, MSG, TYPE, CUSTNO, SITEID)
+		VALUES('[MMS발송]',#{mobile},#{callback},'0',current_timestamp(), #{senddesc},0, #{custno},#{siteid})
+	</insert>
+	<insert id="directSendKakaoTemp" parameterType="hashMap">
+	INSERT INTO TSMS_AGENT_MESSAGE (
+	SERVICE_SEQNO
+	,BACKUP_PROCESS_CODE
+	,MESSAGE_TYPE
+	,CONTENTS_TYPE
+	,RECEIVE_MOBILE_NO
+	,JOB_TYPE
+	,SEND_RESERVE_DATE
+	,TEMPLATE_CODE
+	,REGISTER_BY
+	,REGISTER_DATE
+	,SITEID
+	,CUSTNO
+	)
+	VALUES
+	(
+	#{service_seqno}
+	,'003'
+	,'002'
+	,'004'
+	,#{receive_mobile_no}
+	,'R00'
+	,now()
+	,#{template_code}
+	,#{userno}
+	,now()
+	,#{siteid}
+	,#{custno}
+	)
+	</insert>
 </mapper>

@@ -43,7 +43,7 @@
                         <td>01071203655</td>
                     </tr>
                     <tr>
-                        <th>템플릿</th>
+                        <th>서식</th>
                         <td colspan="3">
                             <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
                                 <option value="">02</option>

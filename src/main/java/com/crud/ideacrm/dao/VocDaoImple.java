@@ -184,4 +184,11 @@ public class VocDaoImple implements VocDao {
         session.update("voc.callbackAutoDiv",param);
     }
 
+    @Override
+    public List<Map<String, Object>> getVocSendForm(Map<String, Object> param) {
+        List<Map<String,Object>> sendFormlist = session.selectList("voc.getVocSendForm",param);
+        return sendFormlist;
+    }
+
+
 }

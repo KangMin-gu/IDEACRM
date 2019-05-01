@@ -43,7 +43,6 @@
                            <th data-name="HOMADDR">주소</th>
                        </tr>
                        </thead>
-
                        <tfoot>
                        <tr>
                            <td>
@@ -79,7 +78,7 @@
 
 <script>
     $(document).ready(function() {
-        footableSearchList('/voc/pop/custsearch');
+        footableSearchList('/voc/pop/custsearch', $('.searchCust') );
     });
 </script>
 </body>

@@ -20,4 +20,8 @@ public interface CustDao {
     public int custDelete(CustDto custDto);
     public int custDenyDelete(CustDto custDto);
     public List<Map<String,Object>> custMailList(Map<String,Object> searchPrm);
+    public List<Map<String,Object>> custSmsList(Map<String,Object> searchPrm);
+    public List<Map<String,Object>> custMmsList(Map<String,Object> searchPrm);
+    public List<Map<String,Object>> custLmsList(Map<String,Object> searchPrm);
+    public List<Map<String,Object>> custKakaoList(Map<String,Object> searchPrm);
 }

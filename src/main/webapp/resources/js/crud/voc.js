@@ -31,13 +31,12 @@ $('.vocEmailBtn').click(function(){
 });
 $('.vocSmsBtn').click(function(){
     if( !$('#custno').val() == false )
-        window.open("/voc/pop/sms", "고객상세정보","width=400px, height=600px");
+        window.open("/voc/pop/sms", "고객상세정보","width=600px, height=600px");
 });
-$('#vocKakaoBtn').click(function(){
+$('.vocKakaoBtn').click(function(){
     if( !$('#custno').val() == false )
         window.open("/voc/pop/kakao", "고객상세정보", "width=400px, height=600px");
 });
-
 // 타이머
 function startInterval() {
     second = 1;
@@ -478,8 +477,8 @@ function blackCustCssChange(bool){//블랙 유저면 true   아니면 false
 
 
 function callbackHistFormatter(value, options, rowData){
-    if( !rowData.REQNO == false ){
-        return '<a onclick="goPlay('+"'"+rowData.RECDATE_+"'"+','+"'"+rowData.RECEXT+"'"+','+"'"+rowData.RECFILENAME+"'"+');"><i class="fa fa-play-circle" style="font-size:17px;"></i></a>';
+   if( !rowData.REQNO == false ){
+      return '<a onclick="goPlay('+"'"+rowData.RECDATE_+"'"+','+"'"+rowData.RECEXT+"'"+','+"'"+rowData.RECFILENAME+"'"+');"><i class="fa fa-play-circle" style="font-size:17px;"></i></a>';
     }
     return "";
 }
@@ -509,6 +508,12 @@ function vocSvTabFormatter(value, options, rowData){
     var htmlStr = '<a onclick="vocServiceDetail(' + rowData.NO + ');">' + value + '</a>';
     return htmlStr;
 }
+function vocEmailTabformatter(value, options, rowData){
+    // var htmlStr = '<a onclick="vocServiceDetail(' + rowData.NO + ');">' + value + '</a>';
+    var htmlStr = value;
+    return htmlStr;
+}
+
 
 function callConfirm(phoneNo){//콜백 목록 전화걸기전 확인 alert
 
@@ -908,9 +913,29 @@ $('.vocTabDetail').find('.nav-link').click(function(e){
         // href의 tabpanel에 footable에 사용할 url을 가지고 온다.
         var url = $(href).attr('url');
         if(url != undefined){
-            tabFootableSearchList(href,url);
+            vocFootableSearchList(href,url);
         }
     }
+});
+
+//vocDetail화면의 Tab클릭 이벤트
+$('.vocBotTabDetail').find('.nav-link').click(function(e){
+    var obj = $(this);
+    var bool = boolTimeDiff(obj);//동일 버튼 클릭 시간이 3초 미만이면 false 리턴
+    if(bool == false){ return; }
+
+    // click 탭의 href의 값을 가지고 온다.
+    var href = e.target.attributes.href.value;
+    // href의 tabpanel에 footable에 사용할 url을 가지고 온다.
+    var url = $(href).attr('url');
+    if(url != undefined){
+        vocFootableSearchList(href,url);
+    }
+});
+
+$(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
+    $('.input-group-btn').find('button').remove();
+    $('.footable-pagination-wrapper > .label-default').hide();
 });
 
 
@@ -1119,3 +1144,55 @@ function vocServiceFieldReset(){
         opener.$('#create').show();
     }
 }
+
+$('#vocSmsSendBtn').click(function(e){
+    debugger;
+    // var data = $('#command').serialise();
+    smsToLms('senddesc');
+    var mobile = opener.$('#mobile1').val()+''+opener.$('#mobile2').val()+''+opener.$('#mobile3').val();
+    var custNo = opener.$('#custno').val();
+    var senddesc = $('#senddesc').val();
+    lengthtype = $('#lengthtype').val();
+    var data = {"mobile":mobile,"custno":custNo,"senddesc":senddesc,"lengthtype":lengthtype};
+
+    $.ajax({
+        url: '/voc/pop/sms/input',
+        method: "POST",
+        dataType: "json",
+        data: data,
+        cache: false,
+        success: function (data) {
+            debugger;
+            alert('발송 하였습니다.');
+            window.close();
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+});
+
+$('#senddesc').keyup(function(e){
+    var lengthtype = $('#lengthtype').val();
+    var str = $(this).val();
+    var textLength = getTextLength(str);
+    var textSize = textLength;
+    textLength = textLength +'/ 80';
+    $('#bytelength').text(textLength);
+    if(textSize > 80){
+        if(lengthtype != 1){
+            smsToLms('senddesc');
+        }
+    }
+});
+
+
+$(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
+    debugger;
+    if($(obj.target.parentElement.parentElement).is('tbody')) {
+        if(globalUrl =='/voc/pop/email'){
+            var formatdesc = $('#formatdesc').val();
+            $('#senddesc').val(formatdesc);
+        }
+    }
+});

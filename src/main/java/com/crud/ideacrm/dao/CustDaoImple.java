@@ -68,6 +68,31 @@ public class CustDaoImple implements CustDao {
 
     @Override
     public List<Map<String, Object>> custMailList(Map<String, Object> searchPrm) {
-        return session.selectList("cust.custMailList",searchPrm);
+        List<Map<String,Object>> mailList = session.selectList("cust.custMailList",searchPrm);
+        return mailList;
+    }
+
+    @Override
+    public List<Map<String, Object>> custSmsList(Map<String, Object> searchPrm) {
+        List<Map<String,Object>> smsList = session.selectList("cust.custSmsList",searchPrm);
+        return smsList;
+    }
+
+    @Override
+    public List<Map<String, Object>> custMmsList(Map<String, Object> searchPrm) {
+        List<Map<String, Object>> mmsList = session.selectList("cust.custMmsList", searchPrm);
+        return mmsList;
+    }
+
+    @Override
+    public List<Map<String, Object>> custLmsList(Map<String, Object> searchPrm) {
+        List<Map<String, Object>> lmsList = session.selectList("cust.custSmsList",searchPrm);
+        return lmsList;
+    }
+
+    @Override
+    public List<Map<String, Object>> custKakaoList(Map<String, Object> searchPrm) {
+        List<Map<String, Object>> kakaoList = session.selectList("cust.custKakaoList",searchPrm);
+        return kakaoList;
     }
 }

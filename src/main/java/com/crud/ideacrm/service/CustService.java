@@ -12,10 +12,23 @@ import java.util.Map;
 
 public interface CustService {
 
-    public List<Map<String,Object>> custList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
-    public Map<String,Object> custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException;
-    public String custinsert(HttpServletRequest request,CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
-    public String custUpdate(HttpServletRequest request,CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
+    public List<Map<String, Object>> custList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public Map<String, Object> custDetail(HttpServletRequest request, String custNo) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public String custinsert(HttpServletRequest request, CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public String custUpdate(HttpServletRequest request, CustDto custDto, CustDenyDto custDenyDto) throws UnsupportedEncodingException, GeneralSecurityException;
+
     public int custDelete(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
-    public List<Map<String,Object>> getCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public List<Map<String, Object>> custEmailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public List<Map<String, Object>> custSmsList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public List<Map<String, Object>> custMmsList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public List<Map<String, Object>> custLmsList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
+
+    public List<Map<String, Object>> custKakaoList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException;
 }

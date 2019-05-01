@@ -38,6 +38,8 @@ public class VocController {
     private SendService sendService;
     @Autowired
     private UploadDao uploadDao;
+    @Autowired
+    private FormatService formatService;
 
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
@@ -50,9 +52,14 @@ public class VocController {
 
 
     @RequestMapping(value = "/voc", method = RequestMethod.GET)
-    public ModelAndView vocDetail(HttpServletRequest request){
+    public ModelAndView vocDetail(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int sendType = 4; // 상담템플릿 서식 값
+        int useMenu = 5; // voc 메뉴 서식 값
+        List<Map<String,Object>> formList = vocService.getVocSendForm(request, sendType, useMenu);
+
+        mView.addObject("formList",formList);
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         List<ProductDto> productB = productService.getProductB(request);
@@ -120,7 +127,7 @@ public class VocController {
     }
 
     @RequestMapping(value = "/voc/pop/sms", method = RequestMethod.GET)
-    public ModelAndView vocSmsPop(HttpServletRequest request){
+    public ModelAndView vocSmsPop(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         int sendType = 2; // sms 서식 값
         int useMenu = 5; // voc 메뉴 값
@@ -138,7 +145,7 @@ public class VocController {
     }
 
     @RequestMapping(value = "/voc/pop/kakao", method = RequestMethod.GET)
-    public ModelAndView vocKakaoPop(HttpServletRequest request){
+    public ModelAndView vocKakaoPop(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         int sendType = 3; // sms 서식 값
         int useMenu = 5; // voc 메뉴 값
@@ -347,6 +354,14 @@ public class VocController {
 
         mView.setViewName("page/voc/pop/serviceDetailPop");
         return mView;
+    }
+
+    // voc 상담템플릿 선택
+    @RequestMapping(value = "/voc/format/{formatNo}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> authVocFormatDetail(HttpServletRequest request, @PathVariable String formatNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> formatInfo = formatService.formatDetail(request,formatNo);
+        return formatInfo;
     }
 
 }

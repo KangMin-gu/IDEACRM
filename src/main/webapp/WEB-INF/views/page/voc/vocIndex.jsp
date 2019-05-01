@@ -648,11 +648,11 @@
                                     <tr>
                                         <th>상담 템플릿</th>
                                         <td>
-                                            <select class="form-control form-control-sm vocSvInput voc" name="" id="" style=" width: 100px;">
+                                            <select class="form-control form-control-sm vocSvInput voc" id="vocTemplateFormat" style=" width: 300px;">
                                                 <option value="">선택</option>
-                                                <option value="">031</option>
-                                                <option value="">017</option>
-                                                <option value="">018</option>
+                                                <c:forEach var="formList" items="${formList}">
+                                                    <option value="${formList.FORMATNO}">${formList.FORMATNAME}</option>
+                                                </c:forEach>
                                             </select>
                                         </td>
                                     </tr>

@@ -1229,14 +1229,43 @@ $('#smsFormat').change(function(e){
 });
 //kakao 서식 선택
 $('#kakaoFormat').change(function(e){
-    var idx = e.target.value;//foreach 의 idx 값 획득
-    var contents = $('#formatdesc'+idx).val();//화면에 뿌려줄 포멧 데이터
-    var service_seqno = $('#service_seqno'+idx).val();//db에 전달할 hidden값 셋팅
-    var template_code = $('#template_code'+idx).val();
-    $('#service_seqno').val(service_seqno);
-    $('#template_code').val(template_code);
-    $('#send_message').val(contents);
-    replaceSendStr('send_message');
+    var formatno = e.target.value;
+    if( !formatno && formatno != '' ){return;}
+    $.ajax({
+        url: '/voc/format/'+formatno,
+        method: "POST",
+        dataType: "json",
+        data: {},
+        cache: false,
+        success: function (data) {
+            $('#service_seqno').val(data.KKOSERVICENO);
+            $('#template_code').val(data.KKOTEMPLETENO);
+            $('#send_message').val(data.FORMATDESC);
+            replaceSendStr('send_message');
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+});
+//voc 메인 화면 상담템플릿 서식 선택
+$('#vocTemplateFormat').change(function(e){
+    var formatno = e.target.value;//foreach 의 idx 값 획득
+    if( !formatno && formatno != '' ){return;}
+    $.ajax({
+        url: '/voc/format/'+formatno,
+        method: "POST",
+        dataType: "json",
+        data: {},
+        cache: false,
+        success: function (data) {
+            tinymce.activeEditor.setContent(data.FORMATDESC);
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+
 });
 
 

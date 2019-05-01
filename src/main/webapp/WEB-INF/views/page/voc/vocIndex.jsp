@@ -617,7 +617,7 @@
                                     <tr>
                                         <th>접수제품</th>
                                         <td>
-                                            <div class="product">
+                                            <div class="product" style="height: 40px;">
                                                 <div style="display: inline-block">
                                                     <select id="product11" name="product11" class="form-control voc" style="width: 150px";>
                                                         <option value="">선택</option>
@@ -638,7 +638,7 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <button type="button" class="btn btn-default voc plus" disabled="disabled">추가</button>
+                                                    <button type="button" disabled="disabled" style="margin-bottom: 5px;margin-left: 10px;" class="btn btn-default voc plus">추가</button>
                                                 </div>
                                             </div>
                                         </td>

@@ -8,7 +8,12 @@ $(document).on('click', '.plus', function(e) {
         $('.product:last').remove();
     }else{
         var productId = $(e.target).parent().prev().children().attr('id');
+
         if(productId != undefined){
+            var productNum = productId.substring(7, 8);
+            productPlus(parseInt(productNum));
+        }else{
+            productId = $(e.target).parent().children().children().attr('id');
             var productNum = productId.substring(7, 8);
             productPlus(parseInt(productNum));
         }
@@ -20,7 +25,7 @@ $(document).on('click','.minus',function(e) {
     var selectId = $(e.target).parent().find('select:last').attr('id');
     var lastId = $('.product:last select:last').attr('id');
     if(selectId == lastId){
-        $(e.target).parent().prev().find('select:last').parent().after('<div style="display: inline-block"><button type="button" style="margin-bottom: 5px;margin-left: 5px;" class="btn btn-default plus">추가</button></div>');
+        $(e.target).parent().prev().find('select:last').parent().after('<div style="display: inline-block"><button type="button" style="margin-bottom: 5px;margin-left: 10px;" class="btn btn-default plus">추가</button></div>');
     }
 
     //$(e.target).parent().prev().find('select:last').after('<button class="plus btn btn-primary d-inline-block btn-sm mr-2">추가</button>');
@@ -42,7 +47,7 @@ function productPlus(length) {
         $('.product:last').prev().find('.plus').remove();
         // 첫번째 인경우에는 삭제버튼만 있으면 되기 떄문
         if (length == 1) {
-            $('.product:last').append('<button style="margin-bottom: 5px;" class="minus btn btn-default mr-2">삭제</button>');
+            $('.product:last').append('<button style="margin-bottom: 5px;margin-left: 5px" class="minus btn btn-default mr-2">삭제</button>');
         }
     } else {
         opener.$('.product:last').clone(true).insertAfter('.product:last');

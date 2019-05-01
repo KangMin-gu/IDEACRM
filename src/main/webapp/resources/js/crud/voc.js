@@ -1073,7 +1073,7 @@ $('#create').click(function() {
     //$('tbody .plus').attr('disabled', false);
     var productLength = $('.plus').length;
     if(!productLength){
-        $('.product').append('<button class="plus btn btn-default d-inline-block btn-sm mr-2">추가</button>');
+        $('.product').append('<button type="button" style="margin-bottom: 5px;margin-left: 5px;" class="btn btn-default plus">추가</button>');
     }
     productB();
 

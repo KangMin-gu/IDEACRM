@@ -329,7 +329,7 @@ public class VocController {
         int cnt = vocService.vocCallBackPassDiv(request);
         return cnt;
     }
-    //콜백자동분배
+    //콜백자동분배1
     @RequestMapping(value="/voc/pop/calldiv/auto",method=RequestMethod.GET)
     @ResponseBody
     public int authVocCallAtouDiv(HttpServletRequest request) {

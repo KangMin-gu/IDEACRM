@@ -89,7 +89,7 @@
                                     <i class="fa fa-bell"></i>
                                     <span class="li-text">3</span>
                                 </li>
-                               <li class="ctibtn">
+                                <li class="ctibtn">
                                     <i class="fa fa-envelope"></i>
                                     <span class="li-text isnVal"></span>
                                 </li>
@@ -104,12 +104,12 @@
                                         <i class="fa fa-bars" style=""></i>
                                     </a>
                                     <c:if test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" id="callDivide">콜백분배</a></li>
-                                        <!--<li><a href="#">운영관리</a></li>
-                                        <li><a href="#">콜통계</a></li>
-                                        <li><a href="#">콜이력</a></li>-->
-                                    </ul>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" id="callDivide">콜백분배</a></li>
+                                            <!--<li><a href="#">운영관리</a></li>
+                                            <li><a href="#">콜통계</a></li>
+                                            <li><a href="#">콜이력</a></li>-->
+                                        </ul>
                                     </c:if>
                                 </li>
                                 <li>
@@ -141,9 +141,10 @@
                                         </colgroup>
                                         <tbody>
                                         <tr>
+                                            <!--회원사 -->
+                                            <input type="hidden" id="sitename" name="sitename" value="${sessionScope.SITENAME}">
                                             <!--고객 관련 hidden -->
                                             <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt"/>
-
                                             <!-- 녹취 키값  -->
                                             <input type="hidden" id="nucIdx"  name="nucIdx" value="" />
 
@@ -199,7 +200,7 @@
                                         <tr>
                                             <th>고객구분</th>
                                             <td>
-                                               <select class="form-control form-control-sm vocCustInput" name="custgubun" id="custgubun" >
+                                                <select class="form-control form-control-sm vocCustInput" name="custgubun" id="custgubun" >
                                                     <option value="0">선택</option>
                                                     <c:forEach var="custgubun" items="${CUSTGUBUN}">
                                                         <option value="${custgubun.codeval}">${custgubun.codename}</option>
@@ -526,6 +527,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="ibox-content bot-cont">
@@ -686,18 +688,18 @@
                                     <tr class="as">
                                         <th>방문지 주소</th>
                                         <td>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <input type="checkbox" class="i-checks voc" value="1" id="addrsame" name="addrsame">
-                                                        &nbsp;<label>고객주소와 동일</label>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="checkbox" class="i-checks voc" value="1" id="addrsame" name="addrsame">
+                                                    &nbsp;<label>고객주소와 동일</label>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr1" name="visitaddr1" readonly></div>
-                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr2" name="visitaddr2" readonly></div>
-                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr3" name="visitaddr3"></div>
-                                                    <div class="col-md-2"><button class="btn btn-white btn-sm daumzip voc" type="button" id="visitaddr">주소 검색</button></div>
-                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr1" name="visitaddr1" readonly></div>
+                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr2" name="visitaddr2" readonly></div>
+                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr3" name="visitaddr3"></div>
+                                                <div class="col-md-2"><button class="btn btn-white btn-sm daumzip voc" type="button" id="visitaddr">주소 검색</button></div>
+                                            </div>
 
                                         </td>
                                     </tr>
@@ -808,7 +810,7 @@
                                                 <select class="form-control voc vocSvInput" name="visithour" id="visithour" style="width:70px;">
                                                     <option value="">선택</option>
                                                     <c:forEach var="hour" items="${HOUR}">
-                                                    <option value="${hour.codeval}">${hour.codename}</option>
+                                                        <option value="${hour.codeval}">${hour.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -817,7 +819,7 @@
                                                 <select class="form-control voc vocSvInput" name="visitminute" id="visitminute" style="width:70px;">
                                                     <option value="">선택</option>
                                                     <c:forEach var="minute" items="${MINUTE}">
-                                                    <option value="${minute.codeval}">${minute.codename}</option>
+                                                        <option value="${minute.codeval}">${minute.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>

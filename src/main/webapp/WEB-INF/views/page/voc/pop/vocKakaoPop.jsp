@@ -53,6 +53,8 @@
                                 <option value="">선택</option>
                                 <c:forEach var="list" items="${formList}" varStatus="status">
                                     <option value="${status.index}">${list.FORMATNAME}</option>
+                                </c:forEach>
+                                <c:forEach var="list" items="${formList}" varStatus="status">
                                     <input type="hidden" id="service_seqno${status.index}" value="${list.KKOSERVICENO}">
                                     <input type="hidden" id="template_code${status.index}" value="${list.KKOTEMPLETENO}">
                                     <input type="hidden" id="formatdesc${status.index}" value="${list.FORMATDESC}">

@@ -51,7 +51,7 @@ function tabFootableSearchList(id,url) {
                 "min":1,
             },
             "paging": {
-               "enabled": true,
+                "enabled": true,
                 "container" : pagination,
                 "size":page
             },

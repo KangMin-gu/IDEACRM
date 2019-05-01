@@ -13,83 +13,125 @@
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/jasny-bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/vocDivide.css" rel="stylesheet">
 </head>
-<body>
-<div class="wrapper wrapper-content">
-    <div>
-        <div class="ibox-left col-5">
-            <h2>콜백 리스트</h2>
-            <div class="ibox-content row">
-                <div class="box col-12" style="padding-left: 0px;padding-right: 0px;">
-                    <div class="col-lg-4 float-right text-right mb-2 w-100" style="padding-right: 0px;padding-bottom: 15px;padding-top: 0px*">
-                        <br>
-                    </div>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="submit" style="margin-left:5px;" class="btn btn-default pull-right">수동분배</button>
+            <button type="submit" style="margin-left:5px;" class="btn btn-default pull-right">자동분배</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 ibox-left">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>콜백 리스트</h5>
                 </div>
-            </div>
-            <div class="ibox-content row border-top-0 pt-lg-0 tooltip-demo">
-                <div class="table-responsive">
-                    <table class="footable table table-striped callList">
-                        <thead>
-                        <tr>
-                            <th data-name="CUSTNAME"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/>서비스번호</th>
-                            <th data-name="CUSTNAME" data-formatter="serviceformatter">발신번호</th>
-                            <th data-name="CUSTNAME">사용자 ID</th>
-                            <th data-name="CUSTNAME">콜백번호</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <td colspan="4" style="text-align:center">
-                                <ul class="pagination float-center"></ul>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped ibox-left" style="white-space:nowrap;">
+                            <colgroup>
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="10%">
+                                <col width="5%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>발신번호</th>
+                                <th>사용자 ID</th>
+                                <th>콜백번호</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+
+                        </table>
+                    </div>
+                    <div class="m-auto">
+                        <ul class="pagination" style="margin-top: 8px;">
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-6 ibox-right">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>사용자 리스트</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="box2 col-lg-6 col-xl-4 p-0">
+                        <table class="table table-bordered mb-0 cti-user-list" style="border-top: 1px solid #EBEBEB;">
+                            <colgroup>
+                                <col style="width: 110px; background: #fafafa;">
+                                <col style="width: 300px;">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <th>사용자</th>
+                                <td class="border-top-0">
+                                    <div class="input-group owner" id="owner_">
+                                        <input type="text" class="form-control reset" readonly autocomplete="off" name="owner_" value="${search.owner_ }">
+                                        <input type="hidden" class="reset" name="owner" id="owner" value="${search.owner }">
+                                        <span class="input-group-addon">
+                                        <a><i class="fa fa-search"></i></a>
+                                    </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped ibox-right" style="white-space:nowrap;">
+                            <colgroup>
+                                <col width="5%">
+                                <col width="5%">
+                                <col width="10%">
+                                <col width="5%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>사용자명</th>
+                                <th>사용자 ID</th>
+                                <th>할당 콜백수</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
 
-        <div class="ibox-right col-5">
-            <h2>사용자 리스트</h2>
-            <div class="ibox-content row">
-                <div class="box col-12" style="padding-left: 0px;padding-right: 0px;">
-                    <div class="col-lg-4 float-right text-right mb-2 w-100" style="padding-right: 0px;padding-bottom: 0px;padding-top: 0px*">
-                        <button id="passDiv" class="btn btn-primary btn-large">수동분배</button>
-                        <button id="autoDiv" class="btn btn-primary btn-large">자동분배</button>
+                            </tr>
+
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="m-auto">
+                        <ul class="pagination" style="margin-top: 8px;">
+
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="ibox-content row border-top-0 pt-lg-0 tooltip-demo">
-                <div class="table-responsive">
-                    <table class="footable table table-striped userList">
-                        <thead>
-                        <tr>
-                            <th data-name="SERVICENAME"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/>서비스번호</th>
-                            <th data-name="SERVICENAME" data-formatter="serviceformatter">사용자명</th>
-                            <th data-name="SERVICENAME">사용자 ID</th>
-                            <th data-name="SERVICENAME">할당된 콜백수</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <td colspan="4" style="text-align:center">
-                                <ul class="pagination float-center"></ul>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-
-
-            </div>
-
         </div>
     </div>
 </div>
-<%@ include file="/WEB-INF/views/includ/js.jsp"%>
+
+<%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script> <!-- radioBox-->
@@ -99,10 +141,10 @@
 
 <script>
     $(document).ready(function () {
-        footableSearchList('/cust', $('.callList'));
-        footableSearchList('/service', $('.userList'));
-        //callBackList(1);
-        //ctiUserList(1);
+        //footableSearchList('/cust', $('.callList'));
+        //footableSearchList('/service', $('.userList'));
+        callBackList(1);
+        ctiUserList(1);
     });
 </script>
 

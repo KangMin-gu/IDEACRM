@@ -285,31 +285,6 @@ public class VocServiceImple implements VocService {
     }
 
     @Override
-    public List<Map<String,Object>> vocPopCallBackList(HttpServletRequest request){
-        Map<String,Object> param = parameterUtil.searchParam(request);
-        /*
-        int PAGE_ROW_COUNT = 10;
-        int PAGE_DISPLAY_COUNT = 5;
-
-        int totalRows = vocDao.vocCallBackTotalRow(param);
-
-        Map<String, Integer> page = pageUtil.paging(request, totalRows, PAGE_ROW_COUNT, PAGE_DISPLAY_COUNT);
-        int startRowNum = page.get("startRowNum");
-        int endRowNum = page.get("endRowNum");
-
-        param.put("startRowNum", startRowNum);
-        param.put("endRowNum", endRowNum);
-        */
-        List<Map<String,Object>> callBackList = vocDao.vocPopCallBackList(param);
-/*
-        Map<String,Object> resultMap = new HashMap<>();
-        resultMap.put("callBack", callBackList);
-        resultMap.put("page", page);
-        resultMap.put("totalRows",totalRows);
-        */
-        return callBackList;
-    }
-    /*
     public Map<String,Object> vocPopCallBackList(HttpServletRequest request){
         Map<String,Object> param = parameterUtil.searchParam(request);
         int PAGE_ROW_COUNT = 10;
@@ -331,33 +306,8 @@ public class VocServiceImple implements VocService {
         resultMap.put("totalRows",totalRows);
         return resultMap;
     }
-    */
+
     @Override
-    public List<Map<String,Object>> vocCallBackUserList(HttpServletRequest request){
-        Map<String,Object> param = parameterUtil.searchParam(request);
-        /*
-        int PAGE_ROW_COUNT = 10;
-        int PAGE_DISPLAY_COUNT = 5;
-
-        int totalRows = vocDao.vocUserTotalRows(param);
-
-        Map<String, Integer> page = pageUtil.paging(request, totalRows, PAGE_ROW_COUNT, PAGE_DISPLAY_COUNT);
-        int startRowNum = page.get("startRowNum");
-        int endRowNum = page.get("endRowNum");
-
-        param.put("startRowNum", startRowNum);
-        param.put("endRowNum", endRowNum);
-        */
-        List<Map<String,Object>> callBackUserList = vocDao.vocUserList(param);
-/*
-        Map<String,Object> result = new HashMap<>();
-        result.put("callBackUser", callBackUserList);
-        result.put("page", page);
-        result.put("totalRows",totalRows);
-        */
-        return callBackUserList;
-    }
-    /*
     public Map<String,Object> vocCallBackUserList(HttpServletRequest request){
         Map<String,Object> param = parameterUtil.searchParam(request);
         int PAGE_ROW_COUNT = 10;
@@ -379,7 +329,7 @@ public class VocServiceImple implements VocService {
         result.put("totalRows",totalRows);
         return result;
     }
-    */
+
 
 
     @Override

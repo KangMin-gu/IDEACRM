@@ -403,6 +403,7 @@
 		FROM MMS_MSG_COPY
 		WHERE
 			SITEID = #{siteid}
+			AND IFNULL(FILE_CNT,0) = 0
 			AND CUSTNO = #{custno}
 	</select>
 	<!-- 고객 상세 MMS 리스트 -->
@@ -415,6 +416,7 @@
 		FROM MMS_MSG_COPY
 		WHERE
 			SITEID = #{siteid}
+			AND IFNULL(FILE_CNT,0) > 0
 			AND CUSTNO = #{custno}
 	</select>
 	<!-- 고객 상세 카카오 리스트 -->
@@ -426,7 +428,7 @@
 		,TEMPLATE_CODE, REGISTER_DATE
 		, CONCAT(SUBSTR(IFNULL(SEND_MESSAGE,''),1,8),'...') AS SEND_MESSAGE_
 		, CONCAT(SUBSTR(IFNULL(SUBJECT,''),1,8),'...') AS SUBJECT_
-		FROM TSMS_AGENT_MESSAGE_COPY
+		FROM TSMS_AGENT_MESSAGE_LOG
 		WHERE
 			SITEID = #{siteid}
 			AND CUSTNO = #{custno}

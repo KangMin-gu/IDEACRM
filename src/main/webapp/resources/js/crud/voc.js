@@ -109,7 +109,6 @@ function vocFootableSearchList(id,url) {
         // pagination이 반복해서 생겨서 무조건 한개를 지우게 처리함.
         $('.footable-pagination-wrapper:eq(0)').remove();
         $('.footable-empty').remove();
-        $('.input-group-btn').remove();
     });
 };
 
@@ -426,7 +425,6 @@ function cancleBlack(){
             data:{"custno":custno},
             cache: false,
             success: function (data) {
-
                 blackCustCssChange(false);
                 blackSpanActivation('insert');
                 alert("해제 되었습니다.");
@@ -935,7 +933,13 @@ $('.vocBotTabDetail').find('.nav-link').click(function(e){
 
 $(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
+
     $('.footable-pagination-wrapper > .label-default').hide();
+
+
+    if ( $('.vocfootable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $('.vocfootable tbody tr').remove();
+    }
 });
 
 
@@ -1215,7 +1219,6 @@ function replaceSendStr(id){
 }
 
 $(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
-    debugger;
     if($(obj.target.parentElement.parentElement).is('tbody')) {
         if(globalUrl =='/voc/pop/email'){
             var formatdesc = $('#formatdesc').val();

@@ -366,7 +366,6 @@
                                     </div>
                                     <div role="tabpanel" id="vocCallbackHistTab" class="tab-pane" url="/voc/tab/callbackhist">
                                         <div class="panel-body">
-
                                             <table class="vocfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
                                                 <thead>
                                                 <tr>
@@ -424,7 +423,6 @@
 
                                     <div role="tabpanel" id="vocLmsTab" class="tab-pane" url="/cust/tab/lms">
                                         <div class="panel-body">
-
                                             <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
@@ -452,7 +450,6 @@
 
                                     <div role="tabpanel" id="vocMmsTab" class="tab-pane" url="/cust/tab/mms">
                                         <div class="panel-body">
-
                                             <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
@@ -480,7 +477,6 @@
 
                                     <div role="tabpanel" id="vocKakaoTab" class="tab-pane" url="/cust/tab/kakao">
                                         <div class="panel-body">
-
                                             <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>

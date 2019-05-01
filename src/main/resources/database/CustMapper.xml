@@ -373,7 +373,9 @@
 	<select id="custMailList" parameterType="hashMap" resultType="hashMap">
 		SELECT
 		EMAILLOGID, CUSTNO, USERNAME
-		, FROMEMAIL, TOEMAIL, SUBJECT, CLICKYN
+		, FROMEMAIL, TOEMAIL, SUBJECT, CLICKYN, CONTENT
+		, RLTDATE
+		, DATE_FORMAT(RLTDATE,'%Y-%m-%d %H:%m:%i') AS RLTDATE_
 		, IF ( IFNULL(CLICKYN,0) = 0, '미확인', '확인') AS CLICKYN_
 		FROM SYS980010
 		WHERE

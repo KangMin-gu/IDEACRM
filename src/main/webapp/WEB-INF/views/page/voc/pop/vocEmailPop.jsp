@@ -38,6 +38,7 @@
                         <tr>
                             <th>보내는사람</th>
                             <td>
+                                <input type="hidden" id="username" name="username"/>
                                     ${USERNAME}
                             </td>
                         </tr>

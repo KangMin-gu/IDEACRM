@@ -505,12 +505,34 @@ function callBackHiddenFormatter(value, options, rowData){
 }
 
 function vocSvTabFormatter(value, options, rowData){
-    var htmlStr = '<a onclick="vocServiceDetail(' + "'" + rowData.NO + "'" + ');">' + value + '</a>';
+    var htmlStr = '<a href="#" onclick="vocServiceDetail(' + "'" + rowData.NO + "'" + ');">' + value + '</a>';
     return htmlStr;
 }
 function vocEmailTabformatter(value, options, rowData){
     // var htmlStr = '<a onclick="vocServiceDetail(' + rowData.NO + ');">' + value + '</a>';
-    var htmlStr = value;
+    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.CONTENT +'">' + value + '</a>';
+    // var htmlStr = value;
+    return htmlStr;
+}
+function vocBlackFormatter(value, options, rowData){
+    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MEMO +'">' + value + '</a>';
+    return htmlStr;
+}
+function vocSmsFormatter(value, options, rowData){
+    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.TR_MSG +'">' + value + '</a>';
+    return htmlStr;
+}
+
+function vocLmsFormatter(value, options, rowData){
+    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</a>';
+    return htmlStr;
+}
+function vocMmsFormatter(value, options, rowData){
+    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</a>';
+    return htmlStr;
+}
+function vocKakaoFormatter(value, options, rowData){
+    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.SEND_MESSAGE +'">' + value + '</a>';
     return htmlStr;
 }
 
@@ -1256,4 +1278,13 @@ $('#kakaoSendBtn').click(function(e){
             alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
         }
     });
+});
+
+$('#vocMailSend').click(function(){
+    var result = confirm('메일 발송하시겠습니까?');
+    if(result){
+        return true;
+    }else{
+        return false;
+    }
 });

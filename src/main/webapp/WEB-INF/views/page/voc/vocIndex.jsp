@@ -345,9 +345,10 @@
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="BCUSTNO">블랙번호</th>
+                                                    <th data-visible="false" data-name="MEMO">블랙번호</th>
                                                     <th data-name="REGDATE_" data-sorted="true" data-direction="DESC">접수일시</th>
                                                     <th data-name="BLACKTYPE_">유형</th>
-                                                    <th data-name="MEMO_">접수사유</th>
+                                                    <th data-name="MEMO_" data-formatter="vocBlackFormatter">접수사유</th>
                                                     <th data-name="USERNAME">접수자</th>
                                                     <th data-name="ISDELETE_">현재상태</th>
                                                 </tr>
@@ -403,7 +404,7 @@
                                                 <tr>
                                                     <th data-visible="false" data-name="TR_NUM"></th>
                                                     <th data-visible="false" data-name="TR_MSG"></th>
-                                                    <th data-name="TR_MSG_" data-sorted="true">내용</th>
+                                                    <th data-name="TR_MSG_" data-formatter="vocSmsFormatter">내용</th>
                                                     <th data-name="TR_PHONE">수신번호</th>
                                                     <th data-name="TR_SENDDATE_">발송시간</th>
                                                 </tr>
@@ -429,8 +430,7 @@
                                                     <th data-visible="false" data-name="MSGKEY"></th>
                                                     <th data-visible="false" data-name="SUBJECT"></th>
                                                     <th data-visible="false" data-name="MSG"></th>
-                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
-                                                    <th data-name="MSG_">내용</th>
+                                                    <th data-name="SUBJECT" data-formatter="vocLmsFormatter">제목</th>
                                                     <th data-name="PHONE">수신번호</th>
                                                     <th data-name="REQDATE_">발송시간</th>
                                                 </tr>
@@ -456,8 +456,7 @@
                                                     <th data-visible="false" data-name="MSGKEY"></th>
                                                     <th data-visible="false" data-name="SUBJECT"></th>
                                                     <th data-visible="false" data-name="MSG"></th>
-                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
-                                                    <th data-name="MSG_">내용</th>
+                                                    <th data-name="SUBJECT" data-formatter="vocMmsFormatter">제목</th>
                                                     <th data-name="PHONE">수신번호</th>
                                                     <th data-name="REQDATE_">발송시간</th>
                                                 </tr>
@@ -482,10 +481,8 @@
                                                 <tr>
                                                     <th data-visible="false" data-name="MESSAGE_SEQNO"></th>
                                                     <th data-visible="false" data-name="SERVICE_SEQNO"></th>
-                                                    <th data-visible="false" data-name="SUBJECT"></th>
                                                     <th data-visible="false" data-name="SEND_MESSAGE"></th>
-                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
-                                                    <th data-name="SEND_MESSAGE_">내용</th>
+                                                    <th data-name="SUBJECT" data-formatter="vocKakaoFormatter">제목</th>
                                                     <th data-name="RECEIVE_MOBILE_NO">수신번호</th>
                                                     <th data-name="SEND_DATE_">발송시간</th>
                                                 </tr>
@@ -508,9 +505,10 @@
                                             <table class="vocfootable table table-striped" data-paging="true" data-sorting="true">
                                                 <thead>
                                                 <tr>
-                                                    <th data-visible="false" data-name="NO">서비스번호</th>
+                                                    <th data-visible="false" data-name="NO">메일번호</th>
+                                                    <th data-visible="false" data-name="CONTENT">내용</th>
                                                     <th data-name="SUBJECT" data-formatter="vocEmailTabformatter">제목</th>
-                                                    <th data-name="RLTDATE" data-sorted="true" data-direction="DESC">발송일</th>
+                                                    <th data-name="RLTDATE_" data-sorted="true" data-direction="DESC">발송일</th>
                                                     <th data-name="USERNAME">발송자</th>
                                                     <th data-name="CLICKYN_">확인여부</th>
                                                 </tr>

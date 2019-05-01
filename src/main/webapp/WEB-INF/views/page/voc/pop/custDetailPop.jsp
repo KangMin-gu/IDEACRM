@@ -1097,9 +1097,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <a href="#" class="btn btn-default" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-            <button type="button" class="btn btn-default pull-right">닫기</button>
-            <button type="button" class="btn btn-default pull-right">수정</button>
+            <button type="button" class="btn btn-default pull-right popCloseBtn">닫기</button>
         </div>
     </div>
 </div>
@@ -1115,6 +1113,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 
 <!-- daum map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60c1fc75825cf6619b0ff66b5aca7161&libraries=services"></script>

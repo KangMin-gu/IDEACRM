@@ -378,7 +378,7 @@
                                                     <th data-name="CALLBACK">콜백번호</th>
                                                     <th data-name="CALLER">발신자번호</th>
                                                     <th data-name="USERNAME">상담원</th>
-                                                    <th data-name="MEMO_">메모</th>
+                                                    <!--<th data-name="MEMO_">메모</th>-->
                                                     <th data-name="CALLSTATUS_">상태</th>
                                                     <th data-formatter="callbackHistFormatter">녹취</th>
                                                 </tr>
@@ -405,7 +405,7 @@
                                                     <th data-visible="false" data-name="TR_MSG"></th>
                                                     <th data-name="TR_MSG_" data-sorted="true">내용</th>
                                                     <th data-name="TR_PHONE">수신번호</th>
-                                                    <th data-name="TR_SENDDATE">발송시간</th>
+                                                    <th data-name="TR_SENDDATE_">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -432,7 +432,7 @@
                                                     <th data-name="SUBJECT_" data-sorted="true">제목</th>
                                                     <th data-name="MSG_">내용</th>
                                                     <th data-name="PHONE">수신번호</th>
-                                                    <th data-name="REQDATE">발송시간</th>
+                                                    <th data-name="REQDATE_">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -459,7 +459,7 @@
                                                     <th data-name="SUBJECT_" data-sorted="true">제목</th>
                                                     <th data-name="MSG_">내용</th>
                                                     <th data-name="PHONE">수신번호</th>
-                                                    <th data-name="REQDATE">발송시간</th>
+                                                    <th data-name="REQDATE_">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -487,7 +487,7 @@
                                                     <th data-name="SUBJECT_" data-sorted="true">제목</th>
                                                     <th data-name="SEND_MESSAGE_">내용</th>
                                                     <th data-name="RECEIVE_MOBILE_NO">수신번호</th>
-                                                    <th data-name="SEND_DATE">발송시간</th>
+                                                    <th data-name="SEND_DATE_">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>

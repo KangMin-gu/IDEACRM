@@ -209,11 +209,13 @@ function vocCustDetail(){
         alert('고객이 선택되지 않았습니다.');
         return;
     }
-    openNewWindow('voc','/voc/custdetail/'+custNo,'voc',1200,700);
+    // openNewWindow('voc','/voc/custdetail/'+custNo,'voc',1200,700);
+    openNewWindow('voc','cust/'+custNo,'voc',1200,700);
 }
 
 //voc 서비스 상세보기 팝업
 function vocServiceDetail(serviceno){
+    // openNewWindow('service','/voc/pop/service/'+serviceno,'voc',1200,700);
     openNewWindow('service','/service/'+serviceno,'voc',1200,700);
 }
 
@@ -231,7 +233,7 @@ function popVocCustNameClick(tr){
             custFormActivation('update');// 파라미터에 따라 insert/ update 버튼을 생성
             custInfoBinding(data);//데이터 바인딩
 
-            vocGetServiceInfo('/voc/pop/service/'+custno);//최근 1건의 서비스 데이터 바인딩
+            vocGetServiceInfo('/voc/pop/service/info/'+custno);//최근 1건의 서비스 데이터 바인딩
             //블랙등록 고객이면 인풋창 css변경
             var blackCnt = data.BLACKCNT;
             if(blackCnt > 0){
@@ -503,7 +505,7 @@ function callBackHiddenFormatter(value, options, rowData){
 }
 
 function vocSvTabFormatter(value, options, rowData){
-    var htmlStr = '<a onclick="vocServiceDetail(' + rowData.NO + ');">' + value + '</a>';
+    var htmlStr = '<a onclick="vocServiceDetail(' + "'" + rowData.NO + "'" + ');">' + value + '</a>';
     return htmlStr;
 }
 function vocEmailTabformatter(value, options, rowData){

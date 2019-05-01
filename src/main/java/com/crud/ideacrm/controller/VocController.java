@@ -1,6 +1,7 @@
 package com.crud.ideacrm.controller;
 
 
+import com.crud.ideacrm.crud.dao.UploadDao;
 import com.crud.ideacrm.dto.*;
 import com.crud.ideacrm.service.*;
 import org.slf4j.Logger;
@@ -35,6 +36,8 @@ public class VocController {
     private SiteService siteService;
     @Autowired
     private SendService sendService;
+    @Autowired
+    private UploadDao uploadDao;
 
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
@@ -241,7 +244,7 @@ public class VocController {
     }
 
     //voc 고객팝업창 tr 클릭 시 해당 고객의 최근 한건의 서비스 데이터 바인딩
-    @RequestMapping(value="/voc/pop/service/{custNo}", method=RequestMethod.GET)
+    @RequestMapping(value="/voc/pop/service/info/{custNo}", method=RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> authvocPopServiceSelect(HttpServletRequest request,@PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,Object> serviceMap = vocService.vocPopServiceSelect(request,custNo);
@@ -330,6 +333,20 @@ public class VocController {
     public int authVocCallAtouDiv(HttpServletRequest request) {
         vocService.vocCallBackAutoDiv(request);
         return 0;
+    }
+
+    // 서비스 상세 화면
+    @RequestMapping(value="/voc/pop/service/{serviceNo}", method = RequestMethod.GET)
+    public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("fileInfo",uploadDao.fileInfo(serviceService.serviceDetail(request,serviceNo)));
+        mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
+        mView.addObject("rewardInfo",serviceService.rewardDetail(request,serviceNo));
+        mView.addObject("ractInfo",serviceService.ractDetail(request,serviceNo));
+        mView.addObject("product",serviceService.productDetail(request,serviceNo));
+
+        mView.setViewName("page/voc/pop/serviceDetailPop");
+        return mView;
     }
 
 }

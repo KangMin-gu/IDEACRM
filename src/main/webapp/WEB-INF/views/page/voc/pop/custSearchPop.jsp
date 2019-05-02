@@ -20,6 +20,9 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
 </head>
 <style>
+    .footable > tbody > tr > td{
+        cursor:pointer;
+    }
 </style>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -39,11 +42,10 @@
                            <th data-name="CUSTNAME" >고객명</th>
                            <th data-name="MOBILE">핸드폰</th>
                            <th data-name="PHONE">집전화</th>
-                           <th data-name="WRKTEL_">직장전화</th>
+                           <th data-name="WRKTEL">직장전화</th>
                            <th data-name="HOMADDR">주소</th>
                        </tr>
                        </thead>
-
                        <tfoot>
                        <tr>
                            <td>
@@ -79,7 +81,7 @@
 
 <script>
     $(document).ready(function() {
-        footableSearchList('/voc/pop/custsearch');
+        footableSearchList('/voc/pop/custsearch', $('.searchCust') );
     });
 </script>
 </body>

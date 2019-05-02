@@ -3,36 +3,33 @@
 <mapper namespace="cust">
 
 	<select id="custList" parameterType="map" resultType="hashMap">
+<<<<<<< HEAD
 	SELECT * FROM (
+=======
+		SELECT * FROM (
+>>>>>>> ecc81cbc269109c25da1434911e9641da0ea2021
 		SELECT
-		CU.CUSTNO, CU.CUSTNAME, CU.DEPTNAME, CU.DUTY
+		CU.CUSTNO, CU.CUSTNAME, CU.DEPTNAME, CU.DUTY, CU.MOBILE, CU.HOMTEL
         , CU.MOBILE1, CU.MOBILE2, CU.MOBILE3
-		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(CU.WRKTEL1,''),IFNULL(CU.WRKTEL2,''),IFNULL(CU.WRKTEL3,'')) ) > 8
-			THEN CONCAT( IFNULL(CU.WRKTEL1,''),'-',IFNULL(CU.WRKTEL2,''),'-',IFNULL(CU.WRKTEL3,'') )
-			ELSE CONCAT( IFNULL(CU.WRKTEL1,''),IFNULL(CU.WRKTEL2,''),IFNULL(CU.WRKTEL3,'') )  END AS WRKTEL_
-		,CU.WRKTEL1,CU.WRKTEL2,CU.WRKTEL3
+        , CU.WRKTEL
+        , CU.WRKTEL1,CU.WRKTEL2,CU.WRKTEL3
 		, CU.HOMADDR1 , CU.HOMADDR2 , CU.HOMADDR3
 		, CU.EMAIL, CU.SEX
 		, CU.OWNER, B.USERNAME AS OWNER_
-		, IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGUBUN AND CODEGRP = 'CUSTGUBUN'and SITEID = #{siteid} ),'' ) as CUSTGUBUN
-        , IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGRADE AND CODEGRP = 'CUSTGRADE'and SITEID = #{siteid} ),'' ) as CUSTGRADE
-        , IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.INFOAGREE AND CODEGRP = 'INFOAGREE'and SITEID = #{siteid} ),'' ) as INFOAGREE
+		, IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGUBUN AND CODEGRP = 'CUSTGUBUN'and SITEID =
+		#{siteid} ),'' ) as CUSTGUBUN
+		, IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.CUSTGRADE AND CODEGRP = 'CUSTGRADE'and SITEID =
+		#{siteid} ),'' ) as CUSTGRADE
+		, IFNULL((SELECT CODENAME FROM SYS990020 WHERE CODEVAL = CU.INFOAGREE AND CODEGRP = 'INFOAGREE'and SITEID =
+		#{siteid} ),'' ) as INFOAGREE
 		, DATE_FORMAT(CU.REGDATE,'%Y-%m-%d') AS REGDATE
 		, CU.CLINO, C.CLINAME
-
 		FROM cu100010 CU
 		LEFT OUTER JOIN me800010 AS B ON CU.OWNER = B.USERNO
 		LEFT OUTER JOIN sa200010 AS C ON CU.CLINO = C.CLINO
-		WHERE CU.SITEID = #{siteid}
-			AND IFNULL(CU.ISDELETE,0) != 1
+		WHERE CU.SITEID = #{siteid} AND IFNULL(CU.ISDELETE,0) != 1
 			<if test="custname != null">
 			AND CU.CUSTNAME like CONCAT('%',#{custname},'%')
-			</if>
-			<if test="mobile != null">
-			AND CONCAT( IFNULL(CU.MOBILE1,''), IFNULL(CU.MOBILE2,''), IFNULL(CU.MOBILE3,'') ) = #{mobile}
-			</if>
-			<if test="email != null">
-			AND CU.EMAIL = #{email}
 			</if>
 			<if test="custgubun != null and custgubun != 0">
 			AND CUSTGUBUN = #{custgubun}
@@ -58,8 +55,12 @@
 			<if test="cliname != null">
 			AND C.CLINAME  LIKE CONCAT('%',#{cliname},'%')
 			</if>
+<<<<<<< HEAD
 		)X
 		ORDER BY CUSTNO DESC
+=======
+			) AS D ORDER BY D.CUSTNO DESC
+>>>>>>> ecc81cbc269109c25da1434911e9641da0ea2021
 	</select>
 
 	<!-- 고객 상세정보 출력 -->
@@ -67,14 +68,8 @@
 	SELECT
 		A.CUSTNO, A.CUSTNAME, A.DEPTNAME, A.DUTY
 		,A.MOBILE1,A.MOBILE2,A.MOBILE3
-		,A.EMAIL
-		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(A.WRKTEL1,''),IFNULL(A.WRKTEL2,''),IFNULL(A.WRKTEL3,'')) ) > 8
-            THEN CONCAT( IFNULL(A.WRKTEL1,''),'-',IFNULL(A.WRKTEL2,''),'-',IFNULL(A.WRKTEL3,'') )
-            ELSE CONCAT( IFNULL(A.WRKTEL1,''),IFNULL(A.WRKTEL2,''),IFNULL(A.WRKTEL3,'') )  END AS WRKTEL_
+		,A.EMAIL, A.WRKTEL, A.HOMTEL, A.MOBILE, A.WRKFAX
 		,A.WRKTEL1,A.WRKTEL2,A.WRKTEL3
-		, CASE WHEN CHAR_LENGTH( CONCAT(IFNULL(A.WRKFAX1,''),IFNULL(A.WRKFAX2,''),IFNULL(A.WRKFAX3,'')) ) > 8
-         	THEN CONCAT( IFNULL(A.WRKFAX1,''),'-',IFNULL(A.WRKFAX2,''),'-',IFNULL(A.WRKFAX3,'') )
-         	ELSE CONCAT( IFNULL(A.WRKFAX1,''),IFNULL(A.WRKFAX2,''),IFNULL(A.WRKFAX3,'') )  END AS WRKFAX_
 		,A.WRKFAX1,A.WRKFAX2,A.WRKFAX3
 		,A.WRKURL
 		,A.WRKADDR1, A.WRKADDR2, A.WRKADDR3
@@ -154,6 +149,10 @@
 		,INFOAGREE
 		,CLINO
 		,RELCUSTNO
+		,MOBILE
+		,HOMTEL
+		,WRKTEL
+		,WRKFAX
 		)
 		VALUES
 		(
@@ -190,6 +189,10 @@
 		,#{infoagree}
 		,#{clino}
 		,#{relcustno}
+		,#{mobile}
+		,#{homtel}
+		,#{wrktel}
+		,#{wrkfax}
 		)
 		<selectKey keyProperty="custno"  resultType="String" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -317,6 +320,10 @@
 		,HOMADDR3 = #{homaddr3}
 		,MEMO = #{memo}
 		,CLINO = #{clino}
+		,MOBILE = #{mobile}
+		,HOMTEL = #{homtel}
+		,WRKTEL = #{wrktel}
+		,WRKFAX = #{wrkfax}
 		<if test="infoagree == 0 or infoagree == 1 ">
 		,INFOAGREE = #{infoagree}
 		</if>
@@ -377,10 +384,70 @@
 
 	SELECT * FROM (
 		SELECT
-		A.EMAILLOGID, A.CSTNAME, A.USERNAME, A.FROMEMAIL, A.TOEMAIL, A.SUBJECT, A.REGDATE, A.CUSTNO
-		, B.CAMPNAME
-		FROM SYS980010 A
-		LEFT OUTER JOIN CP400010 B ON A.CAMPNO = B.CAMPNO
+		EMAILLOGID, CUSTNO, USERNAME
+		, FROMEMAIL, TOEMAIL, SUBJECT, CLICKYN, CONTENT
+		, RLTDATE
+		, DATE_FORMAT(RLTDATE,'%Y-%m-%d %H:%m:%i') AS RLTDATE_
+		, IF ( IFNULL(CLICKYN,0) = 0, '미확인', '확인') AS CLICKYN_
+		FROM SYS980010
+		WHERE
+			SITEID = #{siteid}
+			AND CUSTNO = #{custno}
+	</select>
+	<!-- 고객 상세 SMS 리스트 -->
+	<select id="custSmsList" parameterType="hashMap" resultType="hashMap">
+		SELECT
+		TR_NUM, TR_SENDDATE, TR_ID, TR_SENDSTAT, TR_RSLTSTAT
+		, TR_MSGTYPE, TR_PHONE, TR_CALLBACK, TR_RSLTDATE, TR_MODIFIED
+		, TR_MSG
+		, CONCAT(SUBSTR(IFNULL(TR_MSG,''),1,8),'...') AS TR_MSG_
+		, DATE_FORMAT(TR_SENDDATE,'%Y-%m-%d %H:%m:%i') AS TR_SENDDATE_
+		FROM SC_TRAN_COPY
+		WHERE
+			SITEID = #{siteid}
+			AND CUSTNO = #{custno}
+	</select>
+	<!-- 고객 상세 LMS 리스트 -->
+	<select id="custLmsList" parameterType="hashMap" resultType="hashMap">
+		SELECT
+		MSGKEY, SUBJECT, PHONE, CALLBACK, STATUS, REQDATE
+		,MSG
+		, CONCAT(SUBSTR(IFNULL(MSG,''),1,8),'...') AS MSG_
+		, CONCAT(SUBSTR(IFNULL(SUBJECT,''),1,8),'...') AS SUBJECT_
+		, DATE_FORMAT(REQDATE,'%Y-%m-%d %H:%m:%i') AS REQDATE_
+		FROM MMS_MSG_COPY
+		WHERE
+			SITEID = #{siteid}
+			AND IFNULL(FILE_CNT,0) = 0
+			AND CUSTNO = #{custno}
+	</select>
+	<!-- 고객 상세 MMS 리스트 -->
+	<select id="custMmsList" parameterType="hashMap" resultType="hashMap">
+		SELECT
+		MSGKEY, SUBJECT, PHONE, CALLBACK, STATUS, REQDATE
+		,MSG
+		, CONCAT(SUBSTR(IFNULL(MSG,''),1,8),'...') AS MSG_
+		, CONCAT(SUBSTR(IFNULL(SUBJECT,''),1,8),'...') AS SUBJECT_
+		, DATE_FORMAT(REQDATE,'%Y-%m-%d %H:%m:%i') AS REQDATE_
+		FROM MMS_MSG_COPY
+		WHERE
+			SITEID = #{siteid}
+			AND IFNULL(FILE_CNT,0) > 0
+			AND CUSTNO = #{custno}
+	</select>
+	<!-- 고객 상세 카카오 리스트-->
+
+	<select id="custKakaoList" parameterType="hashMap" resultType="hashMap">
+		SELECT
+		MESSAGE_SEQNO, SERVICE_SEQNO, SEND_MESSAGE
+		,SUBJECT, BACKUP_PROCESS_CODE, MESSAGE_TYPE, CONTENTS_TYPE
+		,RECEIVE_MOBILE_NO, CALLBACK_NO, JOB_TYPE, SEND_DATE, SEND_RESERVE_DATE
+		,TEMPLATE_CODE, REGISTER_DATE
+		, CONCAT(SUBSTR(IFNULL(SEND_MESSAGE,''),1,8),'...') AS SEND_MESSAGE_
+		, CONCAT(SUBSTR(IFNULL(SUBJECT,''),1,8),'...') AS SUBJECT_
+		, DATE_FORMAT(SEND_DATE,'%Y-%m-%d %H:%m:%i') AS SEND_DATE_
+		, DATE_FORMAT(SEND_RESERVE_DATE,'%Y-%m-%d %H:%m:%i') AS SEND_RESERVE_DATE_
+		FROM TSMS_AGENT_MESSAGE_LOG_COPY
 		WHERE
 			A.SITEID = #{siteid}
 			AND A.CUSTNO = #{custno}

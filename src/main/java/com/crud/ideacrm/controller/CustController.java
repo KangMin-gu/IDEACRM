@@ -49,12 +49,13 @@ public class CustController {
     //고객상세
     @RequestMapping(value = "/cust/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
-
         ModelAndView mView = new ModelAndView();
         mView.addObject("custDetail",custService.custDetail(request,custno));
         mView.setViewName("page/cust/custDetail");
         return mView;
     }
+
+
     //고객수정
     @RequestMapping(value = "/cust/modified/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustUpdateForm(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -100,11 +101,43 @@ public class CustController {
 
 
     //고객 상세 탭 메일리스트
-    @RequestMapping(value = "/cust/tab/mail", method = RequestMethod.POST)
+    @RequestMapping(value = "/cust/tab/email", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> authGetCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        List<Map<String,Object>> mailList = custService.getCustMailList(request);
+        List<Map<String,Object>> mailList = custService.custEmailList(request);
         return mailList;
+    }
+
+    //고객 상세 탭 SMS리스트
+    @RequestMapping(value = "/cust/tab/sms", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String, Object>> authGetCustSmsList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        List<Map<String,Object>> smsList = custService.custSmsList(request);
+        return smsList;
+    }
+
+    //고객 상세 탭 LMS리스트
+    @RequestMapping(value = "/cust/tab/lms", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String, Object>> authGetCustLmsList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        List<Map<String,Object>> lmsList = custService.custLmsList(request);
+        return lmsList;
+    }
+
+    //고객 상세 탭 MMS리스트
+    @RequestMapping(value = "/cust/tab/mms", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String, Object>> authGetCustMMSList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        List<Map<String,Object>> mmsList = custService.custMmsList(request);
+        return mmsList;
+    }
+
+    //고객 상세 탭 KAKAO리스트
+    @RequestMapping(value = "/cust/tab/kakao", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String, Object>> authGetCustKakaoList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        List<Map<String,Object>> kakaoList = custService.custKakaoList(request);
+        return kakaoList;
     }
 
 }

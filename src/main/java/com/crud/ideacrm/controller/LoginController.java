@@ -36,6 +36,8 @@ public class LoginController {
     @Autowired
     private CodeService codeService;
 
+//    @Autowired
+//    private RServeExample rser;
 
 
     private final int NOTICE = 5;
@@ -92,10 +94,25 @@ public class LoginController {
         return mView;
     }
 
+/*
+    @RequestMapping(value = "/r", method = RequestMethod.GET)
+    public ModelAndView r(HttpServletRequest request) throws REngineException, REXPMismatchException {
+        ModelAndView mView = new ModelAndView();
 
+        REXP a = rser.getRVersion();
+        double[] b = rser.assignJ2R();
+        String aa = a.asString();
+        mView.addObject("a", aa);
+        mView.addObject("b", b);
+
+        mView.setViewName("r");
+        return mView;
+    }
+*/
     @RequestMapping(value = "/mail/check", method = RequestMethod.GET)
     @ResponseBody
     public void rs(HttpServletRequest request) {
-        System.out.println("들어왔습니다~!212121212");
+      System.out.println("들어왔습니다~!2121212121");
+
     }
 }

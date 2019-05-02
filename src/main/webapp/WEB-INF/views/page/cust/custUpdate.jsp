@@ -20,7 +20,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='cust'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -395,6 +395,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
 <!-- validate -->

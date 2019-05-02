@@ -5,6 +5,7 @@ import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.PagingUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.crud.util.Uplaod;
+import com.crud.ideacrm.dao.CustDao;
 import com.crud.ideacrm.dao.ServiceDao;
 import com.crud.ideacrm.dao.UserDao;
 import com.crud.ideacrm.dao.VocDao;
@@ -44,6 +45,8 @@ public class VocServiceImple implements VocService {
     private ServiceDao serviceDao;
     @Autowired
     private PagingUtil pageUtil;
+    @Autowired
+    private CustDao custDao;
 
     //고객 수정 실행
     @Override
@@ -327,6 +330,8 @@ public class VocServiceImple implements VocService {
         return result;
     }
 
+
+
     @Override
     public int vocCallBackPassDiv(HttpServletRequest request) {
 
@@ -463,6 +468,7 @@ public class VocServiceImple implements VocService {
             }else{
                 ractDto.setServiceno(serviceNo);
                 ractDto.setReguser(userNo);
+                ractDto.setRactdate(receptiondate);
                 serviceDao.ractInsert(ractDto);
                 serviceDto.setServicestep(3);
                 serviceDao.serviceStepUpdate(serviceDto);
@@ -477,6 +483,14 @@ public class VocServiceImple implements VocService {
             serviceDeliveryDto.setEdtuser(userNo);
             serviceDeliveryDto.setSiteid(siteId);
             vocDao.conveyInsert(serviceDeliveryDto);
+        }else if(svStep == 3){
+            ractDto.setRactdesc(serviceDto.getServicedesc());
+            ractDto.setServiceno(serviceNo);
+            ractDto.setReguser(userNo);
+            ractDto.setRactdate(receptiondate);
+            serviceDao.ractInsert(ractDto);
+            serviceDto.setServicestep(3);
+            serviceDao.serviceStepUpdate(serviceDto);
         }
 
         int cnt = 0;
@@ -513,5 +527,24 @@ public class VocServiceImple implements VocService {
         return serviceNo;
 
     }
+
+    @Override
+    public List<Map<String, Object>> getVocSendForm(HttpServletRequest request, int sendType, int useMenu) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        param.put("usemenu", useMenu);
+        param.put("sendtype",sendType);
+        List<Map<String,Object>> sendformList = vocDao.getVocSendForm(param);
+
+        int len = sendformList.size();
+        String formatno;
+        for(int i=0;i<len;i++){
+            formatno = "";
+            formatno = Integer.toString((int)sendformList.get(i).get("FORMATNO"));
+            formatno = codecUtil.encodePkNo(formatno);
+            sendformList.get(i).put("FORMATNO",formatno);
+        }
+        return sendformList;
+    }
+
 
 }

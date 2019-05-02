@@ -23,7 +23,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='serviceM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp" %>
     <div id="page-wrapper" class="gray-bg">
@@ -279,7 +279,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div style="display: inline-block">
-                                                                    <button type="button" style="margin-bottom: 5px;" class="btn btn-default plus">추가</button>
+                                                                    <button type="button" style="margin-bottom: 5px; margin-left: 10px" class="btn btn-default plus">추가</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -506,6 +506,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp" %>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- Jasny -->
 <script src="${pageContext.request.contextPath}/resources/js/jasny-bootstrap.min.js"></script>
 

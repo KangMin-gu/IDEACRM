@@ -21,7 +21,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='managerMemberM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -103,22 +103,12 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>사용자 목록</h5>
-                        </div>
-
-                        <div class="ibox-content">
-                            <div>
-                                <div style="display: inline-block;">
-                                    <select class="form-control" id="paging" style="width:80px;margin-left: 10px;">
-                                        <c:forEach var="paging" items="${PAGING}">
-                                            <option vale="${paging.codeval}">${paging.codename}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="pull-right" style="display: inline-block;">
-                                    <a href="/company/user/input" class="btn btn-default pull-right">추가</a>
-                                </div>
+                            <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
+                                <a class="btn btn-default" href="/company/user/input">추가</a>
                             </div>
-                            <table class="footable table table-striped" >
+                        </div>
+                        <div class="ibox-content">
+                            <table class="footable table table-striped memeberList" >
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-name="NO">고객번호</th>
@@ -136,13 +126,6 @@
                                 <tbody>
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td>
-                                        <div class="footable-pagination-wrapper">
-                                            <ul class="pagination"></ul>
-                                        </div>
-                                    </td>
-                                </tr>
                                 </tfoot>
 
                             </table>
@@ -162,7 +145,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<!-- FooTable -->
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
@@ -173,9 +156,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/company/user')
+            footableSearchList('/company/user',$('.memeberList'));
         });
-        footableSearchList('/company/user')
+        footableSearchList('/company/user',$('.memeberList'));
     });
 </script>
 </body>

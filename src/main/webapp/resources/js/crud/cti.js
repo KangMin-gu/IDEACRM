@@ -681,9 +681,11 @@ function ctiEvent(msg){
 			$('.ctibtn').show();
 			$('#vocLogOutSpan').show();
 			intervalFuncOn();//세션 유지 실행
+			$('[name="callbackBottomTab"]').trigger('click');
 			// voc_send_message();//콜백 카운터 실행
 	        //callGroupSelect(tmpData[6], tmpData[7], tmpData[8]);//소속그룹선택
-            checkGroupInterval = setInterval("checkGroupTimeOut('"+tmpData[6]+"', '"+tmpData[7]+"', '"+tmpData[8]+"')", 1000);
+            checkGroupInterval = setInterval("checkGroupTimeOut('"+tmpData[6]+"', '"+tmpData[7]+"', '"+tmpData[8]+"')", 500);
+
 		}else if(tmpData[4] == "2"){
 			alert("아이디가 존재하지 않습니다.");
 		}else if(tmpData[4] == "3"){
@@ -866,8 +868,7 @@ function ctiEvent(msg){
 		var fileName = tmpData[8];
 		var fileNameArray = fileName.split('-');
 		$('#reqno').val(fileNameArray[0]+fileNameArray[1]);
-		
-		var jsonPrm = {"reqno":fileNameArray[0]+fileNameArray[1], "recdate":tmpData[9], "recext":fileNameArray[1], "recfilename":fileName };
+		var jsonPrm = {"reqno":fileNameArray[0]+fileNameArray[1], "recdate":tmpData[9], "recext":fileNameArray[1], "recfilename":fileName, "caller" : tmpData[3], "trunk":tmpData[2], "calldate":tmpData[9], "calltime":tmpData[21] };
 		$.ajax({
        		url: "/voc/rec",
         	method: "POST",

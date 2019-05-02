@@ -77,20 +77,10 @@ public class CustServiceImple implements CustService{
         custDto.setEdituser(userNo);
         custDenyDto.setEdituser(userNo);
         CustDto enCustDto = new EnCustDto(custDto);
-        String deRelCustNo = enCustDto.getRelcustno();
-
-        if(deRelCustNo != null && !deRelCustNo.equals("0") && !deRelCustNo.equals("")){
-            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
-            enCustDto.setRelcustno(deRelCustNo);
-        }
-
         custDao.custInsert(enCustDto);
         String deCustNo = enCustDto.getCustno();
         custDenyDto.setCustno(deCustNo);
         custDao.custDenyInsert(custDenyDto);
-        if(enCustDto.getClino() != 0) {//clino가 존재하면 거래처-관련고객 테이블에 insert
-            custDao.mergeCliCust(enCustDto);
-        }
 
         String enCustNo = codecUtil.encodePkNo(deCustNo);
         return enCustNo;
@@ -110,12 +100,6 @@ public class CustServiceImple implements CustService{
         String deCustNo = codecUtil.decodePkNo(enCustNo);
         enCustDto.setCustno(deCustNo);
         custDenyDto.setCustno(deCustNo);
-
-        String deRelCustNo = enCustDto.getRelcustno();
-        if(deRelCustNo != null && deRelCustNo != "0" && !deRelCustNo.equals("")){
-            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
-            enCustDto.setRelcustno(deRelCustNo);
-        }
 
         custDao.custUpdate(enCustDto);//업데이트 dao호출
         //업데이트한 pk값 수신거부 dto에 설정
@@ -157,9 +141,8 @@ public class CustServiceImple implements CustService{
     }
 
     @Override
-    public List<Map<String, Object>> getCustMailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-
-        Map param = prmUtil.searchParam(request);
+    public List<Map<String, Object>> custEmailList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = prmUtil.searchParam(request);
         if( param.get("custno") != null ){
             String custno = (String)param.get("custno");
             custno = codecUtil.decodePkNo(custno);
@@ -167,6 +150,54 @@ public class CustServiceImple implements CustService{
         }
         List<Map<String, Object>> mailList = custDao.custMailList(param);
         return mailList;
+    }
+
+    @Override
+    public List<Map<String, Object>> custSmsList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = prmUtil.searchParam(request);
+        if( param.get("custno") != null ){
+            String custno = (String)param.get("custno");
+            custno = codecUtil.decodePkNo(custno);
+            param.put("custno",custno);
+        }
+        List<Map<String, Object>> smsList = custDao.custSmsList(param);
+        return smsList;
+    }
+
+    @Override
+    public List<Map<String, Object>> custMmsList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = prmUtil.searchParam(request);
+        if( param.get("custno") != null ){
+            String custno = (String)param.get("custno");
+            custno = codecUtil.decodePkNo(custno);
+            param.put("custno",custno);
+        }
+        List<Map<String, Object>> mmsList = custDao.custMmsList(param);
+        return mmsList;
+    }
+
+    @Override
+    public List<Map<String, Object>> custLmsList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = prmUtil.searchParam(request);
+        if( param.get("custno") != null ){
+            String custno = (String)param.get("custno");
+            custno = codecUtil.decodePkNo(custno);
+            param.put("custno",custno);
+        }
+        List<Map<String, Object>> lmsList = custDao.custLmsList(param);
+        return lmsList;
+    }
+
+    @Override
+    public List<Map<String, Object>> custKakaoList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = prmUtil.searchParam(request);
+        if( param.get("custno") != null ){
+            String custno = (String)param.get("custno");
+            custno = codecUtil.decodePkNo(custno);
+            param.put("custno",custno);
+        }
+        List<Map<String, Object>> kakaoList = custDao.custKakaoList(param);
+        return kakaoList;
     }
 
 }

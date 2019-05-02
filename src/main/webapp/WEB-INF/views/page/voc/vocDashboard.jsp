@@ -17,13 +17,8 @@
     <!-- orris -->
     <link href="${pageContext.request.contextPath}/resources/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
 </head>
-<style>
-    th{
-        background-color: #f5f6f7;
-    }
-</style>
 <body>
-
+<c:set var="menuactive" value='vocdashM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -33,195 +28,102 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-
-            <!--<div class="row">
+           <div class="row">
                 <div class="col-lg-12">
-                    <a href="#" class="btn btn-default"><i class="fa fa-envelope fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-mobile fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-comment fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-file-excel-o fa-lg"></i></a>
-                    <a href="#" class="btn btn-default"><i class="fa fa-file-pdf-o fa-lg"></i></a>
+                    <a href="#" onclick="vocWindow()" class="btn btn-default"><i class="fa fa-compress fa-lg"></i> CS 접속</a>
+                    <a href="${pageContext.request.contextPath}/voc/notice" class="btn btn-default"><i class="fa fa-bell fa-lg"></i>콜센터 공지</a>
+                    <a href="/service" class="btn btn-default"><i class="fa fa-edit fa-lg"></i>서비스 관리</a>
+                    <a href="/service/delivery" class="btn btn-default"><i class="fa fa-reply fa-lg"></i> 서비스 이관 정보</a>
                 </div>
             </div>
-            -->
+
 
             <br/>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                   <div class="row">
                       <div class="col-lg-12">
                           <div class="ibox">
                               <div class="ibox-title">
                                   <h5><i class="fa fa-certificate"></i> 인입 현황</h5>
-                                  <div class="ibox-tools">
-                                      <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                  </div>
+                                  <small class="pull-right">기준 : 일</small>
                               </div>
                               <div class="ibox-content">
                                   <div class="row">
                                       <div class="col-lg-12">
                                           <div class="row">
                                               <div class="col-lg-12">
-                                                  총 건수 : 12,222
-                                              </div>
-                                              <div class="col-lg-12">
-                                                  <div id="morris-donut-chart" ></div>
+                                                  <canvas id="callStatus" height="155"></canvas>
                                               </div>
                                           </div>
                                       </div>
                                   </div>
+                                  <br>
                                   <div class="row">
                                       <div class="col-lg-12">
-                                          <div class="table-responsive">
-                                              <table class="table table-bordered" style="white-space:nowrap;">
-                                                  <colgroup>
-                                                      <col width="5%">
-                                                      <col width="10%">
-                                                      <col width="5%">
-                                                      <col width="10%">
-                                                      <col width="5%">
-                                                      <col width="10%">
-                                                      <col width="5%">
-                                                      <col width="10%">
-                                                  </colgroup>
-                                                  <tbody>
-                                                    <tr>
-                                                        <th>일반 문의</th>
-                                                        <td>50</td>
-                                                        <th>칭찬</th>
-                                                        <td>5</td>
-                                                        <th>불만</th>
-                                                        <td>10</td>
-                                                        <th>AS문의</th>
-                                                        <td>35</td>
-                                                    </tr>
-                                                  </tbody>
-                                              </table>
+                                          <div class=" pull-left">
+                                              <h5>접수유형</h5>
+                                              <span> 일반 : <strong>90</strong></span>&nbsp;
+                                              <span> 칭찬 : <strong>20</strong></span>&nbsp;
+                                              <span> 품질 : <strong>5</strong></span>&nbsp;
+                                              <span> A/S : <strong>6</strong></span>&nbsp;
+                                              <span> 콜센터 : <strong>1</strong></span>&nbsp;
+                                              <span> 매장 : <strong>2</strong></span>&nbsp;
+                                              <span> 불만 : <strong>1</strong></span>&nbsp;
+                                              <span> 관리 : <strong>5</strong></span>&nbsp;
                                           </div>
                                       </div>
                                   </div>
+
                               </div>
                           </div>
                       </div>
-                      <div class="col-lg-12">
-                          <div class="ibox">
-                              <div class="ibox-content">
-                                  <div class="table-responsive">
-                                      <table class="" style="white-space:nowrap;">
-                                          <colgroup>
-                                              <col width="25%">
-                                              <col width="25%">
-                                              <col width="25%">
-                                              <col width="25%">
-                                              <col width="25%">
-                                          </colgroup>
-                                          <tbody>
-                                          <tr>
-                                              <td>
-                                                  <div class="text-center">
-                                                      <a href="">
-                                                          <img src="${pageContext.request.contextPath}/resources/img/crud/angry.png" alt="" height="100px;">
-                                                      </a>
-                                                  </div>
-                                                  <div class="text-center"><strong>불만</strong></div>
-                                              </td>
-                                              <td>
-                                                  <div class="text-center">
-                                                      <a href="">
-                                                      <img src="${pageContext.request.contextPath}/resources/img/crud/question.png" height="100px;">
-                                                      </a>
-                                                  </div>
-                                                  <div class="text-center"><strong>문의</strong></div>
-                                              </td>
-                                              <td>
-                                                  <div class="text-center">
-                                                      <a href="">
-                                                      <img src="${pageContext.request.contextPath}/resources/img/crud/good.png" height="100px;">
-                                                      </a>
-                                                  </div>
-                                                  <div class="text-center"><strong>칭찬</strong></div>
-                                              </td>
-                                              <td>
-                                                  <div class="text-center">
-                                                      <a href="">
-                                                      <img src="${pageContext.request.contextPath}/resources/img/crud/Document.png" height="100px;">
-                                                      </a>
-                                                  </div>
-                                                  <div class="text-center"><strong>VOC 정독</strong></div>
-                                              </td>
-                                              <td>
-                                                  <div class="text-center">
-                                                      <a href="#" onclick="vocWindow()">
-                                                      <img src="${pageContext.request.contextPath}/resources/img/crud/callcenter.png" height="100px;">
-                                                      </a>
-                                                  </div>
-                                                  <div class="text-center"><strong>VOC 접속</strong></div>
-                                              </td>
-                                          </tr>
-                                          </tbody>
-                                      </table>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-7">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="ibox">
+                            <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5><i class="fa fa-certificate"></i> 불만유형 집계</h5>
-                                    <div class="ibox-tools">
-                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </div>
+                                    <h5>상담제품</h5>
+                                    <small class="pull-right">기준 : 일</small>
                                 </div>
                                 <div class="ibox-content">
-                                    <div class="table-responsive">
-                                        <table style="white-space:nowrap;">
-                                            <colgroup>
-                                                <col width="10%">
-                                                <col width="40%">
-                                                <col width="10%">
-                                                <col width="40%">
-                                            </colgroup>
-                                            <tbody>
-                                            <tr>
-                                                <th>기간</th>
-                                                <td>2018/12/10 - 2019/3/20</td>
-                                                <th>출처</th>
-                                                <td>해피콜, 인바운드, 아웃바운드</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <canvas id="inproduct" height="40"></canvas>
+                                        </div>
                                     </div>
-                                    <div id="morris-bar-chart" style="height:150px;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class=" pull-right">
+                                                <span>기간 : 2019.05.02</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="ibox">
+                            <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5><i class="fa fa-certificate"></i> 고객접점현황 / 필수 VOC</h5>
-                                    <div class="ibox-tools">
-                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </div>
+                                    <h5>상담처리현황</h5>
+                                    <small class="pull-right">기준 : 일</small>
                                 </div>
                                 <div class="ibox-content">
-                                    <div id="morris-bar-chart2" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="ibox">
-                                <div class="ibox-title">
-                                    <h5><i class="fa fa-certificate"></i> 필수 VOC 전달사항 정독률</h5>
-                                    <div class="ibox-tools">
-                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <canvas id="processStatus" height="40"></canvas>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div id="morris-bar-chart3" style="height:150px;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class=" pull-right">
+                                                <span>기간 : 2019.05.02</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -229,6 +131,42 @@
                 </div>
             </div>
 
+
+
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5><i class="fa fa-certificate"></i> 시간대별 콜 인입현황</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <canvas id="inOutCountChart" height="50"></canvas>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class=" pull-left">
+                                        <h5>접수유형</h5>
+                                        <span> 09-10 시 : <strong>90</strong></span>&nbsp;
+                                        <span> 11-12 시 : <strong>20</strong></span>&nbsp;
+                                        <span> 12-13 시 : <strong>5</strong></span>&nbsp;
+                                        <span> 13-14 시 : <strong>6</strong></span>&nbsp;
+                                        <span> 15-16 시 : <strong>1</strong></span>&nbsp;
+                                        <span> 17-18 시 : <strong>2</strong></span>&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="footer">
@@ -240,76 +178,18 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc_dashboard.js"></script>
 <script>
     function vocWindow(){
         window.open("/voc", "", "fullscreen");
     }
 </script>
 <script>
-    Morris.Donut({
-        element: 'morris-donut-chart',
-        data: [{ label: "AS문의", value: 35 },
-            { label: "불만", value: 10 },
-            { label: "칭찬", value: 5 },
-            { label: "일반문의", value: 50 }],
-
-        resize: true,
-        colors: ['#87d6c6', '#54cdb4','#1ab394','#1ab394'],
-    });
-
-    Morris.Bar({
-        element: 'morris-bar-chart',
-        data: [{ y: '2006', a: 60, b: 50 },
-            { y: '2007', a: 75, b: 65 },
-            { y: '2008', a: 50, b: 40 },
-            { y: '2009', a: 75, b: 65 },
-            { y: '2010', a: 50, b: 40 },
-            { y: '2011', a: 75, b: 65 },
-            { y: '2012', a: 100, b: 90 } ],
-        xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['Series A', 'Series B'],
-        hideHover: 'auto',
-        resize: true,
-        barColors: ['#1ab394', '#cacaca'],
-    });
-
-    Morris.Bar({
-        element: 'morris-bar-chart2',
-        data: [{ y: '2006', a: 60, b: 50 },
-            { y: '2007', a: 75, b: 65 },
-            { y: '2008', a: 50, b: 40 },
-            { y: '2009', a: 75, b: 65 },
-            { y: '2010', a: 50, b: 40 },
-            { y: '2011', a: 75, b: 65 },
-            { y: '2012', a: 100, b: 90 } ],
-        xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['Series A', 'Series B'],
-        hideHover: 'auto',
-        resize: true,
-        barColors: ['#1ab394', '#cacaca'],
-    });
-
-    Morris.Bar({
-        element: 'morris-bar-chart3',
-        data: [{ y: '2006', a: 60, b: 50 },
-            { y: '2007', a: 75, b: 65 },
-            { y: '2008', a: 50, b: 40 },
-            { y: '2009', a: 75, b: 65 },
-            { y: '2010', a: 50, b: 40 },
-            { y: '2011', a: 75, b: 65 },
-            { y: '2012', a: 100, b: 90 } ],
-        xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['Series A', 'Series B'],
-        hideHover: 'auto',
-        resize: true,
-        barColors: ['#1ab394', '#cacaca'],
-    });
 
 </script>
 

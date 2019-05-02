@@ -20,6 +20,9 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
 </head>
 <style>
+    .footable > tbody > tr > td{
+        cursor:pointer;
+    }
 </style>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -30,7 +33,7 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="footable table table-striped" data-sorting="true">
+                    <table class="footable table table-striped custPopList" data-sorting="true">
                         <thead>
                         <tr data-formatter="test">
                             <th data-visible="false" data-name="CUSTNO">고객번호</th>
@@ -64,7 +67,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
     $(document).ready(function() {
-        footableSearchList('/popcust');
+        footableSearchList('/popcust', $('.custPopList'));
     });
 
 </script>

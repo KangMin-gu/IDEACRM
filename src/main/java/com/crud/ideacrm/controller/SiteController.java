@@ -60,6 +60,33 @@ public class SiteController {
         return mView;
     }
 
+    //나의 회사정보
+    @RequestMapping(value="/mysite/{siteId}", method= RequestMethod.GET)
+    public ModelAndView authMyinfoSiteDetail(HttpServletRequest request, @PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = siteService.siteDetail(request,siteId);
+        mView.setViewName("page/membership/member/siteDetail");
+        return mView;
+    }
+
+    //나의 회사 수정 화면
+    @RequestMapping(value="/mysite/modified/{siteId}",method=RequestMethod.GET)
+    public ModelAndView authMysiteSiteUpdate(HttpServletRequest request,@PathVariable String siteId) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = siteService.siteDetail(request,siteId);
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
+        mView.setViewName("/page/membership/member/siteUpdate");
+        return mView;
+    }
+
+    //나의 회사 수정
+    @RequestMapping(value="/mysite/modified/{siteId}",method=RequestMethod.POST)
+    public ModelAndView authMysiteSiteUpdateSet(HttpServletResponse response, HttpServletRequest request, @PathVariable String siteId, @ModelAttribute SiteDto siteDto, @ModelAttribute SiteCtiDto siteCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        siteService.siteUpdate(response, request,siteId,siteDto,siteCtiDto);
+        mView.setViewName("redirect:/mysite/"+siteId);
+        return mView;
+    }
+
     // master 회원사 추가 화면
     @RequestMapping(value = "/common/site/input", method = RequestMethod.GET)
     public ModelAndView authServiceInsert(HttpServletRequest request){

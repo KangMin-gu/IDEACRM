@@ -40,7 +40,7 @@ public class UserController {
 
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
-        mView.setViewName("page/membership/member/memberList");
+        mView.setViewName("page/membership/manager/memeber/memberList");
         return mView;
     }
 
@@ -48,7 +48,6 @@ public class UserController {
     @ResponseBody
     public List<Map<String,Object>> authCompanyUserList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         List<Map<String,Object>> companyUserList = userService.userList(request);
-
         return companyUserList;
     }
 
@@ -58,7 +57,7 @@ public class UserController {
         ModelAndView mView = new ModelAndView();
             mView.addAllObjects( codeService.getCommonCode(USINGMENU));
             mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
-            mView.setViewName("page/membership/member/memberInsert");
+            mView.setViewName("page/membership/manager/memeber/memberInsert");
         return mView;
     }
 
@@ -72,6 +71,39 @@ public class UserController {
         return mView;
     }
 
+    //내정보
+    @RequestMapping(value = "/myinfo/{userNo}", method = RequestMethod.GET)
+    public ModelAndView authMyinfo(HttpServletRequest request, @PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("userInfo",userService.userDetail(request,userNo));
+        mView.addObject("ctiUserInfo",userService.userCtiDetail(request,userNo));
+        mView.addObject("siteLicense",licenseService.useSiteLicenseList(request));
+        mView.addObject("userLicense",licenseService.userLicenseList(request,userNo));
+        mView.setViewName("page/membership/member/memberDetail");
+        return mView;
+    }
+
+    // 내정보 수정화면
+    @RequestMapping(value="/myinfo/modified/{userNo}",method=RequestMethod.GET)
+    public ModelAndView authMyinfoUpdate(HttpServletRequest request,@PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("userInfo",userService.userDetail(request,userNo));
+        mView.addObject("ctiUserInfo",userService.userCtiDetail(request,userNo));
+        mView.addAllObjects( codeService.getCommonCode(USINGMENU));
+        mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
+        mView.setViewName("page/membership/member/memberUpdate");
+        return mView;
+    }
+
+    // 내정보 수정
+    @RequestMapping(value="/myinfo/modified/{userNo}",method=RequestMethod.POST)
+    public ModelAndView authMyinfoUpdateSet(HttpServletRequest request, @PathVariable String userNo, @ModelAttribute UserDto userDto, @ModelAttribute UserCtiDto userCtiDto) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        userService.userUpdate(request,userNo,userDto,userCtiDto);
+        mView.setViewName("redirect:/myinfo/"+userNo);
+        return mView;
+    }
+
     //회원상세정보
     @RequestMapping(value = "/company/user/{userNo}", method = RequestMethod.GET)
     public ModelAndView authUserDetail(HttpServletRequest request, @PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -80,9 +112,10 @@ public class UserController {
             mView.addObject("ctiUserInfo",userService.userCtiDetail(request,userNo));
             mView.addObject("siteLicense",licenseService.useSiteLicenseList(request));
             mView.addObject("userLicense",licenseService.userLicenseList(request,userNo));
-            mView.setViewName("page/membership/member/memberDetail");
+            mView.setViewName("page/membership/manager/memeber/memberDetail");
         return mView;
     }
+
     // 회원 수정화면
     @RequestMapping(value="/company/user/modified/{userNo}",method=RequestMethod.GET)
     public ModelAndView authUserUpdate(HttpServletRequest request,@PathVariable String userNo) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -91,9 +124,10 @@ public class UserController {
             mView.addObject("ctiUserInfo",userService.userCtiDetail(request,userNo));
             mView.addAllObjects( codeService.getCommonCode(USINGMENU));
             mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
-            mView.setViewName("page/membership/member/memberUpdate");
+            mView.setViewName("page/membership/manager/memeber/memberUpdate");
         return mView;
     }
+
 
     // 회원 수정
     @RequestMapping(value="/company/user/modified/{userNo}",method=RequestMethod.POST)

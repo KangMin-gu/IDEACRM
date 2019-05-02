@@ -16,7 +16,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 </head>
 <body>
-
+<c:set var="menuactive" value='formatM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -130,7 +130,7 @@
                                     <tr>
                                         <th>서식</th>
                                         <td colspan="5">
-                                            <textarea class="tinymce name" name="formatdesc" id="formatdesc">${formatInfo.FORMATDESC}</textarea>
+                                            <textarea class="tinymce" name="formatdesc" id="formatdesc">${formatInfo.FORMATDESC}</textarea>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -152,6 +152,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 

@@ -108,4 +108,11 @@ public class FormatController {
         return "redirect:/company/format";
     }
 
+    @RequestMapping(value="/formatdesc",method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> authFormatdesc(HttpServletRequest request, @RequestParam int formatnum){
+        Map<String, Object> formatdesc = formatService.formatDesc(formatnum);
+        return formatdesc;
+    }
+
 }

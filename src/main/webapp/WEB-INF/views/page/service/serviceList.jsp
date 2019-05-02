@@ -21,7 +21,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='serviceM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -204,8 +204,13 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>서비스 목록</h5>
+                            <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
+                                <a class="btn btn-default" href="/serviceexcel"><i class="fa fa-file-excel-o"></i></a>
+                                <a class="btn btn-default" href="/service/input">추가</a>
+                            </div>
                         </div>
                         <div class="ibox-content">
+<<<<<<< HEAD
                             <div>
                                 <div style="display: inline-block;">
                                     <select class="form-control" id="paging" style="width:80px;margin-left: 10px;">
@@ -229,6 +234,9 @@
                                 </div>
                             </div>
                             <table class="footable table table-striped service_list">
+=======
+                            <table class="footable table table-striped serviceList">
+>>>>>>> ecc81cbc269109c25da1434911e9641da0ea2021
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-name="NO">서비스번호</th>
@@ -244,13 +252,6 @@
                                 </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    <td>
-                                        <div class="footable-pagination-wrapper">
-                                            <ul class="pagination"></ul>
-                                        </div>
-                                    </td>
-                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -269,6 +270,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->
@@ -282,17 +284,15 @@
 <script>
     $(document).ready(function() {
         var url = window.location.pathname;
-        if(url != '/service'){
-            url = '/service?servicestep1=5,6';
-        }
-
         $('#search').click(function(e){
             var bool = dateRangeError();
             if(bool){
+
                 footableSearchList(url, $('.service_list'));
             }
         });
         footableSearchList(url , $('.service_list'));
+
     });
 </script>
 </body>

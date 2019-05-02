@@ -19,7 +19,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
 <body>
-
+<c:set var="menuactive" value='formatM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -50,7 +50,7 @@
             <form:form action="/company/format/input" method="POST">
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="/company/format" class="btn btn-default pull-left">목록</a>
+                    <a href="/company/format" class="btn btn-default pull-left">취소</a>
 <!--                        <button type="submit" class="btn btn-default pull-right" style="margin-left: 5px">삭제</button>-->
                     <button type="submit" class="btn btn-default pull-right">저장</button>
                 </div>
@@ -79,12 +79,12 @@
                                     </colgroup>
                                     <tbody>
                                     <tr>
-                                        <th>서식명</th>
-                                        <td>
-                                            <input type="text" class="form-control name" name="formatname" id="formatname">
+                                        <th style="padding-bottom:0px;">서식명</th>
+                                        <td style="padding-bottom:0px;">
+                                            <input type="text" class="form-control form-control-sm name" name="formatname" id="formatname">
                                         </td>
-                                        <th>사용메뉴</th>
-                                        <td>
+                                        <th style="padding-bottom:0px;">사용메뉴</th>
+                                        <td style="padding-bottom:0px;">
                                             <select class="form-control m-b" name="usemenu" id="usemenu" style="width: 100px;">
                                                 <option value="0">선택</option>
                                                 <c:forEach var="license" items="${license}">
@@ -92,9 +92,9 @@
                                                 </c:forEach>
                                             </select>
                                         </td>
-                                        <th>발송매체</th>
-                                        <td>
-                                            <select class="form-control m-b" name="sendtype" id="sendtype" style="width: 100px;">
+                                        <th style="padding-bottom:0px;">발송매체</th>
+                                        <td style="padding-bottom:0px;">
+                                            <select class="form-control form-control-sm m-b" name="sendtype" id="sendtype" style="width: 100px;">
                                                 <option value="0">선택</option>
                                                 <c:forEach var="formType" items="${FORMTYPE}">
                                                     <option value="${formType.codeval}">${formType.codename}</option>
@@ -103,21 +103,21 @@
                                         </td>
                                     </tr>
                                     <c:if test="${sessionScope.MASTERYN eq 1}">
-                                    <tr class="kko">
+                                    <tr class="kko" >
                                         <th>카카오 서비스번호</th>
                                         <td>
-                                            <input type="text" class="form-control kko" name="kkoserviceno" id="kkoserviceno">
+                                            <input type="text" class="form-control form-control-sm kko" name="kkoserviceno" id="kkoserviceno">
                                         </td>
                                         <th>카카오 템플릿번호</th>
                                         <td>
-                                            <input type="text" class="form-control kko" name="kkotempleteno" id="kkotempleteno">
+                                            <input type="text" class="form-control form-control-sm kko" name="kkotempleteno" id="kkotempleteno">
                                         </td>
                                     </tr>
                                     </c:if>
                                     <tr>
                                         <th>서식</th>
                                         <td colspan="5">
-                                            <textarea class="tinymce name" name="formatdesc" id="formatdesc"></textarea>
+                                            <textarea class="tinymce" name="formatdesc" id="formatdesc"></textarea>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -139,6 +139,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 

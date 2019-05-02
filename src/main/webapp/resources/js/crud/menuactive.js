@@ -13,5 +13,6 @@ $('.navbar-minimalize').click(function(){
     }else if(localStorage.sideState == 1){
         delete localStorage.sideState
     }
-
 });
+
+

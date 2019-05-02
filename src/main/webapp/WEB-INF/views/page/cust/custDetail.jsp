@@ -22,7 +22,7 @@
 
 </style>
 <body>
-
+<c:set var="menuactive" value='cust'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -54,7 +54,7 @@
                 <div class="col-lg-12">
                     <a href="/cust" class="btn btn-default pull-left">목록</a>
                     <a href="#" class="btn btn-default insideNoticeBtn" style="margin-left:20px;"><i class="fa fa-envelope fa-lg"></i></a>
-                    <button type="submit" class="btn btn-default pull-right">삭제</button>
+                    <button type="submit" style="margin-left:5px;" class="btn btn-default pull-right">삭제</button>
                     <a class="btn btn-default pull-right" href="/cust/modified/${custDetail.CUSTNO}">수정</a>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                         <div class="ibox-content">
                             <div class="table-responsive">
 
-                                    <input type="hidden" class="searchparam" name="custno" value="${custDetail.CUSTNO}"/>
+                                <input type="hidden" class="searchparam" name="custno" value="${custDetail.CUSTNO}"/>
 
                                 <table class="table table-bordered" style="white-space:nowrap;">
                                     <colgroup>
@@ -316,18 +316,247 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="tabs-container">
+                                        <!--
                                         <ul class="nav nav-tabs detail" role="tablist">
                                             <li><a class="nav-link active" data-toggle="tab" href="#tab-1">서비스</a></li>
                                             <c:if test="${sessionScope.CHKAUTH eq '30' }">
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-2">영업</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-3">접촉</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-4">캠페인</a></li>
+                                                <li><a class="nav-link" data-toggle="tab" href="#tab-2">영업</a></li>
+                                                <li><a class="nav-link" data-toggle="tab" href="#tab-3">접촉</a></li>
+                                                <li><a class="nav-link" data-toggle="tab" href="#tab-4">캠페인</a></li>
                                             </c:if>
                                             <li><a class="nav-link" data-toggle="tab" href="#tab-5">메일</a></li>
                                             <li><a class="nav-link" data-toggle="tab" href="#tab-6">문자</a></li>
                                             <li><a class="nav-link" data-toggle="tab" href="#tab-7">카카오</a></li>
                                         </ul>
+                                        -->
+                                        <ul class="nav nav-tabs vocTabDetail" role="tablist">
+                                            <li><a class="nav-link active" data-toggle="tab" href="#vocSvTab" name="vocSvTabBtn">서비스</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#vocBlackTab">강성이력</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#vocCallbackHistTab">콜백이력</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#vocSmsTab">SMS</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#vocLmsTab">LMS</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#vocMmsTab">MMS</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#vocKakaoTab">KAKAO</a></li>
+                                            <li><a class="nav-link" data-toggle="tab" href="#vocCustEmailTab">EMAIL</a></li>
+                                        </ul>
                                         <div class="tab-content">
+                                            <div role="tabpanel" id="vocSvTab" class="tab-pane active" url="/voc/tab/sv">
+                                                <div class="panel-body">
+                                                    <table class="vocfootable table table-striped" data-paging="true" data-sorting="true">
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-visible="false" data-name="NO">서비스번호</th>
+                                                            <th data-name="SERVICENAME_" data-formatter="vocSvTabFormatter">서비스명</th>
+                                                            <th data-name="SERVICETYPE_">접수유형</th>
+                                                            <th data-name="CUSTNAME_">고객명</th>
+                                                            <th data-name="RECEPTIONDATE_" data-sorted="true" data-direction="DESC">접수일</th>
+                                                            <th data-name="SERVICEOWNER_">접수자</th>
+                                                            <th data-name="OWNER_">담당자</th>
+                                                            <th data-name="SERVICESTEP_">처리상태</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="7" style="text-align:center">
+                                                                <ul class="pagination float-center"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" id="vocBlackTab" class="tab-pane" url="/voc/tab/black">
+                                                <div class="panel-body">
+                                                    <table class="vocfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-visible="false" data-name="BCUSTNO">블랙번호</th>
+                                                            <th data-visible="false" data-name="MEMO">블랙번호</th>
+                                                            <th data-name="REGDATE_" data-sorted="true" data-direction="DESC">접수일시</th>
+                                                            <th data-name="BLACKTYPE_">유형</th>
+                                                            <th data-name="MEMO_" data-formatter="vocBlackFormatter">접수사유</th>
+                                                            <th data-name="USERNAME">접수자</th>
+                                                            <th data-name="ISDELETE_">현재상태</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="5" style="text-align:center">
+                                                                <ul class="pagination float-center"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" id="vocCallbackHistTab" class="tab-pane" url="/voc/tab/callbackhist">
+                                                <div class="panel-body">
+                                                    <table class="vocfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-visible="false" data-name="CALLBACKHISTNO"></th>
+                                                            <th data-visible="false" data-name="RECDATE_"></th>
+                                                            <th data-visible="false" data-name="RECEXT"></th>
+                                                            <th data-visible="false" data-name="RECFILENAME"></th>
+                                                            <th data-visible="false" data-name="REQNO"></th>
+                                                            <th data-name="REGDATE_" data-sorted="true" data-direction="DESC">통화일시</th>
+                                                            <th data-name="CALLBACK">콜백번호</th>
+                                                            <th data-name="CALLER">발신자번호</th>
+                                                            <th data-name="USERNAME">상담원</th>
+                                                            <!--<th data-name="MEMO_">메모</th>-->
+                                                            <th data-name="CALLSTATUS_">상태</th>
+                                                            <th data-formatter="callbackHistFormatter">녹취</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="7" style="text-align:center">
+                                                                <ul class="pagination float-center"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" id="vocSmsTab" class="tab-pane" url="/cust/tab/sms">
+                                                <div class="panel-body">
+
+                                                    <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-visible="false" data-name="TR_NUM"></th>
+                                                            <th data-visible="false" data-name="TR_MSG"></th>
+                                                            <th data-name="TR_MSG_" data-formatter="vocSmsFormatter">내용</th>
+                                                            <th data-name="TR_PHONE">수신번호</th>
+                                                            <th data-name="TR_SENDDATE_">발송시간</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="3" style="text-align:center">
+                                                                <ul class="pagination float-center"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div role="tabpanel" id="vocLmsTab" class="tab-pane" url="/cust/tab/lms">
+                                                <div class="panel-body">
+                                                    <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-visible="false" data-name="MSGKEY"></th>
+                                                            <th data-visible="false" data-name="SUBJECT"></th>
+                                                            <th data-visible="false" data-name="MSG"></th>
+                                                            <th data-name="SUBJECT" data-formatter="vocLmsFormatter">제목</th>
+                                                            <th data-name="PHONE">수신번호</th>
+                                                            <th data-name="REQDATE_">발송시간</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="4" style="text-align:center">
+                                                                <ul class="pagination float-center"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div role="tabpanel" id="vocMmsTab" class="tab-pane" url="/cust/tab/mms">
+                                                <div class="panel-body">
+                                                    <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-visible="false" data-name="MSGKEY"></th>
+                                                            <th data-visible="false" data-name="SUBJECT"></th>
+                                                            <th data-visible="false" data-name="MSG"></th>
+                                                            <th data-name="SUBJECT" data-formatter="vocMmsFormatter">제목</th>
+                                                            <th data-name="PHONE">수신번호</th>
+                                                            <th data-name="REQDATE_">발송시간</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="4" style="text-align:center">
+                                                                <ul class="pagination float-center"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div role="tabpanel" id="vocKakaoTab" class="tab-pane" url="/cust/tab/kakao">
+                                                <div class="panel-body">
+                                                    <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-visible="false" data-name="MESSAGE_SEQNO"></th>
+                                                            <th data-visible="false" data-name="SERVICE_SEQNO"></th>
+                                                            <th data-visible="false" data-name="SEND_MESSAGE"></th>
+                                                            <th data-name="SUBJECT" data-formatter="vocKakaoFormatter">제목</th>
+                                                            <th data-name="RECEIVE_MOBILE_NO">수신번호</th>
+                                                            <th data-name="SEND_DATE_">발송시간</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="4" style="text-align:center">
+                                                                <ul class="pagination float-center"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div role="tabpanel" id="vocCustEmailTab" class="tab-pane active" url="/cust/tab/email">
+                                                <div class="panel-body">
+                                                    <table class="vocfootable table table-striped" data-paging="true" data-sorting="true">
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-visible="false" data-name="NO">메일번호</th>
+                                                            <th data-visible="false" data-name="CONTENT">내용</th>
+                                                            <th data-name="SUBJECT" data-formatter="vocEmailTabformatter">제목</th>
+                                                            <th data-name="RLTDATE_" data-sorted="true" data-direction="DESC">발송일</th>
+                                                            <th data-name="USERNAME">발송자</th>
+                                                            <th data-name="CLICKYN_">확인여부</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="7" style="text-align:center">
+                                                                <ul class="pagination float-center"></ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+
+
+                                            <!--
                                             <div role="tabpanel" id="tab-1" class="tab-pane active" url="/service" >
                                                 <div class="panel-body">
                                                     <table class="tabfootable table table-striped"  data-sorting="true">
@@ -358,117 +587,117 @@
                                             </div>
 
                                             <c:if test="${sessionScope.CHKAUTH eq '30' }">
-                                            <div role="tabpanel" id="tab-2" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <table class="footable2 table table-striped" data-page-size="8" data-filter=#filter>
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Rendering engine</th>
-                                                            <th>Browser</th>
-                                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                                            <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX">
-                                                            <td>Trident</td>
-                                                            <td>Internet
-                                                                Explorer 4.0
-                                                            </td>
-                                                            <td>Win 95+</td>
-                                                            <td class="center">4</td>
-                                                            <td class="center">X</td>
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr>
-                                                            <td colspan="5">
-                                                                <ul class="pagination float-right"></ul>
-                                                            </td>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
+                                                <div role="tabpanel" id="tab-2" class="tab-pane">
+                                                    <div class="panel-body">
+                                                        <table class="footable2 table table-striped" data-page-size="8" data-filter=#filter>
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Rendering engine</th>
+                                                                <th>Browser</th>
+                                                                <th data-hide="phone,tablet">Platform(s)</th>
+                                                                <th data-hide="phone,tablet">Engine version</th>
+                                                                <th data-hide="phone,tablet">CSS grade</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="gradeX">
+                                                                <td>Trident</td>
+                                                                <td>Internet
+                                                                    Explorer 4.0
+                                                                </td>
+                                                                <td>Win 95+</td>
+                                                                <td class="center">4</td>
+                                                                <td class="center">X</td>
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <td colspan="5">
+                                                                    <ul class="pagination float-right"></ul>
+                                                                </td>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div role="tabpanel" id="tab-3" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <table class="footable3 table table-striped" data-page-size="8" data-filter=#filter>
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Rendering engine</th>
-                                                            <th>Browser</th>
-                                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                                            <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX">
-                                                            <td>Trident</td>
-                                                            <td>Internet
-                                                                Explorer 4.0
-                                                            </td>
-                                                            <td>Win 95+</td>
-                                                            <td class="center">4</td>
-                                                            <td class="center">X</td>
-                                                        </tr>
-                                                        <tr class="gradeC">
-                                                            <td>Trident</td>
-                                                            <td>Internet
-                                                                Explorer 5.0
-                                                            </td>
-                                                            <td>Win 95+</td>
-                                                            <td class="center">5</td>
-                                                            <td class="center">C</td>
-                                                        </tr>
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr>
-                                                            <td colspan="5">
-                                                                <ul class="pagination float-right"></ul>
-                                                            </td>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
+                                                <div role="tabpanel" id="tab-3" class="tab-pane">
+                                                    <div class="panel-body">
+                                                        <table class="footable3 table table-striped" data-page-size="8" data-filter=#filter>
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Rendering engine</th>
+                                                                <th>Browser</th>
+                                                                <th data-hide="phone,tablet">Platform(s)</th>
+                                                                <th data-hide="phone,tablet">Engine version</th>
+                                                                <th data-hide="phone,tablet">CSS grade</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="gradeX">
+                                                                <td>Trident</td>
+                                                                <td>Internet
+                                                                    Explorer 4.0
+                                                                </td>
+                                                                <td>Win 95+</td>
+                                                                <td class="center">4</td>
+                                                                <td class="center">X</td>
+                                                            </tr>
+                                                            <tr class="gradeC">
+                                                                <td>Trident</td>
+                                                                <td>Internet
+                                                                    Explorer 5.0
+                                                                </td>
+                                                                <td>Win 95+</td>
+                                                                <td class="center">5</td>
+                                                                <td class="center">C</td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <td colspan="5">
+                                                                    <ul class="pagination float-right"></ul>
+                                                                </td>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div role="tabpanel" id="tab-4" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
-                                                    <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Rendering engine</th>
-                                                            <th>Browser</th>
-                                                            <th data-hide="phone,tablet">Platform(s)</th>
-                                                            <th data-hide="phone,tablet">Engine version</th>
-                                                            <th data-hide="phone,tablet">CSS grade</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX">
-                                                            <td>Trident</td>
-                                                            <td>Internet
-                                                                Explorer 4.0
-                                                            </td>
-                                                            <td>Win 95+</td>
-                                                            <td class="center">4</td>
-                                                            <td class="center">X</td>
-                                                        </tr>
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr>
-                                                            <td colspan="5">
-                                                                <ul class="pagination float-right"></ul>
-                                                            </td>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
+                                                <div role="tabpanel" id="tab-4" class="tab-pane">
+                                                    <div class="panel-body">
+                                                        <button type="button" class="btn btn-sm"><i class="fa fa-file-excel-o"></i></button>
+                                                        <table class="footable4 table table-striped" data-page-size="8" data-filter=#filter>
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Rendering engine</th>
+                                                                <th>Browser</th>
+                                                                <th data-hide="phone,tablet">Platform(s)</th>
+                                                                <th data-hide="phone,tablet">Engine version</th>
+                                                                <th data-hide="phone,tablet">CSS grade</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="gradeX">
+                                                                <td>Trident</td>
+                                                                <td>Internet
+                                                                    Explorer 4.0
+                                                                </td>
+                                                                <td>Win 95+</td>
+                                                                <td class="center">4</td>
+                                                                <td class="center">X</td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <td colspan="5">
+                                                                    <ul class="pagination float-right"></ul>
+                                                                </td>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </c:if>
 
-                                            <div role="tabpanel" id="tab-5" class="tab-pane" url="/cust/tab/mail">
+                                            <div role="tabpanel" id="tab-5" class="tab-pane" url="/cust/tab/email">
                                                 <div class="panel-body">
                                                     <table class="tabfootable table table-striped">
                                                         <thead>
@@ -561,7 +790,7 @@
                                                     </table>
                                                 </div>
                                             </div>
-
+                                            -->
                                         </div>
                                     </div>
                                 </div>
@@ -605,12 +834,16 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/cust.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/cust_tab.js"></script>
 <script>
     $(document).ready(function() {
         drawMap('map','homaddr','custname');
         $('#custDetailWrkContentBtn').click(function(){
             iboxDrawMap('map2','wrkaddr','cliname','custDetailWrkContentDiv');
         });
+        setTimeout(function(){
+            $('.vocTabDetail > li:first >a').click();
+        },1000);
     });
 
     iCheckClick(true);

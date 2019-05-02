@@ -37,34 +37,34 @@
                         <col width="30%">
                     </colgroup>
                     <tr>
+                        <input type="hidden" id="service_seqno" value="0">
+                        <input type="hidden" id="template_code" value="">
+                        <input type="hidden" name="custno" id="custno"/>
+                        <input type="hidden" name="mobile" id="mobile"/>
                         <th>고객명</th>
-                        <td>강민구</td>
+                        <td id="custname"></td>
                         <th>고객번호</th>
-                        <td>01071203655</td>
+                        <td id="custmobile"></td>
                     </tr>
                     <tr>
-                        <th>템플릿</th>
+                        <th>서식</th>
                         <td colspan="3">
-                            <select class="form-control form-control-sm" name="" id="" style="height: 30px;">
-                                <option value="">02</option>
-                                <option value="">031</option>
-                                <option value="">017</option>
-                                <option value="">018</option>
+                            <select class="form-control form-control-sm" id="kakaoFormat" style="height: 30px;">
+                                <option value="">선택</option>
+                                <c:forEach var="list" items="${formList}">
+                                    <option value="${list.FORMATNO}">${list.FORMATNAME}</option>
+                                </c:forEach>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <textarea name="need" id="" class="form-control" style="resize: none;" rows="10"></textarea>
+                            <textarea name="send_message" id="send_message" class="form-control" style="resize: none;" rows="10" readonly></textarea>
                         </td>
                     </tr>
-                    <tr>
-                        <th>글자수</th>
-                        <td colspan="3">10/90</td>
-                    </tr>
                 </table>
-                <button type="button" class="btn btn-default pull-left">취소</button>
-                <button type="button" class="btn btn-default pull-right" >발송</button>
+                <button type="button" class="btn btn-default pull-left popCloseBtn">취소</button>
+                <button type="button" class="btn btn-default pull-right" id="kakaoSendBtn">발송</button>
             </div>
         </div>
     </div>
@@ -72,12 +72,22 @@
 </div>
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/footable/footable.all.min.js"></script>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script>
+    $(document).ready(function(){
+        var custName = opener.$('#custname').val();
+        var mobile = opener.$('#mobile1').val()+''+opener.$('#mobile2').val()+''+opener.$('#mobile3').val();
+        var custNo = opener.$('#custno').val();
+
+        $('#custname').text(custName);
+        $('#custmobile').text(mobile);
+        $('#custno').val(custNo);
+        $('#mobile').val(mobile);
+    });
+
 </script>
 </body>
 </html>

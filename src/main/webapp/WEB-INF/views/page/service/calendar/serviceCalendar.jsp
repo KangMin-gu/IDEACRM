@@ -11,18 +11,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
-    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <%@ include file="/WEB-INF/views/includ/link.jsp"%>
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'>
-    <link href="${pageContext.request.contextPath}/resources/css/animate.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/fullcalendar.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/fullcalendar.print.css" rel='stylesheet' media='print'>
 </head>
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='serviceCallendar'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -50,11 +47,6 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>서비스 일정</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                            </div>
                         </div>
                         <div class="ibox-content">
                             <input type="hidden" id="schList" name="schList" value='${schList }'/>
@@ -72,23 +64,14 @@
 
     </div>
 </div>
-
+<%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- Mainly scripts -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/fullcalendar/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<!-- Custom and plugin javascript -->
-<script src="${pageContext.request.contextPath}/resources/js/inspinia.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/plugins/pace/pace.min.js"></script>
-<!-- jQuery UI  -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <!-- Full Calendar -->
-<script src="${pageContext.request.contextPath}/resources/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/fullcalendar.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/service_calendar.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>

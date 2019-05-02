@@ -19,7 +19,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='managerMemberM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -33,8 +33,14 @@
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/company/user">사용자 목록</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/company/user/${userInfo.USERNO}">사용자 정보</a>
+                    </li>
                     <li class="breadcrumb-item active">
-                        <strong>사용자 등록</strong>
+                        <strong>사용자 정보 수정</strong>
                     </li>
                 </ol>
             </div>
@@ -44,11 +50,11 @@
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
-            <form:form action="/company/user/input" method="POST">
+            <form:form action="/company/user/modified/${userInfo.USERNO}" method="POST">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left submit">등록</button>
-                    <a href="/company/user" class="btn btn-default pull-right">취소</a>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
+                    <a href="/company/user/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
 
@@ -68,38 +74,60 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">사용자명</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="username" id="username" autocomplete="off" class="form-control form-control-sm name">
+                                                <input type="text" name="username" id="username" value="${userInfo.USERNAME}" class="form-control form-control-sm name">
                                             </div>
                                             <label class="col-sm-2 col-form-label">ID</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="userid" id="userid" autocomplete="off" class="form-control form-control-sm">
-                                                <label for="userid"></label>
+                                                    ${userInfo.USERID}
                                             </div>
                                         </div>
-                                        <div class="form-group  row">
-                                            <label class="col-sm-2 col-form-label">비밀번호</label>
-                                            <div class="col-sm-4">
-                                                <input type="password" name="userpassword" id="userpassword" autocomplete="off" class="form-control form-control-sm password">
-                                            </div>
-                                            <label class="col-sm-2 col-form-label">비밀번호확인</label>
-                                            <div class="col-sm-4">
-                                                <input type="password" autocomplete="off" class="form-control form-control-sm confirmpassword">
-                                            </div>
-
-                                        </div>
+                                        <c:choose>
+                                            <c:when  test="${userInfo.USERNO eq sessionScope.ENCUSERNO}">
+                                                <div class="form-group  row">
+                                                    <label class="col-sm-2 col-form-label">비밀번호</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="password" name="userpassword" id="userpassword" class="form-control form-control-sm password">
+                                                    </div>
+                                                    <label class="col-sm-2 col-form-label">비밀번호확인</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="password" class="form-control form-control-sm confirmpassword">
+                                                    </div>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:if test="${sessionScope.CHKAUTH eq '20' or sessionScope.CHKAUTH eq '30'}">
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <p>비밀번호 : </p>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <button type="button" class="btn btn-w-m btn-xs btn-primary">초기화</button>
+                                                        </div>
+                                                    </div>
+                                                </c:if>
+                                            </c:otherwise>
+                                        </c:choose>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">휴대번호</label>
                                             <div class="col-sm-4">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <select class="form-control m-b" id="mobile1" name="mobile1">
+                                                            <option label="선택" value="0"></option>
                                                             <c:forEach var="mobile" items="${MOBILE}">
-                                                                <option label="${mobile.codename}" value="${mobile.codeval}"></option>
+                                                                <c:choose>
+                                                                    <c:when test="${userInfo.MOBILE1 eq mobile.codeval}">
+                                                                        <option selected label="${mobile.codename }" value="${mobile.codeval }"/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <option label="${mobile.codename }" value="${mobile.codeval }"/>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" autocomplete="off" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" autocomplete="off" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile2" name="mobile2" minlength="3" maxlength="4" value="${userInfo.MOBILE2}" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" id="mobile3" name="mobile3" minlength="3" maxlength="4" value="${userInfo.MOBILE3}" class="form-control form-control-sm"></div>
                                                     <div>
                                                         <label class="error" for="mobile1"></label><label class="error" for="mobile2"></label><label class="error" for="mobile3"></label>
                                                     </div>
@@ -110,13 +138,21 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <select class="form-control m-b" name="telno1" id="telno1" >
+                                                            <option label="선택" value="0"></option>
                                                             <c:forEach var="phone" items="${PHONE}">
-                                                                <option label="${phone.codename}" value="${phone.codeval}"></option>
+                                                                <c:choose>
+                                                                    <c:when test="${userInfo.TELNO1 eq phone.codeval}">
+                                                                        <option selected label="${phone.codename }" value="${phone.codeval }"/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <option label="${phone.codename }" value="${phone.codeval }"/>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4"><input type="text" name="telno2" id="telno2" minlength="3" maxlength="4" autocomplete="off" class="form-control form-control-sm"></div>
-                                                    <div class="col-md-4"><input type="text" name="telno3" id="telno3" minlength="3" maxlength="4" autocomplete="off" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" name="telno2" id="telno2" minlength="3" maxlength="4" value="${userInfo.TELNO2}" class="form-control form-control-sm"></div>
+                                                    <div class="col-md-4"><input type="text" name="telno3" id="telno3" minlength="3" maxlength="4" value="${userInfo.TELNO3}" class="form-control form-control-sm"></div>
                                                     <div>
                                                         <label class="error" for="telno1"></label><label class="error" for="telno2"></label><label class="error" for="telno3"></label>
                                                     </div>
@@ -126,10 +162,10 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">이메일</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="email" id="email" autocomplete="off" class="form-control form-control-sm adminemail">
+                                                <input type="text" name="email" id="email" value="${userInfo.EMAIL}" class="form-control form-control-sm adminemail">
                                             </div>
-                                <c:choose>
-                                    <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
+                                    <c:choose>
+                                        <c:when test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
                                             <label class="col-sm-2 col-form-label">관리자여부</label>
                                             <div class="col-sm-4">
                                                 <select class="form-control" name="chkauth" id="chkauth" style="width:130px;">
@@ -142,22 +178,23 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">직책</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm">
+                                                <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm" value="${userInfo.USERDUTY}">
                                             </div>
                                         </div>
-                                    </c:when>
-                                    <c:otherwise>
+                                        </c:when>
+                                        <c:otherwise>
                                         <label class="col-sm-2 col-form-label">직책</label>
                                         <div class="col-sm-4">
-                                            <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm">
+                                            <input type="text" name="userduty" id="userduty" autocomplete="off" class="form-control form-control-sm" value="${userInfo.USERDUTY}">
                                         </div>
                                     </div>
-                                    </c:otherwise>
-                                </c:choose>
+                                        </c:otherwise>
+
+                                    </c:choose>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">메모</label>
                                             <div class="col-sm-10">
-                                                <textarea name="userdesc" id=" userdesc" autocomplete="off" class="form-control" style="resize: none;" rows="4"></textarea>
+                                                <textarea name="userdesc" id=" userdesc" class="form-control" value="${uesrInfo.USERDESC}" style="resize: none;" rows="4">${uesrInfo.USERDESC}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -167,11 +204,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>CTI 정보입력</h5>
+                            <h5>사용자 등록</h5>
                         </div>
                         <div class="ibox-content" >
                             <div class="container">
@@ -180,15 +218,15 @@
                                         <div class="form-group  row">
                                             <label class="col-sm-1 col-form-label">CTI번호</label>
                                             <div class="col-sm-3">
-                                                <input type="text" name="ctitelno" id="ctitelno" autocomplete="off" class="form-control form-control-sm">
+                                                <input type="text" name="ctitelno" id="ctitelno" value="${ctiUserInfo.CTITELNO}" class="form-control form-control-sm">
                                             </div>
                                             <label class="col-sm-1 col-form-label">CTIID</label>
                                             <div class="col-sm-3">
-                                                <input type="text" name="ctiid" id="ctiid" autocomplete="off" class="form-control form-control-sm">
+                                                <input type="text" name="ctiid" id="ctiid" value="${ctiUserInfo.CTIID}" class="form-control form-control-sm">
                                             </div>
                                             <label class="col-sm-1 col-form-label">CTIPW</label>
                                             <div class="col-sm-3">
-                                                <input type="text" name="ctipw" id="ctipw" autocomplete="off" class="form-control form-control-sm">
+                                                <input type="text" name="ctipw" id="ctipw" value="${ctiUserInfo.CTIPW}" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                     </div>
@@ -198,14 +236,14 @@
                     </div>
                 </div>
             </div>
-                <input type="hidden" name="idcheck" id="idcheck"/>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-default pull-left submit">등록</button>
-                    <a href="/company/user" class="btn btn-default pull-right">취소</a>
+                    <button type="submit" class="btn btn-default pull-left">저장</button>
+                    <a href="/company/user/${userInfo.USERNO}" class="btn btn-default pull-right">취소</a>
                 </div>
             </div>
+        <br/>
             </form:form>
         </div>
 
@@ -219,17 +257,13 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- validate -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/member.js"></script>
 
 <script>
     $(document).ready(function() {
-        $('.submit').click(function(e){
-            e.preventDefault();
-            id_check(e);
-        });
     });
 </script>
 </body>

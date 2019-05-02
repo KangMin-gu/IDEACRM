@@ -19,7 +19,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='code'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -108,16 +108,7 @@
                             <h5>코드 목록</h5>
                         </div>
                         <div class="ibox-content">
-                            <div>
-                                <div style="display: inline-block;">
-                                    <select class="form-control" id="paging" style="width:80px;margin-left: 10px;">
-                                        <c:forEach var="paging" items="${PAGING}">
-                                            <option vale="${paging.codeval}">${paging.codename}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-                            <table class="footable table table-striped head"  data-paging="true">
+                            <table class="footable table table-striped head codeList"  data-paging="true">
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-name="NO">서비스번호</th>
@@ -135,13 +126,6 @@
 
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td>
-                                        <div class="footable-pagination-wrapper">
-                                            <ul class="pagination"></ul>
-                                        </div>
-                                    </td>
-                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -163,7 +147,7 @@
                             <button type="button" class="btn btn-default pull-right" id="create" style="margin-bottom: 10px;  margin-left: 7px">추가</button>
                             <button type="button" class="btn btn-default pull-right" id="bodyreset" style="margin-bottom: 10px; margin-left: 7px">초기화</button>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" style="white-space:nowrap;">
+                                    <table class="table table-bordered " style="white-space:nowrap;">
                                         <colgroup>
                                             <col width="5%">
                                             <col width="15%">
@@ -230,6 +214,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
@@ -240,9 +225,9 @@
 <script>
     $(document).ready(function() {
         $('#search').click(function(e){
-            footableSearchList('/company/code/${sessionScope.ENCSITEID}');
+            footableSearchList('/company/code/${sessionScope.ENCSITEID}', $('.codeList'));
         });
-        footableSearchList('/company/code/${sessionScope.ENCSITEID}');
+        footableSearchList('/company/code/${sessionScope.ENCSITEID}', $('.codeList'));
         btnFirst();
 
         $('#viewuppercodegrp_').click(function(e){

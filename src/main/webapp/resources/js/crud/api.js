@@ -1,16 +1,10 @@
-var globalUrl;
-/// footable 검색 및 ready상태일때 사용할 수 있게 변경
+
+// footable 검색 및 ready상태일때 사용할 수 있게 변경
 function footableSearchList(url, selector) {
     var param = searchDataToJson();
-    var page = $('#paging').val();
-    if(page == undefined){
-        page = 10;
-    }
-    globalUrl = url;
-    $.post(globalUrl, param, function (response) {
+    $.post(url, param, function (response) {
         selector.footable({
             "toggleSelector": ".footable-toggle",
-            "empty": "",
             "filtering": {
                 "enabled": true,
                 "placeholder": "통합검색",
@@ -20,21 +14,18 @@ function footableSearchList(url, selector) {
             },
             "paging": {
                 "enabled": true,
-                "container" : ".pagination",
-                "position":"center",
-                "size":page
+                "container" : selector.find('.pagination'),
+                "position":"center"
             },
             "sorting": {
                 "enabled": true
             },
             "rows": response
         });
-
     });
 }
 
 function tabFootableSearchList(id,url) {
-    debugger;
     var param = searchDataToJson();
     var page = $('#paging').val();
     if(page == undefined){
@@ -52,7 +43,7 @@ function tabFootableSearchList(id,url) {
                 "min":1,
             },
             "paging": {
-               "enabled": true,
+                "enabled": true,
                 "container" : pagination,
                 "size":page
             },
@@ -67,7 +58,7 @@ function tabFootableSearchList(id,url) {
     });
 };
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
-
+ var globalUrl = window.location.pathname;
     if($(obj.target.parentElement.parentElement).is('tbody')){
         if(globalUrl =='/popuser'){
             popParentNameClick($(obj.target.parentElement));
@@ -88,10 +79,21 @@ $(".footable").on("click.ft.row",function(obj,e,ft,row){
 $(".footable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
     $('.footable-pagination-wrapper > .label-default').hide();
+
+    if ( $('.footable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $('.footable tbody tr').remove();
+    }
+    if(globalUrl.indexOf('pop') != -1){
+        $('.footable tbody tr').css('cursor','pointer');
+    }
 });
 $(".tabfootable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
     $('.footable-pagination-wrapper > .label-default').hide();
+
+    if ( $('.tabfootable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $('.tabfootable tbody tr').remove();
+    }
 });
 
 
@@ -107,6 +109,7 @@ if($('.tinymce').length> 0) {
     tinymce.init({
         height : "300",
         language: 'ko_KR',
+        plugins: "paste",
         //language_url : '/resources/tinymce/langs/ko_KR.js',
         selector: '.tinymce',  // change this value according to your HTML
         toolbar: 'insertfile undo redo | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link imageupload | print preview media fullpage | forecolor backcolor emoticons',

@@ -48,8 +48,13 @@ public class FormatServiceImple implements FormatService {
         formatDto.setReguser(userNo);
         formatDto.setEdtuser(userNo);
 
-        String formatNo = formatDao.formatInsert(formatDto);
+        if(formatDto.getFormatdesc() != null && formatDto.getSendtype() == 2){//문자 일경우 태그 제거
+            String tmpStr = formatDto.getFormatdesc();
+            tmpStr = tmpStr.replace("<p>","").replace("</p>","");
+            formatDto.setFormatdesc(tmpStr);
+        }
 
+        String formatNo = formatDao.formatInsert(formatDto);
         formatNo = codecUtil.encodePkNo(formatNo);
 
         return formatNo;
@@ -57,7 +62,6 @@ public class FormatServiceImple implements FormatService {
 
     @Override
     public Map<String, Object> formatDetail(HttpServletRequest request, String formatNo) throws UnsupportedEncodingException, GeneralSecurityException {
-
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         formatNo = codecUtil.decodePkNo(formatNo);
 
@@ -91,5 +95,25 @@ public class FormatServiceImple implements FormatService {
         formatDto.setFormatno(formatNo);
         formatDto.setSiteid(siteId);
         formatDao.formatDelete(formatDto);
+    }
+
+    @Override
+    public List<Map<String, Object>> smsFormat(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        List<Map<String, Object>> formatList = formatDao.smsFormat(siteId);
+        return formatList;
+    }
+
+    @Override
+    public List<Map<String, Object>> emailFormat(HttpServletRequest request) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        List<Map<String, Object>> formatList = formatDao.emailFormat(siteId);
+        return formatList;
+    }
+
+    @Override
+    public Map<String, Object> formatDesc(int formatnum) {
+        Map<String, Object> formatdesc = formatDao.formatdesc(formatnum);
+        return formatdesc;
     }
 }

@@ -21,7 +21,7 @@
 <style>
 </style>
 <body>
-
+<c:set var="menuactive" value='allnotice'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -113,22 +113,13 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>공지사항</h5>
+                            <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
+                                <c:if test="${CHKAUTH eq 30}">
+                                    <a class="btn btn-default" href="/notice/input">추가</a>
+                                </c:if>
+                            </div>
                         </div>
                         <div class="ibox-content">
-                            <div style="margin-left: 8px;">
-                                <div style="display: inline-block;">
-                                    <select class="form-control" id="paging" style="width:80px">
-                                        <c:forEach var="paging" items="${PAGING}">
-                                            <option vale="${paging.codeval}">${paging.codename}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="pull-right" style="display: inline-block;">
-                                    <c:if test="${CHKAUTH eq 30}">
-                                        <a class="btn btn-default pull-right" style="margin-left: 5px;" href="/notice/input">등록</a>
-                                    </c:if>
-                                </div>
-                            </div>
                                 <table class="footable table table-striped notice">
                                     <thead>
                                         <tr>
@@ -136,17 +127,10 @@
                                             <th data-name="TAGNAME" data-filterable="true">말머리</th>
                                             <th data-name="TITLE" data-formatter="noticeListFormatter" data-filterable="true">제목</th>
                                             <th data-name="WRITER" data-filterable="true">글쓴이</th>
-                                            <th data-name="REGDATE" data-filterable="true" data-direction="DESC">날짜</th>
+                                            <th data-name="REGDATE" data-filterable="true">날짜</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
-                                    <tr>
-                                        <td>
-                                            <div class="footable-pagination-wrapper" style="text-align:center;">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
                                     </tfoot>
                                 </table>
                         </div>
@@ -164,6 +148,7 @@
 
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!--datarange-->

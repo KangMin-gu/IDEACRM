@@ -16,6 +16,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <!-- orris -->
     <link href="${pageContext.request.contextPath}/resources/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
 </head>
 <body>
 <c:set var="menuactive" value='vocdashM'/>
@@ -53,7 +54,7 @@
                                       <div class="col-lg-12">
                                           <div class="row">
                                               <div class="col-lg-12">
-                                                  <canvas id="callStatus" height="155"></canvas>
+                                                  <canvas id="callStatus" height="285"></canvas>
                                               </div>
                                           </div>
                                       </div>
@@ -92,7 +93,7 @@
                                 <div class="ibox-content">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <canvas id="inproduct" height="40"></canvas>
+                                            <canvas id="inproduct" height="80"></canvas>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -114,7 +115,7 @@
                                 <div class="ibox-content">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <canvas id="processStatus" height="40"></canvas>
+                                            <canvas id="processStatus" height="80"></canvas>
                                         </div>
                                     </div>
                                     <div class="row">

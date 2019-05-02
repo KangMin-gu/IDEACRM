@@ -143,10 +143,10 @@ public class UploadImple implements Uplaod {
 
                 }
 
-                String vocNoticeTarget = "/voc/notice/modified";
-                String serviceTarget = "/service/modified";
-                String allnoticeTarget = "/notice/modified";
-                String noticeTarget = "/company/notice/modified";
+                String vocNoticeTarget = "modified";
+                String serviceTarget = "modified";
+                String allnoticeTarget = "modified";
+                String noticeTarget = "modified";
 
                 //파일 유입별 경로설정
                 if (url.equals(insidenoticeUrl)) {
@@ -276,7 +276,7 @@ public class UploadImple implements Uplaod {
             }
 
 
-            String target ="/common/site/modified";
+            String target ="modified";
 
                 //파일 유입별 경로설정
             if(url.equals(logoUrl)) {

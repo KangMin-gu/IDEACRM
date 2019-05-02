@@ -57,9 +57,6 @@
             <li <c:if test="${fn:contains(pageScope.urls, 'sales')}"> class="active"</c:if>>
                 <a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">영업관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="${pageContext.request.contextPath}/sales">영업 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/account">거래처 관리</a></li>
-                    <li><a href="${pageContext.request.contextPath}/sales/calendar">영업 일정</a></li>
                 </ul>
             </li>
             </c:if>

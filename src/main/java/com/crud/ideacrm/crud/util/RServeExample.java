@@ -8,7 +8,7 @@ import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class RServeExample {
 
     private RConnection c = null;

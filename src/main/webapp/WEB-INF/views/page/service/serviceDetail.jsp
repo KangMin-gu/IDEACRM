@@ -39,7 +39,7 @@
                     <c:choose>
                         <c:when test="${fn:substring(urls, 0, 17) eq '/service/delivery' }">
                             <li class="breadcrumb-item">
-                                <a href="${pageContext.request.contextPath}/service/delivery">서비스 이관 목록</a>
+                                <a href="/service/delivery">서비스 이관 목록</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -309,7 +309,7 @@
                                 <div role="tabpanel" id="tab-3" class="tab-pane">
                                     <div class="panel-body">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered" style="white-space:nowrap;">
+                                            <table class="table table-bordered service_detailList" style="white-space:nowrap;">
                                                 <colgroup>
                                                     <col width="5%">
                                                     <col width="25%">
@@ -355,7 +355,7 @@
                         <div class="tab-content">
                             <div role="tabpanel" id="tab-4" url="/service/tab/ract/${serviceInfo.SERVICENO}" class="tab-pane active">
                                 <div class="panel-body">
-                                    <table class="tabfootable table table-striped">
+                                    <table class="tabfootable table table-striped service_detailList">
                                         <thead>
                                         <tr>
                                             <th data-visible="false" data-name="RACTNO">처리번호</th>

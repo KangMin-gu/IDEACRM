@@ -25,7 +25,10 @@
     <div class="wrapper wrapper-content animated fadeInRight">
       <div class="row">
         <div class="col-lg-12">
-
+          ${pageContext.request.scheme} : http
+          ${pageContext.request.serverName} : localhost
+          ${pageContext.request.serverPort} : 서버 포트번호
+          ${pageContext.request.contextPath}
 
             <div class="row">
               <div class="col-lg-3">

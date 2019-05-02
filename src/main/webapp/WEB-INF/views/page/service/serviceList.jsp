@@ -228,7 +228,7 @@
                                     </c:choose>
                                 </div>
                             </div>
-                            <table class="footable table table-striped">
+                            <table class="footable table table-striped service_list">
                                 <thead>
                                 <tr>
                                     <th data-visible="false" data-name="NO">서비스번호</th>
@@ -289,10 +289,10 @@
         $('#search').click(function(e){
             var bool = dateRangeError();
             if(bool){
-                footableSearchList(url);
+                footableSearchList(url, $('.service_list'));
             }
         });
-        footableSearchList(url);
+        footableSearchList(url , $('.service_list'));
     });
 </script>
 </body>

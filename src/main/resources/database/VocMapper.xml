@@ -111,7 +111,7 @@
 		ORDER BY BCUSTNO DESC
 	</select>
 
-	<!-- 콜백 히스토리 리스트 (고객) -->
+	<!-- 콜백 히스토리 리스트 (고객)-->
 	<select id="callBackHistoryList" parameterType="hashMap" resultType="hashMap">
 	SELECT * FROM (
 		SELECT A.CALLBACKHISTNO, A.CALLBACKNO, B.CALLER, B.CALLBACK, A.REQNO

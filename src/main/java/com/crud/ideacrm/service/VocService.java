@@ -24,10 +24,12 @@ public interface VocService {
     public Map<String, Object> vocOwnerList(HttpServletRequest request,int asOwner);
     public List<Map<String,Object>> vocCalOwnerList (HttpServletRequest request,int asOwner);
     public Map<String,Object> vocCalList(HttpServletRequest request);
+
     public Map<String,Object> vocPopCallBackList(HttpServletRequest request);
     public Map<String,Object> vocCallBackUserList(HttpServletRequest request);
+
     public int vocCallBackPassDiv(HttpServletRequest request);
     public void vocCallBackAutoDiv(HttpServletRequest request);
     public String vocInsert(HttpServletRequest request, HttpServletResponse response, ServiceDto serviceDto, RewardDto rewardDto, RactDto ractDto, ServiceDeliveryDto serviceDeliveryDto) throws UnsupportedEncodingException, GeneralSecurityException;
-    public List<Map<String,Object>> getVocSendForm(HttpServletRequest request, int sendType, int useMenu);
+    public List<Map<String,Object>> getVocSendForm(HttpServletRequest request, int sendType, int useMenu) throws UnsupportedEncodingException, GeneralSecurityException;
 }

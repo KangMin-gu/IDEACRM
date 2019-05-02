@@ -1,7 +1,7 @@
 
 //제품 추가를 눌렀을때
 $(document).on('click', '.plus', function(e) {
-    debugger;
+
     var productLength = $('.product').length;
     if(productLength > 9){
         alert('제품은 9개 이상 등록할수 없습니다');

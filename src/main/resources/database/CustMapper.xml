@@ -6,6 +6,9 @@
 		SELECT * FROM (
 		SELECT
 		CU.CUSTNO, CU.CUSTNAME, CU.DEPTNAME, CU.DUTY, CU.MOBILE, CU.HOMTEL
+        , CU.MOBILE1, CU.MOBILE2, CU.MOBILE3
+        , CU.WRKTEL
+        , CU.WRKTEL1,CU.WRKTEL2,CU.WRKTEL3
 		, CU.HOMADDR1 , CU.HOMADDR2 , CU.HOMADDR3
 		, CU.EMAIL, CU.SEX
 		, CU.OWNER, B.USERNAME AS OWNER_
@@ -371,7 +374,9 @@
 	<select id="custMailList" parameterType="hashMap" resultType="hashMap">
 		SELECT
 		EMAILLOGID, CUSTNO, USERNAME
-		, FROMEMAIL, TOEMAIL, SUBJECT, CLICKYN
+		, FROMEMAIL, TOEMAIL, SUBJECT, CLICKYN, CONTENT
+		, RLTDATE
+		, DATE_FORMAT(RLTDATE,'%Y-%m-%d %H:%m:%i') AS RLTDATE_
 		, IF ( IFNULL(CLICKYN,0) = 0, '미확인', '확인') AS CLICKYN_
 		FROM SYS980010
 		WHERE
@@ -385,22 +390,24 @@
 		, TR_MSGTYPE, TR_PHONE, TR_CALLBACK, TR_RSLTDATE, TR_MODIFIED
 		, TR_MSG
 		, CONCAT(SUBSTR(IFNULL(TR_MSG,''),1,8),'...') AS TR_MSG_
+		, DATE_FORMAT(TR_SENDDATE,'%Y-%m-%d %H:%m:%i') AS TR_SENDDATE_
 		FROM SC_TRAN_COPY
 		WHERE
 			SITEID = #{siteid}
 			AND CUSTNO = #{custno}
 	</select>
 	<!-- 고객 상세 LMS 리스트 -->
-	<!--todo.where 절 status 추가 -->
 	<select id="custLmsList" parameterType="hashMap" resultType="hashMap">
 		SELECT
 		MSGKEY, SUBJECT, PHONE, CALLBACK, STATUS, REQDATE
 		,MSG
 		, CONCAT(SUBSTR(IFNULL(MSG,''),1,8),'...') AS MSG_
 		, CONCAT(SUBSTR(IFNULL(SUBJECT,''),1,8),'...') AS SUBJECT_
+		, DATE_FORMAT(REQDATE,'%Y-%m-%d %H:%m:%i') AS REQDATE_
 		FROM MMS_MSG_COPY
 		WHERE
 			SITEID = #{siteid}
+			AND IFNULL(FILE_CNT,0) = 0
 			AND CUSTNO = #{custno}
 	</select>
 	<!-- 고객 상세 MMS 리스트 -->
@@ -410,20 +417,25 @@
 		,MSG
 		, CONCAT(SUBSTR(IFNULL(MSG,''),1,8),'...') AS MSG_
 		, CONCAT(SUBSTR(IFNULL(SUBJECT,''),1,8),'...') AS SUBJECT_
+		, DATE_FORMAT(REQDATE,'%Y-%m-%d %H:%m:%i') AS REQDATE_
 		FROM MMS_MSG_COPY
 		WHERE
 			SITEID = #{siteid}
+			AND IFNULL(FILE_CNT,0) > 0
 			AND CUSTNO = #{custno}
 	</select>
-	<!-- 고객 상세 카카오 리스트 -->
+	<!-- 고객 상세 카카오 리스트
+	todo. 테스트 완료 후 _copy 라인 삭제 -->
 	<select id="custKakaoList" parameterType="hashMap" resultType="hashMap">
 		SELECT
 		MESSAGE_SEQNO, SERVICE_SEQNO, SEND_MESSAGE
 		,SUBJECT, BACKUP_PROCESS_CODE, MESSAGE_TYPE, CONTENTS_TYPE
-		,RECEIVE_MOBILE_NO, CALLBACK_NO, JOB_TYPE, SEND_RESERVE_DATE
+		,RECEIVE_MOBILE_NO, CALLBACK_NO, JOB_TYPE, SEND_DATE, SEND_RESERVE_DATE
 		,TEMPLATE_CODE, REGISTER_DATE
 		, CONCAT(SUBSTR(IFNULL(SEND_MESSAGE,''),1,8),'...') AS SEND_MESSAGE_
 		, CONCAT(SUBSTR(IFNULL(SUBJECT,''),1,8),'...') AS SUBJECT_
+		, DATE_FORMAT(SEND_DATE,'%Y-%m-%d %H:%m:%i') AS SEND_DATE_
+		, DATE_FORMAT(SEND_RESERVE_DATE,'%Y-%m-%d %H:%m:%i') AS SEND_RESERVE_DATE_
 		FROM TSMS_AGENT_MESSAGE_LOG_COPY
 		WHERE
 			SITEID = #{siteid}

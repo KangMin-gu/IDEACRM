@@ -62,7 +62,6 @@ public class FormatServiceImple implements FormatService {
 
     @Override
     public Map<String, Object> formatDetail(HttpServletRequest request, String formatNo) throws UnsupportedEncodingException, GeneralSecurityException {
-
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         formatNo = codecUtil.decodePkNo(formatNo);
 

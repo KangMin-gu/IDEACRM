@@ -43,7 +43,7 @@ public class CodecUtil {
     /**
      * 암호화 된 값을 복호화하여 반환
      * 암호화 필드가 추가되면 이곳 수정 필요.
-     * 차후에 시간되면 map의 키랑 FIELD_NAME_ARR과 contains 하면 FIELD_NAME_ARR에 길게 안써도 될듯
+     * 차후에 시간되면 map의 키랑 FIELD_NAME_ARR과 contains 하면 FIELD_NAME_ARR에 길게 안써도  될듯
      * @param map
      * @return
      * @throws UnsupportedEncodingException

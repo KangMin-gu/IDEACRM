@@ -172,8 +172,8 @@ public class SendServiceImple implements SendService {
     @Override
     public void sendKakaoTemp(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,Object> param = parameterUtil.searchParam(request);
-        int userNo = Integer.parseInt((String)request.getSession().getAttribute("USERNO"));
-
+        int userNo = (int)request.getSession().getAttribute("USERNO");
+        param.put("userno",userNo);
         if( param.get("custno") != null && param.get("custno") != "") {
             String custno = (String) param.get("custno");
             String deCustNo = codecUtil.decodePkNo(custno);

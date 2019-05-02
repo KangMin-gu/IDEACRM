@@ -1,6 +1,7 @@
 package com.crud.ideacrm.controller;
 
 
+import com.crud.ideacrm.crud.dao.UploadDao;
 import com.crud.ideacrm.dto.*;
 import com.crud.ideacrm.service.*;
 import org.slf4j.Logger;
@@ -35,6 +36,10 @@ public class VocController {
     private SiteService siteService;
     @Autowired
     private SendService sendService;
+    @Autowired
+    private UploadDao uploadDao;
+    @Autowired
+    private FormatService formatService;
 
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
@@ -47,9 +52,14 @@ public class VocController {
 
 
     @RequestMapping(value = "/voc", method = RequestMethod.GET)
-    public ModelAndView vocDetail(HttpServletRequest request){
+    public ModelAndView vocDetail(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int sendType = 4; // 상담템플릿 서식 값
+        int useMenu = 5; // voc 메뉴 서식 값
+        List<Map<String,Object>> formList = vocService.getVocSendForm(request, sendType, useMenu);
+
+        mView.addObject("formList",formList);
         mView.addAllObjects( codeService.getCommonCode(USINGMENU));
         mView.addAllObjects( codeService.getCustomCode(USINGMENU,request));
         List<ProductDto> productB = productService.getProductB(request);
@@ -117,7 +127,7 @@ public class VocController {
     }
 
     @RequestMapping(value = "/voc/pop/sms", method = RequestMethod.GET)
-    public ModelAndView vocSmsPop(HttpServletRequest request){
+    public ModelAndView vocSmsPop(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
         int sendType = 2; // sms 서식 값
         int useMenu = 5; // voc 메뉴 값
@@ -125,15 +135,6 @@ public class VocController {
         mView.addObject("formList",formList);
         mView.setViewName("page/voc/pop/vocSmsPop");
         return mView;
-    }
-
-    @RequestMapping(value = "/voc/pop/sms", method = RequestMethod.POST)
-    @ResponseBody
-    public List<Map<String,Object>> vocSmsPopFormList(HttpServletRequest request){
-        int sendType = 2; // sms 서식 값
-        int useMenu = 5; // voc 메뉴 값
-        List<Map<String,Object>> formList = vocService.getVocSendForm(request, sendType, useMenu);
-        return formList;
     }
 
     @RequestMapping(value = "/voc/pop/sms/input", method = RequestMethod.POST)
@@ -144,8 +145,12 @@ public class VocController {
     }
 
     @RequestMapping(value = "/voc/pop/kakao", method = RequestMethod.GET)
-    public ModelAndView vocKakaoPop(HttpServletRequest request){
+    public ModelAndView vocKakaoPop(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
+        int sendType = 3; // sms 서식 값
+        int useMenu = 5; // voc 메뉴 값
+        List<Map<String,Object>> formList = vocService.getVocSendForm(request, sendType, useMenu);
+        mView.addObject("formList",formList);
         mView.setViewName("page/voc/pop/vocKakaoPop");
         return mView;
     }
@@ -279,7 +284,7 @@ public class VocController {
     }
 
     @RequestMapping(value="/voc/as/cal", method=RequestMethod.GET)
-    public ModelAndView vocCalList(HttpServletRequest request) {
+    public ModelAndView authvocCalList(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
         mView.addAllObjects(vocService.vocCalList(request));
         mView.setViewName("page/voc/calendar/vocCalMain");
@@ -288,28 +293,28 @@ public class VocController {
 
     @RequestMapping(value="/voc/as/cal/{asOwner}", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> VocOwnerCalList(HttpServletRequest request,@PathVariable int asOwner) {
+    public Map<String,Object> authVocOwnerCalList(HttpServletRequest request,@PathVariable int asOwner) {
         Map<String,Object> ownerCalList = vocService.vocOwnerList(request,asOwner);
         return ownerCalList;
     }
 
     @RequestMapping(value="/voc/productB", method=RequestMethod.GET)
     @ResponseBody
-    public List<ProductDto> VocProudctB(HttpServletRequest request){
+    public List<ProductDto> authVocProudctB(HttpServletRequest request){
         List<ProductDto> productB = productService.getProductB(request);
         return productB;
     }
 
     //콜백분배 팝업
     @RequestMapping(value="/voc/pop/calldiv", method=RequestMethod.GET)
-    public String VocCallBackDiv(HttpServletRequest request) {
+    public String authVocCallBackDiv(HttpServletRequest request) {
         return "page/voc/pop/callbackDiv";
     }
 
     //분배할 콜백리스트
     @RequestMapping(value="/voc/pop/calldiv/call", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> VocCallBackList(HttpServletRequest request){
+    public Map<String,Object> authVocCallBackList(HttpServletRequest request){
         Map<String,Object> callBackList = vocService.vocPopCallBackList(request);
         return callBackList;
     }
@@ -317,7 +322,7 @@ public class VocController {
     //콜백 분배받을 유저 리스트
     @RequestMapping(value="/voc/pop/calldiv/user", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> VocCallBackUserList(HttpServletRequest request){
+    public Map<String,Object> authVocCallBackUserList(HttpServletRequest request){
         Map<String,Object> callBackUserList = vocService.vocCallBackUserList(request);
         return callBackUserList;
     }
@@ -325,16 +330,38 @@ public class VocController {
     //콜백수동분배
     @RequestMapping(value="/voc/pop/calldiv/pass",method=RequestMethod.GET)
     @ResponseBody
-    public int VocCallPassDiv(HttpServletRequest request) {
+    public int authVocCallPassDiv(HttpServletRequest request) {
         int cnt = vocService.vocCallBackPassDiv(request);
         return cnt;
     }
     //콜백자동분배
     @RequestMapping(value="/voc/pop/calldiv/auto",method=RequestMethod.GET)
     @ResponseBody
-    public int VocCallAtouDiv(HttpServletRequest request) {
+    public int authVocCallAtouDiv(HttpServletRequest request) {
         vocService.vocCallBackAutoDiv(request);
         return 0;
+    }
+
+    //  서비스 상세 화면
+    @RequestMapping(value="/voc/pop/service/{serviceNo}", method = RequestMethod.GET)
+    public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("fileInfo",uploadDao.fileInfo(serviceService.serviceDetail(request,serviceNo)));
+        mView.addObject("serviceInfo",serviceService.serviceDetail(request,serviceNo));
+        mView.addObject("rewardInfo",serviceService.rewardDetail(request,serviceNo));
+        mView.addObject("ractInfo",serviceService.ractDetail(request,serviceNo));
+        mView.addObject("product",serviceService.productDetail(request,serviceNo));
+
+        mView.setViewName("page/voc/pop/serviceDetailPop");
+        return mView;
+    }
+
+    // voc 상담템플릿 선택
+    @RequestMapping(value = "/voc/format/{formatNo}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> authVocFormatDetail(HttpServletRequest request, @PathVariable String formatNo) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> formatInfo = formatService.formatDetail(request,formatNo);
+        return formatInfo;
     }
 
     //상품 결제 창

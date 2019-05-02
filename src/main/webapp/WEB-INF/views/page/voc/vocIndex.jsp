@@ -88,7 +88,7 @@
                                     <i class="fa fa-bell"></i>
                                     <span class="li-text">3</span>
                                 </li>
-                               <li class="ctibtn">
+                                <li class="ctibtn">
                                     <i class="fa fa-envelope"></i>
                                     <span class="li-text isnVal"></span>
                                 </li>
@@ -103,12 +103,12 @@
                                         <i class="fa fa-bars" style=""></i>
                                     </a>
                                     <c:if test="${sessionScope.CHKAUTH eq 20 or sessionScope.CHKAUTH eq 30}">
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" id="callDivide">분배</a></li>
-                                        <li><a href="#">운영관리</a></li>
-                                        <li><a href="#">콜통계</a></li>
-                                        <li><a href="#">콜이력</a></li>
-                                    </ul>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" id="callDivide">콜백분배</a></li>
+                                            <!--<li><a href="#">운영관리</a></li>
+                                            <li><a href="#">콜통계</a></li>
+                                            <li><a href="#">콜이력</a></li>-->
+                                        </ul>
                                     </c:if>
                                 </li>
                                 <li>
@@ -140,9 +140,10 @@
                                         </colgroup>
                                         <tbody>
                                         <tr>
+                                            <!--회원사 -->
+                                            <input type="hidden" id="sitename" name="sitename" value="${sessionScope.SITENAME}">
                                             <!--고객 관련 hidden -->
                                             <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt"/>
-
                                             <!-- 녹취 키값  -->
                                             <input type="hidden" id="nucIdx"  name="nucIdx" value="" />
 
@@ -198,7 +199,7 @@
                                         <tr>
                                             <th>고객구분</th>
                                             <td>
-                                               <select class="form-control form-control-sm vocCustInput" name="custgubun" id="custgubun" >
+                                                <select class="form-control form-control-sm vocCustInput" name="custgubun" id="custgubun" >
                                                     <option value="0">선택</option>
                                                     <c:forEach var="custgubun" items="${CUSTGUBUN}">
                                                         <option value="${custgubun.codeval}">${custgubun.codename}</option>
@@ -344,9 +345,10 @@
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="BCUSTNO">블랙번호</th>
+                                                    <th data-visible="false" data-name="MEMO">블랙번호</th>
                                                     <th data-name="REGDATE_" data-sorted="true" data-direction="DESC">접수일시</th>
                                                     <th data-name="BLACKTYPE_">유형</th>
-                                                    <th data-name="MEMO_">접수사유</th>
+                                                    <th data-name="MEMO_" data-formatter="vocBlackFormatter">접수사유</th>
                                                     <th data-name="USERNAME">접수자</th>
                                                     <th data-name="ISDELETE_">현재상태</th>
                                                 </tr>
@@ -365,7 +367,6 @@
                                     </div>
                                     <div role="tabpanel" id="vocCallbackHistTab" class="tab-pane" url="/voc/tab/callbackhist">
                                         <div class="panel-body">
-
                                             <table class="vocfootable table table-striped" data-paging="true" data-filter=#filter data-sorting="true" data-page-size="5">
                                                 <thead>
                                                 <tr>
@@ -378,7 +379,7 @@
                                                     <th data-name="CALLBACK">콜백번호</th>
                                                     <th data-name="CALLER">발신자번호</th>
                                                     <th data-name="USERNAME">상담원</th>
-                                                    <th data-name="MEMO_">메모</th>
+                                                    <!--<th data-name="MEMO_">메모</th>-->
                                                     <th data-name="CALLSTATUS_">상태</th>
                                                     <th data-formatter="callbackHistFormatter">녹취</th>
                                                 </tr>
@@ -403,9 +404,9 @@
                                                 <tr>
                                                     <th data-visible="false" data-name="TR_NUM"></th>
                                                     <th data-visible="false" data-name="TR_MSG"></th>
-                                                    <th data-name="TR_MSG_" data-sorted="true">내용</th>
+                                                    <th data-name="TR_MSG_" data-formatter="vocSmsFormatter">내용</th>
                                                     <th data-name="TR_PHONE">수신번호</th>
-                                                    <th data-name="TR_SENDDATE">발송시간</th>
+                                                    <th data-name="TR_SENDDATE_">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -423,17 +424,15 @@
 
                                     <div role="tabpanel" id="vocLmsTab" class="tab-pane" url="/cust/tab/lms">
                                         <div class="panel-body">
-
                                             <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="MSGKEY"></th>
                                                     <th data-visible="false" data-name="SUBJECT"></th>
                                                     <th data-visible="false" data-name="MSG"></th>
-                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
-                                                    <th data-name="MSG_">내용</th>
+                                                    <th data-name="SUBJECT" data-formatter="vocLmsFormatter">제목</th>
                                                     <th data-name="PHONE">수신번호</th>
-                                                    <th data-name="REQDATE">발송시간</th>
+                                                    <th data-name="REQDATE_">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -451,17 +450,15 @@
 
                                     <div role="tabpanel" id="vocMmsTab" class="tab-pane" url="/cust/tab/mms">
                                         <div class="panel-body">
-
                                             <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="MSGKEY"></th>
                                                     <th data-visible="false" data-name="SUBJECT"></th>
                                                     <th data-visible="false" data-name="MSG"></th>
-                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
-                                                    <th data-name="MSG_">내용</th>
+                                                    <th data-name="SUBJECT" data-formatter="vocMmsFormatter">제목</th>
                                                     <th data-name="PHONE">수신번호</th>
-                                                    <th data-name="REQDATE">발송시간</th>
+                                                    <th data-name="REQDATE_">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -479,18 +476,15 @@
 
                                     <div role="tabpanel" id="vocKakaoTab" class="tab-pane" url="/cust/tab/kakao">
                                         <div class="panel-body">
-
                                             <table class="vocfootable table table-striped" data-page-size="8" data-filter=#filter>
                                                 <thead>
                                                 <tr>
                                                     <th data-visible="false" data-name="MESSAGE_SEQNO"></th>
                                                     <th data-visible="false" data-name="SERVICE_SEQNO"></th>
-                                                    <th data-visible="false" data-name="SUBJECT"></th>
                                                     <th data-visible="false" data-name="SEND_MESSAGE"></th>
-                                                    <th data-name="SUBJECT_" data-sorted="true">제목</th>
-                                                    <th data-name="SEND_MESSAGE_">내용</th>
+                                                    <th data-name="SUBJECT" data-formatter="vocKakaoFormatter">제목</th>
                                                     <th data-name="RECEIVE_MOBILE_NO">수신번호</th>
-                                                    <th data-name="SEND_DATE">발송시간</th>
+                                                    <th data-name="SEND_DATE_">발송시간</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -511,9 +505,10 @@
                                             <table class="vocfootable table table-striped" data-paging="true" data-sorting="true">
                                                 <thead>
                                                 <tr>
-                                                    <th data-visible="false" data-name="NO">서비스번호</th>
+                                                    <th data-visible="false" data-name="NO">메일번호</th>
+                                                    <th data-visible="false" data-name="CONTENT">내용</th>
                                                     <th data-name="SUBJECT" data-formatter="vocEmailTabformatter">제목</th>
-                                                    <th data-name="RLTDATE" data-sorted="true" data-direction="DESC">발송일</th>
+                                                    <th data-name="RLTDATE_" data-sorted="true" data-direction="DESC">발송일</th>
                                                     <th data-name="USERNAME">발송자</th>
                                                     <th data-name="CLICKYN_">확인여부</th>
                                                 </tr>
@@ -531,6 +526,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="ibox-content bot-cont">
@@ -637,7 +633,7 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <button type="button" disabled="disabled" style="margin-bottom: 5px;margin-left: 10px;" class="btn btn-default voc plus">추가</button>
+                                                    <button type="button" class="btn btn-default voc plus" style="margin-bottom: 8px;" disabled="disabled">추가</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -651,11 +647,11 @@
                                     <tr>
                                         <th>상담 템플릿</th>
                                         <td>
-                                            <select class="form-control form-control-sm vocSvInput voc" name="" id="" style=" width: 100px;">
+                                            <select class="form-control form-control-sm vocSvInput voc" id="vocTemplateFormat" style=" width: 300px;">
                                                 <option value="">선택</option>
-                                                <option value="">031</option>
-                                                <option value="">017</option>
-                                                <option value="">018</option>
+                                                <c:forEach var="formList" items="${formList}">
+                                                    <option value="${formList.FORMATNO}">${formList.FORMATNAME}</option>
+                                                </c:forEach>
                                             </select>
                                         </td>
                                     </tr>
@@ -691,18 +687,19 @@
                                     <tr class="as">
                                         <th>방문지 주소</th>
                                         <td>
-                                            <div class="col-sm-12">
-                                                <div class="row">
-                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr1" name="visitaddr1" readonly></div>
-                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr2" name="visitaddr2" readonly></div>
-                                                    <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr3" name="visitaddr3"></div>
-                                                    <div class="col-md-2"><button class="btn btn-white btn-sm daumzip voc" type="button" id="visitaddr">주소 검색</button></div>
-                                                </div>
-                                                <div class="row" style="margin-top: 10px;margin-left: 0px;">
+                                            <div class="row">
+                                                <div class="col-sm-12">
                                                     <input type="checkbox" class="i-checks voc" value="1" id="addrsame" name="addrsame">
                                                     &nbsp;<label>고객주소와 동일</label>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-2"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr1" name="visitaddr1" readonly></div>
+                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr2" name="visitaddr2" readonly></div>
+                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm voc vocSvInput" id="visitaddr3" name="visitaddr3"></div>
+                                                <div class="col-md-2"><button class="btn btn-white btn-sm daumzip voc" type="button" id="visitaddr">주소 검색</button></div>
+                                            </div>
+
                                         </td>
                                     </tr>
                                     <tr class="result">
@@ -812,7 +809,7 @@
                                                 <select class="form-control voc vocSvInput" name="visithour" id="visithour" style="width:70px;">
                                                     <option value="">선택</option>
                                                     <c:forEach var="hour" items="${HOUR}">
-                                                    <option value="${hour.codeval}">${hour.codename}</option>
+                                                        <option value="${hour.codeval}">${hour.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -821,7 +818,7 @@
                                                 <select class="form-control voc vocSvInput" name="visitminute" id="visitminute" style="width:70px;">
                                                     <option value="">선택</option>
                                                     <c:forEach var="minute" items="${MINUTE}">
-                                                    <option value="${minute.codeval}">${minute.codename}</option>
+                                                        <option value="${minute.codeval}">${minute.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>

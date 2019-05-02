@@ -35,7 +35,7 @@ $('.vocSmsBtn').click(function(){
 });
 $('.vocKakaoBtn').click(function(){
     if( !$('#custno').val() == false )
-        window.open("/voc/pop/kakao", "고객상세정보", "width=400px, height=600px");
+        window.open("/voc/pop/kakao", "고객상세정보", "width=450px, height=600px");
 });
 // 타이머
 function startInterval() {
@@ -1186,6 +1186,67 @@ $('#senddesc').keyup(function(e){
     }
 });
 
+//sms 서식 선택
+$('#smsFormat').change(function(e){
+
+    var idx = e.target.value;//foreach 의 idx 값 획득
+    var tmpVal = $('#smsFormat').val();// hidden 필드의 idx 번째의 값 바인딩
+    $('#senddesc').val(tmpVal);
+    replaceSendStr('senddesc');//#{고객명}-> 실 고객명 치환
+});
+//kakao 서식 선택
+$('#kakaoFormat').change(function(e){
+    var formatno = e.target.value;
+    if( !formatno && formatno != '' ){return;}
+    $.ajax({
+        url: '/voc/format/'+formatno,
+        method: "POST",
+        dataType: "json",
+        data: {},
+        cache: false,
+        success: function (data) {
+            $('#service_seqno').val(data.KKOSERVICENO);
+            $('#template_code').val(data.KKOTEMPLETENO);
+            $('#send_message').val(data.FORMATDESC);
+            replaceSendStr('send_message');
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+});
+//voc 메인 화면 상담템플릿 서식 선택
+$('#vocTemplateFormat').change(function(e){
+    var formatno = e.target.value;//foreach 의 idx 값 획득
+    if( !formatno && formatno != '' ){return;}
+    $.ajax({
+        url: '/voc/format/'+formatno,
+        method: "POST",
+        dataType: "json",
+        data: {},
+        cache: false,
+        success: function (data) {
+            tinymce.activeEditor.setContent(data.FORMATDESC);
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+
+});
+
+
+//#{고객명}을 -> 실제 고객명으로 치환. text filed의 id를 인자값으로 전달
+function replaceSendStr(id){
+    if ( !$('#'+id).val() == false ){
+        var tempVal = $('#'+id).val();
+        var custName = opener.$('#custname').val();
+        var siteName = opener.$('#sitename').val();
+        tempVal = tempVal.replace(/#{고객명}/gi,custName);
+        tempVal = tempVal.replace(/#{회사명}/gi,siteName);
+        $('#'+id).val(tempVal)
+    }
+}
 
 $(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
     debugger;
@@ -1202,4 +1263,42 @@ $(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
 // 상품 주문 팝업
 $('.payment').click(function(e){
         openNewWindow('상품주문','/payment',1300,700);
+});
+
+$('.popCloseBtn').click(function(){
+    window.close();
+});
+
+$('#kakaoSendBtn').click(function(e){
+    var custno = $('#custno').val();
+    var mobile = $('#mobile').val();
+    var service_seqno = $('#service_seqno').val();
+    var template_code = $('#template_code').val();
+    var send_message = $('#send_message').val();
+
+    var data = {"service_seqno":service_seqno,"receive_mobile_no":mobile,"template_code":template_code,"send_message":send_message,"custno":custno};
+
+    $.ajax({
+        url: '/voc/pop/kakao/input',
+        method: "POST",
+        dataType: "json",
+        data: data,
+        cache: false,
+        success: function (data) {
+            alert('발송 하였습니다.');
+            window.close();
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+});
+
+$('#vocMailSend').click(function(){
+    var result = confirm('메일 발송하시겠습니까?');
+    if(result){
+        return true;
+    }else{
+        return false;
+    }
 });

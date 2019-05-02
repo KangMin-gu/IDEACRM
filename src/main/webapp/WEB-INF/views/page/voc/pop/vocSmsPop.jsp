@@ -12,8 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <!-- FooTable -->
-    <link href="${pageContext.request.contextPath}/resources/css/footable.bootstrap.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <!-- orris -->
@@ -38,6 +36,9 @@
                             <col width="30%">
                         </colgroup>
                         <tr>
+                            <input type="hidden" name="lengthtype" id="lengthtype"/>
+                            <input type="hidden" name="custno" id="custno"/>
+                            <input type="hidden" name="mobile" id="mobile"/>
                             <th>고객명</th>
                             <td id="custname"></td>
                             <th>고객연락처</th>
@@ -48,7 +49,7 @@
                             <td colspan="3">
                                 <select class="form-control form-control-sm" id="smsFormat" style="height: 30px;">
                                     <option value="">선택</option>
-                                    <c:forEach var="list" items="${formList}">
+                                    <c:forEach var="list" items="${formList}" varStatus="status">
                                         <option value="${list.FORMATDESC}">${list.FORMATNAME}</option>
                                     </c:forEach>
                                 </select>
@@ -65,11 +66,9 @@
                         </tr>
                     </table>
                     <button type="button" class="btn btn-default pull-left">취소</button>
-                    <button type="submit" class="btn btn-default pull-right" id="vocSmsSendBtn">발송</button>
+                    <button type="button" class="btn btn-default pull-right" id="vocSmsSendBtn">발송</button>
                 </div>
-                <input type="hidden" name="lengthtype" id="lengthtype"/>
-                <input type="hidden" name="custno" id="custno"/>
-                <input type="hidden" name="mobile" id="mobile"/>
+
             </form:form>
         </div>
     </div>
@@ -112,8 +111,6 @@
 </div>
 <!--js includ-->
 <%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
-<!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
@@ -122,7 +119,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script>
     $(document).ready(function() {
-        footableSearchList('/voc/pop/sms', $('.vocfootable'));
 
         var custName = opener.$('#custname').val();
         var mobile = opener.$('#mobile1').val()+''+opener.$('#mobile2').val()+''+opener.$('#mobile3').val();

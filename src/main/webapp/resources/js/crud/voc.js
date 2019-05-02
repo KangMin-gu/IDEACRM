@@ -1196,3 +1196,10 @@ $(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
         }
     }
 });
+
+
+/*//////////// 결제 ////////////////*/
+// 상품 주문 팝업
+$('.payment').click(function(e){
+        openNewWindow('상품주문','/payment',1300,700);
+});

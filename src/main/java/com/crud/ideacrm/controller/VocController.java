@@ -39,7 +39,7 @@ public class VocController {
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
     @RequestMapping(value = "/voc/dashboard", method = RequestMethod.GET)
-    public ModelAndView vocList(HttpServletRequest request){
+    public ModelAndView authvocList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/voc/vocDashboard");
         return mView;
@@ -336,5 +336,8 @@ public class VocController {
         vocService.vocCallBackAutoDiv(request);
         return 0;
     }
+
+    //상품 결제 창
+
 
 }

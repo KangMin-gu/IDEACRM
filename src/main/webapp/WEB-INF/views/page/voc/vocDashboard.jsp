@@ -184,7 +184,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/chartjs-plugin-datalabels.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc_dashboard.js"></script>
 <script>
     function vocWindow(){

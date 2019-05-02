@@ -1,7 +1,6 @@
 //고객 접수유형
 var ctx = document.getElementById("callStatus");
 var receiptChart = new Chart(ctx, {
-
     type: 'pie',
     data: {
         labels: ['일반', '칭찬', '품질', 'A/S', '콜센', '매장','불만','관리'],
@@ -31,6 +30,15 @@ var receiptChart = new Chart(ctx, {
             borderWidth: 1
         }]
     },
+    options: {
+        plugins: {
+            datalabels: {
+                formatter: function(value, context) {
+                    return context.chart.data.labels[context.dataIndex];
+                }
+            }
+        }
+    }
 });
 
 //시간대별 IN/OUT 콜

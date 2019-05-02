@@ -40,11 +40,11 @@ $('.vocKakaoBtn').click(function(){
 // 타이머
 function startInterval() {
     second = 1;
-    min = 00;
+    min = 0;
     vocTimer = setInterval(function() {
         // 0초면 초기화 후 이동되는 사이트
         if (second == 60) {
-            second = 00;
+            second = 0;
             min = parseInt(min) + 1;
         }
         if (second < 10) {
@@ -1258,13 +1258,6 @@ $(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
     }
 });
 
-
-/*//////////// 결제 ////////////////*/
-// 상품 주문 팝업
-$('.payment').click(function(e){
-        openNewWindow('상품주문','/payment',1300,700);
-});
-
 $('.popCloseBtn').click(function(){
     window.close();
 });
@@ -1301,4 +1294,15 @@ $('#vocMailSend').click(function(){
     }else{
         return false;
     }
+});
+
+
+
+/*//////////// 결제 ////////////////*/
+// 상품 주문 팝업
+$('.paymentBtn').click(function(e){
+    openNewWindow('상품주문','/payment',e.currentTarget.id,1300,1200);
+});
+$('.orderBtn').click(function(e){
+    openNewWindow('상품주문','/order',e.currentTarget.id,1300,700);
 });

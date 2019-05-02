@@ -365,6 +365,15 @@ public class VocController {
     }
 
     //상품 결제 창
+    @RequestMapping(value = "/payment", method = RequestMethod.GET)
+    public String authPayment(HttpServletRequest reuqest){
+        return "page/voc/pop/paymentPop";
+    }
 
+    //상품 결제 창
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    public String authOrderPop(HttpServletRequest reuqest){
+        return "page/voc/pop/orderPop";
+    }
 
 }

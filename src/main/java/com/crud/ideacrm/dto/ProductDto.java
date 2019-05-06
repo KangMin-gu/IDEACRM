@@ -4,7 +4,10 @@ package com.crud.ideacrm.dto;
 
         private int prdno;
         private String prdname;
-        private String prdvalue;
+        private int grpno;
+        private int grpupper;
+        private String grpname;
+        private int prdvalue;
         private String prddesc;
         private String erpno;
         private int upperprdno;
@@ -14,14 +17,16 @@ package com.crud.ideacrm.dto;
         private int edtuser;
         private int isdelete;
         private int siteid;
+        private String prdprice;
 
         public ProductDto() {}
 
-        public ProductDto(int prdno, String prdname, String prdvalue, String prddesc, String erpno, int upperprdno,
-                          String regdate, int reguser, String edtdate, int edtuser, int isdelete, int siteid) {
-            super();
+        public ProductDto(int prdno, String prdname, int grpno, int grpupper, String grpname, int prdvalue, String prddesc, String erpno, int upperprdno, String regdate, int reguser, String edtdate, int edtuser, int isdelete, int siteid, String prdprice) {
             this.prdno = prdno;
             this.prdname = prdname;
+            this.grpno = grpno;
+            this.grpupper = grpupper;
+            this.grpname = grpname;
             this.prdvalue = prdvalue;
             this.prddesc = prddesc;
             this.erpno = erpno;
@@ -32,6 +37,7 @@ package com.crud.ideacrm.dto;
             this.edtuser = edtuser;
             this.isdelete = isdelete;
             this.siteid = siteid;
+            this.prdprice = prdprice;
         }
 
         public int getPrdno() {
@@ -50,11 +56,35 @@ package com.crud.ideacrm.dto;
             this.prdname = prdname;
         }
 
-        public String getPrdvalue() {
+        public int getGrpno() {
+            return grpno;
+        }
+
+        public void setGrpno(int grpno) {
+            this.grpno = grpno;
+        }
+
+        public int getGrpupper() {
+            return grpupper;
+        }
+
+        public void setGrpupper(int grpupper) {
+            this.grpupper = grpupper;
+        }
+
+        public String getGrpname() {
+            return grpname;
+        }
+
+        public void setGrpname(String grpname) {
+            this.grpname = grpname;
+        }
+
+        public int getPrdvalue() {
             return prdvalue;
         }
 
-        public void setPrdvalue(String prdvalue) {
+        public void setPrdvalue(int prdvalue) {
             this.prdvalue = prdvalue;
         }
 
@@ -128,8 +158,13 @@ package com.crud.ideacrm.dto;
 
         public void setSiteid(int siteid) {
             this.siteid = siteid;
-        };
+        }
 
+        public String getPrdprice() {
+            return prdprice;
+        }
 
-
+        public void setPrdprice(String prdprice) {
+            this.prdprice = prdprice;
+        }
     }

@@ -21,6 +21,7 @@ function footableSearchList(url, selector) {
                 "enabled": true
             },
             "rows": response
+           // "columns":columns
         });
     });
 }
@@ -82,9 +83,6 @@ $(".footable").on("ready.ft.table",function(obj,e,ft,row){
 
     if ( $('.footable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
         $('.footable tbody tr').remove();
-    }
-    if(globalUrl.indexOf('pop') != -1){
-        $('.footable tbody tr').css('cursor','pointer');
     }
 });
 $(".tabfootable").on("ready.ft.table",function(obj,e,ft,row){
@@ -166,7 +164,7 @@ if($('.tinymce').length> 0) {
 }
 
 
-
+$(document).ready(function() {
 // daterange 호출
 if($('.daterange').length > 0){
     $('.daterange').daterangepicker({
@@ -174,8 +172,6 @@ if($('.daterange').length > 0){
         separator:' ~ '
     });
 }
-
-
 // i-check
 if($('.i-checks').length > 0){
     $('.i-checks').iCheck({
@@ -191,7 +187,7 @@ if($('.date').length > 0){
         autoclose:true
     });
 }
-
+});
 //daumApi 사용
 $('.daumzip').click(function(e){ //이벤트를 걸 인풋,버튼에 daumzip 클래스 추가
     e.preventDefault();
@@ -233,3 +229,30 @@ $('.icheckbox_square-green input[type="checkbox"]').on('ifChecked', function(e){
         }
     }
 });
+
+
+
+//jTree
+function jsTree(url, jsTreeOption) {
+    var param = searchDataToJson();
+    $('#jstreeSet').jstree({
+       'core' : {
+            'data' : {
+                "url" : url,
+                "dataType" : "json",
+                "data" : function (nodes, cb) {
+                }
+            }
+        },
+        'plugins':jsTreeOption.plugin,
+        'types':{
+            'default': jsTreeOption.icon
+        }
+    });
+
+    $("#jsTreeForm").submit(function(e) {
+        e.preventDefault();
+        $('#jstreeSet').jstree(true).search($("#jsTreeVal").val());
+    });
+
+}

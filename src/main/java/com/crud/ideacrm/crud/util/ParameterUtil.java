@@ -12,10 +12,11 @@ import java.security.GeneralSecurityException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.List;
 @Component
 public class ParameterUtil {
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
     @Autowired
     private CodecUtil codecUtil;
 
@@ -81,5 +82,17 @@ public class ParameterUtil {
         }else {
             return "";
         }
+    }
+
+    public static boolean isEmpty(Object obj) {
+
+        if(obj == null) return true;
+        if ((obj instanceof String) && (((String)obj).trim().length() == 0)) { return true; }
+        if (obj instanceof Map) { return ((Map<?, ?>) obj).isEmpty(); }
+        if (obj instanceof Map) { return ((Map<?, ?>)obj).isEmpty(); }
+        if (obj instanceof List) { return ((List<?>)obj).isEmpty(); }
+        if (obj instanceof Object[]) { return (((Object[])obj).length == 0); }
+        return false;
+
     }
 }

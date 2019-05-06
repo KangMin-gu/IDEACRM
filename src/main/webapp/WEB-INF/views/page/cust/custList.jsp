@@ -215,7 +215,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
 <!-- crud js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>

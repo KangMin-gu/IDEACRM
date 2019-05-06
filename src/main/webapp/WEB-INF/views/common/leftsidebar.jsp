@@ -128,6 +128,8 @@
                 <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">관리</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="userMenu"><a href="${pageContext.request.contextPath}/company/user">사용자관리</a></li>
+                    <li class="productMenu"><a href="${pageContext.request.contextPath}/company/product">제품관리</a></li>
+                    <li class="orderMenu"><a href="${pageContext.request.contextPath}/company/order">상품결제관리</a></li>
                     <li class="codeMenu"><a href="${pageContext.request.contextPath}/company/code">코드관리</a></li>
                     <li class="formatMenu"><a href="${pageContext.request.contextPath}/company/format">서식관리</a></li>
                 </ul>

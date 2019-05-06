@@ -37,6 +37,7 @@ $('.vocKakaoBtn').click(function(){
     if( !$('#custno').val() == false )
         window.open("/voc/pop/kakao", "고객상세정보", "width=450px, height=600px");
 });
+
 // 타이머
 function startInterval() {
     second = 1;
@@ -723,7 +724,7 @@ $('#vocSave').click(
     function(e) {
         var reqno = $('#reqno').val();
         var custno = $('#custno').val();
-        //reqno = '2019042217453002112807042622864'; 테스트용샘플값
+        reqno = '2019042217453002112807042622864'; //***필수 삭제요망 테스트용 샘플 데이터 하드코딩
         if(!reqno){
             alert("고객과의 전화를 끊어주세요");
         }else if(!custno){

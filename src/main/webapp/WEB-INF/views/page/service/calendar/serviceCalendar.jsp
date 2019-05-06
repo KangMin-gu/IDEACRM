@@ -75,10 +75,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/service_calendar.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
-    $(document).ready(function() {
-
-
-    });
 
 </script>
 </body>

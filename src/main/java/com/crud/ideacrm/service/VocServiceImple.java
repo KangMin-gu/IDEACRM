@@ -409,14 +409,13 @@ public class VocServiceImple implements VocService {
 
         Map<String,Object> search = parameterUtil.searchParam(request);
 
-
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
         Date currentTime = new Date ();
         String receptiondate = mSimpleDateFormat.format ( currentTime );//현재시간
 
-        if(serviceDto.getOwner() == 0 ){ serviceDto.setOwner(userNo); }
-        if(serviceDto.getServiceowner() == 0 ){ serviceDto.setServiceowner(userNo); }
-        if(serviceDeliveryDto.getNextowner() != 0 ) { serviceDto.setOwner( serviceDeliveryDto.getNextowner() ); }
+        if(serviceDto.getOwner() == 0 ){ serviceDto.setOwner(userNo); }//별도로 입력한 담당자가 없다면 기본값은 로그인 한 유저
+        if(serviceDto.getServiceowner() == 0 ){ serviceDto.setServiceowner(userNo); } //별도로 입력한 서비스담당자가 없다면 기본값은 로그인 한 유저
+        if(serviceDeliveryDto.getNextowner() != 0 ) { serviceDto.setOwner( serviceDeliveryDto.getNextowner() ); } // 이관담당자가 있다면 값 셋팅
         serviceDto.setSiteid(siteId);
         serviceDto.setEdtuser(userNo);
         serviceDto.setReguser(userNo);
@@ -443,25 +442,22 @@ public class VocServiceImple implements VocService {
         int rewardNo = rewardDto.getRewardno();
 
         // 방문 일정이 잡히면 현상파악을 Insert 하게됨.
-        if(visitDate != null) {
-            if(visitDate.length() > 0) {
-                rewardDto.setEncodingRewardDto();
-                rewardDto.setServiceno(serviceNo);
-                if(search.get("asowner") != null){
-                   rewardDto.setOwner( Integer.parseInt((String)search.get("asowner")) );
-                }
-                rewardDto.setReguser(userNo);
-                serviceDao.rewardInsert(rewardDto);
-                serviceDto.setServicestep(2);
-                serviceDao.serviceStepUpdate(serviceDto);
+        if(visitDate != null && !visitDate.equals("")) {
+            rewardDto.setEncodingRewardDto();
+            rewardDto.setServiceno(serviceNo);
+            if(search.get("asowner") != null){
+               rewardDto.setOwner( Integer.parseInt((String)search.get("asowner")) );
             }
+            rewardDto.setReguser(userNo);
+            serviceDao.rewardInsert(rewardDto);
+            serviceDto.setServicestep(2);
+            serviceDao.serviceStepUpdate(serviceDto);
         }
 
         String ractDate = ractDto.getRactdate();
         int ractNo = ractDto.getRactno();
 
-        if(ractDate == null || ractDate.equals("")) {
-        }else{
+        if(ractDate != null && !ractDate.equals("")) {
             if(ractNo != 0) {
                 ractDto.setServiceno(serviceNo);
                 serviceDao.ractUpdate(ractDto);
@@ -482,6 +478,7 @@ public class VocServiceImple implements VocService {
             serviceDeliveryDto.setReguser(userNo);
             serviceDeliveryDto.setEdtuser(userNo);
             serviceDeliveryDto.setSiteid(siteId);
+            serviceDeliveryDto.setConveydate(receptiondate);
             vocDao.conveyInsert(serviceDeliveryDto);
         }else if(svStep == 3){
             ractDto.setRactdesc(serviceDto.getServicedesc());
@@ -525,7 +522,6 @@ public class VocServiceImple implements VocService {
         }
         serviceNo = codecUtil.encodePkNo(serviceNo);
         return serviceNo;
-
     }
 
     @Override

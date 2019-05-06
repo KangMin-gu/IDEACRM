@@ -30,10 +30,13 @@
         <div class="wrapper wrapper-content animated fadeInRight">
            <div class="row">
                 <div class="col-lg-12">
-                    <a href="#" onclick="vocWindow()" class="btn btn-default"><i class="fa fa-compress fa-lg"></i> CS 접속</a>
-                    <a href="${pageContext.request.contextPath}/voc/notice" class="btn btn-default"><i class="fa fa-bell fa-lg"></i>콜센터 공지</a>
-                    <a href="/service" class="btn btn-default"><i class="fa fa-edit fa-lg"></i>서비스 관리</a>
-                    <a href="/service/delivery" class="btn btn-default"><i class="fa fa-reply fa-lg"></i> 서비스 이관 정보</a>
+                    <a href="#" onclick="openNewWindowFullScreen('${pageContext.request.contextPath}/voc')" class="btn btn-default"><i class="fa fa-compress fa-lg"></i> CS 접속</a>
+                    <!--<a href="${pageContext.request.contextPath}/voc/notice" class="btn btn-default"><i class="fa fa-bell fa-lg"></i>콜센터 공지</a>
+                    <a href="${pageContext.request.contextPath}/service" class="btn btn-default"><i class="fa fa-edit fa-lg"></i>서비스 관리</a>
+                    <a href="${pageContext.request.contextPath}/service/delivery" class="btn btn-default"><i class="fa fa-reply fa-lg"></i> 서비스 이관 정보</a>-->
+                    <a href="#" onclick="openNewWindowFullScreen('${pageContext.request.contextPath}/voc/notice')" class="btn btn-default"><i class="fa fa-bell fa-lg"></i>콜센터 공지</a>
+                    <a href="#" onclick="openNewWindowFullScreen('${pageContext.request.contextPath}/service')" class="btn btn-default"><i class="fa fa-edit fa-lg"></i>서비스 관리</a>
+                    <a href="#" onclick="openNewWindowFullScreen('${pageContext.request.contextPath}/service/delivery')" class="btn btn-default"><i class="fa fa-reply fa-lg"></i> 서비스 이관 정보</a>
                 </div>
             </div>
 
@@ -184,10 +187,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc_dashboard.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
-    function vocWindow(){
-        window.open("/voc", "", "fullscreen");
-    }
+
 </script>
 <script>
 

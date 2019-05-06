@@ -57,7 +57,7 @@ var newWindow = null;
 // 부모 window 가 실행
 function openNewWindow(name,url,target,x,y){
     // specs -> 팝업창의 설정들을 정의해 둔 부분
-    var specs= "scrollbars=yes,menubar=no,status=no,toolbar=no,Width="+x+",Height="+y;
+    var specs= "resizable=yes,scrollbars=yes,menubar=no,status=no,toolbar=no,Width="+x+",Height="+y;
     // window.open 함수를 통해서 팝업창 호출
     newWindow = window.open(url, name, specs);
     // window Popup이 되고 난후에 바로 실행시키면 inpu창이 만들어지지 않아서 1초의 시간을 지연시킴
@@ -66,6 +66,10 @@ function openNewWindow(name,url,target,x,y){
             newWindow.document.getElementById("parentid").value = target;
         },1000);
     }
+}
+//풀스크린 팝업 윈도우
+function openNewWindowFullScreen(url){
+    window.open(url, "", "resizable=yes,scrollbars=yes,channelmode=yes");
 }
 
 // 팝업에서 tr 값 클릭 이벤트

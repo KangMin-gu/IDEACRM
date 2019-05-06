@@ -163,7 +163,7 @@
                                         </tr>
                                         <tr>
                                             <th>상담내용</th>
-                                            <td colspan="5" value="${serviceInfo.SERVICEDESC}">${serviceInfo.SERVICEDESC}</td>
+                                            <td colspan="5">${serviceInfo.SERVICEDESC}</td>
                                         </tr>
                                     </tobdy>
                                 </table>

@@ -170,10 +170,9 @@ public class ProductServiceImple implements ProductService {
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
         String buyer = productInfo.get("buyer").toString();
+        int totalPrice = Integer.parseInt(productInfo.get("totalprice").toString());
+
         Map<String, Object> deliveryInfo = (HashMap)productInfo.get("delivery");
-
-        Map<String, Object> buyVal = new HashMap<>();
-
 
         DeliveryProduct dprd = new DeliveryProduct();
 
@@ -187,6 +186,8 @@ public class ProductServiceImple implements ProductService {
         dprd.setHomtel2(deliveryInfo.get("tel2").toString());
         dprd.setHomtel3(deliveryInfo.get("tel3").toString());
         dprd.setDeliveryname(deliveryInfo.get("name").toString());
+        dprd.setDesc(deliveryInfo.get("desc").toString());
+        dprd.setTotalprice(totalPrice);
         dprd.setSiteid(siteId);
         dprd.setBuyuser(buyer);
         dprd.setReguser(userNo);
@@ -204,5 +205,19 @@ public class ProductServiceImple implements ProductService {
 
         return buyNo;
 
+    }
+
+    @Override
+    public ModelAndView orderResult(HttpServletRequest request, int buyNo) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        Map<String, Object> orderResultVal = new HashMap<>();
+        orderResultVal.put("siteid",siteId);
+        orderResultVal.put("buyno", buyNo);
+        Map<String,Object> orderResult = productDao.orderResult(orderResultVal);
+        List<Map<String,Object>> orderProductResult = productDao.orderProductResult(orderResultVal);
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("orderResult", orderResult);
+        mView.addObject("orderProductResult",  orderProductResult);
+        return mView;
     }
 }

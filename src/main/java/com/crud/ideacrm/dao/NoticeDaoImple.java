@@ -131,4 +131,5 @@ public class NoticeDaoImple implements NoticeDao {
         List<Map<String, Object>> noticeList = session.selectList("notice.indexVocNotice",noticeDto);
         return noticeList;
     }
+
 }

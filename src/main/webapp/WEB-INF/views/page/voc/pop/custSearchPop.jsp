@@ -76,7 +76,6 @@
 <!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 
 <script>

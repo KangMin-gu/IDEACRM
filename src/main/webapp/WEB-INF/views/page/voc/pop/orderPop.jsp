@@ -41,33 +41,30 @@
                                             <col width="5%">
                                             <col width="15%">
                                         </colgroup>
+                                        <tbody>
                                         <tr>
-                                            <th colspan="6" style="text-align: left">제품정보 정보</th>
+                                            <th colspan="6" style="text-align: left; background-color: lightgrey;">제품정보 정보</th>
                                         </tr>
+                                        <c:forEach var="tmp" items="${orderProductResult }">
+                                            <tr>
+                                                <th>제품명</th>
+                                                <td style="text-align: right">${tmp.PRDNAME}</td>
+                                                <th>수량</th>
+                                                <td style="text-align: right">${tmp.PRDEA}</td>
+                                                <th>가격</th>
+                                                <td style="text-align: right">${tmp.PRDPRICE}</td>
+                                            </tr>
+                                        </c:forEach>
                                         <tr>
-                                            <th>제품명</th>
-                                            <td style="text-align: right">폴리코사놀 30mg (30정)</td>
-                                            <th>수량</th>
-                                            <td style="text-align: right">1</td>
-                                            <th>가격</th>
-                                            <td style="text-align: right">29,000</td>
+                                            <th colspan="5" style="text-align: center">총 상품가격</th>
+                                            <td style="text-align: right">${orderResult.TOTALPRICE}</td>
                                         </tr>
-                                        <tr>
-                                            <th>제품명</th>
-                                            <td style="text-align: right">폴리코사놀 30mg (30정)</td>
-                                            <th>수량</th>
-                                            <td style="text-align: right">1</td>
-                                            <th>가격</th>
-                                            <td style="text-align: right">29,000</td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="5" style="text-align: center">총 가격</th>
-                                            <td style="text-align: right">58,000</td>
-                                        </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+
 <br/>
                         <div class="row">
                             <div class="col-lg-12">
@@ -82,19 +79,21 @@
                                             <col width="15%">
                                         </colgroup>
                                         <tr>
-                                            <th colspan="6" style="text-align: left">받는사람 정보</th>
+                                            <th colspan="8" style="text-align: left; background-color: lightgrey;">받는사람 정보</th>
                                         </tr>
                                         <tr>
                                             <th>받는사람</th>
-                                            <td>강민구</td>
-                                            <th>연락처</th>
-                                            <td>010-7120-3655</td>
+                                            <td>${orderResult.DELIVERYNAME}</td>
+                                            <th>휴대전화</th>
+                                            <td>${orderResult.MOBILE}</td>
+                                            <th>자택전화</th>
+                                            <td>${orderResult.HOMTEL}</td>
                                             <th>주소</th>
-                                            <td>서울시 서대문구 홍제3동 유원하나아파트 102동 203호</td>
+                                            <td>${orderResult.ADDR}</td>
                                         </tr>
                                         <tr>
                                             <th>배송요청사항</th>
-                                            <td colspan="5">문 앞</td>
+                                            <td colspan="7">${orderResult.DELIVERYDESC}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -112,25 +111,15 @@
                                             <col width="40%">
                                         </colgroup>
                                         <tr>
-                                            <th colspan="4">결제정보</th>
+                                            <th colspan="4" style="background-color: lightgrey;">결제정보</th>
                                         </tr>
                                         <tr>
-                                            <th rowspan="5">결제수단</th>
-                                            <td rowspan="5">우리카드</td>
                                             <th >총 상품가격</th>
-                                            <td >58000원</td>
-                                        </tr>
-                                        <tr>
-                                            <th >할인금액</th>
-                                            <td >0원</td>
-                                        </tr>
-                                        <tr>
-                                            <th >배송비</th>
-                                            <td >2500원</td>
+                                            <td >${orderResult.TOTALPRICE}</td>
                                         </tr>
                                         <tr>
                                             <th>총 결제금액</th>
-                                            <td>60500원</td>
+                                            <td>${orderResult.TOTALPRICE}</td>
                                         </tr>
                                     </table>
                                 </div>

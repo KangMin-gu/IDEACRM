@@ -208,7 +208,7 @@
                                     </tr>
                                     <tr>
                                         <th>배송 메모</th>
-                                        <td colspan="3"><input class="form-control form-control-sm" type="text" id="deliverydesc" name="deliverydesc"></td>
+                                        <td colspan="3"><input class="form-control form-control-sm" type="text" id="deliverydesc" name="deliverydesc" style="width: 800px;"></td>
                                     </tr>
                                 </table>
                             </div>

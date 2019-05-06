@@ -95,4 +95,16 @@ public class ProductDaoImple implements ProductDao{
         session.insert("product.orderProduct", dprd);
     }
 
+    @Override
+    public Map<String, Object> orderResult(Map<String, Object> orderResultVal) {
+        Map<String, Object>  orderResult = session.selectOne("product.orderResult", orderResultVal);
+        return orderResult;
+    }
+
+    @Override
+    public List<Map<String, Object>> orderProductResult(Map<String, Object> orderResultVal) {
+        List<Map<String, Object>> orderProductResult = session.selectList("product.orderProductResult",orderResultVal);
+        return orderProductResult;
+    }
+
 }

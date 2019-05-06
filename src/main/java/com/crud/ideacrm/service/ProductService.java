@@ -17,4 +17,5 @@ public interface ProductService {
     public void companyProductDel(HttpServletRequest request, ProductDto productParam);
     public void companyProductUpdate(HttpServletRequest request, ProductDto productParam);
     public int order(HttpServletRequest request, Map<String, Object> productInfo);
+    public ModelAndView orderResult(HttpServletRequest request,int buyNo);
 }

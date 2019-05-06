@@ -25,10 +25,12 @@ public class DeliveryProduct {
     private int prdno;
     private int prdea;
     private int erpno;
+    private String desc;
+    private int totalprice;
 
     public DeliveryProduct(){}
 
-    public DeliveryProduct(int buyno, String buyuser, int reguser, String regdate, int edtdate, int edtuser, String addr1, String addr2, String addr3, String addr, String mobile1, String mobile2, String mobile3, String mobile, String homtel1, String homtel2, String homtel3, String homtel, int siteid, String deliveryname, int prdno, int prdea, int erpno) {
+    public DeliveryProduct(int buyno, String buyuser, int reguser, String regdate, int edtdate, int edtuser, String addr1, String addr2, String addr3, String addr, String mobile1, String mobile2, String mobile3, String mobile, String homtel1, String homtel2, String homtel3, String homtel, int siteid, String deliveryname, int prdno, int prdea, int erpno, String desc, int totalprice) {
         this.buyno = buyno;
         this.buyuser = buyuser;
         this.reguser = reguser;
@@ -52,6 +54,8 @@ public class DeliveryProduct {
         this.prdno = prdno;
         this.prdea = prdea;
         this.erpno = erpno;
+        this.desc = desc;
+        this.totalprice = totalprice;
     }
 
     public int getBuyno() {
@@ -236,5 +240,21 @@ public class DeliveryProduct {
 
     public void setErpno(int erpno) {
         this.erpno = erpno;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public int getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(int totalprice) {
+        this.totalprice = totalprice;
     }
 }

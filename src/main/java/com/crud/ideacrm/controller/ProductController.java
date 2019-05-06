@@ -106,9 +106,12 @@ public class ProductController {
     }
 
     //주문관리
-    @RequestMapping(value = "/order/reuslt", method = RequestMethod.GET)
-    public String authOrderResult(HttpServletRequest request){
-        return "page/voc/pop/orderPop";
+    @RequestMapping(value = "/order/reuslt/{buyNo}", method = RequestMethod.GET)
+    public ModelAndView authOrderResult(HttpServletRequest request, @PathVariable int buyNo){
+        ModelAndView mView = productService.orderResult(request, buyNo);
+        System.out.println(buyNo);
+        mView.setViewName("page/voc/pop/orderPop");
+        return mView;
     }
 
 }

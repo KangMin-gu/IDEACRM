@@ -228,10 +228,11 @@ $('#orderBtn').click(function(){
 
     //구매자 userId
     var buyer = $('#buyuserNo').val();
+    var totalprice = $('#totalPrice').val();
 
     //dataArr.push(buyer);
     //받는이 정보
-    var order = {product : product, delivery : delivery, buyer: buyer};
+    var order = {product : product, delivery : delivery, buyer: buyer, totalprice : totalprice};
     console.log(JSON.stringify(order));
     $.ajax({
         url: "/order",
@@ -241,7 +242,7 @@ $('#orderBtn').click(function(){
         contentType:'application/json; charset=utf-8',
         success: function (data) {
             //주문완료창 열기
-            location.href = "/order/reuslt";
+            location.href = "/order/reuslt/"+data;
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(jqXHR+ textStatus+ errorThrown);

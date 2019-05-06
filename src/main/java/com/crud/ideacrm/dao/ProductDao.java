@@ -24,5 +24,7 @@ public interface ProductDao {
     public void productUpdate(ProductDto productDto);
     public int orderInsert(DeliveryProduct dprd);
     public void orderProductInsert(DeliveryProduct dprd);
+    public Map<String, Object> orderResult(Map<String, Object> orderResultVal);
+    public List<Map<String, Object>> orderProductResult(Map<String, Object> orderResultVal);
 
 }

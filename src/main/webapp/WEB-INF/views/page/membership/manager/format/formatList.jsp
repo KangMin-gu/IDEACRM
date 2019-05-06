@@ -146,7 +146,7 @@
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
 <!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>

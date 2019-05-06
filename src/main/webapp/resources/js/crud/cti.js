@@ -677,7 +677,9 @@ function ctiEvent(msg){
 	
 	if(tmpData[0] == "00"){// 로그인 응답
 		if(tmpData[4] == "1"){
-			alert("로그인되었습니다.");
+            //alert("로그인되었습니다.");
+		    var usernm = $('#ctiLoginUsernm').val();
+            alert(usernm + "님 CTI 로그인 되었습니다.");
 			$('#vocLogInSpan').hide();
 			$('.ctibtn').show();
 			$('.doLoginMsg').hide();

@@ -143,10 +143,13 @@
                                         <tr>
                                             <!--회원사 -->
                                             <input type="hidden" id="sitename" name="sitename" value="${sessionScope.SITENAME}">
+                                            <!--회원-->
+                                            <input type="hidden" id="ctiLoginUsernm" name="ctiLoginUsernm" value="${sessionScope.USERNAME}">
                                             <!--고객 관련 hidden -->
                                             <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt"/>
                                             <!-- 녹취 키값  -->
                                             <input type="hidden" id="nucIdx"  name="nucIdx" value="" />
+
 
                                             <th>유입번호</th>
                                             <td class="p-xxs">

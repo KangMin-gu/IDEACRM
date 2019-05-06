@@ -41,7 +41,7 @@ public class VocController {
     @Autowired
     private FormatService formatService;
 
-    private final int USINGMENU = 3;// 서비스 사용 메뉴 값은 3
+    private final int USINGMENU = 3;//  서비스 사용 메뉴 값은 3
 
     @RequestMapping(value = "/voc/dashboard", method = RequestMethod.GET)
     public ModelAndView authvocList(HttpServletRequest request) {

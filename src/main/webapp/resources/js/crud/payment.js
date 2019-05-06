@@ -223,7 +223,7 @@ $('#orderBtn').click(function(){
     delivery.addr3 =  $('#deliveryaddr3').val();
     delivery.desc =  $('#deliverydesc').val();
 
-    //dataArr.push(delivery);
+    // dataArr.push(delivery);
 
 
     //구매자 userId

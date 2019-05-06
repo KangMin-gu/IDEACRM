@@ -210,7 +210,7 @@
 
     </div>
 </div>
-<!--js includ-->
+<!--js  includ-->
 <%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 <!-- Morris -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/raphael-2.1.0.min.js"></script>

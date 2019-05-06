@@ -4,7 +4,7 @@
 	<select id="getProductB" parameterType="productDto" resultType="productDto">
 		SELECT * FROM SYS990040
 		WHERE SITEID = #{siteid}
-		AND UPPERPRDNO IS NULL
+		AND UPPERPRDNO = 0
 	</select>
 
 	<select id="upperProduct" parameterType="productDto" resultType="productDto">
@@ -14,4 +14,83 @@
 		AND UPPERPRDNO = #{upperprdno}
 	</select>
 
+	<select id="productList" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM SYS990040 WHERE SITEID = #{siteid} AND ISDELETE = 0
+		<if test="prdname != null">
+			AND PRDNAME like CONCAT('%',#{prdname},'%')
+		</if>
+		<if test="erpno != null">
+			AND ERPNO like CONCAT('%',#{erpno},'%')
+		</if>
+		<if test="upperprdno != null">
+			AND UPPERPRDNO like CONCAT('%',#{upperprdno},'%')
+		</if>
+	</select>
+
+    <select id="hightList" parameterType="int" resultType="hashMap">
+        SELECT PRDNO, PRDNAME FROM sys990040 WHERE SITEID = #{siteid} AND UPPERPRDNO = 0;
+    </select>
+
+    <select id="highcode" parameterType="int" resultType="hashMap">
+		SELECT PRDNO AS id , PRDNAME AS text, UPPERPRDNO, PRDVALUE, ERPNO, PRDPRICE FROM SYS990040
+		WHERE SITEID = #{siteid}
+		AND UPPERPRDNO = 0 AND ISDELETE = 0;
+	</select>
+
+    <select id="lowcode" parameterType="int" resultType="hashMap">
+		SELECT PRDNO AS id, PRDNAME as text, UPPERPRDNO, PRDVALUE, ERPNO, PRDPRICE, PRDDESC FROM SYS990040
+		WHERE UPPERPRDNO = #{prdno} AND ISDELETE = 0;
+	</select>
+
+    <select id="lowcodes" parameterType="hashMap" resultType="hashMap">
+        SELECT * FROM (
+		SELECT PRDNO AS id, PRDNAME as text, UPPERPRDNO, PRDVALUE, ERPNO, PRDPRICE, PRDDESC FROM SYS990040
+		WHERE UPPERPRDNO = #{prdno} AND ISDELETE = 0 ) AS A
+		<if test="productval != null">
+            WHERE NOT A.id IN
+            <foreach collection="productval" item="type" open="(" close=")" separator=",">
+                #{type}
+            </foreach>
+        </if>
+	</select>
+
+    <insert id="productInsert" parameterType="hashMap">
+            INSERT INTO sys990040
+             (PRDNAME, UPPERPRDNO, ISDELETE, REGDATE, REGUSER, EDTDATE, EDTUSER, SITEID)
+             VALUES
+             (#{grpname}, 0, 0, now(), #{reguser}, now(), #{reguser}, #{siteid})
+    </insert>
+
+    <insert id="productGroupListInsert" parameterType="hashMap">
+        INSERT INTO sys990040
+            (PRDNAME, PRDVALUE, PRDDESC,ERPNO, UPPERPRDNO, ISDELETE, REGDATE, REGUSER, EDTDATE, EDTUSER, SITEID, PRDPRICE)
+            VALUES
+            (#{prdname},#{prdvalue},#{prddesc},#{erpno},#{grpupper}, 0, now(), #{reguser}, now(), #{reguser}, #{siteid}, #{prdprice})
+    </insert>
+
+    <update id="del" parameterType="productDto">
+        UPDATE sys990040 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE PRDNO = #{prdno}
+    </update>
+
+    <update id="allDel" parameterType="productDto">
+        UPDATE sys990040 SET ISDELETE = 1, EDTUSER = #{edtuser}, EDTDATE = now() WHERE PRDNO = #{prdno} OR UPPERPRDNO = #{prdno}
+    </update>
+
+    <update id="update" parameterType="productDto">
+        UPDATE sys990040
+        SET
+        <if test="grpname == ''">
+            PRDNAME=#{prdname},
+        </if>
+        <if test="grpname != ''">
+           PRDNAME=#{grpname},
+        </if>
+        PRDVALUE=#{prdvalue},
+        PRDDESC = #{prddesc},
+        ERPNO=#{erpno},
+        PRDPRICE = #{prdprice},
+        EDTUSER = #{edtuser},
+        EDTDATE = now()
+        WHERE PRDNO = #{prdno}
+    </update>
 </mapper>

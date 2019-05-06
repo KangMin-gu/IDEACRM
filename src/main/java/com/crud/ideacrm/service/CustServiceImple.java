@@ -35,7 +35,8 @@ public class CustServiceImple implements CustService{
         Map<String,Object> param = prmUtil.searchParam(request);
         List<Map<String,Object>> custList = custDao.custList(param);
 
-        for(int i=0;i<custList.size();i++){ //pk값 암호화
+        for(int i=0;i<custList.size();i++){
+            //pk값 암호화
             String custNo = Integer.toString( (int)(custList.get(i).get("CUSTNO")));
             String enCustNo = codecUtil.encodePkNo(custNo);
             custList.get(i).put("CUSTNO",enCustNo);

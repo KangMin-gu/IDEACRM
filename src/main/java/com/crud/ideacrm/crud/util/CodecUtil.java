@@ -167,5 +167,17 @@ public class CodecUtil {
         return decoding(decodeRes);
     }
 
+    public String removeHyphen(String target){
+        String result = target.replace("-","");
+        return result;
+    }
+
+    public String removeNullText(String target){
+        String result = target.replace("null","");
+        return result;
+    }
+
+
+
 
 }

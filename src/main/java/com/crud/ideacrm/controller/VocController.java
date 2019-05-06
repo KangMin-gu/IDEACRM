@@ -90,7 +90,7 @@ public class VocController {
     @RequestMapping(value = "/voc/pop/custsearch", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> vocCustSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
-        List<Map<String, Object>> custSearchList = custService.custList(request);
+        List<Map<String, Object>> custSearchList = vocService.vocSearchCustList(request);
         return custSearchList;
     }
 

@@ -542,5 +542,44 @@ public class VocServiceImple implements VocService {
         return sendformList;
     }
 
+    //voc 팝업 고객 리스트
+    @Override
+    public List<Map<String, Object>> vocSearchCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,Object> param = parameterUtil.searchParam(request);
+        List<Map<String,Object>> custList = custDao.custList(param);
+        custList = codecUtil.decodeList(custList);//복호화
+
+        String tmp;
+        for(int i=0;i<custList.size();i++){
+
+            //pk값 암호화
+            String custNo = Integer.toString( (int)(custList.get(i).get("CUSTNO")));
+            String enCustNo = codecUtil.encodePkNo(custNo);
+            custList.get(i).put("CUSTNO",enCustNo);
+
+            if( custList.get(i).get("MOBILE") != null ){
+                tmp = "";
+                tmp = (String)custList.get(i).get("MOBILE");
+                tmp = codecUtil.removeHyphen(tmp);// '-' 제거
+                if(tmp.contains("null")){ tmp = codecUtil.removeNullText(tmp);  }// null text 제거
+                custList.get(i).put("MOBILE",tmp);
+            }
+            if( custList.get(i).get("HOMTEL") != null ){
+                tmp = "";
+                tmp = (String)custList.get(i).get("HOMTEL");
+                tmp = codecUtil.removeHyphen(tmp);
+                if(tmp.contains("null")){ tmp = codecUtil.removeNullText(tmp);  }
+                custList.get(i).put("HOMTEL",tmp);
+            }
+            if( custList.get(i).get("WRKTEL") != null ){
+                tmp = "";
+                tmp = (String)custList.get(i).get("WRKTEL");
+                tmp = codecUtil.removeHyphen(tmp);
+                if(tmp.contains("null")){ tmp = codecUtil.removeNullText(tmp);  }
+                custList.get(i).put("WRKTEL",tmp);
+            }
+        }
+        return custList;
+    }
 
 }

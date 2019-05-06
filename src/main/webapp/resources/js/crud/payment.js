@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var jsTreeOption = {"plugin":['types','dnd','search'], "icon":{'icon': 'fa fa-folder'}};
-    jsTree('/company/products' ,jsTreeOption); //전달*/
+    jsTree('/company/products' ,jsTreeOption); // 전달
 
 });
 

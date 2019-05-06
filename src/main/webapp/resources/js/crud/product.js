@@ -108,7 +108,7 @@ $('#jstreeSet').on("changed.jstree", function (e, data) {
 
 function jsTreeLoad(){
     var jsTreeOption = {"plugin":['types','dnd','search'], "icon":{'icon': 'fa fa-folder'}};
-    jsTree('/company/products' ,jsTreeOption); //전달
+    jsTree('/company/products' ,jsTreeOption); // 전달
 };
 
 function productDel() {

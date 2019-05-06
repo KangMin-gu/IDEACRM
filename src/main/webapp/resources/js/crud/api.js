@@ -234,7 +234,6 @@ $('.icheckbox_square-green input[type="checkbox"]').on('ifChecked', function(e){
 
 //jTree
 function jsTree(url, jsTreeOption) {
-    var param = searchDataToJson();
     $('#jstreeSet').jstree({
        'core' : {
             'data' : {
@@ -249,10 +248,8 @@ function jsTree(url, jsTreeOption) {
             'default': jsTreeOption.icon
         }
     });
-
     $("#jsTreeForm").submit(function(e) {
         e.preventDefault();
         $('#jstreeSet').jstree(true).search($("#jsTreeVal").val());
     });
-
 }

@@ -67,7 +67,7 @@ function openNewWindow(name,url,target,x,y){
         },1000);
     }
 }
-//풀스크린 팝업 윈도우
+// 풀스크린 팝업 윈도우
 function openNewWindowFullScreen(url){
     window.open(url, "", "resizable=yes,scrollbars=yes,channelmode=yes");
 }

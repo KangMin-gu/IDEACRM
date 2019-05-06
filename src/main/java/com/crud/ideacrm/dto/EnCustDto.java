@@ -65,6 +65,7 @@ public class EnCustDto extends CustDto implements Serializable {
     private String homtel;
     private String wrktel;
     private String wrkfax;
+    private String company;
 
     public EnCustDto(CustDto custDto) throws UnsupportedEncodingException, GeneralSecurityException {
         this.custno = custDto.getCustno();
@@ -119,6 +120,7 @@ public class EnCustDto extends CustDto implements Serializable {
         this.homtel=custDto.getHomtel1()+"-"+custDto.getHomtel2()+"-"+custDto.getHomtel3();
         this.wrktel=custDto.getWrktel1()+"-"+custDto.getWrktel3()+"-"+custDto.getWrktel3();
         this.wrkfax=custDto.getWrkfax1()+"-"+custDto.getWrkfax3()+"-"+custDto.getWrkfax3();
+        this.company = custDto.getCompany();
 
         setEncodingCustDto();
     }
@@ -138,7 +140,6 @@ public class EnCustDto extends CustDto implements Serializable {
         if(this.email != null && this.email != ""){ this.email = commonUtil.encoding(this.email); }
         if(this.mobile != null && this.mobile != ""){ this.mobile = commonUtil.encoding(this.mobile);}
         if(this.homtel != null && this.homtel != ""){ this.homtel = commonUtil.encoding(this.homtel); }
-
     }
 
     @Override
@@ -659,5 +660,15 @@ public class EnCustDto extends CustDto implements Serializable {
     @Override
     public void setWrkfax(String wrkfax) {
         this.wrkfax = wrkfax;
+    }
+
+    @Override
+    public String getCompany() {
+        return company;
+    }
+
+    @Override
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

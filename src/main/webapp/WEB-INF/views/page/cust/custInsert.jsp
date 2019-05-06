@@ -185,10 +185,13 @@
 
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">직장명</label>
-                                            <div class="col-sm-4 input-group client" id="cliname" >
+                                            <!--<div class="col-sm-4 input-group client" id="cliname" >
                                                 <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname" value="" readonly>
                                                 <input type="hidden" class="searchparam" name="clino" id="clino" value="0">
                                                 <span class="input-group-addon" style="height:31px;"> <a><i class="fa fa-search"></i></a> </span>
+                                            </div>-->
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control form-control-sm name" id="company" name="company">
                                             </div>
                                             <label class="col-sm-2 col-form-label">홈페이지</label>
                                             <div class="col-sm-4">

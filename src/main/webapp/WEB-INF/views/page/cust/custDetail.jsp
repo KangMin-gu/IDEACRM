@@ -174,7 +174,8 @@
                                     <tbody>
                                     <tr>
                                         <th>직장명</th>
-                                        <td><span id="cliname">${custDetail.CLINAME}</span></td>
+                                        <!--<td><span id="cliname">${custDetail.CLINAME}</span></td>-->
+                                        <td><span id="company">${custDetail.COMPANY}</span></td>
                                         <th>부서</th>
                                         <td>${custDetail.DEPTNAME}</td>
                                         <th>직책</th>
@@ -184,9 +185,9 @@
                                     </tr>
                                     <tr>
                                         <th>직장 전화</th>
-                                        <td>${custDetail.WRKTEL_}</td>
+                                        <td>${custDetail.WRKTEL}</td>
                                         <th>직장 팩스</th>
-                                        <td>${custDetail.WRKFAX_}</td>
+                                        <td>${custDetail.WRKFAX}</td>
                                         <th>직장 주소</th>
                                         <td colspan="3">${custDetail.WRKADDR1} <span id="wrkaddr"> ${custDetail.WRKADDR2} ${custDetail.WRKADDR3}</span></td>
                                     </tr>
@@ -840,7 +841,7 @@
     $(document).ready(function() {
         drawMap('map','homaddr','custname');
         $('#custDetailWrkContentBtn').click(function(){
-            iboxDrawMap('map2','wrkaddr','cliname','custDetailWrkContentDiv');
+            iboxDrawMap('map2','wrkaddr','company','custDetailWrkContentDiv');
         });
         setTimeout(function(){
             $('.vocTabDetail > li:first >a').click();

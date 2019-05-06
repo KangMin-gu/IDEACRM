@@ -253,7 +253,7 @@ public class VocController {
     }
 
     //voc 고객팝업창 tr 클릭 시 해당 고객의 최근 한건의 서비스 데이터 바인딩
-    @RequestMapping(value = "/voc/pop/service/{custNo}", method = RequestMethod.GET)
+    @RequestMapping(value = "/voc/pop/service/info/{custNo}", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> vocPopServiceSelect(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String, Object> serviceMap = vocService.vocPopServiceSelect(request, custNo);

@@ -523,6 +523,7 @@ function func_logout(){
 	$('#vocLogInSpan').show();
 	$('#vocLogOutSpan').hide();
 	$('.ctibtn').hide();
+	$('.doLoginMsg').show();
 	intervalFuncOff();
 	alert("로그아웃 되었습니다.");
 }
@@ -679,6 +680,7 @@ function ctiEvent(msg){
 			alert("로그인되었습니다.");
 			$('#vocLogInSpan').hide();
 			$('.ctibtn').show();
+			$('.doLoginMsg').hide();
 			$('#vocLogOutSpan').show();
 			intervalFuncOn();//세션 유지 실행
 			$('[name="callbackBottomTab"]').trigger('click');
@@ -705,6 +707,7 @@ function ctiEvent(msg){
     	$('#vocLogInSpan').show();
 		$('#vocLogOutSpan').hide();
 		$('.ctibtn').hide();
+		$('.doLoginMsg').show();
 		document.getElementById("status").innerHTML = "연결안됨";
 		document.getElementById("transferTryCnt").innerHTML = "0";
 		document.getElementById("transferConnectCnt").innerHTML = "0";
@@ -937,6 +940,7 @@ function ctiEvent(msg){
         	$('#vocLogInSpan').show();
         	$('#vocLogOutSpan').hide();
         	$('.ctibtn').hide();
+			$('.doLoginMsg').show();
             
         }
     } 

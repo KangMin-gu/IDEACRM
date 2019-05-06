@@ -54,6 +54,7 @@
                         <input type="hidden" id="reqno" name="reqno" value="" /><!-- 서비스랑 연결할 REQNO -->
                     </div>
                     <ul class="top-btn">
+                        <li class="doLoginMsg"><span><h3>로 그 인 해 주 세 요 </h3></span></li>
                         <li class="ctibtn"><input type="text" id="makeCallNum" class="form-control" value="" style="color:black"></li>
                         <li class="liBtn ctibtn"><button onclick="javascript:func_answer();" class="btn btn-primary btn-sm" id="answerBtn">받기 <i class="fa fa-phone"></i></button></li>
                         <li class="liBtn ctibtn"><button onclick="javascript:func_pickup();" class="btn btn-primary btn-sm" id="pickupBtn">당겨받기 <i class="fa fa-phone"></i></button></li>

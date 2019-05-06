@@ -334,7 +334,7 @@
 
 
 <!-- footable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
 <!-- common -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <!-- api,service -->

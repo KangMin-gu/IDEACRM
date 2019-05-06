@@ -216,7 +216,7 @@
 <!--js includ -->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <!-- FooTable -->
-<script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/index.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>

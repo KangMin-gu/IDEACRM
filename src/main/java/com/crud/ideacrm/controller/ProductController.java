@@ -1,6 +1,7 @@
 package com.crud.ideacrm.controller;
 
 import com.crud.ideacrm.dto.ProductDto;
+import com.crud.ideacrm.service.CodeService;
 import com.crud.ideacrm.service.ProductService;
 import org.apache.tools.ant.taskdefs.condition.Http;
 import org.slf4j.Logger;
@@ -20,6 +21,10 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CodeService codeService;
+
+    private final int USINGMENU = 3;// 서비스 사용 메뉴 값은 3
 
     @RequestMapping(value="/product", method= RequestMethod.GET)
     @ResponseBody
@@ -43,8 +48,11 @@ public class ProductController {
 
     //상품 결제 창
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
-    public String authPayment(HttpServletRequest reuqest){
-        return "page/voc/pop/paymentPop";
+    public ModelAndView authPayment(HttpServletRequest reuqest){
+       ModelAndView mView = new ModelAndView();
+       mView.addAllObjects(codeService.getCommonCode(USINGMENU));
+       mView.setViewName("page/voc/pop/paymentPop");
+       return mView;
     }
 
     @RequestMapping(value="/productbacketlist", method = RequestMethod.GET)
@@ -52,12 +60,6 @@ public class ProductController {
     public List<Map<String,Object>> backetList (HttpServletRequest request, @RequestParam(value="checkArr[]", required=false) List<Integer> productVal){
         List<Map<String,Object>> productList = productService.companyProdcutLists(request, productVal);
         return productList;
-    }
-
-    //상품 결제 창
-    @RequestMapping(value = "/order", method = RequestMethod.GET)
-    public String authOrderPop(HttpServletRequest reuqest){
-        return "page/voc/pop/orderPop";
     }
 
     //제품관리
@@ -95,13 +97,18 @@ public class ProductController {
     }
 
     //주문관리
-    @RequestMapping(value = "/company/order", method = RequestMethod.GET)
-    public ModelAndView authCompanyOrder(HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
-        mView.setViewName("/page/membership/manager/order/orderList");
-        return mView;
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    @ResponseBody
+    public int authOrder(HttpServletRequest request, @RequestBody Map<String, Object> productInfo){
+        System.out.println(productInfo);
+        int buyPk = productService.order(request, productInfo);
+        return buyPk;
     }
 
-
+    //주문관리
+    @RequestMapping(value = "/order/reuslt", method = RequestMethod.GET)
+    public String authOrderResult(HttpServletRequest request){
+        return "page/voc/pop/orderPop";
+    }
 
 }

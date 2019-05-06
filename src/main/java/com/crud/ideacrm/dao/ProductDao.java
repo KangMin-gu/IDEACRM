@@ -1,5 +1,6 @@
 package com.crud.ideacrm.dao;
 
+import com.crud.ideacrm.dto.DeliveryProduct;
 import com.crud.ideacrm.dto.ProductDto;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,5 +22,7 @@ public interface ProductDao {
     public void prodcutDel(ProductDto productDto);
     public void prodcutAllDel(ProductDto productDto);
     public void productUpdate(ProductDto productDto);
+    public int orderInsert(DeliveryProduct dprd);
+    public void orderProductInsert(DeliveryProduct dprd);
 
 }

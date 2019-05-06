@@ -63,7 +63,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
-                                    <table class="table table-striped ibox-right cti-user-list" style="white-space:nowrap;">
+                                    <table class="table table-striped" id="backetList" style="white-space:nowrap;">
                                         <colgroup>
                                             <col width="20%">
                                             <col width="20%">
@@ -114,17 +114,31 @@
                                     </colgroup>
                                     <tr>
                                         <th>구매자</th>
-                                        <td colspan="3"><span id="buyName">강민구</span></td>
+                                        <td colspan="3"><span id="buyNametext"></span></td>
+                                        <input type="hidden" id="buyName">
+                                        <input type="hidden" id="buyuserNo">
                                     </tr>
                                     <tr>
                                         <th>전화번호</th>
-                                        <td><span id="buyTel">02-394-8574</span></td>
+                                        <td><span id="buyTel"></span></td>
+                                        <input type="hidden"  id="buyTel1">
+                                        <input type="hidden"  id="buyTel2">
+                                        <input type="hidden"  id="buyTel3">
                                         <th>휴대전화</th>
-                                        <td><span id="buyPhone">010-7120-3655</span></td>
+                                        <td><span id="buyPhone"></span></td>
+                                        <input type="hidden"  id="buyPhone1">
+                                        <input type="hidden"  id="buyPhone2">
+                                        <input type="hidden"  id="buyPhone3">
                                     </tr>
                                     <tr>
                                         <th>구매자 주소</th>
-                                        <td colspan="3"><span id="buyAddr">서울시 서대문구 홍제3동 유원하나아파트 102동 203호</span></td>
+                                        <td><span id="buyAddr"></span></td>
+                                        <input type="hidden"  id="buyAddr1">
+                                        <input type="hidden"  id="buyAddr2">
+                                        <input type="hidden"  id="buyAddr3">
+                                        <th>구매자 이메일</th>
+                                        <td><span class="buyEmail" id="buyEmailtext"></span></td>
+                                        <input type="hidden" id="buyEmail">
                                     </tr>
                                 </table>
                             </div>
@@ -142,42 +156,42 @@
                                     <tr>
                                         <th>받는이</th>
                                         <td colspan="3">
-                                            <input class="form-control form-control-sm" id="deliveryName" type="text" style="width: 100px;">
+                                            <input class="form-control form-control-sm" id="deliveryname" name="deliveryname" type="text" style="width: 200px;">
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>전화번호</th>
                                         <td>
                                             <div style="display: inline-block">
-                                                <select class="form-control form-control-sm vocCustInput" name="mobile1" id="tel1" style="width: 80px;height: 30px;padding-top: 2.5px;">
-                                                    <option value="">선택</option>
-                                                    <c:forEach var="mobile" items="${MOBILE}">
-                                                        <option value="${mobile.codeval}">${mobile.codename}</option>
+                                                <select class="form-control form-control-sm" name="deliverytel1" id="deliverytel1" style="width: 80px;height: 30px;padding-top: 2.5px;">
+                                                    <option>선택</option>
+                                                    <c:forEach var="phone" items="${PHONE}">
+                                                        <option value="${phone.codeval}">${phone.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <input class="form-control form-control-sm vocCustInput" type="text" name="tel2" id="tel2" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                <input class="form-control form-control-sm" type="text" name="deliverytel2" id="deliverytel2" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                             </div>
                                             <div style="display: inline-block">
-                                                <input class="form-control form-control-sm vocCustInput" type="text" name="tel3" id="tel3" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                <input class="form-control form-control-sm" type="text" name="deliverytel3" id="deliverytel3" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                             </div>
                                         </td>
                                         <th>휴대전화</th>
                                         <td>
                                             <div style="display: inline-block">
-                                                <select class="form-control form-control-sm vocCustInput" name="mobile1" id="mobile1" style="width: 80px;height: 30px;padding-top: 2.5px;">
-                                                    <option value="">선택</option>
+                                                <select class="form-control form-control-sm" name="deliverymobile1" id="deliverymobile1" style="width: 80px;height: 30px;padding-top: 2.5px;">
+                                                    <option>선택</option>
                                                     <c:forEach var="mobile" items="${MOBILE}">
                                                         <option value="${mobile.codeval}">${mobile.codename}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                             <div style="display: inline-block">
-                                                <input class="form-control form-control-sm vocCustInput" type="text" name="mobile2" id="mobile2" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                <input class="form-control form-control-sm" type="text" name="deliverymobile2" id="deliverymobile2" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                             </div>
                                             <div style="display: inline-block">
-                                                <input class="form-control form-control-sm vocCustInput" type="text" name="mobile3" id="mobile3" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                <input class="form-control form-control-sm" type="text" name="deliverymobile3" id="deliverymobile3" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                             </div>
                                         </td>
                                     </tr>
@@ -185,16 +199,16 @@
                                         <th>받는이 주소</th>
                                         <td colspan="3">
                                             <div class="row">
-                                                <div class="col-md-2"><input type="text" class="form-control form-control-sm"  id="addr1" name="addr1" readonly></div>
-                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm"  id="addr2" name="addr2" readonly></div>
-                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="addr3" name="addr3"></div>
+                                                <div class="col-md-2"><input type="text" class="form-control form-control-sm"  id="deliveryaddr1" name="deliveryaddr1" readonly></div>
+                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm"  id="deliveryaddr2" name="deliveryaddr2" readonly></div>
+                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="deliveryaddr3" name="deliveryaddr3"></div>
                                                 <div class="col-md-2"><button class="btn btn-white btn-sm daumzip" type="button">주소 검색</button></div>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>배송 메모</th>
-                                        <td colspan="3"><input class="form-control form-control-sm" type="text"></td>
+                                        <td colspan="3"><input class="form-control form-control-sm" type="text" id="deliverydesc" name="deliverydesc"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -206,7 +220,8 @@
         </div>
 
         <button type="button" class="btn btn-default pull-left">취소</button>
-        <a href="${pageContext.request.contextPath}/order" class="btn btn-primary pull-right">결제</a>
+
+        <button class="btn btn-primary pull-right" id="orderBtn">주문서 작성</button>
 
     </div>
 </div>

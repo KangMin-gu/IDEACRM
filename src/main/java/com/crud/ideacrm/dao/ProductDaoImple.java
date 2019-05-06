@@ -1,5 +1,6 @@
 package com.crud.ideacrm.dao;
 
+import com.crud.ideacrm.dto.DeliveryProduct;
 import com.crud.ideacrm.dto.ProductDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,18 @@ public class ProductDaoImple implements ProductDao{
     @Override
     public void productUpdate(ProductDto productDto) {
         session.update("product.update", productDto);
+    }
+
+    @Override
+    public int orderInsert(DeliveryProduct dprd) {
+        session.insert("product.order",dprd);
+        int buyNo = dprd.getBuyno();
+        return buyNo;
+    }
+
+    @Override
+    public void orderProductInsert(DeliveryProduct dprd) {
+        session.insert("product.orderProduct", dprd);
     }
 
 }

@@ -991,7 +991,7 @@ function onClose(event){
 
 //웹소켓에 메시지 보내기
 function goWebSocketSendMsg(strMsg){
-	webSocket.send(strMsg);	
+	webSocket.send(strMsg);
 }
 
 //웹소켓 접속끊기

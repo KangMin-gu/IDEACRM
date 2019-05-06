@@ -20,7 +20,6 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/sweetalert/sweetalert.css" rel="stylesheet"><!-- Sweet Alert -->
-
 </head>
 <body>
 
@@ -840,6 +839,8 @@
                                     <button type="button" class="btn btn-default pull-left vocEmailBtn" style="margin-right: 9px;">EMAIL발송</button>
                                     <button type="button" class="btn btn-default pull-left vocSmsBtn" style="margin-right: 9px;">SMS발송</button>
                                     <button type="button" class="btn btn-default pull-left vocKakaoBtn">KAKAO발송</button>
+                                    <button type="button" class="btn btn-default pull-left paymentBtn">상품TEST</button>
+                                    <button type="button" class="btn btn-default pull-left orderBtn">주문서TEST</button>
 
                                     <button id="create" class="btn btn-default pull-right" style="margin-left: 9px;">추가</button>
                                     <button type="button" class="btn btn-primary pull-right" id="vocSave" style="margin-left: 9px;">저장</button>
@@ -892,7 +893,7 @@
     </div>
 </div>
 <!--js includ-->
-<%@ include file="/WEB-INF/views/includ/js.jsp"%>
+<%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 <!-- cti js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/cti.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc_socket.js

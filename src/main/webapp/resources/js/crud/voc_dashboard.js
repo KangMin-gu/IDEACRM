@@ -29,6 +29,15 @@ var receiptChart = new Chart(ctx, {
             ],
             borderWidth: 1
         }]
+    },
+    options: {
+        plugins: {
+            datalabels: {
+                formatter: function(value, context) {
+                    return context.chart.data.labels[context.dataIndex];
+                }
+            }
+        }
     }
 });
 

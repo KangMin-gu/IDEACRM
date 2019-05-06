@@ -45,7 +45,6 @@ public class AlarmHandler extends TextWebSocketHandler {
 
         int userNo =  Integer.parseInt((String) maps.get("userNo"));
         int siteId = Integer.parseInt((String) maps.get("siteId"));
-
         Map<String,Object> alarmVal = new HashMap<>();
         alarmVal.put("userno", userNo);
         alarmVal.put("siteid", siteId);

@@ -44,7 +44,7 @@ public class VocController {
     private final int USINGMENU = 3;//서비스 사용 메뉴 값은 3
 
     @RequestMapping(value = "/voc/dashboard", method = RequestMethod.GET)
-    public ModelAndView vocList(HttpServletRequest request){
+    public ModelAndView authvocList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/voc/vocDashboard");
         return mView;
@@ -251,7 +251,7 @@ public class VocController {
     }
 
     //voc 고객팝업창 tr 클릭 시 해당 고객의 최근 한건의 서비스 데이터 바인딩
-    @RequestMapping(value="/voc/pop/service/info/{custNo}", method=RequestMethod.GET)
+    @RequestMapping(value="/voc/pop/service/{custNo}", method=RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> vocPopServiceSelect(HttpServletRequest request,@PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,Object> serviceMap = vocService.vocPopServiceSelect(request,custNo);
@@ -342,7 +342,7 @@ public class VocController {
         return 0;
     }
 
-    // 서비스 상세 화면
+    //  서비스 상세 화면
     @RequestMapping(value="/voc/pop/service/{serviceNo}", method = RequestMethod.GET)
     public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
@@ -362,6 +362,18 @@ public class VocController {
     public Map<String,Object> authVocFormatDetail(HttpServletRequest request, @PathVariable String formatNo) throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,Object> formatInfo = formatService.formatDetail(request,formatNo);
         return formatInfo;
+    }
+
+    //상품 결제 창
+    @RequestMapping(value = "/payment", method = RequestMethod.GET)
+    public String authPayment(HttpServletRequest reuqest){
+        return "page/voc/pop/paymentPop";
+    }
+
+    //상품 결제 창
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    public String authOrderPop(HttpServletRequest reuqest){
+        return "page/voc/pop/orderPop";
     }
 
 }

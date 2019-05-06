@@ -43,6 +43,7 @@ public class VocController {
 
     private final int USINGMENU = 3;// 서비스 사용 메뉴 값은 3
 
+    //voc 대쉬보드
     @RequestMapping(value = "/voc/dashboard", method = RequestMethod.GET)
     public ModelAndView authvocList(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
@@ -50,7 +51,7 @@ public class VocController {
         return mView;
     }
 
-
+    //voc cti 페이지
     @RequestMapping(value = "/voc", method = RequestMethod.GET)
     public ModelAndView vocDetail(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
@@ -68,14 +69,14 @@ public class VocController {
         mView.setViewName("page/voc/vocIndex");
         return mView;
     }
-
+    //voc 만족도
     @RequestMapping(value = "/voc/satisfied", method = RequestMethod.GET)
     public ModelAndView vocstisfied(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
         mView.setViewName("page/voc/vocSatisfied");
         return mView;
     }
-
+    //voc 고객 검색 팝업
     @RequestMapping(value = "/voc/pop/custsearch", method = RequestMethod.GET)
     public ModelAndView vocCustSearchPop(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
@@ -85,7 +86,7 @@ public class VocController {
         mView.setViewName("page/voc/pop/custSearchPop");
         return mView;
     }
-
+    //voc 고객 검색 팝업 바인딩 데이터
     @RequestMapping(value = "/voc/pop/custsearch", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> vocCustSearch(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -101,7 +102,7 @@ public class VocController {
         return custDetail;
     }
 
-
+    //voc 고객 상세
     @RequestMapping(value = "/voc/custdetail/{custNo}", method = RequestMethod.GET)
     public ModelAndView vocCustDetailPop(HttpServletRequest request, @PathVariable String custNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
@@ -126,7 +127,7 @@ public class VocController {
         String custNo = custService.custinsert(request, custDto, custDenyDto);
         return "{\"CUSTNO\":\"" + custNo + "\"}";
     }
-
+    //voc sms 발송 (폼)
     @RequestMapping(value = "/voc/pop/sms", method = RequestMethod.GET)
     public ModelAndView vocSmsPop(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
@@ -137,14 +138,14 @@ public class VocController {
         mView.setViewName("page/voc/pop/vocSmsPop");
         return mView;
     }
-
+    //voc sms 발송 (실행)
     @RequestMapping(value = "/voc/pop/sms/input", method = RequestMethod.POST)
     @ResponseBody
     public int authSmsPopSend(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         sendService.sendSmsTemp(request);
         return 0;
     }
-
+    //voc 카카오 발송 (폼)
     @RequestMapping(value = "/voc/pop/kakao", method = RequestMethod.GET)
     public ModelAndView vocKakaoPop(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();
@@ -155,7 +156,7 @@ public class VocController {
         mView.setViewName("page/voc/pop/vocKakaoPop");
         return mView;
     }
-
+    //voc sms 발송 (실행)
     @RequestMapping(value = "/voc/pop/kakao/input", method = RequestMethod.POST)
     @ResponseBody
     public int vocKakaoPopInsert(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
@@ -163,7 +164,7 @@ public class VocController {
         return 0;
     }
 
-
+    //voc 메일 발송 (폼)
     @RequestMapping(value = "/voc/pop/email", method = RequestMethod.GET)
     public ModelAndView vocEmailPop(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
@@ -284,6 +285,7 @@ public class VocController {
         return "{\"SERVICENO\":\"" + serviceNo + "\"}";
     }
 
+    //voc as 캘린더
     @RequestMapping(value = "/voc/as/cal", method = RequestMethod.GET)
     public ModelAndView authvocCalList(HttpServletRequest request) {
         ModelAndView mView = new ModelAndView();
@@ -292,13 +294,14 @@ public class VocController {
         return mView;
     }
 
+    //voc as 캘린더용 바인딩 데이터
     @RequestMapping(value = "/voc/as/cal/{asOwner}", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> authVocOwnerCalList(HttpServletRequest request, @PathVariable int asOwner) {
         Map<String, Object> ownerCalList = vocService.vocOwnerList(request, asOwner);
         return ownerCalList;
     }
-
+    //voc 상품
     @RequestMapping(value = "/voc/productB", method = RequestMethod.GET)
     @ResponseBody
     public List<ProductDto> authVocProudctB(HttpServletRequest request) {

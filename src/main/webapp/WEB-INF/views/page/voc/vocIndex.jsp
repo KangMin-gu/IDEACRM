@@ -168,12 +168,14 @@
                                             <th>휴대전화</th>
                                             <td>
                                                 <div style="display: inline-block">
+                                                    <!--
                                                     <select class="form-control form-control-sm vocCustInput" name="mobile1" id="mobile1" style="width: 80px;height: 30px;padding-top: 2.5px;">
                                                         <option value="">선택</option>
                                                         <c:forEach var="mobile" items="${MOBILE}">
                                                             <option value="${mobile.codeval}">${mobile.codename}</option>
                                                         </c:forEach>
-                                                    </select>
+                                                    </select>-->
+                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile1" id="mobile1" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
                                                     <input class="form-control form-control-sm vocCustInput" type="text" name="mobile2" id="mobile2" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
@@ -182,15 +184,17 @@
                                                     <input class="form-control form-control-sm vocCustInput" type="text" name="mobile3" id="mobile3" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                             </td>
-                                            <th>자택전화</th>
+                                            <th>일반전화</th>
                                             <td>
                                                 <div style="display: inline-block">
+                                                    <!--
                                                     <select class="form-control form-control-sm vocCustInput" name="homtel1" id="homtel1" style="width: 80px;height: 30px;padding-top: 2.5px;">
                                                         <option value="">선택</option>
                                                         <c:forEach var="phone" items="${PHONE}">
                                                             <option value="${phone.codeval}">${phone.codename}</option>
                                                         </c:forEach>
-                                                    </select>
+                                                    </select>-->
+                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="homtel1" id="homtel1" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
                                                     <input class="form-control form-control-sm vocCustInput" name="homtel2" id="homtel2" type="text" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
@@ -258,7 +262,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" data-toggle="collapse" data-target="#denyfield">수신거부상태</button>
-                                    <span id="blackSpan"><button type="button" class="btn btn-default pull-left" style="margin-right: 9px;" onclick="addBlackPop();">블랙추가</button></span>
+                                    <span id="blackSpan"><button type="button" class="btn btn-default pull-left" style="margin-right: 9px; display:none;" onclick="addBlackPop();">블랙추가</button></span>
                                     <span id="custRegSpan"><button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustInsert()'>고객추가</button></span>
                                 </div>
                             </div>
@@ -383,7 +387,6 @@
                                                     <th data-name="CALLBACK">콜백번호</th>
                                                     <th data-name="CALLER">발신자번호</th>
                                                     <th data-name="USERNAME">상담원</th>
-                                                    <!--<th data-name="MEMO_">메모</th>-->
                                                     <th data-name="CALLSTATUS_">상태</th>
                                                     <th data-formatter="callbackHistFormatter">녹취</th>
                                                 </tr>
@@ -504,7 +507,7 @@
                                         </div>
                                     </div>
 
-                                    <div role="tabpanel" id="vocCustEmailTab" class="tab-pane active" url="/cust/tab/email">
+                                    <div role="tabpanel" id="vocCustEmailTab" class="tab-pane" url="/cust/tab/email">
                                         <div class="panel-body">
                                             <table class="vocfootable table table-striped" data-paging="true" data-sorting="true">
                                                 <thead>
@@ -588,11 +591,19 @@
                                     <tr>
                                         <th>접수구분</th>
                                         <td>
-                                            <div class="i-checks servicetype voc">
-                                                <c:forEach var="serviceType" items="${SERVICETYPE}">
-                                                    <label><input class="i-checks " type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
-                                                </c:forEach>
+                                            <div class="row">
+                                                <div class="col-7 i-checks servicetype voc" style="left: 20px;top: 5px;">
+                                                    <c:forEach var="serviceType" items="${SERVICETYPE}">
+                                                        <label><input class="i-checks " type="radio" value="${serviceType.codeval}" id="servicetype" name="servicetype"> <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                    </c:forEach>
+                                                </div>
+                                                <div class="col-5">
+                                                    <button class="btn btn-default pull-right" name="create" style="margin-left: 9px;">상담추가</button>
+                                                    <button type="button" class="btn btn-primary pull-right" name="vocSave" style="margin-left: 9px;">저장</button>
+                                                    <button type="button" class="btn btn-default pull-right" name="vocReset" style="margin-left: 9px;" >초기화</button>
+                                                </div>
                                             </div>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -846,9 +857,9 @@
                                     <button type="button" class="btn btn-default pull-left paymentBtn">상품TEST</button>
                                     <button type="button" class="btn btn-default pull-left orderBtn">주문서TEST</button>
 
-                                    <button id="create" class="btn btn-default pull-right" style="margin-left: 9px;">추가</button>
-                                    <button type="button" class="btn btn-primary pull-right" id="vocSave" style="margin-left: 9px;">저장</button>
-                                    <button type="button" class="btn btn-default pull-right" style="margin-left: 9px;" id="vocReset">초기화</button>
+                                    <button class="btn btn-default pull-right" name="create" style="margin-left: 9px;">상담추가</button>
+                                    <button type="button" class="btn btn-primary pull-right" name="vocSave" style="margin-left: 9px;">저장</button>
+                                    <button type="button" class="btn btn-default pull-right" style="margin-left: 9px;" name="vocReset">초기화</button>
 
                                 </div>
                             </div>

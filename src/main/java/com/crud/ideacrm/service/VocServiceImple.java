@@ -60,9 +60,13 @@ public class VocServiceImple implements VocService {
         CustDto enCustDto = new EnCustDto(custDto);
         String enCustNo = enCustDto.getCustno();
         String deCustNo = codecUtil.decodePkNo(enCustNo);
-        String deRelCustNo = codecUtil.decodePkNo(enCustDto.getRelcustno());
-        enCustDto.setRelcustno(deRelCustNo);
+        String deRelCustNo = enCustDto.getRelcustno();
         enCustDto.setCustno(deCustNo);
+
+        if(deRelCustNo != null && deRelCustNo != "0" && !deRelCustNo.equals("")){
+            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
+            enCustDto.setRelcustno(deRelCustNo);
+        }
 
         int res = vocDao.vocCustUpdate(enCustDto);//업데이트 dao호출
         //업데이트한 pk값 수신거부 dto에 설정

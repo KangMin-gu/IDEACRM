@@ -17,7 +17,7 @@ $('.asowner').click(function(e) {
     }
 });
 
-$('#vocReset').click(function(){
+$('button[name=vocReset]').click(function(){
     vocServiceFieldReset();
 });
 
@@ -70,6 +70,9 @@ $(".searchCust").on("ready.ft.table",function(obj,e,ft,row){
     var enter = jQuery.Event( "keypress", { keyCode: 13 } );//enter key 입력 이벤트
     $('.footable-filtering-search').find('input[type=text]').val(opener.$('#searchNumber').val());//호출 창의 인입번호 입력값 바인딩 후 엔터
     $('.footable-filtering-search').find('input[type=text]').trigger(enter);
+    if ( $('.searchCust tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $(obj.target).children('tbody').children('tr').remove();
+    }
 });
 
 $('.voc').find('.nav-link').click(function(e){
@@ -276,6 +279,13 @@ function custFormActivation(statusStr, fromStr) {
 //voc 고객 추가 버튼 생성 이벤트
 function makeCustAddBtn(){
     vocCustFieldReset();//필드초기화
+    if(location.pathname == '/voc/pop/custsearch'){
+        opener.$('#blackSpan').hide();
+        //인입 전화번호 mobile123 필드와 homtel123 필드에 바인딩
+        var phone = opener.$('#searchNumber').val();
+        splitPhoneNumber('mobile',phone);
+        splitPhoneNumber('homtel',phone);
+    }
     custFormActivation('insert');//insert 버튼생성
     window.close();
 }
@@ -427,8 +437,7 @@ function cancleBlack(){
             data:{"custno":custno},
             cache: false,
             success: function (data) {
-
-                blackCustCssChange(false);
+                blackCustCssChange(false);//블랙 유저면 true   아니면 false
                 blackSpanActivation('insert');
                 alert("해제 되었습니다.");
             },
@@ -449,10 +458,10 @@ function blackSubmit(url) {
         data: jsonPrm,
         cache: false,
         success : function(response) {
-
             alert('등록 되었습니다.');
             blackCustCssChange(true);
             blackSpanActivation('update');
+            opener.$('#blackcnt').val(1);
             window.close();
         }
     });
@@ -471,8 +480,6 @@ function blackCustCssChange(bool){//블랙 유저면 true   아니면 false
         }else{
             opener.$('#custname').css({"background-color":"#ffffff"});
         }
-
-
     }
 }
 
@@ -700,7 +707,7 @@ function serviceInfoBinding(data) {
     });
 }
 
-$('#vocSave').click(
+$('button[name=vocSave]').click(
     function(e) {
         var reqno = $('#reqno').val();
         var custno = $('#custno').val();
@@ -937,6 +944,10 @@ $('.vocBotTabDetail').find('.nav-link').click(function(e){
 $(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
     $('.footable-pagination-wrapper > .label-default').hide();
+
+    if ( $('.vocfootable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $(obj.target).children('tbody').children('tr').remove();
+    }
 });
 
 
@@ -1057,7 +1068,7 @@ function formatDate(date) {
 }
 
 
-$('#create').click(function() {
+$('button[name=create]').click(function() {
     $('.i-checks input').iCheck('uncheck');
     $('.i-checks input').iCheck('enable');
     $('.vocSvInput').val('');
@@ -1078,18 +1089,18 @@ $('#create').click(function() {
     }
     productB();
 
-    $('#create').hide();
+    $('button[name=create]').hide();
     $('.plus').show();
-    $('#vocSave').show();
+    $('button[name=vocSave]').show();
 });
-
+//서비스 필드 초기화
 function vocServiceFieldReset(){
     if(window.location.pathname == '/voc'){
         $('.convey').hide();
         $('.adminconvey').hide();
         $('.reservation').hide();
         $('.as').hide();
-        $('#vocSave').hide();
+        $('button[name=vocSave]').hide();
 
         $('.vocSvInput').val('');
         $('.voc').attr('disabled',true);
@@ -1112,14 +1123,14 @@ function vocServiceFieldReset(){
         }
         productB();
 
-        $('#vocSave').hide();
-        $('#create').show();
+        $('button[name=vocSave]').hide();
+        $('button[name=create]').show();
     }else{
         opener.$('.convey').hide();
         opener.$('.adminconvey').hide();
         opener.$('.reservation').hide();
         opener.$('.as').hide();
-        opener.$('#vocSave').hide();
+        opener.$('button[name=vocSave]').hide();
 
         opener.$('.vocSvInput').val('');
         opener.$('.voc').attr('disabled',true);
@@ -1141,8 +1152,8 @@ function vocServiceFieldReset(){
             opener.$('.product').append('<button class="plus voc btn btn-default d-inline-block btn-sm mr-2" disabled="disabled">추가</button>');
         }
         productB();
-        opener.$('#vocSave').hide();
-        opener.$('#create').show();
+        opener.$('button[name=vocSave]').hide();
+        opener.$('button[name=create]').show();
     }
 }
 
@@ -1307,3 +1318,41 @@ $('.paymentBtn').click(function(e){
 $('.orderBtn').click(function(e){
     openNewWindow('상품주문','/order',e.currentTarget.id,1300,700);
 });
+
+//전화번호 3자리로 나눈 후 바인딩 (voc 고객 팝업에서 고객 추가 버튼 클릭시 사용)
+function splitPhoneNumber(id,phone){
+    if(!phone){return;}
+    var length = phone.length;
+    if( phone.indexOf('01') == 0 ){
+        if (length == 10){
+            opener.$('#'+id+'1').val(phone.substr(0,3));
+            opener.$('#'+id+'2').val(phone.substr(3,3));
+            opener.$('#'+id+'3').val(phone.substr(6,4));
+        }else{
+            opener.$('#'+id+'1').val(phone.substr(0,3));
+            opener.$('#'+id+'2').val(phone.substr(3,4));
+            opener.$('#'+id+'3').val(phone.substr(7));
+        }
+    }else if( phone.indexOf('02') == 0 ){
+        if (length == 9){
+            opener.$('#'+id+'1').val(phone.substr(0,2));
+            opener.$('#'+id+'2').val(phone.substr(2,3));
+            opener.$('#'+id+'3').val(phone.substr(5,4));
+        }else{
+            opener.$('#'+id+'1').val(phone.substr(0,2));
+            opener.$('#'+id+'2').val(phone.substr(2,3));
+            opener.$('#'+id+'3').val(phone.substr(5));
+        }
+    }else {
+        if (length == 10){
+            opener.$('#'+id+'1').val(phone.substr(0,3));
+            opener.$('#'+id+'2').val(phone.substr(3,3));
+            opener.$('#'+id+'3').val(phone.substr(6,4));
+        }else{
+            opener.$('#'+id+'1').val(phone.substr(0,3));
+            opener.$('#'+id+'2').val(phone.substr(3,4));
+            opener.$('#'+id+'3').val(phone.substr(6));
+        }
+    }
+
+}

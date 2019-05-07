@@ -523,6 +523,7 @@ function func_logout(){
 	$('#vocLogInSpan').show();
 	$('#vocLogOutSpan').hide();
 	$('.ctibtn').hide();
+	$('.doLoginMsg').show();
 	intervalFuncOff();
 	alert("로그아웃 되었습니다.");
 }
@@ -676,9 +677,12 @@ function ctiEvent(msg){
 	
 	if(tmpData[0] == "00"){// 로그인 응답
 		if(tmpData[4] == "1"){
-			alert("로그인되었습니다.");
+            //alert("로그인되었습니다.");
+		    var usernm = $('#ctiLoginUsernm').val();
+            alert(usernm + "님 CTI 로그인 되었습니다.");
 			$('#vocLogInSpan').hide();
 			$('.ctibtn').show();
+			$('.doLoginMsg').hide();
 			$('#vocLogOutSpan').show();
 			intervalFuncOn();//세션 유지 실행
 			$('[name="callbackBottomTab"]').trigger('click');
@@ -705,6 +709,7 @@ function ctiEvent(msg){
     	$('#vocLogInSpan').show();
 		$('#vocLogOutSpan').hide();
 		$('.ctibtn').hide();
+		$('.doLoginMsg').show();
 		document.getElementById("status").innerHTML = "연결안됨";
 		document.getElementById("transferTryCnt").innerHTML = "0";
 		document.getElementById("transferConnectCnt").innerHTML = "0";
@@ -937,6 +942,7 @@ function ctiEvent(msg){
         	$('#vocLogInSpan').show();
         	$('#vocLogOutSpan').hide();
         	$('.ctibtn').hide();
+			$('.doLoginMsg').show();
             
         }
     } 

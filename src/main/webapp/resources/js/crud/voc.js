@@ -64,8 +64,8 @@ function stopInterval() {
 }
 
 
-//voc 고객 검색 팝업 이벤트
-//필터링 창에 인입번호 바인딩 후 엔터키 입력
+// voc 고객 검색 팝업 이벤트
+// 필터링 창에 인입번호 바인딩 후 엔터키 입력
 $(".searchCust").on("ready.ft.table",function(obj,e,ft,row){
     var enter = jQuery.Event( "keypress", { keyCode: 13 } );//enter key 입력 이벤트
     $('.footable-filtering-search').find('input[type=text]').val(opener.$('#searchNumber').val());//호출 창의 인입번호 입력값 바인딩 후 엔터

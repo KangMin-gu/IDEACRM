@@ -346,7 +346,7 @@ public class VocController {
         return 0;
     }
 
-    //  서비스 상세 화면
+    // 서비스 상세 화면
     @RequestMapping(value = "/voc/pop/service/{serviceNo}", method = RequestMethod.GET)
     public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();

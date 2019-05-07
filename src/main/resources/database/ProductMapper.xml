@@ -93,4 +93,31 @@
         EDTDATE = now()
         WHERE PRDNO = #{prdno}
     </update>
+
+    <insert id="order" parameterType="DeliveryPrdDto">
+        INSERT INTO sys990060
+        (BUYUSER, REGUSER, REGDATE, EDTDATE, EDTUSER, ADDR1, ADDR2, ADDR3, MOBILE1, MOBILE2, MOBILE3, HOMTEL1, HOMTEL2, HOMTEL3, SITEID, DELIVERYNAME, HOMTEL, MOBILE, ADDR, DELIVERYDESC, TOTALPRICE)
+        VALUES
+        (#{buyuser}, #{reguser}, now(), now(), #{reguser}, #{addr1}, #{addr2}, #{addr3}, #{mobile1}, #{mobile2}, #{mobile3}, #{homtel1},#{homtel2},#{homtel3},#{siteid}, #{deliveryname}, CONCAT(#{homtel1},#{homtel2},#{homtel3}),CONCAT(#{mobile1}, #{mobile2}, #{mobile3}),CONCAT(#{addr1}, #{addr2}, #{addr3}),#{desc}, #{totalprice})
+        <selectKey resultType="int" keyProperty="buyno" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="orderProduct" parameterType="DeliveryPrdDto">
+        INSERT INTO sys990061
+        (PRDNO, PRDEA, REGDATE, REGUSER, BUYNO)
+        VALUES
+        (#{prdno}, #{prdea}, now(), #{reguser}, #{buyno});
+    </insert>
+
+    <select id="orderResult" parameterType="hashmap" resultType="hashmap">
+        SELECT * FROM sys990060 WHERE buyno = #{buyno} AND SITEID = #{siteid}
+    </select>
+
+    <select id="orderProductResult" parameterType="hashmap" resultType="hashmap">
+        SELECT B.PRDNAME, B.PRDVALUE, B.ERPNO, B.PRDPRICE, A.PRDEA  FROM sys990061 AS A
+        LEFT OUTER JOIN sys990040 AS B ON B.PRDNO = A.PRDNO
+        WHERE  A.buyno = #{buyno}
+    </select>
 </mapper>

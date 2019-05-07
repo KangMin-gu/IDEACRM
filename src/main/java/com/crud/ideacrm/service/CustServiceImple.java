@@ -35,7 +35,8 @@ public class CustServiceImple implements CustService{
         Map<String,Object> param = prmUtil.searchParam(request);
         List<Map<String,Object>> custList = custDao.custList(param);
 
-        for(int i=0;i<custList.size();i++){ //pk값 암호화
+        for(int i=0;i<custList.size();i++){
+            //pk값 암호화
             String custNo = Integer.toString( (int)(custList.get(i).get("CUSTNO")));
             String enCustNo = codecUtil.encodePkNo(custNo);
             custList.get(i).put("CUSTNO",enCustNo);
@@ -77,6 +78,13 @@ public class CustServiceImple implements CustService{
         custDto.setEdituser(userNo);
         custDenyDto.setEdituser(userNo);
         CustDto enCustDto = new EnCustDto(custDto);
+
+        String deRelCustNo = enCustDto.getRelcustno();
+        if(deRelCustNo != null && !deRelCustNo.equals("0") && !deRelCustNo.equals("")){
+            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
+            enCustDto.setRelcustno(deRelCustNo);
+        }
+
         custDao.custInsert(enCustDto);
         String deCustNo = enCustDto.getCustno();
         custDenyDto.setCustno(deCustNo);
@@ -101,15 +109,21 @@ public class CustServiceImple implements CustService{
         enCustDto.setCustno(deCustNo);
         custDenyDto.setCustno(deCustNo);
 
+        String deRelCustNo = enCustDto.getRelcustno();
+        if(deRelCustNo != null && deRelCustNo != "0" && !deRelCustNo.equals("")){
+            deRelCustNo = codecUtil.decodePkNo(deRelCustNo);
+            enCustDto.setRelcustno(deRelCustNo);
+        }
+
         custDao.custUpdate(enCustDto);//업데이트 dao호출
         //업데이트한 pk값 수신거부 dto에 설정
 
         //수신거부 dao 호출
         custDao.custDenyUpdate(custDenyDto);
 
-        if(enCustDto.getClino() != 0) {//clino가 존재하면 거래처-관련고객 테이블에 update or insert
-            custDao.mergeCliCust(enCustDto);
-        }
+//        if(enCustDto.getClino() != 0) {//clino가 존재하면 거래처-관련고객 테이블에 update or insert
+//            custDao.mergeCliCust(enCustDto);
+//        }
 
         return enCustNo;
     }

@@ -3,6 +3,7 @@ package com.crud.ideacrm.service;
 import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ProductDao;
+import com.crud.ideacrm.dto.DeliveryProduct;
 import com.crud.ideacrm.dto.ProductDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -161,5 +162,62 @@ public class ProductServiceImple implements ProductService {
 
         productDao.productUpdate(productParam);
 
+    }
+
+    @Override
+    public int order(HttpServletRequest request, Map<String, Object> productInfo) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
+
+        String buyer = productInfo.get("buyer").toString();
+        int totalPrice = Integer.parseInt(productInfo.get("totalprice").toString());
+
+        Map<String, Object> deliveryInfo = (HashMap)productInfo.get("delivery");
+
+        DeliveryProduct dprd = new DeliveryProduct();
+
+        dprd.setAddr1(deliveryInfo.get("addr1").toString());
+        dprd.setAddr2(deliveryInfo.get("addr2").toString());
+        dprd.setAddr3(deliveryInfo.get("addr3").toString());
+        dprd.setMobile1(deliveryInfo.get("mobile1").toString());
+        dprd.setMobile2(deliveryInfo.get("mobile2").toString());
+        dprd.setMobile3(deliveryInfo.get("mobile3").toString());
+        dprd.setHomtel1(deliveryInfo.get("tel1").toString());
+        dprd.setHomtel2(deliveryInfo.get("tel2").toString());
+        dprd.setHomtel3(deliveryInfo.get("tel3").toString());
+        dprd.setDeliveryname(deliveryInfo.get("name").toString());
+        dprd.setDesc(deliveryInfo.get("desc").toString());
+        dprd.setTotalprice(totalPrice);
+        dprd.setSiteid(siteId);
+        dprd.setBuyuser(buyer);
+        dprd.setReguser(userNo);
+
+        //구매자정보 insert  pk 갑 받아오기
+        int buyNo = productDao.orderInsert(dprd);
+
+
+        List<Map<String,Object>> prd  = (List)productInfo.get("product");
+        for(int i = 0; i<prd.size(); i++){
+            dprd.setPrdea(Integer.parseInt(prd.get(i).get("qty").toString()));
+            dprd.setPrdno(Integer.parseInt(prd.get(i).get("productVal").toString()));
+            productDao.orderProductInsert(dprd);
+        }
+
+        return buyNo;
+
+    }
+
+    @Override
+    public ModelAndView orderResult(HttpServletRequest request, int buyNo) {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        Map<String, Object> orderResultVal = new HashMap<>();
+        orderResultVal.put("siteid",siteId);
+        orderResultVal.put("buyno", buyNo);
+        Map<String,Object> orderResult = productDao.orderResult(orderResultVal);
+        List<Map<String,Object>> orderProductResult = productDao.orderProductResult(orderResultVal);
+        ModelAndView mView = new ModelAndView();
+        mView.addObject("orderResult", orderResult);
+        mView.addObject("orderProductResult",  orderProductResult);
+        return mView;
     }
 }

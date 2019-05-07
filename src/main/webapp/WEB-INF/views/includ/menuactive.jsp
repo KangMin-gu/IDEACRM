@@ -81,10 +81,10 @@
         $('.serviceM').children().attr('aria-expanded',true);
         $('.serviceM').children('ul').addClass('collapse in');
     }else if(active == 'productM'){
-        $('.productM').addClass('active');
+        $('.manager').addClass('active');
         $('.productMenu').addClass('active');
-        $('.productM').children().attr('aria-expanded',true);
-        $('.productM').children('ul').addClass('collapse in');
+        $('.manager').children().attr('aria-expanded',true);
+        $('.manager').children('ul').addClass('collapse in');
     }else if(active == 'orderM'){
         $('.orderM').addClass('active');
         $('.orderMenu').addClass('active');

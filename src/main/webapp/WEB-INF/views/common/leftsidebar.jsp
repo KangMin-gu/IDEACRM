@@ -111,7 +111,7 @@
                     <li><a href="form_basic.html">CTR</a></li>
                     <li><a href="form_basic.html">VOC</a></li>
                 </ul>
-            </li>-->
+            </li> -->
 
             <li class="myinfo">
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">내정보</span><span class="fa arrow"></span></a>

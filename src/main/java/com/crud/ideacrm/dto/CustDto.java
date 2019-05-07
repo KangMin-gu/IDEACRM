@@ -58,13 +58,14 @@ public class CustDto implements Serializable {
     private String homtel;
     private String wrktel;
     private String wrkfax;
+    private String company;
 
 
     public CustDto(){
     }
 
 
-    public CustDto(String custno, int siteid, String custname, String deptname, String duty, String mobile1, String mobile2, String mobile3, String email, int sex, int custgubun, int custgrade, int infoagree, String birth, int married, String weddingday, int solar, String job, String hobby, int ismember, String homtel1, String homtel2, String homtel3, String homaddr1, String homaddr2, String homaddr3, String wrkaddr1, String wrkaddr2, String wrkaddr3, String wrktel1, String wrktel2, String wrktel3, String wrkurl, int owner, String memo, String regdate, int reguser, String editdate, int edituser, int isdelete, String wrkfax1, String wrkfax2, String wrkfax3, int mailto, int actgrade, int clino, int clicustno, String relcustno, String mobile, String homtel, String wrktel, String wrkfax) {
+    public CustDto(String custno, int siteid, String custname, String deptname, String duty, String mobile1, String mobile2, String mobile3, String email, int sex, int custgubun, int custgrade, int infoagree, String birth, int married, String weddingday, int solar, String job, String hobby, int ismember, String homtel1, String homtel2, String homtel3, String homaddr1, String homaddr2, String homaddr3, String wrkaddr1, String wrkaddr2, String wrkaddr3, String wrktel1, String wrktel2, String wrktel3, String wrkurl, int owner, String memo, String regdate, int reguser, String editdate, int edituser, int isdelete, String wrkfax1, String wrkfax2, String wrkfax3, int mailto, int actgrade, int clino, int clicustno, String relcustno, String mobile, String homtel, String wrktel, String wrkfax, String company) {
         this.custno = custno;
         this.siteid = siteid;
         this.custname = custname;
@@ -117,6 +118,7 @@ public class CustDto implements Serializable {
         this.homtel = homtel;
         this.wrktel = wrktel;
         this.wrkfax = wrkfax;
+        this.company = company;
     }
 
     public String getCustno() {
@@ -533,5 +535,13 @@ public class CustDto implements Serializable {
 
     public void setWrkfax(String wrkfax) {
         this.wrkfax = wrkfax;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

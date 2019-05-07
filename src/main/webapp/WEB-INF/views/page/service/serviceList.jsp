@@ -242,7 +242,7 @@
     </div>
 </div>
 
-<!--js includ-->
+<!--js includ -->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->

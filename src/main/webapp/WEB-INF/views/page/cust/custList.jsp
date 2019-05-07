@@ -130,7 +130,8 @@
                                                 <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="email" name="email">
                                             </td>-->
                                             <th>직장명</th>
-                                            <td>
+                                            <td><input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="company" name="company" data-filterable="true"></td>
+                                            <!--<td>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm searchparam"  autocomplete="off" name="cliname">
                                                     <input type="hidden" class="searchparam" name="clino" id="clino" value="">
@@ -138,7 +139,7 @@
                                                         <a><i class="fa fa-search"></i></a>
                                                     </span>
                                                 </div>
-                                            </td>
+                                            </td>-->
                                             <th>담당자</th>
                                             <td>
                                                 <div class="input-group">
@@ -181,7 +182,8 @@
                                     <tr>
                                         <th data-name="CUSTNO" data-breakpoints="xs sm" data-formatter="custListChkBoxFormatter" data-sortable="false"><input type="checkbox" id="checkAll" onclick="selectCheckbox('custno');"/></th>
                                         <th data-name="CUSTNAME" data-formatter="custListFormatter" data-filterable="true">고객명</th>
-                                        <th data-name="CLINAME" data-breakpoints="xs sm">직장</th>
+                                        <!--<th data-name="CLINAME" data-breakpoints="xs sm">직장</th>-->
+                                        <th data-name="COMPANY" data-breakpoints="xs sm">직장</th>
                                         <th data-name="MOBILE" data-breakpoints="xs sm" data-filterable="true">휴대폰</th>
                                         <th data-name="EMAIL" data-breakpoints="xs sm" data-filtering="false">이메일</th>
                                         <th data-name="OWNER_" data-breakpoints="xs sm">담당자</th>
@@ -208,7 +210,7 @@
     </div>
 </div>
 
-<!--js includ-->
+<!--js includ   -->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!--datarange-->

@@ -108,7 +108,7 @@ $('#jstreeSet').on("changed.jstree", function (e, data) {
 
 function jsTreeLoad(){
     var jsTreeOption = {"plugin":['types','dnd','search'], "icon":{'icon': 'fa fa-folder'}};
-    jsTree('/company/products' ,jsTreeOption); //전달
+    jsTree('/company/products' ,jsTreeOption); // 전달
 };
 
 function productDel() {
@@ -132,7 +132,8 @@ function delAjax(jsonData) {
         url:'/company/product/del',
         method:'POST',
         data:JSON.stringify(jsonData),
-        contentType:"application/json",
+
+
         success: function (data) {
             alert("삭제되었습니다.");
             location.reload();

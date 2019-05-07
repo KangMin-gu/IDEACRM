@@ -5,7 +5,7 @@
 	<select id="custList" parameterType="map" resultType="hashMap">
 		SELECT * FROM (
 		SELECT
-		CU.CUSTNO, CU.CUSTNAME, CU.DEPTNAME, CU.DUTY, CU.MOBILE, CU.HOMTEL
+		CU.CUSTNO, CU.CUSTNAME, CU.DEPTNAME, CU.DUTY, CU.MOBILE, CU.HOMTEL, CU.COMPANY
         , CU.MOBILE1, CU.MOBILE2, CU.MOBILE3
         , CU.WRKTEL
         , CU.WRKTEL1,CU.WRKTEL2,CU.WRKTEL3
@@ -51,13 +51,16 @@
 			<if test="cliname != null">
 			AND C.CLINAME  LIKE CONCAT('%',#{cliname},'%')
 			</if>
+			<if test='company != null and company != "" '>
+				AND CU.COMPANY  LIKE CONCAT('%',#{company},'%')
+			</if>
 			) AS D ORDER BY D.CUSTNO DESC
 	</select>
 
 	<!-- 고객 상세정보 출력 -->
 	<select id="custDetail" parameterType="hashMap" resultType="hashMap">
 	SELECT
-		A.CUSTNO, A.CUSTNAME, A.DEPTNAME, A.DUTY
+		A.CUSTNO, A.CUSTNAME, A.DEPTNAME, A.DUTY, A.COMPANY
 		,A.MOBILE1,A.MOBILE2,A.MOBILE3
 		,A.EMAIL, A.WRKTEL, A.HOMTEL, A.MOBILE, A.WRKFAX
 		,A.WRKTEL1,A.WRKTEL2,A.WRKTEL3
@@ -144,6 +147,7 @@
 		,HOMTEL
 		,WRKTEL
 		,WRKFAX
+		,COMPANY
 		)
 		VALUES
 		(
@@ -184,6 +188,7 @@
 		,#{homtel}
 		,#{wrktel}
 		,#{wrkfax}
+		,#{company}
 		)
 		<selectKey keyProperty="custno"  resultType="String" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -315,6 +320,7 @@
 		,HOMTEL = #{homtel}
 		,WRKTEL = #{wrktel}
 		,WRKFAX = #{wrkfax}
+		,COMPANY = #{company}
 		<if test="infoagree == 0 or infoagree == 1 ">
 		,INFOAGREE = #{infoagree}
 		</if>

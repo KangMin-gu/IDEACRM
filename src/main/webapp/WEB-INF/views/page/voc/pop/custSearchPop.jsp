@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IDEACRM</title>
     <%@ include file="/WEB-INF/views/includ/link.jsp"%>
-    <!-- FooTable-->
+    <!-- FooTable -->
     <link href="${pageContext.request.contextPath}/resources/css/plugins/footable/footable.core.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                            <th data-visible="false" data-name="CUSTNO">고객번호</th>
                            <th data-name="CUSTNAME" >고객명</th>
                            <th data-name="MOBILE">핸드폰</th>
-                           <th data-name="PHONE">집전화</th>
+                           <th data-name="HOMTEL">집전화</th>
                            <th data-name="WRKTEL">직장전화</th>
                            <th data-name="HOMADDR">주소</th>
                        </tr>
@@ -76,7 +76,6 @@
 <!-- api js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 
 <script>

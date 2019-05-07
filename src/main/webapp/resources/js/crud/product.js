@@ -132,7 +132,8 @@ function delAjax(jsonData) {
         url:'/company/product/del',
         method:'POST',
         data:JSON.stringify(jsonData),
-        contentType:"application/json",
+
+
         success: function (data) {
             alert("삭제되었습니다.");
             location.reload();

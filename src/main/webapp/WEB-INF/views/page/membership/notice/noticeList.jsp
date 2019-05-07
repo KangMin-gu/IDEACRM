@@ -148,12 +148,12 @@
     </div>
 </div>
 
-<!--js includ-->
+<!--js includ  -->
 <%@ include file="/WEB-INF/views/includ/js.jsp"%>
 <%@ include file="/WEB-INF/views/includ/menuactive.jsp"%>
 <!-- FooTable -->
 <script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
-<!--datarange-->
+<!--datarange  -->
 <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>

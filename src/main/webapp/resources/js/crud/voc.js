@@ -950,7 +950,7 @@ $(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
 });
 
 
-// 캘린더 시작
+// 캘린더  시작
 if ($('#calendar').length > 0) {
     var schList = $('#schList').val();// hidden value에 담겨있는 스케쥴 리스트를
     // 받아온다.(json String)

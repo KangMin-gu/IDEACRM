@@ -240,7 +240,6 @@ public class VocController {
     //VOC 녹취정보 저장
     @RequestMapping(value = "/voc/rec", method = RequestMethod.POST)
     public void VocRecInsert(HttpServletRequest request) {
-        System.out.println("rec controller");
         vocService.vocRecInsert(request);
     }
 

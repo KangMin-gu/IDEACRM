@@ -1,6 +1,5 @@
 //VOC 콜백 알람
 function voc_send_message(){
-    //var sock = new SockJS("http://localhost/vocCount");
     var sock = new SockJS("/vocCount");
     sock.onopen = function(evt) {
         timerCallback();
@@ -12,6 +11,8 @@ function voc_send_message(){
         var admincallbackcnt = jData.payload.ADMINCALLBACKCNT;//관리자 할당 해`````````````야 할 콜백 수
         var callbackCnt = jData.payload.CALLBACKCNT;//할당된 콜백 수
         var successCallback = jData.payload.SUCCESSCALLBACK;
+        $('#callbackCnt').text('');
+        $('#successCallback').text('');
         $('#callbackCnt').text(callbackCnt);
         $('#successCallback').text(successCallback);
     };

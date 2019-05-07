@@ -268,8 +268,8 @@ function custFormActivation(statusStr, fromStr) {
         btnStr = "<button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustUpdate()'>고객수정</button>";
     }
     if (fromStr == "voc") {// 호출한 곳이 voc 페이지면
-        $('#regSpan').empty();
-        $('#regSpan').html(btnStr);
+        $('#custRegSpan').empty();
+        $('#custRegSpan').html(btnStr);
     } else {// 팝업
         opener.$('#custRegSpan').empty();
         opener.$('#custRegSpan').html(btnStr);
@@ -351,6 +351,7 @@ function goCustInsert(){
         success : function(data) {
             $('#custno').val(data.CUSTNO);
             alert("추가 되었습니다.");
+            custFormActivation('update','voc');
         },
         error : function(request, status, error) {
             alert("code:" + request.status + "\n" + "message:"

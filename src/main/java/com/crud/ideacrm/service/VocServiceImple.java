@@ -78,7 +78,7 @@ public class VocServiceImple implements VocService {
         return res;
     }
 
-    //강성고객 등록
+    //강성고객 등록 
     @Override
     public int vocBlackCustInsert(HttpServletRequest request, BlackCustDto blackCustDto) throws UnsupportedEncodingException, GeneralSecurityException {
         int userno = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());

@@ -91,7 +91,7 @@ $(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
     $('.footable-pagination-wrapper > .label-default').hide();
 
-    if ( $('.custfootable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
-        $('.custfootable tbody tr').remove();
+    if ( $('.vocfootable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $('.vocfootable tbody tr').remove();
     }
 });

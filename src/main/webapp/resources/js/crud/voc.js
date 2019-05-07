@@ -70,6 +70,9 @@ $(".searchCust").on("ready.ft.table",function(obj,e,ft,row){
     var enter = jQuery.Event( "keypress", { keyCode: 13 } );//enter key 입력 이벤트
     $('.footable-filtering-search').find('input[type=text]').val(opener.$('#searchNumber').val());//호출 창의 인입번호 입력값 바인딩 후 엔터
     $('.footable-filtering-search').find('input[type=text]').trigger(enter);
+    if ( $('.searchCust tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $(obj.target).children('tbody').children('tr').remove();
+    }
 });
 
 $('.voc').find('.nav-link').click(function(e){
@@ -937,6 +940,9 @@ $('.vocBotTabDetail').find('.nav-link').click(function(e){
 $(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
     $('.input-group-btn').find('button').remove();
     $('.footable-pagination-wrapper > .label-default').hide();
+    if ( $('.vocfootable tbody tr').hasClass('footable-empty') ){ //출력 건수가 없다면 삭제
+        $(obj.target).children('tbody').children('tr').remove();
+    }
 });
 
 

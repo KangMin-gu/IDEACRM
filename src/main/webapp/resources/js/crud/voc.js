@@ -1068,6 +1068,12 @@ function formatDate(date) {
 
 
 $('button[name=create]').click(function() {
+    var custno = $('#custno').val();
+    if(!custno || custno == ''){
+        alert('고객이 선택되지 않았습니다.');
+        return;
+    }
+
     $('.i-checks input').iCheck('uncheck');
     $('.i-checks input').iCheck('enable');
     $('.vocSvInput').val('');

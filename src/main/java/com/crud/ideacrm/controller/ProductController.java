@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -96,22 +99,36 @@ public class ProductController {
         productService.companyProductDel(request, productParam);
     }
 
-    //주문관리
+    //주문등록
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     @ResponseBody
-    public int authOrder(HttpServletRequest request, @RequestBody Map<String, Object> productInfo){
+    public int authOrder(HttpServletRequest request, @RequestBody Map<String, Object> productInfo) throws UnsupportedEncodingException, GeneralSecurityException {
         System.out.println(productInfo);
         int buyPk = productService.order(request, productInfo);
         return buyPk;
     }
 
-    //주문관리
+    //주문결과
     @RequestMapping(value = "/order/reuslt/{buyNo}", method = RequestMethod.GET)
     public ModelAndView authOrderResult(HttpServletRequest request, @PathVariable int buyNo){
         ModelAndView mView = productService.orderResult(request, buyNo);
         System.out.println(buyNo);
         mView.setViewName("page/voc/pop/orderPop");
         return mView;
+    }
+
+    @RequestMapping(value = "/company/order", method = RequestMethod.GET)
+    public ModelAndView authOrderList(HttpServletRequest request){
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("page/membership/manager/product/orderList");
+        return mView;
+    }
+
+    @RequestMapping(value="/orderlist", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> authOrderListData(HttpServletRequest request)throws UnsupportedEncodingException, GeneralSecurityException {
+        List<Map<String,Object>> orderData = productService.orderListData(request);
+        return orderData;
     }
 
 }

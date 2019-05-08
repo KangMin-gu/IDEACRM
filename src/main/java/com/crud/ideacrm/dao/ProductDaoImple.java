@@ -107,4 +107,22 @@ public class ProductDaoImple implements ProductDao{
         return orderProductResult;
     }
 
+    @Override
+    public List<Map<String, Object>> orderListData(Map<String,Object> param) {
+        List<Map<String, Object>> orderData = session.selectList("product.orderData", param);
+        return orderData;
+    }
+
+    @Override
+    public List<Map<String, Object>> orderOrderExcel(Map<String, Object> param) {
+        List<Map<String, Object>> orderData = session.selectList("product.orderExcel", param);
+        return orderData;
+    }
+
+    @Override
+    public List<Map<String, Object>> orderOrderProductExcel(int buyno) {
+        List<Map<String, Object>> orderData = session.selectList("product.productExcel", buyno);
+        return orderData;
+    }
+
 }

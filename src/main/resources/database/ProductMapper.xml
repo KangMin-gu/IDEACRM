@@ -120,4 +120,55 @@
         LEFT OUTER JOIN sys990040 AS B ON B.PRDNO = A.PRDNO
         WHERE  A.buyno = #{buyno}
     </select>
+
+    <select id="orderData" parameterType="hashmap" resultType="hashmap">
+        SELECT * FROM (
+        SELECT A.BUYNO,D.CUSTNAME AS CUSTNAME, A.BUYUSER, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, A.REGUSER,
+        A.ADDR, A.MOBILE, A.HOMTEL, A.DELIVERYNAME, B.PRDNO,C.PRDNAME,
+        C.PRDVALUE,C.ERPNO, B.PRDEA, C.PRDPRICE FROM sys990060 AS A
+        LEFT OUTER JOIN sys990061 AS B ON A.BUYNO = B.BUYNO
+        LEFT OUTER JOIN sys990040 AS C ON B.PRDNO = C.PRDNO
+        LEFT OUTEr JOIN cu100010 AS D ON A.BUYUSER = D.CUSTNO
+        WHERE A.SITEID = #{siteid}
+        <if test="regdatefr != null">
+            AND A.REGDATE BETWEEN  #{regdatefr} AND  date_add(#{regdateto}, interval +1 day)
+        </if>
+        <if test="custname != null">
+            AND D.CUSTNAME like CONCAT('%',#{custname},'%')
+        </if>
+        <if test="mobile != null">
+            AND A.MOBILE like CONCAT('%',#{mobile},'%')
+        </if>
+        <if test="deliveryname != null">
+            AND A.deliveryname like CONCAT('%',#{deliveryname},'%')
+        </if>
+        <if test="ordernum != null">
+            AND A.BUYNO = #{ordernum}
+        </if>
+        <if test=" mobile != null">
+            AND A.MOBILE like CONCAT('%',#{mobile},'%')
+        </if>
+        ) AS C ORDER BY C.BUYNO DESC
+    </select>
+
+    <select id="orderExcel" resultType="hashmap" parameterType="hashmap">
+
+        SELECT A.BUYNO,D.CUSTNAME AS CUSTNAME, A.BUYUSER, DATE_FORMAT(A.REGDATE,'%Y-%m-%d') AS REGDATE, A.REGUSER,
+        A.ADDR, A.MOBILE, A.HOMTEL, A.DELIVERYNAME, B.PRDNO,C.PRDNAME,
+        C.PRDVALUE,C.ERPNO, B.PRDEA, C.PRDPRICE FROM sys990060 AS A
+        LEFT OUTER JOIN sys990061 AS B ON A.BUYNO = B.BUYNO
+        LEFT OUTER JOIN sys990040 AS C ON B.PRDNO = C.PRDNO
+        LEFT OUTEr JOIN cu100010 AS D ON A.BUYUSER = D.CUSTNO
+        WHERE A.SITEID = #{siteid}
+        <if test="regdatefr != null">
+            AND A.REGDATE BETWEEN  #{regdatefr} AND  date_add(#{regdateto}, interval +1 day)
+        </if>
+    </select>
+
+    <select id="productExcel" parameterType="hashmap" resultType="hashmap">
+        SELECT B.PRDNAME, B.PRDVALUE, B.ERPNO, B.PRDPRICE, A.PRDEA  FROM sys990061 AS A
+        LEFT OUTER JOIN sys990040 AS B ON B.PRDNO = A.PRDNO
+        WHERE  A.buyno = #{buyno}
+    </select>
+
 </mapper>

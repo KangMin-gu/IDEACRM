@@ -1,3 +1,6 @@
+
+
+
 $(document).ready(function() {
     var jsTreeOption = {"plugin":['types','dnd','search'], "icon":{'icon': 'fa fa-folder'}};
     jsTree('/company/products' ,jsTreeOption); // 전달
@@ -91,8 +94,9 @@ $('#jstreeSet').on("changed.jstree", function (e, data) {
                 "</tr>";
             $('#productBacketList').append(html);
 
-
-            js();
+            if (data.node != null) {
+                js();
+            }
 
         }
 //계산
@@ -113,7 +117,7 @@ $('#jstreeSet').on("changed.jstree", function (e, data) {
 
         $('.delRow').click(function () {
             $(this).parent().parent().remove();
-            delProduct(data);
+            //delProduct(data);
         });
 
         $('.price, .qty').keyup(function () {
@@ -169,13 +173,13 @@ function js() {
 }
 
 function delProduct(data){
-
-    var checkArr=[]
+    var a = $('#backetList tbody tr').length;
+    var checkArr=[];
     $("input[name='productVal']").each(function(i){
         checkArr.push($(this).val());
     });
     var allData = {"checkArr": checkArr };
-    if (data.node != null) {
+
         $.ajax({
             url: "/productbacketlist",
             type: 'GET',
@@ -189,7 +193,6 @@ function delProduct(data){
                 return false;
             }
         });
-    }
 }
 
 

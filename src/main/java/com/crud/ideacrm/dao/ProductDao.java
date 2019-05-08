@@ -26,5 +26,8 @@ public interface ProductDao {
     public void orderProductInsert(DeliveryProduct dprd);
     public Map<String, Object> orderResult(Map<String, Object> orderResultVal);
     public List<Map<String, Object>> orderProductResult(Map<String, Object> orderResultVal);
+    public List<Map<String, Object>> orderListData(Map<String,Object> param);
+    public List<Map<String, Object>> orderOrderExcel(Map<String,Object> param);
+    public List<Map<String, Object>> orderOrderProductExcel(int buyno);
 
 }

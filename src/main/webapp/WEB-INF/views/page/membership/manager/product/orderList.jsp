@@ -30,7 +30,7 @@
     }
 </style>
 <body>
-<c:set var="menuactive" value='productM'/>
+<c:set var="menuactive" value='orderM'/>
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
@@ -39,13 +39,13 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>제품 관리</h2>
+                <h2>주문 관리</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="${pageContext.request.contextPath}/">메인</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>제품 관리</strong>
+                        <strong>주문 관리</strong>
                     </li>
                 </ol>
             </div>
@@ -56,109 +56,114 @@
 
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>제품 리스트</h5>
-                        </div>
+
                         <div class="ibox-content">
-                            <form id="jsTreeForm">
-                                <div class="input-group">
-                                    <input id="jsTreeVal" type="text" placeholder="제품 검색">
-                                    <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit" style="height: 35px;">
-                                        <span class="sr-only">검색</span>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                                </div>
-                            </form>
-                            <div id="jstreeSet">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-lg-6">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>제품 정보</h5>
-                            <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
-                                <a class="btn btn-default" onclick="prdFormReset()" href="#">추가</a>
-                            </div>
-                        </div>
-                        <form:form id="productForm" method="post" action="/company/product/insert">
-                            <div class="ibox-content">
+                            <form:form id="orderListSerchForm" action="/orderlist">
                                 <div class="table-responsive">
                                     <table style="white-space:nowrap;">
                                         <colgroup>
                                             <col width="5%">
-                                            <col width="30%">
+                                            <col width="10%">
                                             <col width="5%">
-                                            <col width="30%">
+                                            <col width="10%">
+                                            <col width="5%">
+                                            <col width="10%">
+                                            <col width="5%">
+                                            <col width="10%">
+                                            <col width="5%">
+                                            <col width="10%">
+                                            <col width="5%">
+                                            <col width="10%">
                                         </colgroup>
                                         <tbody>
                                         <tr>
-                                            <th>카테고리 생성</th>
+                                            <th>구매일</th>
                                             <td>
-                                                <select class="form-control form-control-sm" id="grpno" style="width: 150px;">
-                                                    <option >선택</option>
-                                                    <option value="0">상위메뉴</option>
-                                                    <option value="1">하위메뉴</option>
-                                                </select>
+                                                <div class="input-group" style="width:230px;">
+                                                    <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
+                                                    <input class="form-control form-control-sm daterange searchparam" type="text" id="regdate" name="regdate" />
+                                                </div>
+                                            </td>
+                                            <th>결제일</th>
+                                            <td>
+                                                <div class="input-group" style="width:230px;">
+                                                    <span class="input-group-addon" style="height:31px;"><i class="fa fa-calendar fa-sm"></i></span>
+                                                    <input class="form-control form-control-sm daterange searchparam" type="text" id="paydate" name="paydate" />
+                                                </div>
+                                            </td>
+                                            <th>주문번호</th>
+                                            <td>
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 230px;" id="ordernum" name="ordernum" data-filterable="true">
+                                            </td>
+                                            <td colspan="2">
+                                                <button type="button" class="btn btn-w-m btn-primary" id="custListSearch">검색</button>
                                             </td>
                                         </tr>
-                                        <tr class="grpInput">
-                                            <th><label for="grpname">그룹명</label></th>
-                                            <td><input type="text" class="form-control-sm form-control" id="grpname" name="grpname" style="width: 150px;"></td>
-                                        </tr>
-                                        <tr class="downInput">
-                                            <th><label for="grpupper">그룹명</label></th>
+                                        <tr>
+                                            <th>구매자</th>
                                             <td>
-                                                <select class="form-control form-control-sm" name="grpupper" id="grpupper" style="width: 150px;">
-                                                    <option >선택</option>
-                                                    <c:forEach var="highList" items="${highList}"  >
-                                                        <option value="${highList.PRDNO}">${highList.PRDNAME}</option>
-                                                    </c:forEach>
-                                                </select>
-                                                <input type="hidden" id="prdno" name="prdno">
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="custname" name="custname" data-filterable="true">
                                             </td>
-                                            <th><label for="prdvalue">제품코드</label></th>
-                                            <td><input type="text" class="form-control-sm form-control" id="prdvalue" name="prdvalue" style="width: 150px;"></td>
-                                        </tr>
-                                        <tr class="downInput">
-                                            <th><label for="erpno">회사코드</label></th>
-                                            <td><input type="text" class="form-control-sm form-control" id="erpno" name="erpno" style="width: 150px;"></td>
-                                            <th><label for="prdname">제품명</label></th>
-                                            <td><input type="text" class="form-control-sm form-control" id="prdname" name="prdname" style="width: 200px;"></td>
-                                        </tr>
-                                        <tr class="downInput">
-                                            <th><label for="prdprice">가격</label></th>
+                                            <th>수신자</th>
+                                            <td><input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="deliveryname" name="deliveryname" data-filterable="true"></td>
+                                            <th>휴대전화</th>
                                             <td>
-                                                <input type="text" class="form-control-sm form-control" id="prdprice" name="prdprice" style="width: 100px;">
+                                                <input class="form-control form-control-sm searchparam" type="text" style="width: 150px;" id="mobile" name="mobile" data-filterable="true">
                                             </td>
-                                            <th><label for="prddesc">제품설명</label></th>
-                                            <td><input type="text" class="form-control-sm form-control" id="prddesc" name="prddesc"></td>
+                                            <td >
+                                                <button type="button" class="btn btn-w-m btn-default" id="reset">초기화</button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <br/>
-                                    <button type="submit" id="saveBtn" class="btn btn-default pull-right">저장</button>
-                                    </form:form>
-                                    <a href="#" onclick="productUpdate()" id="updateBtn" class="btn btn-default pull-right">수정</a>
-                                    <a href="#" onclick="productDel()" id="deleteBtn" class="btn btn-default pull-left">삭제</a>
-                                    <button id="resetBtn" class="btn btn-default pull-right">초기화</button>
                                 </div>
-                            </div>
+                            </form:form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>회원사 고객 목록</h5>
+                        <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
+                            <form id="orderExcel" action="/orderexcel" method="get">
+                                <input type="hidden" id="orderdate" name="orderdate">
+                                <button class="btn btn-default" type="submit"><i class="fa fa-file-excel-o"> 엑셀</i></button>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                            <table class="footable table table-striped orderList">
+                                <thead>
+                                <tr>
+                                    <th data-name="BUYNO" data-breakpoints="xs sm">주문번호</th>
+                                    <th data-name="PRDNAME" data-breakpoints="xs sm">제품명</th>
+                                    <th data-name="PRDEA" data-breakpoints="xs sm">수량</th>
+                                    <th data-name="PRDVALUE" data-breakpoints="xs sm">제품코드</th>
+                                    <th data-name="ERPNO" data-breakpoints="xs sm">회사코드</th>
+                                    <th data-name="PRDPRICE" data-breakpoints="xs sm">결제금액</th>
+                                    <th data-name="REGDATE" data-breakpoints="xs sm">결제일</th>
+                                    <th data-name="CUSTNAME">구매자</th>
+                                    <th data-name="DELIVERYNAME" data-breakpoints="xs sm">수신자</th>
+                                    <th data-name="MOBILE" data-breakpoints="xs sm">휴대폰</th>
+                                    <th data-name="HOMTEL" data-breakpoints="xs sm">자택전화</th>
+                                    <th data-name="ADDR" data-breakpoints="xs sm">주소</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <div class="footer">
         <%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -177,11 +182,30 @@
 <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jstree.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/orderList.js.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <script>
+    $(document).ready(function() {
+        var bool = dateRangeError();
+        if(bool)  footableSearchList('/orderlist', $('.orderList'));
 
+    });
+
+
+    $('#custListSearch').click(function(e){
+        footableSearchList('/orderlist', $('.orderList'));
+    });
+
+    $('#regdate').change(function(){
+       $('#orderdate').val($('#regdate').val());
+    });
+
+    $('#orderExcel').on('submit', function(){
+        if($('#regdate').val() == ""){
+            alert("기간을 선택해주세요.");
+            return false;
+        }
+    });
 </script>
 </body>
 </html>

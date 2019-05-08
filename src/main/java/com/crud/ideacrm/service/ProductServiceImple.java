@@ -1,6 +1,7 @@
 package com.crud.ideacrm.service;
 
 import com.crud.ideacrm.controller.MainController;
+import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.ParameterUtil;
 import com.crud.ideacrm.dao.ProductDao;
 import com.crud.ideacrm.dto.DeliveryProduct;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +28,8 @@ public class ProductServiceImple implements ProductService {
     private ProductDao productDao;
     @Autowired
     private ParameterUtil prmUtil;
-
+    @Autowired
+    private CodecUtil codecUtil;
     @Override
     public List<ProductDto> getProductB(HttpServletRequest request) {
 
@@ -165,7 +169,7 @@ public class ProductServiceImple implements ProductService {
     }
 
     @Override
-    public int order(HttpServletRequest request, Map<String, Object> productInfo) {
+    public int order(HttpServletRequest request, Map<String, Object> productInfo) throws UnsupportedEncodingException, GeneralSecurityException {
         int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
         int userNo = Integer.parseInt(request.getSession().getAttribute("USERNO").toString());
 
@@ -189,7 +193,8 @@ public class ProductServiceImple implements ProductService {
         dprd.setDesc(deliveryInfo.get("desc").toString());
         dprd.setTotalprice(totalPrice);
         dprd.setSiteid(siteId);
-        dprd.setBuyuser(buyer);
+        String buyUserName = codecUtil.decodePkNo(buyer);
+        dprd.setBuyuser(buyUserName);
         dprd.setReguser(userNo);
 
         //구매자정보 insert  pk 갑 받아오기
@@ -219,5 +224,20 @@ public class ProductServiceImple implements ProductService {
         mView.addObject("orderResult", orderResult);
         mView.addObject("orderProductResult",  orderProductResult);
         return mView;
+    }
+
+    @Override
+    public List<Map<String, Object>> orderListData(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {
+        int siteId = Integer.parseInt(request.getSession().getAttribute("SITEID").toString());
+        Map<String,Object> param = prmUtil.searchParam(request);
+        List<Map<String, Object>> orderData = productDao.orderListData(param);
+
+        for(int i=0; i<orderData.size(); i++){
+            String buyUser = orderData.get(i).get("BUYUSER").toString();
+          //  String buyUserName = codecUtil.decoding(buyUser);
+           // orderData.get(i).put("BUYUSER", buyUserName);
+        }
+
+        return orderData;
     }
 }

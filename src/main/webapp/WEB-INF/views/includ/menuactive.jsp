@@ -86,10 +86,10 @@
         $('.manager').children().attr('aria-expanded',true);
         $('.manager').children('ul').addClass('collapse in');
     }else if(active == 'orderM'){
-        $('.orderM').addClass('active');
+        $('.manager').addClass('active');
         $('.orderMenu').addClass('active');
-        $('.orderM').children().attr('aria-expanded',true);
-        $('.orderM').children('ul').addClass('collapse in');
+        $('.manager').children().attr('aria-expanded',true);
+        $('.manager').children('ul').addClass('collapse in');
     }
 </script>
 

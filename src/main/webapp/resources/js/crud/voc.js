@@ -412,7 +412,18 @@ function blackSpanActivation(statusStr, fromStr) {
         opener.$('#blackSpan').html(btnStr);
     }
 }
-
+//블랙 팝업 페이지 필드 초기화
+function initBlackCustPop(){
+    $('#custname').val(opener.$('#custname').val());
+    $('#custno').val(opener.$('#custno').val());
+    var searchNumber =  opener.$('#searchNumber').val()
+    var phoneNumber = opener.$('#mobile1').val()+opener.$('#mobile2').val()+opener.$('#mobile3').val();
+    if(!searchNumber && searchNumber != ''){
+        $('#receiveno').val(searchNumber);
+    }else{
+        $('#receiveno').val(phoneNumber);
+    }
+}
 //블랙추가 - 블랙리스트 추가 팝업 페이지 호출
 function addBlackPop(){
     var custno = $('#custno').val();
@@ -1206,11 +1217,30 @@ $('#senddesc').keyup(function(e){
 
 //sms 서식 선택
 $('#smsFormat').change(function(e){
+    var formatno = e.target.value;
+    if( !formatno && formatno != '' ){return;}
+    $.ajax({
+        url: '/voc/format/'+formatno,
+        method: "POST",
+        dataType: "json",
+        data: {},
+        cache: false,
+        success: function (data) {
+            var formatdesc = data.FORMATDESC;
+            formatdesc = removeHtmlTag(formatdesc);
+            $('#senddesc').val( replaceSendStr(formatdesc) );
+            // tinymce.activeEditor.setContent(data.FORMATDESC);
+            //replaceSendStr('content');
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
 
-    var idx = e.target.value;//foreach 의 idx 값 획득
-    var tmpVal = $('#smsFormat').val();// hidden 필드의 idx 번째의 값 바인딩
-    $('#senddesc').val(tmpVal);
-    replaceSendStr('senddesc');//#{고객명}-> 실 고객명 치환
+    //var idx = e.target.value;//foreach 의 idx 값 획득
+    //var tmpVal = $('#smsFormat').val();// hidden 필드의 idx 번째의 값 바인딩
+    // $('#senddesc').val(tmpVal);
+    // replaceSendStr('senddesc');//#{고객명}-> 실 고객명 치환
 });
 //kakao 서식 선택
 $('#kakaoFormat').change(function(e){
@@ -1225,8 +1255,32 @@ $('#kakaoFormat').change(function(e){
         success: function (data) {
             $('#service_seqno').val(data.KKOSERVICENO);
             $('#template_code').val(data.KKOTEMPLETENO);
-            $('#send_message').val(data.FORMATDESC);
-            replaceSendStr('send_message');
+
+            var formatdesc = data.FORMATDESC;
+            $('#send_message').val(replaceSendStr(formatdesc));
+            // $('#send_message').val(data.FORMATDESC);
+            // replaceSendStr('send_message');
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+});
+//voc 이메일 포멧 선택 이벤트
+$('#emailFormat').change(function(e){
+    var formatno = e.target.value;
+    if( !formatno && formatno != '' ){return;}
+    $.ajax({
+        url: '/voc/format/'+formatno,
+        method: "POST",
+        dataType: "json",
+        data: {},
+        cache: false,
+        success: function (data) {
+            var formatdesc = data.FORMATDESC;
+            tinymce.activeEditor.setContent(replaceSendStr(formatdesc));
+            // tinymce.activeEditor.setContent(data.FORMATDESC);
+            //replaceSendStr('content');
         },
         error: function (request, status, error) {
             alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -1256,6 +1310,7 @@ $('#vocTemplateFormat').change(function(e){
 
 //#{고객명}을 -> 실제 고객명으로 치환. text filed의 id를 인자값으로 전달
 function replaceSendStr(id){
+    /*
     if ( !$('#'+id).val() == false ){
         var tempVal = $('#'+id).val();
         var custName = opener.$('#custname').val();
@@ -1263,7 +1318,12 @@ function replaceSendStr(id){
         tempVal = tempVal.replace(/#{고객명}/gi,custName);
         tempVal = tempVal.replace(/#{회사명}/gi,siteName);
         $('#'+id).val(tempVal)
-    }
+    }*/
+    var custName = opener.$('#custname').val();
+    var siteName = opener.$('#sitename').val();
+    id = id.replace(/#{고객명}/gi,custName);
+    id = id.replace(/#{회사명}/gi,siteName);
+    return id;
 }
 
 $(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
@@ -1361,4 +1421,10 @@ function splitPhoneNumber(id,phone){
         }
     }
 
+}
+//문자열에서 html 관련 태그 제거.
+function removeHtmlTag(str){
+    str = str.replace(/(<([^>]+)>)/ig,"");//태그제거
+    str = str.replace(/\&nbsp;/g,'');//&nbsp 라인제거
+    return str;
 }

@@ -735,11 +735,12 @@ function ctiEvent(msg){
             alert("실패");
         }
 	}else if(tmpData[0] == "85"){// 상담원 모드 응답
+		console.log('상태코드 : '+tmpData[2]);
 		if(tmpData[1] == document.getElementById("cti_login_id").value){				// 받은 데이터가 로그인한 상담원의 아이디와 같은 경우
 			if(tmpData[2] == "0"){
-				//document.getElementById("responseMode").value = "인바운드";
+				document.getElementById("responseMode").value = "IN";
 			}else if(tmpData[2] == "1"){
-				//document.getElementById("responseMode").value = "아웃바운드";
+				document.getElementById("responseMode").value = "OUT";
 			}
 		}
 	}else if(tmpData[0] == "86"){// 스크린 팝업

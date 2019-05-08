@@ -1,4 +1,4 @@
-
+var globalUrl;
 //  footable 검색 및 ready상태일때 사용할 수 있게 변경
 function footableSearchList(url, selector) {
     var param = searchDataToJson();
@@ -59,7 +59,7 @@ function tabFootableSearchList(id,url) {
     });
 };
 $(".footable").on("click.ft.row",function(obj,e,ft,row){
- var globalUrl = window.location.pathname;
+    globalUrl = window.location.pathname;
     if($(obj.target.parentElement.parentElement).is('tbody')){
         if(globalUrl =='/popuser'){
             popParentNameClick($(obj.target.parentElement));

@@ -79,9 +79,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script>
 $(document).ready(function() {
-	$('#custname').val(opener.$('#custname').val());
-	$('#custno').val(opener.$('#custno').val());
-	$('#receiveno').val(opener.$('#searchNumber').val());
+	initBlackCustPop();//페이지 초기값 셋팅
 });
 </script>
 </body>

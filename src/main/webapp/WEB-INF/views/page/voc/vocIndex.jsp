@@ -55,41 +55,41 @@
                     </div>
                     <ul class="top-btn">
                         <li class="doLoginMsg"><span><h3>로 그 인 해 주 세 요 </h3></span></li>
-                        <li class="ctibtn"><input type="text" id="makeCallNum" class="form-control" value="" style="color:black"></li>
-                        <li class="liBtn ctibtn"><button onclick="javascript:func_answer();" class="btn btn-primary btn-sm" id="answerBtn">받기 <i class="fa fa-phone"></i></button></li>
-                        <li class="liBtn ctibtn"><button onclick="javascript:func_pickup();" class="btn btn-primary btn-sm" id="pickupBtn">당겨받기 <i class="fa fa-phone"></i></button></li>
-                        <li class="liBtn ctibtn"><button onclick="javascript:func_hangup();" class="btn btn-primary btn-sm" id="hangUpBtn">끊기 <i class="fa fa-phone"></i></button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_hold();" class="btn btn-primary btn-sm status" id="delayBtn">보류 <i class="fa fa-times-circle"></i></button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_unhold();" class="btn btn-primary btn-sm status" id="delayCancelBtn">보류해제 <i class="fa fa-times-circle-o"></i></button></li>
-                        <li class="ctibtn">
+                        <li class="ctibtn" style="display:none"><input type="text" id="makeCallNum" class="form-control" value="" style="color:black"></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onclick="javascript:func_answer();" class="btn btn-primary btn-sm" id="answerBtn">받기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onclick="javascript:func_pickup();" class="btn btn-primary btn-sm" id="pickupBtn">당겨받기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onclick="javascript:func_hangup();" class="btn btn-primary btn-sm" id="hangUpBtn">끊기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_hold();" class="btn btn-primary btn-sm status" id="delayBtn">보류 <i class="fa fa-times-circle"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_unhold();" class="btn btn-primary btn-sm status" id="delayCancelBtn">보류해제 <i class="fa fa-times-circle-o"></i></button></li>
+                        <li class="ctibtn" style="display:none">
                             &nbsp; |&nbsp;
                         </li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('0300');"class="btn btn-primary btn-sm status" id="waitingBtn">대기 <i class="fa fa-spinner"></i></button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('R001');" class="btn btn-primary btn-sm status" id="restBtn">휴식 <i class="fa fa-coffee"></i></button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('W004');" class="btn btn-primary btn-sm status" id="postCleaningBtn">후처리 <i class="fa fa-phone"></i></button></li>
-                        <li class="ctibtn">
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_changeTellerStatus('0300');"class="btn btn-primary btn-sm status" id="waitingBtn">대기 <i class="fa fa-spinner"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_changeTellerStatus('R001');" class="btn btn-primary btn-sm status" id="restBtn">휴식 <i class="fa fa-coffee"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_changeTellerStatus('W004');" class="btn btn-primary btn-sm status" id="postCleaningBtn">후처리 <i class="fa fa-phone"></i></button></li>
+                        <li class="ctibtn" style="display:none">
                             &nbsp; | &nbsp;
                         </li>
-                        <li class="ctibtn"><span id="timer">00 : 00</span></li>
-                        <li class="ctibtn">
+                        <li class="ctibtn" style="display:none"><span id="timer">00 : 00</span></li>
+                        <li class="ctibtn" style="display:none">
                             &nbsp; | &nbsp;
                         </li>
-                        <li class="ctibtn"><input type="text" id="blindCall" class="form-control"></li>
-                        <li class="liBtn2 ctibtn"><button onclick="javascript:didCheckMakeCall();" class="btn btn-default btn-sm">OB연결</button></li>
-                        <li class=" liBtn2 ctibtn"><button onClick="javascript:func_blindTransfer(document.getElementById('blindCall').value,'');" class="btn btn-primary btn-sm status" id="transferBtn">호전환</button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_threeWayCall();" class="btn btn-primary btn-sm status" id="threeWayBtn">3자 통화</button></li>
-                        <li class=" mr-2 ml-2 ctibtn"><strong>고객대기 <span id="cti_waitting_cnt">0</span></strong></li>
+                        <li class="ctibtn" style="display:none"><input type="text" id="blindCall" class="form-control"></li>
+                        <li class="liBtn2 ctibtn" style="display:none"><button onclick="javascript:didCheckMakeCall();" class="btn btn-default btn-sm">OB연결</button></li>
+                        <li class=" liBtn2 ctibtn" style="display:none"><button onClick="javascript:func_blindTransfer(document.getElementById('blindCall').value,'');" class="btn btn-primary btn-sm status" id="transferBtn">호전환</button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_threeWayCall();" class="btn btn-primary btn-sm status" id="threeWayBtn">3자 통화</button></li>
+                        <li class=" mr-2 ml-2 ctibtn" style="display:none"><strong>고객대기 <span id="cti_waitting_cnt">0</span></strong></li>
                         <li>
                             <input type="hidden" id="tellerStatus" name="tellerStatus"/>
                             <input type="hidden" id="status" name="status"/>
                         </li>
                         <li class="float-right">
                             <ul class="top-ul03">
-                                <li class="ctibtn">
+                                <li class="ctibtn" style="display:none">
                                     <i class="fa fa-bell"></i>
                                     <span class="li-text">3</span>
                                 </li>
-                                <li class="ctibtn">
+                                <li class="ctibtn" style="display:none">
                                     <i class="fa fa-envelope"></i>
                                     <span class="li-text isnVal"></span>
                                 </li>
@@ -99,7 +99,7 @@
                                     </a>
                                     <ul id="insNotRead" class="dropdown-menu dropdown-messages"></ul>
                                 </li>-->
-                                <li class="dropdown ctibtn">
+                                <li class="dropdown ctibtn" style="display:none">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;">
                                         <i class="fa fa-bars" style=""></i>
                                     </a>
@@ -148,7 +148,9 @@
                                             <!--고객 관련 hidden -->
                                             <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt"/>
                                             <!-- 녹취 키값  -->
-                                            <input type="hidden" id="nucIdx"  name="nucIdx" value="" />
+                                            <input type="hidden" id="nucIdx"  name="nucIdx" />
+                                            <!-- in / out 바운드 정보 -->
+                                            <input type="hidden" id="responseMode" name="responseMode" />
 
 
                                             <th>유입번호</th>

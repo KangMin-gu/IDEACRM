@@ -29,7 +29,7 @@ public class CustController {
 
     private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1 .
 
-    //고객 리스트 기본 화면.
+    //고객 리스트 기본 화면 .
     @RequestMapping(value = "/cust", method = RequestMethod.GET)
     public ModelAndView authCustList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();

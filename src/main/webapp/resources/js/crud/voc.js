@@ -897,7 +897,7 @@ $('.i-checks').on('ifChecked', function(event) {
             vocPayHideFieldControl('show');
         } else if(value == 4){ //결제
             vocPayHideFieldControl('hide');
-            var bool = $('.iradio_square-green').hasClass('disabled');//todo. 셀렉터 하드코딩값 변경 할 것
+            var bool = $('.servicetype').children().find('div' ).hasClass('disabled');
             if(bool==false){
                 openNewWindow('상품주문','/payment',event.currentTarget.id,1300,900);
             }

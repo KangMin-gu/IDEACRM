@@ -134,9 +134,12 @@
                         <div class=" pull-right" style="margin-bottom: 0px;top: 9px;right: 15px;bottom: 0px;">
                             <form id="orderExcel" action="/orderexcel" method="get">
                                 <input type="hidden" id="orderdate" name="orderdate">
-                                <button class="btn btn-default" type="submit"><i class="fa fa-file-excel-o"> 엑셀</i></button>
+                                <button class="btn btn-default" type="submit"><i class="fa fa-file-excel-o"></i></button>
                             </form>
-
+                            <form id="orderExcels" action="/test" method="get">
+                                <input type="hidden" id="orderdates" name="orderdates">
+                                <button class="btn btn-default" type="submit"><i class="fa fa-file-excel-o"> 엑셀test</i></button>
+                            </form>
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -198,9 +201,17 @@
 
     $('#regdate').change(function(){
        $('#orderdate').val($('#regdate').val());
+        $('#orderdates').val($('#regdate').val());
     });
 
     $('#orderExcel').on('submit', function(){
+        if($('#regdate').val() == ""){
+            alert("기간을 선택해주세요.");
+            return false;
+        }
+    });
+
+    $('#orderExcels').on('submit', function(){
         if($('#regdate').val() == ""){
             alert("기간을 선택해주세요.");
             return false;

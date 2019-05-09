@@ -12,7 +12,7 @@
 
 	<!-- //날짜별 로그 파일 생성 하기 -->
 	<appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="Threshold" value="DBUG" />
+		<param name="Threshold" value="ERROR" />
 		<param name="File" value="C:\idealog" />
 		<param name="Append" value="true" />
 		<!-- param name="MaxFileSize" value="100MB"/ -->
@@ -26,53 +26,53 @@
 
 	<!-- Application Loggers -->
 	<logger name="com.crud.ideacrm">
-		<level value="DEBUG" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="jdbc" >
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="org.apache.ibatis">
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="java.sql">
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="jdbc.sqlonly" >
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 
 	<logger name="org.springframework.beans">
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 
 	<logger name="org.springframework.context">
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 
 	<logger name="org.springframework.beans">
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 
 	<logger name="org.springframework.context">
-		<level value="DBUG" />
+		<level value="ERROR" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="DBUG" />
+		<level value="ERROR" />
 
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="DBUG" />
+		<priority value="ERROR" />
 		<appender-ref ref="console" />
 		<appender-ref ref="dailyRollingFile" />
 	</root>

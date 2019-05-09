@@ -38,7 +38,7 @@ public class CustController {
         mView.setViewName("page/cust/custList");
         return mView;
     }
-    //고객 리스트 - fooTable에 모델 객체 반환
+      //고객 리스트 - fooTable에 모델 객체 반환
     @RequestMapping(value = "/cust", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> authGetCustList(HttpServletRequest request) throws UnsupportedEncodingException, GeneralSecurityException {

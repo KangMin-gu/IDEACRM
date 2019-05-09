@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<%@ page import = "java.util.Calendar" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,14 +20,13 @@
 </head>
 <body>
 <c:set var="menuactive" value='vocdashM'/>
+
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
             <%@ include file="/WEB-INF/views/common/top_v2.jsp"%>
         </div>
-
-
         <div class="wrapper wrapper-content animated fadeInRight">
            <div class="row">
                 <div class="col-lg-12">
@@ -46,7 +46,7 @@
                           <div class="ibox">
                               <div class="ibox-title">
                                   <h5><i class="fa fa-certificate"></i> 인입 현황</h5>
-                                  <small class="pull-right">기준 : 일</small>
+                                  <small class="pull-right">기준 :  일</small>
                               </div>
                               <div class="ibox-content">
                                   <div class="row">
@@ -63,14 +63,16 @@
                                       <div class="col-lg-12">
                                           <div class=" pull-left">
                                               <h5>접수유형</h5>
-                                              <span> 일반 : <strong>90</strong></span>&nbsp;
-                                              <span> 칭찬 : <strong>20</strong></span>&nbsp;
-                                              <span> 품질 : <strong>5</strong></span>&nbsp;
-                                              <span> A/S : <strong>6</strong></span>&nbsp;
-                                              <span> 콜센터 : <strong>1</strong></span>&nbsp;
-                                              <span> 매장 : <strong>2</strong></span>&nbsp;
-                                              <span> 불만 : <strong>1</strong></span>&nbsp;
-                                              <span> 관리 : <strong>5</strong></span>&nbsp;
+                                                <c:forEach  var="type"  items= "${intypechart}" >
+                                                      <span> 일반 : <strong> ${type.normal} </strong></span>&nbsp;
+                                                      <span> 칭찬 : <strong> ${type.compliment} </strong></span>
+                                                      <span> 품질 : <strong> ${type.quality} </strong></span>&nbsp;
+                                                      <span> A/S : <strong> ${type.afterService} </strong></span>&nbsp;
+                                                      <span> 콜센터 : <strong> ${type.center} </strong></span>&nbsp;
+                                                      <span> 매장 : <strong> ${type.store} </strong></span>&nbsp;
+                                                      <span> 불만 : <strong> ${type.complain} </strong></span>
+                                                      <span> 관리 : <strong> ${type.management} </strong></span>&nbsp;
+                                                </c:forEach>
                                           </div>
                                       </div>
                                   </div>
@@ -98,7 +100,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class=" pull-right">
-                                                <span>기간 : 2019.05.02</span>
+                                                <span>기간 :  2019-05-10   </span>
                                             </div>
                                         </div>
                                     </div>
@@ -120,7 +122,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class=" pull-right">
-                                                <span>기간 : 2019.05.02</span>
+                                                <span>기간 :  2019-05-10  </span>
                                             </div>
                                         </div>
                                     </div>
@@ -130,10 +132,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
 
             <div class="row">
                 <div class="col-lg-12">
@@ -187,9 +185,33 @@
 <script>
     function vocWindow(){
         window.open("/voc", "", "fullscreen");
-    }
+
+
+
 </script>
 <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 

@@ -1,5 +1,6 @@
 package com.crud.ideacrm.service;
 
+
 import com.crud.ideacrm.controller.MainController;
 import com.crud.ideacrm.crud.util.CodecUtil;
 import com.crud.ideacrm.crud.util.PagingUtil;
@@ -358,38 +359,29 @@ public class VocServiceImple implements VocService {
         vocDao.callbackAutoDiv(param);
 /*
         int userCnt = vocDao.vocCallUserCnt(param);
-
         int callBackCnt = vocDao.vocCallBackTotalRow(param);
-
         int totalCnt = (callBackCnt/userCnt);
         if(totalCnt == 0) {
             totalCnt ++;
         }
         param.put("totalCnt", totalCnt);
-
         int cnt = 0;
-
         List<Map<String,Object>> userList = vocDao.vocUserList(param);
-
         int userListSize = userList.size();
         int userNo = 0;
         String userName ="";
         int callBackListSize = 0;
         int callBackNo = 0;
         List<Map<String,Object>> callBackList = new ArrayList<Map<String,Object>>();
-
         for(int i=0;i<userListSize;i++) {
             userNo = Integer.parseInt(userList.get(i).get("USERNO").toString());
             userName = userList.get(i).get("USERNAME").toString();
             callBackList = vocDao.vocPopCallBackList(param);
             callBackListSize = callBackList.size();
-
             for(int j=0;j<callBackListSize;j++) {
                 callBackNo = Integer.parseInt(callBackList.get(j).get("CALLBACKNO").toString());
-
                 param.put("userNo", userNo);
                 param.put("callBackNo", callBackNo);
-
                 vocDao.vocCallBackDiv(param);
                 cnt++;
             }
@@ -398,7 +390,6 @@ public class VocServiceImple implements VocService {
             vocCallBackAutoDiv(request);
         }
         return cnt;
-
        */
     }
 
@@ -448,7 +439,7 @@ public class VocServiceImple implements VocService {
                 rewardDto.setEncodingRewardDto();
                 rewardDto.setServiceno(serviceNo);
                 if(search.get("asowner") != null){
-                   rewardDto.setOwner( Integer.parseInt((String)search.get("asowner")) );
+                    rewardDto.setOwner( Integer.parseInt((String)search.get("asowner")) );
                 }
                 rewardDto.setReguser(userNo);
                 serviceDao.rewardInsert(rewardDto);

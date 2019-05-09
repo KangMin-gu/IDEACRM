@@ -52,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="database/LicenseMapper.xml"/>
 		<mapper resource="database/FormatMapper.xml"/>
 		<mapper resource="database/NoticeMapper.xml"/>
+		<mapper resource="database/MainMapper.xml"/>
 	</mappers>
 	
 </configuration>

@@ -4,9 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,8 +15,7 @@
   <%@ include file="/WEB-INF/views/includ/link.jsp"%>
 </head>
 <body>
-
-<div id="wrapper">
+    <div id="wrapper">
   <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
   <div id="page-wrapper" class="gray-bg">
     <div class="row border-bottom">
@@ -25,8 +25,6 @@
     <div class="wrapper wrapper-content animated fadeInRight">
       <div class="row">
         <div class="col-lg-12">
-
-
             <div class="row">
               <div class="col-lg-3">
                 <div class="ibox ">
@@ -34,9 +32,9 @@
                     <h5>고객 응대률</h5>
                   </div>
                   <div class="ibox-content">
-                    <h1 class="no-margins">92.5%</h1>
-                    <div class="stat-percent font-bold text-success"><span style="color:green;">전일대비&nbsp; 2% </span><i style="color:green;" class="fa fa-level-up"></i></div>
-                    <small>2019-05-02 현재</small>
+                    <h1 class="no-margins"> ${responseRate}% </h1>
+                    <div class="stat-percent font-bold text-success"><span style="color:green;">전일대비 ${beforedayrate}% </span><i style="color:green;" class="fa fa-level-up"></i></div>
+                    <small>  2019-05-10 현재 </small>
                   </div>
                 </div>
               </div>
@@ -44,12 +42,12 @@
               <div class="col-lg-3">
                 <div class="ibox ">
                   <div class="ibox-title">
-                    <h5>상담 불만률</h5>
+                    <h5>상담 불만율</h5>
                   </div>
                   <div class="ibox-content">
-                    <h1 class="no-margins">1%</h1>
-                    <div class="stat-percent font-bold text-success"><span style="color:red;">전월대비&nbsp; 2% </span> <i style="color:red;" class="fa fa-level-down"></i></div>
-                    <small>2019-05-02 현재</small>
+                    <h1 class="no-margins"> ${complainRate} % </h1>
+                    <div class="stat-percent font-bold text-success"><span style="color:red;"> 전월대비 ${beforemonthrate} % </span> <i style="color:red;" class="fa fa-level-down"></i></div>
+                    <small> 2019-05-10 현재</small>
                   </div>
                 </div>
               </div>
@@ -60,8 +58,10 @@
                     <h5>상담 완료건</h5>
                   </div>
                   <div class="ibox-content">
-                    <h1 class="no-margins">100 / 150</h1>
-                    <small>2019.05.01 - 현재</small>
+                     <c:forEach var="row" items="${endCnt}">
+                        <h1 class="no-margins"> ${row.endCnt} / ${row.endTot} </h1>
+                     </c:forEach>
+                    <small>   2019-05-01 - 현재</small>
                   </div>
                 </div>
               </div>
@@ -72,13 +72,13 @@
                     <h5>상담 미완건</h5>
                   </div>
                   <div class="ibox-content">
-                    <h1 class="no-margins">50 / 150</h1>
-                    <small>2019.05.01 - 현재</small>
+                      <c:forEach var="row" items= "${unendCnt}" >
+                        <h1 class="no-margins"> ${row.unendCnt} / ${row.unendTot} </h1>
+                      </c:forEach>
+                    <small>  2019-05-01 - 현재 </small>
                   </div>
                 </div>
               </div>
-
-
             </div>
 
             <div class="row">
@@ -93,28 +93,30 @@
                   <div class="ibox-content">
                     <div class="row">
                       <div class="col-lg-12">
-                        <canvas id="receiptChart" height="140"></canvas>
+                        <canvas id="receptChart" height="140"></canvas>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-lg-12">
                         <div class=" pull-right">
-                          <span>기간 : 2019.05.01 - 현재</span>&nbsp;<span>/</span>&nbsp;<span>총 : 150</span>
+                          <c:forEach var="type" items= "${receptType}">
+                          <span>기간 : 2019-05-01 - 현재</span>&nbsp;<span>/</span>&nbsp;<span>총 : ${type.tot} </span>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-lg-12">
                         <div class=" pull-left">
-                          <h5>5월 접수유형</h5>
-                          <span> 일반 : <strong>90</strong></span>&nbsp;
-                          <span> 칭찬 : <strong>20</strong></span>&nbsp;
-                          <span> 품질 : <strong>5</strong></span>&nbsp;
-                          <span> A/S : <strong>6</strong></span>&nbsp;
-                          <span> 콜센터 : <strong>1</strong></span>&nbsp;
-                          <span> 매장 : <strong>2</strong></span>&nbsp;
-                          <span> 불만 : <strong>1</strong></span>&nbsp;
-                          <span> 관리 : <strong>5</strong></span>&nbsp;
+                          <h5>   5  월 접수유형 </h5>
+                            <span> 일반 : <strong> ${type.normal} </strong></span>
+                            <span> 칭찬 : <strong> ${type.compliment} </strong></span>
+                            <span> 품질 : <strong> ${type.quality} </strong></span>
+                            <span> A/S : <strong>  ${type.afterService} </strong></span>
+                            <span> 콜센터 : <strong> ${type.center} </strong></span>
+                            <span> 매장 : <strong> ${type.store} </strong></span>
+                            <span> 불만 : <strong> ${type.complain} </strong></span>
+                            <span> 관리 : <strong> ${type.management} </strong></span>
+                          </c:forEach>
                         </div>
                       </div>
                     </div>
@@ -137,19 +139,21 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class=" pull-right">
-                          <span>기간 : 2019.01 - 현재</span>
+                          <span>기간 :  2019-01 - 현재 </span>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-lg-12">
                         <div class=" pull-left">
-                          <h5>2019년 종합 판매량 </h5>
-                          <span> 폴리콜사놀 10mg(30정) : <strong>366</strong></span>&nbsp;
-                          <span> / 폴리콜사놀 5mg(30정) : <strong>185</strong></span>&nbsp;
-                          <span> / 폴리콜사놀 10mg(75정) : <strong>82</strong></span>&nbsp;
-                          <span> / 폴리콜사놀 10mg(180정) : <strong>221</strong></span>&nbsp;
-                          <span> / 폴리콜사놀 in 오메가 : <strong>125</strong></span>&nbsp;
+                            <c:forEach var="product" items= "${productYear}">
+                              <h5>   2019 년 종합 판매량 </h5>
+                              <span>  폴리콜사놀 10mg(30정) : <strong> ${product.prodCode1} </strong></span>&nbsp;
+                              <span> / 폴리콜사놀 5mg(30정) : <strong> ${product.prodCode2} </strong></span>&nbsp;
+                              <span> / 폴리콜사놀 10mg(75정) : <strong> ${product.prodCode3} </strong></span>&nbsp;
+                              <span> / 폴리콜사놀 10mg(180정) : <strong> ${product.prodCode4} </strong></span>&nbsp;
+                              <span> / 폴리콜사놀 in 오메가 : <strong> ${product.prodCode5} </strong></span>&nbsp;
+                            </c:forEach>
                         </div>
                       </div>
                     </div>
@@ -200,7 +204,6 @@
                   </div>
                 </div>
               </div>
-
             </div>
         </div>
       </div>
@@ -219,14 +222,18 @@
 <script src="${pageContext.request.contextPath}/resources/js/footable.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/index.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/notice.js"></script>
-<script>
-  $(document).ready(function() {
-    footableSearchList('/index/sitenotice', $('.siteNotice'));
-    footableSearchList('/index/vocnotice', $('.vocNotice'));
-  });
-</script>
-</body>
+  <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/crud/notice.js"></script>
+  <script>
+    $(document).ready(function() {
+      footableSearchList('/index/sitenotice', $('.siteNotice'));
+      footableSearchList('/index/vocnotice', $('.vocNotice'));
+
+    });
+
+
+
+  </script>
+  </body>
 </html>

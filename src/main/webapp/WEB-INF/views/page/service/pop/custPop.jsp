@@ -66,7 +66,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script>
     $(document).ready(function() {
-        footableSearchList('/popcust');
+        footableSearchList('/popcust', $('.custPopList'));
     });
 
 </script>

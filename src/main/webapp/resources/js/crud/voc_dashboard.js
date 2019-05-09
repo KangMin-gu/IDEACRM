@@ -1,4 +1,21 @@
-//고객 접수유형
+// 인입현황
+$.ajax({
+    url: "/main/chart/intype",
+    method: "POST",
+    dataType: "json",
+    data : {},
+    cache: false,
+    success: function (recpData) {
+        var recpArr = new Array();
+        recpArr[0] = recpData.normal;
+        recpArr[1] = recpData.compli;
+        recpArr[2] = recpData.quality;
+        recpArr[3] = recpData.afterService;
+        recpArr[4] = recpData.center;
+        recpArr[5] = recpData.store;
+        recpArr[6] = recpData.complain;
+        recpArr[7] = recpData.management;
+
 var ctx = document.getElementById("callStatus");
 var receiptChart = new Chart(ctx, {
     type: 'pie',
@@ -6,7 +23,7 @@ var receiptChart = new Chart(ctx, {
         labels: ['일반', '칭찬', '품질', 'A/S', '콜센', '매장','불만','관리'],
         datasets: [{
             label: '# 접수유형',
-            data: [90, 20, 5, 6, 1, 2, 1, 5],
+            data:  recpArr,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -28,11 +45,37 @@ var receiptChart = new Chart(ctx, {
                 'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
-        }]
-    }
-});
+            }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+            },
+            error: function (request, status, error) {
+            }
+        });
+
 
 //시간대별 IN/OUT 콜
+
+$.ajax({
+    url: "/main/chart/intype",
+    method: "POST",
+    dataType: "json",
+    data : {},
+    cache: false,
+    success: function (recpData) {
+        var recpArr = new Array();
+        recpArr[0] = recpData.complain;
+        recpArr[1] = recpData.compli;
 var ctx2 = document.getElementById("inOutCountChart");
 var inOutCountChart = new Chart(ctx2, {
     type: 'bar',
@@ -65,6 +108,26 @@ var inOutCountChart = new Chart(ctx2, {
     }
 });
 
+},
+error: function (request, status, error) {
+}
+});
+
+
+// 상담제품
+$.ajax({
+url: "/main/chart/produDay",
+method: "POST",
+dataType: "json",
+data : {},
+cache: false,
+success: function (recpData) {
+    var recpArr = new Array();
+    recpArr[0] = recpData.prodCode1;
+    recpArr[1] = recpData.prodCode2;
+    recpArr[2] = recpData.prodCode3;
+    recpArr[3] = recpData.prodCode4;
+    recpArr[4] = recpData.prodCode5;
 
 var ctx3 = document.getElementById("inproduct");
 var inproduct = new Chart(ctx3, {
@@ -73,7 +136,7 @@ var inproduct = new Chart(ctx3, {
         labels: ['폴리코사놀 10mg(30정)', '폴리코사놀 5mg(30정)', '폴리코사놀 10mg(75정)', '폴리코사놀 10mg(180정)', '폴리코사놀 in 오메가'],
         datasets: [{
             label: '접수제품',
-            data: [30, 15, 10, 2, 7],
+            data: recpArr,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -90,19 +153,40 @@ var inproduct = new Chart(ctx3, {
             ],
             borderWidth: 1
         }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-    }
-});
+    });
+    },
+        error: function (request, status, error) {
+        }
+    });
+
+
 
 //처리상태
+$.ajax({
+    url: "/main/chart/proc",
+    method: "POST",
+    dataType: "json",
+    data : {},
+    cache: false,
+    success: function (recpData) {
+        var recpArr = new Array();
+        recpArr[0] = recpData.receipt;
+        recpArr[1] = recpData.complite;
+        recpArr[2] = recpData.process;
+        recpArr[3] = recpData.personTransfer;
+        recpArr[4] = recpData.senioTtransfer;
+        recpArr[5] = recpData.Unprocessed;
+
 var ctx4 = document.getElementById("processStatus");
 var processStatus = new Chart(ctx4, {
     type: 'bar',
@@ -110,7 +194,7 @@ var processStatus = new Chart(ctx4, {
         labels: ['접수', '처리', '완료', '담당자이관', '상급자이관','미처리'],
         datasets: [{
             label: '상담처리',
-            data: [40, 35, 50, 2, 0, 5],
+            data: recpArr,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -129,14 +213,19 @@ var processStatus = new Chart(ctx4, {
             ],
             borderWidth: 1
         }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-    }
-});
+    });
+
+        },
+        error: function (request, status, error) {
+        }
+    });

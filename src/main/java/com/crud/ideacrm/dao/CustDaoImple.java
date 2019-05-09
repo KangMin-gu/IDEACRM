@@ -95,4 +95,9 @@ public class CustDaoImple implements CustDao {
         List<Map<String, Object>> kakaoList = session.selectList("cust.custKakaoList",searchPrm);
         return kakaoList;
     }
+
+
+
+
+
 }

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+
+
+    <!-- 고객 응대율-->
+    <select id="responseRate" parameterType="map" resultType="int">
+
+        SELECT ROUND(AVG(RESPONSERATE)) AS repRate
+        FROM (
+        SELECT USERNO, RANK() OVER (PARTITION BY USERNO ORDER BY CALLOUTNO DESC) AS RNK, RESPONSERATE
+        FROM cti510040
+        WHERE SITEID = #{siteid}
+        AND REGDATE <![CDATA[>=]]> DATE_FORMAT(NOW() -1, '%Y%M%D 00:00:00')
+        AND REGDATE <![CDATA[<=]]> DATE_FORMAT(NOW() -1, '%Y%M%D 23:59:59')
+        ) A
+        WHERE A.RNK = 1
+
+    </select>
+
+
+    <!-- 불만율-->
+    <select id="complainRate" parameterType="map" resultType="int">
+
+        SELECT ROUND((SUM(A) * 100 ) / if(COUNT(A) = 0, COUNT(A),COUNT(A))) AS rate
+        FROM (
+        SELECT IF(SERVICECODE1 = 7, 1, 0 ) AS A
+        FROM sv300010
+        WHERE SITEID = #{siteid}
+        AND RECEPTIONDATE <![CDATA[>=]]> date_format(NOW() - 1, '%Y-%m-01')
+        AND RECEPTIONDATE <![CDATA[<=]]>  last_day(NOW())
+        ) B
+
+    </select>
+
+
+    <!-- 불만율 - 전일 대비  비율 -->
+    <select id="befdayrate" parameterType="map" resultType="int">
+        SELECT SUM(A.BEF_CNT) AS BEF, SUM(A.CUR_CNT) AS CUR ,   (SUM(A.BEF_CNT)) - (SUM(A.CUR_CNT))  AS beforerate
+        FROM (
+        SELECT 0 AS BEF_CNT, COUNT(A.SERVICENO) AS CUR_CNT
+        FROM SV300010 A
+        WHERE A.SITEID = #{siteid}
+        AND A.RECEPTIONDATE <![CDATA[>=]]> (SELECT DATE_FORMAT(MAX(RECEPTIONDATE), '%Y-%m-%d 00:00:00')
+        FROM SV300010 B
+        WHERE B.RECEPTIONDATE <![CDATA[<=]]> DATE_FORMAT(NOW(), '%Y-%m-%d 00:00:00')
+        )
+        AND A.RECEPTIONDATE <![CDATA[<=]]> (SELECT DATE_FORMAT(MAX(RECEPTIONDATE), '%Y-%m-%d 23:59:59')
+        FROM SV300010 B
+        WHERE B.RECEPTIONDATE <![CDATA[<=]]> DATE_FORMAT(NOW(), '%Y-%m-%d 23:59:59')
+        )
+
+        UNION
+
+        SELECT COUNT(A.SERVICENO) AS BEF_CNT, 0 AS CUR_CNT
+        FROM SV300010 A
+        WHERE A.SITEID = #{siteid}
+        AND A.RECEPTIONDATE <![CDATA[>=]]> (SELECT DATE_FORMAT(MAX(RECEPTIONDATE), '%Y-%m-%d 00:00:00')
+        FROM SV300010 B
+        WHERE B.RECEPTIONDATE <![CDATA[<=]]> DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d 00:00:00'), INTERVAL -1 DAY)
+        )
+        AND A.RECEPTIONDATE <![CDATA[<=]]> (SELECT DATE_FORMAT(MAX(RECEPTIONDATE), '%Y-%m-%d 23:59:59')
+        FROM SV300010 B
+        WHERE B.RECEPTIONDATE <![CDATA[<=]]> DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d 23:59:59'), INTERVAL -1 DAY)
+        )
+
+        ) A
+
+	</select>
+
+
+    <!-- 고객응대율 - 전일 대비 상승,하락  비율 -->
+   <!-- <select id="befmonthrate" parameterType="map" resultType="int">
+
+
+    </select>-->
+
+    <!-- 상담 완료건 -->
+    <select id="endCnt" parameterType="map" resultType="map">
+
+        SELECT
+        SUM( case when SERVICESTEP = 7 then 1 else 0 end  ) AS endCnt ,
+        count(*) AS endTot
+        FROM sv300010
+        WHERE SITEID = #{siteid}
+        AND RECEPTIONDATE <![CDATA[>=]]> date_format(NOW() - 1, '%Y-%m-01')
+        AND RECEPTIONDATE <![CDATA[<=]]> last_day(NOW())
+
+	</select>
+
+    <!-- 상담 미완료건 -->
+    <select id="unendCnt" parameterType="map" resultType="map">
+
+		SELECT
+            SUM( case when SERVICESTEP != 7 then 0 else 1 end  ) AS unendCnt ,
+            COUNT(*) AS unendTot
+        FROM sv300010
+		WHERE SITEID = #{siteid}
+		AND RECEPTIONDATE <![CDATA[>=]]> date_format(NOW() - 1, '%Y-%m-01')
+        AND RECEPTIONDATE <![CDATA[<=]]> last_day(NOW())
+
+	</select>
+
+
+    <!-- 접수유형  -->
+    <select id="receptType" parameterType="map" resultType="map">
+
+		SELECT COUNT(SERVICENO) AS tot ,
+               SUM( case when SERVICECODE1 = 1 then 1  else 0 end ) AS normal,
+               SUM( case when SERVICECODE1 = 2 then 1  else 0 end ) AS compli,
+               SUM( case when SERVICECODE1 = 3 then 1  else 0 end ) AS quality,
+               SUM( case when SERVICECODE1 = 4 then 1  else 0 end ) AS afterService,
+               SUM( case when SERVICECODE1 = 5 then 1  else 0 end ) AS center,
+               SUM( case when SERVICECODE1 = 6 then 1  else 0 end ) AS store,
+               SUM( case when SERVICECODE1 = 7 then 1  else 0 end ) AS complain,
+               SUM( case when SERVICECODE1 = 8 then 1  else 0 end ) AS management
+        FROM sv300010
+		WHERE SITEID = #{siteid}
+        -- AND RECEPTIONDATE <![CDATA[>=]]> date_format(NOW() - 1, '%Y-%m-01') ,
+        -- AND RECEPTIONDATE <![CDATA[<=]]> last_day(NOW())
+
+	</select>
+
+    <!-- 접수 제품 년도별 -->
+    <select id="productYear" parameterType="map" resultType="map">
+
+        SELECT
+        SUM( case when productm = 1 then 1  else 0 end) AS prodCode1,
+        SUM( case when productm = 2 then 1  else 0 end) AS prodCode2,
+        SUM( case when productm = 3 then 1  else 0 end) AS prodCode3,
+        SUM( case when productm = 4 then 1  else 0 end) AS prodCode4,
+        SUM( case when productm = 5 then 1  else 0 end) AS prodCode5
+        FROM sv300060
+        WHERE SITEID = #{siteid}
+        AND REGDATE <![CDATA[>=]]>  date_format(REGDATE - 1, '%Y-01-01')
+        AND REGDATE <![CDATA[<=]]>  last_day(now())
+
+    </select>
+
+
+    <!-- 접수 제품 월별 -->
+    <select id="prodMonth" parameterType="map" resultType="map">
+
+        select
+        MONTH(REGDATE) as mon, count(productm) as cnt
+        from sv300060
+        where SITEID = #{siteid}
+        AND REGDATE <![CDATA[>=]]>  date_format(REGDATE - 1, '%Y-01-01')
+        AND REGDATE <![CDATA[<=]]>  last_day(now())
+        group by mon
+
+    </select>
+
+    <!-- 처리현황 -->
+    <select id="processStatus" parameterType="map" resultType="map">
+
+        SELECT
+        SUM( case when SERVICESTEP = 1 then 1 else 0 end  ) AS rec,
+        SUM( case when SERVICESTEP = 3 then 1 else 0 end  ) AS comp,
+        SUM( case when SERVICESTEP = 5 then 1 else 0 end  ) AS transfer,
+        SUM( case when SERVICESTEP = 6 then 1 else 0 end  ) AS transfer2,
+        SUM( case when SERVICESTEP = 9 then 1 else 0 end  ) AS unproc
+        FROM sv300010
+        WHERE SITEID = #{siteid}
+        AND REGDATE  <![CDATA[>=]]>  DATE_FORMAT(NOW() -1, '%Y%M%D 00:00:00')
+        AND REGDATE  <![CDATA[<=]]> DATE_FORMAT(NOW() -1, '%Y%M%D 23:59:59')
+
+    </select>
+
+
+    <!-- 제품 판매량 top 5 -->
+    <select id="productTop" parameterType="map" resultType="map">
+
+        SELECT PRODUCTM,count(PRODUCTM) as total
+        FROM sv300060
+        where SITEID = #{siteid}
+        GROUP by PRODUCTM
+        ORDER BY total DESC LIMIT 5
+
+    </select>
+
+    <!--콜센터 - 접수 유형 Day-->
+    <select id="repDay" parameterType="map" resultType="map">
+
+        SELECT
+        SUM( case when SERVICECODE1 = 1 then 1 else 0 end  ) AS normal,
+        SUM( case when SERVICECODE1 = 2 then 1 else 0 end  ) AS compli,
+        SUM( case when SERVICECODE1 = 3 then 1 else 0 end  ) AS quality,
+        SUM( case when SERVICECODE1 = 4 then 1 else 0 end  ) AS afterService,
+        SUM( case when SERVICECODE1 = 5 then 1 else 0 end  ) AS center,
+        SUM( case when SERVICECODE1 = 6 then 1 else 0 end  ) AS store,
+        SUM( case when SERVICECODE1 = 7 then 1 else 0 end  ) AS complain,
+        SUM( case when SERVICECODE1 = 8 then 1 else 0 end  ) AS management
+        FROM sv300010
+        WHERE  SITEID = #{siteid}
+        AND REGDATE  <![CDATA[>=]]>  DATE_FORMAT(NOW() -1, '%Y%M%D 00:00:00')
+        AND REGDATE  <![CDATA[<=]]> DATE_FORMAT(NOW() -1, '%Y%M%D 23:59:59')
+
+    </select>
+
+
+     <!--콜센터 -상담제품 일일-->
+    <select id="prodDay" parameterType="map" resultType="map">
+
+        SELECT
+        MONTH(REGDATE) as mon, count(productm) as cnt
+        from sv300060
+        WHERE SITEID = #{siteid}
+        AND REGDATE  <![CDATA[>=]]>  DATE_FORMAT(NOW() -1, '%Y%M%D 00:00:00')
+        AND REGDATE  <![CDATA[<=]]> DATE_FORMAT(NOW() -1, '%Y%M%D 23:59:59')
+        group by mon
+
+    </select>
+
+    <!--콜센터 - 상담처리현황-->
+    <select id="processDay" parameterType="map" resultType="map">
+
+        SELECT
+        SUM( case when SERVICESTEP = 1 then 1 else 0 end  ) AS receipt,
+        SUM( case when SERVICESTEP = 3 then 1 else 0 end  ) AS complite,
+        SUM( case when SERVICESTEP = 5 then 1 else 0 end  ) AS personTransfer,
+        SUM( case when SERVICESTEP = 6 then 1 else 0 end  ) AS senioTtransfer,
+        SUM( case when SERVICESTEP = 9 then 1 else 0 end  ) AS Unprocessed
+        FROM sv300010
+        WHERE SITEID = #{siteid}
+         and REGDATE<![CDATA[>=]]> DATE_FORMAT(NOW() -1, '%Y-%m-%d 00:00:00')
+         and REGDATE <![CDATA[<=]]>DATE_FORMAT(NOW() -1, '%Y-%m-%d 23:59:59')
+
+
+    </select>
+
+
+
+
+    <!-- 콜센터 - 인입현황 (접수유형) 일일 -->
+    <!--<select id="inType" parameterType="map" resultType="map">
+
+    </select> -->
+
+
+
+
+
+</mapper>

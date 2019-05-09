@@ -1,6 +1,6 @@
 
 
-// 상담유형
+//   상담유형
 $.ajax({
     url: "/main/chart/recp",
     method: "POST",

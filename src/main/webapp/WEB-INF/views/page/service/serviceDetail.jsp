@@ -22,7 +22,6 @@
 </style>
 <body>
 <c:set var="urls" value="${requestScope['javax.servlet.forward.request_uri']}" />
-${fn:substring(urls, 0, 17)}
 <c:choose>
     <c:when test="${fn:substring(urls, 0, 17) eq '/service/delivery' }">
         <c:set var="menuactive" value='deliveryM'/>

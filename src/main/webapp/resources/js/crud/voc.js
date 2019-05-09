@@ -758,7 +758,7 @@ function serviceInfoBinding(data) {
 $('button[name=vocSave]').click(function(e) {
     var reqno = $('#reqno').val();
     var custno = $('#custno').val();
-    reqno = '2019042217453002112807042622864'; //***필수 삭제요망 테스트용 샘플 데이터 하드코딩
+    // reqno = '2019042217453002112807042622864'; //***필수 삭제요망 테스트용 샘플 데이터 하드코딩
     if(!reqno){
         alert("고객과의 전화를 끊어주세요");
     }else if(!custno){
@@ -863,7 +863,6 @@ $('button[name=vocSave]').click(function(e) {
 
 //서비스 접수구분 선택 이벤트
 $('.i-checks').on('ifChecked', function(event) {
-    debugger;
     var value = event.target.value;
     var name = event.target.name;
     if (name == 'vocstep') {
@@ -897,12 +896,11 @@ $('.i-checks').on('ifChecked', function(event) {
             $('.as').show();
             vocPayHideFieldControl('show');
         } else if(value == 4){ //결제
-            //요기요기 작업중
             vocPayHideFieldControl('hide');
-            if(){
-
+            var bool = $('.iradio_square-green').hasClass('disabled');//todo. 셀렉터 하드코딩값 변경 할 것
+            if(bool==false){
+                openNewWindow('상품주문','/payment',event.currentTarget.id,1300,900);
             }
-            openNewWindow('상품주문','/payment',event.currentTarget.id,1300,900);
         } else{
             $('.result').show();
             $('.as').hide();
@@ -922,6 +920,8 @@ $('#addrsame').on('ifUnchecked', function (event) {
     $('#visitaddr2').val('');
     $('#visitaddr3').val('');
 });
+
+
 
 function productB() {
     var urlServ = "/voc/productB";
@@ -1215,7 +1215,6 @@ $('#vocSmsSendBtn').click(function(e){
         data: data,
         cache: false,
         success: function (data) {
-            debugger;
             alert('발송 하였습니다.');
             window.close();
         },
@@ -1330,7 +1329,6 @@ function replaceSendStr(str){
 }
 
 $(".vocfootable").on("click.ft.row",function(obj,e,ft,row) {
-    debugger;
     if($(obj.target.parentElement.parentElement).is('tbody')) {
         if(globalUrl =='/voc/pop/email'){
             var formatdesc = $('#formatdesc').val();
@@ -1465,5 +1463,5 @@ $('.vocPayCompleteBtn').click(function(e){
     opener.$('#servicename').val(title);
     opener.tinymce.activeEditor.setContent(contentHtmlStr);
     opener.$('#buyno').val( $('#buyno').val() );
-    // window.close();
+    window.close();
 });

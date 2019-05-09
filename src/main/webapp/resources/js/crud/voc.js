@@ -223,7 +223,8 @@ function vocCustDetail(){
         alert('고객이 선택되지 않았습니다.');
         return;
     }
-    openNewWindow('voc','/voc/custdetail/'+custNo,'voc',1200,700);
+    //openNewWindow('voc','/voc/custdetail/'+custNo,'voc',1200,700);
+    openNewWindow('voc','/cust/'+custNo,'voc',1200,700);
 }
 
 //voc 서비스 상세보기 팝업
@@ -533,12 +534,38 @@ function callBackHiddenFormatter(value, options, rowData){
 }
 
 function vocSvTabFormatter(value, options, rowData){
-    var htmlStr = '<a onclick="vocServiceDetail(' + rowData.NO + ');">' + value + '</a>';
+    var htmlStr = '<a onclick="vocServiceDetail(' + "'" + rowData.NO + "'" + ');">' + value + '</a>';
     return htmlStr;
 }
 function vocEmailTabformatter(value, options, rowData){
     // var htmlStr = '<a onclick="vocServiceDetail(' + rowData.NO + ');">' + value + '</a>';
-    var htmlStr = value;
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.CONTENT +'">' + value + '</span>';
+    return htmlStr;
+}
+function vocBlackFormatter(value, options, rowData){
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MEMO +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.MEMO +'">' + value + '</span>';
+    return htmlStr;
+}
+function vocSmsFormatter(value, options, rowData){
+    //var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.TR_MSG +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.TR_MSG +'">' + value + '</span>';
+    return htmlStr;
+}
+
+function vocLmsFormatter(value, options, rowData){
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</span>';
+    return htmlStr;
+}
+function vocMmsFormatter(value, options, rowData){
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</span>';
+    return htmlStr;
+}
+function vocKakaoFormatter(value, options, rowData){
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.SEND_MESSAGE +'">' + value + '</span>';
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.SEND_MESSAGE +'">' + value + '</a>';
     return htmlStr;
 }
 
@@ -658,6 +685,9 @@ function vocGetServiceInfo(urlServ) {
 
 //서비스정보 바인딩
 function serviceInfoBinding(data) {
+    if(data.SERVICETYPE == 4){
+        vocPayHideFieldControl('hide');
+    }else{vocPayHideFieldControl('show'); }
     opener.$('input:radio[name="servicetype"]').each(
         function(index) {
             if (this.value == data.SERVICETYPE) {
@@ -724,10 +754,11 @@ function serviceInfoBinding(data) {
     });
 }
 
+//서비스 등록
 $('button[name=vocSave]').click(function(e) {
     var reqno = $('#reqno').val();
     var custno = $('#custno').val();
-    //reqno = '2019042217453002112807042622864'; //***필수 삭제요망 테스트용 샘플 데이터 하드코딩
+    reqno = '2019042217453002112807042622864'; //***필수 삭제요망 테스트용 샘플 데이터 하드코딩
     if(!reqno){
         alert("고객과의 전화를 끊어주세요");
     }else if(!custno){
@@ -761,6 +792,14 @@ $('button[name=vocSave]').click(function(e) {
         var visitapm = $('#visitapm').val();
         var visithour = $('#visithour').val();
         var visitminute = $('#visitminute').val();
+        var buyno = $('#buyno').val();
+
+        if(!servicecode1 || servicecode1 == '') {servicecode1=0;}
+        if(!servicecode2 || servicecode2 == '') {servicecode2=0;}
+        if(servicetype == '4'){//구매일경우 servicecode 고정 값
+            servicecode1=9;
+            servicecode2=6;
+        }
 
         var param = {
             "custno" : custno,
@@ -789,7 +828,8 @@ $('button[name=vocSave]').click(function(e) {
             "reqno" : reqno,
             "visitapm" : visitapm,
             "visithour" : visithour,
-            "visitminute" : visitminute
+            "visitminute" : visitminute,
+            "buyno": buyno
         };
 
         var productNum = $('.product').length;
@@ -823,13 +863,13 @@ $('button[name=vocSave]').click(function(e) {
 
 //서비스 접수구분 선택 이벤트
 $('.i-checks').on('ifChecked', function(event) {
+    debugger;
     var value = event.target.value;
     var name = event.target.name;
     if (name == 'vocstep') {
 
         if (value == 6) {//상급자이관
             $('.convey').show();
-            //$('.adminconvey').show();
             $('.reservation').hide();
         } else if (value == 7) {
             $('.convey').hide();
@@ -848,15 +888,25 @@ $('.i-checks').on('ifChecked', function(event) {
         if (value == 1) {
             $('.result').show();
             $('.as').hide();
+            vocPayHideFieldControl('show');
         } else if (value == 2) {
             $('.convey').hide();
             $('.adminconvey').hide();
             $('.reservation').hide();
             $('.result').hide();
             $('.as').show();
-        }else{
+            vocPayHideFieldControl('show');
+        } else if(value == 4){ //결제
+            //요기요기 작업중
+            vocPayHideFieldControl('hide');
+            if(){
+
+            }
+            openNewWindow('상품주문','/payment',event.currentTarget.id,1300,900);
+        } else{
             $('.result').show();
             $('.as').hide();
+            vocPayHideFieldControl('show');
         }
 
     } else if (name == "addrsame") {
@@ -1102,6 +1152,7 @@ function vocServiceFieldReset(){
         $('#visitapm').val('0');
         $('#nextowner').val('0');
         $('#conveyreason').val('0');
+        $('#buyno').val('0');
 
         $('.product').not(':first').remove();
         $('.product:first select').empty();
@@ -1111,6 +1162,7 @@ function vocServiceFieldReset(){
             $('.product').append('<button class="plus voc btn btn-default d-inline-block btn-sm mr-2" disabled="disabled">추가</button>');
         }
         productB();
+        vocPayHideFieldControl('show');
 
         $('button[name=vocSave]').hide();
         $('button[name=create]').show();
@@ -1132,6 +1184,7 @@ function vocServiceFieldReset(){
         opener.$('#visitapm').val('0');
         opener.$('#nextowner').val('0');
         opener.$('#conveyreason').val('0');
+        opener.$('#buyno').val('0');
 
         opener.$('.product').not(':first').remove();
         opener.$('.product:first select').empty();
@@ -1141,6 +1194,7 @@ function vocServiceFieldReset(){
             opener.$('.product').append('<button class="plus voc btn btn-default d-inline-block btn-sm mr-2" disabled="disabled">추가</button>');
         }
         productB();
+        vocPayHideFieldControl('show');
         opener.$('button[name=vocSave]').hide();
         opener.$('button[name=create]').show();
     }
@@ -1377,3 +1431,39 @@ function removeHtmlTag(str){
     str = str.replace(/\&nbsp;/g,'');//&nbsp 라인제거
     return str;
 }
+
+function vocPayHideFieldControl(status){
+    if(status == 'show'){
+        $(".payment-no-display").show();
+    }else if(status == 'hide'){
+        $(".payment-no-display").hide();
+    }
+}
+
+$('.vocPayCompleteBtn').click(function(e){
+    var title = '[VOC구매] '+ opener.$('#custname').val();
+    var contentHtmlStr = '';
+    var prdSize = $('#prdResSize').val();
+    var prdStr = '';
+    var deliveryStr = '';
+    for(var i=0;i<prdSize;i++){
+        prdStr += '제품명 :' + $('#prdname'+i).text();
+        prdStr += ' ' + $('#prdprice'+i).text() + '원';
+        prdStr += ' ' + $('#prdea'+i).text();
+        prdStr += 'ea <br>'
+    }
+    prdStr += '총금액 : ' + $('#totalprice').text() +'원<br><br>';
+    deliveryStr = '배송지정보 <br>';
+    deliveryStr += '수신자명 : ' + $('#deliveryname').val() +'<br>';
+    deliveryStr += '휴대전화 : ' + $('#deliverymobile').val() +'<br>';
+    deliveryStr += '일반전화 : ' + $('#deliveryhomtel').val() +'<br>';
+    deliveryStr += '주소 : ' + $('#deliveryaddr').val() +'<br>';
+    deliveryStr += '남긴말 <br> ' + $('#deleverydesc').val() +'<br>';
+
+    contentHtmlStr = prdStr + deliveryStr;
+
+    opener.$('#servicename').val(title);
+    opener.tinymce.activeEditor.setContent(contentHtmlStr);
+    opener.$('#buyno').val( $('#buyno').val() );
+    // window.close();
+});

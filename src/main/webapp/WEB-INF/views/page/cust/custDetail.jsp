@@ -530,7 +530,7 @@
                                                 </div>
                                             </div>
 
-                                            <div role="tabpanel" id="vocCustEmailTab" class="tab-pane active" url="/cust/tab/email">
+                                            <div role="tabpanel" id="vocCustEmailTab" class="tab-pane" url="/cust/tab/email">
                                                 <div class="panel-body">
                                                     <table class="vocfootable table table-striped" data-paging="true" data-sorting="true">
                                                         <thead>

@@ -180,10 +180,10 @@
                                                     <input class="form-control form-control-sm vocCustInput" type="text" name="mobile1" id="mobile1" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile2" id="mobile2" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile2" id="mobile2" style="width: 80px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile3" id="mobile3" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile3" id="mobile3" style="width: 80px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                             </td>
                                             <th>일반전화</th>
@@ -199,10 +199,10 @@
                                                     <input class="form-control form-control-sm vocCustInput" type="text" name="homtel1" id="homtel1" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm vocCustInput" name="homtel2" id="homtel2" type="text" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                    <input class="form-control form-control-sm vocCustInput" name="homtel2" id="homtel2" type="text" style="width: 80px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm vocCustInput" name="homtel3" id="homtel3" type="text" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                    <input class="form-control form-control-sm vocCustInput" name="homtel3" id="homtel3" type="text" style="width: 80px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                             </td>
                                         </tr>
@@ -586,6 +586,9 @@
                         <div class="ibox-content" style="padding-bottom: 45px;">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="white-space:nowrap;">
+                                    <tr id="hiddenField" style="display:none">
+                                        <input type="hidden" id="buyno" name="buyno" value="0"/>
+                                    </tr>
                                     <colgroup>
                                         <col width="10%">
                                         <col width="90%">
@@ -608,7 +611,7 @@
 
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="payment-no-display">
                                         <th>접수유형</th>
                                         <td>
                                             <div style="display: inline-block;">
@@ -626,7 +629,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="payment-no-display">
                                         <th>접수제품</th>
                                         <td>
                                             <div class="product" style="height: 40px;">
@@ -661,7 +664,7 @@
                                             <textarea name="servicename" id="servicename" class="form-control vocSvInput voc" style="resize: none;" rows="2"></textarea>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="payment-no-display">
                                         <th>상담 템플릿</th>
                                         <td>
                                             <select class="form-control form-control-sm vocSvInput voc" id="vocTemplateFormat" style=" width: 300px;">
@@ -719,7 +722,7 @@
 
                                         </td>
                                     </tr>
-                                    <tr class="result">
+                                    <tr class="result payment-no-display">
                                         <th>상담결과</th>
                                         <td>
                                             <div class="i-checks voc">
@@ -856,8 +859,8 @@
                                     <button type="button" class="btn btn-default pull-left vocEmailBtn" style="margin-right: 9px;">EMAIL발송</button>
                                     <button type="button" class="btn btn-default pull-left vocSmsBtn" style="margin-right: 9px;">SMS발송</button>
                                     <button type="button" class="btn btn-default pull-left vocKakaoBtn">KAKAO발송</button>
-                                    <button type="button" class="btn btn-default pull-left paymentBtn">상품TEST</button>
-                                    <button type="button" class="btn btn-default pull-left orderBtn">주문서TEST</button>
+                                    <!--<button type="button" class="btn btn-default pull-left paymentBtn">상품TEST</button>
+                                    <button type="button" class="btn btn-default pull-left orderBtn">주문서TEST</button>-->
 
                                     <button class="btn btn-default pull-right" name="create" style="margin-left: 9px;">상담추가</button>
                                     <button type="button" class="btn btn-primary pull-right" name="vocSave" style="margin-left: 9px;">저장</button>

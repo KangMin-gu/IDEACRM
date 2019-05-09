@@ -176,13 +176,13 @@
 		,CLINO,SERVICESTEP,OWNER,SITEID,FILESEARCHKEY
 		,REGDATE,REGUSER,EDTDATE,EDTUSER,SERVICETYPE
 		,SERVICECODE1,SERVICECODE2,SERVICECHANNEL,ISDELETE,MEMO
-		,COMPLETE,REQNO
+		,COMPLETE,REQNO,BUYNO
 		)VALUES(
 		#{servicename},#{servicedesc},#{serviceowner},#{receptiondate},#{custno}
 		,#{clino},#{servicestep},#{owner},#{siteid},#{filesearchkey}
 		,NOW(),#{reguser},NOW(),#{edtuser},#{servicetype}
 		,#{servicecode1},#{servicecode2},#{servicechannel},#{isdelete},#{memo}
-		,#{complete},#{reqno}
+		,#{complete},#{reqno},#{buyno}
 		)
 	</insert>
 	<!-- 현상파악 Insert -->

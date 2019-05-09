@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<%@ page import = "java.util.Calendar" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,28 +17,23 @@
     <link href="${pageContext.request.contextPath}/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <!-- orris -->
     <link href="${pageContext.request.contextPath}/resources/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
-
 </head>
 <body>
 <c:set var="menuactive" value='vocdashM'/>
+
 <div id="wrapper">
     <%@ include file="/WEB-INF/views/common/leftsidebar.jsp"%>
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
             <%@ include file="/WEB-INF/views/common/top_v2.jsp"%>
         </div>
-
-
         <div class="wrapper wrapper-content animated fadeInRight">
-           <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
-                    <a href="#" onclick="openNewWindowFullScreen('${pageContext.request.contextPath}/voc')" class="btn btn-default"><i class="fa fa-compress fa-lg"></i> CS 접속</a>
-                    <!--<a href="${pageContext.request.contextPath}/voc/notice" class="btn btn-default"><i class="fa fa-bell fa-lg"></i>콜센터 공지</a>
-                    <a href="${pageContext.request.contextPath}/service" class="btn btn-default"><i class="fa fa-edit fa-lg"></i>서비스 관리</a>
-                    <a href="${pageContext.request.contextPath}/service/delivery" class="btn btn-default"><i class="fa fa-reply fa-lg"></i> 서비스 이관 정보</a>-->
-                    <a href="#" onclick="openNewWindowFullScreen('${pageContext.request.contextPath}/voc/notice')" class="btn btn-default"><i class="fa fa-bell fa-lg"></i>콜센터 공지</a>
-                    <a href="#" onclick="openNewWindowFullScreen('${pageContext.request.contextPath}/service')" class="btn btn-default"><i class="fa fa-edit fa-lg"></i>서비스 관리</a>
-                    <a href="#" onclick="openNewWindowFullScreen('${pageContext.request.contextPath}/service/delivery')" class="btn btn-default"><i class="fa fa-reply fa-lg"></i> 서비스 이관 정보</a>
+                    <a href="#" onclick="vocWindow()" class="btn btn-default"><i class="fa fa-compress fa-lg"></i> CS 접속</a>
+                    <a href="${pageContext.request.contextPath}/voc/notice" class="btn btn-default"><i class="fa fa-bell fa-lg"></i>콜센터 공지</a>
+                    <a href="/service" class="btn btn-default"><i class="fa fa-edit fa-lg"></i>서비스 관리</a>
+                    <a href="/service/delivery" class="btn btn-default"><i class="fa fa-reply fa-lg"></i> 서비스 이관 정보</a>
                 </div>
             </div>
 
@@ -45,45 +41,47 @@
             <br/>
             <div class="row">
                 <div class="col-lg-5">
-                  <div class="row">
-                      <div class="col-lg-12">
-                          <div class="ibox">
-                              <div class="ibox-title">
-                                  <h5><i class="fa fa-certificate"></i> 인입 현황</h5>
-                                  <small class="pull-right">기준 : 일</small>
-                              </div>
-                              <div class="ibox-content">
-                                  <div class="row">
-                                      <div class="col-lg-12">
-                                          <div class="row">
-                                              <div class="col-lg-12">
-                                                  <canvas id="callStatus" height="285"></canvas>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-lg-12">
-                                          <div class=" pull-left">
-                                              <h5>접수유형</h5>
-                                              <span> 일반 : <strong>90</strong></span>&nbsp;
-                                              <span> 칭찬 : <strong>20</strong></span>&nbsp;
-                                              <span> 품질 : <strong>5</strong></span>&nbsp;
-                                              <span> A/S : <strong>6</strong></span>&nbsp;
-                                              <span> 콜센터 : <strong>1</strong></span>&nbsp;
-                                              <span> 매장 : <strong>2</strong></span>&nbsp;
-                                              <span> 불만 : <strong>1</strong></span>&nbsp;
-                                              <span> 관리 : <strong>5</strong></span>&nbsp;
-                                          </div>
-                                      </div>
-                                  </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5><i class="fa fa-certificate"></i> 인입 현황</h5>
+                                    <small class="pull-right">기준 :  일</small>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <canvas id="callStatus" height="155"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class=" pull-left">
+                                                <h5>접수유형</h5>
+                                                <c:forEach  var="type"  items= "${intypechart}" >
+                                                    <span> 일반 : <strong> ${type.normal} </strong></span>&nbsp;
+                                                    <span> 칭찬 : <strong> ${type.compliment} </strong></span>
+                                                    <span> 품질 : <strong> ${type.quality} </strong></span>&nbsp;
+                                                    <span> A/S : <strong> ${type.afterService} </strong></span>&nbsp;
+                                                    <span> 콜센터 : <strong> ${type.center} </strong></span>&nbsp;
+                                                    <span> 매장 : <strong> ${type.store} </strong></span>&nbsp;
+                                                    <span> 불만 : <strong> ${type.complain} </strong></span>
+                                                    <span> 관리 : <strong> ${type.management} </strong></span>&nbsp;
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                              </div>
-                          </div>
-                      </div>
+                                </div>
+                            </div>
+                        </div>
 
-                  </div>
+                    </div>
                 </div>
                 <div class="col-lg-7">
                     <div class="row">
@@ -96,13 +94,13 @@
                                 <div class="ibox-content">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <canvas id="inproduct" height="80"></canvas>
+                                            <canvas id="inproduct" height="40"></canvas>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class=" pull-right">
-                                                <span>기간 : 2019.05.02</span>
+                                                <span>기간 :  2019-05-10   </span>
                                             </div>
                                         </div>
                                     </div>
@@ -118,13 +116,13 @@
                                 <div class="ibox-content">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <canvas id="processStatus" height="80"></canvas>
+                                            <canvas id="processStatus" height="40"></canvas>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class=" pull-right">
-                                                <span>기간 : 2019.05.02</span>
+                                                <span>기간 :  2019-05-10  </span>
                                             </div>
                                         </div>
                                     </div>
@@ -134,10 +132,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
 
             <div class="row">
                 <div class="col-lg-12">
@@ -188,11 +182,37 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc_dashboard.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script>
+    function vocWindow() {
+        window.open("/voc", "", "fullscreen");
+    }
+
+
 
 </script>
 <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 

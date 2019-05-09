@@ -16,4 +16,12 @@ public class ClientDaoImple implements ClientDao {
     public List<Map<String, Object>> clientList(Map<String, Object> searchParam) {
         return session.selectList("client.clientList",searchParam);
     }
+
+
+
+
+
+
+
+
 }

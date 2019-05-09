@@ -258,3 +258,10 @@ function boolTimeDiff(obj){
     }
 }
 
+//누락된 값이 들어오면 false return
+function requiredValueCheck(valueStr){
+    if(!valueStr || valueStr == null || valueStr == '' || valueStr == '0'){
+        return false;
+    }
+    return true;
+}

@@ -196,4 +196,26 @@ function inputValidate(){
 $('.save').click(function(e){
     e.preventDefault();
     inputValidate();
+    var path = window.location.pathname;
+    if( path.indexOf('/service/') >= 0){
+        serviceCheckReqiredField();
+    }
 });
+//서비스 필수값 체크
+function serviceCheckReqiredField(){
+    var servicetype = $('input[name=servicetype]').val();
+    var servicecode1 = $('select[name="servicecode1"] option:selected').val()
+
+    var bool = requiredValueCheck(servicetype);
+    if(bool == false){
+        $('input[name=servicetype]').focus();
+        alert('구분값을 선택해주세요.');
+        return false;
+    }
+    bool = requiredValueCheck(servicecode1);
+    if(bool == false){
+        $('input[name=servicecode1]').focus();
+        alert('유형을 선택해주세요.');
+        return false;
+    }
+}

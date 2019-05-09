@@ -164,6 +164,9 @@ public class CodecUtil {
      */
     public String decodePkNo(String pkNo) throws UnsupportedEncodingException, GeneralSecurityException {
         String decodeRes = pkNo.replaceAll("__","/");
+        if( decodeRes.indexOf(' ') >= 0 ){
+            decodeRes = decodeRes.replace(" ","+");//url 에서 세션 만료시 +가 ' '으로 들어온다.
+        }
         return decoding(decodeRes);
     }
 

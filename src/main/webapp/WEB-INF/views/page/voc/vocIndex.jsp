@@ -884,9 +884,9 @@
                         <li class="call-tit">누적통화시간</li>
                         <li class="yellow"><strong><span id="sumCall">0</span></strong></li>
                         <li class="call-tit">CB</li>
-                        <li><strong><span id="callbackCnt"></span></strong></li>
+                        <li><strong><span id="callbackCnt">0</span></strong></li>
                         <li class="call-tit">CB완료</li>
-                        <li><strong><span id="successCallback"></span></strong></li>
+                        <li><strong><span id="successCallback">0</span></strong></li>
                         <li class="call-tit">미처리</li>
                         <li><strong>0</strong></li>
                         <li class="call-tit">통화분배시도</li>
@@ -911,6 +911,7 @@
 <%@ include file="/WEB-INF/views/includ/popJs.jsp"%>
 <!-- cti js -->
 <script src="${pageContext.request.contextPath}/resources/js/crud/cti.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/sockjs.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/voc_socket.js
 "></script>
 <!-- tinymce -->
@@ -934,7 +935,6 @@
     $(document).ready(function(){
         $('.ctibtn').hide();
         vocServiceFieldReset();
-        voc_send_message();
     });
 </script>
 </body>

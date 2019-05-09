@@ -177,19 +177,19 @@
                                                 <p>CTI전화번호 : </p>
                                             </div>
                                             <div class="col-sm-2">
-                                                <p>${ctiUserInfo.CTITELNO}</p>
+                                                <p>${userInfo.CTITELNO}</p>
                                             </div>
                                             <div class="col-sm-1">
                                                 <p>CTIID : </p>
                                             </div>
                                             <div class="col-sm-3">
-                                                <p>${ctiUserInfo.CTIID}</p>
+                                                <p>${userInfo.CTIID}</p>
                                             </div>
                                             <div class="col-sm-1">
                                                 <p>CTIPW : </p>
                                             </div>
                                             <div class="col-sm-3">
-                                                <p>${ctiUserInfo.CTIPW}</p>
+                                                <p>${userInfo.CTIPASS}</p>
                                             </div>
                                         </div>
                                     </div>

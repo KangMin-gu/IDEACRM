@@ -240,7 +240,6 @@ public class VocController {
     //VOC 녹취정보 저장
     @RequestMapping(value = "/voc/rec", method = RequestMethod.POST)
     public void VocRecInsert(HttpServletRequest request) {
-        System.out.println("rec controller");
         vocService.vocRecInsert(request);
     }
 
@@ -347,7 +346,7 @@ public class VocController {
         return 0;
     }
 
-    //  서비스 상세 화면
+    // 서비스 상세 화면
     @RequestMapping(value = "/voc/pop/service/{serviceNo}", method = RequestMethod.GET)
     public ModelAndView authServiceDetail(HttpServletRequest request, @PathVariable String serviceNo) throws UnsupportedEncodingException, GeneralSecurityException {
         ModelAndView mView = new ModelAndView();

@@ -64,8 +64,8 @@ function stopInterval() {
 }
 
 
-//voc 고객 검색 팝업 이벤트
-//필터링 창에 인입번호 바인딩 후 엔터키 입력
+// voc 고객 검색 팝업 이벤트
+// 필터링 창에 인입번호 바인딩 후 엔터키 입력
 $(".searchCust").on("ready.ft.table",function(obj,e,ft,row){
     var enter = jQuery.Event( "keypress", { keyCode: 13 } );//enter key 입력 이벤트
     $('.footable-filtering-search').find('input[type=text]').val(opener.$('#searchNumber').val());//호출 창의 인입번호 입력값 바인딩 후 엔터
@@ -268,8 +268,8 @@ function custFormActivation(statusStr, fromStr) {
         btnStr = "<button type='button' class='btn btn-default pull-left' style='margin-right: 9px;' onClick='goCustUpdate()'>고객수정</button>";
     }
     if (fromStr == "voc") {// 호출한 곳이 voc 페이지면
-        $('#regSpan').empty();
-        $('#regSpan').html(btnStr);
+        $('#custRegSpan').empty();
+        $('#custRegSpan').html(btnStr);
     } else {// 팝업
         opener.$('#custRegSpan').empty();
         opener.$('#custRegSpan').html(btnStr);
@@ -351,6 +351,7 @@ function goCustInsert(){
         success : function(data) {
             $('#custno').val(data.CUSTNO);
             alert("추가 되었습니다.");
+            custFormActivation('update','voc');
         },
         error : function(request, status, error) {
             alert("code:" + request.status + "\n" + "message:"
@@ -653,7 +654,6 @@ function serviceInfoBinding(data) {
 
     opener.$('#memo').val(data.MEMO);
     if (data.SERVICETYPE == 1) {
-
         opener.$('input:radio[name="vocstep"]').each(
             function(index) {
                 if (this.value == data.SERVICESTEP) {
@@ -951,7 +951,7 @@ $(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
 });
 
 
-// 캘린더 시작
+// 캘린더  시작
 if ($('#calendar').length > 0) {
     var schList = $('#schList').val();// hidden value에 담겨있는 스케쥴 리스트를
     // 받아온다.(json String)
@@ -1069,6 +1069,12 @@ function formatDate(date) {
 
 
 $('button[name=create]').click(function() {
+    var custno = $('#custno').val();
+    if(!custno || custno == ''){
+        alert('고객이 선택되지 않았습니다.');
+        return;
+    }
+
     $('.i-checks input').iCheck('uncheck');
     $('.i-checks input').iCheck('enable');
     $('.vocSvInput').val('');

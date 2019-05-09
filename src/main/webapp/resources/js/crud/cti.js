@@ -686,7 +686,7 @@ function ctiEvent(msg){
 			$('#vocLogOutSpan').show();
 			intervalFuncOn();//세션 유지 실행
 			$('[name="callbackBottomTab"]').trigger('click');
-			// voc_send_message();//콜백 카운터 실행
+			voc_send_message();//콜백 카운터 실행
 	        //callGroupSelect(tmpData[6], tmpData[7], tmpData[8]);//소속그룹선택
             checkGroupInterval = setInterval("checkGroupTimeOut('"+tmpData[6]+"', '"+tmpData[7]+"', '"+tmpData[8]+"')", 500);
 
@@ -718,7 +718,7 @@ function ctiEvent(msg){
 		document.getElementById("obTryCnt").innerHTML = "0";
 		document.getElementById("obConnectCnt").innerHTML = "0";
 		document.getElementById("cti_waitting_cnt").innerHTML = "0";
-
+		window.location.reload();
 	}else if(tmpData[0] == "02"){// 비밀번호변경 응답
 		if(tmpData[4] == "1"){
 			alert("비밀번호가 변경되었습니다.");
@@ -869,7 +869,6 @@ function ctiEvent(msg){
 			});
 		}
 	}else if(tmpData[0] == "58") {
-		debugger;
 		var fileName = tmpData[8];
 		var fileNameArray = fileName.split('-');
 		$('#reqno').val(fileNameArray[0]+fileNameArray[1]);
@@ -883,7 +882,9 @@ function ctiEvent(msg){
         	success: function (data) {	           		
         		alert("녹취저장완료");
         	}
- 	});
+ 		});
+
+
 		
 	}else if(tmpData[0] == "94"){// 상담원 상태 변경 
 		if(tmpData[1] == document.getElementById("cti_login_id").value) {				// 받은 데이터가 로그인한 상담원의 아이디와 같은 경우

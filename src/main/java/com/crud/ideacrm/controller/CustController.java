@@ -29,7 +29,7 @@ public class CustController {
 
     private final int USINGMENU = 1;//고객의 사용 메뉴 값은 1 .
 
-    //고객 리스트 기본 화면.testd
+    //고객 리스트 기본 화면.
     @RequestMapping(value = "/cust", method = RequestMethod.GET)
     public ModelAndView authCustList(HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
@@ -49,6 +49,7 @@ public class CustController {
     //고객상세
     @RequestMapping(value = "/cust/{custno}", method = RequestMethod.GET)
     public ModelAndView authCustDetail(HttpServletRequest request, @PathVariable String custno) throws UnsupportedEncodingException, GeneralSecurityException {
+        System.out.println("@@@@@@custno@@@@@@@@@"+custno);
         ModelAndView mView = new ModelAndView();
         mView.addObject("custDetail",custService.custDetail(request,custno));
         mView.setViewName("page/cust/custDetail");

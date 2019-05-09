@@ -130,7 +130,7 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-default pull-left cancel">취소</button>
+        <!--<button type="button" class="btn btn-default pull-left cancel">취소</button>-->
         <button type="submit" id="send" class="btn btn-primary pull-right save" >확인</button>
 
 </div>
@@ -142,7 +142,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
-
+<script>
+    $('#send').click(function(){
+        self.close();
+    });
+</script>
 
 </body>
 </html>

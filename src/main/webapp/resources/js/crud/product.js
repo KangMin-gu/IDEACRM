@@ -201,6 +201,9 @@ $('#productForm').submit(function(){
         }else if($("#prdname").val() == ""){
             alert("제품명을 입력해주세요.");
             return false;
+        }else if($('#prdprice').val() == ""){
+            alert("제품가격을 입력해주세요.");
+            return false;
         }
 
     }else{

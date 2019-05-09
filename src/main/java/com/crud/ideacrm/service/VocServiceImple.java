@@ -69,7 +69,7 @@ public class VocServiceImple implements VocService {
         }
         if(deRelCustNo.equals("")){enCustDto.setRelcustno("0"); }
 
-        int res = vocDao.vocCustUpdate(enCustDto);//업데이트 dao호출
+        int res = vocDao.vocCustUpdate(enCustDto);//업데이트  dao호출
         //업데이트한 pk값 수신거부 dto에 설정
         String custno = enCustDto.getCustno();
         custDenyDto.setCustno(custno);

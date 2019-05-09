@@ -173,8 +173,11 @@
                                                     <!-- radio -->
                                                     <div class="i-checks">
                                                         <c:forEach var="serviceType" items="${SERVICETYPE}">
-                                                            <label><input type="radio" class="" value="${serviceType.codeval}" name="servicetype">
+                                                            <!--servicetype 4 = 결제.  결제는 voc에서만-->
+                                                            <c:if test="${serviceType.codeval ne '4'}">
+                                                            <label><input type="radio" value="${serviceType.codeval}" name="servicetype">
                                                                 <i></i>&nbsp;${serviceType.codename}</label>&nbsp;&nbsp;
+                                                            </c:if>
                                                         </c:forEach>
                                                     </div>
 
@@ -182,7 +185,7 @@
                                                 <th>유형</th>
                                                 <td>
                                                     <div style="display: inline-block">
-                                                        <select class="form-control " name="servicecode1" id="servicecode1" style="width: 100px;">
+                                                        <select class="form-control " name="servicecode1" id="servicecode1" style="width: 100px;" >
                                                             <option value="0">선택</option>
                                                             <c:forEach var="serviceCode1" items="${SERVICECODE1}">
                                                                 <option value="${serviceCode1.codeval}">${serviceCode1.codename}</option>
@@ -512,9 +515,6 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/plugins/tinymce/tinymce.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
-<!-- validate -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
 <!-- datePicker -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 <!-- iCheck -->
@@ -527,9 +527,14 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/service.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/product.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
+<!-- validate -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/crud_validate.js"></script>
 
 <script>
-
+$(document).ready(function(){
+    $('input[name="servicetype"] ').eq(0).iCheck('check');
+});
 </script>
 </body>
 </html>

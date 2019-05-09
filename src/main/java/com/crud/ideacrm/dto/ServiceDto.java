@@ -30,10 +30,11 @@ public class ServiceDto {
     private int complete;
     private List<MultipartFile> files; //Spring 에서 파일 업로드 처리하기 위해
     private String reqno;
+    private int buyno;
 
     public ServiceDto() {}
 
-    public ServiceDto(String serviceno, String servicename, String servicedesc, int serviceowner, String receptiondate, String custno, int clino, int servicestep, int owner, int siteid, int servicetype, int servicecode1, int servicecode2, int servicechannel, String filesearchkey, String regdate, int reguser, String edtdate, int edtuser, int isdelete, String memo, int complete, List<MultipartFile> files, String reqno) {
+    public ServiceDto(String serviceno, String servicename, String servicedesc, int serviceowner, String receptiondate, String custno, int clino, int servicestep, int owner, int siteid, int servicetype, int servicecode1, int servicecode2, int servicechannel, String filesearchkey, String regdate, int reguser, String edtdate, int edtuser, int isdelete, String memo, int complete, List<MultipartFile> files, String reqno, int buyno) {
         this.serviceno = serviceno;
         this.servicename = servicename;
         this.servicedesc = servicedesc;
@@ -58,6 +59,7 @@ public class ServiceDto {
         this.complete = complete;
         this.files = files;
         this.reqno = reqno;
+        this.buyno = buyno;
     }
 
     public String getServiceno() {
@@ -250,5 +252,13 @@ public class ServiceDto {
 
     public void setReqno(String reqno) {
         this.reqno = reqno;
+    }
+
+    public int getBuyno() {
+        return buyno;
+    }
+
+    public void setBuyno(int buyno) {
+        this.buyno = buyno;
     }
 }

@@ -220,9 +220,11 @@ public class ProductServiceImple implements ProductService {
         orderResultVal.put("buyno", buyNo);
         Map<String,Object> orderResult = productDao.orderResult(orderResultVal);
         List<Map<String,Object>> orderProductResult = productDao.orderProductResult(orderResultVal);
+        int prdResSize = orderProductResult.size();
         ModelAndView mView = new ModelAndView();
         mView.addObject("orderResult", orderResult);
         mView.addObject("orderProductResult",  orderProductResult);
+        mView.addObject("prdResSize",prdResSize);
         return mView;
     }
 

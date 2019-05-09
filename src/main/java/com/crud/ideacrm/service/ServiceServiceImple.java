@@ -160,7 +160,7 @@ public class ServiceServiceImple implements ServiceService{
         int rewardNo = rewardDto.getRewardno();
 
         // 방문 일정이 잡히면 현상파악을 Insert 하게됨.
-        if(visitDate != null) {
+        if(visitDate != null && visitDate.equals("")) {
             if(visitDate.length() > 0) {
                 if(rewardNo != 0) {
                     rewardDto.setServiceno(serviceNo);

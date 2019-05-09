@@ -55,41 +55,41 @@
                     </div>
                     <ul class="top-btn">
                         <li class="doLoginMsg"><span><h3>로 그 인 해 주 세 요 </h3></span></li>
-                        <li class="ctibtn"><input type="text" id="makeCallNum" class="form-control" value="" style="color:black"></li>
-                        <li class="liBtn ctibtn"><button onclick="javascript:func_answer();" class="btn btn-primary btn-sm" id="answerBtn">받기 <i class="fa fa-phone"></i></button></li>
-                        <li class="liBtn ctibtn"><button onclick="javascript:func_pickup();" class="btn btn-primary btn-sm" id="pickupBtn">당겨받기 <i class="fa fa-phone"></i></button></li>
-                        <li class="liBtn ctibtn"><button onclick="javascript:func_hangup();" class="btn btn-primary btn-sm" id="hangUpBtn">끊기 <i class="fa fa-phone"></i></button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_hold();" class="btn btn-primary btn-sm status" id="delayBtn">보류 <i class="fa fa-times-circle"></i></button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_unhold();" class="btn btn-primary btn-sm status" id="delayCancelBtn">보류해제 <i class="fa fa-times-circle-o"></i></button></li>
-                        <li class="ctibtn">
+                        <li class="ctibtn" style="display:none"><input type="text" id="makeCallNum" class="form-control" value="" style="color:black"></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onclick="javascript:func_answer();" class="btn btn-primary btn-sm" id="answerBtn">받기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onclick="javascript:func_pickup();" class="btn btn-primary btn-sm" id="pickupBtn">당겨받기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onclick="javascript:func_hangup();" class="btn btn-primary btn-sm" id="hangUpBtn">끊기 <i class="fa fa-phone"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_hold();" class="btn btn-primary btn-sm status" id="delayBtn">보류 <i class="fa fa-times-circle"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_unhold();" class="btn btn-primary btn-sm status" id="delayCancelBtn">보류해제 <i class="fa fa-times-circle-o"></i></button></li>
+                        <li class="ctibtn" style="display:none">
                             &nbsp; |&nbsp;
                         </li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('0300');"class="btn btn-primary btn-sm status" id="waitingBtn">대기 <i class="fa fa-spinner"></i></button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('R001');" class="btn btn-primary btn-sm status" id="restBtn">휴식 <i class="fa fa-coffee"></i></button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_changeTellerStatus('W004');" class="btn btn-primary btn-sm status" id="postCleaningBtn">후처리 <i class="fa fa-phone"></i></button></li>
-                        <li class="ctibtn">
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_changeTellerStatus('0300');"class="btn btn-primary btn-sm status" id="waitingBtn">대기 <i class="fa fa-spinner"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_changeTellerStatus('R001');" class="btn btn-primary btn-sm status" id="restBtn">휴식 <i class="fa fa-coffee"></i></button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_changeTellerStatus('W004');" class="btn btn-primary btn-sm status" id="postCleaningBtn">후처리 <i class="fa fa-phone"></i></button></li>
+                        <li class="ctibtn" style="display:none">
                             &nbsp; | &nbsp;
                         </li>
-                        <li class="ctibtn"><span id="timer">00 : 00</span></li>
-                        <li class="ctibtn">
+                        <li class="ctibtn" style="display:none"><span id="timer">00 : 00</span></li>
+                        <li class="ctibtn" style="display:none">
                             &nbsp; | &nbsp;
                         </li>
-                        <li class="ctibtn"><input type="text" id="blindCall" class="form-control"></li>
-                        <li class="liBtn2 ctibtn"><button onclick="javascript:didCheckMakeCall();" class="btn btn-default btn-sm">OB연결</button></li>
-                        <li class=" liBtn2 ctibtn"><button onClick="javascript:func_blindTransfer(document.getElementById('blindCall').value,'');" class="btn btn-primary btn-sm status" id="transferBtn">호전환</button></li>
-                        <li class="liBtn ctibtn"><button onClick="javascript:func_threeWayCall();" class="btn btn-primary btn-sm status" id="threeWayBtn">3자 통화</button></li>
-                        <li class=" mr-2 ml-2 ctibtn"><strong>고객대기 <span id="cti_waitting_cnt">0</span></strong></li>
+                        <li class="ctibtn" style="display:none"><input type="text" id="blindCall" class="form-control"></li>
+                        <li class="liBtn2 ctibtn" style="display:none"><button onclick="javascript:didCheckMakeCall();" class="btn btn-default btn-sm">OB연결</button></li>
+                        <li class=" liBtn2 ctibtn" style="display:none"><button onClick="javascript:func_blindTransfer(document.getElementById('blindCall').value,'');" class="btn btn-primary btn-sm status" id="transferBtn">호전환</button></li>
+                        <li class="liBtn ctibtn" style="display:none"><button onClick="javascript:func_threeWayCall();" class="btn btn-primary btn-sm status" id="threeWayBtn">3자 통화</button></li>
+                        <li class=" mr-2 ml-2 ctibtn" style="display:none"><strong>고객대기 <span id="cti_waitting_cnt">0</span></strong></li>
                         <li>
                             <input type="hidden" id="tellerStatus" name="tellerStatus"/>
                             <input type="hidden" id="status" name="status"/>
                         </li>
                         <li class="float-right">
                             <ul class="top-ul03">
-                                <li class="ctibtn">
+                                <li class="ctibtn" style="display:none">
                                     <i class="fa fa-bell"></i>
                                     <span class="li-text">3</span>
                                 </li>
-                                <li class="ctibtn">
+                                <li class="ctibtn" style="display:none">
                                     <i class="fa fa-envelope"></i>
                                     <span class="li-text isnVal"></span>
                                 </li>
@@ -99,7 +99,7 @@
                                     </a>
                                     <ul id="insNotRead" class="dropdown-menu dropdown-messages"></ul>
                                 </li>-->
-                                <li class="dropdown ctibtn">
+                                <li class="dropdown ctibtn" style="display:none">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:white;">
                                         <i class="fa fa-bars" style=""></i>
                                     </a>
@@ -148,7 +148,9 @@
                                             <!--고객 관련 hidden -->
                                             <input class="vocCustInput" type="hidden" id="blackcnt" name="blackcnt"/>
                                             <!-- 녹취 키값  -->
-                                            <input type="hidden" id="nucIdx"  name="nucIdx" value="" />
+                                            <input type="hidden" id="nucIdx"  name="nucIdx" />
+                                            <!-- in / out 바운드 정보 -->
+                                            <input type="hidden" id="responseMode" name="responseMode" />
 
 
                                             <th>유입번호</th>
@@ -178,10 +180,10 @@
                                                     <input class="form-control form-control-sm vocCustInput" type="text" name="mobile1" id="mobile1" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile2" id="mobile2" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile2" id="mobile2" style="width: 80px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile3" id="mobile3" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                    <input class="form-control form-control-sm vocCustInput" type="text" name="mobile3" id="mobile3" style="width: 80px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                             </td>
                                             <th>일반전화</th>
@@ -197,10 +199,10 @@
                                                     <input class="form-control form-control-sm vocCustInput" type="text" name="homtel1" id="homtel1" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm vocCustInput" name="homtel2" id="homtel2" type="text" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                    <input class="form-control form-control-sm vocCustInput" name="homtel2" id="homtel2" type="text" style="width: 80px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                                 <div style="display: inline-block">
-                                                    <input class="form-control form-control-sm vocCustInput" name="homtel3" id="homtel3" type="text" style="width: 70px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
+                                                    <input class="form-control form-control-sm vocCustInput" name="homtel3" id="homtel3" type="text" style="width: 80px; height: 30px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4">
                                                 </div>
                                             </td>
                                         </tr>
@@ -584,6 +586,9 @@
                         <div class="ibox-content" style="padding-bottom: 45px;">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="white-space:nowrap;">
+                                    <tr id="hiddenField" style="display:none">
+                                        <input type="hidden" id="buyno" name="buyno" value="0"/>
+                                    </tr>
                                     <colgroup>
                                         <col width="10%">
                                         <col width="90%">
@@ -606,7 +611,7 @@
 
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="payment-no-display">
                                         <th>접수유형</th>
                                         <td>
                                             <div style="display: inline-block;">
@@ -624,7 +629,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="payment-no-display">
                                         <th>접수제품</th>
                                         <td>
                                             <div class="product" style="height: 40px;">
@@ -659,7 +664,7 @@
                                             <textarea name="servicename" id="servicename" class="form-control vocSvInput voc" style="resize: none;" rows="2"></textarea>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="payment-no-display">
                                         <th>상담 템플릿</th>
                                         <td>
                                             <select class="form-control form-control-sm vocSvInput voc" id="vocTemplateFormat" style=" width: 300px;">
@@ -717,7 +722,7 @@
 
                                         </td>
                                     </tr>
-                                    <tr class="result">
+                                    <tr class="result payment-no-display">
                                         <th>상담결과</th>
                                         <td>
                                             <div class="i-checks voc">
@@ -854,8 +859,8 @@
                                     <button type="button" class="btn btn-default pull-left vocEmailBtn" style="margin-right: 9px;">EMAIL발송</button>
                                     <button type="button" class="btn btn-default pull-left vocSmsBtn" style="margin-right: 9px;">SMS발송</button>
                                     <button type="button" class="btn btn-default pull-left vocKakaoBtn">KAKAO발송</button>
-                                    <button type="button" class="btn btn-default pull-left paymentBtn">상품TEST</button>
-                                    <button type="button" class="btn btn-default pull-left orderBtn">주문서TEST</button>
+                                    <!--<button type="button" class="btn btn-default pull-left paymentBtn">상품TEST</button>
+                                    <button type="button" class="btn btn-default pull-left orderBtn">주문서TEST</button>-->
 
                                     <button class="btn btn-default pull-right" name="create" style="margin-left: 9px;">상담추가</button>
                                     <button type="button" class="btn btn-primary pull-right" name="vocSave" style="margin-left: 9px;">저장</button>

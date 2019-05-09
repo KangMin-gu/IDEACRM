@@ -61,7 +61,7 @@
                                 <select class="form-control form-control-sm" id="emailFormat" style="height: 30px;">
                                     <option value="">선택</option>
                                     <c:forEach var="list" items="${formList}">
-                                        <option value="${list.FORMATDESC}">${list.FORMATNAME}</option>
+                                        <option value="${list.FORMATNO}">${list.FORMATNAME}</option>
                                     </c:forEach>
                                 </select>
                             </td>
@@ -107,6 +107,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/tinymce_ko_KR.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/fileChk.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 <script>
     $(document).ready(function() {
         var custName = opener.$('#custname').val();

@@ -7,34 +7,38 @@ function callbackHistFormatter(value, options, rowData){
 }
 
 function vocSvTabFormatter(value, options, rowData){
-    var htmlStr = '<a href="#" onclick="vocServiceDetail(' + "'" + rowData.NO + "'" + ');">' + value + '</a>';
+    var htmlStr = '<a href="#" onclick="serviceDetailPop(' + "'" + rowData.NO + "'" + ');">' + value + '</a>';
     return htmlStr;
 }
 function vocEmailTabformatter(value, options, rowData){
-    // var htmlStr = '<a onclick="vocServiceDetail(' + rowData.NO + ');">' + value + '</a>';
-    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.CONTENT +'">' + value + '</a>';
-    // var htmlStr = value;
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.CONTENT +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.CONTENT +'">' + value + '</span>';
     return htmlStr;
 }
 function vocBlackFormatter(value, options, rowData){
-    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MEMO +'">' + value + '</a>';
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MEMO +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.MEMO +'">' + value + '</span>';
     return htmlStr;
 }
 function vocSmsFormatter(value, options, rowData){
-    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.TR_MSG +'">' + value + '</a>';
+    //var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.TR_MSG +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.TR_MSG +'">' + value + '</span>';
     return htmlStr;
 }
 
 function vocLmsFormatter(value, options, rowData){
-    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</a>';
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</span>';
     return htmlStr;
 }
 function vocMmsFormatter(value, options, rowData){
-    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</a>';
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.MSG +'">' + value + '</span>';
     return htmlStr;
 }
 function vocKakaoFormatter(value, options, rowData){
-    var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.SEND_MESSAGE +'">' + value + '</a>';
+    var htmlStr = '<span data-toggle="tooltip" title="'+ rowData.SEND_MESSAGE +'">' + value + '</span>';
+    // var htmlStr = '<a href="#" data-toggle="tooltip" title="'+ rowData.SEND_MESSAGE +'">' + value + '</a>';
     return htmlStr;
 }
 
@@ -95,3 +99,7 @@ $(".vocfootable").on("ready.ft.table",function(obj,e,ft,row){
         $('.vocfootable tbody tr').remove();
     }
 });
+
+function serviceDetailPop(serviceno){
+    openNewWindow('service','/service/'+serviceno,'voc',1200,700);
+}

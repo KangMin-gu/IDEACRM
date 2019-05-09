@@ -44,15 +44,17 @@
                                         <tbody>
                                         <tr>
                                             <th colspan="6" style="text-align: left; background-color: lightgrey;">제품정보 정보</th>
+                                            <input type="hidden" id="buyno" value="${orderResult.BUYNO}"/>
+                                            <input type="hidden" id="prdResSize" value="${prdResSize}"/>
                                         </tr>
-                                        <c:forEach var="tmp" items="${orderProductResult }">
+                                        <c:forEach var="tmp" varStatus="status" items="${orderProductResult }" >
                                             <tr>
                                                 <th>제품명</th>
-                                                <td style="text-align: right">${tmp.PRDNAME}</td>
+                                                <td id="prdname${status.index}" style="text-align: right">${tmp.PRDNAME}</td>
                                                 <th>수량</th>
-                                                <td style="text-align: right">${tmp.PRDEA}</td>
+                                                <td id="prdea${status.index}" style="text-align: right">${tmp.PRDEA}</td>
                                                 <th>가격</th>
-                                                <td style="text-align: right">${tmp.PRDPRICE}</td>
+                                                <td id="prdprice${status.index}" style="text-align: right">${tmp.PRDPRICE}</td>
                                             </tr>
                                         </c:forEach>
                                         <tr>
@@ -83,17 +85,17 @@
                                         </tr>
                                         <tr>
                                             <th>받는사람</th>
-                                            <td>${orderResult.DELIVERYNAME}</td>
+                                            <td id="deliveryname">${orderResult.DELIVERYNAME}</td>
                                             <th>휴대전화</th>
-                                            <td>${orderResult.MOBILE}</td>
+                                            <td id="deliverymobile">${orderResult.MOBILE}</td>
                                             <th>자택전화</th>
-                                            <td>${orderResult.HOMTEL}</td>
+                                            <td id="deliveryhomtel">${orderResult.HOMTEL}</td>
                                             <th>주소</th>
-                                            <td>${orderResult.ADDR}</td>
+                                            <td id="deliveryaddr">${orderResult.ADDR}</td>
                                         </tr>
                                         <tr>
                                             <th>배송요청사항</th>
-                                            <td colspan="7">${orderResult.DELIVERYDESC}</td>
+                                            <td id="deleverydesc" colspan="7">${orderResult.DELIVERYDESC}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -115,7 +117,7 @@
                                         </tr>
                                         <tr>
                                             <th >총 상품가격</th>
-                                            <td >${orderResult.TOTALPRICE}</td>
+                                            <td id="totalprice">${orderResult.TOTALPRICE}</td>
                                         </tr>
                                         <tr>
                                             <th>총 결제금액</th>
@@ -130,8 +132,8 @@
             </div>
         </div>
 
-        <!--<button type="button" class="btn btn-default pull-left cancel">취소</button>-->
-        <button type="submit" id="send" class="btn btn-primary pull-right save" >확인</button>
+        <button type="button" class="btn btn-default pull-left cancel">취소</button>
+        <button type="submit" id="send" class="btn btn-primary pull-right save vocPayCompleteBtn" >확인</button>
 
 </div>
 <!--js includ-->
@@ -142,11 +144,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/morris/morris.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
-<script>
-    $('#send').click(function(){
-        self.close();
-    });
-</script>
+<script src="${pageContext.request.contextPath}/resources/js/crud/voc.js"></script>
 
 </body>
 </html>

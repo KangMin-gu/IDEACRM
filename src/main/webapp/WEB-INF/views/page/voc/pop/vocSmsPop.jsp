@@ -50,7 +50,7 @@
                                 <select class="form-control form-control-sm" id="smsFormat" style="height: 30px;">
                                     <option value="">선택</option>
                                     <c:forEach var="list" items="${formList}" varStatus="status">
-                                        <option value="${list.FORMATDESC}">${list.FORMATNAME}</option>
+                                        <option value="${list.FORMATNO}">${list.FORMATNAME}</option>
                                     </c:forEach>
                                 </select>
                             </td>

@@ -85,14 +85,14 @@
                         </li>
                         <li class="float-right">
                             <ul class="top-ul03">
-                                <li class="ctibtn" style="display:none">
+                               <!-- <li class="ctibtn" style="display:none">
                                     <i class="fa fa-bell"></i>
                                     <span class="li-text">3</span>
                                 </li>
                                 <li class="ctibtn" style="display:none">
                                     <i class="fa fa-envelope"></i>
                                     <span class="li-text isnVal"></span>
-                                </li>
+                                </li>-->
                                 <!--<li class="dropdown">
                                     <a id="ins" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                         <i class="fa fa-envelope"></i>  <span class="label label-warning isnVal"></span>

@@ -65,7 +65,7 @@
                             <td colspan="3" id="bytelength">0/80</td>
                         </tr>
                     </table>
-                    <button type="button" class="btn btn-default pull-left">취소</button>
+                    <button type="button" id="smsCancel" class="btn btn-default pull-left">취소</button>
                     <button type="button" class="btn btn-default pull-right" id="vocSmsSendBtn">발송</button>
                 </div>
 
@@ -128,6 +128,10 @@
         $('#custmobile').text(mobile);
         $('#custno').val(custNo);
         $('#mobile').val(mobile);
+    });
+
+    $('#smsCancel').click(function(){
+        self.close();
     });
 </script>
 </body>

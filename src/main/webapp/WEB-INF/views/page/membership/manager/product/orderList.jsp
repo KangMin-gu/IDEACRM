@@ -136,10 +136,10 @@
                                 <input type="hidden" id="orderdate" name="orderdate">
                                 <button class="btn btn-default" type="submit"><i class="fa fa-file-excel-o"></i></button>
                             </form>
-                            <form id="orderExcels" action="/test" method="get">
+                  <!--          <form id="orderExcels" action="/test" method="get">
                                 <input type="hidden" id="orderdates" name="orderdates">
                                 <button class="btn btn-default" type="submit"><i class="fa fa-file-excel-o"> 엑셀test</i></button>
-                            </form>
+                            </form>-->
                         </div>
                     </div>
                     <div class="ibox-content">

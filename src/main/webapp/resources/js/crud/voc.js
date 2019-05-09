@@ -758,7 +758,7 @@ function serviceInfoBinding(data) {
 $('button[name=vocSave]').click(function(e) {
     var reqno = $('#reqno').val();
     var custno = $('#custno').val();
-    reqno = '2019042217453002112807042622864'; //***필수 삭제요망 테스트용 샘플 데이터 하드코딩
+    //reqno = '2019042217453002112807042622864'; //***필수 삭제요망 테스트용 샘플 데이터 하드코딩
     if(!reqno){
         alert("고객과의 전화를 끊어주세요");
     }else if(!custno){

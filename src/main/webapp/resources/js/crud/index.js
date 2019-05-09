@@ -47,71 +47,8 @@ $.ajax({
                         'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1
-                    }]
-                    },
-                    options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
-                });
-
-},
-error: function (request, status, error) {
-}
-});
-
-
-
-// 제품유형
-
-
-var ctx2 = document.getElementById("productChart");
-var productChart = new Chart(ctx2, {
-type: 'bar',
-data: {
-    labels: ['1월', '2월', '3월', '4월', '5월'],
-    datasets:[
-
-        {
-            label: "폴리코사놀 10mg(30정)",
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor:  'rgba(255, 99, 132, 1)',
-            data: [15,5,21,4,11]
-        },
-        {
-            label: "폴리코사놀 5mg(30정)",
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            pointBackgroundColor: "rgba(26,179,148,1)",
-            data: [19,3,4,33,8]
-        },
-        {
-            label: "폴리코사놀 10mg(75정)",
-            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-            borderColor: 'rgba(255, 206, 86, 1)',
-            pointBackgroundColor: "rgba(26,179,148,1)",
-            data: [21,22,7,13,26]
-        },
-        {
-            label: "폴리코사놀 10mg(180정)",
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            pointBackgroundColor: "rgba(26,179,148,1)",
-            data: [18,9,8,3,21]
-        },
-        {
-            label: "폴리코사놀 10mg(180정)",
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            pointBackgroundColor: "rgba(26,179,148,1)",
-            data: [6,34,15,9,27]
-            }]
-        },
+                }]
+            },
             options: {
                 scales: {
                     yAxes: [{
@@ -122,3 +59,66 @@ data: {
                 }
             }
         });
+
+    },
+    error: function (request, status, error) {
+    }
+});
+
+
+
+// 제품유형
+
+
+var ctx2 = document.getElementById("productChart");
+var productChart = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: ['1월', '2월', '3월', '4월', '5월'],
+        datasets:[
+
+            {
+                label: "폴리코사놀 10mg(30정)",
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor:  'rgba(255, 99, 132, 1)',
+                data: [15,5,21,4,11]
+            },
+            {
+                label: "폴리코사놀 5mg(30정)",
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                data: [19,3,4,33,8]
+            },
+            {
+                label: "폴리코사놀 10mg(75정)",
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                data: [21,22,7,13,26]
+            },
+            {
+                label: "폴리코사놀 10mg(180정)",
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                data: [18,9,8,3,21]
+            },
+            {
+                label: "폴리코사놀 10mg(180정)",
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                data: [6,34,15,9,27]
+            }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});

@@ -188,7 +188,7 @@
                                             </div>
                                             <label class="col-sm-1 col-form-label">CTIPW</label>
                                             <div class="col-sm-3">
-                                                <input type="text" name="ctipw" id="ctipw" autocomplete="off" class="form-control form-control-sm">
+                                                <input type="text" name="ctipass" id="ctipass" autocomplete="off" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                     </div>

@@ -169,7 +169,7 @@
                                                 <p>CTIPW : </p>
                                             </div>
                                             <div class="col-sm-3">
-                                                <p>${ctiUserInfo.CTIPW}</p>
+                                                <p>${ctiUserInfo.CTIPASS}</p>
                                             </div>
                                         </div>
                                     </div>

@@ -839,6 +839,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/cust_tab.js"></script>
 <script>
     $(document).ready(function() {
+        iCheckClick(true);
         drawMap('map','homaddr','custname');
         $('#custDetailWrkContentBtn').click(function(){
             iboxDrawMap('map2','wrkaddr','company','custDetailWrkContentDiv');
@@ -848,7 +849,7 @@
         },1000);
     });
 
-    iCheckClick(true);
+
 
 </script>
 </body>

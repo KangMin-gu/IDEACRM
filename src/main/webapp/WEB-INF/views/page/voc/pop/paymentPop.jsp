@@ -199,9 +199,9 @@
                                         <th>받는이 주소</th>
                                         <td colspan="3">
                                             <div class="row">
-                                                <div class="col-md-2"><input type="text" class="form-control form-control-sm"  id="deliveryaddr1" name="deliveryaddr1" readonly></div>
-                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm"  id="deliveryaddr2" name="deliveryaddr2" readonly></div>
-                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="deliveryaddr3" name="deliveryaddr3"></div>
+                                                <div class="col-md-2"><input type="text" class="form-control form-control-sm"  id="addr1" name="addr1" readonly></div>
+                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm"  id="addr2" name="addr2" readonly></div>
+                                                <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="addr3" name="addr3"></div>
                                                 <div class="col-md-2"><button class="btn btn-white btn-sm daumzip" type="button">주소 검색</button></div>
                                             </div>
                                         </td>
@@ -234,6 +234,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/crud/api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jstree.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/crud/payment.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/resources/js/plugins/iCheck/icheck.min.js"></script>
 <script>

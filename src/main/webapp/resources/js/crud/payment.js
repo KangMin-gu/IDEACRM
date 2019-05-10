@@ -50,9 +50,9 @@ $('#sameChk').change(function(){
         $('#deliverymobile1').val($('#buyPhone1').val());
         $('#deliverymobile2').val($('#buyPhone2').val());
         $('#deliverymobile3').val($('#buyPhone3').val());
-        $('#deliveryaddr1').val($('#buyAddr1').val());
-        $('#deliveryaddr2').val($('#buyAddr2').val());
-        $('#deliveryaddr3').val($('#buyAddr3').val());
+        $('#addr1').val($('#buyAddr1').val());
+        $('#addr2').val($('#buyAddr2').val());
+        $('#addr3').val($('#buyAddr3').val());
     }else{
         $('#deliveryname').val("");
         $('#deliverytel1').val('선택');
@@ -61,9 +61,9 @@ $('#sameChk').change(function(){
         $('#deliverymobile1').val('선택');
         $('#deliverymobile2').val("");
         $('#deliverymobile3').val("");
-        $('#deliveryaddr1').val("");
-        $('#deliveryaddr2').val("");
-        $('#deliveryaddr3').val("");
+        $('#addr1').val("");
+        $('#addr2').val("");
+        $('#addr3').val("");
     }
 });
 
@@ -166,7 +166,7 @@ function js() {
             $('#jstreeSet').jstree(true).refresh();
         },
         error:function(jqXHR, textStatus, errorThrown){
-            alert("에러발생");
+            alert("지속적인 오류시, 관리자에게 문의해주세요.");
             return false;
         }
     });
@@ -221,9 +221,9 @@ $('#orderBtn').click(function(){
     delivery.mobile1 =  $('#deliverymobile1').val();
     delivery.mobile2 =  $('#deliverymobile2').val();
     delivery.mobile3 =  $('#deliverymobile3').val();
-    delivery.addr1 =  $('#deliveryaddr1').val();
-    delivery.addr2 =  $('#deliveryaddr2').val();
-    delivery.addr3 =  $('#deliveryaddr3').val();
+    delivery.addr1 =  $('#addr1').val();
+    delivery.addr2 =  $('#addr2').val();
+    delivery.addr3 =  $('#addr3').val();
     delivery.desc =  $('#deliverydesc').val();
 
     // dataArr.push(delivery);

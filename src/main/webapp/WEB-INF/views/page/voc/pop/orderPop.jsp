@@ -132,7 +132,6 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-default pull-left cancel">취소</button>
         <button type="submit" id="send" class="btn btn-primary pull-right save vocPayCompleteBtn" >확인</button>
 
 </div>
